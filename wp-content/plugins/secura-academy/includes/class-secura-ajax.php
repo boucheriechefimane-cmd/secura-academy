@@ -1,6 +1,6 @@
 <?php
 /**
- * Endpoints AJAX : chargement d'une room et validation d'une réponse.
+ * Endpoints AJAX : rooms, tâches, validation, indices, terminal, examens.
  *
  * @package Secura_Academy
  */
@@ -19,13 +19,17 @@ final class Secura_Ajax {
 	 */
 	public static function init() {
 		add_action( 'wp_ajax_secura_get_room', array( __CLASS__, 'get_room' ) );
+		add_action( 'wp_ajax_secura_get_task', array( __CLASS__, 'get_task' ) );
 		add_action( 'wp_ajax_secura_validate_answer', array( __CLASS__, 'validate_answer' ) );
+		add_action( 'wp_ajax_secura_hint', array( __CLASS__, 'hint' ) );
+		add_action( 'wp_ajax_secura_terminal', array( __CLASS__, 'terminal' ) );
+		add_action( 'wp_ajax_secura_complete_lesson', array( __CLASS__, 'complete_lesson' ) );
+		add_action( 'wp_ajax_secura_start_exam', array( __CLASS__, 'start_exam' ) );
+		add_action( 'wp_ajax_secura_set_lang', array( __CLASS__, 'set_lang' ) );
 	}
 
 	/**
 	 * Vérifie le nonce et l'authentification.
-	 *
-	 * @return bool
 	 */
 	private static function check_request() {
 		$nonce = isset( $_REQUEST['nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ) : '';
@@ -43,177 +47,670 @@ final class Secura_Ajax {
 		if ( ! is_user_logged_in() ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Connectez-vous pour valider vos réponses.', 'seca-academy' ),
+					'message' => __( 'Connectez-vous pour continuer.', 'seca-academy' ),
 					'code'    => 'not_logged_in',
 				),
 				401
 			);
+		}
+	}
+
+	/**
+	 * Récupère une room et ses tâches (jamais les réponses).
+	 */
+	public static function get_room() {
+		self::check_request();
+
+		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
+		$view    = Secura_Rooms::get_room_view( $room_id );
+
+		if ( ! $view ) {
+			wp_send_json_error( array( 'message' => __( 'Room introuvable.', 'seca-academy' ) ), 404 );
+		}
+
+		$user_id = get_current_user_id();
+		$state   = Secura_Progress::get_room_state( $user_id, $room_id );
+		$tasks   = array();
+
+		foreach ( $view['tasks'] as $index => $task ) {
+			$tstate      = isset( $state['tasks'][ (string) $index ] ) ? $state['tasks'][ (string) $index ] : array();
+			$exam        = Secura_Progress::exam_state( $user_id, $room_id, $index );
+			$unlocked    = Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state );
+			$solved      = isset( $tstate['solved'] ) ? count( $tstate['solved'] ) : 0;
+			$total       = count( $task['questions'] );
+			$time_left   = 0;
+
+			if ( 'exam' === $task['type'] && $exam && $task['time_limit'] > 0 ) {
+				$time_left = max( 0, ( $task['time_limit'] * 60 ) - ( time() - absint( $exam['started_at'] ) ) );
+			}
+
+			$tasks[] = array(
+				'index'      => $index,
+				'type'       => $task['type'],
+				'title'      => $task['title'],
+				'questions'  => $total,
+				'solved'     => $solved,
+				'done'       => Secura_Progress::is_task_done( $task, $tstate ),
+				'unlocked'   => $unlocked,
+				'time_limit' => (int) $task['time_limit'],
+				'pass_score' => (int) $task['pass_score'],
+				'time_left'  => $time_left,
+				'passed'     => $exam ? ! empty( $exam['passed'] ) : false,
+				'has_terminal' => ! empty( $task['terminal']['steps'] ),
+			);
+		}
+
+		wp_send_json_success(
+			array(
+				'room'       => array(
+					'id'         => $view['id'],
+					'title'      => $view['title'],
+					'excerpt'    => $view['excerpt'],
+					'content'    => $view['content'],
+					'difficulty' => $view['difficulty'],
+					'duration'   => $view['duration'],
+					'xp_bonus'   => $view['xp_bonus'],
+				),
+				'tasks'      => $tasks,
+				'completed'  => ! empty( $state['completed'] ),
+				'best_score' => isset( $state['best_score'] ) ? absint( $state['best_score'] ) : 0,
+				'medal'      => isset( $state['medal'] ) ? $state['medal'] : '',
+			)
+		);
+	}
+
+	/**
+	 * Récupère une tâche : contenu, questions, terminal (sans les sorties).
+	 */
+	public static function get_task() {
+		self::check_request();
+
+		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
+		$index   = isset( $_POST['task'] ) ? intval( wp_unslash( $_POST['task'] ) ) : 0;
+		$reveal  = isset( $_POST['reveal'] ) && '1' === $_POST['reveal'];
+
+		$view = Secura_Rooms::get_room_view( $room_id );
+
+		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
+			wp_send_json_error( array( 'message' => __( 'Tâche introuvable.', 'seca-academy' ) ), 404 );
+		}
+
+		$user_id = get_current_user_id();
+		$task    = $view['tasks'][ $index ];
+		$state   = Secura_Progress::get_room_state( $user_id, $room_id );
+
+		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
+			wp_send_json_error(
+				array(
+					'message' => __( 'Terminez la tâche précédente pour continuer.', 'seca-academy' ),
+					'code'    => 'locked',
+				),
+				403
+			);
+		}
+
+		$tstate  = isset( $state['tasks'][ (string) $index ] ) ? $state['tasks'][ (string) $index ] : array();
+		$done    = Secura_Progress::is_task_done( $task, $tstate );
+		$is_exam = 'exam' === $task['type'];
+		$exam    = Secura_Progress::exam_state( $user_id, $room_id, $index );
+
+		if ( $is_exam && $exam && $task['time_limit'] > 0 && Secura_Progress::exam_expired( $exam, $task['time_limit'] ) ) {
+			wp_send_json_error(
+				array(
+					'message' => __( 'Le temps de l\'examen est écoulé.', 'seca-academy' ),
+					'code'    => 'expired',
+				),
+				403
+			);
+		}
+
+		$questions = array();
+
+		foreach ( $task['questions'] as $q_index => $question ) {
+			$entry = array(
+				'index'        => $q_index,
+				'question'     => $question['question'],
+				'xp'           => (int) $question['xp'],
+				'hint'         => $question['hint'],
+				'weight'       => (int) $question['weight'],
+				'requires_step' => (int) $question['requires_step'],
+				'solved'       => isset( $tstate['solved'][ (string) $q_index ] ),
+				'explanation'  => '',
+			);
+
+			/* L'explication n'est révélée qu'après la réussite, ou après la
+			   fin de la tâche (récapitulatif pédagogique). */
+			if ( $reveal && ( $done || ! empty( $entry['solved'] ) ) ) {
+				$entry['explanation'] = $question['explanation'];
+			}
+
+			$questions[] = $entry;
+		}
+
+		$terminal = array(
+			'intro'   => isset( $task['terminal']['intro'] ) ? $task['terminal']['intro'] : '',
+			'steps'   => isset( $task['terminal']['steps'] ) ? count( $task['terminal']['steps'] ) : 0,
+			'current' => 0,
+		);
+
+		if ( $terminal['steps'] > 0 ) {
+			$tstate_terminal = Secura_Terminal::get_state( $user_id, $room_id, $index );
+			$terminal['current'] = isset( $tstate_terminal['step'] ) ? absint( $tstate_terminal['step'] ) : 0;
+		}
+
+		wp_send_json_success(
+			array(
+				'task'      => array(
+					'index'      => $index,
+					'type'       => $task['type'],
+					'title'      => $task['title'],
+					'content'    => $task['content'],
+					'questions'  => $questions,
+					'terminal'   => $terminal,
+					'time_limit' => (int) $task['time_limit'],
+					'pass_score' => (int) $task['pass_score'],
+					'done'       => $done,
+					'time_left'  => $exam && $task['time_limit'] > 0 ? max( 0, ( $task['time_limit'] * 60 ) - ( time() - absint( $exam['started_at'] ) ) ) : 0,
+				),
+				'room_id'   => $room_id,
+			)
+		);
+	}
+
+	/**
+	 * Valide une réponse.
+	 */
+	public static function validate_answer() {
+		self::check_request();
+
+		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
+		$index   = isset( $_POST['task'] ) ? intval( wp_unslash( $_POST['task'] ) ) : 0;
+		$q_index = isset( $_POST['question'] ) ? intval( wp_unslash( $_POST['question'] ) ) : -1;
+		$answer  = isset( $_POST['answer'] ) ? sanitize_textarea_field( wp_unslash( $_POST['answer'] ) ) : '';
+
+		$view = Secura_Rooms::get_room_view( $room_id );
+
+		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
+			wp_send_json_error( array( 'message' => __( 'Tâche introuvable.', 'seca-academy' ) ), 404 );
+		}
+
+		if ( $q_index < 0 || ! isset( $view['tasks'][ $index ]['questions'][ $q_index ] ) ) {
+			wp_send_json_error( array( 'message' => __( 'Question invalide.', 'seca-academy' ) ), 400 );
+		}
+
+		$user_id = get_current_user_id();
+		$task    = $view['tasks'][ $index ];
+		$question = $view['tasks'][ $index ]['questions'][ $q_index ];
+		$state   = Secura_Progress::get_room_state( $user_id, $room_id );
+
+		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
+			wp_send_json_error(
+				array(
+					'message' => __( 'Terminez la tâche précédente pour continuer.', 'seca-academy' ),
+					'code'    => 'locked',
+				),
+				403
+			);
+		}
+
+		/* Examen : contrôle du chronomètre côté serveur. */
+		if ( 'exam' === $task['type'] ) {
+			$exam = Secura_Progress::exam_state( $user_id, $room_id, $index );
+
+			if ( ! $exam ) {
+				$exam = Secura_Progress::start_exam( $user_id, $room_id, $index );
+			}
+
+			if ( Secura_Progress::exam_expired( $exam, $task['time_limit'] ) ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'Le temps de l\'examen est écoulé.', 'seca-academy' ),
+						'code'    => 'expired',
+					),
+					403
+				);
+			}
+		}
+
+		/* Étape de terminal obligatoire avant de répondre. */
+		if ( $question['requires_step'] >= 0 ) {
+			$terminal_state = Secura_Terminal::get_state( $user_id, $room_id, $index );
+			$current        = isset( $terminal_state['step'] ) ? absint( $terminal_state['step'] ) : 0;
+
+			if ( $current < $question['requires_step'] ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'Explorez d\'abord la machine dans le terminal.', 'seca-academy' ),
+						'code'    => 'explore',
+					),
+					403
+				);
+			}
+		}
+
+		$already = isset( $state['tasks'][ (string) $index ]['solved'][ (string) $q_index ] );
+		$correct = Secura_Progress::answer_matches( $answer, $question['answers'] );
+
+		if ( ! $correct ) {
+			wp_send_json_success(
+				array(
+					'correct'   => false,
+					'message'   => __( 'Pas encore, réessayez.', 'seca-academy' ),
+					'hint'      => $question['hint'],
+					'total_xp'  => Secura_Progress::get_xp( $user_id ),
+				)
+			);
+		}
+
+		$xp_before = Secura_Progress::get_xp( $user_id );
+		$level_before = Secura_Progress::level_for_xp( $xp_before );
+		$hint_used = Secura_Progress::hint_used( $user_id, $room_id, $index, $q_index );
+		$points    = 0;
+		$rank      = 1.0;
+
+		if ( ! $already ) {
+			$award = Secura_Progress::award(
+				$user_id,
+				array(
+					'room_id'      => $room_id,
+					'task_index'   => $index,
+					'question'     => $q_index,
+					'base_xp'      => $question['xp'],
+					'difficulty'   => $view['difficulty_key'],
+					'type'         => $task['type'],
+					'hint_used'    => $hint_used,
+					'question_key' => $room_id . ':' . $index . ':' . $q_index,
+				)
+			);
+
+			$points = $award['points'];
+			$rank   = $award['rank'];
+		}
+
+		Secura_Progress::mark_question( $user_id, $room_id, $index, $q_index, $hint_used );
+
+		$state = Secura_Progress::get_room_state( $user_id, $room_id );
+		$done  = Secura_Progress::is_task_done( $task, isset( $state['tasks'][ (string) $index ] ) ? $state['tasks'][ (string) $index ] : array() );
+
+		/* Examen : clôture et médaille. */
+		$exam_result = null;
+
+		if ( 'exam' === $task['type'] && $done ) {
+			$exam_result = self::close_exam( $user_id, $room_id, $index, $task, $state, $view['difficulty_key'] );
+		}
+
+		/* Médaille de room dès que toutes les questions sont résolues. */
+		$medal  = null;
+		$room_complete = false;
+
+		if ( self::room_is_complete( $view['tasks'], $state ) ) {
+			$room_complete = true;
+			$medal = self::update_room_medal( $user_id, $room_id, $view, $state );
+		}
+
+		$xp_after = Secura_Progress::get_xp( $user_id );
+		$level_after = Secura_Progress::level_for_xp( $xp_after );
+
+		wp_send_json_success(
+			array(
+				'correct'       => true,
+				'already'       => (bool) $already,
+				'message'       => $already
+					? __( 'Déjà validée.', 'seca-academy' )
+					: sprintf( /* translators: %d : points gagnés. */ __( 'Bonne réponse ! +%d XP', 'seca-academy' ), $points ),
+				'points'        => $points,
+				'rank'          => $rank,
+				'hint_used'     => $hint_used,
+				'explanation'   => $question['explanation'],
+				'total_xp'      => $xp_after,
+				'level'         => $level_after,
+				'level_up'      => $level_after['number'] > $level_before['number'],
+				'task_done'     => $done,
+				'room_complete' => $room_complete,
+				'medal'         => $medal,
+				'exam'          => $exam_result,
+			)
+		);
+	}
+
+	/**
+	 * Clôture d'un examen : score, seuil, médaille.
+	 *
+	 * @param int    $user_id    Identifiant de l'utilisateur.
+	 * @param int    $room_id    Identifiant de la room.
+	 * @param int    $index      Index de la tâche.
+	 * @param array  $task       Tâche.
+	 * @param array  $state      État de la room.
+	 * @param string $difficulty Clé de difficulté de la room.
+	 * @return array
+	 */
+	private static function close_exam( $user_id, $room_id, $index, $task, $state, $difficulty = 'facile' ) {
+		$total   = count( $task['questions'] );
+		$correct = 0;
+
+		foreach ( $task['questions'] as $q_index => $question ) {
+			if ( isset( $state['tasks'][ (string) $index ]['solved'][ (string) $q_index ] ) ) {
+				$correct++;
+			}
+		}
+
+		$score  = $total > 0 ? (int) round( ( $correct / $total ) * 100 ) : 0;
+		$passed = $score >= (int) $task['pass_score'];
+		$exam   = Secura_Progress::finish_exam( $user_id, $room_id, $index, $score, $passed );
+
+		/* Le bonus de réussite n'est versé qu'à la première réussite. */
+		$awarded = ! empty( $exam['awarded'] );
+
+		if ( $passed && ! $awarded ) {
+			$bonus = Secura_Progress::base_points( $difficulty ) * 2;
+
+			Secura_Progress::award(
+				$user_id,
+				array(
+					'room_id'    => $room_id,
+					'task_index' => $index,
+					'base_xp'    => $bonus,
+					'difficulty' => $difficulty,
+					'type'       => 'exam',
+				)
+			);
+
+			$exam    = Secura_Progress::mark_exam_awarded( $user_id, $room_id, $index );
+			$awarded = true;
+		}
+
+		$medal = '';
+
+		if ( $passed ) {
+			$threshold = (int) $task['pass_score'];
+			$level     = 'bronze';
+
+			if ( $score >= $threshold + 20 ) {
+				$level = 'gold';
+			} elseif ( $score >= $threshold + 10 ) {
+				$level = 'silver';
+			}
+
+			$medal = Secura_Progress::add_medal( $user_id, 'exam_' . $room_id . '_' . $index, $level, $score );
+			$medal = $medal['added'] ? $level : $medal['medal'];
+		}
+
+		return array(
+			'score'      => $score,
+			'passed'     => $passed,
+			'threshold'  => (int) $task['pass_score'],
+			'correct'    => $correct,
+			'total'      => $total,
+			'medal'      => $medal,
+			'awarded'    => $awarded,
+			'best_score' => isset( $exam['best_score'] ) ? absint( $exam['best_score'] ) : $score,
+		);
+	}
+
+	/**
+	 * La room est-elle entièrement complétée ?
+	 *
+	 * @param array $tasks Tâches.
+	 * @param array $state État.
+	 * @return bool
+	 */
+	private static function room_is_complete( $tasks, $state ) {
+		foreach ( $tasks as $index => $task ) {
+			$tstate = isset( $state['tasks'][ (string) $index ] ) ? $state['tasks'][ (string) $index ] : array();
+
+			if ( ! Secura_Progress::is_task_done( $task, $tstate ) ) {
+				return false;
+			}
 		}
 
 		return true;
 	}
 
 	/**
-	 * Charge une room et ses étapes (jamais les réponses).
+	 * Calcule et enregistre la médaille de room, verse le bonus.
+	 *
+	 * @param int   $user_id Identifiant de l'utilisateur.
+	 * @param int   $room_id Identifiant de la room.
+	 * @param array $view    Vue de la room.
+	 * @param array $state   État.
+	 * @return string
 	 */
-	public static function get_room() {
+	private static function update_room_medal( $user_id, $room_id, $view, $state ) {
+		$score = Secura_Progress::compute_score( $view['tasks'], $state );
+		$medal = Secura_Progress::medal_for( $score['score'], $score['hints'] );
+
+		$was_completed = ! empty( $state['completed'] );
+
+		if ( ! $was_completed ) {
+			$bonus = (int) $view['xp_bonus'];
+
+			if ( 0 === $score['hints'] && $bonus > 0 ) {
+				$bonus = (int) ceil( $bonus * 1.25 );
+			}
+
+			if ( $bonus > 0 ) {
+				Secura_Progress::award(
+					$user_id,
+					array(
+						'room_id'    => $room_id,
+						'base_xp'    => $bonus,
+						'difficulty' => 'facile',
+						'type'       => 'test',
+					)
+				);
+			}
+
+			$state['completed']  = true;
+			$state['best_score'] = max( isset( $state['best_score'] ) ? absint( $state['best_score'] ) : 0, $score['score'] );
+			$state['medal']      = $medal ? $medal : ( isset( $state['medal'] ) ? $state['medal'] : '' );
+			Secura_Progress::save_room_state( $user_id, $room_id, $state );
+		} elseif ( $score['score'] > ( isset( $state['best_score'] ) ? absint( $state['best_score'] ) : 0 ) ) {
+			$state['best_score'] = $score['score'];
+			$state['medal']      = $medal ? $medal : ( isset( $state['medal'] ) ? $state['medal'] : '' );
+			Secura_Progress::save_room_state( $user_id, $room_id, $state );
+		}
+
+		if ( $medal ) {
+			Secura_Progress::add_medal( $user_id, 'room_' . $room_id, $medal, $score['score'] );
+		}
+
+		self::check_path_completion( $user_id, $room_id );
+
+		return $medal;
+	}
+
+	/**
+	 * Vérifie si un parcours vient d'être complété.
+	 *
+	 * @param int $user_id Identifiant de l'utilisateur.
+	 * @param int $room_id Identifiant de la room.
+	 */
+	private static function check_path_completion( $user_id, $room_id ) {
+		foreach ( Secura_Paths::get_paths() as $path ) {
+			$contains = false;
+
+			foreach ( Secura_Paths::get_sections( $path->ID ) as $section ) {
+				if ( in_array( (int) $room_id, $section['rooms'], true ) ) {
+					$contains = true;
+					break;
+				}
+			}
+
+			if ( ! $contains ) {
+				continue;
+			}
+
+			$progress = Secura_Paths::get_progress( $user_id, $path->ID );
+
+			if ( $progress['total'] > 0 && $progress['done'] === $progress['total'] ) {
+				$medal = Secura_Paths::path_medal( $user_id, $path->ID );
+				Secura_Progress::add_medal( $user_id, 'path_' . $path->ID, $medal ? $medal : 'silver', 100 );
+
+				$bonus = absint( get_post_meta( $path->ID, SECURA_META_XP_BONUS, true ) );
+
+				if ( $bonus > 0 ) {
+					Secura_Progress::award(
+						$user_id,
+						array(
+							'room_id'    => $path->ID,
+							'base_xp'    => $bonus,
+							'difficulty' => 'facile',
+							'type'       => 'test',
+						)
+					);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Ouvre un indice : il sera tracé et réduira les points.
+	 */
+	public static function hint() {
 		self::check_request();
 
 		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
-		$room    = $room_id ? get_post( $room_id ) : null;
+		$index   = isset( $_POST['task'] ) ? intval( wp_unslash( $_POST['task'] ) ) : 0;
+		$q_index = isset( $_POST['question'] ) ? intval( wp_unslash( $_POST['question'] ) ) : 0;
 
-		if ( ! $room || SECURA_POST_TYPE !== $room->post_type || 'publish' !== $room->post_status ) {
+		$view = Secura_Rooms::get_room_view( $room_id );
+
+		if ( ! $view || ! isset( $view['tasks'][ $index ]['questions'][ $q_index ] ) ) {
+			wp_send_json_error( array( 'message' => __( 'Question introuvable.', 'seca-academy' ) ), 404 );
+		}
+
+		$task = $view['tasks'][ $index ];
+
+		if ( 'exam' === $task['type'] ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Room introuvable.', 'seca-academy' ),
-					'code'    => 'not_found',
+					'message' => __( 'Aucun indice n\'est disponible pendant un examen.', 'seca-academy' ),
+					'code'    => 'no_hint',
 				),
-				404
+				403
 			);
 		}
 
-		$questions = Secura_Rooms::get_questions( $room_id );
-		$progress  = Secura_Progress::get_room_progress( get_current_user_id(), $room_id );
-		$steps     = array();
-
-		foreach ( $questions as $index => $question ) {
-			$steps[] = array(
-				'index'    => $index,
-				'question' => $question['question'],
-				'hint'     => $question['hint'],
-				'xp'       => $question['xp'],
-				'solved'   => in_array( $index, $progress['solved'], true ),
-			);
-		}
+		Secura_Progress::mark_hint( get_current_user_id(), $room_id, $index, $q_index );
 
 		wp_send_json_success(
 			array(
-				'roomId'     => $room_id,
-				'title'      => get_the_title( $room ),
-				'excerpt'    => $room->post_excerpt,
-				'content'    => wpautop( wp_kses_post( $room->post_content ) ),
-				'difficulty' => Secura_Rooms::get_difficulty( $room_id ),
-				'duration'   => absint( get_post_meta( $room_id, SECURA_META_DURATION, true ) ),
-				'xpBonus'    => absint( get_post_meta( $room_id, SECURA_META_XP_BONUS, true ) ),
-				'steps'      => $steps,
+				'hint' => $view['tasks'][ $index ]['questions'][ $q_index ]['hint'],
 			)
 		);
 	}
 
 	/**
-	 * Valide une réponse et attribue la progression.
+	 * Exécute une commande dans le terminal simulé.
 	 */
-	public static function validate_answer() {
+	public static function terminal() {
 		self::check_request();
 
 		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
-		$index   = isset( $_POST['question'] ) ? intval( wp_unslash( $_POST['question'] ) ) : -1;
-		$answer  = isset( $_POST['answer'] ) ? sanitize_textarea_field( wp_unslash( $_POST['answer'] ) ) : '';
+		$index   = isset( $_POST['task'] ) ? intval( wp_unslash( $_POST['task'] ) ) : 0;
+		$input   = isset( $_POST['command'] ) ? sanitize_text_field( wp_unslash( $_POST['command'] ) ) : '';
 
-		$room = $room_id ? get_post( $room_id ) : null;
+		$view = Secura_Rooms::get_room_view( $room_id );
 
-		if ( ! $room || SECURA_POST_TYPE !== $room->post_type || 'publish' !== $room->post_status ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'Room introuvable.', 'seca-academy' ),
-					'code'    => 'not_found',
-				),
-				404
-			);
-		}
-
-		if ( $index < 0 ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'Étape invalide.', 'seca-academy' ),
-					'code'    => 'invalid_step',
-				),
-				400
-			);
-		}
-
-		$questions = Secura_Rooms::get_questions( $room_id );
-
-		if ( ! isset( $questions[ $index ] ) ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'Étape invalide.', 'seca-academy' ),
-					'code'    => 'invalid_step',
-				),
-				400
-			);
+		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
+			wp_send_json_error( array( 'message' => __( 'Tâche introuvable.', 'seca-academy' ) ), 404 );
 		}
 
 		$user_id = get_current_user_id();
-		$before  = Secura_Progress::get_state( $user_id );
-		$correct = Secura_Progress::answer_matches( $answer, $questions[ $index ]['answers'] );
+		$state   = Secura_Progress::get_room_state( $user_id, $room_id );
 
-		if ( ! $correct ) {
-			wp_send_json_success(
+		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
+			wp_send_json_error(
 				array(
-					'correct'   => false,
-					'message'   => __( 'Réponse incorrecte. Relisez l\'énoncé et réessayez.', 'seca-academy' ),
-					'total_xp'  => $before['xp'],
-				)
-			);
-		}
-
-		$award = Secura_Progress::award_question( $user_id, $room_id, $index, $questions[ $index ]['xp'] );
-
-		/* Premier trophée de la carrière. */
-		Secura_Progress::add_trophy(
-			$user_id,
-			'first_key',
-			__( 'Première clé', 'seca-academy' ),
-			__( 'Valider une première réponse correcte.', 'seca-academy' ),
-			'🔑'
-		);
-
-		/* Fin de room : bonus et trophée dédié. */
-		$completion = Secura_Progress::complete_room( $user_id, $room_id );
-
-		if ( $completion['completed'] && ! $completion['already'] ) {
-			Secura_Progress::add_trophy(
-				$user_id,
-				'room_' . $room_id,
-				__( 'Maître de la room', 'seca-academy' ),
-				sprintf(
-					/* translators: %s : titre de la room. */
-					__( 'Compléter « %s ».', 'seca-academy' ),
-					get_the_title( $room )
+					'message' => __( 'Terminez la tâche précédente pour continuer.', 'seca-academy' ),
+					'code'    => 'locked',
 				),
-				'🏆'
+				403
 			);
 		}
 
-		$after = Secura_Progress::get_state( $user_id );
-		$new_trophies = array_values( array_diff_key( $after['trophies'], $before['trophies'] ) );
+		$result = Secura_Terminal::run( $user_id, $room_id, $index, $view['tasks'][ $index ], $input );
 
-		$message = $award['already']
-			? __( 'Bonne réponse, déjà validée. Aucun XP supplémentaire.', 'seca-academy' )
-			: sprintf(
-				/* translators: %d : XP gagnés. */
-				__( 'Bonne réponse ! +%d XP', 'seca-academy' ),
-				$award['awarded']
-			);
+		wp_send_json_success( $result );
+	}
 
-		if ( $completion['completed'] && ! $completion['already'] && $completion['xp'] > 0 ) {
-			$message .= sprintf(
-				' ' . __( 'Room complétée : +%d XP de bonus.', 'seca-academy' ),
-				$completion['xp']
-			);
+	/**
+	 * Marque une tâche de type leçon comme terminée.
+	 */
+	public static function complete_lesson() {
+		self::check_request();
+
+		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
+		$index   = isset( $_POST['task'] ) ? intval( wp_unslash( $_POST['task'] ) ) : 0;
+
+		$view = Secura_Rooms::get_room_view( $room_id );
+
+		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
+			wp_send_json_error( array( 'message' => __( 'Tâche introuvable.', 'seca-academy' ) ), 404 );
 		}
+
+		$user_id = get_current_user_id();
+		$state   = Secura_Progress::get_room_state( $user_id, $room_id );
+
+		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
+			wp_send_json_error( array( 'message' => __( 'Tâche verrouillée.', 'seca-academy' ), 'code' => 'locked' ), 403 );
+		}
+
+		$key = (string) $index;
+
+		if ( ! isset( $state['tasks'][ $key ] ) ) {
+			$state['tasks'][ $key ] = array( 'solved' => array(), 'hints' => array(), 'done' => false );
+		}
+
+		$state['tasks'][ $key ]['done'] = true;
+
+		Secura_Progress::save_room_state( $user_id, $room_id, $state );
 
 		wp_send_json_success(
 			array(
-				'correct'      => true,
-				'already'      => $award['already'],
-				'message'      => $message,
-				'xp_awarded'   => $award['awarded'] + $completion['xp'],
-				'total_xp'     => $after['xp'],
-				'room_completed' => ! empty( $completion['completed'] ),
-				'new_trophies' => $new_trophies,
+				'done'     => true,
+				'total_xp' => Secura_Progress::get_xp( $user_id ),
 			)
 		);
+	}
+
+	/**
+	 * Démarre le chronomètre d'un examen.
+	 */
+	public static function start_exam() {
+		self::check_request();
+
+		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
+		$index   = isset( $_POST['task'] ) ? intval( wp_unslash( $_POST['task'] ) ) : 0;
+
+		$view = Secura_Rooms::get_room_view( $room_id );
+
+		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
+			wp_send_json_error( array( 'message' => __( 'Tâche introuvable.', 'seca-academy' ) ), 404 );
+		}
+
+		$exam = Secura_Progress::start_exam( get_current_user_id(), $room_id, $index );
+
+		wp_send_json_success(
+			array(
+				'started_at' => absint( $exam['started_at'] ),
+				'time_left'  => max( 0, ( (int) $view['tasks'][ $index ]['time_limit'] * 60 ) - ( time() - absint( $exam['started_at'] ) ) ),
+			)
+		);
+	}
+
+	/**
+	 * Change la langue de l'utilisateur.
+	 */
+	public static function set_lang() {
+		self::check_request();
+
+		$lang = isset( $_POST['lang'] ) ? sanitize_key( wp_unslash( $_POST['lang'] ) ) : '';
+
+		if ( ! Secura_I18n::set_user_lang( $lang ) ) {
+			wp_send_json_error( array( 'message' => __( 'Langue non disponible.', 'seca-academy' ) ), 400 );
+		}
+
+		wp_send_json_success( array( 'lang' => $lang ) );
 	}
 }

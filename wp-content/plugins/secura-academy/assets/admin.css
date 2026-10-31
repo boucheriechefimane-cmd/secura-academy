@@ -1,5 +1,5 @@
 /**
- * Secura Academy — styles de la meta box d'édition des rooms.
+ * Secura Academy — styles de la meta box d'édition des rooms et des parcours.
  */
 
 .secura-metabox-title {
@@ -20,6 +20,62 @@
 .secura-metabox input[type="number"],
 .secura-metabox select {
 	width: 12em;
+}
+
+.secura-metabox .secura-inline {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5em 1.25em;
+}
+
+.secura-metabox .secura-inline label {
+	display: inline-block;
+	margin: 0;
+}
+
+.secura-metabox textarea.code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 12px;
+}
+
+/* ------------------------------------------------------------- Tâches */
+
+.secura-task-row {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-left: 4px solid #2271b1;
+	border-radius: 4px;
+	padding: 0.75em 1em 1em;
+	margin-bottom: 1em;
+}
+
+.secura-task-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75em;
+	margin-bottom: 0.5em;
+}
+
+.secura-task-label {
+	display: flex;
+	align-items: center;
+	gap: 0.75em;
+	font-weight: 700;
+	margin-bottom: 0 !important;
+}
+
+.secura-task-number {
+	display: inline-block;
+	min-width: 1.6em;
+	height: 1.6em;
+	line-height: 1.6em;
+	text-align: center;
+	border-radius: 50%;
+	background: #2271b1;
+	color: #fff;
+	font-size: 0.85em;
 }
 
 .secura-questions {
@@ -57,7 +113,31 @@
 	font-size: 0.85em;
 }
 
-.seca-remove-question {
+.seca-remove-question,
+.seca-remove-task {
 	color: #b32d2e;
 	font-size: 0.85em;
+}
+
+/* ----------------------------------------------------------- Parcours */
+
+.secura-section-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.75em;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-left: 4px solid #2271b1;
+	border-radius: 4px;
+	padding: 0.75em 1em;
+}
+
+.secura-section-row input[type="text"] {
+	flex: 1 1 260px;
+}
+
+.secura-section-row select {
+	flex: 1 1 240px;
+	width: auto;
 }

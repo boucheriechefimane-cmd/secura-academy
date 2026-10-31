@@ -1,6 +1,6 @@
 <?php
 /**
- * Type de contenu « Rooms », édition et contenu par défaut.
+ * Type de contenu « Rooms » : tâches, traductions, contenu par défaut.
  *
  * @package Secura_Academy
  */
@@ -10,9 +10,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Gère le CPT, sa meta box et les rooms par défaut.
+ * Gère le CPT Room, ses tâches et ses traductions.
  */
 final class Secura_Rooms {
+
+	/**
+	 * Types de tâches reconnus.
+	 *
+	 * @return array
+	 */
+	public static function task_types() {
+		return array(
+			'lesson'   => __( 'Leçon', 'seca-academy' ),
+			'practice' => __( 'Entraînement', 'seca-academy' ),
+			'test'     => __( "Test d'application", 'seca-academy' ),
+			'exam'     => __( 'Examen', 'seca-academy' ),
+		);
+	}
 
 	/**
 	 * Branche les hooks.
@@ -36,7 +50,6 @@ final class Secura_Rooms {
 			'add_new_item'       => __( 'Ajouter une nouvelle room', 'seca-academy' ),
 			'edit_item'          => __( 'Modifier la room', 'seca-academy' ),
 			'new_item'           => __( 'Nouvelle room', 'seca-academy' ),
-			'view_item'          => __( 'Voir la room', 'seca-academy' ),
 			'search_items'       => __( 'Rechercher une room', 'seca-academy' ),
 			'not_found'          => __( 'Aucune room trouvée.', 'seca-academy' ),
 			'not_found_in_trash' => __( 'Aucune room dans la corbeille.', 'seca-academy' ),
@@ -63,10 +76,11 @@ final class Secura_Rooms {
 	}
 
 	/**
-	 * Crée les rooms par défaut à l'activation.
+	 * Crée le contenu de démonstration à l'activation.
 	 */
 	public static function activate() {
 		self::register_post_type();
+		Secura_Paths::register_post_type();
 
 		$existing = get_posts(
 			array(
@@ -83,11 +97,14 @@ final class Secura_Rooms {
 			self::create_default_rooms();
 		}
 
+		Secura_Paths::create_default_paths();
+		Secura_Progress::maybe_create_table();
+
 		flush_rewrite_rules();
 	}
 
 	/**
-	 * Insère le contenu de démonstration.
+	 * Insère les rooms et les parcours de démonstration.
 	 */
 	public static function create_default_rooms() {
 		$order = 0;
@@ -99,7 +116,7 @@ final class Secura_Rooms {
 					'post_status'  => 'publish',
 					'post_title'   => $room['title'],
 					'post_excerpt' => $room['excerpt'],
-					'post_content' => $room['content'],
+					'post_content' => isset( $room['content'] ) ? $room['content'] : '',
 					'menu_order'   => $order,
 				),
 				true
@@ -109,21 +126,11 @@ final class Secura_Rooms {
 				continue;
 			}
 
-			$questions = array();
-
-			foreach ( $room['questions'] as $question ) {
-				$questions[] = array(
-					'question' => $question['question'],
-					'answers'  => array_values( $question['answers'] ),
-					'xp'       => (int) $question['xp'],
-					'hint'     => $question['hint'],
-				);
-			}
-
-			update_post_meta( $post_id, SECURA_META_QUESTIONS, $questions );
+			update_post_meta( $post_id, SECURA_META_TASKS, $room['tasks'] );
 			update_post_meta( $post_id, SECURA_META_DIFFICULTY, $room['difficulty'] );
 			update_post_meta( $post_id, SECURA_META_DURATION, (int) $room['duration'] );
 			update_post_meta( $post_id, SECURA_META_XP_BONUS, (int) $room['xp_bonus'] );
+			update_post_meta( $post_id, SECURA_META_I18N, isset( $room['i18n'] ) ? $room['i18n'] : array() );
 
 			$order++;
 		}
@@ -150,74 +157,148 @@ final class Secura_Rooms {
 	}
 
 	/**
-	 * Retourne les questions d'une room, normalisées.
+	 * Tâches normalisées d'une room.
 	 *
 	 * @param int $room_id Identifiant de la room.
 	 * @return array
 	 */
-	public static function get_questions( $room_id ) {
+	public static function get_tasks( $room_id ) {
 		$room_id = absint( $room_id );
 
 		if ( ! $room_id ) {
 			return array();
 		}
 
-		$raw = get_post_meta( $room_id, SECURA_META_QUESTIONS, true );
+		$raw = get_post_meta( $room_id, SECURA_META_TASKS, true );
 
 		if ( ! is_array( $raw ) ) {
 			return array();
 		}
 
-		$questions = array();
+		$tasks = array();
 
-		foreach ( $raw as $item ) {
-			if ( ! is_array( $item ) ) {
+		foreach ( $raw as $task ) {
+			if ( ! is_array( $task ) ) {
 				continue;
 			}
 
-			$question = isset( $item['question'] ) ? trim( (string) $item['question'] ) : '';
+			$type = isset( $task['type'] ) && array_key_exists( $task['type'], self::task_types() ) ? $task['type'] : 'practice';
 
-			if ( '' === $question ) {
-				continue;
-			}
+			$questions = array();
 
-			$answers = array();
-
-			if ( isset( $item['answers'] ) && is_array( $item['answers'] ) ) {
-				foreach ( $item['answers'] as $answer ) {
-					$answer = trim( (string) $answer );
-
-					if ( '' !== $answer ) {
-						$answers[] = $answer;
+			if ( isset( $task['questions'] ) && is_array( $task['questions'] ) ) {
+				foreach ( $task['questions'] as $question ) {
+					if ( ! is_array( $question ) ) {
+						continue;
 					}
-				}
-			} elseif ( isset( $item['answer'] ) ) {
-				foreach ( explode( '|', (string) $item['answer'] ) as $answer ) {
-					$answer = trim( $answer );
 
-					if ( '' !== $answer ) {
-						$answers[] = $answer;
+					$text = isset( $question['question'] ) ? trim( (string) $question['question'] ) : '';
+
+					if ( '' === $text ) {
+						continue;
 					}
+
+					$answers = array();
+
+					if ( isset( $question['answers'] ) && is_array( $question['answers'] ) ) {
+						foreach ( $question['answers'] as $answer ) {
+							$answer = trim( (string) $answer );
+
+							if ( '' !== $answer ) {
+								$answers[] = $answer;
+							}
+						}
+					} elseif ( isset( $question['answer'] ) ) {
+						foreach ( explode( '|', (string) $question['answer'] ) as $answer ) {
+							$answer = trim( $answer );
+
+							if ( '' !== $answer ) {
+								$answers[] = $answer;
+							}
+						}
+					}
+
+					if ( empty( $answers ) ) {
+						continue;
+					}
+
+					$questions[] = array(
+						'question'      => $text,
+						'answers'       => $answers,
+						'xp'            => isset( $question['xp'] ) ? absint( $question['xp'] ) : 0,
+						'hint'          => isset( $question['hint'] ) ? (string) $question['hint'] : '',
+						'explanation'   => isset( $question['explanation'] ) ? (string) $question['explanation'] : '',
+						'weight'        => isset( $question['weight'] ) ? absint( $question['weight'] ) : 1,
+						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
+					);
 				}
 			}
 
-			if ( empty( $answers ) ) {
-				continue;
-			}
-
-			$questions[] = array(
-				'question' => $question,
-				'answers'  => $answers,
-				'xp'       => isset( $item['xp'] ) ? absint( $item['xp'] ) : 10,
-				'hint'     => isset( $item['hint'] ) ? (string) $item['hint'] : '',
+			$tasks[] = array(
+				'type'       => $type,
+				'title'      => isset( $task['title'] ) ? (string) $task['title'] : '',
+				'content'    => isset( $task['content'] ) ? wp_kses_post( (string) $task['content'] ) : '',
+				'time_limit' => isset( $task['time_limit'] ) ? absint( $task['time_limit'] ) : 0,
+				'pass_score' => isset( $task['pass_score'] ) ? absint( $task['pass_score'] ) : 0,
+				'questions'  => $questions,
+				'terminal'   => Secura_Terminal::normalize_definition( isset( $task['terminal'] ) ? $task['terminal'] : array() ),
 			);
 		}
 
-		return $questions;
+		return $tasks;
 	}
 
 	/**
-	 * Difficulté lisible d'une room.
+	 * Vue complète d'une room, traduite dans la langue demandée.
+	 *
+	 * @param int    $room_id Identifiant de la room.
+	 * @param string $lang    Langue.
+	 * @return array|null
+	 */
+	public static function get_room_view( $room_id, $lang = '' ) {
+		$room = get_post( $room_id );
+
+		if ( ! $room || SECURA_POST_TYPE !== $room->post_type ) {
+			return null;
+		}
+
+		$lang       = $lang ? $lang : Secura_I18n::current_lang();
+		$translation = Secura_I18n::translate_post( $room_id, $lang );
+		$tasks       = self::get_tasks( $room_id );
+		$tasks       = Secura_I18n::translate_tasks( $tasks, $translation, $lang );
+
+		return array(
+			'id'         => $room->ID,
+			'title'      => $translation['title'] ? $translation['title'] : get_the_title( $room ),
+			'excerpt'    => $translation['excerpt'] ? $translation['excerpt'] : $room->post_excerpt,
+			'content'    => $translation['content'] ? $translation['content'] : wpautop( wp_kses_post( $room->post_content ) ),
+			'tasks'      => $tasks,
+			'difficulty'     => self::get_difficulty( $room->ID ),
+			'difficulty_key' => self::get_difficulty_key( $room->ID ),
+			'duration'       => absint( get_post_meta( $room->ID, SECURA_META_DURATION, true ) ),
+			'xp_bonus'       => absint( get_post_meta( $room->ID, SECURA_META_XP_BONUS, true ) ),
+			'slug'           => $room->post_name,
+		);
+	}
+
+	/**
+	 * Clé brute de la difficulté (facile, moyen, difficile, expert).
+	 *
+	 * @param int $room_id Identifiant de la room.
+	 * @return string
+	 */
+	public static function get_difficulty_key( $room_id ) {
+		$difficulty = get_post_meta( $room_id, SECURA_META_DIFFICULTY, true );
+
+		if ( ! is_string( $difficulty ) || ! array_key_exists( $difficulty, self::difficulty_labels() ) ) {
+			return 'facile';
+		}
+
+		return $difficulty;
+	}
+
+	/**
+	 * Difficulté lisible.
 	 *
 	 * @param int $room_id Identifiant de la room.
 	 * @return string
@@ -240,19 +321,19 @@ final class Secura_Rooms {
 	 */
 	public static function difficulty_labels() {
 		return array(
-			'facile'   => __( 'Facile', 'seca-academy' ),
-			'moyen'    => __( 'Moyen', 'seca-academy' ),
+			'facile'    => __( 'Facile', 'seca-academy' ),
+			'moyen'     => __( 'Moyen', 'seca-academy' ),
 			'difficile' => __( 'Difficile', 'seca-academy' ),
-			'expert'   => __( 'Expert', 'seca-academy' ),
+			'expert'    => __( 'Expert', 'seca-academy' ),
 		);
 	}
 
 	/* ---------------------------------------------------------------------
-	 * Édition dans l'admin
+	 * Édition
 	 * ------------------------------------------------------------------ */
 
 	/**
-	 * Déclare la meta box.
+	 * Déclare les meta boxes.
 	 */
 	public static function add_meta_boxes() {
 		add_meta_box(
@@ -263,15 +344,24 @@ final class Secura_Rooms {
 			'normal',
 			'high'
 		);
+
+		add_meta_box(
+			'secura-room-translations',
+			__( 'Traductions', 'seca-academy' ),
+			array( __CLASS__, 'render_translations_box' ),
+			SECURA_POST_TYPE,
+			'normal',
+			'default'
+		);
 	}
 
 	/**
-	 * Affiche la meta box.
+	 * Meta box : paramètres, tâches et questions.
 	 *
 	 * @param WP_Post $post Post en cours d'édition.
 	 */
 	public static function render_meta_box( $post ) {
-		$questions = self::get_questions( $post->ID );
+		$tasks      = self::get_tasks( $post->ID );
 		$difficulty = get_post_meta( $post->ID, SECURA_META_DIFFICULTY, true );
 		$duration   = absint( get_post_meta( $post->ID, SECURA_META_DURATION, true ) );
 		$bonus      = absint( get_post_meta( $post->ID, SECURA_META_XP_BONUS, true ) );
@@ -288,8 +378,6 @@ final class Secura_Rooms {
 		?>
 		<div class="secura-metabox">
 
-			<h3 class="secura-metabox-title"><?php esc_html_e( 'Paramètres de la room', 'seca-academy' ); ?></h3>
-
 			<p>
 				<label for="secura_difficulty"><?php esc_html_e( 'Difficulté', 'seca-academy' ); ?></label>
 				<select id="secura_difficulty" name="secura_difficulty">
@@ -300,7 +388,7 @@ final class Secura_Rooms {
 			</p>
 
 			<p>
-				<label for="secura_duration"><?php esc_html_e( 'Durée indicative (en minutes)', 'seca-academy' ); ?></label>
+				<label for="secura_duration"><?php esc_html_e( 'Durée indicative (minutes)', 'seca-academy' ); ?></label>
 				<input type="number" min="0" max="600" id="secura_duration" name="secura_duration" value="<?php echo esc_attr( $duration ); ?>" />
 			</p>
 
@@ -309,85 +397,233 @@ final class Secura_Rooms {
 				<input type="number" min="0" max="500" id="secura_xp_bonus" name="secura_xp_bonus" value="<?php echo esc_attr( $bonus ); ?>" />
 			</p>
 
-			<h3 class="secura-metabox-title"><?php esc_html_e( 'Questions et réponses attendues', 'seca-academy' ); ?></h3>
-
+			<h3 class="secura-metabox-title"><?php esc_html_e( 'Tâches', 'seca-academy' ); ?></h3>
 			<p class="description">
-				<?php esc_html_e( 'Les réponses ne sont jamais envoyées au navigateur : elles restent côté serveur et sont vérifiées en AJAX. Une réponse par ligne si vous acceptez plusieurs formulations.', 'seca-academy' ); ?>
+				<?php esc_html_e( 'Une room suit l\'ordre : leçon → entraînement → test d\'application → examen. Les réponses attendues ne sont jamais envoyées au navigateur.', 'seca-academy' ); ?>
 			</p>
 
-			<div class="secura-questions" id="secura-questions">
-				<?php if ( empty( $questions ) ) : ?>
-					<div class="secura-question-row" data-index="0">
-						<?php self::render_question_fields( 0, array( 'question' => '', 'answers' => array(), 'xp' => 10, 'hint' => '' ) ); ?>
-					</div>
-				<?php else : ?>
-					<?php foreach ( $questions as $index => $question ) : ?>
-						<div class="secura-question-row" data-index="<?php echo esc_attr( $index ); ?>">
-							<?php self::render_question_fields( $index, $question ); ?>
-						</div>
-					<?php endforeach; ?>
-				<?php endif; ?>
+			<div id="secura-tasks" class="secura-tasks">
+				<?php
+				if ( empty( $tasks ) ) {
+					echo self::render_task_row( array( 'type' => 'lesson', 'title' => '', 'content' => '', 'time_limit' => 0, 'pass_score' => 0, 'questions' => array(), 'terminal' => array() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rendu échappé.
+				} else {
+					foreach ( $tasks as $task ) {
+						echo self::render_task_row( $task ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rendu échappé.
+					}
+				}
+				?>
 			</div>
 
 			<p>
-				<button type="button" class="button button-secondary" id="secura-add-question"><?php esc_html_e( '+ Ajouter une question', 'seca-academy' ); ?></button>
+				<button type="button" class="button button-secondary" id="secura-add-task"><?php esc_html_e( '+ Ajouter une tâche', 'seca-academy' ); ?></button>
 			</p>
 
+			<script type="text/html" id="secura-task-template">
+				<?php
+				echo self::render_task_row( array( 'type' => 'lesson', 'title' => '', 'content' => '', 'time_limit' => 0, 'pass_score' => 0, 'questions' => array(), 'terminal' => array() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rendu échappé.
+				?>
+			</script>
+
 			<script type="text/html" id="secura-question-template">
-				<div class="secura-question-row">
-					<?php
-					/* translators: %d : numéro de la question. */
-					self::render_question_fields( '%INDEX%', array( 'question' => '', 'answers' => array(), 'xp' => 10, 'hint' => '' ) );
-					?>
-				</div>
+				<?php
+				echo self::render_question_row( array( 'question' => '', 'answers' => array(), 'xp' => 10, 'hint' => '', 'explanation' => '', 'weight' => 1, 'requires_step' => -1 ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rendu échappé.
+				?>
 			</script>
 		</div>
 		<?php
 	}
 
 	/**
-	 * Affiche les champs d'une question.
+	 * Rendu d'une tâche.
 	 *
-	 * @param int|string $index    Index de la question.
-	 * @param array      $question Données de la question.
+	 * @param array $task Tâche.
+	 * @return string
 	 */
-	private static function render_question_fields( $index, $question ) {
-		$answers = isset( $question['answers'] ) && is_array( $question['answers'] ) ? implode( "\n", $question['answers'] ) : '';
-		$xp      = isset( $question['xp'] ) ? absint( $question['xp'] ) : 10;
-		$hint    = isset( $question['hint'] ) ? (string) $question['hint'] : '';
+	private static function render_task_row( $task ) {
+		$type    = isset( $task['type'] ) ? $task['type'] : 'lesson';
+		$title   = isset( $task['title'] ) ? $task['title'] : '';
+		$content = isset( $task['content'] ) ? $task['content'] : '';
+		$limit   = isset( $task['time_limit'] ) ? absint( $task['time_limit'] ) : 0;
+		$pass    = isset( $task['pass_score'] ) ? absint( $task['pass_score'] ) : 0;
+		$terminal = isset( $task['terminal'] ) ? $task['terminal'] : array();
+		$questions = isset( $task['questions'] ) && is_array( $task['questions'] ) ? $task['questions'] : array();
+
+		$terminal_json = '';
+
+		if ( ! empty( $terminal['steps'] ) ) {
+			$terminal_json = wp_json_encode( $terminal, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+		}
+
+		ob_start();
 		?>
-		<p class="secura-question-label">
-			<?php
-			/* translators: %s : numéro de la question. */
-			printf( esc_html__( 'Question %s', 'seca-academy' ), '<span class="secura-question-number">' . esc_html( (string) $index ) . '</span>' );
-			?>
-			<button type="button" class="button-link-delete seca-remove-question"><?php esc_html_e( 'Supprimer', 'seca-academy' ); ?></button>
-		</p>
+		<div class="secura-task-row">
+			<div class="secura-task-head">
+				<strong class="secura-task-label"><?php esc_html_e( 'Tâche', 'seca-academy' ); ?> <span class="secura-task-number">1</span></strong>
+				<button type="button" class="button-link-delete seca-remove-task"><?php esc_html_e( 'Supprimer la tâche', 'seca-academy' ); ?></button>
+			</div>
 
-		<p>
-			<label><?php esc_html_e( 'Énoncé', 'seca-academy' ); ?></label>
-			<textarea name="secura_questions[<?php echo esc_attr( $index ); ?>][question]" rows="2" class="large-text"><?php echo esc_textarea( $question['question'] ); ?></textarea>
-		</p>
+			<p>
+				<label><?php esc_html_e( 'Type', 'seca-academy' ); ?></label>
+				<select name="secura_tasks[][type]">
+					<?php foreach ( self::task_types() as $key => $label ) : ?>
+						<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $type, $key ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</p>
 
-		<p>
-			<label><?php esc_html_e( 'Réponses acceptées (une par ligne)', 'seca-academy' ); ?></label>
-			<textarea name="secura_questions[<?php echo esc_attr( $index ); ?>][answers]" rows="3" class="large-text"><?php echo esc_textarea( $answers ); ?></textarea>
-		</p>
+			<p>
+				<label><?php esc_html_e( 'Titre de la tâche', 'seca-academy' ); ?></label>
+				<input type="text" class="large-text" name="secura_tasks[][title]" value="<?php echo esc_attr( $title ); ?>" />
+			</p>
 
-		<p>
-			<label><?php esc_html_e( 'Indice (optionnel)', 'seca-academy' ); ?></label>
-			<input type="text" class="large-text" name="secura_questions[<?php echo esc_attr( $index ); ?>][hint]" value="<?php echo esc_attr( $hint ); ?>" />
-		</p>
+			<p>
+				<label><?php esc_html_e( 'Contenu pédagogique (HTML simple)', 'seca-academy' ); ?></label>
+				<textarea name="secura_tasks[][content]" rows="6" class="large-text"><?php echo esc_textarea( $content ); ?></textarea>
+			</p>
 
-		<p>
-			<label><?php esc_html_e( 'XP gagnés', 'seca-academy' ); ?></label>
-			<input type="number" min="0" max="200" name="secura_questions[<?php echo esc_attr( $index ); ?>][xp]" value="<?php echo esc_attr( $xp ); ?>" />
-		</p>
+			<p class="secura-inline">
+				<label><?php esc_html_e( 'Durée (min, examen)', 'seca-academy' ); ?></label>
+				<input type="number" min="0" max="240" name="secura_tasks[][time_limit]" value="<?php echo esc_attr( $limit ); ?>" />
+				<label><?php esc_html_e( 'Seuil de passage (%, examen)', 'seca-academy' ); ?></label>
+				<input type="number" min="0" max="100" name="secura_tasks[][pass_score]" value="<?php echo esc_attr( $pass ); ?>" />
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Terminal simulé (JSON, optionnel)', 'seca-academy' ); ?></label>
+				<textarea name="secura_tasks[][terminal]" rows="5" class="large-text code" placeholder='{"intro":"…","steps":[{"match":["ls"],"output":"…","hint":"…"}]}'><?php echo esc_textarea( $terminal_json ); ?></textarea>
+				<span class="description"><?php esc_html_e( 'Les motifs entre slashes sont des expressions régulières, sinon la comparaison est exacte.', 'seca-academy' ); ?></span>
+			</p>
+
+			<div class="secura-questions">
+				<?php
+				foreach ( $questions as $question ) {
+					echo self::render_question_row( $question ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rendu échappé.
+				}
+				?>
+			</div>
+
+			<p>
+				<button type="button" class="button button-small seca-add-question"><?php esc_html_e( '+ Ajouter une question', 'seca-academy' ); ?></button>
+			</p>
+		</div>
 		<?php
+		return ob_get_clean();
 	}
 
 	/**
-	 * Enregistre les données de la meta box.
+	 * Rendu d'une question.
+	 *
+	 * @param array $question Question.
+	 * @return string
+	 */
+	private static function render_question_row( $question ) {
+		$text        = isset( $question['question'] ) ? $question['question'] : '';
+		$answers     = isset( $question['answers'] ) && is_array( $question['answers'] ) ? implode( "\n", $question['answers'] ) : '';
+		$xp          = isset( $question['xp'] ) ? absint( $question['xp'] ) : 10;
+		$hint        = isset( $question['hint'] ) ? $question['hint'] : '';
+		$explanation = isset( $question['explanation'] ) ? $question['explanation'] : '';
+		$weight      = isset( $question['weight'] ) ? absint( $question['weight'] ) : 1;
+		$requires    = isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1;
+
+		ob_start();
+		?>
+		<div class="secura-question-row">
+			<div class="secura-task-head">
+				<strong class="secura-question-label"><?php esc_html_e( 'Question', 'seca-academy' ); ?> <span class="secura-question-number">1</span></strong>
+				<button type="button" class="button-link-delete seca-remove-question"><?php esc_html_e( 'Supprimer', 'seca-academy' ); ?></button>
+			</div>
+
+			<p>
+				<label><?php esc_html_e( 'Énoncé', 'seca-academy' ); ?></label>
+				<textarea name="secura_tasks[][questions][][question]" rows="2" class="large-text"><?php echo esc_textarea( $text ); ?></textarea>
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Réponses acceptées (une par ligne)', 'seca-academy' ); ?></label>
+				<textarea name="secura_tasks[][questions][][answers]" rows="3" class="large-text"><?php echo esc_textarea( $answers ); ?></textarea>
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Explication affichée après la réponse', 'seca-academy' ); ?></label>
+				<textarea name="secura_tasks[][questions][][explanation]" rows="2" class="large-text"><?php echo esc_textarea( $explanation ); ?></textarea>
+			</p>
+
+			<p class="secura-inline">
+				<label><?php esc_html_e( 'Indice', 'seca-academy' ); ?></label>
+				<input type="text" class="regular-text" name="secura_tasks[][questions][][hint]" value="<?php echo esc_attr( $hint ); ?>" />
+			</p>
+
+			<p class="secura-inline">
+				<label><?php esc_html_e( 'XP', 'seca-academy' ); ?></label>
+				<input type="number" min="0" max="200" name="secura_tasks[][questions][][xp]" value="<?php echo esc_attr( $xp ); ?>" />
+				<label><?php esc_html_e( 'Poids', 'seca-academy' ); ?></label>
+				<input type="number" min="1" max="5" name="secura_tasks[][questions][][weight]" value="<?php echo esc_attr( $weight ); ?>" />
+				<label><?php esc_html_e( 'Étape terminal requise', 'seca-academy' ); ?></label>
+				<input type="number" min="-1" max="20" name="secura_tasks[][questions][][requires_step]" value="<?php echo esc_attr( $requires ); ?>" />
+			</p>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Meta box : traductions.
+	 *
+	 * @param WP_Post $post Post en cours d'édition.
+	 */
+	public static function render_translations_box( $post ) {
+		$tasks        = self::get_tasks( $post->ID );
+		$translations = get_post_meta( $post->ID, SECURA_META_I18N, true );
+		$translations = is_array( $translations ) ? $translations : array();
+		$languages    = Secura_I18n::languages();
+
+		echo '<p class="description">' . esc_html__( 'Traduisez le contenu de la room. Laissez vide pour conserver la version d\'origine.', 'seca-academy' ) . '</p>';
+
+		foreach ( $languages as $code => $language ) {
+			$data = isset( $translations[ $code ] ) && is_array( $translations[ $code ] ) ? $translations[ $code ] : array();
+			?>
+			<details class="secura-translation" <?php echo ( $code === 'fr' ? 'open' : '' ); ?>>
+				<summary><?php echo esc_html( $language['native'] . ' (' . $language['flag'] . ')' ); ?></summary>
+
+				<p>
+					<label><?php esc_html_e( 'Titre', 'seca-academy' ); ?></label>
+					<input type="text" class="large-text" name="secura_i18n[<?php echo esc_attr( $code ); ?>][title]" value="<?php echo esc_attr( isset( $data['title'] ) ? $data['title'] : '' ); ?>" />
+				</p>
+
+				<p>
+					<label><?php esc_html_e( 'Extrait', 'seca-academy' ); ?></label>
+					<input type="text" class="large-text" name="secura_i18n[<?php echo esc_attr( $code ); ?>][excerpt]" value="<?php echo esc_attr( isset( $data['excerpt'] ) ? $data['excerpt'] : '' ); ?>" />
+				</p>
+
+				<?php foreach ( $tasks as $index => $task ) : ?>
+					<?php
+					$task_title = isset( $data['tasks'][ $index ]['title'] ) ? $data['tasks'][ $index ]['title'] : '';
+					?>
+					<p>
+						<label><?php echo esc_html( sprintf( /* translators: %d : index de la tâche. */ __( 'Tâche %d — titre', 'seca-academy' ), $index + 1 ) ); ?></label>
+						<input type="text" class="large-text" name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>][title]" value="<?php echo esc_attr( $task_title ); ?>" />
+					</p>
+
+					<?php
+					$questions = isset( $task['questions'] ) ? $task['questions'] : array();
+
+					foreach ( $questions as $q_index => $question ) :
+						?>
+						<p class="secura-translation-question">
+							<label><?php echo esc_html( sprintf( /* translators: 1 : index de la tâche, 2 : index de la question. */ __( 'Tâche %1$d — question %2$d', 'seca-academy' ), $index + 1, $q_index + 1 ) ); ?></label>
+							<textarea name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>][questions][<?php echo esc_attr( $q_index ); ?>][question]" rows="2" class="large-text"><?php echo esc_textarea( isset( $data['tasks'][ $index ]['questions'][ $q_index ]['question'] ) ? $data['tasks'][ $index ]['questions'][ $q_index ]['question'] : '' ); ?></textarea>
+							<textarea name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>][questions][<?php echo esc_attr( $q_index ); ?>][hint]" rows="1" class="large-text" placeholder="<?php esc_attr_e( 'Indice traduit', 'seca-academy' ); ?>"><?php echo esc_textarea( isset( $data['tasks'][ $index ]['questions'][ $q_index ]['hint'] ) ? $data['tasks'][ $index ]['questions'][ $q_index ]['hint'] : '' ); ?></textarea>
+							<textarea name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>]][questions][<?php echo esc_attr( $q_index ); ?>][explanation]" rows="2" class="large-text" placeholder="<?php esc_attr_e( 'Explication traduite', 'seca-academy' ); ?>"><?php echo esc_textarea( isset( $data['tasks'][ $index ]['questions'][ $q_index ]['explanation'] ) ? $data['tasks'][ $index ]['questions'][ $q_index ]['explanation'] : '' ); ?></textarea>
+						</p>
+					<?php endforeach; ?>
+				<?php endforeach; ?>
+			</details>
+			<?php
+		}
+	}
+
+	/**
+	 * Enregistre la room.
 	 *
 	 * @param int     $post_id Identifiant du post.
 	 * @param WP_Post $post    Post en cours d'enregistrement.
@@ -425,53 +661,132 @@ final class Secura_Rooms {
 		update_post_meta( $post_id, SECURA_META_DURATION, isset( $_POST['secura_duration'] ) ? absint( wp_unslash( $_POST['secura_duration'] ) ) : 0 );
 		update_post_meta( $post_id, SECURA_META_XP_BONUS, isset( $_POST['secura_xp_bonus'] ) ? absint( wp_unslash( $_POST['secura_xp_bonus'] ) ) : 25 );
 
-		$raw   = isset( $_POST['secura_questions'] ) && is_array( $_POST['secura_questions'] ) ? wp_unslash( $_POST['secura_questions'] ) : array();
+		$raw   = isset( $_POST['secura_tasks'] ) && is_array( $_POST['secura_tasks'] ) ? wp_unslash( $_POST['secura_tasks'] ) : array();
 		$clean = array();
 
-		foreach ( $raw as $row ) {
-			if ( ! is_array( $row ) ) {
+		foreach ( $raw as $task ) {
+			if ( ! is_array( $task ) ) {
 				continue;
 			}
 
-			$question = isset( $row['question'] ) ? trim( sanitize_textarea_field( $row['question'] ) ) : '';
+			$type = isset( $task['type'] ) && array_key_exists( $task['type'], self::task_types() ) ? $task['type'] : 'practice';
 
-			if ( '' === $question ) {
+			$questions = array();
+
+			if ( isset( $task['questions'] ) && is_array( $task['questions'] ) ) {
+				foreach ( $task['questions'] as $question ) {
+					if ( ! is_array( $question ) ) {
+						continue;
+					}
+
+					$text = isset( $question['question'] ) ? trim( sanitize_textarea_field( $question['question'] ) ) : '';
+
+					if ( '' === $text ) {
+						continue;
+					}
+
+					$answers = array();
+
+					if ( isset( $question['answers'] ) ) {
+						$lines = preg_split( '/\r\n|\r|\n/', (string) $question['answers'] );
+
+						foreach ( (array) $lines as $line ) {
+							$line = trim( sanitize_text_field( $line ) );
+
+							if ( '' !== $line ) {
+								$answers[] = $line;
+							}
+						}
+					}
+
+					if ( empty( $answers ) ) {
+						continue;
+					}
+
+					$questions[] = array(
+						'question'      => $text,
+						'answers'       => $answers,
+						'xp'            => isset( $question['xp'] ) ? absint( $question['xp'] ) : 10,
+						'hint'          => isset( $question['hint'] ) ? sanitize_textarea_field( $question['hint'] ) : '',
+						'explanation'   => isset( $question['explanation'] ) ? sanitize_textarea_field( $question['explanation'] ) : '',
+						'weight'        => isset( $question['weight'] ) ? absint( $question['weight'] ) : 1,
+						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
+					);
+				}
+			}
+
+			$terminal = array();
+
+			if ( isset( $task['terminal'] ) && '' !== trim( (string) $task['terminal'] ) ) {
+				$decoded = json_decode( (string) $task['terminal'], true );
+				$terminal = Secura_Terminal::normalize_definition( is_array( $decoded ) ? $decoded : array() );
+			}
+
+			$clean[] = array(
+				'type'       => $type,
+				'title'      => isset( $task['title'] ) ? sanitize_text_field( $task['title'] ) : '',
+				'content'    => isset( $task['content'] ) ? wp_kses_post( $task['content'] ) : '',
+				'time_limit' => isset( $task['time_limit'] ) ? absint( $task['time_limit'] ) : 0,
+				'pass_score' => isset( $task['pass_score'] ) ? absint( $task['pass_score'] ) : 0,
+				'questions'  => $questions,
+				'terminal'   => $terminal,
+			);
+		}
+
+		update_post_meta( $post_id, SECURA_META_TASKS, $clean );
+
+		/* Traductions. */
+		$raw_tr = isset( $_POST['secura_i18n'] ) && is_array( $_POST['secura_i18n'] ) ? wp_unslash( $_POST['secura_i18n'] ) : array();
+		$clean_tr = array();
+
+		foreach ( $raw_tr as $code => $data ) {
+			if ( ! is_array( $data ) ) {
 				continue;
 			}
 
-			$answers = array();
+			$entry = array(
+				'title'   => isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : '',
+				'excerpt' => isset( $data['excerpt'] ) ? sanitize_text_field( $data['excerpt'] ) : '',
+				'tasks'   => array(),
+			);
 
-			if ( isset( $row['answers'] ) ) {
-				$lines = preg_split( '/\r\n|\r|\n/', (string) $row['answers'] );
+			if ( isset( $data['tasks'] ) && is_array( $data['tasks'] ) ) {
+				foreach ( $data['tasks'] as $index => $task ) {
+					if ( ! is_array( $task ) ) {
+						continue;
+					}
 
-				foreach ( (array) $lines as $line ) {
-					$line = trim( sanitize_text_field( $line ) );
+					$entry['tasks'][ $index ] = array(
+						'title'     => isset( $task['title'] ) ? sanitize_text_field( $task['title'] ) : '',
+						'questions' => array(),
+					);
 
-					if ( '' !== $line ) {
-						$answers[] = $line;
+					if ( isset( $task['questions'] ) && is_array( $task['questions'] ) ) {
+						foreach ( $task['questions'] as $q_index => $question ) {
+							if ( ! is_array( $question ) ) {
+								continue;
+							}
+
+							$entry['tasks'][ $index ]['questions'][ $q_index ] = array(
+								'question'    => isset( $question['question'] ) ? sanitize_textarea_field( $question['question'] ) : '',
+								'hint'        => isset( $question['hint'] ) ? sanitize_textarea_field( $question['hint'] ) : '',
+								'explanation' => isset( $question['explanation'] ) ? sanitize_textarea_field( $question['explanation'] ) : '',
+							);
+						}
 					}
 				}
 			}
 
-			if ( empty( $answers ) ) {
-				continue;
-			}
-
-			$clean[] = array(
-				'question' => $question,
-				'answers'  => $answers,
-				'xp'       => isset( $row['xp'] ) ? absint( $row['xp'] ) : 10,
-				'hint'     => isset( $row['hint'] ) ? sanitize_textarea_field( $row['hint'] ) : '',
-			);
+			$clean_tr[ sanitize_key( $code ) ] = $entry;
 		}
 
-		update_post_meta( $post_id, SECURA_META_QUESTIONS, $clean );
+		update_post_meta( $post_id, SECURA_META_I18N, $clean_tr );
 	}
 
 	/**
-	 * Charge le script d'édition.
+	 * Charge les scripts d'édition.
 	 *
-	 * @param string $hook Identifiant de l'écran admin.
+	 * @param string $hook Identifiant de l'écran.
 	 */
 	public static function admin_assets( $hook ) {
 		if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
@@ -480,7 +795,7 @@ final class Secura_Rooms {
 
 		$screen = get_current_screen();
 
-		if ( $screen && SECURA_POST_TYPE !== $screen->post_type ) {
+		if ( $screen && ! in_array( $screen->post_type, array( SECURA_POST_TYPE, SECURA_PATH_POST_TYPE ), true ) ) {
 			return;
 		}
 

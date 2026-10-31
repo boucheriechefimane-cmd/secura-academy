@@ -1,0 +1,515 @@
+<?php
+/**
+ * Multilingue : résolution de la langue, traduction du contenu, direction RTL.
+ *
+ * Les traductions du contenu (titres, questions, indices, explications) sont
+ * stockées dans la meta du post : la plateforme fonctionne sans plugin
+ * multilingue tiers, mais reste compatible avec les standards WordPress.
+ *
+ * @package Secura_Academy
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Gestionnaire de langue.
+ */
+final class Secura_I18n {
+
+	/**
+	 * Langues disponibles.
+	 *
+	 * @return array
+	 */
+	public static function languages() {
+		return array(
+			'fr' => array(
+				'label' => 'Français',
+				'native' => 'Français',
+				'dir'   => 'ltr',
+				'flag'  => 'FR',
+			),
+			'ar' => array(
+				'label' => 'Arabe',
+				'native' => 'العربية',
+				'dir'   => 'rtl',
+				'flag'  => 'AR',
+			),
+			'en' => array(
+				'label' => 'Anglais',
+				'native' => 'English',
+				'dir'   => 'ltr',
+				'flag'  => 'EN',
+			),
+		);
+	}
+
+	/**
+	 * Branche les hooks.
+	 */
+	public static function init() {
+		add_action( 'init', array( __CLASS__, 'maybe_switch_locale' ), 1 );
+		add_filter( 'locale', array( __CLASS__, 'filter_locale' ) );
+	}
+
+	/**
+	 * Langue active pour la requête courante.
+	 *
+	 * Ordre de priorité : paramètre d'URL, choix enregistré par l'utilisateur,
+	 * langue du site, langue par défaut.
+	 *
+	 * @return string
+	 */
+	public static function current_lang() {
+		static $lang = null;
+
+		if ( null !== $lang ) {
+			return $lang;
+		}
+
+		$languages = self::languages();
+		$default   = 'fr';
+
+		if ( isset( $_GET['lang'] ) ) {
+			$candidate = sanitize_key( wp_unslash( $_GET['lang'] ) );
+
+			if ( isset( $languages[ $candidate ] ) ) {
+				$lang = $candidate;
+				return $lang;
+			}
+		}
+
+		if ( is_user_logged_in() ) {
+			$saved = get_user_meta( get_current_user_id(), SECURA_USER_LANG, true );
+
+			if ( is_string( $saved ) && isset( $languages[ $saved ] ) ) {
+				$lang = $saved;
+				return $lang;
+			}
+		}
+
+		$locale = determine_locale();
+		$short  = substr( $locale, 0, 2 );
+
+		if ( isset( $languages[ $short ] ) ) {
+			$lang = $short;
+			return $lang;
+		}
+
+		$lang = $default;
+
+		return $lang;
+	}
+
+	/**
+	 * Direction d'écriture de la langue active.
+	 *
+	 * @return string
+	 */
+	public static function direction() {
+		$languages = self::languages();
+		$lang      = self::current_lang();
+
+		return isset( $languages[ $lang ]['dir'] ) ? $languages[ $lang ]['dir'] : 'ltr';
+	}
+
+	/**
+	 * Force la locale WordPress sur la langue choisie.
+	 */
+	public static function maybe_switch_locale() {
+		$lang = self::current_lang();
+
+		if ( $lang ) {
+			switch_to_locale( $lang );
+		}
+	}
+
+	/**
+	 * Filtre la locale WordPress pour la aligner sur la langue active.
+	 *
+	 * @param string $locale Locale détectée.
+	 * @return string
+	 */
+	public static function filter_locale( $locale ) {
+		$lang = self::current_lang();
+
+		return $lang ? $lang : $locale;
+	}
+
+	/**
+	 * Enregistre la langue choisie par l'utilisateur.
+	 *
+	 * @param string $lang Code de langue.
+	 * @return bool
+	 */
+	public static function set_user_lang( $lang ) {
+		$languages = self::languages();
+
+		if ( ! isset( $languages[ $lang ] ) ) {
+			return false;
+		}
+
+		update_user_meta( get_current_user_id(), SECURA_USER_LANG, $lang );
+
+		return true;
+	}
+
+	/**
+	 * Traduit une chaîne d'interface.
+	 *
+	 * @param string $key      Clé.
+	 * @param string $lang     Langue (défaut : langue active).
+	 * @param string $fallback Valeur de repli.
+	 * @return string
+	 */
+	public static function t( $key, $lang = '', $fallback = '' ) {
+		$lang  = $lang ? $lang : self::current_lang();
+		$dict  = self::dictionary();
+		$value = isset( $dict[ $lang ][ $key ] ) ? $dict[ $lang ][ $key ] : '';
+
+		if ( '' === $value && $fallback ) {
+			$value = $fallback;
+		}
+
+		if ( '' === $value && isset( $dict['fr'][ $key ] ) ) {
+			$value = $dict['fr'][ $key ];
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Dictionnaire des chaînes d'interface.
+	 *
+	 * @return array
+	 */
+	public static function dictionary() {
+		return array(
+			'fr' => array(
+				'dashboard'        => 'Tableau de bord',
+				'paths'            => 'Parcours',
+				'rooms'            => 'Rooms',
+				'profile'          => 'Mon profil',
+				'continue'         => 'Reprendre',
+				'start'            => 'Commencer',
+				'resume'           => 'Reprendre où vous en étiez',
+				'locked'           => 'Verrouillée',
+				'completed'        => 'Terminée',
+				'in_progress'      => 'En cours',
+				'not_started'      => 'À faire',
+				'xp'               => 'XP',
+				'level'            => 'Niveau',
+				'medals'           => 'Médailles',
+				'streak'           => 'Série',
+				'days'             => 'jours',
+				'task'             => 'Tâche',
+				'lesson'           => 'Leçon',
+				'practice'         => 'Entraînement',
+				'test'             => "Test d'application",
+				'exam'             => 'Examen',
+				'hint'             => "Afficher l'indice",
+				'hide_hint'        => "Masquer l'indice",
+				'validate'         => 'Valider',
+				'correct'          => 'Bonne réponse !',
+				'wrong'            => "Pas encore, réessayez.",
+				'solved'           => 'Validée',
+				'lock_task'        => "Terminez la tâche précédente pour continuer.",
+				'terminal'         => 'Terminal',
+				'terminal_intro'   => 'Tapez une commande puis Entrée.',
+				'flag'             => 'Flag',
+				'finished'         => 'Terminé',
+				'score'            => 'Score',
+				'pass'             => 'Seuil',
+				'passed'           => 'Reçu',
+				'failed'           => 'Non atteint',
+				'time_left'        => 'Temps restant',
+				'expired'          => 'Temps écoulé',
+				'set_lang'         => 'Langue',
+				'free'             => '100 % gratuit',
+				'next_action'      => 'Prochaine étape',
+				'see_errors'       => 'Voir mes erreurs',
+				'retry'            => 'Recommencer',
+				'next_room'        => 'Room suivante',
+				'medal_bronze'     => 'Bronze',
+				'medal_silver'     => 'Argent',
+				'medal_gold'       => 'Or',
+				'level_up'         => 'Niveau supérieur atteint !',
+				'new_medal'        => 'Nouvelle médaille',
+				'simulated'        => 'Terminal simulé — aucune machine réelle n\'est exécutée.',
+				'points'           => 'points',
+				'no_hints'         => 'sans indice',
+				'error' => 'Une erreur est survenue.',
+				'keep_going' => 'Continue comme ça !',
+				'questions' => 'questions',
+				'mark_done' => "J'ai terminé cette leçon",
+				'lesson_done' => 'Leçon validée !',
+				'explanation' => 'Explication',
+				'hint_label' => 'Indice :',
+				'next_task' => 'Tâche suivante',
+				'task_done' => 'Tâche terminée',
+				'time_up_hint' => "Relance l'examen pour réessayer.",
+				'room_complete' => 'Room terminée, bravo !',
+			),
+			'ar' => array(
+				'dashboard'        => 'لوحة التحكم',
+				'paths'            => 'المسارات',
+				'rooms'            => 'الغرف',
+				'profile'          => 'ملفي الشخصي',
+				'continue'         => 'متابعة',
+				'start'            => 'ابدأ',
+				'resume'           => 'تابع من حيث توقفت',
+				'locked'           => 'مقفلة',
+				'completed'        => 'مكتملة',
+				'in_progress'      => 'قيد التقدم',
+				'not_started'      => 'لم تبدأ',
+				'xp'               => 'نقاط',
+				'level'            => 'المستوى',
+				'medals'           => 'الأوسمة',
+				'streak'           => 'سلسلة',
+				'days'             => 'أيام',
+				'task'             => 'المهمة',
+				'lesson'           => 'درس',
+				'practice'         => 'تدريب',
+				'test'             => 'اختبار تطبيقي',
+				'exam'             => 'امتحان',
+				'hint'             => 'أظهر التلميح',
+				'hide_hint'        => 'أخفِ التلميح',
+				'validate'         => 'تحقّق',
+				'correct'          => 'إجابة صحيحة!',
+				'wrong'            => 'ليس بعد، حاول مرة أخرى.',
+				'solved'           => 'تم التحقق',
+				'lock_task'        => 'أكمل المهمة السابقة للمتابعة.',
+				'terminal'         => 'الطرفية',
+				'terminal_intro'   => 'اكتب أمرًا ثم اضغط Enter.',
+				'flag'             => 'العلامة',
+				'finished'         => 'منتهٍ',
+				'score'            => 'النتيجة',
+				'pass'             => 'الحد الأدنى',
+				'passed'           => 'ناجح',
+				'failed'           => 'لم يتحقق',
+				'time_left'        => 'الوقت المتبقي',
+				'expired'          => 'انتهى الوقت',
+				'set_lang'         => 'اللغة',
+				'free'             => 'مجاني 100 %',
+				'next_action'      => 'الخطوة التالية',
+				'see_errors'       => 'اعرض أخطائي',
+				'retry'            => 'أعد المحاولة',
+				'next_room'        => 'الغرفة التالية',
+				'medal_bronze'     => 'برونزي',
+				'medal_silver'     => 'فضي',
+				'medal_gold'       => 'ذهبي',
+				'level_up'         => 'وصلت إلى مستوى أعلى!',
+				'new_medal'        => 'وسام جديد',
+				'simulated'        => 'طرفية محاكاة — لا يتم تشغيل أي جهاز حقيقي.',
+				'points'           => 'نقطة',
+				'no_hints'         => 'بلا تلميحات',
+				'error' => 'حدث خطأ ما.',
+				'keep_going' => 'واصل هكذا!',
+				'questions' => 'أسئلة',
+				'mark_done' => 'أنهيت هذا الدرس',
+				'lesson_done' => 'تم التحقق من الدرس!',
+				'explanation' => 'الشرح',
+				'hint_label' => 'تلميح:',
+				'next_task' => 'المهمة التالية',
+				'task_done' => 'اكتملت المهمة',
+				'time_up_hint' => 'أعد تشغيل الامتحان للمحاولة مرة أخرى.',
+				'room_complete' => 'أكملت الغرفة، أحسنت!',
+			),
+			'en' => array(
+				'dashboard'        => 'Dashboard',
+				'paths'            => 'Learning paths',
+				'rooms'            => 'Rooms',
+				'profile'          => 'My profile',
+				'continue'         => 'Continue',
+				'start'            => 'Start',
+				'resume'           => 'Pick up where you left off',
+				'locked'           => 'Locked',
+				'completed'        => 'Completed',
+				'in_progress'      => 'In progress',
+				'not_started'      => 'Not started',
+				'xp'               => 'XP',
+				'level'            => 'Level',
+				'medals'           => 'Medals',
+				'streak'           => 'Streak',
+				'days'             => 'days',
+				'task'             => 'Task',
+				'lesson'           => 'Lesson',
+				'practice'         => 'Practice',
+				'test'             => 'Application test',
+				'exam'             => 'Exam',
+				'hint'             => 'Show hint',
+				'hide_hint'        => 'Hide hint',
+				'validate'         => 'Submit',
+				'correct'          => 'Correct!',
+				'wrong'            => 'Not yet, try again.',
+				'solved'           => 'Validated',
+				'lock_task'        => 'Finish the previous task to continue.',
+				'terminal'         => 'Terminal',
+				'terminal_intro'   => 'Type a command and press Enter.',
+				'flag'             => 'Flag',
+				'finished'         => 'Finished',
+				'score'            => 'Score',
+				'pass'             => 'Pass mark',
+				'passed'           => 'Passed',
+				'failed'           => 'Not reached',
+				'time_left'        => 'Time left',
+				'expired'          => 'Time is up',
+				'set_lang'         => 'Language',
+				'free'             => '100% free',
+				'next_action'      => 'Next step',
+				'see_errors'       => 'Review my mistakes',
+				'retry'            => 'Try again',
+				'next_room'        => 'Next room',
+				'medal_bronze'     => 'Bronze',
+				'medal_silver'     => 'Silver',
+				'medal_gold'       => 'Gold',
+				'level_up'         => 'Level up!',
+				'new_medal'        => 'New medal',
+				'simulated'        => 'Simulated terminal — no real machine is running.',
+				'points'           => 'points',
+				'no_hints'         => 'no hints',
+				'error' => 'Something went wrong.',
+				'keep_going' => 'Keep going!',
+				'questions' => 'questions',
+				'mark_done' => 'I finished this lesson',
+				'lesson_done' => 'Lesson completed!',
+				'explanation' => 'Explanation',
+				'hint_label' => 'Hint:',
+				'next_task' => 'Next task',
+				'task_done' => 'Task complete',
+				'time_up_hint' => 'Restart the exam to try again.',
+				'room_complete' => 'Room complete, well done!',
+			),
+		);
+	}
+
+	/**
+	 * Traduit un contenu de post (titre, extrait, contenu, tâches).
+	 *
+	 * @param int    $post_id  Identifiant du post.
+	 * @param string $lang     Langue demandée.
+	 * @param string $meta_key Clé de meta (par défaut celle des rooms).
+	 * @return array
+	 */
+	public static function translate_post( $post_id, $lang = '', $meta_key = '' ) {
+		$lang     = $lang ? $lang : self::current_lang();
+		$meta_key = $meta_key ? $meta_key : SECURA_META_I18N;
+		$raw      = get_post_meta( $post_id, $meta_key, true );
+
+		if ( ! is_array( $raw ) ) {
+			$raw = array();
+		}
+
+		$out = array(
+			'title'   => '',
+			'excerpt' => '',
+			'content' => '',
+			'tasks'   => array(),
+		);
+
+		if ( isset( $raw[ $lang ] ) && is_array( $raw[ $lang ] ) ) {
+			$out = array_merge( $out, $raw[ $lang ] );
+		}
+
+		return $out;
+	}
+
+	/**
+	 * Applique la traduction au tableau de tâches d'une room.
+	 *
+	 * @param array  $tasks Tâches d'origine (langue de base).
+	 * @param array  $tr    Traductions de la room.
+	 * @param string $lang  Langue demandée.
+	 * @return array
+	 */
+	public static function translate_tasks( $tasks, $tr, $lang = '' ) {
+		$lang = $lang ? $lang : self::current_lang();
+
+		if ( empty( $tr['tasks'] ) || ! is_array( $tr['tasks'] ) ) {
+			return $tasks;
+		}
+
+		foreach ( $tasks as $index => $task ) {
+			if ( ! isset( $tr['tasks'][ $index ] ) || ! is_array( $tr['tasks'][ $index ] ) ) {
+				continue;
+			}
+
+			$translation = $tr['tasks'][ $index ];
+
+			if ( ! empty( $translation['title'] ) ) {
+				$tasks[ $index ]['title'] = $translation['title'];
+			}
+
+			if ( isset( $translation['content'] ) && '' !== $translation['content'] ) {
+				$tasks[ $index ]['content'] = $translation['content'];
+			}
+
+			if ( empty( $translation['questions'] ) || ! is_array( $translation['questions'] ) ) {
+				continue;
+			}
+
+			foreach ( $tasks[ $index ]['questions'] as $q_index => $question ) {
+				if ( ! isset( $translation['questions'][ $q_index ] ) ) {
+					continue;
+				}
+
+				$qt = $translation['questions'][ $q_index ];
+
+				if ( ! empty( $qt['question'] ) ) {
+					$tasks[ $index ]['questions'][ $q_index ]['question'] = $qt['question'];
+				}
+
+				if ( isset( $qt['hint'] ) && '' !== $qt['hint'] ) {
+					$tasks[ $index ]['questions'][ $q_index ]['hint'] = $qt['hint'];
+				}
+
+				if ( isset( $qt['explanation'] ) && '' !== $qt['explanation'] ) {
+					$tasks[ $index ]['questions'][ $q_index ]['explanation'] = $qt['explanation'];
+				}
+			}
+		}
+
+		return $tasks;
+	}
+
+	/**
+	 * Bascule de langue : enregistre le choix et redirige.
+	 *
+	 * @param string $lang Code de langue.
+	 */
+	public static function switch_language() {
+		if ( ! isset( $_GET['lang'] ) ) {
+			return;
+		}
+
+		$lang = sanitize_key( wp_unslash( $_GET['lang'] ) );
+
+		if ( ! isset( self::languages()[ $lang ] ) ) {
+			return;
+		}
+
+		if ( is_user_logged_in() ) {
+			self::set_user_lang( $lang );
+		}
+
+		$target = remove_query_arg( array( 'lang' ), self::current_url() );
+
+		wp_safe_redirect( add_query_arg( 'lang', $lang, $target ) );
+		exit;
+	}
+
+	/**
+	 * URL courante.
+	 *
+	 * @return string
+	 */
+	public static function current_url() {
+		$scheme = is_ssl() ? 'https' : 'http';
+		$host   = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+		$uri    = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '/';
+
+		return $scheme . '://' . $host . $uri;
+	}
+}

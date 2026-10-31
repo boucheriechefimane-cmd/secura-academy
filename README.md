@@ -1,17 +1,22 @@
 # Secura Academy
 
-Plateforme d'apprentissage de la cybersécurité sous WordPress : des **rooms** guidées,
-des exercices corrigés côté serveur, une progression conservée sur le compte de
-l'apprenant, des **XP** et des **trophées**.
+Plateforme d'apprentissage de la cybersécurité sous WordPress : des **parcours**,
+des **rooms** guidées qui ressemblent à un jeu, des **exercices pratiques** avec
+terminal simulé, des **examens chronométrés**, des **XP**, des **médailles** et un
+**niveau de progression**. Le tout est **gratuit** et **multilingue**
+(français, arabe, anglais).
 
 L'expérience s'inspire des principes d'apprentissage guidé et de gamification
 que l'on retrouve chez TryHackMe — parcours court, action suivante évidente,
-progression visible — **sans copier** sa marque, ses textes, ses illustrations ni
-ses composants propriétaires. L'identité visuelle et éditoriale est originale.
+progression visible, récompense immédiate — **sans copier** sa marque, ses textes,
+ses illustrations ni ses composants propriétaires. L'identité visuelle et
+éditoriale est originale.
 
-> **Statut : MVP / starter kit.** Ce dépôt est un point de départ fonctionnel, pas
-> un produit prêt pour la production. La section [Limites connues](#limites-connues)
-> liste ce qui reste à traiter avant une ouverture publique.
+> **Statut : P0 livré.** Le moteur de jeu (modèle de tâches à 4 types,
+> verrouillage progressif, barème unifié, médailles, examens chronométrés,
+> parcours, terminal simulé, multilingue FR/AR/EN) est implémenté et testé.
+> La section [Limites connues](#limites-connues) liste ce qui reste à traiter
+> avant une ouverture publique.
 
 ---
 
@@ -21,10 +26,16 @@ ses composants propriétaires. L'identité visuelle et éditoriale est originale
 - [Prérequis](#prérequis)
 - [Installation](#installation)
 - [Utilisation](#utilisation)
+- [Le modèle de tâches](#le-modèle-de-tâches)
+- [Barème, niveaux et médailles](#barème-niveaux-et-médailles)
+- [Parcours et sections](#parcours-et-sections)
+- [Le terminal simulé](#le-terminal-simulé)
+- [Multilingue](#multilingue)
 - [Éditer les rooms](#éditer-les-rooms)
 - [Palette et personnalisation](#palette-et-personnalisation)
 - [Architecture technique](#architecture-technique)
 - [Sécurité](#sécurité)
+- [Tests](#tests)
 - [Déploiement](#déploiement)
 - [Limites connues](#limites-connues)
 - [Prochaines étapes](#prochaines-étapes)
@@ -37,38 +48,44 @@ ses composants propriétaires. L'identité visuelle et éditoriale est originale
 ```
 secura-academy/
 ├── wp-content/
-│   ├── plugins/secura-academy/          # Plugin « Secura Academy »
-│   │   ├── secura-academy.php           # Amorçage, constantes, chargement des modules
+│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.2.0
+│   │   ├── secura-academy.php              # Amorçage, constantes, chargement des modules
 │   │   ├── includes/
-│   │   │   ├── default-rooms.php        # Les 6 rooms FR créées à l'activation
-│   │   │   ├── class-secura-rooms.php   # CPT, meta box, contenu par défaut
-│   │   │   ├── class-secura-progress.php# XP, progression, trophées, niveaux
-│   │   │   ├── class-secura-ajax.php    # Endpoints AJAX (nonces, validation)
-│   │   │   └── class-secura-dashboard.php # Shortcode et rendu du tableau de bord
+│   │   │   ├── default-content.php         # 6 rooms × 4 tâches + 2 parcours + traductions AR/EN
+│   │   │   ├── class-secura-i18n.php       # Langues FR/AR/EN, direction RTL, traduction du contenu
+│   │   │   ├── class-secura-rooms.php      # CPT `secura_room`, méta-box tâches + traductions
+│   │   │   ├── class-secura-paths.php      # CPT `secura_path`, sections, progression, certificat
+│   │   │   ├── class-secura-progress.php   # Barème XP, niveaux, médailles, examens, streak
+│   │   │   ├── class-secura-terminal.php   # Terminal simulé (scénarios serveur)
+│   │   │   ├── class-secura-ajax.php       # 8 endpoints AJAX (nonce, XP idempotent)
+│   │   │   └── class-secura-dashboard.php  # Shortcodes : tableau de bord, lecteur, profil
 │   │   └── assets/
-│   │       ├── academy.css              # Styles du tableau de bord et des rooms
-│   │       ├── academy.js               # Interactions (rooms, validation, XP)
-│   │       ├── admin.css                # Styles de la meta box d'édition
-│   │       └── admin.js                 # Ajout / suppression de questions
-│   └── themes/secura-learning/          # Thème sombre et responsive
-│       ├── style.css                    # Styles + en-tête du thème
-│       ├── functions.php                # Réglages, menus, Personnaliseur (palette)
+│   │       ├── academy.css                 # Design system du jeu (RTL via propriétés logiques)
+│   │       ├── academy.js                  # Lecteur de room : validation, terminal, level-up
+│   │       ├── admin.css                   # Styles de la méta-box d'édition
+│   │       └── admin.js                    # Éditeur de tâches / questions / sections
+│   └── themes/secura-learning/             # Thème sombre + RTL
+│       ├── style.css                       # Styles + jetons de couleur
+│       ├── style-rtl.css                   # Ajustements arabe (chargé si la locale est RTL)
+│       ├── functions.php                   # Réglages, menus, Personnaliseur (palette)
 │       ├── header.php
 │       ├── footer.php
 │       ├── index.php
-│       └── page.php
-├── .github/workflows/ci.yml              # Lint PHP + tests de logique
-├── .github/workflows/deploy.yml          # Déploiement vers WordPress (rsync + sauvegarde)
-├── scripts/deploy.sh                    # Script de déploiement appelé par le workflow
-├── tests/smoke-test.php                 # Harnais de vérification de la logique serveur
-├── docs/                                # Analyse UX, plan de contenu, modèle de jeu
-│   ├── ANALYSE-UX-TRYHACKME.md          # Analyse UX/UI + comparaison + points à régler
-│   ├── CONTENU-MIT.md                   # Plan de contenu inspiré de 6.858 / 6.857
-│   ├── MODELE-XP-MEDAILES.md            # Spécification barème XP, médailles, examens
-│   ├── deploiement.md                   # Configuration du déploiement GitHub → WordPress
-│   ├── backlog.md                       # Backlog produit priorisé
-│   └── PASSATION-SECURA-ARENA.md        # Contexte projet d'origine
-├── AUDIT-UX.md                          # Audit UX/UI et décisions de refonte
+│       ├── page.php
+│       ├── single-secura_room.php          # Lecteur de room
+│       └── archive-secura_room.php         # Catalogue des rooms
+├── .github/workflows/ci.yml                 # Lint PHP + tests + espaces fin de ligne
+├── .github/workflows/deploy.yml             # Déploiement vers WordPress (rsync + sauvegarde)
+├── scripts/deploy.sh                       # Script de déploiement appelé par le workflow
+├── tests/smoke-test.php                    # 108 assertions sur la logique serveur
+├── docs/
+│   ├── ANALYSE-UX-TRYHACKME.md             # Analyse UX/UI + comparaison + points à régler
+│   ├── CONTENU-MIT.md                      # Plan de contenu inspiré de 6.858 / 6.857
+│   ├── MODELE-XP-MEDAILES.md               # Spécification barème XP, médailles, examens
+│   ├── deploiement.md                      # Configuration du déploiement GitHub → WordPress
+│   ├── backlog.md                          # Backlog produit priorisé (P0 livré)
+│   └── PASSATION-SECURA-ARENA.md           # Contexte projet d'origine
+├── AUDIT-UX.md                             # Audit UX/UI et décisions de refonte
 ├── .gitignore
 └── README.md
 ```
@@ -85,81 +102,190 @@ secura-academy/
 
 1. Copier `wp-content/plugins/secura-academy` dans le dossier `plugins/` de votre installation.
 2. Copier `wp-content/themes/secura-learning` dans le dossier `themes/`.
-3. Dans l'admin WordPress : **Extensions → Activer** « Secura Academy », puis **Apparence → Thèmes → Activer** « Secura Learning ».
-4. L'activation du plugin crée automatiquement **6 rooms en français** (voir plus bas).
+3. Dans l'admin WordPress : **Extensions → Activer** « Secura Academy », puis
+   **Apparence → Thèmes → Activer** « Secura Learning ».
+4. L'activation crée automatiquement **6 rooms** (4 tâches chacune) et **1 parcours**
+   en 6 modules, avec leurs traductions arabes et anglaises.
 
 ### Via l'admin WordPress
 
-Compressez le dossier `wp-content/plugins/secura-academy` en ZIP (le dossier, pas son contenu),
-ainsi que `wp-content/themes/secura-learning`, puis téléversez-les via **Extensions → Ajouter → Téléverser** /
-**Apparence → Thèmes → Ajouter → Téléverser**.
+Compressez le dossier `wp-content/plugins/secura-academy` en ZIP (le dossier, pas
+son contenu), ainsi que `wp-content/themes/secura-learning`, puis téléversez-les via
+**Extensions → Ajouter → Téléverser** / **Apparence → Thèmes → Ajouter → Téléverser**.
 
-### Page de parcours
+### Shortcodes
 
-Créez une page et déposez le shortcode :
+| Shortcode | Rôle |
+|---|---|
+| `[secura_academy]` | Tableau de bord : niveau, XP, médailles, série, parcours, catalogue des rooms |
+| `[secura_academy path="12"]` | Idem, restreint à un parcours (identifiant ou slug) |
+| `[secura_academy_room id="12"]` | Lecteur de room (le thème l'utilise automatiquement sur une room) |
+| `[secura_academy_profile]` | Profil de l'apprenant : médailles, série, XP |
 
-```
-[secura_academy]
-```
-
-Options disponibles :
-
-| Attribut | Valeur par défaut | Rôle |
-|---|---|---|
-| `title` | « Votre parcours de cybersécurité » | Titre du bloc |
-| `rooms` | `-1` (toutes) | Nombre de rooms affichées |
+Créez une page « Parcours » avec `[secura_academy]` et une page « Mon profil » avec
+`[secura_academy_profile]`.
 
 ## Utilisation
 
-- **Visiteur non connecté** : aperçu du parcours et appel à l'inscription.
+- **Visiteur non connecté** : aperçu du catalogue et appel à l'inscription gratuite.
 - **Apprenant connecté** : tableau de bord personnalisé.
-  - Niveau, XP total, rooms terminées, collection de trophées.
-  - Barres de progression par room et progression globale du parcours.
-  - Les rooms sont **séquentielles** : une room reste verrouillée tant que la précédente n'est pas terminée.
-  - Chaque question validée correctement attribue des XP **une seule fois**.
-  - La complétion d'une room verse un bonus XP et débloque un trophée.
+  - Niveau, XP total, médailles, série de jours consécutifs.
+  - Parcours dépliés en modules, puis en sections, puis en rooms.
+  - Les **tâches d'une room se verrouillent** : la tâche N s'ouvre quand la
+    précédente est terminée. Les **rooms** d'un parcours restent accessibles
+    librement, la progression sert au suivi, pas au cloisonnement.
+  - Chaque question validée attribue des XP **une seule fois**.
+  - La complétion d'une room verse un bonus XP et une médaille.
+  - Animation de passage de niveau et confettis à la complétion d'une room.
 
 ### Les 6 rooms livrées
 
-| # | Room | Difficulté | Durée |
-|---|---|---|---|
-| 01 | Penser comme un défenseur | Facile | 20 min |
-| 02 | Les fondamentaux du réseau | Facile | 25 min |
-| 03 | Sécuriser une application web | Moyen | 35 min |
-| 04 | Mémoire et défenses | Moyen | 30 min |
-| 05 | Authentification | Moyen | 30 min |
-| 06 | Chiffrement et HTTPS | Difficile | 40 min |
+| # | Room | Difficulté | Durée | Bonus |
+|---|---|---|---|---|
+| 01 | Penser comme un défenseur | Facile | 20 min | 25 XP |
+| 02 | Les fondamentaux du réseau | Facile | 25 min | 25 XP |
+| 03 | Sécuriser une application web | Moyen | 35 min | 40 XP |
+| 04 | Mémoire et défenses | Moyen | 30 min | 40 XP |
+| 05 | Authentification | Moyen | 30 min | 40 XP |
+| 06 | Chiffrement et HTTPS | Difficile | 40 min | 60 XP |
 
 > Ces contenus sont des exercices originaux d'introduction. Ce n'est **ni** un cours MIT,
 > **ni** une adaptation autorisée de supports MIT, **ni** une reproduction de contenus
 > TryHackMe. Voir `docs/PASSATION-SECURA-ARENA.md` pour le cadrage des références.
 
-### Niveaux
+## Le modèle de tâches
 
-| Niveau | Libellé | XP requis |
-|---|---|---|
-| 1 | Débutant | 0 |
-| 2 | Apprenti | 100 |
-| 3 | Défenseur junior | 250 |
-| 4 | Analyste | 500 |
-| 5 | Expert | 900 |
-| 6 | Red team | 1500 |
+Chaque room suit le même patron, calqué sur la progression pédagogique d'un jeu :
+
+| Étape | Type | Rôle | XP (base difficulté « moyen ») |
+|---|---|---|---|
+| 1 | `lesson` | Le contenu théorique, court et actionnable | 0 |
+| 2 | `practice` | Entraînement guidé, indices disponibles | × 0,5 |
+| 3 | `test` | Mise en situation (scénario, parfois terminal) | × 1,0 |
+| 4 | `exam` | Examen chronométré, sans indice, avec seuil | × 1,5 |
+
+Chaque question porte : un énoncé, des réponses acceptées, un XP, un indice, une
+**explication pédagogique** et un poids de calcul du score.
+
+**L'explication n'est révélée qu'après la réussite** — c'est la récompense
+pédagogique. Un échec affiche le message « Pas encore, réessayez » et l'indice
+de la question, mais pas la solution. À la fin de la tâche, un récapitulatif
+révèle toutes les explications, y compris celles des questions ratées : c'est le
+« voir mes erreurs » qui fait progresser.
+
+## Barème, niveaux et médailles
+
+### Formule
+
+```
+points = base(difficulté) × multiplicateur(type) × rang(first blood) × malus(indice)
+```
+
+| Difficulté | Base |
+|---|---|
+| Facile | 10 |
+| Moyen | 15 |
+| Difficile | 20 |
+| Expert | 30 |
+
+Multiplicateur de rang (« first blood ») : **désactivé par défaut**. Quand il est
+activé, le premier à répondre juste obtient ×2, le deuxième ×1,8, le troisième
+×1,7, le quatrième ×1,65, les suivants ×1,5. L'option se règle dans les réglages
+du plugin (`secura_first_blood`) et s'appuie sur une table de statistiques.
+
+Malus d'indice : **−50 %** sur la question concernée.
+
+Bonus de complétion de room : `xp_bonus` de la room, **+25 %** si aucun indice
+n'a été utilisé sur l'ensemble de la room.
+
+### Les 12 niveaux
+
+| # | Niveau | XP requis | | # | Niveau | XP requis |
+|---|---|---|---|---|---|---|
+| 1 | Observateur | 0 | | 7 | Spécialiste | 2 500 |
+| 2 | Apprenti | 100 | | 8 | Architecte | 3 500 |
+| 3 | Analyste | 250 | | 9 | Défenseur | 5 000 |
+| 4 | Traceur | 500 | | 10 | Éclaireur | 7 000 |
+| 5 | Auditeur | 900 | | 11 | Sentinel | 10 000 |
+| 6 | Pourfendeur | 1 500 | | 12 | Maître | 15 000 |
+
+### Les médailles
+
+| Médaille | Condition |
+|---|---|
+| 🥉 Bronze | score ≥ 60 % |
+| 🥈 Argent | score ≥ 80 % **et aucun indice** |
+| 🥇 Or | score = 100 % **et aucun indice** |
+
+Une médaille ne descend jamais : obtenir l'or après le bronze remplace le bronze.
+
+## Parcours et sections
+
+Le type de contenu `secura_path` décrit un parcours : une liste de **sections**,
+chaque section contenant une liste de **rooms**. La méta-box permet d'ajouter,
+renommer et réordonner les sections, de choisir les rooms, la durée totale, la
+difficulté, le bonus XP et l'activation du certificat.
+
+La progression d'un parcours est calculée à partir des rooms terminées. Quand
+toutes les rooms d'un parcours sont terminées, une médaille de parcours est
+attribuée et le bonus XP du parcours est versé.
+
+## Le terminal simulé
+
+Certaines tâches « test » embarquent un terminal **simulé** : aucune machine réelle
+n'est exécutée, le scénario est entièrement évalué côté serveur.
+
+- Une commande correspond à une étape : soit une **comparaison exacte** (insensible
+  à la casse), soit une **expression régulière** entre slashes (`/cat config\.txt/`).
+- Une commande inconnue affiche la réponse du scénario et propose un indice.
+- L'historique est conservé côté serveur (40 dernières entrées) et l'état du
+  terminal est persisté dans le `user_meta`.
+- Une question peut exiger d'avoir exploré le terminal (`requires_step`) : le
+  serveur refuse la réponse tant que l'étape n'est pas atteinte.
+
+> Le terminal est un jeu de rôle scénarisé. Ne jamais le présenter comme un
+> environnement d'attaque réel.
+
+## Multilingue
+
+Trois langues sont fournies d'emblée : **français**, **arabe** et **anglais**.
+
+- L'interface (dictionnaire complet FR/AR/EN) est traduite.
+- Le contenu (titre, extrait, corps, titres de tâches, énoncés, indices,
+  explications) est traduit via la méta-box **Traductions** de chaque room.
+- L'arabe passe le document en **RTL** : `dir="rtl"` sur l'interface, propriétés
+  CSS logiques dans le plugin, feuille `style-rtl.css` pour le thème.
+- Résolution de la langue : paramètre `?lang=` → choix enregistré dans le compte
+  → locale du site → français par défaut.
+- Le choix « Arabe / English / Français » est disponible dans le tableau de bord
+  et sur la page de profil, et mémorisé dans le compte.
+
+Le stockage en méta de post rend la plateforme **autonome** (aucun plugin
+multilingue tiers nécessaire) tout en restant compatible avec les standards
+WordPress et avec les outils d'export.
 
 ## Éditer les rooms
 
 **Rooms → Ajouter une room.**
 
 - **Titre**, **extrait** et **contenu** : champs WordPress standards.
-- **Ordre** : champ « Ordre de la page » (attribut `page-attributes`) — il définit la
-  séquence du parcours.
-- **Parcours Secura** (meta box) :
+- **Ordre** : champ « Ordre de la page » (attribut `page-attributes`).
+- **Parcours Secura** (méta-box) :
   - *Difficulté* — facile, moyen, difficile, expert.
   - *Durée indicative* en minutes.
   - *Bonus XP* à la complétion.
-  - *Questions* : énoncé, réponses acceptées (une par ligne), indice, XP.
-    Le bouton « + Ajouter une question » crée une ligne supplémentaire.
+  - *Tâches* : une ligne par tâche, avec le **type** (leçon, entraînement, test,
+    examen), le titre, le contenu HTML, la durée et le seuil (examens), le
+    terminal simulé en JSON, et les questions.
+- **Question** : énoncé, réponses acceptées (une par ligne), explication,
+  indice, XP, poids, étape de terminal requise.
+- **Traductions** (méta-box) : une fiche par langue pour le titre, l'extrait,
+  les corps de tâche, les énoncés, les indices et les explications.
 
-Une question sans réponse acceptée est ignorée à l'enregistrement : les réponses
+**Parcours → Ajouter un parcours** : titre, extrait, sections, rooms par section,
+durée totale, bonus XP, certificat.
+
+Une question sans réponse acceptée est ignorée à l'enregistrement. Les réponses
 ne sont jamais stockées en clair dans le HTML public.
 
 ## Palette et personnalisation
@@ -180,10 +306,12 @@ tableau de bord sans toucher au CSS.
 
 ## Architecture technique
 
-### Type de contenu
+### Types de contenu
 
-`secura_room` — type de contenu personnalisé, public, avec `page-attributes`
-pour l'ordre du parcours. Les règles de rewriting sont en `rooms`.
+| CPT | Slug | Rôle |
+|---|---|---|
+| `secura_room` | `rooms` | Une room = 4 tâches |
+| `secura_path` | `parcours` | Un parcours = sections de rooms |
 
 ### Données apprenant
 
@@ -191,45 +319,77 @@ Tout est stocké en `user_meta` de l'utilisateur connecté :
 
 | Clé | Contenu |
 |---|---|
-| `secura_xp` | Total de XP accumulés (entier) |
-| `secura_progress` | Progression par room : questions résolues, état, XP gagnés |
-| `secura_trophies` | Collection de trophées (slug, nom, description, icône, date) |
+| `secura_xp` | Total de XP accumulés |
+| `secura_progress` | Progression par room : questions résolues, indices, tâches terminées |
+| `secura_medals` | Médailles (clé, niveau, score, date) |
+| `secura_exams` | État des examens (horodatage de départ, score, réussite, bonus versé) |
+| `secura_terminals` | État des terminaux simulés (étape courante, historique) |
+| `secura_streak` | Série de jours consécutifs |
+| `secura_lang` | Langue choisie |
+| `secura_ranks` | Rang « first blood » par question |
 
-Ces données sont supprimées avec le compte utilisateur. Elles sont exportables
-via les outils d'export WordPress ; il reste à formaliser la politique de
-conservation (voir [Limites connues](#limites-connues)).
+La table `{prefix}secura_answer_stats` compte les réponses correctes par question
+pour le classement « first blood » (désactivé par défaut).
 
 ### Endpoints AJAX
 
-Les deux endpoints sont réservés aux utilisateurs connectés et protégés par un
+Tous les endpoints sont réservés aux utilisateurs connectés et protégés par un
 nonce (`secura_academy`).
 
-| Action | Paramètres | Retour |
+| Action | Paramètres | Rôle |
 |---|---|---|
-| `secura_get_room` | `room_id` | Titre, contenu, difficulté, étapes **sans les réponses** |
-| `secura_validate_answer` | `room_id`, `question`, `answer` | `correct`, `xp_awarded`, `total_xp`, `new_trophies`, `room_completed` |
+| `secura_get_room` | `room_id` | Room, tâches, verrous, progression |
+| `secura_get_task` | `room_id`, `task`, `reveal` | Contenu, questions **sans les réponses**, terminal sans les sorties |
+| `secura_validate_answer` | `room_id`, `task`, `question`, `answer` | Validation, XP, explication, médailles |
+| `secura_hint` | `room_id`, `task`, `question` | Indice (tracé, coûte −50 %) |
+| `secura_terminal` | `room_id`, `task`, `command` | Exécution dans le terminal simulé |
+| `secura_complete_lesson` | `room_id`, `task` | Validation d'une leçon |
+| `secura_start_exam` | `room_id`, `task` | Démarrage du chronomètre d'examen |
+| `secura_set_lang` | `lang` | Changement de langue du compte |
 
 ### Normalisation des réponses
 
 La comparaison ignore la casse, les accents, les espaces multiples et la
-ponctuation finale, afin d'accepter « AES », « aes » ou « AES. » comme la même
-réponse. Plusieurs formulations peuvent être déclarées par question.
+ponctuation finale : « AES », « aes » ou « AES. » sont la même réponse. Plusieurs
+formulations peuvent être déclarées par question.
 
 ## Sécurité
 
 - **Les réponses ne quittent jamais le serveur.** Elles ne figurent ni dans le HTML,
   ni dans les attributs `data-*`, ni dans les réponses JSON envoyées au navigateur.
   La vérification est faite côté serveur, à chaque soumission.
-- **Nonce WordPress** sur les deux endpoints AJAX, avec expiration native.
-- **`current_user_can()`** sur l'enregistrement de la meta box d'édition,
-  plus une vérification de nonce et le rejet des révisions automatiques.
+  *Cette propriété est vérifiée par le harnais de tests.*
+- **Nonce WordPress** sur les huit endpoints AJAX, avec expiration native.
+- **`current_user_can()`** sur l'enregistrement des méta-box, plus une
+  vérification de nonce et le rejet des révisions automatiques.
 - **Sanitisation** systématique des entrées (`sanitize_text_field`,
-  `sanitize_textarea_field`, `absint`) et **échappement** à la sortie
-  (`esc_html`, `esc_attr`, `esc_url`, `esc_textarea`).
+  `sanitize_textarea_field`, `absint`, `wp_kses_post` sur le contenu pédagogique)
+  et **échappement** à la sortie (`esc_html`, `esc_attr`, `esc_url`, `esc_textarea`).
 - **Idempotence** : l'XP n'est attribué qu'une seule fois par question et par
-  utilisateur, même en rejouant la requête.
-- **Restriction aux rooms publiées** : une room non publiée ou d'un autre type
-  n'est jamais servie.
+  utilisateur ; le bonus d'examen n'est versé qu'à la **première réussite**.
+- **Chronométrage serveur** : le minuteur d'examen est piloté par `started_at`
+  côté serveur ; le navigateur ne peut pas l'allonger.
+- **Verrouillage serveur** : le refus de valider une question d'une tâche non
+  déverrouillée est appliqué côté serveur, pas seulement masqué dans l'interface.
+
+## Tests
+
+```bash
+php tests/smoke-test.php
+```
+
+Le harnais émule les fonctions WordPress nécessaires et vérifie **108 assertions** :
+normalisation des réponses, paliers de niveau, barème et multiplicateurs,
+attribution et idempotence des XP, malus d'indice, verrouillage progressif,
+score pondéré, médailles, examens chronométrés (démarrage, expiration, nouvelle
+tentative, bonus versé une seule fois), terminal simulé (correspondances exactes
+et expressions régulières, progression, indices), multilingue (dictionnaires,
+direction RTL, traduction partielle), structure des rooms et des parcours,
+contenu de démonstration, et **contrat AJAX** (les réponses attendues ne sont
+jamais envoyées au client, l'explication n'est révélée qu'après la réussite).
+
+La CI exécute en plus le lint PHP de tous les fichiers et le contrôle des espaces
+en fin de ligne.
 
 ## Déploiement
 
@@ -238,7 +398,7 @@ GitHub Actions sont présents :
 
 | Workflow | Déclenchement | Rôle |
 |---|---|---|
-| `.github/workflows/ci.yml` | push sur `main`, pull request, manuel | Vérifie la syntaxe PHP, exécute les tests de logique, contrôle les espaces en fin de ligne |
+| `.github/workflows/ci.yml` | push sur `main`, pull request, manuel | Lint PHP, tests de logique, espaces en fin de ligne |
 | `.github/workflows/deploy.yml` | push sur `main`, manuel | Sauvegarde la version déployée, synchronise le plugin et le thème par `rsync`, contrôle que le site répond |
 
 Tant que les secrets GitHub ne sont pas configurés, le job de déploiement
@@ -255,18 +415,20 @@ La configuration des secrets est détaillée dans
 - **Pas de vrais labs.** Le « terminal » est une simulation textuelle guidée ;
   aucun conteneur ni machine n'est exécuté. Ne pas le présenter comme un
   environnement actif.
+- **Contenu éditorial limité.** 6 rooms sont livrées : elles servent de **modèle
+  de rédaction**. Produire les 46 rooms du plan complet demande un effort
+  éditorial d'environ 178 h (voir `docs/CONTENU-MIT.md`).
 - **Pas de confirmation par e-mail**, ni mot de passe oublié personnalisé,
   ni anti-spam, ni limitation des tentatives (rate limiting).
-- **Pas de page de profil** dédiée, pas de streak fiable, pas de classement,
-  pas de recherche ni de filtres dans le catalogue.
+- **Certificat de parcours non généré en PDF** : l'indicateur de complétion est
+  présent, le fichier téléchargeable reste à produire.
+- **Catalogue sans recherche ni filtres** au-delà du parcours.
 - **Suppression / export des données** à formaliser (RGPD) : la progression et
-  les trophées vivent dans les `user_meta`.
+  les médailles vivent dans les `user_meta`.
 - **Multi-site** non pris en charge explicitement.
 - **Aucune suite de tests end-to-end.** La CI vérifie la syntaxe PHP et exécute
-  `tests/smoke-test.php`, un harnais léger qui émule les fonctions WordPress
-  utilisées pour tester la normalisation des réponses, les paliers de niveau,
-  l'idempotence des XP, la complétion de room et les trophées (26 assertions).
-  Le comportement en conditions réelles reste à valider en staging.
+  `tests/smoke-test.php`. Le comportement en conditions réelles reste à valider
+  en staging.
 - **Revue de sécurité et tests d'accessibilité** à faire avec une version
   WordPress/PHP cible en staging, avant production.
 
@@ -278,14 +440,14 @@ comparaison et points à régler), [`docs/CONTENU-MIT.md`](docs/CONTENU-MIT.md)
 (plan de contenu) et [`docs/MODELE-XP-MEDAILES.md`](docs/MODELE-XP-MEDAILES.md)
 (barème XP, médailles, examens).
 
-1. **Modèle de tâches** à 4 types : leçon → entraînement → test d'application → examen.
-2. **Médailles** bronze / argent / or, avec critères de score et d'usage des indices.
-3. **Barème de points** unifié (difficulté × type × first blood − malus d'indice).
-4. **Examens chronométrés** avec seuil de passage, chronométrage validé côté serveur.
-5. **Parcours et sections**, avec durée estimée, difficulté et certificat.
-6. **Anatomie de room** conforme : navigation par tâche, progression, minuteur.
-7. Page de profil, catalogue avec filtres, feedback pédagogique sur les erreurs.
-8. Cadre de confidentialité : export, suppression, durée de conservation.
+Le **P0 est livré**. Restent en priorité :
+
+1. **Pédagogie** — détection automatique du niveau, aide contextuelle, « indice intelligent ».
+2. **Contenu** — industrialiser la rédaction de rooms sur le modèle des 6 livrées.
+3. **Certificat** — génération PDF du certificat de parcours.
+4. **Social** — classement de parcours (optionnel, avec verticalisation de l'opt-in).
+5. **Cadre de confidentialité** — export, suppression, durée de conservation.
+6. **Accessibilité** — audit clavier / lecteur d'écran sur le lecteur de room.
 
 ## Licence et contenu
 
@@ -296,6 +458,6 @@ Le contenu pédagogique est **original**. Les cours MIT OpenCourseWare
 Security*, Spring 2014) sont utilisés comme **sources bibliographiques** : leurs
 supports sont publiés sous **CC BY-NC-SA 4.0** (usage non commercial), ils ne
 sont donc ni reproduits ni adaptés dans le plugin — seul le **cadrage
-pédagogique** (leçon → exercice d'entraînement → test d'application → examen →
-projet) est repris, avec attribution. Voir
+pédagogique** (leçon → exercice d'entraînement → test d'application → examen)
+est repris, avec attribution. Voir
 [`docs/CONTENU-MIT.md`](docs/CONTENU-MIT.md) § 0.

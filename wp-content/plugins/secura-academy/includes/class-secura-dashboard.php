@@ -1,6 +1,6 @@
 <?php
 /**
- * Shortcode [secura_academy] et rendu du tableau de bord.
+ * Shortcodes : tableau de bord, lecteur de room, profil.
  *
  * @package Secura_Academy
  */
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Affiche le parcours de l'apprenant.
+ * Rendu de l'interface Secura Academy.
  */
 final class Secura_Dashboard {
 
@@ -19,11 +19,13 @@ final class Secura_Dashboard {
 	 */
 	public static function init() {
 		add_shortcode( 'secura_academy', array( __CLASS__, 'shortcode' ) );
+		add_shortcode( 'secura_academy_room', array( __CLASS__, 'room_shortcode' ) );
+		add_shortcode( 'secura_academy_profile', array( __CLASS__, 'profile_shortcode' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 	}
 
 	/**
-	 * Charge les styles et scripts du tableau de bord.
+	 * Charge les styles et scripts.
 	 */
 	public static function enqueue_assets() {
 		wp_enqueue_style(
@@ -41,6 +43,8 @@ final class Secura_Dashboard {
 			true
 		);
 
+		$lang = Secura_I18n::current_lang();
+
 		wp_localize_script(
 			'secura-academy',
 			'SecuraAcademy',
@@ -48,271 +52,440 @@ final class Secura_Dashboard {
 				'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'secura_academy' ),
 				'loggedIn' => is_user_logged_in(),
+				'lang'     => $lang,
+				'dir'      => Secura_I18n::direction(),
 				'levels'   => Secura_Progress::levels(),
-				'i18n'     => array(
-					'loading'      => __( 'Chargement…', 'seca-academy' ),
-					'genericError' => __( 'Une erreur est survenue. Réessayez.', 'seca-academy' ),
-					'networkError' => __( 'Connexion impossible. Vérifiez votre réseau.', 'seca-academy' ),
-					'close'        => __( 'Fermer', 'seca-academy' ),
-					'validate'     => __( 'Valider', 'seca-academy' ),
-					'hint'         => __( 'Afficher l\'indice', 'seca-academy' ),
-					'answerLabel'  => __( 'Votre réponse', 'seca-academy' ),
-					'stepsTitle'   => __( 'Étapes de la room', 'seca-academy' ),
-					'solved'       => __( 'Validée', 'seca-academy' ),
-					'xpLabel'      => __( 'XP', 'seca-academy' ),
-					'roomsDone'    => __( 'rooms terminées', 'seca-academy' ),
-					'trophyToast'  => __( 'Trophée débloqué', 'seca-academy' ),
-				),
+				'i18n'     => Secura_I18n::dictionary()[ $lang ],
+				'i18nAll'  => Secura_I18n::dictionary(),
+				'languages' => Secura_I18n::languages(),
 			)
 		);
 	}
 
 	/**
-	 * Point d'entrée du shortcode.
+	 * Sélecteur de langue.
 	 *
-	 * @param array $atts Attributs du shortcode.
 	 * @return string
 	 */
-	public static function shortcode( $atts ) {
-		$atts = shortcode_atts(
-			array(
-				'title'    => __( 'Votre parcours de cybersécurité', 'seca-academy' ),
-				'rooms'    => -1,
-			),
-			$atts,
-			'secura_academy'
-		);
+	private static function language_switcher() {
+		$current = Secura_I18n::current_lang();
+		$items   = '';
 
-		$rooms = Secura_Rooms::get_rooms();
-
-		if ( -1 !== (int) $atts['rooms'] ) {
-			$rooms = array_slice( $rooms, 0, max( 0, (int) $atts['rooms'] ) );
-		}
-
-		if ( empty( $rooms ) ) {
-			return '<p class="secura-empty">' . esc_html__( 'Aucun parcours publié pour le moment.', 'seca-academy' ) . '</p>';
-		}
-
-		if ( ! is_user_logged_in() ) {
-			return self::render_guest( $atts['title'], $rooms );
-		}
-
-		return self::render_dashboard( $atts['title'], $rooms );
-	}
-
-	/**
-	 * Vue pour les visiteurs non connectés.
-	 *
-	 * @param string $title Titre du bloc.
-	 * @param array  $rooms Rooms disponibles.
-	 * @return string
-	 */
-	private static function render_guest( $title, $rooms ) {
-		$items = '';
-
-		foreach ( $rooms as $room ) {
+		foreach ( Secura_I18n::languages() as $code => $language ) {
 			$items .= sprintf(
-				'<li class="secura-room-card is-locked"><span class="secura-room-title">%1$s</span><span class="secura-room-meta">%2$s · %3$s</span></li>',
-				esc_html( get_the_title( $room ) ),
-				esc_html( Secura_Rooms::get_difficulty( $room->ID ) ),
-				esc_html( sprintf( /* translators: %d : minutes. */ __( '%d min', 'seca-academy' ), absint( get_post_meta( $room->ID, SECURA_META_DURATION, true ) ) ) )
+				'<button type="button" class="seca-lang %1$s" data-seca-lang="%2$s" aria-pressed="%3$s">%4$s</button>',
+				$code === $current ? 'is-active' : '',
+				esc_attr( $code ),
+				$code === $current ? 'true' : 'false',
+				esc_html( $language['native'] )
 			);
 		}
 
-		$register_url = wp_registration_url();
-		$login_url    = wp_login_url( get_permalink() );
+		return '<div class="seca-lang-switch" role="group" aria-label="' . esc_attr__( 'Langue', 'seca-academy' ) . '">' . $items . '</div>';
+	}
+
+	/**
+	 * [secura_academy] : tableau de bord.
+	 *
+	 * @param array $atts Attributs.
+	 * @return string
+	 */
+	public static function shortcode( $atts ) {
+		$atts = shortcode_atts( array( 'path' => '' ), $atts, 'secura_academy' );
+
+		if ( ! is_user_logged_in() ) {
+			return self::render_guest();
+		}
+
+		$user_id = get_current_user_id();
+		$state   = Secura_Progress::get_state( $user_id );
+		$level   = $state['level'];
+		$next    = Secura_Progress::next_level( $level );
+
+		$range   = null === $level['max'] ? 1 : ( $level['max'] + 1 - $level['min'] );
+		$percent = min( 100, max( 0, (int) round( ( ( $state['xp'] - $level['min'] ) / $range ) * 100 ) ) );
+
+		$paths_html = '';
+		$next_room  = null;
+		$paths      = Secura_Paths::get_paths();
+
+		/* L'attribut « path » permet de n'afficher qu'un parcours précis. */
+		if ( $atts['path'] ) {
+			$wanted = (string) $atts['path'];
+
+			$paths = array_values(
+				array_filter(
+					$paths,
+					function ( $path ) use ( $wanted ) {
+						return (string) $path->ID === $wanted || $path->post_name === $wanted;
+					}
+				)
+			);
+		}
+
+		foreach ( $paths as $path ) {
+			$view     = Secura_Paths::get_path_view( $path->ID );
+			$progress = Secura_Paths::get_progress( $user_id, $path->ID );
+
+			if ( ! $view ) {
+				continue;
+			}
+
+			if ( ! $next_room ) {
+				foreach ( $view['sections'] as $section ) {
+					foreach ( $section['rooms'] as $room_id ) {
+						$room_state = Secura_Progress::get_room_state( $user_id, $room_id );
+
+						if ( empty( $room_state['completed'] ) ) {
+							$next_room = $room_id;
+							break 2;
+						}
+					}
+				}
+			}
+
+			$sections_html = '';
+
+			foreach ( $view['sections'] as $section ) {
+				$rooms_html = '';
+
+				foreach ( $section['rooms'] as $room_id ) {
+					$room_view  = Secura_Rooms::get_room_view( $room_id );
+					$room_state = Secura_Progress::get_room_state( $user_id, $room_id );
+
+					if ( ! $room_view ) {
+						continue;
+					}
+
+					$status  = empty( $room_state['completed'] ) ? 'todo' : 'done';
+					$medal   = isset( $room_state['medal'] ) ? $room_state['medal'] : '';
+					$classes = 'seca-mini-room is-' . $status . ( $medal ? ' has-medal-' . $medal : '' );
+
+					$rooms_html .= sprintf(
+						'<li class="%1$s"><a href="%2$s"><span class="seca-mini-title">%3$s</span><span class="seca-mini-meta">%4$s</span>%5$s</a></li>',
+						esc_attr( $classes ),
+						esc_url( get_permalink( $room_id ) ),
+						esc_html( $room_view['title'] ),
+						esc_html( $room_view['difficulty'] ),
+						$medal ? '<span class="seca-medal-dot seca-medal-' . esc_attr( $medal ) . '" aria-hidden="true"></span>' : ''
+					);
+				}
+
+				$sections_html .= sprintf(
+					'<li class="seca-section"><h4 class="seca-section-title">%1$s</h4><ul class="seca-mini-list">%2$s</ul></li>',
+					esc_html( $section['title'] ),
+					$rooms_html
+				);
+			}
+
+			$paths_html .= sprintf(
+				'<article class="seca-path-card">
+					<header class="seca-path-head">
+						<h3 class="seca-path-title">%1$s</h3>
+						<span class="seca-chip">%2$s</span>
+					</header>
+					<p class="seca-path-excerpt">%3$s</p>
+					<div class="seca-path-meta">
+						<span class="seca-chip">%4$s</span>
+						<span class="seca-chip">%5$s</span>
+						<span class="seca-chip">%6$s</span>
+					</div>
+					<div class="seca-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="%7$d" aria-label="%8$s"><span class="seca-progress-fill" style="width:%7$d%%"></span></div>
+					<p class="seca-path-progress">%9$s</p>
+					<ul class="seca-section-list">%10$s</ul>
+				</article>',
+				esc_html( $view['title'] ),
+				esc_html( $view['difficulty'] ),
+				esc_html( $view['excerpt'] ),
+				esc_html( sprintf( /* translators: %d : nombre de rooms. */ _n( '%d room', '%d rooms', $view['room_count'], 'seca-academy' ), $view['room_count'], 'seca-academy' ) ),
+				esc_html( sprintf( /* translators: %d : minutes. */ __( '%d min', 'seca-academy' ), $view['duration'] ) ),
+				esc_html( sprintf( /* translators: %d : XP. */ __( '+%d XP', 'seca-academy' ), $view['xp_bonus'] ) ),
+				(int) $progress['percent'],
+				esc_attr__( 'Progression du parcours', 'seca-academy' ),
+				esc_html( sprintf( /* translators: 1 : rooms terminées, 2 : total. */ __( '%1$d / %2$d rooms terminées', 'seca-academy' ), $progress['done'], $progress['total'] ) ),
+				$sections_html
+			);
+		}
+
+		$rooms_html = '';
+
+		foreach ( Secura_Rooms::get_rooms() as $room ) {
+			$room_view  = Secura_Rooms::get_room_view( $room->ID );
+			$room_state = Secura_Progress::get_room_state( $user_id, $room->ID );
+
+			if ( ! $room_view ) {
+				continue;
+			}
+
+			$status = 'todo';
+
+			if ( ! empty( $room_state['completed'] ) ) {
+				$status = 'done';
+			} elseif ( ! empty( $room_state['tasks'] ) ) {
+				$status = 'progress';
+			}
+
+			$medal = isset( $room_state['medal'] ) ? $room_state['medal'] : '';
+
+			$rooms_html .= sprintf(
+				'<li class="seca-room-card is-%1$s %2$s"><a href="%3$s"><span class="seca-room-status">%4$s</span><h3 class="seca-room-title">%5$s</h3><p class="seca-room-excerpt">%6$s</p><div class="seca-room-meta"><span class="seca-chip">%7$s</span><span class="seca-chip">%8$s</span><span class="seca-chip">%9$s</span></div></a></li>',
+				esc_attr( $status ),
+				$medal ? 'has-medal-' . esc_attr( $medal ) : '',
+				esc_url( get_permalink( $room->ID ) ),
+				esc_html( self::status_label( $status ) ),
+				esc_html( $room_view['title'] ),
+				esc_html( $room_view['excerpt'] ),
+				esc_html( $room_view['difficulty'] ),
+				esc_html( sprintf( /* translators: %d : minutes. */ __( '%d min', 'seca-academy' ), $room_view['duration'] ) ),
+				esc_html( sprintf( /* translators: %d : XP. */ __( '+%d XP', 'seca-academy' ), $room_view['xp_bonus'] ) )
+			);
+		}
+
+		$next_action = '';
+
+		if ( $next_room ) {
+			$next_view = Secura_Rooms::get_room_view( $next_room );
+
+			if ( $next_view ) {
+				$next_action = sprintf(
+					'<a class="seca-next" href="%1$s"><span class="seca-next-label">%2$s</span><strong>%3$s</strong></a>',
+					esc_url( get_permalink( $next_room ) ),
+					esc_html__( 'Reprendre', 'seca-academy' ),
+					esc_html( $next_view['title'] )
+				);
+			}
+		}
+
+		$user       = wp_get_current_user();
+		$first_name = $user->first_name ? $user->first_name : $user->user_login;
 
 		ob_start();
 		?>
-		<section class="secura-dashboard seca-dashboard--guest" data-secura-dashboard>
-			<header class="secura-dash-header">
-				<div>
-					<p class="secura-eyebrow"><?php esc_html_e( 'Secura Academy', 'seca-academy' ); ?></p>
-					<h2 class="secura-dash-title"><?php echo esc_html( $title ); ?></h2>
-					<p class="secura-dash-sub"><?php esc_html_e( 'Créez un compte pour suivre votre progression, gagner des XP et débloquer des trophées.', 'seca-academy' ); ?></p>
+		<div class="seca-app" dir="<?php echo esc_attr( Secura_I18n::direction() ); ?>" data-seca-dashboard>
+			<header class="seca-hero">
+				<div class="seca-hero-main">
+					<p class="seca-eyebrow"><?php esc_html_e( 'Secura Academy', 'seca-academy' ); ?> · <?php esc_html_e( '100 % gratuit', 'seca-academy' ); ?></p>
+					<h2 class="seca-hero-title"><?php echo esc_html( sprintf( /* translators: %s : nom de l'utilisateur. */ __( 'Salut %s', 'seca-academy' ), $first_name ) ); ?></h2>
+					<p class="seca-hero-sub"><?php esc_html_e( 'Choisis ton parcours, progresse étape par étape et collectionne les médailles.', 'seca-academy' ); ?></p>
+					<?php echo $next_action; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?>
 				</div>
-				<div class="secura-dash-actions">
-					<a class="secura-btn seca-btn--primary" href="<?php echo esc_url( $register_url ); ?>"><?php esc_html_e( 'Créer un compte', 'seca-academy' ); ?></a>
-					<a class="secura-btn" href="<?php echo esc_url( $login_url ); ?>"><?php esc_html_e( 'Se connecter', 'seca-academy' ); ?></a>
+
+				<div class="seca-stats">
+					<div class="seca-stat"><span class="seca-stat-label"><?php esc_html_e( 'XP', 'seca-academy' ); ?></span><span class="seca-stat-value" data-seca-xp><?php echo esc_html( number_format_i18n( $state['xp'] ) ); ?></span></div>
+					<div class="seca-stat"><span class="seca-stat-label"><?php esc_html_e( 'Niveau', 'seca-academy' ); ?></span><span class="seca-stat-value" data-seca-level><?php echo esc_html( $level['number'] . ' · ' . $level['label'] ); ?></span></div>
+					<div class="seca-stat"><span class="seca-stat-label"><?php esc_html_e( 'Médailles', 'seca-academy' ); ?></span><span class="seca-stat-value" data-seca-medals><?php echo esc_html( count( $state['medals'] ) ); ?></span></div>
+					<div class="seca-stat"><span class="seca-stat-label"><?php esc_html_e( 'Série', 'seca-academy' ); ?></span><span class="seca-stat-value" data-seca-streak><?php echo esc_html( isset( $state['streak']['current'] ) ? absint( $state['streak']['current'] ) : 0 ); ?></span></div>
+					<div class="seca-level">
+						<span class="seca-level-label" data-seca-level-next><?php echo esc_html( $next ? sprintf( /* translators: %s : nom du niveau suivant. */ __( '%d XP avant %s', 'seca-academy' ), max( 0, $next['min'] - $state['xp'] ), $next['label'] ) : __( 'Niveau maximum', 'seca-academy' ) ); ?></span>
+						<div class="seca-xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<?php echo esc_attr( $percent ); ?>"><span class="seca-xpbar-fill" data-seca-xpbar style="width:<?php echo esc_attr( $percent ); ?>%"></span></div>
+					</div>
 				</div>
+
+				<?php echo self::language_switcher(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?>
 			</header>
-			<ul class="secura-room-list" aria-label="<?php esc_attr_e( 'Parcours à venir', 'seca-academy' ); ?>">
-				<?php echo $items; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- construit et échappé ci-dessus. ?>
-			</ul>
-		</section>
+
+			<section class="seca-section">
+				<h3 class="seca-section-heading"><?php esc_html_e( 'Parcours', 'seca-academy' ); ?></h3>
+				<div class="seca-path-grid"><?php echo $paths_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?></div>
+			</section>
+
+			<section class="seca-section">
+				<h3 class="seca-section-heading"><?php esc_html_e( 'Toutes les rooms', 'seca-academy' ); ?></h3>
+				<ul class="seca-room-grid"><?php echo $rooms_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?></ul>
+			</section>
+		</div>
 		<?php
 		return ob_get_clean();
 	}
 
 	/**
-	 * Vue pour un apprenant connecté.
+	 * Libellé d'un statut.
 	 *
-	 * @param string $title Titre du bloc.
-	 * @param array  $rooms Rooms disponibles.
+	 * @param string $status Statut.
 	 * @return string
 	 */
-	private static function render_dashboard( $title, $rooms ) {
-		$user_id = get_current_user_id();
-		$state   = Secura_Progress::get_state( $user_id );
-		$level   = Secura_Progress::level_for_xp( $state['xp'] );
+	private static function status_label( $status ) {
+		$map = array(
+			'done'     => __( 'Terminée', 'seca-academy' ),
+			'progress' => __( 'En cours', 'seca-academy' ),
+			'todo'     => __( 'À faire', 'seca-academy' ),
+		);
 
-		$range = max( 1, ( null === $level['max'] ? $level['min'] + 1 : $level['max'] + 1 ) - $level['min'] );
-		$into_level = $state['xp'] - $level['min'];
-		$percent = min( 100, max( 0, (int) round( ( $into_level / $range ) * 100 ) ) );
+		return isset( $map[ $status ] ) ? $map[ $status ] : $map['todo'];
+	}
 
-		$done = 0;
-		$previous_completed = true;
-		$cards = '';
-
-		foreach ( $rooms as $index => $room ) {
-			$progress = Secura_Progress::get_room_progress( $user_id, $room->ID );
-			$total_questions = count( Secura_Rooms::get_questions( $room->ID ) );
-			$solved_count = count( $progress['solved'] );
-
-			$is_completed = ! empty( $progress['completed'] );
-			$is_locked = ! $previous_completed;
-
-			if ( $is_completed ) {
-				$done++;
-			}
-
-			$status_class = 'is-current';
-			$status_label = __( 'À faire', 'seca-academy' );
-
-			if ( $is_completed ) {
-				$status_class = 'is-done';
-				$status_label = __( 'Terminée', 'seca-academy' );
-			} elseif ( $is_locked ) {
-				$status_class = 'is-locked';
-				$status_label = __( 'Verrouillée', 'seca-academy' );
-			} elseif ( $solved_count > 0 ) {
-				$status_class = 'is-progress';
-				$status_label = __( 'En cours', 'seca-academy' );
-			}
-
-			$percent_room = $total_questions > 0 ? (int) round( ( $solved_count / $total_questions ) * 100 ) : 0;
-
-			$cards .= sprintf(
-				'<li class="secura-room-card %1$s" data-sa-room="%2$d" data-sa-status="%3$s" role="button" tabindex="0" aria-disabled="%4$s">
-					<div class="secura-room-head">
-						<span class="secura-room-index">%5$s</span>
-						<span class="secura-room-status">%6$s</span>
+	/**
+	 * Vue visiteur non connecté.
+	 *
+	 * @return string
+	 */
+	private static function render_guest() {
+		ob_start();
+		?>
+		<div class="seca-app seca-app--guest" dir="<?php echo esc_attr( Secura_I18n::direction() ); ?>">
+			<header class="seca-hero">
+				<div class="seca-hero-main">
+					<p class="seca-eyebrow"><?php esc_html_e( 'Secura Academy', 'seca-academy' ); ?> · <?php esc_html_e( '100 % gratuit', 'seca-academy' ); ?></p>
+					<h2 class="seca-hero-title"><?php esc_html_e( 'Apprends la cybersécurité en jouant.', 'seca-academy' ); ?></h2>
+					<p class="seca-hero-sub"><?php esc_html_e( 'Des parcours guidés, des exercices pratiques, des examens et des médailles. Créé un compte gratuit pour commencer.', 'seca-academy' ); ?></p>
+					<div class="seca-hero-actions">
+						<a class="seca-btn seca-btn--primary" href="<?php echo esc_url( wp_registration_url() ); ?>"><?php esc_html_e( 'Créer un compte gratuit', 'seca-academy' ); ?></a>
+						<a class="seca-btn" href="<?php echo esc_url( wp_login_url() ); ?>"><?php esc_html_e( 'Se connecter', 'seca-academy' ); ?></a>
 					</div>
-					<h3 class="secura-room-title">%7$s</h3>
-					<p class="secura-room-excerpt">%8$s</p>
-					<div class="secura-room-meta">
-						<span class="secura-chip">%9$s</span>
-						<span class="secura-chip">%10$s</span>
-						<span class="secura-chip">%11$s</span>
-					</div>
-					<div class="secura-room-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="%12$d" aria-label="%13$s">
-						<span class="secura-room-bar-fill" style="width:%12$d%%"></span>
-					</div>
-					<p class="secura-room-progress-text">%14$s</p>
-				</li>',
-				esc_attr( $status_class ),
-				(int) $room->ID,
-				esc_attr( $status_label ),
-				$is_locked ? 'true' : 'false',
-				esc_html( sprintf( '%02d', $index + 1 ) ),
-				esc_html( $status_label ),
-				esc_html( get_the_title( $room ) ),
-				esc_html( $room->post_excerpt ),
-				esc_html( Secura_Rooms::get_difficulty( $room->ID ) ),
-				esc_html( sprintf( /* translators: %d : minutes. */ __( '%d min', 'seca-academy' ), absint( get_post_meta( $room->ID, SECURA_META_DURATION, true ) ) ) ),
-				esc_html( sprintf( /* translators: %d : XP. */ __( '%d XP', 'seca-academy' ), absint( get_post_meta( $room->ID, SECURA_META_XP_BONUS, true ) ) ) ),
-				$percent_room,
-				esc_attr( sprintf( /* translators: %s : titre de la room. */ __( 'Progression de %s', 'seca-academy' ), get_the_title( $room ) ) ),
-				esc_html( sprintf( /* translators: 1 : étapes validées, 2 : total. */ __( '%1$d / %2$d étapes validées', 'seca-academy' ), $solved_count, $total_questions ) )
-			);
+				</div>
+				<?php echo self::language_switcher(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?>
+			</header>
 
-			$previous_completed = $is_completed;
+			<ul class="seca-room-grid">
+				<?php
+				foreach ( Secura_Rooms::get_rooms() as $room ) :
+					$view = Secura_Rooms::get_room_view( $room->ID );
+
+					if ( ! $view ) {
+						continue;
+					}
+					?>
+					<li class="seca-room-card is-todo">
+						<h3 class="seca-room-title"><?php echo esc_html( $view['title'] ); ?></h3>
+						<p class="seca-room-excerpt"><?php echo esc_html( $view['excerpt'] ); ?></p>
+						<div class="seca-room-meta"><span class="seca-chip"><?php echo esc_html( $view['difficulty'] ); ?></span><span class="seca-chip"><?php echo esc_html( sprintf( /* translators: %d : minutes. */ __( '%d min', 'seca-academy' ), $view['duration'] ) ); ?></span></div>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * [secura_academy_room id="…"] : lecteur de room.
+	 *
+	 * @param array $atts Attributs.
+	 * @return string
+	 */
+	public static function room_shortcode( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'id'    => 0,
+				'lang'  => '',
+			),
+			$atts,
+			'secura_academy_room'
+		);
+
+		$room_id = absint( $atts['id'] );
+
+		if ( ! $room_id ) {
+			return '<p class="seca-empty">' . esc_html__( 'Room non spécifiée.', 'seca-academy' ) . '</p>';
 		}
 
-		$trophies_html = '';
-		foreach ( $state['trophies'] as $trophy ) {
-			$trophies_html .= sprintf(
-				'<li class="secura-trophy"><span class="secura-trophy-icon" aria-hidden="true">%1$s</span><span class="secura-trophy-body"><strong>%2$s</strong><span>%3$s</span></span></li>',
-				esc_html( isset( $trophy['icon'] ) ? $trophy['icon'] : '🏅' ),
-				esc_html( isset( $trophy['name'] ) ? $trophy['name'] : '' ),
-				esc_html( isset( $trophy['description'] ) ? $trophy['description'] : '' )
-			);
+		$view = Secura_Rooms::get_room_view( $room_id, $atts['lang'] );
+
+		if ( ! $view ) {
+			return '<p class="seca-empty">' . esc_html__( 'Room introuvable.', 'seca-academy' ) . '</p>';
 		}
 
-		if ( '' === $trophies_html ) {
-			$trophies_html = '<li class="secura-trophy is-empty">' . esc_html__( 'Aucun trophée pour l\'instant : validez une première réponse.', 'seca-academy' ) . '</li>';
-		}
-
-		$user       = wp_get_current_user();
-		$first_name = $user->first_name ? $user->first_name : $user->user_login;
-		$rooms_done = count( $rooms ) > 0 ? (int) round( ( $done / count( $rooms ) ) * 100 ) : 0;
+		$lang = $atts['lang'] ? $atts['lang'] : Secura_I18n::current_lang();
 
 		ob_start();
 		?>
-		<section class="secura-dashboard" data-secura-dashboard>
-			<header class="secura-dash-header">
-				<div class="secura-greeting">
-					<p class="secura-eyebrow"><?php esc_html_e( 'Tableau de bord', 'seca-academy' ); ?></p>
-					<h2 class="secura-dash-title"><?php echo esc_html( sprintf( /* translators: %s : nom de l'utilisateur. */ __( 'Salut %s', 'seca-academy' ), $first_name ) ); ?></h2>
-					<p class="secura-dash-sub"><?php esc_html_e( 'Reprenez votre parcours : la prochaine room vous attend.', 'seca-academy' ); ?></p>
-				</div>
+		<div class="seca-app seca-room" dir="<?php echo esc_attr( Secura_I18n::direction() ); ?>" data-seca-room="<?php echo esc_attr( $room_id ); ?>" data-seca-lang="<?php echo esc_attr( $lang ); ?>">
 
-				<div class="secura-stats">
-					<div class="secura-stat">
-						<span class="secura-stat-label"><?php esc_html_e( 'XP', 'seca-academy' ); ?></span>
-						<span class="secura-stat-value" data-sa-xp><?php echo esc_html( number_format_i18n( $state['xp'] ) ); ?></span>
+			<header class="seca-room-head">
+				<div class="seca-room-head-main">
+					<p class="seca-eyebrow" data-seca-room-kicker><?php echo esc_html( $view['difficulty'] ); ?> · <?php echo esc_html( sprintf( /* translators: %d : minutes. */ __( '%d min', 'seca-academy' ), $view['duration'] ) ); ?></p>
+					<h1 class="seca-room-title" data-seca-room-title><?php echo esc_html( $view['title'] ); ?></h1>
+					<p class="seca-room-excerpt" data-seca-room-excerpt><?php echo esc_html( $view['excerpt'] ); ?></p>
+				</div>
+				<div class="seca-room-head-side">
+					<div class="seca-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="<?php esc_attr_e( 'Progression de la room', 'seca-academy' ); ?>">
+						<span class="seca-progress-fill" data-seca-room-bar style="width:0%"></span>
 					</div>
-					<div class="secura-stat">
-						<span class="secura-stat-label"><?php esc_html_e( 'Rooms', 'seca-academy' ); ?></span>
-						<span class="secura-stat-value" data-sa-rooms-done><?php echo esc_html( $done . ' / ' . count( $rooms ) ); ?></span>
-					</div>
-					<div class="secura-stat">
-						<span class="secura-stat-label"><?php esc_html_e( 'Trophées', 'seca-academy' ); ?></span>
-						<span class="secura-stat-value" data-sa-trophies-count><?php echo esc_html( count( $state['trophies'] ) ); ?></span>
-					</div>
-					<div class="secura-level">
-						<span class="secura-level-label" data-sa-level><?php echo esc_html( sprintf( /* translators: 1 : numéro de niveau, 2 : libellé. */ __( 'Niveau %1$d — %2$s', 'seca-academy' ), $level['number'], $level['label'] ) ); ?></span>
-						<div class="secura-xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<?php echo esc_attr( $percent ); ?>" aria-label="<?php esc_attr_e( 'Progression vers le niveau suivant', 'seca-academy' ); ?>">
-							<span class="secura-xpbar-fill" data-sa-xpbar style="width:<?php echo esc_attr( $percent ); ?>%"></span>
-						</div>
-						<span class="secura-level-hint" data-sa-level-hint><?php echo esc_html( sprintf( /* translators: %d : XP restants. */ __( '%d XP avant le niveau suivant', 'seca-academy' ), max( 0, ( null === $level['max'] ? 0 : $level['max'] + 1 ) - $state['xp'] ) ) ); ?></span>
-					</div>
+					<span class="seca-room-progress-text" data-seca-room-progress-text><?php esc_html_e( 'Progression', 'seca-academy' ); ?></span>
 				</div>
 			</header>
 
-			<section class="secura-section seca-section--progress">
-				<h3 class="secura-section-title"><?php esc_html_e( 'Avancement du parcours', 'seca-academy' ); ?></h3>
-				<div class="secura-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<?php echo esc_attr( $rooms_done ); ?>" aria-label="<?php esc_attr_e( 'Avancement global du parcours', 'seca-academy' ); ?>">
-					<span class="secura-progress-fill" data-sa-progress style="width:<?php echo esc_attr( $rooms_done ); ?>%"></span>
-				</div>
-				<p class="secura-progress-text" data-sa-progress-text><?php echo esc_html( sprintf( /* translators: 1 : rooms terminées, 2 : total. */ __( '%1$d room(s) terminée(s) sur %2$d.', 'seca-academy' ), $done, count( $rooms ) ) ); ?></p>
-			</section>
+			<nav class="seca-task-nav" data-seca-task-nav aria-label="<?php esc_attr_e( 'Tâches de la room', 'seca-academy' ); ?>"></nav>
 
-			<section class="secura-section seca-section--trophies">
-				<h3 class="secura-section-title"><?php esc_html_e( 'Trophées', 'seca-academy' ); ?></h3>
-				<ul class="secura-trophy-list" data-sa-trophies><?php echo $trophies_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?></ul>
-			</section>
+			<div class="seca-task-view" data-seca-task-view>
+				<div class="seca-task-body" data-seca-task-content></div>
 
-			<section class="secura-section seca-section--rooms">
-				<h3 class="secura-section-title"><?php esc_html_e( 'Parcours', 'seca-academy' ); ?></h3>
-				<ol class="secura-room-list" data-sa-rooms><?php echo $cards; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?></ol>
-			</section>
-		</section>
-
-		<div class="secura-panel" data-sa-panel hidden role="dialog" aria-modal="true" aria-labelledby="secura-panel-title">
-			<div class="secura-panel-backdrop" data-sa-close></div>
-			<div class="secura-panel-body" role="document">
-				<header class="secura-panel-head">
-					<div>
-						<p class="secura-eyebrow" data-sa-panel-eyebrow></p>
-						<h3 class="secura-panel-title" id="secura-panel-title" data-sa-panel-title></h3>
+				<div class="seca-terminal" data-seca-terminal hidden>
+					<div class="seca-terminal-head">
+						<span class="seca-terminal-title"><?php esc_html_e( 'Terminal', 'seca-academy' ); ?></span>
+						<span class="seca-terminal-badge"><?php esc_html_e( 'simulé', 'seca-academy' ); ?></span>
 					</div>
-					<button type="button" class="secura-panel-close" data-sa-close aria-label="<?php esc_attr_e( 'Fermer', 'seca-academy' ); ?>">&times;</button>
-				</header>
-				<div class="secura-panel-content" data-sa-panel-content></div>
-				<div class="secura-panel-steps" data-sa-panel-steps hidden></div>
-				<p class="secura-panel-status" data-sa-panel-status role="status" aria-live="polite"></p>
+					<pre class="seca-terminal-screen" data-seca-terminal-screen aria-live="polite"></pre>
+					<form class="seca-terminal-form" data-seca-terminal-form>
+						<label class="screen-reader-text" for="seca-terminal-input"><?php esc_html_e( 'Commande', 'seca-academy' ); ?></label>
+						<span class="seca-terminal-prompt" aria-hidden="true">$</span>
+						<input type="text" id="seca-terminal-input" class="seca-terminal-input" autocomplete="off" spellcheck="false" data-seca-terminal-input>
+						<button type="submit" class="seca-btn seca-btn--small"><?php esc_html_e( 'Entrée', 'seca-academy' ); ?></button>
+					</form>
+					<p class="seca-terminal-note"><?php esc_html_e( 'Terminal simulé : aucune machine réelle n\'est exécutée.', 'seca-academy' ); ?></p>
+				</div>
+
+				<div class="seca-questions" data-seca-questions></div>
+
+				<div class="seca-task-actions" data-seca-task-actions></div>
+				<p class="seca-task-status" data-seca-task-status role="status" aria-live="polite"></p>
 			</div>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * [secura_academy_profile] : profil de l'apprenant.
+	 *
+	 * @param array $atts Attributs.
+	 * @return string
+	 */
+	public static function profile_shortcode( $atts ) {
+		if ( ! is_user_logged_in() ) {
+			return '<p class="seca-empty">' . esc_html__( 'Connectez-vous pour voir votre profil.', 'seca-academy' ) . '</p>';
+		}
+
+		$user_id = get_current_user_id();
+		$state   = Secura_Progress::get_state( $user_id );
+		$level   = $state['level'];
+
+		$medals_html = '';
+
+		foreach ( $state['medals'] as $key => $medal ) {
+			$medals_html .= sprintf(
+				'<li class="seca-medal-item"><span class="seca-medal-badge seca-medal-%1$s" aria-hidden="true">%2$s</span><span class="seca-medal-name">%3$s</span></li>',
+				esc_attr( isset( $medal['medal'] ) ? $medal['medal'] : '' ),
+				'gold' === ( isset( $medal['medal'] ) ? $medal['medal'] : '' ) ? '🥇' : ( 'silver' === ( isset( $medal['medal'] ) ? $medal['medal'] : '' ) ? '🥈' : '🥉' ),
+				esc_html( str_replace( array( 'room_', 'exam_', 'path_' ), '', $key ) )
+			);
+		}
+
+		if ( '' === $medals_html ) {
+			$medals_html = '<li class="seca-empty">' . esc_html__( 'Aucune médaille pour le moment.', 'seca-academy' ) . '</li>';
+		}
+
+		ob_start();
+		?>
+		<div class="seca-app seca-profile" dir="<?php echo esc_attr( Secura_I18n::direction() ); ?>">
+			<header class="seca-hero">
+				<div class="seca-hero-main">
+					<p class="seca-eyebrow"><?php esc_html_e( 'Mon profil', 'seca-academy' ); ?></p>
+					<h2 class="seca-hero-title"><?php echo esc_html( $level['number'] . ' · ' . $level['label'] ); ?></h2>
+					<p class="seca-hero-sub"><?php echo esc_html( sprintf( /* translators: %d : XP. */ __( '%s XP au total', 'seca-academy' ), number_format_i18n( $state['xp'] ) ) ); ?></p>
+				</div>
+				<?php echo self::language_switcher(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?>
+			</header>
+
+			<section class="seca-section">
+				<h3 class="seca-section-heading"><?php esc_html_e( 'Médailles', 'seca-academy' ); ?></h3>
+				<ul class="seca-medal-grid"><?php echo $medals_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?></ul>
+			</section>
+
+			<section class="seca-section">
+				<h3 class="seca-section-heading"><?php esc_html_e( 'Série', 'seca-academy' ); ?></h3>
+				<p><?php echo esc_html( sprintf( /* translators: %d : nombre de jours. */ __( '%d jour(s) consécutif(s) — record : %d jours', 'seca-academy' ), isset( $state['streak']['current'] ) ? absint( $state['streak']['current'] ) : 0, isset( $state['streak']['longest'] ) ? absint( $state['streak']['longest'] ) : 0 ) ); ?></p>
+			</section>
 		</div>
 		<?php
 		return ob_get_clean();

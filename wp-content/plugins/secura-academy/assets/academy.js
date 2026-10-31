@@ -1,72 +1,48 @@
 /**
- * Secura Academy — interactions du tableau de bord.
+ * Secura Academy — moteur de jeu du lecteur de room.
  *
- * Chargement d'une room, validation des réponses en AJAX, mise à jour
- * de la progression, des XP et des trophées.
+ * Principes :
+ * - toutes les réponses attendues vivent côté serveur, le navigateur ne
+ *   reçoit jamais la liste des bonnes réponses ;
+ * - chaque action est validée par le serveur (nonce + session + état) ;
+ * - l'interface est reconstruite à partir des réponses serveur.
  */
 ( function () {
 	'use strict';
 
 	var cfg = window.SecuraAcademy || {};
-	var i18n = cfg.i18n || {};
+	var strings = cfg.i18n || {};
 	var levels = Array.isArray( cfg.levels ) ? cfg.levels : [];
 
-	var dashboard = document.querySelector( '[data-secura-dashboard]' );
-
-	if ( ! dashboard ) {
-		return;
-	}
-
-	var panel = document.querySelector( '[data-sa-panel]' );
-
-	if ( ! panel ) {
-		return;
-	}
-
-	var panelTitle = panel.querySelector( '[data-sa-panel-title]' );
-	var panelEyebrow = panel.querySelector( '[data-sa-panel-eyebrow]' );
-	var panelContent = panel.querySelector( '[data-sa-panel-content]' );
-	var panelSteps = panel.querySelector( '[data-sa-panel-steps]' );
-	var panelStatus = panel.querySelector( '[data-sa-panel-status]' );
-
-	var lastFocused = null;
-	var currentRoom = null;
-
 	/**
-	 * Traduit une clé de langue.
+	 * Traduit une clé de l'interface.
 	 *
-	 * @param {string} key     Clé.
+	 * @param {string} key      Clé.
 	 * @param {string} fallback Valeur de repli.
-	 * @return {string} Libellé traduit.
+	 * @return {string} Libellé.
 	 */
 	function t( key, fallback ) {
-		return i18n[ key ] || fallback || key;
+		if ( strings && strings[ key ] ) {
+			return strings[ key ];
+		}
+
+		return fallback || key;
 	}
 
-	/**
-	 * Échappe une chaîne pour une insertion en HTML.
-	 *
-	 * @param {string} value Valeur.
-	 * @return {string} Valeur échappée.
-	 */
-	function escapeHtml( value ) {
-		return String( value === undefined || value === null ? '' : value )
-			.replace( /&/g, '&amp;' )
-			.replace( /</g, '&lt;' )
-			.replace( />/g, '&gt;' )
-			.replace( /"/g, '&quot;' )
-			.replace( /'/g, '&#039;' );
-	}
+	/* =====================================================================
+	 * Requête AJAX
+	 * ================================================================== */
 
 	/**
-	 * Envoie une requête AJAX à WordPress.
+	 * Envoie une requête au plugin.
 	 *
 	 * @param {string} action Action WordPress.
-	 * @param {Object} data   Données additionnelles.
-	 * @return {Promise<Object>} Réponse JSON décodée.
+	 * @param {Object} data   Données.
+	 * @return {Promise<Object>} Données de la réponse.
 	 */
-	function request( action, data ) {
-		var body = new window.FormData();
+	function post( action, data ) {
+		var body = new FormData();
+
 		body.append( 'action', action );
 		body.append( 'nonce', cfg.nonce || '' );
 
@@ -74,530 +50,827 @@
 			body.append( key, data[ key ] );
 		} );
 
-		return window.fetch( cfg.ajaxUrl, {
+		return fetch( cfg.ajaxUrl, {
 			method: 'POST',
-			credentials: 'same-origin',
-			body: body
+			body: body,
+			credentials: 'same-origin'
 		} ).then( function ( response ) {
-			return response.json().catch( function () {
-				throw new Error( 'bad_json' );
+			return response.json();
+		} ).then( function ( json ) {
+			if ( ! json || ! json.success ) {
+				var error = new Error( ( json && json.data && json.data.message ) || t( 'error', 'Une erreur est survenue.' ) );
+
+				error.code = ( json && json.data && json.data.code ) || '';
+
+				throw error;
+			}
+
+			return json.data;
+		} );
+	}
+
+	/* =====================================================================
+	 * Utilitaires d'interface
+	 * ================================================================== */
+
+	/**
+	 * Crée un élément.
+	 *
+	 * @param {string} tag   Balise.
+	 * @param {string} cls   Classes.
+	 * @param {string} text  Texte.
+	 * @return {HTMLElement} Élément.
+	 */
+	function el( tag, cls, text ) {
+		var node = document.createElement( tag );
+
+		if ( cls ) {
+			node.className = cls;
+		}
+
+		if ( typeof text !== 'undefined' && null !== text ) {
+			node.textContent = text;
+		}
+
+		return node;
+	}
+
+	/**
+	 * Affiche une notification éphémère.
+	 *
+	 * @param {string} message Message.
+	 * @param {boolean} bad    Erreur ?
+	 */
+	function toast( message, bad ) {
+		var wrap = document.querySelector( '.seca-toast-wrap' );
+
+		if ( ! wrap ) {
+			wrap = el( 'div', 'seca-toast-wrap' );
+			document.body.appendChild( wrap );
+		}
+
+		var item = el( 'div', 'seca-toast' + ( bad ? ' is-bad' : '' ), message );
+
+		wrap.appendChild( item );
+
+		window.setTimeout( function () {
+			if ( item.parentNode ) {
+				item.parentNode.removeChild( item );
+			}
+		}, 3600 );
+	}
+
+	/**
+	 * Anime des confettis.
+	 */
+	function confetti() {
+		var holder = el( 'div', 'seca-confetti' );
+		var colors = [ '#2dd4a7', '#38bdf8', '#fbbf24', '#cbd5e1', '#f472b6' ];
+
+		for ( var i = 0; i < 70; i++ ) {
+			var piece = el( 'i' );
+
+			piece.style.left = Math.random() * 100 + 'vw';
+			piece.style.background = colors[ i % colors.length ];
+			piece.style.animationDuration = ( 2 + Math.random() * 2 ) + 's';
+			piece.style.animationDelay = ( Math.random() * 0.6 ) + 's';
+			piece.style.transform = 'rotate(' + Math.round( Math.random() * 360 ) + 'deg)';
+
+			holder.appendChild( piece );
+		}
+
+		document.body.appendChild( holder );
+
+		window.setTimeout( function () {
+			if ( holder.parentNode ) {
+				holder.parentNode.removeChild( holder );
+			}
+		}, 5200 );
+	}
+
+	/**
+	 * Affiche l'écran de passage de niveau.
+	 *
+	 * @param {Object} level Niveau.
+	 */
+	function showLevelUp( level ) {
+		var overlay = document.querySelector( '.seca-overlay' );
+
+		if ( ! overlay ) {
+			overlay = el( 'div', 'seca-overlay' );
+			overlay.appendChild( el( 'div', 'seca-overlay-card' ) );
+			document.body.appendChild( overlay );
+
+			overlay.addEventListener( 'click', function () {
+				overlay.classList.remove( 'is-open' );
 			} );
-		} );
+		}
+
+		var card = overlay.querySelector( '.seca-overlay-card' );
+
+		card.innerHTML = '';
+
+		card.appendChild( el( 'p', 'seca-overlay-kicker', t( 'level_up', 'Niveau supérieur !' ) ) );
+		card.appendChild( el( 'div', 'seca-overlay-level', level.number + ' · ' + level.label ) );
+		card.appendChild( el( 'p', 'seca-overlay-xp', t( 'keep_going', 'Continue comme ça !' ) ) );
+
+		overlay.classList.add( 'is-open' );
+
+		confetti();
+
+		window.setTimeout( function () {
+			overlay.classList.remove( 'is-open' );
+		}, 6000 );
 	}
 
 	/**
-	 * Lit le total de XP affiché.
+	 * Met à jour les compteurs du tableau de bord présents sur la page.
 	 *
-	 * @return {number} XP.
+	 * @param {Object} data Réponse serveur.
 	 */
-	function readXp() {
-		var node = dashboard.querySelector( '[data-sa-xp]' );
+	function syncDashboard( data ) {
+		var xpNode = document.querySelector( '[data-seca-xp]' );
 
-		if ( ! node ) {
-			return 0;
+		if ( xpNode && typeof data.total_xp !== 'undefined' ) {
+			xpNode.textContent = String( data.total_xp );
 		}
 
-		return parseInt( node.textContent.replace( /[^0-9]/g, '' ), 10 ) || 0;
-	}
+		var levelNode = document.querySelector( '[data-seca-level]' );
 
-	/**
-	 * Détermine le niveau correspondant à un total de XP.
-	 *
-	 * @param {number} xp XP accumulés.
-	 * @return {Object|null} Niveau.
-	 */
-	function levelForXp( xp ) {
-		var found = null;
-
-		levels.forEach( function ( level ) {
-			if ( null === level.max || ( xp >= level.min && xp <= level.max ) ) {
-				found = level;
-			}
-		} );
-
-		return found;
-	}
-
-	/**
-	 * Met à jour l'affichage des XP, du niveau et de la progression.
-	 *
-	 * @param {number} xp Nouveau total de XP.
-	 */
-	function updateXpDisplay( xp ) {
-		var xpNode = dashboard.querySelector( '[data-sa-xp]' );
-
-		if ( xpNode ) {
-			xpNode.textContent = String( xp );
+		if ( levelNode && data.level ) {
+			levelNode.textContent = data.level.number + ' · ' + data.level.label;
 		}
 
-		var level = levelForXp( xp );
+		var bar = document.querySelector( '[data-seca-xpbar]' );
 
-		if ( level ) {
-			var labelNode = dashboard.querySelector( '[data-sa-level]' );
+		if ( bar && data.level ) {
+			var range = null === data.level.max ? 1 : ( data.level.max + 1 - data.level.min );
+			var percent = Math.min( 100, Math.max( 0, Math.round( ( ( data.total_xp - data.level.min ) / range ) * 100 ) ) );
 
-			if ( labelNode ) {
-				labelNode.textContent = 'Niveau ' + level.number + ' — ' + level.label;
-			}
-
-			var range = Math.max( 1, ( level.max === null ? level.min + 1 : level.max + 1 ) - level.min );
-			var percent = Math.min( 100, Math.max( 0, Math.round( ( ( xp - level.min ) / range ) * 100 ) ) );
-			var bar = dashboard.querySelector( '[data-sa-xpbar]' );
-
-			if ( bar ) {
-				bar.style.width = percent + '%';
-				bar.setAttribute( 'aria-valuenow', String( percent ) );
-			}
-
-			var hint = dashboard.querySelector( '[data-sa-level-hint]' );
-
-			if ( hint ) {
-				hint.textContent = level.max === null
-					? 'Niveau maximum atteint'
-					: Math.max( 0, level.max + 1 - xp ) + ' XP avant le niveau suivant';
-			}
+			bar.style.width = percent + '%';
+			bar.setAttribute( 'aria-valuenow', String( percent ) );
 		}
 	}
 
-	/**
-	 * Recalcule l'avancement global du parcours à partir des cards.
-	 */
-	function updateProgressDisplay() {
-		var cards = dashboard.querySelectorAll( '.secura-room-card' );
-		var done = dashboard.querySelectorAll( '.secura-room-card.is-done' ).length;
-		var total = cards.length;
+	/* =====================================================================
+	 * Changement de langue
+	 * ================================================================== */
 
-		var counter = dashboard.querySelector( '[data-sa-rooms-done]' );
+	function bindLanguageSwitch() {
+		var buttons = document.querySelectorAll( '[data-seca-lang]' );
 
-		if ( counter ) {
-			counter.textContent = done + ' / ' + total;
-		}
+		Array.prototype.forEach.call( buttons, function ( button ) {
+			button.addEventListener( 'click', function () {
+				var lang = button.getAttribute( 'data-seca-lang' );
 
-		var percent = total > 0 ? Math.round( ( done / total ) * 100 ) : 0;
-		var fill = dashboard.querySelector( '[data-sa-progress]' );
-
-		if ( fill ) {
-			fill.style.width = percent + '%';
-			fill.setAttribute( 'aria-valuenow', String( percent ) );
-		}
-
-		var text = dashboard.querySelector( '[data-sa-progress-text]' );
-
-		if ( text ) {
-			text.textContent = done + ' room(s) terminée(s) sur ' + total + '.';
-		}
-	}
-
-	/**
-	 * Ajoute les nouveaux trophées à la collection affichée.
-	 *
-	 * @param {Array} trophies Nouveaux trophées.
-	 */
-	function addTrophies( trophies ) {
-		if ( ! Array.isArray( trophies ) || ! trophies.length ) {
-			return;
-		}
-
-		var list = dashboard.querySelector( '[data-sa-trophies]' );
-
-		if ( ! list ) {
-			return;
-		}
-
-		var empty = list.querySelector( '.is-empty' );
-
-		if ( empty ) {
-			empty.parentNode.removeChild( empty );
-		}
-
-		trophies.forEach( function ( trophy ) {
-			var item = document.createElement( 'li' );
-			item.className = 'secura-trophy';
-
-			var icon = document.createElement( 'span' );
-			icon.className = 'secura-trophy-icon';
-			icon.setAttribute( 'aria-hidden', 'true' );
-			icon.textContent = trophy.icon || '🏅';
-
-			var body = document.createElement( 'span' );
-			body.className = 'secura-trophy-body';
-
-			var name = document.createElement( 'strong' );
-			name.textContent = trophy.name || '';
-
-			var description = document.createElement( 'span' );
-			description.textContent = trophy.description || '';
-
-			body.appendChild( name );
-			body.appendChild( description );
-			item.appendChild( icon );
-			item.appendChild( body );
-			list.appendChild( item );
-		} );
-
-		var counter = dashboard.querySelector( '[data-sa-trophies-count]' );
-
-		if ( counter ) {
-			counter.textContent = String( list.querySelectorAll( '.secura-trophy:not(.is-empty)' ).length );
-		}
-	}
-
-	/**
-	 * Ouvre le panneau d'une room.
-	 *
-	 * @param {HTMLElement} card Card cliquée.
-	 */
-	function openRoom( card ) {
-		var roomId = parseInt( card.getAttribute( 'data-sa-room' ), 10 );
-
-		if ( ! roomId ) {
-			return;
-		}
-
-		if ( 'true' === card.getAttribute( 'aria-disabled' ) ) {
-			return;
-		}
-
-		lastFocused = document.activeElement;
-		currentRoom = card;
-
-		panel.hidden = false;
-		document.body.style.overflow = 'hidden';
-
-		panelTitle.textContent = t( 'loading', 'Chargement…' );
-		panelEyebrow.textContent = '';
-		panelContent.innerHTML = '';
-		panelSteps.innerHTML = '';
-		panelSteps.hidden = true;
-		panelStatus.textContent = '';
-
-		var focusable = panel.querySelector( '.secura-panel-close' );
-
-		if ( focusable ) {
-			focusable.focus();
-		}
-
-		request( 'secura_get_room', { room_id: roomId } )
-			.then( function ( response ) {
-				if ( ! response || ! response.success ) {
-					var message = response && response.data && response.data.message
-						? response.data.message
-						: t( 'genericError', 'Une erreur est survenue. Réessayez.' );
-					panelTitle.textContent = message;
+				if ( ! lang || lang === cfg.lang ) {
 					return;
 				}
 
-				renderRoom( response.data );
-			} )
-			.catch( function () {
-				panelTitle.textContent = t( 'networkError', 'Connexion impossible. Vérifiez votre réseau.' );
+				button.disabled = true;
+
+				post( 'secura_set_lang', { lang: lang } ).then( function () {
+					window.location.reload();
+				} ).catch( function () {
+					button.disabled = false;
+					toast( t( 'error', 'Impossible de changer de langue.' ), true );
+				} );
 			} );
+		} );
 	}
 
+	/* =====================================================================
+	 * Lecteur de room
+	 * ================================================================== */
+
+	var app = document.querySelector( '[data-seca-room]' );
+
+	if ( ! app ) {
+		bindLanguageSwitch();
+		return;
+	}
+
+	var roomId = parseInt( app.getAttribute( 'data-seca-room' ), 10 ) || 0;
+
+	var nav = app.querySelector( '[data-seca-task-nav]' );
+	var view = app.querySelector( '[data-seca-task-view]' );
+	var contentNode = app.querySelector( '[data-seca-task-content]' );
+	var questionsNode = app.querySelector( '[data-seca-questions]' );
+	var actionsNode = app.querySelector( '[data-seca-task-actions]' );
+	var statusNode = app.querySelector( '[data-seca-task-status]' );
+	var terminalBox = app.querySelector( '[data-seca-terminal]' );
+	var terminalScreen = app.querySelector( '[data-seca-terminal-screen]' );
+	var terminalForm = app.querySelector( '[data-seca-terminal-form]' );
+	var terminalInput = app.querySelector( '[data-seca-terminal-input]' );
+	var bar = app.querySelector( '[data-seca-room-bar]' );
+	var barText = app.querySelector( '[data-seca-room-progress-text]' );
+
+	var room = null;
+	var currentIndex = 0;
+	var timerHandle = null;
+	var timeLeft = 0;
+
 	/**
-	 * Remplit le panneau avec le contenu d'une room.
-	 *
-	 * @param {Object} data Données de la room.
+	 * Met à jour la barre de progression de la room.
 	 */
-	function renderRoom( data ) {
-		var meta = [];
-
-		if ( data.difficulty ) {
-			meta.push( data.difficulty );
+	function updateProgress() {
+		if ( ! room ) {
+			return;
 		}
 
-		if ( data.duration ) {
-			meta.push( data.duration + ' min' );
-		}
+		var solved = 0;
+		var total = 0;
 
-		if ( data.xpBonus ) {
-			meta.push( '+' + data.xpBonus + ' XP' );
-		}
+		room.tasks.forEach( function ( task ) {
+			total += task.questions;
 
-		panelEyebrow.textContent = meta.join( ' · ' );
-		panelTitle.textContent = data.title || '';
-		panelContent.innerHTML = data.content || '';
-		panelSteps.hidden = false;
-		panelSteps.innerHTML = '';
-
-		( data.steps || [] ).forEach( function ( step ) {
-			panelSteps.appendChild( buildStep( step ) );
+			solved += Math.min( task.solved, task.questions );
 		} );
 
-		var firstInput = panelSteps.querySelector( 'input.secura-step-input' );
+		var percent = total > 0 ? Math.round( ( solved / total ) * 100 ) : 0;
 
-		if ( firstInput ) {
-			firstInput.focus();
+		if ( bar ) {
+			bar.style.width = percent + '%';
+			bar.setAttribute( 'aria-valuenow', String( percent ) );
+		}
+
+		if ( barText ) {
+			barText.textContent = percent + ' % · ' + solved + '/' + total + ' ' + t( 'questions', 'questions' );
 		}
 	}
 
 	/**
-	 * Construit le bloc d'une étape.
-	 *
-	 * @param {Object} step Étape (sans la réponse attendue).
-	 * @return {HTMLElement} Élément DOM.
+	 * Construit la navigation des tâches.
 	 */
-	function buildStep( step ) {
-		var wrapper = document.createElement( 'form' );
-		wrapper.className = 'secura-step' + ( step.solved ? ' is-solved' : '' );
-		wrapper.setAttribute( 'data-step', String( step.index ) );
-
-		var head = document.createElement( 'div' );
-		head.className = 'secura-step-head';
-
-		var title = document.createElement( 'p' );
-		title.className = 'secura-step-title';
-		title.textContent = t( 'stepsTitle', 'Étapes de la room' ) + ' ' + ( step.index + 1 );
-
-		var xp = document.createElement( 'span' );
-		xp.className = 'secura-step-xp';
-		xp.textContent = step.solved ? t( 'solved', 'Validée' ) : '+' + step.xp + ' XP';
-
-		head.appendChild( title );
-		head.appendChild( xp );
-
-		var question = document.createElement( 'p' );
-		question.className = 'secura-step-question';
-		question.textContent = step.question;
-
-		var form = document.createElement( 'div' );
-		form.className = 'secura-step-form';
-
-		var input = document.createElement( 'input' );
-		input.type = 'text';
-		input.className = 'secura-step-input';
-		input.autocomplete = 'off';
-		input.setAttribute( 'aria-label', t( 'answerLabel', 'Votre réponse' ) );
-		input.placeholder = t( 'answerLabel', 'Votre réponse' );
-
-		var button = document.createElement( 'button' );
-		button.type = 'submit';
-		button.className = 'secura-btn seca-btn--primary';
-		button.textContent = t( 'validate', 'Valider' );
-
-		if ( step.solved ) {
-			input.disabled = true;
-			button.disabled = true;
+	function renderNav() {
+		if ( ! nav ) {
+			return;
 		}
 
-		form.appendChild( input );
-		form.appendChild( button );
+		nav.innerHTML = '';
 
-		var hint = document.createElement( 'p' );
-		hint.className = 'secura-hint';
-		hint.hidden = true;
+		room.tasks.forEach( function ( task, index ) {
+			var button = el( 'button', 'seca-task-tab' );
 
-		if ( step.hint ) {
-			var toggle = document.createElement( 'button' );
-			toggle.type = 'button';
-			toggle.className = 'secura-hint-toggle';
-			toggle.textContent = t( 'hint', "Afficher l'indice" );
+			button.type = 'button';
 
-			toggle.addEventListener( 'click', function () {
-				hint.hidden = ! hint.hidden;
-				hint.textContent = step.hint;
-				toggle.textContent = hint.hidden ? t( 'hint', "Afficher l'indice" ) : t( 'hideHint', 'Masquer l’indice' );
+			if ( index === currentIndex ) {
+				button.classList.add( 'is-active' );
+			}
+
+			if ( task.done ) {
+				button.classList.add( 'is-done' );
+			}
+
+			if ( ! task.unlocked ) {
+				button.disabled = true;
+			}
+
+			var badge = el( 'span', 'seca-task-tab-index', String( index + 1 ) );
+
+			button.appendChild( badge );
+			button.appendChild( el( 'span', 'seca-task-tab-label', task.title ) );
+
+			if ( ! task.unlocked ) {
+				button.appendChild( el( 'span', 'seca-task-tab-lock', '🔒' ) );
+			} else if ( task.done ) {
+				button.appendChild( el( 'span', 'seca-task-tab-lock', '✓' ) );
+			}
+
+			button.addEventListener( 'click', function () {
+				openTask( index );
 			} );
 
-			wrapper.appendChild( head );
-			wrapper.appendChild( question );
-			wrapper.appendChild( form );
-			wrapper.appendChild( toggle );
-			wrapper.appendChild( hint );
+			nav.appendChild( button );
+		} );
+	}
+
+	/**
+	 * Recharge l'état de la room (progression, verrous).
+	 *
+	 * @return {Promise} Promesse.
+	 */
+	function refreshRoom() {
+		return post( 'secura_get_room', { room_id: roomId } ).then( function ( data ) {
+			room = data;
+
+			renderNav();
+			updateProgress();
+
+			return data;
+		} );
+	}
+
+	/**
+	 * Ouvre une tâche.
+	 *
+	 * @param {number} index Index de la tâche.
+	 */
+	function openTask( index ) {
+		var task = room && room.tasks ? room.tasks[ index ] : null;
+
+		if ( task && ! task.unlocked ) {
+			toast( t( 'lock_task', 'Terminez la tâche précédente pour continuer.' ), true );
+			return;
+		}
+
+		currentIndex = index;
+
+		if ( statusNode ) {
+			statusNode.textContent = '';
+			statusNode.className = 'seca-task-status';
+		}
+
+		post( 'secura_get_task', { room_id: roomId, task: index } ).then( function ( data ) {
+			renderTask( data.task );
+
+			renderNav();
+
+			if ( 'exam' === data.task.type && ! data.task.done ) {
+				startExamTimer();
+			} else {
+				stopTimer();
+			}
+		} ).catch( function ( error ) {
+			toast( error.message, true );
+		} );
+	}
+
+	/**
+	 * Affiche une tâche.
+	 *
+	 * @param {Object} task Tâche.
+	 */
+	function renderTask( task ) {
+		if ( contentNode ) {
+			contentNode.innerHTML = task.content || '';
+		}
+
+		if ( questionsNode ) {
+			questionsNode.innerHTML = '';
+		}
+
+		if ( actionsNode ) {
+			actionsNode.innerHTML = '';
+		}
+
+		if ( terminalBox ) {
+			terminalBox.hidden = true;
+		}
+
+		if ( terminalScreen ) {
+			terminalScreen.innerHTML = '';
+		}
+
+		if ( task.terminal && task.terminal.steps > 0 ) {
+			if ( terminalBox ) {
+				terminalBox.hidden = false;
+			}
+
+			if ( terminalScreen ) {
+				terminalScreen.appendChild( el( 'span', 'seca-term-cmd', task.terminal.intro || '$ ' ) );
+			}
+		}
+
+		/* Leçon : pas de question, un bouton de validation. */
+		if ( 'lesson' === task.type ) {
+			var lessonButton = el( 'button', 'seca-btn seca-btn--primary', t( 'mark_done', 'J\'ai terminé cette leçon' ) );
+
+			lessonButton.type = 'button';
+			lessonButton.addEventListener( 'click', function () {
+				lessonButton.disabled = true;
+
+				post( 'secura_complete_lesson', { room_id: roomId, task: currentIndex } ).then( function () {
+					toast( t( 'lesson_done', 'Leçon validée !' ) );
+
+					return refreshRoom();
+				} ).then( function () {
+					openTask( currentIndex );
+				} ).catch( function ( error ) {
+					lessonButton.disabled = false;
+					toast( error.message, true );
+				} );
+			} );
+
+			if ( actionsNode ) {
+				actionsNode.appendChild( lessonButton );
+			}
+		}
+
+		( task.questions || [] ).forEach( function ( question, index ) {
+			questionsNode.appendChild( renderQuestion( question, index, task ) );
+		} );
+
+		if ( task.done ) {
+			showRecap( task );
 		} else {
-			wrapper.appendChild( head );
-			wrapper.appendChild( question );
-			wrapper.appendChild( form );
+			addNextButton( task );
+		}
+	}
+
+	/**
+	 * Affiche une question.
+	 *
+	 * @param {Object} question Question.
+	 * @param {number} index    Index.
+	 * @param {Object} task     Tâche parente.
+	 * @return {HTMLElement} Élément.
+	 */
+	function renderQuestion( question, index, task ) {
+		var box = el( 'div', 'seca-question' );
+
+		var head = el( 'div', 'seca-question-head' );
+
+		head.appendChild( el( 'span', 'seca-question-index', String( index + 1 ) ) );
+		head.appendChild( el( 'p', 'seca-question-text', question.question ) );
+		head.appendChild( el( 'span', 'seca-question-xp', '+' + question.xp + ' XP' ) );
+
+		box.appendChild( head );
+
+		var input = el( 'input', 'seca-answer-input' );
+
+		input.type = 'text';
+		input.autocomplete = 'off';
+		input.setAttribute( 'aria-label', question.question );
+
+		if ( question.solved ) {
+			input.disabled = true;
+			input.value = t( 'solved', 'Validée' );
+			box.classList.add( 'is-correct' );
 		}
 
-		wrapper.addEventListener( 'submit', function ( event ) {
-			event.preventDefault();
-			submitStep( wrapper, input, button );
+		var actions = el( 'div', 'seca-question-actions' );
+
+		var submit = el( 'button', 'seca-btn seca-btn--primary', t( 'validate', 'Valider' ) );
+
+		submit.type = 'button';
+
+		var hintButton = el( 'button', 'seca-btn seca-btn--ghost', t( 'hint', 'Indice' ) );
+
+		hintButton.type = 'button';
+
+		if ( question.solved || 'exam' === task.type ) {
+			hintButton.disabled = true;
+		}
+
+		if ( question.solved ) {
+			submit.disabled = true;
+		}
+
+		function feedback( message, good ) {
+			var node = el( 'p', 'seca-feedback ' + ( good ? 'is-good' : 'is-bad' ), message );
+
+			box.appendChild( node );
+		}
+
+		function explain( text ) {
+			if ( ! text ) {
+				return;
+			}
+
+			var node = el( 'div', 'seca-explanation' );
+
+			node.appendChild( el( 'strong', '', t( 'explanation', 'Explication' ) ) );
+			node.appendChild( document.createTextNode( text ) );
+
+			box.appendChild( node );
+		}
+
+		submit.addEventListener( 'click', function () {
+			var value = input.value;
+
+			if ( ! value.trim() ) {
+				input.focus();
+				return;
+			}
+
+			submit.disabled = true;
+
+			post( 'secura_validate_answer', {
+				room_id: roomId,
+				task: currentIndex,
+				question: index,
+				answer: value
+			} ).then( function ( data ) {
+				if ( data.correct ) {
+					box.classList.remove( 'is-wrong' );
+					box.classList.add( 'is-correct' );
+					input.disabled = true;
+
+					feedback( data.message, true );
+
+					explain( data.explanation );
+
+					syncDashboard( data );
+
+					if ( data.level_up && data.level ) {
+						showLevelUp( data.level );
+					} else if ( data.points > 0 ) {
+						toast( '+' + data.points + ' XP' );
+					}
+
+					if ( data.exam ) {
+						showExamResult( data.exam );
+					}
+
+					if ( data.room_complete ) {
+						confetti();
+						toast( t( 'room_complete', 'Room terminée, bravo !' ) );
+					}
+
+					refreshRoom().then( function () {
+						if ( data.task_done ) {
+							post( 'secura_get_task', { room_id: roomId, task: currentIndex, reveal: '1' } ).then( function ( refreshed ) {
+								renderTask( refreshed.task );
+							} );
+						}
+					} );
+				} else {
+					box.classList.add( 'is-wrong' );
+					submit.disabled = false;
+
+					feedback( data.message, false );
+
+					if ( data.hint ) {
+						showHint( data.hint );
+						hintButton.disabled = true;
+					}
+				}
+			} ).catch( function ( error ) {
+				submit.disabled = false;
+				feedback( error.message, false );
+
+				if ( 'expired' === error.code ) {
+					stopTimer();
+					showExamResult( { score: 0, passed: false, expired: true } );
+				}
+			} );
 		} );
 
-		return wrapper;
-	}
-
-	/**
-	 * Envoie une réponse au serveur et met à jour l'interface.
-	 *
-	 * @param {HTMLElement} step   Bloc d'étape.
-	 * @param {HTMLInputElement} input  Champ de saisie.
-	 * @param {HTMLButtonElement} button Bouton de validation.
-	 */
-	function submitStep( step, input, button ) {
-		var answer = input.value.trim();
-
-		if ( ! answer ) {
-			input.focus();
-			return;
-		}
-
-		var index = parseInt( step.getAttribute( 'data-step' ), 10 );
-
-		button.disabled = true;
-		button.textContent = t( 'loading', 'Chargement…' );
-
-		request( 'secura_validate_answer', {
-			room_id: currentRoom ? currentRoom.getAttribute( 'data-sa-room' ) : '',
-			question: index,
-			answer: answer
-		} )
-			.then( function ( response ) {
-				button.disabled = false;
-				button.textContent = t( 'validate', 'Valider' );
-
-				if ( ! response || ! response.success ) {
-					var message = response && response.data && response.data.message
-						? response.data.message
-						: t( 'genericError', 'Une erreur est survenue. Réessayez.' );
-					showFeedback( step, message, false );
-					return;
-				}
-
-				var data = response.data;
-
-				if ( data.correct ) {
-					showFeedback( step, data.message, true );
-					step.classList.add( 'is-solved' );
-					input.disabled = true;
-					button.disabled = true;
-
-					var xpNode = step.querySelector( '.secura-step-xp' );
-
-					if ( xpNode ) {
-						xpNode.textContent = t( 'solved', 'Validée' );
-					}
-
-					updateXpDisplay( typeof data.total_xp === 'number' ? data.total_xp : readXp() );
-					addTrophies( data.new_trophies );
-
-					if ( data.room_completed ) {
-						markRoomCompleted();
-					}
-				} else {
-					showFeedback( step, data.message, false );
-					input.select();
-				}
-			} )
-			.catch( function () {
-				button.disabled = false;
-				button.textContent = t( 'validate', 'Valider' );
-				showFeedback( step, t( 'networkError', 'Connexion impossible. Vérifiez votre réseau.' ), false );
-			} );
-	}
-
-	/**
-	 * Affiche le retour de validation d'une étape.
-	 *
-	 * @param {HTMLElement} step    Bloc d'étape.
-	 * @param {string}      message Message.
-	 * @param {boolean}     correct Succès ou non.
-	 */
-	function showFeedback( step, message, correct ) {
-		var feedback = step.querySelector( '.secura-step-feedback' );
-
-		if ( ! feedback ) {
-			feedback = document.createElement( 'p' );
-			feedback.className = 'secura-step-feedback';
-			step.appendChild( feedback );
-		}
-
-		feedback.textContent = message;
-		feedback.classList.toggle( 'is-correct', !! correct );
-		feedback.classList.toggle( 'is-wrong', ! correct );
-	}
-
-	/**
-	 * Marque la room courante comme terminée et déverrouille la suivante.
-	 */
-	function markRoomCompleted() {
-		if ( ! currentRoom ) {
-			return;
-		}
-
-		currentRoom.classList.remove( 'is-progress', 'is-current' );
-		currentRoom.classList.add( 'is-done' );
-
-		var status = currentRoom.querySelector( '.secura-room-status' );
-
-		if ( status ) {
-			status.textContent = 'Terminée';
-		}
-
-		var next = currentRoom.nextElementSibling;
-
-		if ( next && next.classList.contains( 'secura-room-card' ) && next.classList.contains( 'is-locked' ) ) {
-			next.classList.remove( 'is-locked' );
-			next.setAttribute( 'aria-disabled', 'false' );
-
-			var nextStatus = next.querySelector( '.secura-room-status' );
-
-			if ( nextStatus ) {
-				nextStatus.textContent = 'À faire';
+		function showHint( text ) {
+			if ( box.querySelector( '.seca-hint-box' ) ) {
+				return;
 			}
+
+			var node = el( 'div', 'seca-hint-box' );
+
+			node.appendChild( el( 'strong', '', t( 'hint_label', 'Indice :' ) ) );
+			node.appendChild( document.createTextNode( ' ' + text ) );
+
+			box.appendChild( node );
 		}
 
-		updateProgressDisplay();
+		hintButton.addEventListener( 'click', function () {
+			hintButton.disabled = true;
+
+			post( 'secura_hint', {
+				room_id: roomId,
+				task: currentIndex,
+				question: index
+			} ).then( function ( data ) {
+				showHint( data.hint );
+			} ).catch( function ( error ) {
+				hintButton.disabled = false;
+				toast( error.message, true );
+			} );
+		} );
+
+		input.addEventListener( 'keydown', function ( event ) {
+			if ( 'Enter' === event.key ) {
+				event.preventDefault();
+				submit.click();
+			}
+		} );
+
+		actions.appendChild( submit );
+		actions.appendChild( hintButton );
+
+		box.appendChild( actions );
+
+		return box;
 	}
 
 	/**
-	 * Ferme le panneau et rend le focus à l'élément d'origine.
+	 * Ajoute le bouton « tâche suivante ».
+	 *
+	 * @param {Object} task Tâche courante.
 	 */
-	function closePanel() {
-		panel.hidden = true;
-		document.body.style.overflow = '';
-
-		if ( lastFocused && typeof lastFocused.focus === 'function' ) {
-			lastFocused.focus();
+	function addNextButton( task ) {
+		if ( ! actionsNode || ! room ) {
+			return;
 		}
 
-		currentRoom = null;
+		var next = room.tasks[ currentIndex + 1 ];
+
+		if ( ! next ) {
+			return;
+		}
+
+		var button = el( 'button', 'seca-btn', t( 'next_task', 'Tâche suivante' ) );
+
+		button.type = 'button';
+		button.disabled = ! next.unlocked;
+
+		button.addEventListener( 'click', function () {
+			openTask( currentIndex + 1 );
+		} );
+
+		actionsNode.appendChild( button );
 	}
 
-	/* ---------------------------------------------------------------------
-	 * Écouteurs
-	 * ------------------------------------------------------------------ */
-
-	dashboard.addEventListener( 'click', function ( event ) {
-		var card = event.target.closest ? event.target.closest( '.secura-room-card[data-sa-room]' ) : null;
-
-		if ( ! card ) {
+	/**
+	 * Affiche le récapitulatif pédagogique d'une tâche terminée.
+	 *
+	 * @param {Object} task Tâche.
+	 */
+	function showRecap( task ) {
+		if ( ! actionsNode ) {
 			return;
 		}
 
-		if ( 'true' === card.getAttribute( 'aria-disabled' ) ) {
+		var result = el( 'div', 'seca-result' );
+
+		var solved = ( task.questions || [] ).filter( function ( question ) {
+			return question.solved;
+		} ).length;
+
+		var total = ( task.questions || [] ).length;
+		var percent = total > 0 ? Math.round( ( solved / total ) * 100 ) : 100;
+
+		result.classList.add( 'exam' === task.type ? ( percent >= task.pass_score ? 'is-pass' : 'is-fail' ) : 'is-pass' );
+		result.appendChild( el( 'div', 'seca-result-score', percent + ' %' ) );
+		result.appendChild( el( 'div', 'seca-result-title', t( 'task_done', 'Tâche terminée' ) ) );
+		result.appendChild( el( 'p', 'seca-result-sub', t( 'score', 'Score' ) + ' : ' + solved + '/' + total ) );
+
+		actionsNode.appendChild( result );
+
+		addNextButton( task );
+	}
+
+	/**
+	 * Affiche le résultat d'un examen.
+	 *
+	 * @param {Object} exam Résultat serveur.
+	 */
+	function showExamResult( exam ) {
+		if ( ! actionsNode ) {
 			return;
 		}
 
-		openRoom( card );
-	} );
+		var result = el( 'div', 'seca-result ' + ( exam.passed ? 'is-pass' : 'is-fail' ) );
 
-	dashboard.addEventListener( 'keydown', function ( event ) {
-		if ( 'Enter' !== event.key && ' ' !== event.key ) {
+		if ( exam.expired ) {
+			result.appendChild( el( 'div', 'seca-result-score', '⏱' ) );
+			result.appendChild( el( 'div', 'seca-result-title', t( 'expired', 'Temps écoulé' ) ) );
+			result.appendChild( el( 'p', 'seca-result-sub', t( 'time_up_hint', 'Relance l\'examen pour réessayer.' ) ) );
+
+			actionsNode.appendChild( result );
+
 			return;
 		}
 
-		var card = event.target.closest ? event.target.closest( '.secura-room-card[data-sa-room]' ) : null;
+		result.appendChild( el( 'div', 'seca-result-score', exam.score + ' %' ) );
 
-		if ( ! card ) {
+		if ( exam.medal ) {
+			result.appendChild( el( 'div', 'seca-result-medal', 'gold' === exam.medal ? '🥇' : ( 'silver' === exam.medal ? '🥈' : '🥉' ) ) );
+		}
+
+		result.appendChild( el( 'div', 'seca-result-title', exam.passed ? t( 'passed', 'Examen réussi !' ) : t( 'failed', 'Seuil non atteint' ) ) );
+		result.appendChild( el( 'p', 'seca-result-sub', t( 'score', 'Score' ) + ' : ' + exam.correct + '/' + exam.total + ' · ' + t( 'pass', 'Seuil' ) + ' ' + exam.threshold + ' %' ) );
+
+		actionsNode.appendChild( result );
+	}
+
+	/* ---------------------------------------------------------- Terminal */
+
+	if ( terminalForm ) {
+		terminalForm.addEventListener( 'submit', function ( event ) {
+			event.preventDefault();
+
+			var command = terminalInput.value.trim();
+
+			if ( ! command ) {
+				return;
+			}
+
+			terminalInput.value = '';
+			terminalInput.disabled = true;
+
+			post( 'secura_terminal', {
+				room_id: roomId,
+				task: currentIndex,
+				command: command
+			} ).then( function ( data ) {
+				appendTerminal( 'seca-term-cmd', '$ ' + command );
+				appendTerminal( data.matched ? 'seca-term-ok' : 'seca-term-err', data.output );
+
+				if ( data.hint ) {
+					appendTerminal( 'seca-term-hint', '💡 ' + data.hint );
+				}
+			} ).catch( function ( error ) {
+				appendTerminal( 'seca-term-err', error.message );
+			} ).then( function () {
+				terminalInput.disabled = false;
+				terminalInput.focus();
+			} );
+		} );
+	}
+
+	/**
+	 * Ajoute une ligne dans le terminal.
+	 *
+	 * @param {string} cls  Classe.
+	 * @param {string} text Texte.
+	 */
+	function appendTerminal( cls, text ) {
+		if ( ! terminalScreen ) {
 			return;
 		}
 
-		event.preventDefault();
-		openRoom( card );
-	} );
+		terminalScreen.appendChild( el( 'span', cls, text + '\n' ) );
+		terminalScreen.scrollTop = terminalScreen.scrollHeight;
+	}
 
-	panel.addEventListener( 'click', function ( event ) {
-		if ( event.target.closest && event.target.closest( '[data-sa-close]' ) ) {
-			closePanel();
+	/* -------------------------------------------------------- Chronomètre */
+
+	/**
+	 * Démarre le chronomètre d'examen (serveur autoritaire).
+	 */
+	function startExamTimer() {
+		stopTimer();
+
+		post( 'secura_start_exam', { room_id: roomId, task: currentIndex } ).then( function ( data ) {
+			timeLeft = data.time_left;
+
+			var node = el( 'span', 'seca-timer' );
+
+			node.setAttribute( 'data-seca-timer', '1' );
+
+			var head = app.querySelector( '.seca-room-head-main' );
+
+			if ( head ) {
+				head.appendChild( node );
+			}
+
+			timerHandle = window.setInterval( function () {
+				timeLeft -= 1;
+
+				if ( timeLeft <= 0 ) {
+					timeLeft = 0;
+					stopTimer();
+
+					if ( statusNode ) {
+						statusNode.textContent = t( 'expired', 'Temps écoulé' );
+						statusNode.className = 'seca-task-status is-bad';
+					}
+				}
+
+				updateTimer( node );
+			}, 1000 );
+
+			updateTimer( node );
+		} ).catch( function () {
+			/* Le serveur refusera toute réponse si le temps est écoulé. */
+		} );
+	}
+
+	/**
+	 * Met à jour l'affichage du chronomètre.
+	 *
+	 * @param {HTMLElement} node Élément.
+	 */
+	function updateTimer( node ) {
+		var minutes = Math.floor( timeLeft / 60 );
+		var seconds = timeLeft % 60;
+
+		node.textContent = '⏱ ' + minutes + ':' + ( seconds < 10 ? '0' : '' ) + seconds;
+
+		if ( timeLeft <= 60 ) {
+			node.classList.remove( 'is-safe' );
 		}
-	} );
+	}
 
-	document.addEventListener( 'keydown', function ( event ) {
-		if ( 'Escape' === event.key && ! panel.hidden ) {
-			closePanel();
+	/**
+	 * Arrête le chronomètre.
+	 */
+	function stopTimer() {
+		if ( timerHandle ) {
+			window.clearInterval( timerHandle );
+			timerHandle = null;
 		}
-	} );
 
-	updateProgressDisplay();
+		var node = app.querySelector( '[data-seca-timer]' );
+
+		if ( node && node.parentNode ) {
+			node.parentNode.removeChild( node );
+		}
+	}
+
+	/* ------------------------------------------------------------- Début */
+
+	bindLanguageSwitch();
+
+	refreshRoom().then( function () {
+		openTask( 0 );
+	} );
 } )();

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_LEARNING_VERSION', '0.1.0' );
+define( 'SECURA_LEARNING_VERSION', '0.2.0' );
 
 /**
  * Déclare les fonctionnalités du thème.
@@ -55,6 +55,16 @@ function secures_learning_assets() {
 		array(),
 		SECURA_LEARNING_VERSION
 	);
+
+	/* Ajustements RTL (arabe) : chargés en plus de la feuille de base. */
+	if ( is_rtl() ) {
+		wp_enqueue_style(
+			'secura-learning-rtl',
+			get_template_directory() . '/style-rtl.css',
+			array( 'secura-learning-style' ),
+			SECURA_LEARNING_VERSION
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'secures_learning_assets' );
 

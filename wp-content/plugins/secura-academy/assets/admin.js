@@ -1,73 +1,165 @@
 /**
- * Secura Academy — gestion des questions dans l'admin.
+ * Secura Academy — éditeur de rooms et de parcours dans l'admin.
+ *
+ * Les champs utilisent la syntaxe `nom[]` de PHP : l'ordre du DOM suffit
+ * à reconstruire la structure, aucun réindexation manuelle n'est requise.
  */
 ( function () {
 	'use strict';
 
-	var container = document.getElementById( 'secura-questions' );
-	var addButton = document.getElementById( 'secura-add-question' );
-	var template = document.getElementById( 'secura-question-template' );
+	/**
+	 * Clone un modèle HTML et l'insère dans un conteneur.
+	 *
+	 * @param {string} templateId Identifiant du modèle.
+	 * @param {Element} container Conteneur cible.
+	 * @return {Element|null} Élément inséré.
+	 */
+	function cloneTemplate( templateId, container ) {
+		var template = document.getElementById( templateId );
 
-	if ( ! container || ! addButton || ! template ) {
-		return;
+		if ( ! template || ! container ) {
+			return null;
+		}
+
+		var holder = document.createElement( 'div' );
+
+		holder.innerHTML = template.innerHTML;
+
+		var node = holder.firstElementChild;
+
+		if ( ! node ) {
+			return null;
+		}
+
+		container.appendChild( node );
+
+		return node;
 	}
 
+	/* ------------------------------------------------------ Rooms : tâches */
+
+	var tasksContainer = document.getElementById( 'secura-tasks' );
+	var addTaskButton = document.getElementById( 'secura-add-task' );
+
 	/**
-	 * Réindexe les champs pour garder un ordre continu.
+	 * Renumérote les questions d'une tâche.
+	 *
+	 * @param {Element} taskRow Ligne de tâche.
 	 */
-	function reindex() {
-		var rows = container.querySelectorAll( '.secura-question-row' );
+	function renumberQuestions( taskRow ) {
+		var rows = taskRow.querySelectorAll( '.secura-question-row' );
 
 		Array.prototype.forEach.call( rows, function ( row, index ) {
-			row.setAttribute( 'data-index', String( index ) );
+			var label = row.querySelector( '.secura-question-number' );
 
-			var number = row.querySelector( '.secura-question-number' );
-
-			if ( number ) {
-				number.textContent = String( index + 1 );
+			if ( label ) {
+				label.textContent = String( index + 1 );
 			}
-
-			var fields = row.querySelectorAll( '[name]' );
-
-			Array.prototype.forEach.call( fields, function ( field ) {
-				field.name = field.name.replace( /secura_questions\[\d+\]/, 'secura_questions[' + index + ']' );
-			} );
 		} );
 	}
 
 	/**
-	 * Ajoute une ligne de question vide.
+	 * Renumérote toutes les tâches.
 	 */
-	function addRow() {
-		var row = template.innerHTML.replace( /%INDEX%/g, String( container.querySelectorAll( '.secura-question-row' ).length ) );
-
-		var wrapper = document.createElement( 'div' );
-		wrapper.innerHTML = row;
-
-		var node = wrapper.firstElementChild;
-
-		if ( node ) {
-			container.appendChild( node );
-			reindex();
-		}
-	}
-
-	addButton.addEventListener( 'click', addRow );
-
-	container.addEventListener( 'click', function ( event ) {
-		var button = event.target.closest ? event.target.closest( '.seca-remove-question' ) : null;
-
-		if ( ! button ) {
+	function renumberTasks() {
+		if ( ! tasksContainer ) {
 			return;
 		}
 
-		event.preventDefault();
+		var rows = tasksContainer.querySelectorAll( '.secura-task-row' );
 
-		var row = button.closest( '.secura-question-row' );
+		Array.prototype.forEach.call( rows, function ( row, index ) {
+			var label = row.querySelector( '.secura-task-number' );
 
-		if ( row ) {
-			row.parentNode.removeChild( row );
-			reindex();
-		}
-	} );
+			if ( label ) {
+				label.textContent = String( index + 1 );
+			}
+
+			renumberQuestions( row );
+		} );
+	}
+
+	if ( addTaskButton && tasksContainer ) {
+		addTaskButton.addEventListener( 'click', function () {
+			var node = cloneTemplate( 'secura-task-template', tasksContainer );
+
+			if ( node ) {
+				renumberTasks();
+
+				var type = node.querySelector( 'select[name*="[type]"]' );
+
+				if ( type ) {
+					type.focus();
+				}
+			}
+		} );
+	}
+
+	if ( tasksContainer ) {
+		tasksContainer.addEventListener( 'click', function ( event ) {
+			var button = event.target.closest ? event.target.closest( '.seca-remove-task, .seca-remove-question, .seca-add-question' ) : null;
+
+			if ( ! button ) {
+				return;
+			}
+
+			event.preventDefault();
+
+			if ( button.classList.contains( 'seca-add-question' ) ) {
+				var taskRow = button.closest( '.secura-task-row' );
+				var questions = taskRow ? taskRow.querySelector( '.secura-questions' ) : null;
+
+				if ( questions ) {
+					cloneTemplate( 'secura-question-template', questions );
+					renumberQuestions( taskRow );
+				}
+
+				return;
+			}
+
+			if ( button.classList.contains( 'seca-remove-question' ) ) {
+				var questionRow = button.closest( '.secura-question-row' );
+				var parentTask = button.closest( '.secura-task-row' );
+
+				if ( questionRow && questionRow.parentNode ) {
+					questionRow.parentNode.removeChild( questionRow );
+				}
+
+				if ( parentTask ) {
+					renumberQuestions( parentTask );
+				}
+
+				return;
+			}
+
+			var taskRow = button.closest( '.secura-task-row' );
+
+			if ( taskRow && taskRow.parentNode ) {
+				taskRow.parentNode.removeChild( taskRow );
+			}
+
+			renumberTasks();
+		} );
+
+		renumberTasks();
+	}
+
+	/* ---------------------------------------------------- Parcours : sections */
+
+	var sectionsContainer = document.getElementById( 'secura-sections' );
+	var addSectionButton = document.getElementById( 'secura-add-section' );
+
+	if ( addSectionButton && sectionsContainer ) {
+		addSectionButton.addEventListener( 'click', function () {
+			var node = cloneTemplate( 'secura-section-template', sectionsContainer );
+
+			if ( node ) {
+				var input = node.querySelector( 'input[type="text"]' );
+
+				if ( input ) {
+					input.focus();
+				}
+			}
+		} );
+	}
 } )();

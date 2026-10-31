@@ -3,15 +3,15 @@ Theme Name: Secura Learning
 Theme URI: https://github.com/boucheriechefimane-cmd/secura-academy
 Author: Secura Academy
 Author URI: https://github.com/boucheriechefimane-cmd
-Description: Thème sombre et responsive pour Secura Academy. Il expose une palette personnalisable (Apparence → Personnaliser → Palette Secura) et fournit les jetons de couleur consommés par le plugin Secura Academy.
-Version: 0.1.0
+Description: Thème sombre et responsive pour Secura Academy. Il expose une palette personnalisable (Apparence → Personnaliser → Palette Secura) et fournit les jetons de couleur consommés par le plugin Secura Academy. Compatible RTL (arabe) et adaptés à une expérience de jeu.
+Version: 0.2.0
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: secura-learning
-Tags: education, dark, custom-colors, accessibility-ready
+Tags: education, dark, custom-colors, accessibility-ready, rtl-language-support
 */
 
 /* ----------------------------------------------------------------------
@@ -27,6 +27,8 @@ Tags: education, dark, custom-colors, accessibility-ready
 	--secura-text: #e9eefc;
 	--secura-muted: #9db0d0;
 	--secura-content-width: 1180px;
+	--secura-radius: 14px;
+	--secura-shadow: 0 12px 32px rgba(2, 6, 23, .45);
 }
 
 /* ----------------------------------------------------------------------
@@ -37,9 +39,17 @@ Tags: education, dark, custom-colors, accessibility-ready
 	box-sizing: border-box;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	margin: 0;
-	background: var(--secura-bg);
+	background:
+		radial-gradient(circle at 85% -10%, rgba(56, 189, 248, .10), transparent 45%),
+		radial-gradient(circle at -5% 105%, rgba(45, 212, 167, .08), transparent 40%),
+		var(--secura-bg);
+	background-attachment: fixed;
 	color: var(--secura-text);
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 	font-size: 17px;
@@ -70,7 +80,7 @@ img {
 
 .skip-link {
 	position: absolute;
-	left: -9999px;
+	inset-inline-start: -9999px;
 	top: 0;
 	background: var(--secura-accent);
 	color: #08121f;
@@ -79,7 +89,7 @@ img {
 }
 
 .skip-link:focus {
-	left: 1rem;
+	inset-inline-start: 1rem;
 	top: 1rem;
 }
 
@@ -89,6 +99,7 @@ img {
 
 .site-header {
 	border-bottom: 1px solid var(--secura-border);
+	background: var(--secura-surface);
 	background: color-mix(in srgb, var(--secura-surface) 80%, transparent);
 	position: sticky;
 	top: 0;
@@ -128,6 +139,7 @@ img {
 	background: var(--secura-accent);
 	color: #08121f;
 	font-size: 1rem;
+	box-shadow: 0 0 18px rgba(45, 212, 167, .35);
 }
 
 .site-nav ul {
@@ -144,11 +156,12 @@ img {
 	text-decoration: none;
 	font-weight: 600;
 	font-size: 0.95rem;
+	transition: color .2s ease;
 }
 
 .site-nav a:hover,
 .site-nav a:focus-visible {
-	color: var(--secura-text);
+	color: var(--secura-accent);
 }
 
 .site-main {
@@ -159,6 +172,20 @@ img {
 
 .entry-content > * {
 	max-width: 78ch;
+}
+
+.entry-content > .seca-app {
+	max-width: none;
+}
+
+.seca-room-intro {
+	max-width: 78ch;
+	margin: 0 0 1.5rem;
+	color: var(--secura-muted);
+}
+
+.seca-room-intro > :last-child {
+	margin-bottom: 0;
 }
 
 .entry-content h1,
@@ -210,6 +237,13 @@ img {
 	border: 1px solid var(--secura-border);
 	border-radius: 12px;
 	padding: 1.25rem;
+	transition: transform .18s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.post-card:hover {
+	transform: translateY(-3px);
+	border-color: var(--secura-accent);
+	box-shadow: var(--secura-shadow);
 }
 
 .post-card__title {
@@ -218,28 +252,72 @@ img {
 }
 
 .post-card__meta {
+	color: var(--secura-muted);
+	font-size: 0.85rem;
 	margin: 0 0 0.6rem;
-	font-size: 0.82rem;
+}
+
+.post-card__excerpt {
+	margin: 0;
 	color: var(--secura-muted);
 }
 
-.read-more {
-	font-weight: 600;
+/* ----------------------------------------------------------------------
+ * Boutons génériques
+ * -------------------------------------------------------------------- */
+
+.button,
+.wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.65rem 1.3rem;
+	border-radius: 10px;
+	border: 1px solid var(--secura-border);
+	background: var(--secura-surface-2);
+	color: var(--secura-text);
+	font-weight: 700;
+	text-decoration: none;
+	transition: transform .12s ease, box-shadow .2s ease;
 }
 
-.screen-reader-text {
-	position: absolute !important;
-	width: 1px;
-	height: 1px;
-	overflow: hidden;
-	clip: rect(1px, 1px, 1px, 1px);
-	white-space: nowrap;
+.button:hover,
+.wp-block-button__link:hover {
+	transform: translateY(-1px);
+	box-shadow: var(--secura-shadow);
+	color: var(--secura-text);
+}
+
+.button--primary,
+.wp-block-button.is-style-primary .wp-block-button__link {
+	background: linear-gradient(135deg, var(--secura-accent), #38bdf8);
+	border-color: transparent;
+	color: #06121f;
+}
+
+/* ----------------------------------------------------------------------
+ * Adaptation mobile
+ * -------------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+	body {
+		font-size: 16px;
+	}
+
+	.site-header__inner {
+		padding: 0.7rem 1rem;
+	}
+
+	.site-main {
+		padding-inline: 1rem;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
 	* {
-		transition-duration: 0.001ms !important;
 		animation-duration: 0.001ms !important;
+		transition-duration: 0.001ms !important;
 		scroll-behavior: auto !important;
 	}
 }

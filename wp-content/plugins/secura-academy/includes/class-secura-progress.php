@@ -1,6 +1,6 @@
 <?php
 /**
- * Progression, XP et trophées d'un apprenant.
+ * Progression, barème de points, médailles, examens, niveaux et série.
  *
  * @package Secura_Academy
  */
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Gère l'état d'apprentissage stocké en user_meta.
+ * Moteur de progression et de gamification.
  */
 final class Secura_Progress {
 
@@ -18,52 +18,250 @@ final class Secura_Progress {
 	 * Branche les hooks.
 	 */
 	public static function init() {
-		// Aucun hook : l'état est manipulated par Secura_Ajax et le tableau de bord.
+		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
 	}
 
 	/**
-	 * Paliers de niveau.
+	 * Réglages administrables.
+	 */
+	public static function register_settings() {
+		register_setting(
+			'secura_options',
+			SECURA_OPTION_FIRST_BLOOD,
+			array(
+				'type'              => 'boolean',
+				'default'           => 0,
+				'sanitize_callback' => 'rest_sanitize_boolean',
+			)
+		);
+	}
+
+	/**
+	 * Le first blood est-il actif ?
+	 *
+	 * @return bool
+	 */
+	public static function first_blood_enabled() {
+		return (bool) get_option( SECURA_OPTION_FIRST_BLOOD, 0 );
+	}
+
+	/**
+	 * Crée la table de statistiques de réponses si nécessaire.
+	 */
+	public static function maybe_create_table() {
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'secura_answer_stats';
+
+		if ( get_option( 'secura_answer_stats_table' ) === $table ) {
+			return;
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+		dbDelta(
+			"CREATE TABLE {$table} (
+				question_key varchar(191) NOT NULL,
+				correct_count bigint(20) unsigned NOT NULL DEFAULT 0,
+				first_answer datetime DEFAULT NULL,
+				PRIMARY KEY  (question_key)
+			) {$wpdb->get_charset_collate()};"
+		);
+
+		update_option( 'secura_answer_stats_table', $table );
+	}
+
+	/* ---------------------------------------------------------------------
+	 * Barème
+	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Points de base selon la difficulté.
+	 *
+	 * @param string $difficulty Difficulté de la room.
+	 * @return int
+	 */
+	public static function base_points( $difficulty ) {
+		$map = array(
+			'facile'    => 10,
+			'moyen'     => 15,
+			'difficile' => 20,
+			'expert'    => 30,
+		);
+
+		return isset( $map[ $difficulty ] ) ? $map[ $difficulty ] : 10;
+	}
+
+	/**
+	 * Multiplicateur selon le type de tâche.
+	 *
+	 * @param string $type Type de tâche.
+	 * @return float
+	 */
+	public static function type_multiplier( $type ) {
+		$map = array(
+			'lesson'   => 0.0,
+			'practice' => 0.5,
+			'test'     => 1.0,
+			'exam'     => 1.5,
+		);
+
+		return isset( $map[ $type ] ) ? $map[ $type ] : 1.0;
+	}
+
+	/**
+	 * Multiplicateurs de rang (first blood).
+	 *
+	 * @return array
+	 */
+	public static function first_blood_multipliers() {
+		return array(
+			1 => 2.0,
+			2 => 1.8,
+			3 => 1.7,
+			4 => 1.65,
+		);
+	}
+
+	/**
+	 * Enregistre le rang de l'utilisateur pour une question et renvoie le multiplicateur.
+	 *
+	 * @param int    $user_id      Identifiant de l'utilisateur.
+	 * @param string $question_key Clé unique de la question.
+	 * @return float
+	 */
+	public static function first_blood_multiplier( $user_id, $question_key ) {
+		if ( ! self::first_blood_enabled() || ! $question_key ) {
+			return 1.0;
+		}
+
+		global $wpdb;
+
+		self::maybe_create_table();
+
+		$table = $wpdb->prefix . 'secura_answer_stats';
+		$ranks = get_user_meta( $user_id, SECURA_USER_RANKS, true );
+		$ranks = is_array( $ranks ) ? $ranks : array();
+
+		if ( isset( $ranks[ $question_key ] ) ) {
+			return self::rank_multiplier( (int) $ranks[ $question_key ] );
+		}
+
+		$count = (int) $wpdb->get_var(
+			$wpdb->prepare( "SELECT correct_count FROM {$table} WHERE question_key = %s", $question_key )
+		);
+
+		$rank = $count + 1;
+
+		$wpdb->query(
+			$wpdb->prepare(
+				"INSERT INTO {$table} (question_key, correct_count, first_answer) VALUES (%s, 1, %s)
+				 ON DUPLICATE KEY UPDATE correct_count = correct_count + 1",
+				$question_key,
+				current_time( 'mysql' )
+			)
+		);
+
+		$ranks[ $question_key ] = $rank;
+		update_user_meta( $user_id, SECURA_USER_RANKS, $ranks );
+
+		return self::rank_multiplier( $rank );
+	}
+
+	/**
+	 * Multiplicateur correspondant à un rang.
+	 *
+	 * @param int $rank Rang de réponse.
+	 * @return float
+	 */
+	public static function rank_multiplier( $rank ) {
+		$map = self::first_blood_multipliers();
+
+		if ( isset( $map[ $rank ] ) ) {
+			return $map[ $rank ];
+		}
+
+		return $rank >= 5 ? 1.5 : 1.0;
+	}
+
+	/**
+	 * Calcule et attribue les points d'une question.
+	 *
+	 * @param int    $user_id Identifiant de l'utilisateur.
+	 * @param array  $args    Arguments (voir documentation).
+	 * @return array
+	 */
+	public static function award( $user_id, $args ) {
+		$defaults = array(
+			'room_id'      => 0,
+			'task_index'   => 0,
+			'question'     => 0,
+			'base_xp'      => 0,
+			'difficulty'   => 'facile',
+			'type'         => 'practice',
+			'hint_used'    => false,
+			'question_key' => '',
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$base    = $args['base_xp'] > 0 ? (int) $args['base_xp'] : self::base_points( $args['difficulty'] );
+		$type    = self::type_multiplier( $args['type'] );
+		$rank    = self::first_blood_multiplier( $user_id, $args['question_key'] );
+		$penalty = $args['hint_used'] ? 0.5 : 1.0;
+
+		$points = (int) ceil( $base * $type * $rank * $penalty );
+		$points = max( 1, $points );
+
+		$total = self::get_xp( $user_id ) + $points;
+
+		update_user_meta( $user_id, SECURA_USER_XP, $total );
+		self::touch_streak( $user_id );
+
+		return array(
+			'points'     => $points,
+			'base'       => $base,
+			'type'       => $type,
+			'rank'       => $rank,
+			'hint'       => $penalty < 1 ? $penalty : 1.0,
+			'total_xp'   => $total,
+			'level'      => self::level_for_xp( $total ),
+		);
+	}
+
+	/**
+	 * Total de XP d'un utilisateur.
+	 *
+	 * @param int $user_id Identifiant de l'utilisateur.
+	 * @return int
+	 */
+	public static function get_xp( $user_id ) {
+		return absint( get_user_meta( $user_id, SECURA_USER_XP, true ) );
+	}
+
+	/* ---------------------------------------------------------------------
+	 * Niveaux
+	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Échelle de niveaux.
 	 *
 	 * @return array
 	 */
 	public static function levels() {
 		return array(
-			array(
-				'number' => 1,
-				'label'  => __( 'Débutant', 'seca-academy' ),
-				'min'    => 0,
-				'max'    => 99,
-			),
-			array(
-				'number' => 2,
-				'label'  => __( 'Apprenti', 'seca-academy' ),
-				'min'    => 100,
-				'max'    => 249,
-			),
-			array(
-				'number' => 3,
-				'label'  => __( 'Défenseur junior', 'seca-academy' ),
-				'min'    => 250,
-				'max'    => 499,
-			),
-			array(
-				'number' => 4,
-				'label'  => __( 'Analyste', 'seca-academy' ),
-				'min'    => 500,
-				'max'    => 899,
-			),
-			array(
-				'number' => 5,
-				'label'  => __( 'Expert', 'seca-academy' ),
-				'min'    => 900,
-				'max'    => 1499,
-			),
-			array(
-				'number' => 6,
-				'label'  => __( 'Red team', 'seca-academy' ),
-				'min'    => 1500,
-				'max'    => null,
-			),
+			array( 'number' => 1, 'label' => 'Observateur', 'min' => 0, 'max' => 99 ),
+			array( 'number' => 2, 'label' => 'Apprenti', 'min' => 100, 'max' => 249 ),
+			array( 'number' => 3, 'label' => 'Analyste', 'min' => 250, 'max' => 499 ),
+			array( 'number' => 4, 'label' => 'Traceur', 'min' => 500, 'max' => 899 ),
+			array( 'number' => 5, 'label' => 'Auditeur', 'min' => 900, 'max' => 1499 ),
+			array( 'number' => 6, 'label' => 'Pourfendeur', 'min' => 1500, 'max' => 2499 ),
+			array( 'number' => 7, 'label' => 'Spécialiste', 'min' => 2500, 'max' => 3499 ),
+			array( 'number' => 8, 'label' => 'Architecte', 'min' => 3500, 'max' => 4999 ),
+			array( 'number' => 9, 'label' => 'Défenseur', 'min' => 5000, 'max' => 6999 ),
+			array( 'number' => 10, 'label' => 'Éclaireur', 'min' => 7000, 'max' => 9999 ),
+			array( 'number' => 11, 'label' => 'Sentinel', 'min' => 10000, 'max' => 14999 ),
+			array( 'number' => 12, 'label' => 'Maître', 'min' => 15000, 'max' => null ),
 		);
 	}
 
@@ -75,17 +273,39 @@ final class Secura_Progress {
 	 */
 	public static function level_for_xp( $xp ) {
 		$xp = (int) $xp;
+		$found = self::levels();
 
 		foreach ( self::levels() as $level ) {
 			if ( null === $level['max'] || ( $xp >= $level['min'] && $xp <= $level['max'] ) ) {
-				return $level;
+				$found = $level;
+				break;
 			}
 		}
 
+		return $found;
+	}
+
+	/**
+	 * Niveau suivant.
+	 *
+	 * @param array $level Niveau courant.
+	 * @return array|null
+	 */
+	public static function next_level( $level ) {
 		$levels = self::levels();
 
-		return end( $levels );
+		foreach ( $levels as $index => $candidate ) {
+			if ( $candidate['number'] === $level['number'] ) {
+				return isset( $levels[ $index + 1 ] ) ? $levels[ $index + 1 ] : null;
+			}
+		}
+
+		return null;
 	}
+
+	/* ---------------------------------------------------------------------
+	 * État
+	 * ------------------------------------------------------------------ */
 
 	/**
 	 * État complet d'un utilisateur.
@@ -96,219 +316,520 @@ final class Secura_Progress {
 	public static function get_state( $user_id ) {
 		$user_id = absint( $user_id );
 
-		$xp       = absint( get_user_meta( $user_id, SECURA_USER_XP, true ) );
 		$progress = get_user_meta( $user_id, SECURA_USER_PROGRESS, true );
-		$trophies = get_user_meta( $user_id, SECURA_USER_TROPHIES, true );
-
-		if ( ! is_array( $progress ) ) {
-			$progress = array();
-		}
-
-		if ( ! is_array( $trophies ) ) {
-			$trophies = array();
-		}
+		$medals   = get_user_meta( $user_id, SECURA_USER_MEDALS, true );
+		$exams    = get_user_meta( $user_id, SECURA_USER_EXAMS, true );
+		$streak   = get_user_meta( $user_id, SECURA_USER_STREAK, true );
 
 		return array(
-			'xp'       => $xp,
-			'progress' => $progress,
-			'trophies' => array_values( $trophies ),
+			'xp'       => self::get_xp( $user_id ),
+			'progress' => is_array( $progress ) ? $progress : array(),
+			'medals'   => is_array( $medals ) ? $medals : array(),
+			'exams'    => is_array( $exams ) ? $exams : array(),
+			'streak'   => is_array( $streak ) ? $streak : array( 'current' => 0, 'longest' => 0, 'last_day' => '' ),
+			'level'    => self::level_for_xp( self::get_xp( $user_id ) ),
 		);
 	}
 
 	/**
-	 * Progression d'une room pour un utilisateur.
+	 * État d'une room pour un utilisateur, avec conversion de l'ancien format.
 	 *
 	 * @param int $user_id Identifiant de l'utilisateur.
 	 * @param int $room_id Identifiant de la room.
 	 * @return array
 	 */
-	public static function get_room_progress( $user_id, $room_id ) {
-		$state = self::get_state( $user_id );
-		$key   = (string) absint( $room_id );
+	public static function get_room_state( $user_id, $room_id ) {
+		$state    = self::get_state( $user_id );
+		$key      = (string) absint( $room_id );
+		$progress = $state['progress'];
 
-		if ( ! isset( $state['progress'][ $key ] ) ) {
-			return array(
-				'solved'    => array(),
-				'completed' => false,
-				'xp'        => 0,
+		if ( ! isset( $progress[ $key ] ) || ! is_array( $progress[ $key ] ) ) {
+			return self::empty_room_state();
+		}
+
+		$room = $progress[ $key ];
+
+		/* Conversion depuis l'ancien format plat { solved: { q: true } }. */
+		if ( ! isset( $room['tasks'] ) && isset( $room['solved'] ) ) {
+			$solved = array();
+
+			foreach ( (array) $room['solved'] as $index => $value ) {
+				if ( $value ) {
+					$solved[] = (int) $index;
+				}
+			}
+
+			$room = array(
+				'tasks'      => array(
+					0 => array(
+						'solved' => array_flip( $solved ),
+						'hints'  => array(),
+						'done'   => true,
+					),
+				),
+				'completed'  => ! empty( $room['completed'] ),
+				'best_score' => isset( $room['best_score'] ) ? absint( $room['best_score'] ) : 0,
+				'medal'      => isset( $room['medal'] ) ? $room['medal'] : '',
 			);
 		}
 
-		$room = $state['progress'][ $key ];
-		$solved = array();
-
-		if ( isset( $room['solved'] ) && is_array( $room['solved'] ) ) {
-			$solved = array_map( 'intval', array_keys( $room['solved'] ) );
-			sort( $solved );
+		if ( ! isset( $room['tasks'] ) || ! is_array( $room['tasks'] ) ) {
+			$room['tasks'] = array();
 		}
 
+		$room['completed']  = ! empty( $room['completed'] );
+		$room['best_score'] = isset( $room['best_score'] ) ? absint( $room['best_score'] ) : 0;
+		$room['medal']      = isset( $room['medal'] ) ? $room['medal'] : '';
+
+		return $room;
+	}
+
+	/**
+	 * État vide d'une room.
+	 *
+	 * @return array
+	 */
+	public static function empty_room_state() {
 		return array(
-			'solved'    => $solved,
-			'completed' => ! empty( $room['completed'] ),
-			'xp'        => isset( $room['xp'] ) ? absint( $room['xp'] ) : 0,
+			'tasks'      => array(),
+			'completed'  => false,
+			'best_score' => 0,
+			'medal'      => '',
 		);
 	}
 
 	/**
-	 * Attribue l'XP d'une question, une seule fois par question et par utilisateur.
+	 * Sauvegarde l'état d'une room.
 	 *
-	 * @param int $user_id Identifiant de l'utilisateur.
-	 * @param int $room_id Identifiant de la room.
-	 * @param int $index  Index de la question.
-	 * @param int $xp     XP à attribuer.
-	 * @return array{awarded:int,already:bool,total_xp:int}
+	 * @param int   $user_id Identifiant de l'utilisateur.
+	 * @param int   $room_id Identifiant de la room.
+	 * @param array $state   État.
 	 */
-	public static function award_question( $user_id, $room_id, $index, $xp ) {
-		$state    = self::get_state( $user_id );
-		$progress = $state['progress'];
-		$key      = (string) absint( $room_id );
-		$index    = absint( $index );
-		$xp       = absint( $xp );
+	public static function save_room_state( $user_id, $room_id, $state ) {
+		$progress = get_user_meta( $user_id, SECURA_USER_PROGRESS, true );
+		$progress = is_array( $progress ) ? $progress : array();
 
-		if ( ! isset( $progress[ $key ] ) || ! is_array( $progress[ $key ] ) ) {
-			$progress[ $key ] = array(
-				'solved'    => array(),
-				'completed' => false,
-				'xp'        => 0,
-			);
-		}
+		$progress[ (string) absint( $room_id ) ] = $state;
 
-		if ( ! isset( $progress[ $key ]['solved'] ) || ! is_array( $progress[ $key ]['solved'] ) ) {
-			$progress[ $key ]['solved'] = array();
-		}
-
-		if ( isset( $progress[ $key ]['solved'][ $index ] ) ) {
-			return array(
-				'awarded'  => 0,
-				'already'  => true,
-				'total_xp' => $state['xp'],
-			);
-		}
-
-		$progress[ $key ]['solved'][ $index ] = true;
-		$progress[ $key ]['xp']              = absint( $progress[ $key ]['xp'] ) + $xp;
-		$total_xp                            = $state['xp'] + $xp;
-
-		update_user_meta( $user_id, SECURA_USER_XP, $total_xp );
 		update_user_meta( $user_id, SECURA_USER_PROGRESS, $progress );
+	}
 
-		return array(
-			'awarded'  => $xp,
-			'already'  => false,
-			'total_xp' => $total_xp,
-		);
+	/* ---------------------------------------------------------------------
+	 * Tâches et médailles
+	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Marque une question comme résolue dans une tâche.
+	 *
+	 * @param int   $user_id    Identifiant de l'utilisateur.
+	 * @param int   $room_id    Identifiant de la room.
+	 * @param int   $task_index Index de la tâche.
+	 * @param int   $question   Index de la question.
+	 * @param bool  $hint_used  Un indice a-t-il été ouvert ?
+	 * @return array État de la tâche.
+	 */
+	public static function mark_question( $user_id, $room_id, $task_index, $question, $hint_used = false ) {
+		$room  = self::get_room_state( $user_id, $room_id );
+		$index = (string) absint( $task_index );
+
+		if ( ! isset( $room['tasks'][ $index ] ) || ! is_array( $room['tasks'][ $index ] ) ) {
+			$room['tasks'][ $index ] = array(
+				'solved' => array(),
+				'hints'  => array(),
+				'done'   => false,
+			);
+		}
+
+		$room['tasks'][ $index ]['solved'][ (string) absint( $question ) ] = true;
+
+		if ( $hint_used && ! isset( $room['tasks'][ $index ]['hints'][ (string) absint( $question ) ] ) ) {
+			$room['tasks'][ $index ]['hints'][ (string) absint( $question ) ] = true;
+		}
+
+		self::save_room_state( $user_id, $room_id, $room );
+
+		return $room['tasks'][ $index ];
 	}
 
 	/**
-	 * Marque une room comme complétée si toutes les questions sont résolues.
+	 * Marque l'usage d'un indice.
 	 *
-	 * @param int $user_id Identifiant de l'utilisateur.
-	 * @param int $room_id Identifiant de la room.
-	 * @return array{completed:bool,xp:int,already:bool}
+	 * @param int $user_id    Identifiant de l'utilisateur.
+	 * @param int $room_id    Identifiant de la room.
+	 * @param int $task_index Index de la tâche.
+	 * @param int $question   Index de la question.
 	 */
-	public static function complete_room( $user_id, $room_id ) {
-		$state    = self::get_state( $user_id );
-		$key      = (string) absint( $room_id );
-		$progress = $state['progress'];
+	public static function mark_hint( $user_id, $room_id, $task_index, $question ) {
+		$room  = self::get_room_state( $user_id, $room_id );
+		$index = (string) absint( $task_index );
 
-		if ( ! isset( $progress[ $key ] ) || ! is_array( $progress[ $key ] ) ) {
-			return array(
-				'completed' => false,
-				'xp'        => 0,
-				'already'   => false,
+		if ( ! isset( $room['tasks'][ $index ] ) ) {
+			$room['tasks'][ $index ] = array(
+				'solved' => array(),
+				'hints'  => array(),
+				'done'   => false,
 			);
 		}
 
-		if ( ! empty( $progress[ $key ]['completed'] ) ) {
-			return array(
-				'completed' => true,
-				'xp'        => 0,
-				'already'   => true,
-			);
+		$room['tasks'][ $index ]['hints'][ (string) absint( $question ) ] = true;
+
+		self::save_room_state( $user_id, $room_id, $room );
+	}
+
+	/**
+	 * Un indice a-t-il été utilisé dans cette question ?
+	 *
+	 * @param int $user_id    Identifiant de l'utilisateur.
+	 * @param int $room_id    Identifiant de la room.
+	 * @param int $task_index Index de la tâche.
+	 * @param int $question   Index de la question.
+	 * @return bool
+	 */
+	public static function hint_used( $user_id, $room_id, $task_index, $question ) {
+		$room = self::get_room_state( $user_id, $room_id );
+		$key  = (string) absint( $question );
+
+		return isset( $room['tasks'][ (string) absint( $task_index ) ]['hints'][ $key ] );
+	}
+
+	/**
+	 * Une tâche est-elle terminée ?
+	 *
+	 * @param array $task   Tâche.
+	 * @param array $tstate État de la tâche.
+	 * @return bool
+	 */
+	public static function is_task_done( $task, $tstate ) {
+		if ( ! is_array( $tstate ) ) {
+			return false;
 		}
 
-		$questions = Secura_Rooms::get_questions( $room_id );
-		$solved    = isset( $progress[ $key ]['solved'] ) ? $progress[ $key ]['solved'] : array();
-		$total     = count( $questions );
+		$questions = isset( $task['questions'] ) ? $task['questions'] : array();
 
-		if ( 0 === $total ) {
-			return array(
-				'completed' => false,
-				'xp'        => 0,
-				'already'   => false,
-			);
+		if ( empty( $questions ) ) {
+			return ! empty( $tstate['done'] );
 		}
 
 		foreach ( array_keys( $questions ) as $index ) {
-			if ( ! isset( $solved[ $index ] ) ) {
-				return array(
-					'completed' => false,
-					'xp'        => 0,
-					'already'   => false,
-				);
+			if ( ! isset( $tstate['solved'][ (string) $index ] ) ) {
+				return false;
 			}
 		}
 
-		$bonus = absint( get_post_meta( $room_id, SECURA_META_XP_BONUS, true ) );
-		$total_xp = $state['xp'] + $bonus;
-
-		$progress[ $key ]['completed'] = true;
-
-		update_user_meta( $user_id, SECURA_USER_XP, $total_xp );
-		update_user_meta( $user_id, SECURA_USER_PROGRESS, $progress );
-
-		return array(
-			'completed' => true,
-			'xp'        => $bonus,
-			'already'   => false,
-		);
+		return true;
 	}
 
 	/**
-	 * Ajoute un trophée s'il n'a pas déjà été obtenu.
+	 * Une tâche est-elle déverrouillée ?
 	 *
-	 * @param int    $user_id     Identifiant de l'utilisateur.
-	 * @param string $slug        Identifiant du trophée.
-	 * @param string $name        Nom affiché.
-	 * @param string $description Description courte.
-	 * @param string $icon        Icône (caractère).
-	 * @return array{added:bool,trophies:array}
+	 * @param array $tasks  Toutes les tâches.
+	 * @param int   $index  Index de la tâche.
+	 * @param array $state  État de la room.
+	 * @return bool
 	 */
-	public static function add_trophy( $user_id, $slug, $name, $description, $icon ) {
-		$trophies = get_user_meta( $user_id, SECURA_USER_TROPHIES, true );
-
-		if ( ! is_array( $trophies ) ) {
-			$trophies = array();
+	public static function is_task_unlocked( $tasks, $index, $state ) {
+		if ( 0 === (int) $index ) {
+			return true;
 		}
 
-		foreach ( $trophies as $trophy ) {
-			if ( isset( $trophy['slug'] ) && $trophy['slug'] === $slug ) {
-				return array(
-					'added'    => false,
-					'trophies' => array_values( $trophies ),
-				);
+		$previous = isset( $tasks[ $index - 1 ] ) ? $tasks[ $index - 1 ] : null;
+
+		if ( ! $previous ) {
+			return true;
+		}
+
+		$tstate = isset( $state['tasks'][ (string) ( (int) $index - 1 ) ] ) ? $state['tasks'][ (string) ( (int) $index - 1 ) ] : array();
+
+		return self::is_task_done( $previous, $tstate );
+	}
+
+	/**
+	 * Score pondéré d'une room, en pourcentage.
+	 *
+	 * @param array $tasks Tâches.
+	 * @param array $state État de la room.
+	 * @return array{score:int,correct:int,total:int,hints:int}
+	 */
+	public static function compute_score( $tasks, $state ) {
+		$correct = 0;
+		$total   = 0;
+		$hints   = 0;
+
+		foreach ( $tasks as $index => $task ) {
+			$questions = isset( $task['questions'] ) ? $task['questions'] : array();
+			$tstate    = isset( $state['tasks'][ (string) $index ] ) ? $state['tasks'][ (string) $index ] : array();
+
+			foreach ( $questions as $q_index => $question ) {
+				$weight = isset( $question['weight'] ) && $question['weight'] > 0 ? absint( $question['weight'] ) : 1;
+				$total += $weight;
+
+				if ( isset( $tstate['solved'][ (string) $q_index ] ) ) {
+					$correct += $weight;
+				}
+			}
+
+			if ( isset( $tstate['hints'] ) && is_array( $tstate['hints'] ) ) {
+				$hints += count( $tstate['hints'] );
 			}
 		}
 
-		$trophies[] = array(
-			'slug'        => sanitize_key( $slug ),
-			'name'        => sanitize_text_field( $name ),
-			'description' => sanitize_text_field( $description ),
-			'icon'        => sanitize_text_field( $icon ),
-			'date'        => current_time( 'mysql' ),
-		);
-
-		update_user_meta( $user_id, SECURA_USER_TROPHIES, array_values( $trophies ) );
+		$score = $total > 0 ? (int) round( ( $correct / $total ) * 100 ) : 0;
 
 		return array(
-			'added'    => true,
-			'trophies' => array_values( $trophies ),
+			'score'   => $score,
+			'correct' => $correct,
+			'total'   => $total,
+			'hints'   => $hints,
 		);
 	}
 
 	/**
-	 * Normalise une réponse pour comparer sans tenir compte de la casse,
-	 * des accents, des espaces multiples ou de la ponctuation finale.
+	 * Médaille correspondant à un score et un usage d'indices.
+	 *
+	 * @param int $score Score en pourcentage.
+	 * @param int $hints Nombre d'indices utilisés.
+	 * @return string bronze|silver|gold|''
+	 */
+	public static function medal_for( $score, $hints ) {
+		if ( $score >= 100 && 0 === $hints ) {
+			return 'gold';
+		}
+
+		if ( $score >= 80 && 0 === $hints ) {
+			return 'silver';
+		}
+
+		if ( $score >= 60 ) {
+			return 'bronze';
+		}
+
+		return '';
+	}
+
+	/**
+	 * Enregistre une médaille (elle ne descend jamais).
+	 *
+	 * @param int    $user_id Identifiant de l'utilisateur.
+	 * @param string $key     Clé de la médaille.
+	 * @param string $medal   Médaille obtenue.
+	 * @param int    $score   Score associé.
+	 * @return array
+	 */
+	public static function add_medal( $user_id, $key, $medal, $score = 0 ) {
+		$medals = get_user_meta( $user_id, SECURA_USER_MEDALS, true );
+		$medals = is_array( $medals ) ? $medals : array();
+
+		$order = array( '' => 0, 'bronze' => 1, 'silver' => 2, 'gold' => 3 );
+		$current = isset( $medals[ $key ]['medal'] ) ? $medals[ $key ]['medal'] : '';
+
+		if ( isset( $order[ $medal ] ) && $order[ $medal ] > $order[ $current ] ) {
+			$medals[ $key ] = array(
+				'medal'     => $medal,
+				'score'     => absint( $score ),
+				'earned_at' => current_time( 'mysql' ),
+			);
+
+			update_user_meta( $user_id, SECURA_USER_MEDALS, $medals );
+
+			return array(
+				'added'  => true,
+				'medal'  => $medal,
+				'medals' => $medals,
+			);
+		}
+
+		return array(
+			'added'  => false,
+			'medal'  => $current,
+			'medals' => $medals,
+		);
+	}
+
+	/* ---------------------------------------------------------------------
+	 * Examens
+	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Clé unique d'un examen.
+	 *
+	 * @param int $room_id    Identifiant de la room.
+	 * @param int $task_index Index de la tâche.
+	 * @return string
+	 */
+	public static function exam_key( $room_id, $task_index ) {
+		return absint( $room_id ) . ':' . absint( $task_index );
+	}
+
+	/**
+	 * Démarre (ou réutilise) le chronomètre d'un examen.
+	 *
+	 * @param int $user_id Identifiant de l'utilisateur.
+	 * @param int $room_id Identifiant de la room.
+	 * @param int $index   Index de la tâche.
+	 * @return array
+	 */
+	public static function start_exam( $user_id, $room_id, $index ) {
+		$exams = get_user_meta( $user_id, SECURA_USER_EXAMS, true );
+		$exams = is_array( $exams ) ? $exams : array();
+		$key   = self::exam_key( $room_id, $index );
+
+		if ( ! isset( $exams[ $key ] ) || ! is_array( $exams[ $key ] ) ) {
+			$exams[ $key ] = array(
+				'started_at'  => time(),
+				'finished_at' => 0,
+				'score'       => 0,
+				'best_score'  => 0,
+				'passed'      => false,
+				'attempts'    => 0,
+				'awarded'     => false,
+			);
+
+			update_user_meta( $user_id, SECURA_USER_EXAMS, $exams );
+
+			return $exams[ $key ];
+		}
+
+		/* Nouvel essai : on relance le chronomètre, on garde le bonus
+		   déjà versé et le meilleur score. */
+		if ( ! empty( $exams[ $key ]['finished_at'] ) ) {
+			$exams[ $key ]['started_at']  = time();
+			$exams[ $key ]['finished_at'] = 0;
+			$exams[ $key ]['passed']      = false;
+
+			update_user_meta( $user_id, SECURA_USER_EXAMS, $exams );
+		}
+
+		return $exams[ $key ];
+	}
+
+	/**
+	 * Marque un examen comme récompensé (XP de réussite versé une seule fois).
+	 *
+	 * @param int $user_id Identifiant de l'utilisateur.
+	 * @param int $room_id Identifiant de la room.
+	 * @param int $index   Index de la tâche.
+	 * @return array
+	 */
+	public static function mark_exam_awarded( $user_id, $room_id, $index ) {
+		$exams = get_user_meta( $user_id, SECURA_USER_EXAMS, true );
+		$exams = is_array( $exams ) ? $exams : array();
+		$key   = self::exam_key( $room_id, $index );
+
+		if ( ! isset( $exams[ $key ] ) ) {
+			return array();
+		}
+
+		$exams[ $key ]['awarded'] = true;
+
+		update_user_meta( $user_id, SECURA_USER_EXAMS, $exams );
+
+		return $exams[ $key ];
+	}
+
+	/**
+	 * État d'un examen.
+	 *
+	 * @param int $user_id Identifiant de l'utilisateur.
+	 * @param int $room_id Identifiant de la room.
+	 * @param int $index   Index de la tâche.
+	 * @return array|null
+	 */
+	public static function exam_state( $user_id, $room_id, $index ) {
+		$exams = get_user_meta( $user_id, SECURA_USER_EXAMS, true );
+		$exams = is_array( $exams ) ? $exams : array();
+		$key   = self::exam_key( $room_id, $index );
+
+		return isset( $exams[ $key ] ) ? $exams[ $key ] : null;
+	}
+
+	/**
+	 * Enregistre le résultat d'un examen.
+	 *
+	 * @param int  $user_id Identifiant de l'utilisateur.
+	 * @param int  $room_id Identifiant de la room.
+	 * @param int  $index   Index de la tâche.
+	 * @param int  $score   Score en pourcentage.
+	 * @param bool $passed  Réussite.
+	 * @return array
+	 */
+	public static function finish_exam( $user_id, $room_id, $index, $score, $passed ) {
+		$exams = get_user_meta( $user_id, SECURA_USER_EXAMS, true );
+		$exams = is_array( $exams ) ? $exams : array();
+		$key   = self::exam_key( $room_id, $index );
+
+		if ( ! isset( $exams[ $key ] ) ) {
+			$exams[ $key ] = array( 'started_at' => time() );
+		}
+
+		$exams[ $key ]['finished_at'] = time();
+		$exams[ $key ]['score']       = absint( $score );
+		$exams[ $key ]['passed']      = (bool) $passed;
+		$exams[ $key ]['attempts']    = isset( $exams[ $key ]['attempts'] ) ? absint( $exams[ $key ]['attempts'] ) + 1 : 1;
+		$exams[ $key ]['best_score']  = max( absint( $score ), isset( $exams[ $key ]['best_score'] ) ? absint( $exams[ $key ]['best_score'] ) : 0 );
+
+		if ( ! isset( $exams[ $key ]['awarded'] ) ) {
+			$exams[ $key ]['awarded'] = false;
+		}
+
+		update_user_meta( $user_id, SECURA_USER_EXAMS, $exams );
+
+		return $exams[ $key ];
+	}
+
+	/**
+	 * L'examen est-il expiré ?
+	 *
+	 * @param array $exam  État de l'examen.
+	 * @param int   $limit Durée en minutes.
+	 * @return bool
+	 */
+	public static function exam_expired( $exam, $limit ) {
+		if ( ! is_array( $exam ) || empty( $exam['started_at'] ) || $limit <= 0 ) {
+			return false;
+		}
+
+		return ( time() - absint( $exam['started_at'] ) ) > ( absint( $limit ) * 60 );
+	}
+
+	/* ---------------------------------------------------------------------
+	 * Série de jours consécutifs
+	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Met à jour la série de jours consécutifs.
+	 *
+	 * @param int $user_id Identifiant de l'utilisateur.
+	 * @return array
+	 */
+	public static function touch_streak( $user_id ) {
+		$streak = get_user_meta( $user_id, SECURA_USER_STREAK, true );
+		$streak = is_array( $streak ) ? $streak : array( 'current' => 0, 'longest' => 0, 'last_day' => '' );
+
+		$today = current_time( 'Y-m-d' );
+		$last  = isset( $streak['last_day'] ) ? $streak['last_day'] : '';
+
+		if ( $last === $today ) {
+			return $streak;
+		}
+
+		$yesterday = gmdate( 'Y-m-d', strtotime( $today . ' -1 day' ) );
+
+		if ( $last === $yesterday ) {
+			$streak['current'] = absint( $streak['current'] ) + 1;
+		} else {
+			$streak['current'] = 1;
+		}
+
+		$streak['longest'] = max( absint( $streak['longest'] ), absint( $streak['current'] ) );
+		$streak['last_day'] = $today;
+
+		update_user_meta( $user_id, SECURA_USER_STREAK, $streak );
+
+		return $streak;
+	}
+
+	/**
+	 * Normalise une réponse pour comparaison.
 	 *
 	 * @param string $answer Réponse brute.
 	 * @return string

@@ -1,0 +1,125 @@
+/*
+Secura Learning — ajustements RTL (arabe).
+Chargé en plus de style.css lorsque la locale du site est en écriture
+de droite à gauche.
+*/
+
+/* ----------------------------------------------------------------------
+ * Typographie
+ * -------------------------------------------------------------------- */
+
+body {
+	font-family: "Segoe UI", "Noto Sans Arabic", "Noto Naskh Arabic", Tahoma, "Dubai", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+	line-height: 1.85;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	letter-spacing: 0;
+}
+
+code,
+pre,
+.seca-terminal-screen,
+.seca-terminal-input,
+.seca-terminal-prompt {
+	direction: ltr;
+	text-align: left;
+	unicode-bidi: embed;
+}
+
+/* ----------------------------------------------------------------------
+ * Navigation et en-tête
+ * -------------------------------------------------------------------- */
+
+.site-brand {
+	letter-spacing: 0;
+}
+
+.site-nav ul {
+	gap: 1.1rem;
+}
+
+.site-header__inner,
+.site-footer__inner {
+	flex-direction: row;
+}
+
+/* ----------------------------------------------------------------------
+ * Cartes et listes
+ * -------------------------------------------------------------------- */
+
+.post-card__title,
+.post-card__meta,
+.post-card__excerpt {
+	text-align: start;
+}
+
+/* ----------------------------------------------------------------------
+ * Éléments Secura Academy
+ * -------------------------------------------------------------------- */
+
+.seca-app {
+	text-align: start;
+}
+
+.seca-app ul,
+.seca-task-body ul {
+	padding-inline-start: 1.35rem;
+}
+
+.seca-task-body pre,
+.seca-task-body code {
+	direction: ltr;
+	text-align: left;
+}
+
+.seca-chip,
+.seca-lang,
+.seca-btn {
+	letter-spacing: 0;
+}
+
+.seca-eyebrow,
+.seca-overlay-kicker,
+.seca-result-score {
+	letter-spacing: normal;
+}
+
+.seca-eyebrow,
+.seca-overlay-kicker {
+	letter-spacing: .08em;
+}
+
+/* Les puces de navigation restent dans l'ordre logique. */
+.seca-task-nav {
+	flex-direction: row;
+}
+
+.seca-hero-actions,
+.seca-room-meta,
+.seca-path-meta,
+.seca-question-actions,
+.seca-task-actions {
+	flex-direction: row;
+}
+
+/* Les barres de progression se remplient depuis la droite. */
+.seca-progress-fill,
+.seca-xpbar-fill {
+	direction: rtl;
+}
+
+/* L'invite du terminal reste en lecture gauche-droite. */
+.seca-terminal-form {
+	direction: ltr;
+}
+
+/* Les émoticônes de statut restent neutres. */
+.seca-task-tab-lock,
+.seca-result-medal {
+	direction: ltr;
+	unicode-bidi: isolate;
+}
