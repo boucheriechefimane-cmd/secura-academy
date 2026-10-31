@@ -1,0 +1,63 @@
+/**
+ * Secura Academy — styles de la meta box d'édition des rooms.
+ */
+
+.secura-metabox-title {
+	margin: 1.2em 0 0.4em;
+	font-size: 1em;
+}
+
+.secura-metabox p {
+	margin: 0.6em 0;
+}
+
+.secura-metabox label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 0.25em;
+}
+
+.secura-metabox input[type="number"],
+.secura-metabox select {
+	width: 12em;
+}
+
+.secura-questions {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75em;
+	margin-top: 0.75em;
+}
+
+.secura-question-row {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-left: 4px solid #2271b1;
+	border-radius: 4px;
+	padding: 0.75em 1em 1em;
+}
+
+.secura-question-label {
+	display: flex;
+	align-items: center;
+	gap: 0.75em;
+	font-weight: 700;
+	margin-bottom: 0.5em !important;
+}
+
+.secura-question-number {
+	display: inline-block;
+	min-width: 1.6em;
+	height: 1.6em;
+	line-height: 1.6em;
+	text-align: center;
+	border-radius: 50%;
+	background: #2271b1;
+	color: #fff;
+	font-size: 0.85em;
+}
+
+.seca-remove-question {
+	color: #b32d2e;
+	font-size: 0.85em;
+}

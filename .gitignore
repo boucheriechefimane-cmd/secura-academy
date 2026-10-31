@@ -1,0 +1,58 @@
+# Système et éditeurs
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.idea/
+.vscode/
+*.log
+
+# Secrets et credentials — ne jamais versionner
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+credentials.json
+.netrc
+.npmrc
+
+# Dépendances et artefacts de build
+node_modules/
+vendor/
+dist/
+build/
+coverage/
+out/
+target/
+*.zip
+
+# WordPress
+wp-config.php
+wp-config-*.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backups/
+*.sql
+*.sql.gz
+*.sql.zip
+wp-admin/
+wp-includes/
+
+# Outillage local
+.phpunit.result.cache
+.php-cs-fixer.cache
+phpunit.xml.bak

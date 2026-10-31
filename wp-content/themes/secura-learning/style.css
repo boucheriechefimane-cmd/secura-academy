@@ -1,0 +1,245 @@
+/*
+Theme Name: Secura Learning
+Theme URI: https://github.com/boucheriechefimane-cmd/secura-academy
+Author: Secura Academy
+Author URI: https://github.com/boucheriechefimane-cmd
+Description: Thème sombre et responsive pour Secura Academy. Il expose une palette personnalisable (Apparence → Personnaliser → Palette Secura) et fournit les jetons de couleur consommés par le plugin Secura Academy.
+Version: 0.1.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: secura-learning
+Tags: education, dark, custom-colors, accessibility-ready
+*/
+
+/* ----------------------------------------------------------------------
+ * Jetons de couleur
+ * -------------------------------------------------------------------- */
+
+:root {
+	--secura-accent: #2dd4a7;
+	--secura-bg: #0b1220;
+	--secura-surface: #131c2e;
+	--secura-surface-2: #18233a;
+	--secura-border: #26344f;
+	--secura-text: #e9eefc;
+	--secura-muted: #9db0d0;
+	--secura-content-width: 1180px;
+}
+
+/* ----------------------------------------------------------------------
+ * Base
+ * -------------------------------------------------------------------- */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: var(--secura-bg);
+	color: var(--secura-text);
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-size: 17px;
+	line-height: 1.65;
+	-webkit-font-smoothing: antialiased;
+}
+
+a {
+	color: var(--secura-accent);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 2px;
+}
+
+a:hover,
+a:focus-visible {
+	color: var(--secura-text);
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+:focus-visible {
+	outline: 2px solid var(--secura-accent);
+	outline-offset: 2px;
+}
+
+.skip-link {
+	position: absolute;
+	left: -9999px;
+	top: 0;
+	background: var(--secura-accent);
+	color: #08121f;
+	padding: 0.6rem 1rem;
+	z-index: 100;
+}
+
+.skip-link:focus {
+	left: 1rem;
+	top: 1rem;
+}
+
+/* ----------------------------------------------------------------------
+ * Structure
+ * -------------------------------------------------------------------- */
+
+.site-header {
+	border-bottom: 1px solid var(--secura-border);
+	background: color-mix(in srgb, var(--secura-surface) 80%, transparent);
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	backdrop-filter: blur(8px);
+}
+
+.site-header__inner {
+	max-width: var(--secura-content-width);
+	margin: 0 auto;
+	padding: 0.9rem 1.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.site-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55rem;
+	font-weight: 800;
+	font-size: 1.05rem;
+	color: var(--secura-text);
+	text-decoration: none;
+	letter-spacing: 0.01em;
+}
+
+.site-brand__mark {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 8px;
+	background: var(--secura-accent);
+	color: #08121f;
+	font-size: 1rem;
+}
+
+.site-nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	gap: 1.1rem;
+	flex-wrap: wrap;
+}
+
+.site-nav a {
+	color: var(--secura-muted);
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+	color: var(--secura-text);
+}
+
+.site-main {
+	max-width: var(--secura-content-width);
+	margin: 0 auto;
+	padding: clamp(1.5rem, 4vw, 3rem) 1.25rem 4rem;
+}
+
+.entry-content > * {
+	max-width: 78ch;
+}
+
+.entry-content h1,
+.entry-content h2,
+.entry-content h3 {
+	line-height: 1.25;
+}
+
+.site-footer {
+	border-top: 1px solid var(--secura-border);
+	background: var(--secura-surface);
+	margin-top: 3rem;
+}
+
+.site-footer__inner {
+	max-width: var(--secura-content-width);
+	margin: 0 auto;
+	padding: 2rem 1.25rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: space-between;
+	align-items: center;
+	color: var(--secura-muted);
+	font-size: 0.9rem;
+}
+
+/* ----------------------------------------------------------------------
+ * Contenu
+ * -------------------------------------------------------------------- */
+
+.sticky-post {
+	border: 1px solid var(--secura-border);
+	border-radius: 12px;
+	padding: 1.25rem;
+	background: var(--secura-surface);
+}
+
+.post-list {
+	display: grid;
+	gap: 1.25rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.post-card {
+	background: var(--secura-surface);
+	border: 1px solid var(--secura-border);
+	border-radius: 12px;
+	padding: 1.25rem;
+}
+
+.post-card__title {
+	margin: 0 0 0.4rem;
+	font-size: 1.2rem;
+}
+
+.post-card__meta {
+	margin: 0 0 0.6rem;
+	font-size: 0.82rem;
+	color: var(--secura-muted);
+}
+
+.read-more {
+	font-weight: 600;
+}
+
+.screen-reader-text {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition-duration: 0.001ms !important;
+		animation-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+}

@@ -1,0 +1,607 @@
+/**
+ * Secura Academy — tableau de bord et rooms.
+ *
+ * Palette pilotée par variables CSS : le thème secura-learning peut surcharger
+ * --secura-accent, --secura-bg et --secura-surface via l Personaliseur.
+ */
+
+.secura-dashboard {
+	--sa-bg: var(--secura-bg, #0b1220);
+	--sa-surface: var(--secura-surface, #131c2e);
+	--sa-surface-2: var(--secura-surface-2, #18233a);
+	--sa-border: var(--secura-border, #26344f);
+	--sa-text: var(--secura-text, #e9eefc);
+	--sa-muted: var(--secura-muted, #9db0d0);
+	--sa-accent: var(--secura-accent, #2dd4a7);
+	--sa-accent-soft: color-mix(in srgb, var(--sa-accent) 18%, transparent);
+	--sa-danger: #f87171;
+	--sa-radius: 14px;
+	--sa-gap: 1rem;
+
+	background: var(--sa-bg);
+	color: var(--sa-text);
+	border: 1px solid var(--sa-border);
+	border-radius: var(--sa-radius);
+	padding: clamp(1rem, 3vw, 2rem);
+	font-size: 1rem;
+	line-height: 1.6;
+	box-sizing: border-box;
+}
+
+.secura-dashboard *,
+.secura-dashboard *::before,
+.secura-dashboard *::after {
+	box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+ * En-tête et statistiques
+ * ----------------------------------------------------------------------- */
+
+.secura-dash-header {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--sa-gap);
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 1.75rem;
+}
+
+.secura-eyebrow {
+	margin: 0 0 0.25rem;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--sa-accent);
+}
+
+.secura-dash-title {
+	margin: 0 0 0.35rem;
+	font-size: clamp(1.4rem, 3.5vw, 2rem);
+	line-height: 1.2;
+	color: var(--sa-text);
+}
+
+.secura-dash-sub {
+	margin: 0;
+	color: var(--sa-muted);
+	max-width: 46ch;
+}
+
+.secura-dash-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+}
+
+.secura-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+	padding: 0.6rem 1.1rem;
+	border-radius: 10px;
+	border: 1px solid var(--sa-border);
+	background: var(--sa-surface-2);
+	color: var(--sa-text);
+	font-weight: 600;
+	text-decoration: none;
+	cursor: pointer;
+	transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.secura-btn:hover,
+.secura-btn:focus-visible {
+	border-color: var(--sa-accent);
+	transform: translateY(-1px);
+}
+
+.secura-btn--primary {
+	background: var(--sa-accent);
+	border-color: var(--sa-accent);
+	color: #08121f;
+}
+
+.secura-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+	gap: 0.75rem;
+	flex: 1 1 320px;
+}
+
+.secura-stat {
+	background: var(--sa-surface);
+	border: 1px solid var(--sa-border);
+	border-radius: 12px;
+	padding: 0.75rem 0.9rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+}
+
+.secura-stat-label {
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--sa-muted);
+}
+
+.secura-stat-value {
+	font-size: 1.35rem;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	color: var(--sa-text);
+}
+
+.secura-level {
+	grid-column: 1 / -1;
+	background: var(--sa-surface);
+	border: 1px solid var(--sa-border);
+	border-radius: 12px;
+	padding: 0.75rem 0.9rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.secura-level-label {
+	font-weight: 700;
+	font-size: 0.95rem;
+}
+
+.secura-level-hint {
+	font-size: 0.8rem;
+	color: var(--sa-muted);
+}
+
+.secura-xpbar {
+	height: 10px;
+	border-radius: 999px;
+	background: var(--sa-surface-2);
+	border: 1px solid var(--sa-border);
+	overflow: hidden;
+}
+
+.secura-xpbar-fill {
+	display: block;
+	height: 100%;
+	width: 0;
+	border-radius: inherit;
+	background: linear-gradient(90deg, var(--sa-accent), color-mix(in srgb, var(--sa-accent) 55%, #7dd3fc));
+	transition: width 0.4s ease;
+}
+
+/* --------------------------------------------------------------------------
+ * Sections
+ * ----------------------------------------------------------------------- */
+
+.secura-section {
+	margin-bottom: 1.75rem;
+}
+
+.secura-section-title {
+	margin: 0 0 0.75rem;
+	font-size: 1.05rem;
+	letter-spacing: 0.01em;
+	color: var(--sa-text);
+}
+
+.secura-progress {
+	height: 12px;
+	border-radius: 999px;
+	background: var(--sa-surface-2);
+	border: 1px solid var(--sa-border);
+	overflow: hidden;
+}
+
+.secura-progress-fill {
+	display: block;
+	height: 100%;
+	width: 0;
+	background: var(--sa-accent);
+	transition: width 0.4s ease;
+}
+
+.secura-progress-text {
+	margin: 0.4rem 0 0;
+	font-size: 0.85rem;
+	color: var(--sa-muted);
+}
+
+/* --------------------------------------------------------------------------
+ * Trophées
+ * ----------------------------------------------------------------------- */
+
+.secura-trophy-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 0.6rem;
+}
+
+.secura-trophy {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	background: var(--sa-surface);
+	border: 1px solid var(--sa-border);
+	border-radius: 12px;
+	padding: 0.6rem 0.8rem;
+}
+
+.secura-trophy.is-empty {
+	grid-column: 1 / -1;
+	color: var(--sa-muted);
+	font-size: 0.9rem;
+}
+
+.secura-trophy-icon {
+	font-size: 1.5rem;
+	line-height: 1;
+}
+
+.secura-trophy-body {
+	display: flex;
+	flex-direction: column;
+}
+
+.secura-trophy-body strong {
+	font-size: 0.95rem;
+}
+
+.secura-trophy-body span {
+	font-size: 0.8rem;
+	color: var(--sa-muted);
+}
+
+/* --------------------------------------------------------------------------
+ * Cards de rooms
+ * ----------------------------------------------------------------------- */
+
+.secura-room-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 0.85rem;
+	counter-reset: none;
+}
+
+.secura-room-card {
+	background: var(--sa-surface);
+	border: 1px solid var(--sa-border);
+	border-radius: var(--sa-radius);
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.55rem;
+	transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.secura-room-card[role="button"] {
+	cursor: pointer;
+}
+
+.secura-room-card[role="button"]:hover,
+.secura-room-card[role="button"]:focus-visible {
+	border-color: var(--sa-accent);
+	transform: translateY(-2px);
+}
+
+.secura-room-card.is-locked {
+	opacity: 0.62;
+	cursor: not-allowed;
+}
+
+.secura-room-card.is-done {
+	border-color: color-mix(in srgb, var(--sa-accent) 55%, var(--sa-border));
+	background: color-mix(in srgb, var(--sa-accent) 8%, var(--sa-surface));
+}
+
+.secura-room-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+
+.secura-room-index {
+	font-weight: 800;
+	font-size: 0.85rem;
+	letter-spacing: 0.08em;
+	color: var(--sa-muted);
+}
+
+.secura-room-status {
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-weight: 700;
+	padding: 0.2rem 0.55rem;
+	border-radius: 999px;
+	border: 1px solid var(--sa-border);
+	color: var(--sa-muted);
+}
+
+.secura-room-card.is-done .secura-room-status {
+	color: var(--sa-accent);
+	border-color: var(--sa-accent);
+}
+
+.secura-room-card.is-progress .secura-room-status {
+	color: #fbbf24;
+	border-color: #fbbf24;
+}
+
+.secura-room-title {
+	margin: 0;
+	font-size: 1.05rem;
+	line-height: 1.3;
+	color: var(--sa-text);
+}
+
+.secura-room-excerpt {
+	margin: 0;
+	font-size: 0.88rem;
+	color: var(--sa-muted);
+}
+
+.secura-room-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+}
+
+.secura-chip {
+	font-size: 0.72rem;
+	padding: 0.15rem 0.5rem;
+	border-radius: 999px;
+	background: var(--sa-surface-2);
+	border: 1px solid var(--sa-border);
+	color: var(--sa-muted);
+}
+
+.secura-room-bar {
+	height: 8px;
+	border-radius: 999px;
+	background: var(--sa-surface-2);
+	border: 1px solid var(--sa-border);
+	overflow: hidden;
+}
+
+.secura-room-bar-fill {
+	display: block;
+	height: 100%;
+	background: var(--sa-accent);
+	transition: width 0.35s ease;
+}
+
+.secura-room-progress-text {
+	margin: 0;
+	font-size: 0.78rem;
+	color: var(--sa-muted);
+}
+
+/* --------------------------------------------------------------------------
+ * Panneau de room
+ * ----------------------------------------------------------------------- */
+
+.secura-panel {
+	position: fixed;
+	inset: 0;
+	z-index: 99999;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding: clamp(0.5rem, 4vh, 3rem) 1rem;
+	overflow-y: auto;
+}
+
+.secura-panel[hidden] {
+	display: none;
+}
+
+.secura-panel-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(3, 7, 18, 0.72);
+	backdrop-filter: blur(2px);
+}
+
+.secura-panel-body {
+	position: relative;
+	width: min(720px, 100%);
+	background: var(--sa-bg);
+	border: 1px solid var(--sa-border);
+	border-radius: var(--sa-radius);
+	padding: clamp(1rem, 3vw, 1.75rem);
+	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.secura-panel-head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.secura-panel-title {
+	margin: 0;
+	font-size: 1.3rem;
+	line-height: 1.25;
+}
+
+.secura-panel-close {
+	background: transparent;
+	border: 1px solid var(--sa-border);
+	color: var(--sa-muted);
+	border-radius: 8px;
+	font-size: 1.4rem;
+	line-height: 1;
+	width: 2.25rem;
+	height: 2.25rem;
+	cursor: pointer;
+}
+
+.secura-panel-close:hover,
+.secura-panel-close:focus-visible {
+	color: var(--sa-text);
+	border-color: var(--sa-accent);
+}
+
+.secura-panel-content {
+	color: var(--sa-muted);
+}
+
+.secura-panel-content p {
+	margin: 0 0 0.75rem;
+}
+
+.secura-panel-steps {
+	margin-top: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.85rem;
+}
+
+.secura-step {
+	background: var(--sa-surface);
+	border: 1px solid var(--sa-border);
+	border-radius: 12px;
+	padding: 0.9rem 1rem;
+}
+
+.secura-step.is-solved {
+	border-color: var(--sa-accent);
+	background: color-mix(in srgb, var(--sa-accent) 8%, var(--sa-surface));
+}
+
+.secura-step-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	margin-bottom: 0.4rem;
+}
+
+.secura-step-title {
+	margin: 0;
+	font-weight: 600;
+	color: var(--sa-text);
+}
+
+.secura-step-xp {
+	font-size: 0.72rem;
+	color: var(--sa-accent);
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+.secura-step-question {
+	margin: 0 0 0.65rem;
+	color: var(--sa-text);
+}
+
+.secura-step-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.secura-step-input {
+	flex: 1 1 220px;
+	min-width: 0;
+	padding: 0.55rem 0.7rem;
+	border-radius: 10px;
+	border: 1px solid var(--sa-border);
+	background: var(--sa-surface-2);
+	color: var(--sa-text);
+	font: inherit;
+}
+
+.secura-step-input::placeholder {
+	color: color-mix(in srgb, var(--sa-muted) 75%, transparent);
+}
+
+.secura-step-input:focus-visible {
+	outline: 2px solid var(--sa-accent);
+	outline-offset: 2px;
+}
+
+.secura-hint {
+	margin: 0.6rem 0 0;
+	font-size: 0.83rem;
+	color: var(--sa-muted);
+}
+
+.secura-hint-toggle {
+	background: none;
+	border: none;
+	padding: 0;
+	margin-top: 0.5rem;
+	color: var(--sa-accent);
+	font: inherit;
+	font-size: 0.82rem;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.secura-step-feedback {
+	margin: 0.6rem 0 0;
+	font-size: 0.86rem;
+	font-weight: 600;
+}
+
+.secura-step-feedback.is-correct {
+	color: var(--sa-accent);
+}
+
+.secura-step-feedback.is-wrong {
+	color: var(--sa-danger);
+}
+
+.secura-panel-status {
+	margin: 1rem 0 0;
+	min-height: 1.4em;
+	font-size: 0.88rem;
+	color: var(--sa-muted);
+}
+
+.secura-empty {
+	color: var(--sa-muted);
+}
+
+/* --------------------------------------------------------------------------
+ * Accessibilité
+ * ----------------------------------------------------------------------- */
+
+.secura-dashboard :focus-visible,
+.secura-panel :focus-visible {
+	outline: 2px solid var(--sa-accent);
+	outline-offset: 2px;
+	border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.secura-dashboard *,
+	.secura-panel * {
+		transition-duration: 0.001ms !important;
+		animation-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+@media (max-width: 640px) {
+	.secura-dash-header {
+		flex-direction: column;
+	}
+
+	.secura-room-list {
+		grid-template-columns: 1fr;
+	}
+}
