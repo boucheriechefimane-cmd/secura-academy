@@ -525,6 +525,7 @@ GitHub Actions sont présents :
 |---|---|---|
 | `.github/workflows/ci.yml` | push sur `main`, pull request, manuel | Lint PHP, tests de logique, espaces en fin de ligne |
 | `.github/workflows/deploy.yml` | push sur `main`, manuel | Sauvegarde la version déployée, synchronise le plugin et le thème par `rsync`, contrôle que le site répond |
+| `.github/workflows/labs.yml` | push sur `main`, manuel | **Vraies machines Docker** : construit les 3 images, lance deux apprenants sur deux réseaux, vérifie l'isolation, les drapeaux et la pile réseau (17 contrôles) |
 
 Tant que les secrets GitHub ne sont pas configurés, le job de déploiement
 s'arrête proprement en affichant « Secrets de déploiement absents » : la CI
@@ -550,6 +551,24 @@ Une procédure clé en main est fournie :
 sudo bash /opt/secura-academy/scripts/recette-serveur.sh
 # attendu : Recette terminee : 22 reussis, 0 echecs
 ```
+
+## Quel hébergement choisir ?
+
+La règle est simple : **le plugin appelle la commande `docker` sur la machine
+où WordPress tourne.** Les vraies machines de laboratoire exigent donc un
+serveur avec Docker (accès root) : un hébergement mutualisé ne peut pas les
+faire tourner, mais le plugin bascule alors automatiquement sur le terminal
+simulé (cours, examens, certificat : tout le reste fonctionne).
+
+| Option | Docker | Lab réel | Prix |
+|---|---|---|---|
+| Mutualisé (Hostinger Premium) | ❌ | simulé | 2–3 €/mois |
+| Mutualisé + serveur de lab séparé | ✅ mais pas pilotable (non implémenté) | ✅ | 2 abonnements |
+| **VPS (Hostinger KVM)** | ✅ | ✅ | ~5 $/mois |
+
+Le détail, les avantages et les défauts de chaque option sont dans
+[`docs/HEBERGEMENT.md`](docs/HEBERGEMENT.md) ; la marche à suivre pour le
+VPS est dans [`docs/RECETTE-SERVEUR.md`](docs/RECETTE-SERVEUR.md).
 
 ## Limites connues
 
