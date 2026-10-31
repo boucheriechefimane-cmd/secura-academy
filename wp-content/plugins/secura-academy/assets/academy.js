@@ -625,15 +625,47 @@
 
 		box.appendChild( head );
 
+		var mode = question.mode || 'text';
 		var input = el( 'input', 'seca-answer-input' );
+		var choices = [];
 
 		input.type = 'text';
 		input.autocomplete = 'off';
 		input.setAttribute( 'aria-label', question.question );
 
+		if ( 'choice' === mode ) {
+			var list = el( 'div', 'seca-choices' );
+
+			( question.choices || [] ).forEach( function ( choice ) {
+				var row = el( 'label', 'seca-choice' );
+				var radio = el( 'input', 'seca-choice-input' );
+
+				radio.type = 'radio';
+				radio.name = 'seca-choice-' + index;
+				radio.value = choice;
+
+				row.appendChild( radio );
+				row.appendChild( el( 'span', 'seca-choice-label', choice ) );
+
+				list.appendChild( row );
+				choices.push( radio );
+			} );
+
+			box.appendChild( list );
+		} else if ( 'action' === mode ) {
+			box.appendChild( el( 'p', 'seca-action-note', t( 'action_note', "Realise l'action dans le terminal, puis confirme." ) ) );
+		} else {
+			box.appendChild( input );
+		}
+
 		if ( question.solved ) {
 			input.disabled = true;
 			input.value = t( 'solved', 'Validée' );
+
+			choices.forEach( function ( radio ) {
+				radio.disabled = true;
+			} );
+
 			box.classList.add( 'is-correct' );
 		}
 
@@ -675,11 +707,32 @@
 		}
 
 		submit.addEventListener( 'click', function () {
-			var value = input.value;
+			var value = '';
 
-			if ( ! value.trim() ) {
-				input.focus();
-				return;
+			if ( 'action' === mode ) {
+				value = 'done';
+			} else if ( 'choice' === mode ) {
+				var picked = '';
+
+				choices.forEach( function ( radio ) {
+					if ( radio.checked ) {
+						picked = radio.value;
+					}
+				} );
+
+				if ( ! picked ) {
+					toast( t( 'choose_answer', 'Choisis une reponse avant de valider.' ), true );
+					return;
+				}
+
+				value = picked;
+			} else {
+				value = input.value;
+
+				if ( ! value.trim() ) {
+					input.focus();
+					return;
+				}
 			}
 
 			submit.disabled = true;
@@ -694,6 +747,10 @@
 					box.classList.remove( 'is-wrong' );
 					box.classList.add( 'is-correct' );
 					input.disabled = true;
+
+					choices.forEach( function ( radio ) {
+						radio.disabled = true;
+					} );
 
 					feedback( data.message, true );
 

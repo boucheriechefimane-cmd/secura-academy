@@ -211,6 +211,8 @@ final class Secura_Ajax {
 			$entry = array(
 				'index'        => $q_index,
 				'question'     => $question['question'],
+				'mode'         => isset( $question['mode'] ) ? $question['mode'] : 'text',
+				'choices'      => isset( $question['choices'] ) ? array_values( $question['choices'] ) : array(),
 				'xp'           => (int) $question['xp'],
 				'hint'         => $question['hint'],
 				'weight'       => (int) $question['weight'],
@@ -349,7 +351,18 @@ final class Secura_Ajax {
 		}
 
 		$already = isset( $state['tasks'][ (string) $index ]['solved'][ (string) $q_index ] );
-		$correct = Secura_Progress::answer_matches( $answer, $question['answers'] );
+		$mode    = isset( $question['mode'] ) ? $question['mode'] : 'text';
+
+		if ( 'action' === $mode ) {
+			/* Question sans reponse : l'apprenant declare avoir realise
+			   l'action. Le serveur verifie l'etat reel du terminal. */
+			$correct = Secura_Progress::action_completed( $user_id, $room_id, $index, $question );
+		} elseif ( 'choice' === $mode ) {
+			$expected = isset( $question['choices'][ (int) $question['correct'] ] ) ? $question['choices'][ (int) $question['correct'] ] : '';
+			$correct  = ( '' !== $expected ) && Secura_Progress::answer_matches( $answer, array( $expected ) );
+		} else {
+			$correct = Secura_Progress::answer_matches( $answer, $question['answers'] );
+		}
 
 		if ( ! $correct ) {
 			wp_send_json_success(

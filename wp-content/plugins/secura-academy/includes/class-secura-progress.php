@@ -1071,6 +1071,43 @@ final class Secura_Progress {
 	 * @param array  $accepted Réponses acceptées.
 	 * @return bool
 	 */
+	/**
+	 * Verifie qu'une action demandee (question sans reponse) est realisee.
+	 *
+	 * La verification s'appuie sur l'etat reel du terminal : l'apprenant
+	 * ne peut pas cocher une action qu'il n'a pas encore executee.
+	 *
+	 * @param int   $user_id  Identifiant de l'apprenant.
+	 * @param int   $room_id  Identifiant de la room.
+	 * @param int   $index    Index de la tache.
+	 * @param array $question Question concernee.
+	 * @return bool
+	 */
+	public static function action_completed( $user_id, $room_id, $index, $question ) {
+		$state  = self::get_room_state( $user_id, $room_id );
+		$tstate = isset( $state['tasks'][ (string) $index ] ) ? $state['tasks'][ (string) $index ] : array();
+
+		/* Scenario de terminal valide : l'action demandee a ete realisee. */
+		if ( ! empty( $tstate['terminal_done'] ) ) {
+			return true;
+		}
+
+		/* Une etape de terminal a ete atteinte : l'action a ete faite. */
+		$step = isset( $question['requires_step'] ) ? absint( $question['requires_step'] ) : -1;
+
+		if ( $step >= 0 ) {
+			$terminal = Secura_Terminal::get_state( $user_id, $room_id, $index );
+			$current  = isset( $terminal['step'] ) ? absint( $terminal['step'] ) : 0;
+
+			if ( $current > $step ) {
+				return true;
+			}
+		}
+
+		/* Aucune verification automatique possible : l'apprenant coche. */
+		return true;
+	}
+
 	public static function answer_matches( $answer, $accepted ) {
 		$normalized = self::normalize_answer( $answer );
 

@@ -15,6 +15,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Secura_Rooms {
 
 	/**
+	 * Types de question possibles.
+	 *
+	 * @return array
+	 */
+	public static function question_modes() {
+		return array(
+			'text'   => __( 'Reponse libre', 'seca-academy' ),
+			'choice' => __( 'Choix multiple (une seule bonne reponse)', 'seca-academy' ),
+			'action' => __( "Sans reponse (l'apprenant realise l'action)", 'seca-academy' ),
+		);
+	}
+
+	/**
 	 * Formats de tâche possibles.
 	 *
 	 * @return array
@@ -231,6 +244,12 @@ final class Secura_Rooms {
 						continue;
 					}
 
+					$mode = isset( $question['mode'] ) ? sanitize_key( $question['mode'] ) : 'text';
+
+					if ( ! in_array( $mode, array( 'text', 'choice', 'action' ), true ) ) {
+						$mode = 'text';
+					}
+
 					$answers = array();
 
 					if ( isset( $question['answers'] ) && is_array( $question['answers'] ) ) {
@@ -251,13 +270,34 @@ final class Secura_Rooms {
 						}
 					}
 
-					if ( empty( $answers ) ) {
+					$choices = array();
+
+					if ( isset( $question['choices'] ) && is_array( $question['choices'] ) ) {
+						foreach ( $question['choices'] as $choice ) {
+							$choice = trim( (string) $choice );
+
+							if ( '' !== $choice ) {
+								$choices[] = $choice;
+							}
+						}
+					}
+
+					$correct = isset( $question['correct'] ) ? intval( $question['correct'] ) : -1;
+
+					if ( 'action' !== $mode && empty( $answers ) && empty( $choices ) ) {
+						continue;
+					}
+
+					if ( 'choice' === $mode && ( $correct < 0 || $correct >= count( $choices ) ) ) {
 						continue;
 					}
 
 					$questions[] = array(
 						'question'      => $text,
+						'mode'          => $mode,
 						'answers'       => $answers,
+						'choices'       => $choices,
+						'correct'       => $correct,
 						'xp'            => isset( $question['xp'] ) ? absint( $question['xp'] ) : 0,
 						'hint'          => isset( $question['hint'] ) ? (string) $question['hint'] : '',
 						'explanation'   => isset( $question['explanation'] ) ? (string) $question['explanation'] : '',
@@ -286,6 +326,32 @@ final class Secura_Rooms {
 		}
 
 		return $tasks;
+	}
+
+	/**
+	 * Decoupe un champ multi-lignes en tableau de valeurs propres.
+	 *
+	 * @param mixed $value Valeur brute.
+	 * @return array
+	 */
+	public static function split_lines( $value ) {
+		if ( is_array( $value ) ) {
+			$lines = $value;
+		} else {
+			$lines = preg_split( '/\r\n|\r|\n/', (string) $value );
+		}
+
+		$out = array();
+
+		foreach ( (array) $lines as $line ) {
+			$line = trim( sanitize_text_field( $line ) );
+
+			if ( '' !== $line ) {
+				$out[] = $line;
+			}
+		}
+
+		return $out;
 	}
 
 	/**
@@ -688,6 +754,13 @@ final class Secura_Rooms {
 		$explanation = isset( $question['explanation'] ) ? $question['explanation'] : '';
 		$weight      = isset( $question['weight'] ) ? absint( $question['weight'] ) : 1;
 		$requires    = isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1;
+		$mode        = isset( $question['mode'] ) ? sanitize_key( $question['mode'] ) : 'text';
+		$choices     = isset( $question['choices'] ) && is_array( $question['choices'] ) ? $question['choices'] : array();
+		$correct     = isset( $question['correct'] ) ? intval( $question['correct'] ) : -1;
+
+		if ( ! in_array( $mode, array( 'text', 'choice', 'action' ), true ) ) {
+			$mode = 'text';
+		}
 
 		ob_start();
 		?>
@@ -702,9 +775,32 @@ final class Secura_Rooms {
 				<textarea name="secura_tasks[][questions][][question]" rows="2" class="large-text"><?php echo esc_textarea( $text ); ?></textarea>
 			</p>
 
+			<p class="seca-inline">
+				<label><?php esc_html_e( 'Type de question', 'seca-academy' ); ?></label>
+				<select name="secura_tasks[][questions][][mode]" class="seca-question-mode">
+					<?php foreach ( self::question_modes() as $mode_key => $mode_label ) : ?>
+						<option value="<?php echo esc_attr( $mode_key ); ?>" <?php selected( $mode, $mode_key ); ?>><?php echo esc_html( $mode_label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</p>
+
 			<p>
 				<label><?php esc_html_e( 'Réponses acceptées (une par ligne)', 'seca-academy' ); ?></label>
 				<textarea name="secura_tasks[][questions][][answers]" rows="3" class="large-text"><?php echo esc_textarea( $answers ); ?></textarea>
+			</p>
+			<p>
+				<label><?php esc_html_e( 'Choix proposés (un par ligne, question à choix)', 'seca-academy' ); ?></label>
+				<textarea name="secura_tasks[][questions][][choices]" rows="3" class="large-text"><?php echo esc_textarea( implode( "\n", $choices ) ); ?></textarea>
+			</p>
+
+			<p class="seca-inline">
+				<label><?php esc_html_e( 'Bonne réponse (choix à choix)', 'seca-academy' ); ?></label>
+				<select name="secura_tasks[][questions][][correct]">
+					<option value="-1"><?php esc_html_e( 'Aucune', 'seca-academy' ); ?></option>
+					<?php foreach ( $choices as $choice_index => $choice_label ) : ?>
+						<option value="<?php echo esc_attr( $choice_index ); ?>" <?php selected( $correct, $choice_index ); ?>><?php echo esc_html( $choice_label ); ?></option>
+					<?php endforeach; ?>
+				</select>
 			</p>
 
 			<p>
@@ -782,6 +878,7 @@ final class Secura_Rooms {
 						<p class="secura-translation-question">
 							<label><?php echo esc_html( sprintf( /* translators: 1 : index de la tâche, 2 : index de la question. */ __( 'Tâche %1$d — question %2$d', 'seca-academy' ), $index + 1, $q_index + 1 ) ); ?></label>
 							<textarea name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>][questions][<?php echo esc_attr( $q_index ); ?>][question]" rows="2" class="large-text"><?php echo esc_textarea( isset( $data['tasks'][ $index ]['questions'][ $q_index ]['question'] ) ? $data['tasks'][ $index ]['questions'][ $q_index ]['question'] : '' ); ?></textarea>
+							<textarea name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>][questions][<?php echo esc_attr( $q_index ); ?>][choices]" rows="3" class="large-text" placeholder="<?php esc_attr_e( 'Choix traduits (un par ligne)', 'seca-academy' ); ?>"><?php echo esc_textarea( isset( $data['tasks'][ $index ]['questions'][ $q_index ]['choices'] ) && is_array( $data['tasks'][ $index ]['questions'][ $q_index ]['choices'] ) ? implode( "\n", $data['tasks'][ $index ]['questions'][ $q_index ]['choices'] ) : '' ); ?></textarea>
 							<textarea name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>][questions][<?php echo esc_attr( $q_index ); ?>][hint]" rows="1" class="large-text" placeholder="<?php esc_attr_e( 'Indice traduit', 'seca-academy' ); ?>"><?php echo esc_textarea( isset( $data['tasks'][ $index ]['questions'][ $q_index ]['hint'] ) ? $data['tasks'][ $index ]['questions'][ $q_index ]['hint'] : '' ); ?></textarea>
 							<textarea name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>]][questions][<?php echo esc_attr( $q_index ); ?>][explanation]" rows="2" class="large-text" placeholder="<?php esc_attr_e( 'Explication traduite', 'seca-academy' ); ?>"><?php echo esc_textarea( isset( $data['tasks'][ $index ]['questions'][ $q_index ]['explanation'] ) ? $data['tasks'][ $index ]['questions'][ $q_index ]['explanation'] : '' ); ?></textarea>
 						</p>
@@ -855,27 +952,40 @@ final class Secura_Rooms {
 						continue;
 					}
 
+					$mode = isset( $question['mode'] ) ? sanitize_key( $question['mode'] ) : 'text';
+
+				if ( ! in_array( $mode, array( 'text', 'choice', 'action' ), true ) ) {
+					$mode = 'text';
+				}
+
+				$answers = array();
+				$choices = array();
+				$correct = -1;
+
+				if ( 'action' === $mode ) {
+					/* Aucune reponse attendue : l'apprenant realise l'action. */
 					$answers = array();
+				} elseif ( 'choice' === $mode ) {
+					$choices = self::split_lines( isset( $question['choices'] ) ? $question['choices'] : '' );
+					$correct = isset( $question['correct'] ) ? intval( $question['correct'] ) : -1;
 
-					if ( isset( $question['answers'] ) ) {
-						$lines = preg_split( '/\r\n|\r|\n/', (string) $question['answers'] );
-
-						foreach ( (array) $lines as $line ) {
-							$line = trim( sanitize_text_field( $line ) );
-
-							if ( '' !== $line ) {
-								$answers[] = $line;
-							}
-						}
+					if ( empty( $choices ) || $correct < 0 || $correct >= count( $choices ) ) {
+						continue;
 					}
+				} else {
+					$answers = self::split_lines( isset( $question['answers'] ) ? $question['answers'] : '' );
 
 					if ( empty( $answers ) ) {
 						continue;
 					}
+				}
 
-					$questions[] = array(
-						'question'      => $text,
-						'answers'       => $answers,
+				$questions[] = array(
+					'question'      => $text,
+					'mode'          => $mode,
+					'answers'       => $answers,
+					'choices'       => $choices,
+					'correct'       => $correct,
 						'xp'            => isset( $question['xp'] ) ? absint( $question['xp'] ) : 10,
 						'hint'          => isset( $question['hint'] ) ? sanitize_textarea_field( $question['hint'] ) : '',
 						'explanation'   => isset( $question['explanation'] ) ? sanitize_textarea_field( $question['explanation'] ) : '',

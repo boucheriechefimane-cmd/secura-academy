@@ -215,6 +215,8 @@ final class Secura_I18n {
 				'correct'          => 'Bonne réponse !',
 				'wrong'            => "Pas encore, réessayez.",
 				'solved'           => 'Validée',
+				'action_note'      => "Réalise l'action dans le terminal, puis confirme.",
+				'choose_answer'    => 'Choisis une réponse avant de valider.',
 				'lock_task'        => "Terminez la tâche précédente pour continuer.",
 				'terminal'         => 'Terminal',
 				'terminal_intro'   => 'Tapez une commande puis Entrée.',
@@ -311,6 +313,8 @@ final class Secura_I18n {
 				'correct'          => 'إجابة صحيحة!',
 				'wrong'            => 'ليس بعد، حاول مرة أخرى.',
 				'solved'           => 'تم التحقق',
+				'action_note'      => 'نفّذ الإجراء في الطرفية ثم أكّد.',
+				'choose_answer'    => 'اختر إجابة قبل التحقق.',
 				'lock_task'        => 'أكمل المهمة السابقة للمتابعة.',
 				'terminal'         => 'الطرفية',
 				'terminal_intro'   => 'اكتب أمرًا ثم اضغط Enter.',
@@ -407,6 +411,8 @@ final class Secura_I18n {
 				'correct'          => 'Correct!',
 				'wrong'            => 'Not yet, try again.',
 				'solved'           => 'Validated',
+				'action_note'      => 'Perform the action in the terminal, then confirm.',
+				'choose_answer'    => 'Pick an answer before submitting.',
 				'lock_task'        => 'Finish the previous task to continue.',
 				'terminal'         => 'Terminal',
 				'terminal_intro'   => 'Type a command and press Enter.',
@@ -568,6 +574,24 @@ final class Secura_I18n {
 
 				if ( isset( $qt['explanation'] ) && '' !== $qt['explanation'] ) {
 					$tasks[ $index ]['questions'][ $q_index ]['explanation'] = $qt['explanation'];
+				}
+
+				if ( isset( $qt['choices'] ) && is_array( $qt['choices'] ) ) {
+					$choices = array();
+
+					foreach ( $qt['choices'] as $choice ) {
+						$choice = trim( (string) $choice );
+
+						if ( '' !== $choice ) {
+							$choices[] = $choice;
+						}
+					}
+
+					$current = isset( $tasks[ $index ]['questions'][ $q_index ]['choices'] ) ? $tasks[ $index ]['questions'][ $q_index ]['choices'] : array();
+
+					if ( ! empty( $choices ) && count( $choices ) === count( $current ) ) {
+						$tasks[ $index ]['questions'][ $q_index ]['choices'] = $choices;
+					}
 				}
 			}
 		}

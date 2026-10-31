@@ -1142,6 +1142,46 @@
 	outline-offset: 1px;
 }
 
+.seca-choices {
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+	margin: .5rem 0 .25rem;
+}
+
+.seca-choice {
+	display: flex;
+	align-items: center;
+	gap: .6rem;
+	padding: .55rem .75rem;
+	border: 1px solid var(--sa-border);
+	border-radius: var(--sa-radius-sm);
+	background: var(--sa-bg);
+	cursor: pointer;
+}
+
+.seca-choice:hover {
+	border-color: var(--sa-accent);
+}
+
+.seca-choice-input {
+	accent-color: var(--sa-accent);
+	flex: 0 0 auto;
+}
+
+.seca-choice-label {
+	flex: 1 1 auto;
+}
+
+.seca-action-note {
+	margin: .5rem 0 .25rem;
+	padding: .7rem .9rem;
+	border-radius: var(--sa-radius-sm);
+	border: 1px dashed var(--sa-border);
+	background: var(--sa-surface);
+	color: var(--sa-muted);
+}
+
 .seca-question-actions {
 	display: flex;
 	align-items: center;

@@ -1213,6 +1213,24 @@ foreach ( $rooms as $room ) {
 
 	foreach ( $room['tasks'] as $task ) {
 		foreach ( $task['questions'] as $question ) {
+			$mode = isset( $question['mode'] ) ? $question['mode'] : 'text';
+
+			if ( 'action' === $mode ) {
+				if ( empty( $question['explanation'] ) ) {
+					$structure_ok = false;
+				}
+
+				continue;
+			}
+
+			if ( 'choice' === $mode ) {
+				if ( empty( $question['choices'] ) || (int) $question['correct'] < 0 || empty( $question['explanation'] ) ) {
+					$structure_ok = false;
+				}
+
+				continue;
+			}
+
 			if ( empty( $question['answers'] ) || empty( $question['explanation'] ) ) {
 				$structure_ok = false;
 			}
@@ -1223,6 +1241,101 @@ foreach ( $rooms as $room ) {
 check( $structure_ok, 'chaque room suit le patron leçon → entraînement → test → examen avec réponses et explications' );
 check( isset( $rooms[0]['i18n']['ar'], $rooms[0]['i18n']['en'] ), 'chaque room propose une traduction arabe et anglaise' );
 check( isset( $rooms[1]['tasks'][2]['terminal']['steps'] ), 'une room embarque un terminal simulé' );
+
+/* ---------------------------------------------------------------------
+ * Types de question : reponse libre, choix multiple, sans reponse
+ * ------------------------------------------------------------------ */
+
+echo "\nTypes de question\n";
+
+$GLOBALS['securatest_meta'][ 43 ][ SECURA_META_TASKS ] = array(
+	array(
+		'type'       => 'practice',
+		'title'      => 'Task 1',
+		'content'    => '<p>Pratique</p>',
+		'questions'  => array(
+			array( 'question' => 'Question a choix', 'mode' => 'choice', 'choices' => array( 'Bonne', 'Mauvaise' ), 'correct' => 0, 'xp' => 10, 'hint' => 'H', 'explanation' => 'E' ),
+			array( 'question' => 'Action a faire', 'mode' => 'action', 'xp' => 10, 'hint' => 'H', 'explanation' => 'E' ),
+			array( 'question' => 'Question texte', 'answers' => array( 'Reponse' ), 'xp' => 10, 'hint' => 'H', 'explanation' => 'E' ),
+		),
+	),
+);
+
+$tasks_modes = Secura_Rooms::get_tasks( 43 );
+
+check( 3 === count( $tasks_modes[0]['questions'] ), 'les trois types de question sont conserves' );
+check( 'choice' === $tasks_modes[0]['questions'][0]['mode'], 'le mode choix multiple est relu' );
+check( 2 === count( $tasks_modes[0]['questions'][0]['choices'] ), 'les choix sont relus' );
+check( 0 === (int) $tasks_modes[0]['questions'][0]['correct'], 'la bonne reponse est conservee cote serveur' );
+check( 'action' === $tasks_modes[0]['questions'][1]['mode'], 'le mode sans reponse est relu' );
+check( empty( $tasks_modes[0]['questions'][1]['answers'] ), 'une question sans reponse n\'attend aucune reponse' );
+check( 'text' === $tasks_modes[0]['questions'][2]['mode'], 'le mode reponse libre est le defaut' );
+
+/* Le client recoit le mode et les choix, jamais la bonne reponse. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 43,
+	'task'    => 0,
+);
+
+$payload_modes = capture_json(
+	function () {
+		Secura_Ajax::get_task();
+	}
+);
+
+if ( $payload_modes && is_array( $payload_modes['data'] ) ) {
+	$sent = $payload_modes['data']['task']['questions'];
+
+	check( ! isset( $sent[0]['answers'] ) && ! isset( $sent[0]['correct'] ), 'la bonne reponse n\'est jamais envoyee au client' );
+	check( 'choice' === $sent[0]['mode'] && 2 === count( $sent[0]['choices'] ), 'le mode et les choix sont envoyes au client' );
+	check( 'action' === $sent[1]['mode'], 'le mode sans reponse est envoye au client' );
+}
+
+/* Une question a choix n\'accepte que la bonne proposition. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 43,
+	'task'    => 0,
+	'question' => 0,
+	'answer'  => 'Mauvaise',
+);
+
+$bad_choice = capture_json(
+	function () {
+		Secura_Ajax::validate_answer();
+	}
+);
+
+check( $bad_choice && true === $bad_choice['ok'] && false === $bad_choice['data']['correct'], 'un mauvais choix est refuse' );
+
+$_POST['answer'] = 'Bonne';
+
+$good_choice = capture_json(
+	function () {
+		Secura_Ajax::validate_answer();
+	}
+);
+
+check( $good_choice && true === $good_choice['ok'] && true === $good_choice['data']['correct'], 'le bon choix est accepte' );
+
+/* Une question sans reponse se valide en confirmant l\'action. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 43,
+	'task'    => 0,
+	'question' => 1,
+	'answer'  => 'done',
+);
+
+$action_ok = capture_json(
+	function () {
+		Secura_Ajax::validate_answer();
+	}
+);
+
+check( $action_ok && true === $action_ok['ok'] && true === $action_ok['data']['correct'], 'une question sans reponse se valide en confirmant l\'action' );
+check( $action_ok && $action_ok['data']['points'] > 0, 'la confirmation d\'action rapporte des XP' );
 
 /* ---------------------------------------------------------------------
  * Certificat de parcours
@@ -1494,6 +1607,26 @@ check( strlen( Secura_Lab::sanitize_output( str_repeat( 'a', 20000 ) ) ) < 9000,
 $status = Secura_Lab::status( 7, 42 );
 check( ! $status['enabled'], 'une room sans lab n\'a pas de machine déployable' );
 check( 'simulated' === $status['state'] || 'idle' === $status['state'], 'le statut d\'un lab absent est neutre' );
+
+/* ---------------------------------------------------------------------
+ * Frontend : le saisie de reponse doit etre branchee
+ * ------------------------------------------------------------------ */
+
+echo "\nFrontend\n";
+
+$js_path = dirname( __DIR__ ) . '/wp-content/plugins/secura-academy/assets/academy.js';
+$js      = file_exists( $js_path ) ? file_get_contents( $js_path ) : '';
+
+check( false !== strpos( $js, 'box.appendChild( input )' ), 'le champ de reponse est insere dans la page' );
+check( false !== strpos( $js, "'choice' === mode" ), 'le mode choix multiple est gere par le client' );
+check( false !== strpos( $js, "'action' === mode" ), 'le mode sans reponse est gere par le client' );
+check( false !== strpos( $js, 'radio.checked' ), 'la selection d\'un choix est lue avant validation' );
+
+$css_path = dirname( __DIR__ ) . '/wp-content/plugins/secura-academy/assets/academy.css';
+$css      = file_exists( $css_path ) ? file_get_contents( $css_path ) : '';
+
+check( false !== strpos( $css, '.seca-choices' ), 'les choix multiples sont styles' );
+check( false !== strpos( $css, '.seca-action-note' ), 'la consigne sans reponse est stylee' );
 
 /* ---------------------------------------------------------------------
  * Bilan
