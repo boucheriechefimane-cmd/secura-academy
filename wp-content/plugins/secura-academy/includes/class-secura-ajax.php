@@ -25,6 +25,9 @@ final class Secura_Ajax {
 		add_action( 'wp_ajax_secura_terminal', array( __CLASS__, 'terminal' ) );
 		add_action( 'wp_ajax_secura_complete_lesson', array( __CLASS__, 'complete_lesson' ) );
 		add_action( 'wp_ajax_secura_start_exam', array( __CLASS__, 'start_exam' ) );
+		add_action( 'wp_ajax_secura_lab_start', array( __CLASS__, 'lab_start' ) );
+		add_action( 'wp_ajax_secura_lab_stop', array( __CLASS__, 'lab_stop' ) );
+		add_action( 'wp_ajax_secura_lab_status', array( __CLASS__, 'lab_status' ) );
 		add_action( 'wp_ajax_secura_set_lang', array( __CLASS__, 'set_lang' ) );
 	}
 
@@ -129,6 +132,8 @@ final class Secura_Ajax {
 			);
 		}
 
+		$lab = Secura_Lab::status( $user_id, $room_id );
+
 		wp_send_json_success(
 			array(
 				'room'       => array(
@@ -141,6 +146,7 @@ final class Secura_Ajax {
 					'xp_bonus'   => $view['xp_bonus'],
 				),
 				'tasks'      => $tasks,
+				'lab'        => $lab,
 				'completed'  => ! empty( $state['completed'] ),
 				'best_score' => isset( $state['best_score'] ) ? absint( $state['best_score'] ) : 0,
 				'medal'      => isset( $state['medal'] ) ? $state['medal'] : '',
@@ -687,7 +693,7 @@ final class Secura_Ajax {
 			);
 		}
 
-		$result = Secura_Terminal::run( $user_id, $room_id, $index, $view['tasks'][ $index ], $input );
+		$result = self::run_terminal( $user_id, $room_id, $index, $view['tasks'][ $index ], $input );
 
 		/* Le scénario bouclé valide la tâche pratique. */
 		if ( ! empty( $result['completed'] ) ) {
@@ -695,6 +701,109 @@ final class Secura_Ajax {
 		}
 
 		wp_send_json_success( $result );
+	}
+
+	/**
+	 * Joue une commande : lab réel si disponible, terminal simulé sinon.
+	 *
+	 * @param int    $user_id Identifiant de l'utilisateur.
+	 * @param int    $room_id Identifiant de la room.
+	 * @param int    $index   Index de la tâche.
+	 * @param array  $task    Tâche.
+	 * @param string $input   Commande.
+	 * @return array
+	 */
+	private static function run_terminal( $user_id, $room_id, $index, $task, $input ) {
+		$manifest = Secura_Lab::get_manifest( $room_id );
+
+		if ( $manifest['enabled'] && 'docker' === Secura_Lab::resolve_driver( $room_id ) ) {
+			if ( ! self::throttle( 'lab_exec_' . $user_id, 120, 60 ) ) {
+				return array(
+					'output'    => '',
+					'matched'   => false,
+					'step'      => 0,
+					'total'     => 0,
+					'completed' => false,
+					'hint'      => '',
+					'live'      => true,
+					'message'   => Secura_I18n::t( 'slow_down', '', 'Tu vas un peu trop vite : laisse le temps au jeu de souffler.' ),
+				);
+			}
+
+			$lab = Secura_Lab::exec( $user_id, $room_id, $input );
+
+			Secura_Terminal::push_history( $user_id, $room_id, $index, $input, $lab['output'] );
+
+			return array(
+				'output'    => $lab['output'],
+				'matched'   => (bool) $lab['ok'],
+				'step'      => 0,
+				'total'     => 0,
+				'completed' => false,
+				'hint'      => '',
+				'live'      => true,
+				'message'   => $lab['message'],
+				'code'      => (int) $lab['code'],
+			);
+		}
+
+		return Secura_Terminal::run( $user_id, $room_id, $index, $task, $input );
+	}
+
+	/**
+	 * Déploie la machine d'une room.
+	 */
+	public static function lab_start() {
+		self::check_request();
+
+		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
+		$view    = Secura_Rooms::get_room_view( $room_id );
+
+		if ( ! $view ) {
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'room_not_found', '', 'Room introuvable.' ) ), 404 );
+		}
+
+		$result = Secura_Lab::start( get_current_user_id(), $room_id );
+
+		if ( empty( $result['ok'] ) ) {
+			wp_send_json_error( $result, 500 );
+		}
+
+		wp_send_json_success( $result );
+	}
+
+	/**
+	 * Arrête la machine d'une room.
+	 */
+	public static function lab_stop() {
+		self::check_request();
+
+		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
+		$view    = Secura_Rooms::get_room_view( $room_id );
+
+		if ( ! $view ) {
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'room_not_found', '', 'Room introuvable.' ) ), 404 );
+		}
+
+		Secura_Lab::stop( get_current_user_id(), $room_id );
+
+		wp_send_json_success( Secura_Lab::status( get_current_user_id(), $room_id ) );
+	}
+
+	/**
+	 * Statut de la machine d'une room.
+	 */
+	public static function lab_status() {
+		self::check_request();
+
+		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
+		$view    = Secura_Rooms::get_room_view( $room_id );
+
+		if ( ! $view ) {
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'room_not_found', '', 'Room introuvable.' ) ), 404 );
+		}
+
+		wp_send_json_success( Secura_Lab::status( get_current_user_id(), $room_id ) );
 	}
 
 	/**

@@ -1,0 +1,7 @@
+Notes de l'équipe d'exploitation
+==============================
+Serveur : intraclinic.lab
+Le compte admin utilise le mot de passe admin123 (changement de mot de passe
+prévu la semaine prochaine — donc pas encore fait).
+
+Penser à vérifier ce que le formulaire de connexion fait avec les apostrophes.

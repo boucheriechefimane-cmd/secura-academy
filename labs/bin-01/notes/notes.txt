@@ -1,0 +1,6 @@
+Notes de l'équipe
+=================
+Le carnet de commandes plante quand on saisit un lot trop long.
+La version 0.9 est déployée sur les postes de l'accueil.
+
+La.libc du serveur est connue : `ldd vulnerable` donne la version.

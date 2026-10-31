@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.3.0
+ * Version:           0.4.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.3.0' );
+define( 'SECURA_ACADEMY_VERSION', '0.4.0' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
@@ -55,6 +55,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-rooms.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-paths.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-progress.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-terminal.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-lab.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-ajax.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-dashboard.php';
 require_once SECURA_ACADEMY_PATH . 'includes/default-content.php';
@@ -73,6 +74,7 @@ final class Secura_Academy {
 		Secura_Paths::init();
 		Secura_Progress::init();
 		Secura_Terminal::init();
+		Secura_Lab::init();
 		Secura_Ajax::init();
 		Secura_Dashboard::init();
 	}

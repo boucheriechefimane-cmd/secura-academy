@@ -393,6 +393,115 @@ final class Secura_Rooms {
 			'normal',
 			'default'
 		);
+
+		add_meta_box(
+			'secura-room-lab',
+			__( 'Machine cible (lab)', 'seca-academy' ),
+			array( __CLASS__, 'render_lab_box' ),
+			SECURA_POST_TYPE,
+			'normal',
+			'default'
+		);
+	}
+
+	/**
+	 * Meta box : machine cible déployable.
+	 *
+	 * @param WP_Post $post Room.
+	 */
+	public static function render_lab_box( $post ) {
+		$manifest = Secura_Lab::get_manifest( $post->ID );
+		$drivers  = array(
+			'auto'      => __( 'Automatique (Docker si disponible, sinon simulation)', 'seca-academy' ),
+			'docker'    => __( 'Docker (machine réelle)', 'seca-academy' ),
+			'simulated' => __( 'Simulation (aucun moteur de lab)', 'seca-academy' ),
+		);
+		$modes     = array(
+			'single'  => __( 'Conteneur unique', 'seca-academy' ),
+			'compose' => __( 'Docker Compose (plusieurs nœuds)', 'seca-academy' ),
+		);
+		?>
+		<div class="secura-metabox">
+			<p class="description">
+				<?php esc_html_e( 'Une machine réelle, isolée dans un conteneur éphémère, par apprenant et par room. Le conteneur est non-root, sans privilèges, sans réseau sortant, et expire automatiquement.', 'seca-academy' ); ?>
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Activer une machine cible', 'seca-academy' ); ?></label>
+				<input type="checkbox" name="secura_lab[enabled]" value="1" <?php checked( $manifest['enabled'] ); ?> />
+			</p>
+
+			<p>
+				<label for="secura_lab_driver"><?php esc_html_e( 'Pilote', 'seca-academy' ); ?></label>
+				<select id="secura_lab_driver" name="secura_lab[driver]">
+					<?php foreach ( $drivers as $key => $label ) : ?>
+						<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $manifest['driver'], $key ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</p>
+
+			<p>
+				<label for="secura_lab_mode"><?php esc_html_e( 'Mode', 'seca-academy' ); ?></label>
+				<select id="secura_lab_mode" name="secura_lab[mode]">
+					<?php foreach ( $modes as $key => $label ) : ?>
+						<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $manifest['mode'], $key ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Image Docker (mode conteneur unique)', 'seca-academy' ); ?></label>
+				<input type="text" class="large-text" name="secura_lab[image]" value="<?php echo esc_attr( $manifest['image'] ); ?>" placeholder="securalabs/web-01:1.0" />
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Fichier docker-compose.yml (mode multi-nœuds)', 'seca-academy' ); ?></label>
+				<input type="text" class="large-text" name="secura_lab[compose]" value="<?php echo esc_attr( $manifest['compose'] ); ?>" placeholder="/opt/secura-labs/web-01/docker-compose.yml" />
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Service à attaquer', 'seca-academy' ); ?></label>
+				<input type="text" class="large-text" name="secura_lab[service]" value="<?php echo esc_attr( $manifest['service'] ); ?>" placeholder="web" />
+			</p>
+
+			<p>
+				<label><?php esc_html_e( "Cible affichée à l'apprenant", 'seca-academy' ); ?></label>
+				<input type="text" class="large-text" name="secura_lab[target]" value="<?php echo esc_attr( $manifest['target'] ); ?>" placeholder="http://web:8080" />
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Réseau Docker', 'seca-academy' ); ?></label>
+				<input type="text" class="large-text" name="secura_lab[network]" value="<?php echo esc_attr( $manifest['network'] ); ?>" />
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Dossier de travail', 'seca-academy' ); ?></label>
+				<input type="text" class="large-text" name="secura_lab[workdir]" value="<?php echo esc_attr( $manifest['workdir'] ); ?>" />
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Durée de vie de la machine (secondes)', 'seca-academy' ); ?></label>
+				<input type="number" class="small-text" name="secura_lab[ttl]" value="<?php echo esc_attr( $manifest['ttl'] ); ?>" min="300" step="300" />
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Limites de ressources', 'seca-academy' ); ?></label>
+				<input type="text" name="secura_lab[memory]" value="<?php echo esc_attr( $manifest['memory'] ); ?>" placeholder="512m" />
+				<input type="text" name="secura_lab[cpus]" value="<?php echo esc_attr( $manifest['cpus'] ); ?>" placeholder="1" />
+				<input type="number" name="secura_lab[pids]" value="<?php echo esc_attr( $manifest['pids'] ); ?>" min="16" />
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Commandes autorisées (une par ligne, vide = toutes sauf blocages)', 'seca-academy' ); ?></label>
+				<textarea name="secura_lab[allow]" rows="3" class="large-text code"><?php echo esc_textarea( implode( "\n", $manifest['allow'] ) ); ?></textarea>
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Commandes bloquées (une par ligne)', 'seca-academy' ); ?></label>
+				<textarea name="secura_lab[deny]" rows="3" class="large-text code"><?php echo esc_textarea( implode( "\n", $manifest['deny'] ) ); ?></textarea>
+			</p>
+		</div>
+		<?php
 	}
 
 	/**
@@ -802,6 +911,31 @@ final class Secura_Rooms {
 		}
 
 		update_post_meta( $post_id, SECURA_META_TASKS, $clean );
+
+		/* Manifeste de lab. */
+		$raw_lab = isset( $_POST['secura_lab'] ) && is_array( $_POST['secura_lab'] ) ? wp_unslash( $_POST['secura_lab'] ) : array();
+
+		$manifest = array(
+			'enabled' => ! empty( $raw_lab['enabled'] ),
+			'driver'  => isset( $raw_lab['driver'] ) ? sanitize_key( $raw_lab['driver'] ) : 'auto',
+			'mode'    => isset( $raw_lab['mode'] ) ? sanitize_key( $raw_lab['mode'] ) : 'single',
+			'image'   => isset( $raw_lab['image'] ) ? sanitize_text_field( $raw_lab['image'] ) : '',
+			'service' => isset( $raw_lab['service'] ) ? sanitize_text_field( $raw_lab['service'] ) : '',
+			'compose' => isset( $raw_lab['compose'] ) ? sanitize_text_field( $raw_lab['compose'] ) : '',
+			'project' => isset( $raw_lab['project'] ) ? sanitize_key( $raw_lab['project'] ) : '',
+			'network' => isset( $raw_lab['network'] ) ? sanitize_text_field( $raw_lab['network'] ) : 'seca_lab',
+			'command' => isset( $raw_lab['command'] ) ? sanitize_text_field( $raw_lab['command'] ) : 'bash -l',
+			'workdir' => isset( $raw_lab['workdir'] ) ? sanitize_text_field( $raw_lab['workdir'] ) : '/home/ctf',
+			'target'  => isset( $raw_lab['target'] ) ? sanitize_text_field( $raw_lab['target'] ) : '',
+			'ttl'     => isset( $raw_lab['ttl'] ) ? absint( $raw_lab['ttl'] ) : 3600,
+			'memory'  => isset( $raw_lab['memory'] ) ? sanitize_text_field( $raw_lab['memory'] ) : '512m',
+			'cpus'    => isset( $raw_lab['cpus'] ) ? sanitize_text_field( $raw_lab['cpus'] ) : '1',
+			'pids'    => isset( $raw_lab['pids'] ) ? absint( $raw_lab['pids'] ) : 256,
+			'allow'   => isset( $raw_lab['allow'] ) ? sanitize_textarea_field( $raw_lab['allow'] ) : '',
+			'deny'    => isset( $raw_lab['deny'] ) ? sanitize_textarea_field( $raw_lab['deny'] ) : '',
+		);
+
+		update_post_meta( $post_id, Secura_Lab::META, Secura_Lab::normalize_manifest( $manifest ) );
 
 		/* Traductions. */
 		$raw_tr = isset( $_POST['secura_i18n'] ) && is_array( $_POST['secura_i18n'] ) ? wp_unslash( $_POST['secura_i18n'] ) : array();

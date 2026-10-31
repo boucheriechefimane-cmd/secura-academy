@@ -8,6 +8,7 @@
 #   WP_SSH_USER     utilisateur SSH autorisé
 #   WP_PATH         chemin absolu de l'installation WordPress
 #   WP_SITE_URL     URL publique du site (contrôle HTTP, optionnel)
+#   WP_LABS_PATH    chemin absolu des labs sur le serveur (optionnel)
 #
 # La clé privée doit déjà être écrite dans ~/.ssh/deploy_key et l'hôte
 # dans ~/.ssh/known_hosts (voir le job « Configurer SSH » du workflow).
@@ -40,6 +41,16 @@ rsync -az --delete --no-owner --no-group -e "ssh -i $KEY -o StrictHostKeyCheckin
 echo ">> Synchronisation du thème"
 rsync -az --delete --no-owner --no-group -e "ssh -i $KEY -o StrictHostKeyChecking=yes -o BatchMode=yes" \
 	"$THEME_PATH/" "$TARGET:$WP_PATH/$THEME_PATH/"
+
+# Les labs (machines cibles) sont optionnels : ils ne sont déployés que si
+# WP_LABS_PATH est défini côté serveur. Ils vivent hors de WordPress.
+if [ -n "${WP_LABS_PATH:-}" ] && [ -d "labs" ]; then
+	echo ">> Synchronisation des labs"
+	rsync -az --delete --no-owner --no-group -e "ssh -i $KEY -o StrictHostKeyChecking=yes -o BatchMode=yes" \
+		"labs/" "$TARGET:$WP_LABS_PATH/"
+else
+	echo ">> Labs non déployés (WP_LABS_PATH absent ou dossier labs/ inexistant)"
+fi
 
 if [ -n "${WP_SITE_URL:-}" ]; then
 	echo ">> Contrôle HTTP du site"

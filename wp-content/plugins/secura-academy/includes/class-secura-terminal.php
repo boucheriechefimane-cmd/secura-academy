@@ -77,6 +77,32 @@ final class Secura_Terminal {
 	}
 
 	/**
+	 * Ajoute une entrée à l'historique du terminal.
+	 *
+	 * Utilisé par le lab réel : la sortie vient du conteneur, pas d'un scénario.
+	 *
+	 * @param int    $user_id Identifiant de l'utilisateur.
+	 * @param int    $room_id Identifiant de la room.
+	 * @param int    $index   Index de la tâche.
+	 * @param string $command Commande jouée.
+	 * @param string $output  Sortie obtenue.
+	 */
+	public static function push_history( $user_id, $room_id, $index, $command, $output ) {
+		$state = self::get_state( $user_id, $room_id, $index );
+
+		$state['history'][] = array(
+			'cmd' => (string) $command,
+			'out' => (string) $output,
+		);
+
+		if ( count( $state['history'] ) > 40 ) {
+			$state['history'] = array_slice( $state['history'], -40 );
+		}
+
+		self::save_state( $user_id, $room_id, $index, $state );
+	}
+
+	/**
 	 * Exécute une commande dans le terminal simulé.
 	 *
 	 * @param int    $user_id Identifiant de l'utilisateur.

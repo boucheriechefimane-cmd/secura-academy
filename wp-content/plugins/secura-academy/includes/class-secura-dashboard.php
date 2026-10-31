@@ -411,29 +411,46 @@ final class Secura_Dashboard {
 			<nav class="seca-task-nav" data-seca-task-nav aria-label="<?php esc_attr_e( 'Tâches de la room', 'seca-academy' ); ?>"></nav>
 
 			<div class="seca-task-view" data-seca-task-view>
-				<div class="seca-task-header" data-seca-task-header></div>
+				<div class="seca-task-pane seca-task-pane--main">
+					<div class="seca-task-header" data-seca-task-header></div>
 
-				<div class="seca-task-body" data-seca-task-content></div>
+					<div class="seca-task-body" data-seca-task-content></div>
 
-				<div class="seca-terminal" data-seca-terminal hidden>
-					<div class="seca-terminal-head">
-						<span class="seca-terminal-title"><?php esc_html_e( 'Terminal', 'seca-academy' ); ?></span>
-						<span class="seca-terminal-badge"><?php esc_html_e( 'simulé', 'seca-academy' ); ?></span>
-					</div>
-					<pre class="seca-terminal-screen" data-seca-terminal-screen aria-live="polite"></pre>
-					<form class="seca-terminal-form" data-seca-terminal-form>
-						<label class="screen-reader-text" for="seca-terminal-input"><?php esc_html_e( 'Commande', 'seca-academy' ); ?></label>
-						<span class="seca-terminal-prompt" aria-hidden="true">$</span>
-						<input type="text" id="seca-terminal-input" class="seca-terminal-input" autocomplete="off" spellcheck="false" data-seca-terminal-input>
-						<button type="submit" class="seca-btn seca-btn--small"><?php esc_html_e( 'Entrée', 'seca-academy' ); ?></button>
-					</form>
-					<p class="seca-terminal-note"><?php esc_html_e( 'Terminal simulé : aucune machine réelle n\'est exécutée.', 'seca-academy' ); ?></p>
+					<div class="seca-questions" data-seca-questions></div>
+
+					<div class="seca-task-actions" data-seca-task-actions></div>
+					<p class="seca-task-status" data-seca-task-status role="status" aria-live="polite"></p>
 				</div>
 
-				<div class="seca-questions" data-seca-questions></div>
+				<aside class="seca-task-pane seca-task-pane--side">
+					<div class="seca-lab" data-seca-lab hidden>
+						<div class="seca-lab-head">
+							<span class="seca-lab-title"><?php esc_html_e( 'Machine cible', 'seca-academy' ); ?></span>
+							<span class="seca-lab-state" data-seca-lab-state></span>
+						</div>
+						<p class="seca-lab-message" data-seca-lab-message role="status" aria-live="polite"></p>
+						<p class="seca-lab-target" data-seca-lab-target></p>
+						<div class="seca-lab-actions">
+							<button type="button" class="seca-btn seca-btn--small" data-seca-lab-start><?php esc_html_e( 'Déployer la machine', 'seca-academy' ); ?></button>
+							<button type="button" class="seca-btn seca-btn--small seca-btn--ghost" data-seca-lab-stop hidden><?php esc_html_e( 'Arrêter', 'seca-academy' ); ?></button>
+						</div>
+					</div>
 
-				<div class="seca-task-actions" data-seca-task-actions></div>
-				<p class="seca-task-status" data-seca-task-status role="status" aria-live="polite"></p>
+					<div class="seca-terminal" data-seca-terminal hidden>
+						<div class="seca-terminal-head">
+							<span class="seca-terminal-title"><?php esc_html_e( 'Terminal', 'seca-academy' ); ?></span>
+							<span class="seca-terminal-badge" data-seca-terminal-badge><?php esc_html_e( 'simulé', 'seca-academy' ); ?></span>
+						</div>
+						<pre class="seca-terminal-screen" data-seca-terminal-screen aria-live="polite"></pre>
+						<form class="seca-terminal-form" data-seca-terminal-form>
+							<label class="screen-reader-text" for="seca-terminal-input"><?php esc_html_e( 'Commande', 'seca-academy' ); ?></label>
+							<span class="seca-terminal-prompt" aria-hidden="true">$</span>
+							<input type="text" id="seca-terminal-input" class="seca-terminal-input" autocomplete="off" spellcheck="false" data-seca-terminal-input>
+							<button type="submit" class="seca-btn seca-btn--small"><?php esc_html_e( 'Entrée', 'seca-academy' ); ?></button>
+						</form>
+						<p class="seca-terminal-note" data-seca-terminal-note><?php esc_html_e( 'Terminal simulé : aucune machine réelle n\'est exécutée.', 'seca-academy' ); ?></p>
+					</div>
+				</aside>
 			</div>
 		</div>
 		<?php

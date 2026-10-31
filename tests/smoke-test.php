@@ -653,6 +653,7 @@ function wp_send_json_error( $data = null, $status = null ) {
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-i18n.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-progress.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-terminal.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-lab.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-rooms.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-paths.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-ajax.php';
@@ -1433,6 +1434,66 @@ check( isset( $migrated['__schema'] ) && 2 === (int) $migrated['__schema'], 'une
 check( isset( $migrated['42']['tasks'][0]['solved']['0'] ), 'la migration conserve les questions résolues' );
 check( isset( $migrated['42']['tasks'][0]['terminal_done'] ), 'la migration ajoute le statut du terminal' );
 check( 2 === (int) Secura_Progress::get_state( 66 )['schema'], 'l\'état exposé porte la version du schéma' );
+
+/* Lab réel : manifeste, politique de commandes, repli automatique. */
+
+echo "\nLab réel (machine déployable)\n";
+
+$manifest = Secura_Lab::normalize_manifest(
+	array(
+		'enabled' => 1,
+		'driver'  => 'docker',
+		'image'   => 'securalabs/web-01:1.0',
+		'target'  => 'http://web:8080',
+		'ttl'     => 600,
+	)
+);
+
+check( $manifest['enabled'], 'le manifeste active la machine cible' );
+check( 'docker' === $manifest['driver'], 'le manifeste conserve le pilote demandé' );
+check( 'securalabs/web-01:1.0' === $manifest['image'], 'le manifeste conserve l\'image' );
+check( 600 === (int) $manifest['ttl'], 'le manifeste conserve la durée de vie' );
+check( 3600 === Secura_Lab::normalize_manifest( array() )['ttl'], 'la durée de vie par défaut est d\'une heure' );
+
+$manifest_vide = Secura_Lab::normalize_manifest( array( 'enabled' => 1, 'driver' => 'docker' ) );
+check( ! $manifest_vide['enabled'], 'un lab sans image est désactivé automatiquement' );
+
+$manifest_compose = Secura_Lab::normalize_manifest( array( 'enabled' => 1, 'mode' => 'compose', 'compose' => '/labs/web.yml' ) );
+check( ! $manifest_compose['enabled'], 'un lab compose sans service est désactivé automatiquement' );
+
+check( 'simulated' === Secura_Lab::resolve_driver( 1 ), 'une room sans lab reste en simulation' );
+
+$driver_auto = Secura_Lab::resolve_driver( 1 );
+check( in_array( $driver_auto, array( 'docker', 'simulated' ), true ), 'le pilote automatique aboutit à un pilote connu' );
+
+check( 'seca_lab_7_42' === Secura_Lab::container_name( 7, 42 ), 'le nom du conteneur encode l\'apprenant et la room' );
+
+$policy = Secura_Lab::normalize_manifest(
+	array(
+		'enabled' => 1,
+		'image'   => 'x:1',
+		'allow'   => "ls\ncat\ngrep",
+		'deny'    => "rm",
+	)
+);
+
+check( Secura_Lab::command_allowed( 'ls -la', $policy ), 'une commande de la liste blanche est autorisée' );
+check( ! Secura_Lab::command_allowed( 'python3 -c "print(1)"', $policy ), 'une commande hors liste blanche est refusée' );
+check( ! Secura_Lab::command_allowed( 'rm -rf /', $policy ), 'une commande explicitement bloquée est refusée' );
+check( ! Secura_Lab::command_allowed( 'docker ps', $policy ), 'une commande d\'évasion de conteneur est bloquée par défaut' );
+check( ! Secura_Lab::command_allowed( 'sudo cat /etc/shadow', $policy ), 'la montée de privilèges est bloquée par défaut' );
+check( ! Secura_Lab::command_allowed( '', $policy ), 'une commande vide est refusée' );
+
+$policy_libre = Secura_Lab::normalize_manifest( array( 'enabled' => 1, 'image' => 'x:1' ) );
+check( Secura_Lab::command_allowed( 'nmap -sS 10.0.0.5', $policy_libre ), 'sans liste blanche, les outils du lab restent utilisables' );
+check( ! Secura_Lab::command_allowed( 'nsenter -t 1 -m -- sh', $policy_libre ), 'les commandes noyau sont bloquées même sans liste blanche' );
+
+check( "a\nb" === Secura_Lab::sanitize_output( "\x1b[32ma\x1b[0m\nb" ), 'les séquences ANSI sont retirées de la sortie' );
+check( strlen( Secura_Lab::sanitize_output( str_repeat( 'a', 20000 ) ) ) < 9000, 'la sortie est tronquée' );
+
+$status = Secura_Lab::status( 7, 42 );
+check( ! $status['enabled'], 'une room sans lab n\'a pas de machine déployable' );
+check( 'simulated' === $status['state'] || 'idle' === $status['state'], 'le statut d\'un lab absent est neutre' );
 
 /* ---------------------------------------------------------------------
  * Bilan

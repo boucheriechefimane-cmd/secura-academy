@@ -1,0 +1,104 @@
+# Machine 3 — réseau à deux nœuds
+#
+# But pédagogique : l'apprenant attaquant doit comprendre qu'une cible peut
+# mener à une autre. Le noeud « web » est la machine visible ; le noeud
+# « internal » n'est joignable que depuis le réseau du lab et contient le
+# second drapeau.
+#
+# Construction :
+#   docker compose -f labs/net-01/docker-compose.yml build
+# Lancement (par le plugin) :
+#   docker compose -f labs/net-01/docker-compose.yml -p seca_net01 up -d
+#
+# L'apprenant travaille dans le service « attacker » et touche « web »,
+# puis « internal » une fois le premier indicateur trouvé.
+
+services:
+  attacker:
+    build:
+      context: ../web-01
+    container_name: seca_net01_attacker
+    hostname: attacker
+    user: "1000:1000"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 256
+    mem_limit: 512m
+    cpus: 1.0
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    networks:
+      - seca_lab
+    entrypoint: ["/bin/bash", "-c"]
+    command: ["sleep infinity"]
+    stdin_open: true
+    tty: true
+
+  web:
+    build:
+      context: ../web-01
+    container_name: seca_net01_web
+    hostname: web
+    user: "1000:1000"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 256
+    mem_limit: 512m
+    cpus: 1.0
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    networks:
+      - seca_lab
+    environment:
+      - DB_HOST=db
+
+  db:
+    build:
+      context: ../web-01
+    container_name: seca_net01_db
+    hostname: db
+    user: "1000:1000"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+    mem_limit: 256m
+    cpus: 0.5
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    networks:
+      - seca_lab
+    environment:
+      - DB_HOST=db
+    command: ["sleep", "infinity"]
+    entrypoint: ["/bin/bash", "-c"]
+
+  internal:
+    build:
+      context: ../web-01
+    container_name: seca_net01_internal
+    hostname: internal
+    user: "1000:1000"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+    mem_limit: 256m
+    cpus: 0.5
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    networks:
+      - seca_lab
+    command: ["sleep", "infinity"]
+    entrypoint: ["/bin/bash", "-c"]
+
+networks:
+  seca_lab:
+    name: seca_lab
+    driver: bridge

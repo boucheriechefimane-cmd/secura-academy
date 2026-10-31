@@ -49,7 +49,7 @@ ses illustrations ni ses composants propriétaires. L'identité visuelle et
 ```
 secura-academy/
 ├── wp-content/
-│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.3.0
+│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.4.0
 │   │   ├── secura-academy.php              # Amorçage, constantes, chargement des modules
 │   │   ├── includes/
 │   │   │   ├── default-content.php         # 6 rooms × 4 tâches + 2 parcours + traductions AR/EN
@@ -58,6 +58,7 @@ secura-academy/
 │   │   │   ├── class-secura-paths.php      # CPT `secura_path`, sections, progression, certificat
 │   │   │   ├── class-secura-progress.php   # Barème XP, niveaux, médailles, examens, streak
 │   │   │   ├── class-secura-terminal.php   # Terminal simulé (scénarios serveur)
+│   │   │   ├── class-secura-lab.php         # Lab réel : conteneurs Docker isolés
 │   │   │   ├── class-secura-ajax.php       # 8 endpoints AJAX (nonce, XP idempotent)
 │   │   │   └── class-secura-dashboard.php  # Shortcodes : tableau de bord, lecteur, profil
 │   │   └── assets/
@@ -65,7 +66,7 @@ secura-academy/
 │   │       ├── academy.js                  # Lecteur de room : validation, terminal, level-up
 │   │       ├── admin.css                   # Styles de la méta-box d'édition
 │   │       └── admin.js                    # Éditeur de tâches / questions / sections
-│   └── themes/secura-learning/             # Thème sombre + RTL (v0.3.0)
+│   └── themes/secura-learning/             # Thème sombre + RTL (v0.4.0)
 │       ├── style.css                       # Styles + jetons de couleur
 │       ├── style-rtl.css                   # Ajustements arabe (chargé si la locale est RTL)
 │       ├── functions.php                   # Réglages, menus, Personnaliseur (palette)
@@ -75,11 +76,17 @@ secura-academy/
 │       ├── page.php
 │       ├── single-secura_room.php          # Lecteur de room
 │       └── archive-secura_room.php         # Catalogue des rooms
+├── labs/                                   # Machines cibles réelles (Docker)
+│   ├── web-01/                             # Application web vulnérable (injection SQL)
+│   ├── bin-01/                             # Binaire C vulnérable (dépassement de tampon)
+│   └── net-01/                             # Réseau à deux nœuds (pivot)
 ├── .github/workflows/ci.yml                 # Lint PHP + tests + espaces fin de ligne
 ├── .github/workflows/deploy.yml             # Déploiement vers WordPress (rsync + sauvegarde)
 ├── scripts/deploy.sh                       # Script de déploiement appelé par le workflow
-├── tests/smoke-test.php                    # 147 assertions sur la logique serveur
+├── tests/smoke-test.php                    # 169 assertions sur la logique serveur
 ├── docs/
+│   ├── ROADMAP.md                          # Feuille de route (source de vérité, revue à chaque session)
+│   ├── labs.md                             # Documentation des labs (isolation, installation, branchement)
 │   ├── ANALYSE-UX-TRYHACKME.md             # Analyse UX/UI + comparaison + points à régler
 │   ├── CONTENU-MIT.md                      # Plan de contenu inspiré de 6.858 / 6.857
 │   ├── MODELE-XP-MEDAILES.md               # Spécification barème XP, médailles, examens
@@ -128,6 +135,12 @@ Créez une page « Parcours » avec `[secura_academy]` et une page « Mon profil
 `[secura_academy_profile]`.
 
 ## Utilisation
+
+Le lecteur de room est en **deux volets** sur grand écran : la consigne et les
+questions d'un côté, la machine de l'autre. Sur mobile, les deux s'empilent. Le
+terminal dispose d'un **historique navigable au clavier** (`↑` / `↓` pour
+rappeler une commande, `Ctrl+C` pour abandonner la ligne en cours).
+
 
 - **Visiteur non connecté** : aperçu du catalogue et appel à l'inscription gratuite.
 - **Apprenant connecté** : tableau de bord personnalisé.
@@ -283,6 +296,35 @@ n'est exécutée, le scénario est entièrement évalué côté serveur.
 > Le terminal est un jeu de rôle scénarisé. Ne jamais le présenter comme un
 > environnement d'attaque réel.
 
+## Le lab réel : une vraie machine déployable
+
+Le terminal scénarisé reste le mode par défaut (il fonctionne partout, y
+compris sur mutualisé). Mais une room peut maintenant **déployer une vraie
+machine** : un conteneur Docker éphémère, isolé, propre à un apprenant.
+
+- **Un conteneur par apprenant et par room** : pas de partage, pas de fuite
+  entre élèves. L'isolation est assurée par Docker, pas par une simulation.
+- **Durcissement systématique** : utilisateur non-root (`1000:1000`),
+  `--cap-drop ALL`, `no-new-privileges`, `--pids-limit`, limites CPU/mémoire,
+  `/tmp` en tmpfs `noexec`, aucun montage de l'hôte, aucun socket Docker exposé.
+- **Durée de vie** : une heure par défaut, nettoyage horaire automatique.
+- **Commandes** : 20 s maximum par commande, sortie tronquée à 8 Ko, séquences
+  ANSI retirées, 120 commandes/minute/apprenant, historique journalisé.
+- **Politique** : `docker`, `sudo`, `nsenter`, `mount`, `chroot`… sont bloqués
+  par défaut ; une liste blanche/blanche-noire par lab est configurable.
+- **Repli automatique** : sans Docker sur l'hébergement, le terminal simulé
+  prend le relais. Le site ne casse jamais.
+
+Le contrat AJAX ne change pas : c'est le serveur qui choisit le pilote. Trois
+machines sont fournies prêtes à construire (`labs/`) : une application web avec
+injection SQL, un binaire C avec dépassement de tampon, et un réseau à deux
+nœuds pour apprendre le pivot. Le branchement se fait dans l'admin, en une
+minute. Tout est détaillé dans [`docs/labs.md`](docs/labs.md).
+
+> ⚠ Docker reste un surface d'attaque majeure : un utilisateur autorisé à
+> parler au socket Docker peut prendre l'hôte. Sur mutualisé, on garde le mode
+> simulé.
+
 ## Multilingue
 
 Trois langues sont fournies d'emblée : **français**, **arabe** et **anglais**.
@@ -383,6 +425,9 @@ nonce (`secura_academy`).
 | `secura_complete_lesson` | `room_id`, `task` | Validation d'une leçon |
 | `secura_start_exam` | `room_id`, `task`, `force` | Démarrage du chronomètre d'examen (`force=1` pour repasser un examen réussi) |
 | `secura_set_lang` | `lang` | Changement de langue du compte |
+| `secura_lab_start` | `room_id` | Déploiement de la machine cible |
+| `secura_lab_stop` | `room_id` | Arrêt de la machine cible |
+| `secura_lab_status` | `room_id` | État de la machine (déployée, expirée, indisponible) |
 
 ### Normalisation des réponses
 
@@ -423,7 +468,7 @@ formulations peuvent être déclarées par question.
 php tests/smoke-test.php
 ```
 
-Le harnais émule les fonctions WordPress nécessaires et vérifie **147 assertions** :
+Le harnais émule les fonctions WordPress nécessaires et vérifie **169 assertions** :
 normalisation des réponses, paliers de niveau, barème et multiplicateurs,
 attribution et idempotence des XP, malus d'indice, verrouillage progressif,
 score pondéré, médailles, examens chronométrés (démarrage, expiration, nouvelle
@@ -436,7 +481,9 @@ n'est révélée qu'après la réussite). La **validation croisée** est couvert
 seuil de passage effectif, tâche pratique validée par son scénario, réservation
 atomique d'une question, reprise d'un examen raté, formats de tâches,
 terminal dans chacune des 6 rooms, limitation de débit et migration du schéma
-de progression.
+de progression. Le **moteur de lab** est couvert lui aussi : normalisation du
+manifeste, repli automatique sans Docker, politique de commandes (listes
+blanche/noire, blocages systématiques), nettoyage de la sortie et troncature.
 
 La CI exécute en plus le lint PHP de tous les fichiers et le contrôle des espaces
 en fin de ligne.
@@ -481,12 +528,30 @@ La configuration des secrets est détaillée dans
   les versions arabe et anglaise des rooms partagent le scénario francophone
   du terminal. La méta-box de traduction accepte désormais un JSON de terminal
   par tâche, mais la traduction des 6 rooms livrées reste à produire.
+- **Docker est une surface d'attaque.** Un utilisateur autorisé à parler au
+  socket Docker peut prendre la main sur l'hôte. Sur mutualisé : mode simulé.
+  Sur VPS dédié : utilisateur dédié, réseau sans sortie Internet, images
+  épinglées par digest. Voir [`docs/labs.md`](docs/labs.md).
+- **Isolation multi-apprenants à durcir en mode Compose** : le nom de projet
+  Docker Compose est encore fixe, deux élèves pourraient se partager la même
+  pile de conteneurs. À corriger avant l'ouverture publique (M1).
 - **Multi-site** non pris en charge explicitement.
 - **Aucune suite de tests end-to-end.** La CI vérifie la syntaxe PHP et exécute
   `tests/smoke-test.php`. Le comportement en conditions réelles reste à valider
   en staging.
 - **Revue de sécurité et tests d'accessibilité** à faire avec une version
   WordPress/PHP cible en staging, avant production.
+
+## Feuille de route
+
+La feuille de route complète — **lue et révisée à chaque session de travail** —
+est dans [`docs/ROADMAP.md`](docs/ROADMAP.md). Elle mappe chaque lacune
+(terminal scripté, volume de contenu, examen, comptes, qualité, visuel, UX) à
+une milestone avec des **critères d'acceptation vérifiables**, et tient un
+journal des revues. Les jalons en cours : **M1** (lab réel), puis **M2**
+(lecteur en deux volets, clavier, « faire d'abord »), **M3** (10 rooms réelles,
+prérequis, récap de section, examen par manipulation), **M4** (comptes),
+**M5** (e2e, accessibilité, staging), **M6** (social et visuel).
 
 ## Prochaines étapes
 

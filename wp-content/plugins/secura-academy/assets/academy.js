@@ -278,11 +278,21 @@
 	var terminalScreen = app.querySelector( '[data-seca-terminal-screen]' );
 	var terminalForm = app.querySelector( '[data-seca-terminal-form]' );
 	var terminalInput = app.querySelector( '[data-seca-terminal-input]' );
+	var terminalBadge = app.querySelector( '[data-seca-terminal-badge]' );
+	var terminalNote = app.querySelector( '[data-seca-terminal-note]' );
+	var labBox = app.querySelector( '[data-seca-lab]' );
+	var labState = app.querySelector( '[data-seca-lab-state]' );
+	var labMessage = app.querySelector( '[data-seca-lab-message]' );
+	var labTarget = app.querySelector( '[data-seca-lab-target]' );
+	var labStart = app.querySelector( '[data-seca-lab-start]' );
+	var labStop = app.querySelector( '[data-seca-lab-stop]' );
 	var bar = app.querySelector( '[data-seca-room-bar]' );
 	var barText = app.querySelector( '[data-seca-room-progress-text]' );
 
 	var room = null;
 	var currentIndex = 0;
+	var commandHistory = [];
+	var historyIndex = -1;
 	var timerHandle = null;
 	var timeLeft = 0;
 
@@ -398,6 +408,10 @@
 
 			renderNav();
 			updateProgress();
+
+			if ( data.lab ) {
+				renderLab( data.lab );
+			}
 
 			return data;
 		} );
@@ -884,6 +898,9 @@
 			terminalInput.value = '';
 			terminalInput.disabled = true;
 
+			commandHistory.push( command );
+			historyIndex = -1;
+
 			post( 'secura_terminal', {
 				room_id: roomId,
 				task: currentIndex,
@@ -900,6 +917,170 @@
 			} ).then( function () {
 				terminalInput.disabled = false;
 				terminalInput.focus();
+			} );
+		} );
+	}
+
+	if ( terminalInput ) {
+		terminalInput.addEventListener( 'keydown', function ( event ) {
+			if ( 'ArrowUp' === event.key ) {
+				event.preventDefault();
+
+				if ( commandHistory.length ) {
+					historyIndex = ( historyIndex < 0 ) ? commandHistory.length - 1 : Math.max( 0, historyIndex - 1 );
+					terminalInput.value = commandHistory[ historyIndex ];
+				}
+
+				return;
+			}
+
+			if ( 'ArrowDown' === event.key ) {
+				event.preventDefault();
+
+				if ( commandHistory.length ) {
+					historyIndex = ( historyIndex < 0 ) ? -1 : Math.min( commandHistory.length - 1, historyIndex + 1 );
+
+					terminalInput.value = historyIndex < 0 ? '' : commandHistory[ historyIndex ];
+				}
+
+				return;
+			}
+
+			if ( 'c' === event.key && event.ctrlKey ) {
+				event.preventDefault();
+				terminalInput.value = '';
+				appendTerminal( 'seca-term-err', '^C' );
+
+				return;
+			}
+
+			if ( 'Tab' === event.key ) {
+				var value = terminalInput.value;
+
+				if ( value ) {
+					event.preventDefault();
+					terminalInput.value = value + ' ';
+				}
+			}
+		} );
+	}
+
+	/* ------------------------------------------------------------- Lab */
+
+	/**
+	 * Met à jour l'affichage du lab à partir d'un statut serveur.
+	 *
+	 * @param {Object} status Statut.
+	 */
+	function renderLab( status ) {
+		if ( ! labBox ) {
+			return;
+		}
+
+		if ( ! status || ! status.enabled ) {
+			labBox.hidden = true;
+
+			return;
+		}
+
+		labBox.hidden = false;
+
+		if ( labState ) {
+			labState.textContent = labStateLabel( status.state );
+			labState.className = 'seca-lab-state is-' + ( status.state || 'idle' );
+		}
+
+		if ( labMessage ) {
+			labMessage.textContent = status.message || '';
+		}
+
+		if ( labTarget ) {
+			labTarget.textContent = status.target ? ( t( 'target', 'Cible' ) + ' : ' + status.target ) : '';
+			labTarget.hidden = ! status.target;
+		}
+
+		if ( labStart ) {
+			labStart.hidden = 'running' === status.state;
+			labStart.disabled = 'running' === status.state;
+		}
+
+		if ( labStop ) {
+			labStop.hidden = 'running' !== status.state;
+		}
+
+		var live = 'running' === status.state;
+
+		if ( terminalBadge ) {
+			terminalBadge.textContent = live ? t( 'terminal_live', 'machine réelle' ) : t( 'terminal_simulated', 'simulé' );
+			terminalBadge.className = 'seca-terminal-badge' + ( live ? ' is-live' : '' );
+		}
+
+		if ( terminalNote ) {
+			terminalNote.textContent = live
+				? t( 'terminal_note_live', 'Machine réelle isolée : les commandes s\'exécutent dans un conteneur éphémère, sans impact sur l\'hébergement.' )
+				: t( 'terminal_note_simulated', 'Terminal simulé : aucune machine réelle n\'est exécutée.' );
+		}
+	}
+
+	/**
+	 * Libellé lisible d'un état de lab.
+	 *
+	 * @param {string} state État.
+	 * @return {string} Libellé.
+	 */
+	function labStateLabel( state ) {
+		if ( 'running' === state ) {
+			return t( 'lab_running', 'en marche' );
+		}
+
+		if ( 'expired' === state ) {
+			return t( 'lab_expired', 'expirée' );
+		}
+
+		if ( 'simulated' === state ) {
+			return t( 'lab_simulated', 'simulée' );
+		}
+
+		if ( 'error' === state ) {
+			return t( 'lab_error', 'erreur' );
+		}
+
+		return t( 'lab_idle', 'arrêtée' );
+	}
+
+	/**
+	 * Demande le statut du lab au serveur.
+	 */
+	function refreshLab() {
+		if ( ! labBox ) {
+			return;
+		}
+
+		post( 'secura_lab_status', { room_id: roomId } ).then( function ( status ) {
+			renderLab( status );
+		} ).catch( function () {} );
+	}
+
+	if ( labStart ) {
+		labStart.addEventListener( 'click', function () {
+			labStart.disabled = true;
+
+			post( 'secura_lab_start', { room_id: roomId } ).then( function ( result ) {
+				renderLab( result );
+				toast( result.message || '' );
+			} ).catch( function ( error ) {
+				toast( error.message, true );
+				refreshLab();
+			} );
+		} );
+	}
+
+	if ( labStop ) {
+		labStop.addEventListener( 'click', function () {
+			post( 'secura_lab_stop', { room_id: roomId } ).then( function ( status ) {
+				renderLab( status );
+			} ).catch( function ( error ) {
+				toast( error.message, true );
 			} );
 		} );
 	}

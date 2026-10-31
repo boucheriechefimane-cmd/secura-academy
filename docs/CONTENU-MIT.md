@@ -5,28 +5,80 @@
 
 ---
 
-## 0. Avertissement licensing — à lire avant toute production de contenu
+## 0. Licence des supports OCW — ce qui est réellement permis (corrigé le 31/10/2026)
 
-Les supports de l'OCW sont publiés sous **CC BY-NC-SA 4.0** (Creative Commons Attribution-**NonCommercial**-ShareAlike 4.0). L'interprétation de MIT est explicite :
+> **Correction d'une erreur du premier jet de ce document.** La version initiale
+> concluait que les supports MIT OCW ne pouvaient pas être réutilisés. **C'est
+> faux pour notre usage** : la plateforme est gratuite, la clause
+> *NonCommercial* est donc satisfaite. Le permis de réutilisation est réel, à
+> condition de respecter trois obligations.
 
-> « *A commercial education or training business may not offer courses based on OCW materials if students pay a fee for those courses and the business intends to profit as a result.* »
-> — MIT OCW, *Privacy and Terms of Use*
+Les supports de l'OCW sont publiés sous **CC BY-NC-SA 4.0** (Attribution -
+NonCommercial - ShareAlike). L'interprétation officielle de MIT est explicite :
 
-**Ce qui est interdit :**
-- republier, traduire, reformater ou **adapter** les notes de cours, lespolycopiés, les jeux d'exercices, les corrigés, les examens ou les vidéos de l'OCW dans un produit **payant** ;
-- vendre un cours construit « sur la base » des supports OCW ;
-- transformer les supports OCW sans les republier sous **CC BY-NC-SA 4.0** (clause ShareAlike).
+> « *Non-commercial use* means that users may not sell, profit from, or
+> commercialize OCW materials or works derived from them. »
+>
+> « *A commercial education or training business may not offer courses based on
+> OCW materials **if students pay a fee** for those courses and the business
+> intends to profit as a result.* »
+> — MIT OCW, *Privacy and Terms of Use* (dernière mise à jour 08/11/2026)
 
-**Ce qui est permis :**
-- utiliser l'OCW comme **source bibliographique** : les sujets, méthodes et idées (modèles de menace, dépassement de tampon, Diffie-Hellman, TLS, contrôle de flux d'information…) ne sont pas des œuvres protégées ;
-- écrire un contenu **original** couvrant les mêmes thèmes, en citant le cours d'origine comme référence ;
-- lier vers les pages OCW et proposer des liens vers les supports originaux.
+**Conséquence directe :** proposer gratuitement un cours « sur la base » des
+supports OCW est **explicitement envisagé** par ces termes. Un site gratuit n'a
+rien à vendre, donc rien à négocier.
 
-**Décision recommandée pour Secura Academy :** le contenu des rooms est **entièrement original**, rédigé par l'équipe, et **cite** les cours 6.858 / 6.857 en bibliographie de room (« Sources : MIT OCW 6.858, leçon X — CC BY-NC-SA 4.0 »). Cela préserve la faisabilité commerciale future et reste juridiquement propre.
+### Ce qui est permis à Secura Academy
 
-**Ce que l'on peut légitimement réutiliser : l'architecture pédagogique**, qui n'est pas protégée : la structure *tâche → exercice d'entraînement → test d'application → examen → projet*, et le barème *quiz / lab / projet*. C'est ce que ce document transpose.
+- **Adapter et republier** les notes, polycopiés, énoncés et labs de l'OCW, en
+  les traduisant, les découpant en rooms, en les gamifiant, **si** la plateforme
+  reste **gratuite** pour l'apprenant.
+- Utiliser l'OCW comme **source** : sujets, méthodes, schémas, jeux de données,
+  labs, « problem sets », barèmes d'évaluation.
+- Faire un **outil payant** sur l'OCW : l'usage interne (formation d'une
+  entreprise, par exemple) est autorisé tant qu'il ne s'agit pas de vendre le
+  matériau lui-même.
 
-> Note : les 6 rooms existantes dans le plugin sont déjà des exercices originaux d'introduction. Elles constituent la **couche 0** du catalogue et restent valables.
+### Les trois obligations à respecter
+
+| Obligation | Ce qu'elle implique concrètement chez nous |
+|---|---|
+| **Attribution** | Credit MIT + lien vers la licence + indiquer les modifications + **ne jamais laisser entendre un approbation de MIT** (pas de logo MIT, pas de « cours officiel MIT ») |
+| **NonCommercial** | Le contenu adapté reste gratuit. Toute monétisation future du contenu interdit sa réutilisation sans réécriture ou autorisation écrite de l'OCW |
+| **ShareAlike** | Les **adaptations** (rooms dérivées des supports) restent publiées sous **CC BY-NC-SA 4.0**. Le **code** de la plateforme reste sous MIT : ShareAlike ne s'applique pas au logiciel qui héberge le contenu |
+
+### Ce qui reste interdit
+
+- Revendre, facturer, ou tirer un revenu direct ou indirect du contenu
+  adapté (publicité sur une page de contenu OCW compte comme une
+  commercialisation).
+- Présenter la plateforme comme un produit **approuvé ou soutenu par le MIT**.
+- Utiliser le nom « MIT » ou les logos à des fins promotionnelles (l'usage pour
+  l'attribution reste possible).
+- Réutiliser les **vidéos** de l'OCW dans notre lecteur : ce sont des fichiers
+  vidéo distincts, à licence distincte ; on les **lie** plutôt qu'on les
+  embarque.
+
+### Décision retenue pour Secura Academy
+
+1. **Le code** de la plateforme reste **MIT**.
+2. **Le contenu** de chaque room indique en pied de page ses sources et sa
+   licence : « *D'après MIT OpenCourseWare 6.858 / 6.857 — CC BY-NC-SA 4.0 —
+   adaptation Secura Academy.* »
+3. Une **page de crédits** par parcours et par room regroupant les sources.
+4. Le contenu **original** (les 6 rooms actuelles) reste sous licence MIT.
+5. Si un jour le projet veut gagner de l'argent **sur le contenu**, il faut
+   réécrire les rooms concernées ou obtenir une autorisation écrite de l'OCW.
+   Le code, lui, reste réutilisable librement.
+
+**Effet sur la charge éditoriale :** la réutilisation autorisée réduit
+considérablement le coût du contenu (voir § 8). On n'écrit plus chaque room de
+zéro : on **adapte** un support existant (avec attribution), on le gamifie, on
+le valide par un lab réel. L'effort éditorial restant porte sur l'adaptation, la
+structuration pédagogique, les drapeaux et l'industrialisation.
+
+> Note : les 6 rooms existantes dans le plugin sont des exercices **originaux** :
+> elles restent sous licence MIT et constituent la **couche 0** du catalogue.
 
 ---
 
@@ -210,13 +262,18 @@ Chaque room se termine par un bloc de références, indispensable juridiquement 
 
 ## 8. Charge éditoriale
 
-| Élément | Quantité | Temps unitaire estimé | Total |
+| Élément | Quantité | Écriture originale | Adaptation OCW (gratuite, § 0) |
 |---|---|---|---|
-| Rooms (parcours 1) | 22 | 3 h | 66 h |
-| Rooms (parcours 2) | 24 | 3,5 h | 84 h |
-| Projets finaux + barème | 2 | 8 h | 16 h |
-| Examen final (conception + relecture) | 2 | 6 h | 12 h |
-| **Total rédaction** | | | **≈ 178 h** |
+| Rooms (parcours 1) | 22 | 3 h → 66 h | 1,5 h → 33 h |
+| Rooms (parcours 2) | 24 | 3,5 h → 84 h | 1,5 h → 36 h |
+| Projets finaux + barème | 2 | 8 h → 16 h | 5 h → 10 h |
+| Examen final (conception + relecture) | 2 | 6 h → 12 h | 4 h → 8 h |
+| **Total** | | **≈ 178 h** | **≈ 87 h** |
+
+La réutilisation autorisée (gratuit, § 0) **divise par deux la charge
+éditoriale** : le temps restant porte sur l'adaptation, la structuration
+pédagogique, les drapeaux et les labs, pas sur la rédaction from scratch.
+C'est le moyen de passer de 6 à 46 rooms sans exploser le budget.
 
 À comparer : **≈ 46 rooms**, contre 6 aujourd'hui. C'est le vrai coût du « digne de TryHackMe » : la mécanique est faite (P0), mais **le contenu est le goulot d'étranglement**. Deux options réalistes :
 
@@ -224,3 +281,6 @@ Chaque room se termine par un bloc de références, indispensable juridiquement 
 2. **Livrer la mécanique d'abord, le contenu ensuite :** c'est ce que font les phases P0 — la plateforme est prête à accueillir le contenu dès qu'il existe.
 
 Dans les deux cas, le premier sprint doit produire **une room témoin** respectant le gabarit complet (leçon + entraînement + test + examen) : elle sert de **référence de rédaction** et de **test de bout en bout** de la nouvelle mécanique.
+
+L'ordonnancement des chantiers est piloté par `docs/ROADMAP.md` (milestone M3
+« Contenu : 10 rooms réelles »).
