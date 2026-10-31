@@ -1,0 +1,48 @@
+name: Machines — vrais conteneurs (Docker)
+
+# Ce workflow construit les machines de laboratoire et les fait tourner
+# pour de vrai : le runner GitHub Actions dispose de Docker et des
+# privilèges nécessaires. Il rejoue à chaque push le test qui compte :
+# deux apprenants ne doivent jamais se croiser.
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: labs-docker
+  cancel-in-progress: true
+
+jobs:
+  labs:
+    name: Machines Docker (isolation entre eleves)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Recuperer le code
+        uses: actions/checkout@v4
+
+      - name: Verifier Docker
+        run: |
+          docker version
+          docker compose version
+
+      - name: Construire les images des machines
+        run: |
+          docker build -t securalabs/web-01:1.0 labs/web-01
+          docker build -t securalabs/bin-01:1.0 labs/bin-01
+          docker compose -f labs/net-01/docker-compose.yml build
+
+      - name: Tester les machines (isolation, drapeaux, pile reseau)
+        run: bash scripts/test-labs-ci.sh
+
+      - name: Nettoyage
+        if: always()
+        run: |
+          docker ps -aq --filter "label=seca.lab=1" | xargs -r docker rm -f
+          docker ps -aq --filter "name=seca_test" | xargs -r docker rm -f
+          docker network ls --format '{{.Name}}' | grep '^seca_test' | xargs -r docker network rm
