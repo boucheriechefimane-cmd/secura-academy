@@ -1,0 +1,38 @@
+name: CI — Secura Academy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Vérification PHP et tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+
+      - name: Vérifier la syntaxe des fichiers PHP
+        run: find wp-content tests -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Exécuter les tests de logique serveur
+        run: php tests/smoke-test.php
+
+      - name: Vérifier les espaces en fin de ligne
+        run: |
+          if grep -RIn '[[:blank:]]$' --include='*.php' --include='*.js' --include='*.css' wp-content; then
+            echo "Espaces en fin de ligne détectés."
+            exit 1
+          fi
