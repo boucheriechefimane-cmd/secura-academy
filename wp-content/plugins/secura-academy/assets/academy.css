@@ -851,7 +851,97 @@
 	background: rgba(2, 6, 23, .5);
 }
 
-/* ----------------------------------------------------------- Questions */
+/* --------------------------------------------------- En-tête de tâche */
+
+.seca-task-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: .6rem;
+	margin-bottom: 1rem;
+	padding-bottom: .9rem;
+	border-bottom: 1px solid var(--sa-border);
+}
+
+.seca-task-header-main,
+.seca-task-header-side {
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+	flex-wrap: wrap;
+}
+
+.seca-task-type {
+	font-size: .78rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	color: var(--sa-muted);
+}
+
+.seca-task-goal {
+	font-size: .82rem;
+	color: var(--sa-accent-2);
+}
+
+.seca-task-score {
+	font-size: 1rem;
+	font-weight: 800;
+	color: var(--sa-accent);
+	font-variant-numeric: tabular-nums;
+}
+
+.seca-task-threshold {
+	font-size: .78rem;
+	color: var(--sa-muted);
+}
+
+/* ------------------------------------------------------- Badges format */
+
+.seca-format {
+	display: inline-flex;
+	align-items: center;
+	padding: .15em .65em;
+	border-radius: 999px;
+	font-size: .68rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: .08em;
+	white-space: nowrap;
+	border: 1px solid transparent;
+}
+
+.seca-format--lecon {
+	background: rgba(148, 163, 184, .16);
+	border-color: rgba(148, 163, 184, .4);
+	color: #cbd5e1;
+}
+
+.seca-format--qcm {
+	background: rgba(56, 189, 248, .14);
+	border-color: rgba(56, 189, 248, .4);
+	color: #7dd3fc;
+}
+
+.seca-format--pratique {
+	background: rgba(45, 212, 167, .16);
+	border-color: rgba(45, 212, 167, .45);
+	color: var(--sa-accent);
+}
+
+.seca-format--mixte {
+	background: rgba(251, 191, 36, .14);
+	border-color: rgba(251, 191, 36, .4);
+	color: #fcd34d;
+}
+
+.seca-task-tab .seca-format {
+	font-size: .6rem;
+	padding: .1em .5em;
+}
+
+/* --------------------------------------------------------- Questions */
 
 .seca-questions {
 	display: grid;

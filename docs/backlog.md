@@ -8,8 +8,9 @@ de données conditionne l'UI, l'UI reflète le modèle. Les livrer par moitié
 produit un état incohérent.
 
 > **État au 31/10/2026 : le P0 pédagogique (0.1 → 0.6) est livré et testé
-> (108 assertions dans `tests/smoke-test.php`).** Le P0 conformité (0.7) reste
-> ouvert : c'est un chantier de production, pas de moteur.
+> (147 assertions dans `tests/smoke-test.php`), avec la validation croisée
+> QCM + test pratique.** Le P0 conformité (0.7) reste ouvert : c'est un
+> chantier de production, pas de moteur.
 
 ---
 
@@ -63,10 +64,28 @@ produit un état incohérent.
 - [x] Terminal simulé intégré aux tâches de type `test`.
 - [x] Level-up, confettis et notifications.
 
+### 0.6 bis · Validation croisée QCM + test pratique — [x]
+- [x] Champ **format** par tâche : `lecon`, `qcm`, `pratique`, `mixte`.
+- [x] Badge de format dans la navigation et dans l'en-tête de tâche.
+- [x] `pass_score` **effectif** : une tâche à 60 % est réussie à 60 % (sans
+      seuil, la barre reste à 100 %).
+- [x] Tâche pratique sans questions validée par son scénario de terminal
+      (`Secura_Progress::mark_terminal_done()`).
+- [x] Terminal jouable dans **chacune** des 6 rooms livrées.
+- [x] `Secura_Progress::claim_question()` : réservation atomique d'une question
+      avant le versement des XP (plus de double crédit en concurrence).
+- [x] Examen raté → reprise automatique ; examen réussi → reprise **sur demande
+      explicite** (`force=1`) pour éviter le farm de points.
+- [x] Limitation de débit : 40 validations/minute/utilisateur (`slow_down`).
+- [x] Schéma de progression versionné (`__schema`) + migration automatique.
+- [x] Messages serveur passés dans le dictionnaire FR/AR/EN.
+- [x] Terminal traduisible par tâche (champ JSON dans la méta-box Traductions).
+
 ### 0.7 · Conformité et production (reste ouvert)
 - [ ] Confirmation d'inscription par e-mail.
 - [ ] Mot de passe oublié personnalisé.
-- [ ] Anti-spam + limitation des tentatives (rate limiting).
+- [ ] Anti-spam + limitation des tentatives sur inscription et connexion
+      (l'API de validation est déjà limitée à 40 requêtes/minute/utilisateur).
 - [ ] Export et effacement des données (progression, XP, médailles).
 - [ ] Politique de confidentialité.
 

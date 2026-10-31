@@ -30,12 +30,14 @@ function seca_default_rooms() {
 			'tasks'      => array(
 				array(
 					'type'    => 'lesson',
+					'format'  => 'lecon',
 					'title'   => 'Task 1 : Le réflexe du défenseur',
 					'content' => '<p>Trois idées suffisent pour démarrer :</p><ul><li><strong>La triade CIA</strong> — <em>Confidentialité</em>, <em>Intégrité</em>, <em>Disponibilité</em>. Chaque attaque vise l\'un des trois piliers ; chaque défense protège l\'un des trois.</li><li><strong>La surface d\'attaque</strong> — l\'ensemble des points d\'entrée accessibles : ports ouverts, URL, comptes, API, fichiers.</li><li><strong>Le moindre privilège</strong> — n\'accorder que les droits strictement nécessaires à l\'action en cours.</li></ul><p><strong>À retenir :</strong> un bon défenseur ne cherche pas d\'abord l\'attaque, il réduit d\'abord la surface d\'attaque.</p>',
 					'questions' => array(),
 				),
 				array(
 					'type'    => 'practice',
+					'format'  => 'qcm',
 					'title'   => 'Task 2 : Entraînement',
 					'content' => '<p>Six questions pour vérifier que les trois réflexes sont acquis. Tu peux demander un indice : il te coûtera la moitié des points de la question.</p>',
 					'questions' => array(
@@ -71,8 +73,31 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'    => 'test',
+					'format'  => 'mixte',
 					'title'   => "Task 3 : Test d'application — le triage d'incident",
 					'content' => '<p><strong>Situation.</strong> Un collègue te signale qu\'une page interne affiche une erreur SQL contenant le nom d\'une table. Ton chef te demande d\'agir tout de suite.</p><p>Réponds en juste : ce qu\'il faut faire d\'abord, et ce qu\'il ne faut surtout pas faire.</p>',
+					'terminal' => array(
+						'intro'   => "user@cible:~$ ",
+						'unknown' => "bash: commande introuvable. Essaie « help ».",
+						'success' => "Tu as isolé la cause et la parade à mettre en place.",
+						'steps'   => array(
+							array(
+								'match'  => array( 'cat /var/log/auth.log', '/cat .*auth\.log/' ),
+								'output' => "May 02 09:12:01 sshd[1201]: Accepted password for admin from 203.0.113.7 port 51422\nMay 02 09:14:22 sshd[1207]: Failed password for invalid user admin from 203.0.113.7 port 51430\n",
+								'hint'   => "Les journaux d'authentification racontent les tentatives.",
+							),
+							array(
+								'match'  => array( 'grep -c "Failed password" /var/log/auth.log', '/grep .*Failed password/' ),
+								'output' => "142\n",
+								'hint'   => "Compte les échecs d'authentification dans le journal.",
+							),
+							array(
+								'match'  => array( 'cat /srv/triage/notes.txt', '/cat .*triage.*notes/' ),
+								'output' => "incident 2024-05-02\ncause : brute-force sur le compte admin\nFLAG=SECURA{triage_defensif}\n",
+								'hint'   => "Le dossier de l'incident contient les notes du responsable.",
+							),
+						),
+					),
 					'questions' => array(
 						array(
 							'question'    => 'Quelle est la toute première action ?',
@@ -99,6 +124,7 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'       => 'exam',
+					'format'     => 'qcm',
 					'title'      => 'Task 4 : Examen',
 					'content'    => '<p>Trois questions, 10 minutes, seuil 70 %. Aucun indice : c\'est ton moment de vérifier que les réflexes sont automatisés.</p>',
 					'time_limit' => 10,
@@ -160,12 +186,14 @@ function seca_default_rooms() {
 			'tasks'      => array(
 				array(
 					'type'    => 'lesson',
+					'format'  => 'lecon',
 					'title'   => 'Task 1 : Comment circulent les données',
 					'content' => '<p>Trois briques suffisent :</p><ul><li><strong>L\'adresse IP</strong> identifie une machine sur le réseau ; l\'<strong>adresse MAC</strong> identifie sa carte réseau sur le lien local.</li><li><strong>Le port</strong> désigne le service : 22 pour SSH, 80 pour HTTP, 443 pour HTTPS.</li><li><strong>Le modèle OSI</strong> découpe la communication en couches : 1 physique, 2 liaison, 3 réseau, 4 transport, 5 session, 6 présentation, 7 application.</li></ul><p><strong>À retenir :</strong> TCP (couche 4) est fiable et orienté connexion ; UDP est rapide et sans connexion.</p>',
 					'questions' => array(),
 				),
 				array(
 					'type'    => 'practice',
+					'format'  => 'qcm',
 					'title'   => 'Task 2 : Entraînement',
 					'content' => '<p>Quatre questions pour ancrer les bases du réseau.</p>',
 					'questions' => array(
@@ -201,6 +229,7 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'    => 'test',
+					'format'  => 'mixte',
 					'title'   => 'Task 3 : Test d\'application — explorer la machine',
 					'content' => '<p><strong>Mission.</strong> Une machine a été compromise. Tu as un accès à son terminal. Trouve le fichier de configuration et la drape qu\'il contient.</p><p>Utilise le terminal ci-dessous : les commandes sont simulées, aucun système réel n\'est touché.</p>',
 					'terminal' => array(
@@ -247,6 +276,7 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'       => 'exam',
+					'format'     => 'qcm',
 					'title'      => 'Task 4 : Examen',
 					'content'    => '<p>Trois questions, 10 minutes, seuil 70 %.</p>',
 					'time_limit' => 10,
@@ -308,12 +338,14 @@ function seca_default_rooms() {
 			'tasks'      => array(
 				array(
 					'type'    => 'lesson',
+					'format'  => 'lecon',
 					'title'   => 'Task 1 : Les trois failles web à connaître',
 					'content' => '<ul><li><strong>Injection SQL</strong> — des données utilisateur sont concaténées dans une requête : l\'attaquant modifie la logique de la requête. <em>Parade :</em> requêtes paramétrées.</li><li><strong>XSS</strong> — du code injecté s\'exécute dans le navigateur d\'une victime. <em>Parade :</em> échappement en sortie + CSP.</li><li><strong>CSRF</strong> — un site tiers force l\'utilisateur connecté à déclencher une action. <em>Parade :</em> jeton anti-CSRF.</li></ul><p><strong>À retenir :</strong> toute donnée venant du client est non fiable. La validation se fait <em>côté serveur</em>, toujours.</p>',
 					'questions' => array(),
 				),
 				array(
 					'type'    => 'practice',
+					'format'  => 'qcm',
 					'title'   => 'Task 2 : Entraînement',
 					'content' => '<p>Trois questions pour distinguer les familles de failles.</p>',
 					'questions' => array(
@@ -342,8 +374,31 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'    => 'test',
+					'format'  => 'mixte',
 					'title'   => 'Task 3 : Test d\'application — l\'en-tête suspect',
 					'content' => '<p><strong>Mission.</strong> Un colleague te transmet la réponse d\'un serveur pour une page de profil.</p><pre>HTTP/1.1 200 OK\nContent-Type: text/html\nSet-Cookie: session=abc123; Secure</pre><p>Deux points sautent aux yeux. Identifie-les et dis ce qu\'il faut corriger.</p>',
+					'terminal' => array(
+						'intro'   => "user@cible:~$ ",
+						'unknown' => "bash: commande introuvable. Essaie « help ».",
+						'success' => "Tu as compris ce qu'il reste à corriger sur le serveur.",
+						'steps'   => array(
+							array(
+								'match'  => array( 'curl -I http://cible.local', '/curl -I .*cible/' ),
+								'output' => "HTTP/1.1 200 OK\nServer: nginx/1.18.0\nSet-Cookie: session=abc123; Secure\nContent-Type: text/html\n",
+								'hint'   => "Récupère les en-têtes renvoyés par la page.",
+							),
+							array(
+								'match'  => array( 'curl -s http://cible.local/robots.txt', '/curl .*robots\.txt/' ),
+								'output' => "User-agent: *\nDisallow: /admin\n",
+								'hint'   => "Cherche le fichier robots.txt de l'application.",
+							),
+							array(
+								'match'  => array( 'cat /etc/nginx/conf.d/cible.conf', '/cat .*cible\.conf/' ),
+								'output' => "server {\n  listen 80;\n  root /var/www/html;\n  # TODO : activer HttpOnly et SameSite\n}\nFLAG=SECURA{web_headers}\n",
+								'hint'   => "Le fichier de configuration du serveur dit ce qui reste à corriger.",
+							),
+						),
+					),
 					'questions' => array(
 						array(
 							'question'    => 'Quel est le problème principal avec l\'en-tête Set-Cookie ?',
@@ -370,6 +425,7 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'       => 'exam',
+					'format'     => 'qcm',
 					'title'      => 'Task 4 : Examen',
 					'content'    => '<p>Trois questions, 15 minutes, seuil 75 %.</p>',
 					'time_limit' => 15,
@@ -431,12 +487,14 @@ function seca_default_rooms() {
 			'tasks'      => array(
 				array(
 					'type'    => 'lesson',
+					'format'  => 'lecon',
 					'title'   => 'Task 1 : Le dépassement de tampon',
 					'content' => '<p>Un programme réserve un espace mémoire (un <em>buffer</em>) pour y écrire des données. Si le programme ne vérifie pas la taille reçue, l\'attaquant écrit <strong>au-delà</strong> de cet espace et écrase la pile, où se trouvent les adresses de retour.</p><p>Quatre défenses se combinent :</p><ul><li><strong>NX</strong> (No-Execute) : la pile n\'est pas exécutable.</li><li><strong>ASLR</strong> : les adresses mémoire sont randomisées à chaque exécution.</li><li><strong>Canary</strong> (cookie de pile) : une valeur sentinelle détecte la corruption avant le retour.</li><li><strong>PIE / RELRO</strong> : randomisation et durcissement des segments.</li></ul><p><strong>À retenir :</strong> aucune parade n\'est suffisante seule ; c\'est leur combinaison qui rend l\'exploitation coûteuse.</p>',
 					'questions' => array(),
 				),
 				array(
 					'type'    => 'practice',
+					'format'  => 'qcm',
 					'title'   => 'Task 2 : Entraînement',
 					'content' => '<p>Quatre questions sur le mécanisme et ses défenses.</p>',
 					'questions' => array(
@@ -472,8 +530,31 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'    => 'test',
+					'format'  => 'mixte',
 					'title'   => 'Task 3 : Test d\'application — hardening',
 					'content' => '<p><strong>Mission.</strong> Une équipe te demande de durcir un serveur. Trois réponses d\'audit sont à évaluer : laquelle est réellement efficace ?</p><p>1. « Le binaire est compilé sans ASLR. »<br>2. « La pile est marquée NX. »<br>3. « Le programme vérifie la longueur avant d\'écrire. »</p>',
+					'terminal' => array(
+						'intro'   => "user@cible:~$ ",
+						'unknown' => "bash: commande introuvable. Essaie « help ».",
+						'success' => "Tu as compris pourquoi la compilation est le vrai rempart.",
+						'steps'   => array(
+							array(
+								'match'  => array( 'checksec --file ./vulnerable', '/checksec .*vulnerable/' ),
+								'output' => "RELRO      : Partial\nStack      : No canary found\nNX         : disabled\nPIE        : No PIE\n",
+								'hint'   => "Analyse les protections activées sur le binaire.",
+							),
+							array(
+								'match'  => array( 'cat Makefile', '/cat .*Makefile/' ),
+								'output' => "CFLAGS = -fno-stack-protector -z execstack -no-pie\n",
+								'hint'   => "Le Makefile montre les options de compilation utilisées.",
+							),
+							array(
+								'match'  => array( './vulnerable', 'vulnerable', '/vulnerable$/' ),
+								'output' => "Buffer: AAAA\nSegmentation fault (core dumped)\nFLAG=SECURA{memoire}\n",
+								'hint'   => "Le binaire se lance sans le préfixe ./",
+							),
+						),
+					),
 					'questions' => array(
 						array(
 							'question'    => 'Laquelle de ces mesures est la plus efficace contre un dépassement de tampon ?',
@@ -500,6 +581,7 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'       => 'exam',
+					'format'     => 'qcm',
 					'title'      => 'Task 4 : Examen',
 					'content'    => '<p>Trois questions, 15 minutes, seuil 75 %.</p>',
 					'time_limit' => 15,
@@ -561,12 +643,14 @@ function seca_default_rooms() {
 			'tasks'      => array(
 				array(
 					'type'    => 'lesson',
+					'format'  => 'lecon',
 					'title'   => 'Task 1 : Prouver son identité',
 					'content' => '<p>Trois notions :</p><ul><li><strong>Facteur</strong> — ce que vous savez (mot de passe), ce que vous avez (jeton), ce que vous êtes (biométrie).</li><li><strong>MFA</strong> — au moins deux facteurs de familles différentes : un mot de passe + une application TOTP, c\'est du 2FA robuste.</li><li><strong>Stockage</strong> — le mot de passe ne doit jamais être stocké : on stocke un <em>hachage salé</em> et lent (bcrypt, Argon2, scrypt). Le sel est unique par utilisateur et rend les tables pré-calculées inutiles.</li></ul><p><strong>À retenir :</strong> la longueur prime sur la complexité. Un mot de passe long et unique bat un mot de passe court et compliqué réutilisé.</p>',
 					'questions' => array(),
 				),
 				array(
 					'type'    => 'practice',
+					'format'  => 'qcm',
 					'title'   => 'Task 2 : Entraînement',
 					'content' => '<p>Trois questions sur les fondamentaux de l\'authentification.</p>',
 					'questions' => array(
@@ -595,8 +679,31 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'    => 'test',
+					'format'  => 'mixte',
 					'title'   => 'Task 3 : Test d\'application — le mot de passe oublié',
 					'content' => '<p><strong>Mission.</strong> L\'équipe a observé des tentatives de connexion massives sur le formulaire « mot de passe oublié ». Trois mesures possibles.</p><p>1. Envoyer le lien par email.<br>2. Limiter le nombre de tentatives par adresse IP.<br>3. Ne jamais dire si l\'adresse existe.</p>',
+					'terminal' => array(
+						'intro'   => "user@cible:~$ ",
+						'unknown' => "bash: commande introuvable. Essaie « help ».",
+						'success' => "Tu as compris à quel point le mécanisme de réinitialisation est fragile.",
+						'steps'   => array(
+							array(
+								'match'  => array( 'cat /etc/passwd', '/cat .*passwd/' ),
+								'output' => "root:x:0:0:root:/root:/bin/bash\nwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\napp:x:1000:1000::/srv/app:/bin/bash\n",
+								'hint'   => "Liste les comptes présents sur le serveur.",
+							),
+							array(
+								'match'  => array( 'grep -i reset /srv/app/app.log', '/grep .*reset/' ),
+								'output' => "2024-05-02 09:14:22 reset requested for app@exemple.fr token=7f3a9c2b\n",
+								'hint'   => "Cherche une demande de réinitialisation dans les journaux de l'application.",
+							),
+							array(
+								'match'  => array( 'cat /srv/app/reset_token', '/cat .*reset_token/' ),
+								'output' => "7f3a9c2b\nFLAG=SECURA{auth_reset}\n",
+								'hint'   => "Le jeton de réinitialisation a été écrit dans un fichier.",
+							),
+						),
+					),
 					'questions' => array(
 						array(
 							'question'    => 'Pourquoi ne pas indiquer si une adresse email est enregistrée ?',
@@ -623,6 +730,7 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'       => 'exam',
+					'format'     => 'qcm',
 					'title'      => 'Task 4 : Examen',
 					'content'    => '<p>Trois questions, 15 minutes, seuil 75 %.</p>',
 					'time_limit' => 15,
@@ -684,12 +792,14 @@ function seca_default_rooms() {
 			'tasks'      => array(
 				array(
 					'type'    => 'lesson',
+					'format'  => 'lecon',
 					'title'   => 'Task 1 : Les quatre briques',
 					'content' => '<ul><li><strong>Hachage</strong> — un sens unique, non réversible, avec sel. Sert à l\'intégrité et au stockage de mots de passe, <em>jamais</em> au chiffrement.</li><li><strong>Chiffrement symétrique</strong> — une clé unique (AES). Rapide, pour de gros volumes.</li><li><strong>Chiffrement asymétrique</strong> — une paire clé privée / clé publique (RSA, ECDSA). Asymétrique, pour le partage de clés et les signatures.</li><li><strong>Échange de clés</strong> — Diffie-Hellman permet d\'établir un secret commun sur un canal surveillé ; TLS l\'utilise pour créer une clé de session.</li></ul><p><strong>À retenir :</strong> TLS combine les deux : asymétrique pour s\'authentifier et négocier, symétrique pour transporter les données.</p>',
 					'questions' => array(),
 				),
 				array(
 					'type'    => 'practice',
+					'format'  => 'qcm',
 					'title'   => 'Task 2 : Entraînement',
 					'content' => '<p>Quatre questions sur les primitives cryptographiques.</p>',
 					'questions' => array(
@@ -725,8 +835,31 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'    => 'test',
+					'format'  => 'mixte',
 					'title'   => 'Task 3 : Test d\'application — lire la négociation',
 					'content' => '<p><strong>Mission.</strong> Une capture montre la négociation TLS d\'un serveur.</p><pre>ClientHello: TLS 1.3, cipher suites: TLS_AES_128_GCM_SHA256\nServerHello: TLS 1.3, key exchange: (EC)DHE\nCertificate: CN=exemple.fr, issuer Let\'s Encrypt</pre><p>Trois questions sur ce que tu observes.</p>',
+					'terminal' => array(
+						'intro'   => "user@cible:~$ ",
+						'unknown' => "bash: commande introuvable. Essaie « help ».",
+						'success' => "Tu sais maintenant lire une négociation TLS.",
+						'steps'   => array(
+							array(
+								'match'  => array( 'openssl s_client -connect cible:443', '/openssl s_client .*443/' ),
+								'output' => "CONNECTED(00000003)\ndepth=2 CN=exemple.fr\nissuer=CN=R3 Lets Encrypt\nprotocol version: TLSv1.3\n",
+								'hint'   => "Ouvre une session TLS pour lire le certificat présenté.",
+							),
+							array(
+								'match'  => array( 'openssl x509 -in /etc/ssl/certs/cible.pem -text -noout', '/openssl x509 .*/' ),
+								'output' => "Subject: CN=exemple.fr\nX509v3 Subject Alternative Name: \n    DNS:exemple.fr, DNS:www.exemple.fr, IP:192.0.2.10\nFLAG=SECURA{tls_sni}\n",
+								'hint'   => "Affiche le certificat au format texte.",
+							),
+							array(
+								'match'  => array( 'cat /etc/ssl/openssl.cnf', '/cat .*openssl\.cnf/' ),
+								'output' => "[ req ]\ndistinguished_name = req_distinguished_name\n[ req_distinguished_name ]\ncommonName = exemple.fr\n",
+								'hint'   => "La configuration OpenSSL du serveur se trouve dans /etc/ssl.",
+							),
+						),
+					),
 					'questions' => array(
 						array(
 							'question'    => 'Quel est l\'avantage de TLS 1.3 sur TLS 1.2 ?',
@@ -753,6 +886,7 @@ function seca_default_rooms() {
 				),
 				array(
 					'type'       => 'exam',
+					'format'     => 'qcm',
 					'title'      => 'Task 4 : Examen',
 					'content'    => '<p>Trois questions, 15 minutes, seuil 75 %.</p>',
 					'time_limit' => 15,

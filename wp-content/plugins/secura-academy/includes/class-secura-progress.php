@@ -321,14 +321,110 @@ final class Secura_Progress {
 		$exams    = get_user_meta( $user_id, SECURA_USER_EXAMS, true );
 		$streak   = get_user_meta( $user_id, SECURA_USER_STREAK, true );
 
+		$progress = is_array( $progress ) ? $progress : array();
+
 		return array(
 			'xp'       => self::get_xp( $user_id ),
-			'progress' => is_array( $progress ) ? $progress : array(),
+			'progress' => self::migrate_progress( $progress ),
 			'medals'   => is_array( $medals ) ? $medals : array(),
 			'exams'    => is_array( $exams ) ? $exams : array(),
 			'streak'   => is_array( $streak ) ? $streak : array( 'current' => 0, 'longest' => 0, 'last_day' => '' ),
 			'level'    => self::level_for_xp( self::get_xp( $user_id ) ),
+			'schema'   => self::schema_version(),
 		);
+	}
+
+	/**
+	 * Version du schéma de progression.
+	 *
+	 * 1 : format plat { solved: { question: true } }.
+	 * 2 : format par tâche { tasks: { index: { solved, hints, terminal_done } } }.
+	 *
+	 * @return int
+	 */
+	public static function schema_version() {
+		return 2;
+	}
+
+	/**
+	 * Migre une progression ancienne vers le schéma courant.
+	 *
+	 * @param array $progress Progression brute.
+	 * @return array
+	 */
+	public static function migrate_progress( $progress ) {
+		if ( ! is_array( $progress ) ) {
+			return array();
+		}
+
+		$version = isset( $progress['__schema'] ) ? absint( $progress['__schema'] ) : 1;
+
+		if ( $version >= self::schema_version() ) {
+			return $progress;
+		}
+
+		$rooms = array();
+
+		foreach ( $progress as $key => $room ) {
+			if ( '__schema' === $key || ! is_array( $room ) ) {
+				continue;
+			}
+
+			/* Ancien format plat : tout est regroupé dans la première tâche. */
+			if ( ! isset( $room['tasks'] ) && isset( $room['solved'] ) ) {
+				$solved = array();
+
+				foreach ( (array) $room['solved'] as $index => $value ) {
+					if ( $value ) {
+						$solved[] = (int) $index;
+					}
+				}
+
+				$room = array(
+					'tasks'      => array(
+						0 => array(
+							'solved' => array_flip( $solved ),
+							'hints'  => array(),
+							'done'   => true,
+						),
+					),
+					'completed'  => ! empty( $room['completed'] ),
+					'best_score' => isset( $room['best_score'] ) ? absint( $room['best_score'] ) : 0,
+					'medal'      => isset( $room['medal'] ) ? $room['medal'] : '',
+				);
+			}
+
+			if ( ! isset( $room['tasks'] ) || ! is_array( $room['tasks'] ) ) {
+				$room['tasks'] = array();
+			}
+
+			foreach ( $room['tasks'] as $index => $task ) {
+				if ( ! is_array( $task ) ) {
+					$room['tasks'][ $index ] = array( 'solved' => array(), 'hints' => array() );
+					continue;
+				}
+
+				if ( ! isset( $task['solved'] ) || ! is_array( $task['solved'] ) ) {
+					$task['solved'] = array();
+				}
+
+				if ( ! isset( $task['hints'] ) || ! is_array( $task['hints'] ) ) {
+					$task['hints'] = array();
+				}
+
+				if ( ! isset( $task['terminal_done'] ) ) {
+					$task['terminal_done'] = false;
+				}
+
+				$room['tasks'][ $index ] = $task;
+			}
+
+			$rooms[ $key ] = $room;
+		}
+
+		$rooms['__schema'] = self::schema_version();
+
+		return $rooms;
 	}
 
 	/**
@@ -410,6 +506,7 @@ final class Secura_Progress {
 		$progress = is_array( $progress ) ? $progress : array();
 
 		$progress[ (string) absint( $room_id ) ] = $state;
+		$progress['__schema']                   = self::schema_version();
 
 		update_user_meta( $user_id, SECURA_USER_PROGRESS, $progress );
 	}
@@ -449,6 +546,72 @@ final class Secura_Progress {
 		self::save_room_state( $user_id, $room_id, $room );
 
 		return $room['tasks'][ $index ];
+	}
+
+	/**
+	 * Réserve une question pour l'apprenant.
+	 *
+	 * Contrairement à mark_question(), la méthode renvoie false si la question
+	 * était déjà résolue. C'est ce retour qui permet d'attribuer les XP une
+	 * seule fois, même si deux requêtes arrivent en même temps.
+	 *
+	 * @param int  $user_id    Identifiant de l'utilisateur.
+	 * @param int  $room_id    Identifiant de la room.
+	 * @param int  $task_index Index de la tâche.
+	 * @param int  $question   Index de la question.
+	 * @param bool $hint_used  Un indice a-t-il été ouvert ?
+	 * @return bool Vrai si la question vient d'être réservée.
+	 */
+	public static function claim_question( $user_id, $room_id, $task_index, $question, $hint_used = false ) {
+		$room  = self::get_room_state( $user_id, $room_id );
+		$index = (string) absint( $task_index );
+		$key   = (string) absint( $question );
+
+		if ( ! isset( $room['tasks'][ $index ] ) || ! is_array( $room['tasks'][ $index ] ) ) {
+			$room['tasks'][ $index ] = array(
+				'solved' => array(),
+				'hints'  => array(),
+				'done'   => false,
+			);
+		}
+
+		if ( isset( $room['tasks'][ $index ]['solved'][ $key ] ) ) {
+			return false;
+		}
+
+		$room['tasks'][ $index ]['solved'][ $key ] = true;
+
+		if ( $hint_used ) {
+			$room['tasks'][ $index ]['hints'][ $key ] = true;
+		}
+
+		self::save_room_state( $user_id, $room_id, $room );
+
+		return true;
+	}
+
+	/**
+	 * Marque le scénario du terminal d'une tâche comme terminé.
+	 *
+	 * @param int $user_id    Identifiant de l'utilisateur.
+	 * @param int $room_id    Identifiant de la room.
+	 * @param int $task_index Index de la tâche.
+	 */
+	public static function mark_terminal_done( $user_id, $room_id, $task_index ) {
+		$room  = self::get_room_state( $user_id, $room_id );
+		$index = (string) absint( $task_index );
+
+		if ( ! isset( $room['tasks'][ $index ] ) || ! is_array( $room['tasks'][ $index ] ) ) {
+			$room['tasks'][ $index ] = array(
+				'solved' => array(),
+				'hints'  => array(),
+				'done'   => false,
+			);
+		}
+
+		$room['tasks'][ $index ]['terminal_done'] = true;
+
+		self::save_room_state( $user_id, $room_id, $room );
 	}
 
 	/**
@@ -505,18 +668,71 @@ final class Secura_Progress {
 		}
 
 		$questions = isset( $task['questions'] ) ? $task['questions'] : array();
+		$terminal  = isset( $task['terminal'] ) && is_array( $task['terminal'] ) ? $task['terminal'] : array();
 
+		/* Tâche pratique sans questions : le scénario du terminal fait foi. */
 		if ( empty( $questions ) ) {
+			if ( ! empty( $terminal['steps'] ) ) {
+				return ! empty( $tstate['terminal_done'] );
+			}
+
 			return ! empty( $tstate['done'] );
 		}
 
+		$solved = 0;
+		$total  = count( $questions );
+
 		foreach ( array_keys( $questions ) as $index ) {
-			if ( ! isset( $tstate['solved'][ (string) $index ] ) ) {
-				return false;
+			if ( isset( $tstate['solved'][ (string) $index ] ) ) {
+				$solved++;
 			}
 		}
 
-		return true;
+		/* Sans seuil explicite, toutes les questions doivent être résolues.
+		   Avec un seuil (test pratique ou examen), la tâche est réussie dès
+		   que le score atteint ce seuil — et le seuil devient un vrai
+		   contrat de validation, pas une decoration. */
+		$threshold = isset( $task['pass_score'] ) && absint( $task['pass_score'] ) > 0 ? absint( $task['pass_score'] ) : 100;
+
+		$score = (int) round( ( $solved / $total ) * 100 );
+
+		return $score >= $threshold;
+	}
+
+	/**
+	 * Score d'une tâche, en pourcentage.
+	 *
+	 * @param array $task   Tâche.
+	 * @param array $tstate État de la tâche.
+	 * @return int
+	 */
+	public static function task_score( $task, $tstate ) {
+		$questions = isset( $task['questions'] ) ? $task['questions'] : array();
+
+		if ( empty( $questions ) ) {
+			return 0;
+		}
+
+		$solved = 0;
+		$total  = count( $questions );
+
+		foreach ( array_keys( $questions ) as $index ) {
+			if ( isset( $tstate['solved'][ (string) $index ] ) ) {
+				$solved++;
+			}
+		}
+
+		return (int) round( ( $solved / $total ) * 100 );
+	}
+
+	/**
+	 * Seuil de passage d'une tâche (100 % par défaut).
+	 *
+	 * @param array $task Tâche.
+	 * @return int
+	 */
+	public static function task_threshold( $task ) {
+		return isset( $task['pass_score'] ) && absint( $task['pass_score'] ) > 0 ? absint( $task['pass_score'] ) : 100;
 	}
 
 	/**
@@ -668,7 +884,7 @@ final class Secura_Progress {
 	 * @param int $index   Index de la tâche.
 	 * @return array
 	 */
-	public static function start_exam( $user_id, $room_id, $index ) {
+	public static function start_exam( $user_id, $room_id, $index, $force = false ) {
 		$exams = get_user_meta( $user_id, SECURA_USER_EXAMS, true );
 		$exams = is_array( $exams ) ? $exams : array();
 		$key   = self::exam_key( $room_id, $index );
@@ -690,8 +906,12 @@ final class Secura_Progress {
 		}
 
 		/* Nouvel essai : on relance le chronomètre, on garde le bonus
-		   déjà versé et le meilleur score. */
-		if ( ! empty( $exams[ $key ]['finished_at'] ) ) {
+		   déjà versé et le meilleur score. Un examen réussi n'est jamais
+		   relancé automatiquement : c'est une nouvelle tentative explicite. */
+		$finished = ! empty( $exams[ $key ]['finished_at'] );
+		$passed   = ! empty( $exams[ $key ]['passed'] );
+
+		if ( $finished && ( $force || ! $passed ) ) {
 			$exams[ $key ]['started_at']  = time();
 			$exams[ $key ]['finished_at'] = 0;
 			$exams[ $key ]['passed']      = false;

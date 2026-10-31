@@ -411,6 +411,8 @@ final class Secura_Dashboard {
 			<nav class="seca-task-nav" data-seca-task-nav aria-label="<?php esc_attr_e( 'Tâches de la room', 'seca-academy' ); ?>"></nav>
 
 			<div class="seca-task-view" data-seca-task-view>
+				<div class="seca-task-header" data-seca-task-header></div>
+
 				<div class="seca-task-body" data-seca-task-content></div>
 
 				<div class="seca-terminal" data-seca-terminal hidden>

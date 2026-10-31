@@ -15,6 +15,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Secura_Rooms {
 
 	/**
+	 * Formats de tâche possibles.
+	 *
+	 * @return array
+	 */
+	public static function task_formats() {
+		return array(
+			'lecon'    => __( 'Leçon', 'seca-academy' ),
+			'qcm'      => __( 'QCM', 'seca-academy' ),
+			'pratique' => __( 'Pratique', 'seca-academy' ),
+			'mixte'    => __( 'Mixte', 'seca-academy' ),
+		);
+	}
+
+	/**
+	 * Format par défaut d'une tâche, déduit de son type.
+	 *
+	 * @param string $type     Type de tâche.
+	 * @param array  $terminal Définition du terminal.
+	 * @return string
+	 */
+	public static function default_format( $type, $terminal = array() ) {
+		if ( 'lesson' === $type ) {
+			return 'lecon';
+		}
+
+		if ( 'test' === $type && ! empty( $terminal['steps'] ) ) {
+			return 'mixte';
+		}
+
+		return 'qcm';
+	}
+
+	/**
 	 * Types de tâches reconnus.
 	 *
 	 * @return array
@@ -234,8 +267,15 @@ final class Secura_Rooms {
 				}
 			}
 
+			$format = isset( $task['format'] ) ? (string) $task['format'] : '';
+
+			if ( ! array_key_exists( $format, self::task_formats() ) ) {
+				$format = self::default_format( $type, isset( $task['terminal'] ) ? $task['terminal'] : array() );
+			}
+
 			$tasks[] = array(
 				'type'       => $type,
+				'format'     => $format,
 				'title'      => isset( $task['title'] ) ? (string) $task['title'] : '',
 				'content'    => isset( $task['content'] ) ? wp_kses_post( (string) $task['content'] ) : '',
 				'time_limit' => isset( $task['time_limit'] ) ? absint( $task['time_limit'] ) : 0,
@@ -441,12 +481,17 @@ final class Secura_Rooms {
 	 */
 	private static function render_task_row( $task ) {
 		$type    = isset( $task['type'] ) ? $task['type'] : 'lesson';
+		$format  = isset( $task['format'] ) ? (string) $task['format'] : '';
 		$title   = isset( $task['title'] ) ? $task['title'] : '';
 		$content = isset( $task['content'] ) ? $task['content'] : '';
 		$limit   = isset( $task['time_limit'] ) ? absint( $task['time_limit'] ) : 0;
 		$pass    = isset( $task['pass_score'] ) ? absint( $task['pass_score'] ) : 0;
 		$terminal = isset( $task['terminal'] ) ? $task['terminal'] : array();
 		$questions = isset( $task['questions'] ) && is_array( $task['questions'] ) ? $task['questions'] : array();
+
+		if ( ! array_key_exists( $format, self::task_formats() ) ) {
+			$format = self::default_format( $type, $terminal );
+		}
 
 		$terminal_json = '';
 
@@ -471,9 +516,19 @@ final class Secura_Rooms {
 				</select>
 			</p>
 
-			<p>
+			<p class="secura-inline">
 				<label><?php esc_html_e( 'Titre de la tâche', 'seca-academy' ); ?></label>
 				<input type="text" class="large-text" name="secura_tasks[][title]" value="<?php echo esc_attr( $title ); ?>" />
+			</p>
+
+			<p class="secura-inline">
+				<label><?php esc_html_e( 'Format', 'seca-academy' ); ?></label>
+				<select name="secura_tasks[][format]">
+					<?php foreach ( self::task_formats() as $key => $label ) : ?>
+						<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $format, $key ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+				<span class="description"><?php esc_html_e( 'QCM = validation par questions ; Pratique = manipulation d\'une machine ; Mixte = les deux.', 'seca-academy' ); ?></span>
 			</p>
 
 			<p>
@@ -604,11 +659,17 @@ final class Secura_Rooms {
 						<input type="text" class="large-text" name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>][title]" value="<?php echo esc_attr( $task_title ); ?>" />
 					</p>
 
+					<p>
+						<label><?php echo esc_html( sprintf( /* translators: %d : index de la tâche. */ __( 'Tâche %d — scénario du terminal (JSON, optionnel)', 'seca-academy' ), $index + 1 ) ); ?></label>
+						<textarea name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>][terminal]" rows="3" class="large-text code" placeholder="{"intro":"user@cible:~$ ","steps":[{"match":["cat notes.txt"],"output":"FLAG=..."}]}"><?php echo esc_textarea( isset( $data['tasks'][ $index ]['terminal'] ) ? wp_json_encode( $data['tasks'][ $index ]['terminal'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) : '' ); ?></textarea>
+						<span class="description"><?php esc_html_e( 'Laissez vide pour conserver le scénario d\'origine.', 'seca-academy' ); ?></span>
+					</p>
+
 					<?php
 					$questions = isset( $task['questions'] ) ? $task['questions'] : array();
 
 					foreach ( $questions as $q_index => $question ) :
-						?>
+					?>
 						<p class="secura-translation-question">
 							<label><?php echo esc_html( sprintf( /* translators: 1 : index de la tâche, 2 : index de la question. */ __( 'Tâche %1$d — question %2$d', 'seca-academy' ), $index + 1, $q_index + 1 ) ); ?></label>
 							<textarea name="secura_i18n[<?php echo esc_attr( $code ); ?>][tasks][<?php echo esc_attr( $index ); ?>][questions][<?php echo esc_attr( $q_index ); ?>][question]" rows="2" class="large-text"><?php echo esc_textarea( isset( $data['tasks'][ $index ]['questions'][ $q_index ]['question'] ) ? $data['tasks'][ $index ]['questions'][ $q_index ]['question'] : '' ); ?></textarea>
@@ -722,8 +783,15 @@ final class Secura_Rooms {
 				$terminal = Secura_Terminal::normalize_definition( is_array( $decoded ) ? $decoded : array() );
 			}
 
+			$format = isset( $task['format'] ) ? (string) $task['format'] : '';
+
+			if ( ! array_key_exists( $format, self::task_formats() ) ) {
+				$format = self::default_format( $type, $terminal );
+			}
+
 			$clean[] = array(
 				'type'       => $type,
+				'format'     => $format,
 				'title'      => isset( $task['title'] ) ? sanitize_text_field( $task['title'] ) : '',
 				'content'    => isset( $task['content'] ) ? wp_kses_post( $task['content'] ) : '',
 				'time_limit' => isset( $task['time_limit'] ) ? absint( $task['time_limit'] ) : 0,
@@ -758,8 +826,17 @@ final class Secura_Rooms {
 
 					$entry['tasks'][ $index ] = array(
 						'title'     => isset( $task['title'] ) ? sanitize_text_field( $task['title'] ) : '',
+						'terminal'  => array(),
 						'questions' => array(),
 					);
+
+					if ( isset( $task['terminal'] ) && '' !== trim( (string) $task['terminal'] ) ) {
+						$decoded = json_decode( (string) $task['terminal'], true );
+
+						if ( is_array( $decoded ) ) {
+							$entry['tasks'][ $index ]['terminal'] = Secura_Terminal::normalize_definition( $decoded );
+						}
+					}
 
 					if ( isset( $task['questions'] ) && is_array( $task['questions'] ) ) {
 						foreach ( $task['questions'] as $q_index => $question ) {

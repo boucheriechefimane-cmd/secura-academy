@@ -248,6 +248,42 @@ function current_time( $type ) {
 }
 
 /**
+ * Lit un transient.
+ *
+ * @param string $key Clé.
+ * @return mixed Valeur ou false.
+ */
+function get_transient( $key ) {
+	return isset( $GLOBALS['securatest_transients'][ $key ] ) ? $GLOBALS['securatest_transients'][ $key ] : false;
+}
+
+/**
+ * Écrit un transient.
+ *
+ * @param string $key       Clé.
+ * @param mixed  $value     Valeur.
+ * @param int    $expiration Expiration.
+ * @return bool
+ */
+function set_transient( $key, $value, $expiration = 0 ) {
+	$GLOBALS['securatest_transients'][ $key ] = $value;
+
+	return true;
+}
+
+/**
+ * Supprime un transient.
+ *
+ * @param string $key Clé.
+ * @return bool
+ */
+function delete_transient( $key ) {
+	unset( $GLOBALS['securatest_transients'][ $key ] );
+
+	return true;
+}
+
+/**
  * Traduction.
  *
  * @param string $text   Texte.
@@ -1238,6 +1274,165 @@ check( 1 === count( Secura_Paths::get_certificates( 7 ) ), 'le certificat est li
 
 $GLOBALS['securatest_meta'][10][ '_secura_certificate' ] = 0;
 check( null === Secura_Paths::get_certificate( 7, 10 ), 'aucun certificat si l\'option est désactivée sur le parcours' );
+
+/* ---------------------------------------------------------------------
+ * Validation croisée : QCM de validation + test pratique à réussir
+ * ------------------------------------------------------------------ */
+
+echo "\nValidation croisée : QCM et test pratique\n";
+
+$task_seuil = array(
+	'type'       => 'test',
+	'format'     => 'mixte',
+	'pass_score' => 60,
+	'questions'  => array(
+		array( 'question' => 'Question 1', 'answers' => array( 'A' ), 'xp' => 10 ),
+		array( 'question' => 'Question 2', 'answers' => array( 'A' ), 'xp' => 10 ),
+		array( 'question' => 'Question 3', 'answers' => array( 'A' ), 'xp' => 10 ),
+	),
+);
+
+$state_deux = array(
+	'solved' => array( '0' => true, '1' => true ),
+	'hints'  => array(),
+);
+
+check( 67 === Secura_Progress::task_score( $task_seuil, $state_deux ), 'le score de la tâche est calculé en pourcentage' );
+check( 60 === Secura_Progress::task_threshold( $task_seuil ), 'le seuil de passage est lu depuis la tâche' );
+check( Secura_Progress::is_task_done( $task_seuil, $state_deux ), 'le seuil de 60 % valide la tâche à 67 %' );
+check( ! Secura_Progress::is_task_done( $task_seuil, array( 'solved' => array( '0' => true ), 'hints' => array() ) ), 'une tâche sous le seuil reste à faire' );
+
+$task_strict = $task_seuil;
+$task_strict['pass_score'] = 0;
+
+check( 100 === Secura_Progress::task_threshold( $task_strict ), 'sans seuil explicite, le seuil retombe à 100 %' );
+check( ! Secura_Progress::is_task_done( $task_strict, $state_deux ), 'sans seuil, toutes les questions sont exigées' );
+check( Secura_Progress::is_task_done( $task_strict, array( 'solved' => array( '0' => true, '1' => true, '2' => true ), 'hints' => array() ) ), 'sans seuil, 100 % valide la tâche' );
+
+$task_pratique = array(
+	'type'      => 'test',
+	'format'    => 'pratique',
+	'questions' => array(),
+	'terminal'  => array(
+		'steps' => array(
+			array( 'match' => array( 'ls' ), 'output' => 'notes.txt' ),
+		),
+	),
+);
+
+check( ! Secura_Progress::is_task_done( $task_pratique, array() ), 'un test pratique sans scénario joué reste à faire' );
+check( Secura_Progress::is_task_done( $task_pratique, array( 'terminal_done' => true ) ), 'le scénario du terminal valide le test pratique' );
+
+/* Réservation atomique d'une question. */
+
+$GLOBALS['securatest_users'] = array();
+
+check( Secura_Progress::claim_question( 55, 900, 0, 0 ), 'une question peut être réservée une première fois' );
+check( ! Secura_Progress::claim_question( 55, 900, 0, 0 ), 'une question déjà résolue ne peut pas être réservée deux fois' );
+check( Secura_Progress::claim_question( 55, 900, 0, 1 ), 'une autre question de la même tâche reste réservable' );
+
+/* Reprise d'un examen raté. */
+
+$exam = Secura_Progress::start_exam( 55, 900, 0 );
+check( ! empty( $exam['started_at'] ), 'un examen démarre et horodate le début' );
+
+$exams = get_user_meta( 55, SECURA_USER_EXAMS, true );
+$exams[ Secura_Progress::exam_key( 900, 0 ) ]['finished_at'] = time();
+$exams[ Secura_Progress::exam_key( 900, 0 ) ]['passed']      = false;
+update_user_meta( 55, SECURA_USER_EXAMS, $exams );
+
+$exam = Secura_Progress::start_exam( 55, 900, 0 );
+check( 0 === (int) $exam['finished_at'], 'un examen raté peut être relancé automatiquement' );
+check( ! empty( $exam['started_at'] ), 'la relance relance le chronomètre' );
+
+$exams = get_user_meta( 55, SECURA_USER_EXAMS, true );
+$exams[ Secura_Progress::exam_key( 900, 0 ) ]['finished_at'] = time();
+$exams[ Secura_Progress::exam_key( 900, 0 ) ]['passed']      = true;
+update_user_meta( 55, SECURA_USER_EXAMS, $exams );
+
+$exam = Secura_Progress::start_exam( 55, 900, 0 );
+check( ! empty( $exam['finished_at'] ), 'un examen réussi n\'est pas relancé automatiquement' );
+
+$exam = Secura_Progress::start_exam( 55, 900, 0, true );
+check( 0 === (int) $exam['finished_at'], 'un examen réussi peut être repassé sur demande explicite' );
+
+/* Formats de tâches. */
+
+check( in_array( 'lecon', array_keys( Secura_Rooms::task_formats() ), true ), 'le format leçon est proposé' );
+check( 'lecon' === Secura_Rooms::default_format( 'lesson' ), 'une tâche de leçon est formatée leçon' );
+check( 'mixte' === Secura_Rooms::default_format( 'test', $task_pratique['terminal'] ), 'un test avec terminal est formaté mixte' );
+check( 'qcm' === Secura_Rooms::default_format( 'exam' ), 'un examen est formaté QCM' );
+
+$rooms_demo = seca_default_rooms();
+$formats_ok = true;
+$mixte      = 0;
+$terminals  = 0;
+
+foreach ( $rooms_demo as $room ) {
+	foreach ( $room['tasks'] as $task ) {
+		if ( ! in_array( $task['format'], array( 'lecon', 'qcm', 'pratique', 'mixte' ), true ) ) {
+			$formats_ok = false;
+		}
+
+		if ( 'mixte' === $task['format'] ) {
+			$mixte++;
+		}
+
+		if ( ! empty( $task['terminal']['steps'] ) ) {
+			$terminals++;
+		}
+	}
+}
+
+check( $formats_ok, 'chaque tâche du contenu de démonstration expose un format connu' );
+check( 6 === $mixte, 'chaque room de démonstration propose un test pratique mixte' );
+check( 6 === $terminals, 'chaque room de démonstration embarque un terminal jouable' );
+
+/* Limitation de débit sur la validation. */
+
+$GLOBALS['securatest_transients'] = array();
+$GLOBALS['securatest_users']      = array();
+
+for ( $i = 0; $i < 40; $i++ ) {
+	capture_json(
+		function () {
+			Secura_Ajax::validate_answer();
+		}
+	);
+}
+
+$throttled = capture_json(
+	function () {
+		Secura_Ajax::validate_answer();
+	}
+);
+
+check( ! $throttled['ok'], 'la validation est refusée au-delà du quota' );
+check( 'slow_down' === ( isset( $throttled['data']['code'] ) ? $throttled['data']['code'] : '' ), 'le refus indique un ralentissement' );
+
+/* Schéma de progression. */
+
+check( 2 === Secura_Progress::schema_version(), 'le schéma de progression est versionné' );
+
+$GLOBALS['securatest_users'] = array();
+
+update_user_meta(
+	66,
+	SECURA_USER_PROGRESS,
+	array(
+		'42' => array(
+			'solved' => array( '0' => true, '1' => true ),
+			'completed' => true,
+		),
+	)
+);
+
+$migrated = Secura_Progress::migrate_progress( get_user_meta( 66, SECURA_USER_PROGRESS, true ) );
+
+check( isset( $migrated['__schema'] ) && 2 === (int) $migrated['__schema'], 'une progression ancienne est migrée vers le schéma courant' );
+check( isset( $migrated['42']['tasks'][0]['solved']['0'] ), 'la migration conserve les questions résolues' );
+check( isset( $migrated['42']['tasks'][0]['terminal_done'] ), 'la migration ajoute le statut du terminal' );
+check( 2 === (int) Secura_Progress::get_state( 66 )['schema'], 'l\'état exposé porte la version du schéma' );
 
 /* ---------------------------------------------------------------------
  * Bilan

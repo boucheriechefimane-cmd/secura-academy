@@ -240,6 +240,25 @@ final class Secura_I18n {
 				'simulated'        => 'Terminal simulé — aucune machine réelle n\'est exécutée.',
 				'points'           => 'points',
 				'no_hints'         => 'sans indice',
+				'threshold' => 'Seuil',
+				'format_lesson' => 'Leçon',
+				'correct_xp' => "Bonne réponse ! +%d XP",
+				'format_quiz' => 'QCM',
+				'format_practical' => 'Pratique',
+				'format_mixed' => 'Mixte',
+				'goal_practical' => "Objectif : mener la manipulation jusqu'au bout.",
+				'threshold_short' => 'Seuil',
+				'retry_exam' => "Recommencer l'examen",
+				'slow_down' => 'Tu vas un peu trop vite : laisse le temps au jeu de souffler.',
+				'not_logged_in' => 'Connectez-vous pour continuer.',
+				'invalid_nonce' => 'Session expirée. Rechargez la page pour continuer.',
+				'explore' => "Explore d'abord la machine dans le terminal.",
+				'no_hint' => "Aucun indice n'est disponible pendant un examen.",
+				'room_not_found' => 'Room introuvable.',
+				'task_not_found' => 'Tâche introuvable.',
+				'question_not_found' => 'Question introuvable.',
+				'question_invalid' => 'Question invalide.',
+				'lang_unavailable' => 'Langue non disponible.',
 				'error' => 'Une erreur est survenue.',
 				'keep_going' => 'Continue comme ça !',
 				'questions' => 'questions',
@@ -305,6 +324,25 @@ final class Secura_I18n {
 				'simulated'        => 'طرفية محاكاة — لا يتم تشغيل أي جهاز حقيقي.',
 				'points'           => 'نقطة',
 				'no_hints'         => 'بلا تلميحات',
+				'threshold' => 'الحد الأدنى للنجاح',
+				'format_lesson' => 'درس',
+				'correct_xp' => 'إجابة صحيحة! +%d نقطة',
+				'format_quiz' => 'اختيار من متعدد',
+				'format_practical' => 'تطبيق عملي',
+				'format_mixed' => 'مختلط',
+				'goal_practical' => 'الهدف: إكمال العملية العملية حتى نهايتها.',
+				'threshold_short' => 'الحد الأدنى',
+				'retry_exam' => 'أعد الامتحان',
+				'slow_down' => 'أنت سريع جدًا: خذ نفسًا قبل أن تتابع.',
+				'not_logged_in' => 'سجّل الدخول للمتابعة.',
+				'invalid_nonce' => 'انتهت الجلسة. أعد تحميل الصفحة للمتابعة.',
+				'explore' => 'استكشف الآلة في الطرفية أولًا.',
+				'no_hint' => 'لا تتوفر تلميحات أثناء الامتحان.',
+				'room_not_found' => 'الغرفة غير موجودة.',
+				'task_not_found' => 'المهمة غير موجودة.',
+				'question_not_found' => 'السؤال غير موجود.',
+				'question_invalid' => 'سؤال غير صالح.',
+				'lang_unavailable' => 'اللغة غير متاحة.',
 				'error' => 'حدث خطأ ما.',
 				'keep_going' => 'واصل هكذا!',
 				'questions' => 'أسئلة',
@@ -370,6 +408,25 @@ final class Secura_I18n {
 				'simulated'        => 'Simulated terminal — no real machine is running.',
 				'points'           => 'points',
 				'no_hints'         => 'no hints',
+				'threshold' => 'Pass mark',
+				'format_lesson' => 'Lesson',
+				'correct_xp' => 'Correct! +%d XP',
+				'format_quiz' => 'Quiz',
+				'format_practical' => 'Practical',
+				'format_mixed' => 'Mixed',
+				'goal_practical' => 'Goal: work through the machine on your own.',
+				'threshold_short' => 'Pass mark',
+				'retry_exam' => 'Retake the exam',
+				'slow_down' => 'You are going too fast: take a breath.',
+				'not_logged_in' => 'Log in to continue.',
+				'invalid_nonce' => 'Session expired. Reload the page to continue.',
+				'explore' => 'Explore the machine in the terminal first.',
+				'no_hint' => 'No hints are available during an exam.',
+				'room_not_found' => 'Room not found.',
+				'task_not_found' => 'Task not found.',
+				'question_not_found' => 'Question not found.',
+				'question_invalid' => 'Invalid question.',
+				'lang_unavailable' => 'Language not available.',
 				'error' => 'Something went wrong.',
 				'keep_going' => 'Keep going!',
 				'questions' => 'questions',
@@ -440,6 +497,14 @@ final class Secura_I18n {
 
 			if ( ! empty( $translation['title'] ) ) {
 				$tasks[ $index ]['title'] = $translation['title'];
+			}
+
+			if ( ! empty( $translation['terminal'] ) && is_array( $translation['terminal'] ) ) {
+				$terminal = Secura_Terminal::normalize_definition( $translation['terminal'] );
+
+				if ( ! empty( $terminal['steps'] ) ) {
+					$tasks[ $index ]['terminal'] = $terminal;
+				}
 			}
 
 			if ( isset( $translation['content'] ) && '' !== $translation['content'] ) {

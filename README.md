@@ -13,8 +13,9 @@ ses illustrations ni ses composants propriétaires. L'identité visuelle et
 éditoriale est originale.
 
 > **Statut : P0 livré.** Le moteur de jeu (modèle de tâches à 4 types,
-> verrouillage progressif, barème unifié, médailles, examens chronométrés,
-> parcours, terminal simulé, multilingue FR/AR/EN) est implémenté et testé.
+> **validation croisée QCM + test pratique**, verrouillage progressif, barème
+> unifié, médailles, examens chronométrés, parcours, terminal simulé,
+> multilingue FR/AR/EN) est implémenté et testé.
 > La section [Limites connues](#limites-connues) liste ce qui reste à traiter
 > avant une ouverture publique.
 
@@ -48,7 +49,7 @@ ses illustrations ni ses composants propriétaires. L'identité visuelle et
 ```
 secura-academy/
 ├── wp-content/
-│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.2.0
+│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.3.0
 │   │   ├── secura-academy.php              # Amorçage, constantes, chargement des modules
 │   │   ├── includes/
 │   │   │   ├── default-content.php         # 6 rooms × 4 tâches + 2 parcours + traductions AR/EN
@@ -64,7 +65,7 @@ secura-academy/
 │   │       ├── academy.js                  # Lecteur de room : validation, terminal, level-up
 │   │       ├── admin.css                   # Styles de la méta-box d'édition
 │   │       └── admin.js                    # Éditeur de tâches / questions / sections
-│   └── themes/secura-learning/             # Thème sombre + RTL
+│   └── themes/secura-learning/             # Thème sombre + RTL (v0.3.0)
 │       ├── style.css                       # Styles + jetons de couleur
 │       ├── style-rtl.css                   # Ajustements arabe (chargé si la locale est RTL)
 │       ├── functions.php                   # Réglages, menus, Personnaliseur (palette)
@@ -77,7 +78,7 @@ secura-academy/
 ├── .github/workflows/ci.yml                 # Lint PHP + tests + espaces fin de ligne
 ├── .github/workflows/deploy.yml             # Déploiement vers WordPress (rsync + sauvegarde)
 ├── scripts/deploy.sh                       # Script de déploiement appelé par le workflow
-├── tests/smoke-test.php                    # 108 assertions sur la logique serveur
+├── tests/smoke-test.php                    # 147 assertions sur la logique serveur
 ├── docs/
 │   ├── ANALYSE-UX-TRYHACKME.md             # Analyse UX/UI + comparaison + points à régler
 │   ├── CONTENU-MIT.md                      # Plan de contenu inspiré de 6.858 / 6.857
@@ -158,12 +159,12 @@ Créez une page « Parcours » avec `[secura_academy]` et une page « Mon profil
 
 Chaque room suit le même patron, calqué sur la progression pédagogique d'un jeu :
 
-| Étape | Type | Rôle | XP (base difficulté « moyen ») |
-|---|---|---|---|
-| 1 | `lesson` | Le contenu théorique, court et actionnable | 0 |
-| 2 | `practice` | Entraînement guidé, indices disponibles | × 0,5 |
-| 3 | `test` | Mise en situation (scénario, parfois terminal) | × 1,0 |
-| 4 | `exam` | Examen chronométré, sans indice, avec seuil | × 1,5 |
+| Étape | Type | Format | Rôle | XP (base difficulté « moyen ») |
+|---|---|---|---|---|
+| 1 | `lesson` | `lecon` | Le contenu théorique, court et actionnable | 0 |
+| 2 | `practice` | `qcm` | Entraînement guidé, indices disponibles | × 0,5 |
+| 3 | `test` | `mixte` | Mise en situation : questions **et** terminal | × 1,0 |
+| 4 | `exam` | `qcm` | Examen chronométré, sans indice, avec seuil | × 1,5 |
 
 Chaque question porte : un énoncé, des réponses acceptées, un XP, un indice, une
 **explication pédagogique** et un poids de calcul du score.
@@ -173,6 +174,35 @@ pédagogique. Un échec affiche le message « Pas encore, réessayez » et l'ind
 de la question, mais pas la solution. À la fin de la tâche, un récapitulatif
 révèle toutes les explications, y compris celles des questions ratées : c'est le
 « voir mes erreurs » qui fait progresser.
+
+## Validation croisée : le QCM valide, la manipulation pratique
+
+C'est le cœur du modèle : **le QCM n'est pas remplacé par la pratique, il la
+complète**. Chaque tâche porte un **format** affiché dans l'interface :
+
+| Format | Signification | Condition de réussite |
+|---|---|---|
+| `lecon` | Contenu théorique court | Lecture validée |
+| `qcm` | Test de validation par questions | Score ≥ seuil de la tâche |
+| `pratique` | Manipulation d'une machine (terminal) | Scénario du terminal terminé |
+| `mixte` | Les deux : questions **et** manipulation | Les deux conditions réunies |
+
+Règles appliquées côté serveur :
+
+- **Le seuil (`pass_score`) est effectif.** Une tâche réglée à 60 % est réussie
+  à 60 % — ce n'est plus une information décorative. Sans seuil explicite, la
+  barre reste à 100 %.
+- **Une tâche pratique sans questions** est validée par son scénario de
+  terminal, et par lui seul : unanswered ne veut pas dire « réussi ».
+- **Les 6 rooms livrées** comportent chacune un **test pratique jouable** dans
+  un terminal simulé, en complément de leur QCM de validation.
+- **Une question est réservée avant d'être créditée** (`Secura_Progress::claim_question()`) :
+  deux requêtes simultanées ne peuvent pas se partager la récompense, l'XP
+  n'est donc versé qu'une seule fois, même en concurrence.
+- **Un examen raté se repassse.** Le chronomètre repart de zéro, le meilleur
+  score et le bonus déjà versé sont conservés. Un examen **réussi** n'est jamais
+  relancé automatiquement : il faut le demander explicitement (bouton
+  « Recommencer l'examen »), pour ne pas encourages le farm de points.
 
 ## Barème, niveaux et médailles
 
@@ -351,7 +381,7 @@ nonce (`secura_academy`).
 | `secura_hint` | `room_id`, `task`, `question` | Indice (tracé, coûte −50 %) |
 | `secura_terminal` | `room_id`, `task`, `command` | Exécution dans le terminal simulé |
 | `secura_complete_lesson` | `room_id`, `task` | Validation d'une leçon |
-| `secura_start_exam` | `room_id`, `task` | Démarrage du chronomètre d'examen |
+| `secura_start_exam` | `room_id`, `task`, `force` | Démarrage du chronomètre d'examen (`force=1` pour repasser un examen réussi) |
 | `secura_set_lang` | `lang` | Changement de langue du compte |
 
 ### Normalisation des réponses
@@ -378,6 +408,14 @@ formulations peuvent être déclarées par question.
   côté serveur ; le navigateur ne peut pas l'allonger.
 - **Verrouillage serveur** : le refus de valider une question d'une tâche non
   déverrouillée est appliqué côté serveur, pas seulement masqué dans l'interface.
+- **Réservation atomique** : une question est marquée comme résolue *avant*
+  l'attribution de l'XP ; deux requêtes concurrentes ne crédite donc jamais
+  deux fois la même réponse.
+- **Limitation de débit** : 40 validations par minute et par utilisateur sur
+  l'endpoint de validation ; au-delà, la requête est refusée (`slow_down`).
+- **Schéma de progression versionné** (`secura_progress.__schema`) : une
+  progression enregistrée avant une évolution du moteur est migrée
+  automatiquement au format courant, sans perte.
 
 ## Tests
 
@@ -385,7 +423,7 @@ formulations peuvent être déclarées par question.
 php tests/smoke-test.php
 ```
 
-Le harnais émule les fonctions WordPress nécessaires et vérifie **116 assertions** :
+Le harnais émule les fonctions WordPress nécessaires et vérifie **147 assertions** :
 normalisation des réponses, paliers de niveau, barème et multiplicateurs,
 attribution et idempotence des XP, malus d'indice, verrouillage progressif,
 score pondéré, médailles, examens chronométrés (démarrage, expiration, nouvelle
@@ -394,7 +432,11 @@ et expressions régulières, progression, indices), multilingue (dictionnaires,
 direction RTL, traduction partielle), structure des rooms et des parcours,
 contenu de démonstration, délivrance du **certificat de parcours**, et **contrat
 AJAX** (les réponses attendues ne sont jamais envoyées au client, l'explication
-n'est révélée qu'après la réussite).
+n'est révélée qu'après la réussite). La **validation croisée** est couverte :
+seuil de passage effectif, tâche pratique validée par son scénario, réservation
+atomique d'une question, reprise d'un examen raté, formats de tâches,
+terminal dans chacune des 6 rooms, limitation de débit et migration du schéma
+de progression.
 
 La CI exécute en plus le lint PHP de tous les fichiers et le contrôle des espaces
 en fin de ligne.
@@ -427,12 +469,18 @@ La configuration des secrets est détaillée dans
   de rédaction**. Produire les 46 rooms du plan complet demande un effort
   éditorial d'environ 178 h (voir `docs/CONTENU-MIT.md`).
 - **Pas de confirmation par e-mail**, ni mot de passe oublié personnalisé,
-  ni anti-spam, ni limitation des tentatives (rate limiting).
+  ni anti-spam. La limitation de débit existe côté API de validation
+  (40 requêtes/minute/utilisateur) mais elle ne remplace pas un vrai mécanisme
+  anti-robots côté inscription et connexion.
 - **Certificat de parcours sans export PDF** : il est imprimable depuis le
   navigateur (CSS d'impression isolé), mais aucun fichier PDF n'est produit.
 - **Catalogue sans recherche ni filtres** au-delà du parcours.
 - **Suppression / export des données** à formaliser (RGPD) : la progression et
   les médailles vivent dans les `user_meta`.
+- **Scénarios de terminal non traduits** dans le contenu de démonstration :
+  les versions arabe et anglaise des rooms partagent le scénario francophone
+  du terminal. La méta-box de traduction accepte désormais un JSON de terminal
+  par tâche, mais la traduction des 6 rooms livrées reste à produire.
 - **Multi-site** non pris en charge explicitement.
 - **Aucune suite de tests end-to-end.** La CI vérifie la syntaxe PHP et exécute
   `tests/smoke-test.php`. Le comportement en conditions réelles reste à valider

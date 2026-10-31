@@ -37,7 +37,7 @@ final class Secura_Ajax {
 		if ( ! wp_verify_nonce( $nonce, 'secura_academy' ) ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Session expirée. Rechargez la page pour continuer.', 'seca-academy' ),
+					'message' => Secura_I18n::t( 'invalid_nonce', '', 'Session expirée. Rechargez la page pour continuer.' ),
 					'code'    => 'invalid_nonce',
 				),
 				403
@@ -47,12 +47,33 @@ final class Secura_Ajax {
 		if ( ! is_user_logged_in() ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Connectez-vous pour continuer.', 'seca-academy' ),
+					'message' => Secura_I18n::t( 'not_logged_in', '', 'Connectez-vous pour continuer.' ),
 					'code'    => 'not_logged_in',
 				),
 				401
 			);
 		}
+	}
+
+	/**
+	 * Limitation de débit : évite qu'un script automatisé martèle l'API.
+	 *
+	 * @param string $bucket Identifiant du compteur.
+	 * @param int    $limit  Nombre d'appels autorisés.
+	 * @param int    $window Fenêtre en secondes.
+	 * @return bool Vrai si l'appel est autorisé.
+	 */
+	private static function throttle( $bucket, $limit = 40, $window = 60 ) {
+		$key   = 'secura_throttle_' . substr( md5( $bucket ), 0, 20 );
+		$count = (int) get_transient( $key );
+
+		if ( $count >= $limit ) {
+			return false;
+		}
+
+		set_transient( $key, $count + 1, $window );
+
+		return true;
 	}
 
 	/**
@@ -65,7 +86,7 @@ final class Secura_Ajax {
 		$view    = Secura_Rooms::get_room_view( $room_id );
 
 		if ( ! $view ) {
-			wp_send_json_error( array( 'message' => __( 'Room introuvable.', 'seca-academy' ) ), 404 );
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'room_not_found', '', 'Room introuvable.' ) ), 404 );
 		}
 
 		$user_id = get_current_user_id();
@@ -80,6 +101,11 @@ final class Secura_Ajax {
 			$total       = count( $task['questions'] );
 			$time_left   = 0;
 
+			if ( 'exam' === $task['type'] && $exam && ! empty( $exam['finished_at'] ) && empty( $exam['passed'] ) ) {
+				/* Examen raté : la tentative repart de zéro. */
+				$exam = Secura_Progress::start_exam( $user_id, $room_id, $index );
+			}
+
 			if ( 'exam' === $task['type'] && $exam && $task['time_limit'] > 0 ) {
 				$time_left = max( 0, ( $task['time_limit'] * 60 ) - ( time() - absint( $exam['started_at'] ) ) );
 			}
@@ -87,9 +113,12 @@ final class Secura_Ajax {
 			$tasks[] = array(
 				'index'      => $index,
 				'type'       => $task['type'],
+				'format'     => isset( $task['format'] ) ? $task['format'] : 'qcm',
 				'title'      => $task['title'],
 				'questions'  => $total,
 				'solved'     => $solved,
+				'score'      => Secura_Progress::task_score( $task, $tstate ),
+				'threshold'  => Secura_Progress::task_threshold( $task ),
 				'done'       => Secura_Progress::is_task_done( $task, $tstate ),
 				'unlocked'   => $unlocked,
 				'time_limit' => (int) $task['time_limit'],
@@ -132,7 +161,7 @@ final class Secura_Ajax {
 		$view = Secura_Rooms::get_room_view( $room_id );
 
 		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Tâche introuvable.', 'seca-academy' ) ), 404 );
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'task_not_found', '', 'Tâche introuvable.' ) ), 404 );
 		}
 
 		$user_id = get_current_user_id();
@@ -142,7 +171,7 @@ final class Secura_Ajax {
 		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Terminez la tâche précédente pour continuer.', 'seca-academy' ),
+					'message' => Secura_I18n::t( 'lock_task', '', 'Terminez la tâche précédente pour continuer.' ),
 					'code'    => 'locked',
 				),
 				403
@@ -154,10 +183,16 @@ final class Secura_Ajax {
 		$is_exam = 'exam' === $task['type'];
 		$exam    = Secura_Progress::exam_state( $user_id, $room_id, $index );
 
+		/* Examen échoué : une nouvelle tentative repart d'un chronomètre neuf
+		   pour que l'apprenant puisse améliorer son score. */
+		if ( $is_exam && $exam && ! empty( $exam['finished_at'] ) && empty( $exam['passed'] ) ) {
+			$exam = Secura_Progress::start_exam( $user_id, $room_id, $index );
+		}
+
 		if ( $is_exam && $exam && $task['time_limit'] > 0 && Secura_Progress::exam_expired( $exam, $task['time_limit'] ) ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Le temps de l\'examen est écoulé.', 'seca-academy' ),
+					'message' => Secura_I18n::t( 'expired', '', "Le temps de l'examen est écoulé." ),
 					'code'    => 'expired',
 				),
 				403
@@ -203,13 +238,18 @@ final class Secura_Ajax {
 				'task'      => array(
 					'index'      => $index,
 					'type'       => $task['type'],
+					'format'     => isset( $task['format'] ) ? $task['format'] : 'qcm',
 					'title'      => $task['title'],
 					'content'    => $task['content'],
 					'questions'  => $questions,
 					'terminal'   => $terminal,
 					'time_limit' => (int) $task['time_limit'],
 					'pass_score' => (int) $task['pass_score'],
+					'threshold'  => Secura_Progress::task_threshold( $task ),
+					'score'      => Secura_Progress::task_score( $task, $tstate ),
 					'done'       => $done,
+					'passed'     => $exam ? ! empty( $exam['passed'] ) : false,
+					'terminal_done' => ! empty( $tstate['terminal_done'] ),
 					'time_left'  => $exam && $task['time_limit'] > 0 ? max( 0, ( $task['time_limit'] * 60 ) - ( time() - absint( $exam['started_at'] ) ) ) : 0,
 				),
 				'room_id'   => $room_id,
@@ -223,6 +263,16 @@ final class Secura_Ajax {
 	public static function validate_answer() {
 		self::check_request();
 
+		if ( ! self::throttle( 'validate_' . get_current_user_id(), 40, 60 ) ) {
+			wp_send_json_error(
+				array(
+					'message' => Secura_I18n::t( 'slow_down', '', 'Tu vas un peu trop vite : laisse le temps au jeu de souffler.' ),
+					'code'    => 'slow_down',
+				),
+				429
+			);
+		}
+
 		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
 		$index   = isset( $_POST['task'] ) ? intval( wp_unslash( $_POST['task'] ) ) : 0;
 		$q_index = isset( $_POST['question'] ) ? intval( wp_unslash( $_POST['question'] ) ) : -1;
@@ -231,11 +281,11 @@ final class Secura_Ajax {
 		$view = Secura_Rooms::get_room_view( $room_id );
 
 		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Tâche introuvable.', 'seca-academy' ) ), 404 );
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'task_not_found', '', 'Tâche introuvable.' ) ), 404 );
 		}
 
 		if ( $q_index < 0 || ! isset( $view['tasks'][ $index ]['questions'][ $q_index ] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Question invalide.', 'seca-academy' ) ), 400 );
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'question_invalid', '', 'Question invalide.' ) ), 400 );
 		}
 
 		$user_id = get_current_user_id();
@@ -246,7 +296,7 @@ final class Secura_Ajax {
 		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Terminez la tâche précédente pour continuer.', 'seca-academy' ),
+					'message' => Secura_I18n::t( 'lock_task', '', 'Terminez la tâche précédente pour continuer.' ),
 					'code'    => 'locked',
 				),
 				403
@@ -259,12 +309,16 @@ final class Secura_Ajax {
 
 			if ( ! $exam ) {
 				$exam = Secura_Progress::start_exam( $user_id, $room_id, $index );
+			} elseif ( ! empty( $exam['finished_at'] ) && empty( $exam['passed'] ) ) {
+				/* L'examen précédent a été raté : on relance une tentative
+				   propre plutôt que de refuser la réponse. */
+				$exam = Secura_Progress::start_exam( $user_id, $room_id, $index );
 			}
 
 			if ( Secura_Progress::exam_expired( $exam, $task['time_limit'] ) ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'Le temps de l\'examen est écoulé.', 'seca-academy' ),
+						'message' => Secura_I18n::t( 'expired', '', "Le temps de l'examen est écoulé." ),
 						'code'    => 'expired',
 					),
 					403
@@ -280,7 +334,7 @@ final class Secura_Ajax {
 			if ( $current < $question['requires_step'] ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'Explorez d\'abord la machine dans le terminal.', 'seca-academy' ),
+						'message' => Secura_I18n::t( 'explore', '', "Explorez d'abord la machine dans le terminal." ),
 						'code'    => 'explore',
 					),
 					403
@@ -295,7 +349,7 @@ final class Secura_Ajax {
 			wp_send_json_success(
 				array(
 					'correct'   => false,
-					'message'   => __( 'Pas encore, réessayez.', 'seca-academy' ),
+					'message'   => Secura_I18n::t( 'wrong', '', 'Pas encore, réessayez.' ),
 					'hint'      => $question['hint'],
 					'total_xp'  => Secura_Progress::get_xp( $user_id ),
 				)
@@ -308,7 +362,11 @@ final class Secura_Ajax {
 		$points    = 0;
 		$rank      = 1.0;
 
-		if ( ! $already ) {
+		/* La question est réservée avant le versement des XP : deux requêtes
+		   simultanées ne peuvent donc pas se partager la récompense. */
+		$claimed = Secura_Progress::claim_question( $user_id, $room_id, $index, $q_index, $hint_used );
+
+		if ( ! $already && $claimed ) {
 			$award = Secura_Progress::award(
 				$user_id,
 				array(
@@ -325,9 +383,9 @@ final class Secura_Ajax {
 
 			$points = $award['points'];
 			$rank   = $award['rank'];
+		} elseif ( ! $claimed ) {
+			Secura_Progress::mark_question( $user_id, $room_id, $index, $q_index, $hint_used );
 		}
-
-		Secura_Progress::mark_question( $user_id, $room_id, $index, $q_index, $hint_used );
 
 		$state = Secura_Progress::get_room_state( $user_id, $room_id );
 		$done  = Secura_Progress::is_task_done( $task, isset( $state['tasks'][ (string) $index ] ) ? $state['tasks'][ (string) $index ] : array() );
@@ -356,8 +414,8 @@ final class Secura_Ajax {
 				'correct'       => true,
 				'already'       => (bool) $already,
 				'message'       => $already
-					? __( 'Déjà validée.', 'seca-academy' )
-					: sprintf( /* translators: %d : points gagnés. */ __( 'Bonne réponse ! +%d XP', 'seca-academy' ), $points ),
+					? Secura_I18n::t( 'solved', '', 'Validée' )
+					: sprintf( /* translators: %d : points gagnés. */ Secura_I18n::t( 'correct_xp', '', 'Bonne réponse ! +%d XP' ), $points ),
 				'points'        => $points,
 				'rank'          => $rank,
 				'hint_used'     => $hint_used,
@@ -576,7 +634,7 @@ final class Secura_Ajax {
 		$view = Secura_Rooms::get_room_view( $room_id );
 
 		if ( ! $view || ! isset( $view['tasks'][ $index ]['questions'][ $q_index ] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Question introuvable.', 'seca-academy' ) ), 404 );
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'question_not_found', '', 'Question introuvable.' ) ), 404 );
 		}
 
 		$task = $view['tasks'][ $index ];
@@ -584,7 +642,7 @@ final class Secura_Ajax {
 		if ( 'exam' === $task['type'] ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Aucun indice n\'est disponible pendant un examen.', 'seca-academy' ),
+					'message' => Secura_I18n::t( 'no_hint', '', "Aucun indice n'est disponible pendant un examen." ),
 					'code'    => 'no_hint',
 				),
 				403
@@ -613,7 +671,7 @@ final class Secura_Ajax {
 		$view = Secura_Rooms::get_room_view( $room_id );
 
 		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Tâche introuvable.', 'seca-academy' ) ), 404 );
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'task_not_found', '', 'Tâche introuvable.' ) ), 404 );
 		}
 
 		$user_id = get_current_user_id();
@@ -622,7 +680,7 @@ final class Secura_Ajax {
 		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Terminez la tâche précédente pour continuer.', 'seca-academy' ),
+					'message' => Secura_I18n::t( 'lock_task', '', 'Terminez la tâche précédente pour continuer.' ),
 					'code'    => 'locked',
 				),
 				403
@@ -630,6 +688,11 @@ final class Secura_Ajax {
 		}
 
 		$result = Secura_Terminal::run( $user_id, $room_id, $index, $view['tasks'][ $index ], $input );
+
+		/* Le scénario bouclé valide la tâche pratique. */
+		if ( ! empty( $result['completed'] ) ) {
+			Secura_Progress::mark_terminal_done( $user_id, $room_id, $index );
+		}
 
 		wp_send_json_success( $result );
 	}
@@ -646,14 +709,14 @@ final class Secura_Ajax {
 		$view = Secura_Rooms::get_room_view( $room_id );
 
 		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Tâche introuvable.', 'seca-academy' ) ), 404 );
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'task_not_found', '', 'Tâche introuvable.' ) ), 404 );
 		}
 
 		$user_id = get_current_user_id();
 		$state   = Secura_Progress::get_room_state( $user_id, $room_id );
 
 		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
-			wp_send_json_error( array( 'message' => __( 'Tâche verrouillée.', 'seca-academy' ), 'code' => 'locked' ), 403 );
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'lock_task', '', 'Terminez la tâche précédente pour continuer.' ), 'code' => 'locked' ), 403 );
 		}
 
 		$key = (string) $index;
@@ -686,10 +749,12 @@ final class Secura_Ajax {
 		$view = Secura_Rooms::get_room_view( $room_id );
 
 		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Tâche introuvable.', 'seca-academy' ) ), 404 );
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'task_not_found', '', 'Tâche introuvable.' ) ), 404 );
 		}
 
-		$exam = Secura_Progress::start_exam( get_current_user_id(), $room_id, $index );
+		$force = isset( $_POST['force'] ) && '1' === $_POST['force'];
+
+		$exam = Secura_Progress::start_exam( get_current_user_id(), $room_id, $index, $force );
 
 		wp_send_json_success(
 			array(
@@ -708,7 +773,7 @@ final class Secura_Ajax {
 		$lang = isset( $_POST['lang'] ) ? sanitize_key( wp_unslash( $_POST['lang'] ) ) : '';
 
 		if ( ! Secura_I18n::set_user_lang( $lang ) ) {
-			wp_send_json_error( array( 'message' => __( 'Langue non disponible.', 'seca-academy' ) ), 400 );
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'lang_unavailable', '', 'Langue non disponible.' ) ), 400 );
 		}
 
 		wp_send_json_success( array( 'lang' => $lang ) );

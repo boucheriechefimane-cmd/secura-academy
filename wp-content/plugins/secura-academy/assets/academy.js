@@ -269,6 +269,7 @@
 
 	var nav = app.querySelector( '[data-seca-task-nav]' );
 	var view = app.querySelector( '[data-seca-task-view]' );
+	var headerNode = app.querySelector( '[data-seca-task-header]' );
 	var contentNode = app.querySelector( '[data-seca-task-content]' );
 	var questionsNode = app.querySelector( '[data-seca-questions]' );
 	var actionsNode = app.querySelector( '[data-seca-task-actions]' );
@@ -315,6 +316,28 @@
 	}
 
 	/**
+	 * Libellé lisible d'un format de tâche.
+	 *
+	 * @param {string} format Format.
+	 * @return {string} Libellé.
+	 */
+	function formatLabel( format ) {
+		if ( 'lecon' === format ) {
+			return t( 'format_lesson', 'Leçon' );
+		}
+
+		if ( 'pratique' === format ) {
+			return t( 'format_practical', 'Pratique' );
+		}
+
+		if ( 'mixte' === format ) {
+			return t( 'format_mixed', 'Mixte' );
+		}
+
+		return t( 'format_quiz', 'QCM' );
+	}
+
+	/**
 	 * Construit la navigation des tâches.
 	 */
 	function renderNav() {
@@ -345,6 +368,10 @@
 
 			button.appendChild( badge );
 			button.appendChild( el( 'span', 'seca-task-tab-label', task.title ) );
+
+			if ( task.format && 'qcm' !== task.format && 'lecon' !== task.format ) {
+				button.appendChild( el( 'span', 'seca-format seca-format--' + task.format, formatLabel( task.format ) ) );
+			}
 
 			if ( ! task.unlocked ) {
 				button.appendChild( el( 'span', 'seca-task-tab-lock', '🔒' ) );
@@ -412,11 +439,93 @@
 	}
 
 	/**
+	 * Affiche l'en-tête d'une tâche : format, seuil, score, reprise d'examen.
+	 *
+	 * @param {Object} task Tâche.
+	 */
+	function renderTaskHeader( task ) {
+		if ( ! headerNode ) {
+			return;
+		}
+
+		headerNode.innerHTML = '';
+
+		var left = el( 'div', 'seca-task-header-main' );
+
+		left.appendChild( el( 'span', 'seca-format seca-format--' + ( task.format || 'qcm' ), formatLabel( task.format ) ) );
+
+		if ( 'lesson' !== task.type ) {
+			left.appendChild( el( 'span', 'seca-task-type', typeLabel( task.type ) ) );
+		}
+
+		if ( 'pratique' === task.format ) {
+			left.appendChild( el( 'span', 'seca-task-goal', t( 'goal_practical', 'Objectif : mener la manipulation jusqu\'au bout.' ) ) );
+		}
+
+		headerNode.appendChild( left );
+
+		var right = el( 'div', 'seca-task-header-side' );
+
+		if ( task.questions && task.questions.length ) {
+			right.appendChild( el( 'span', 'seca-task-score', task.score + ' %' ) );
+
+			if ( task.threshold < 100 ) {
+				right.appendChild( el( 'span', 'seca-task-threshold', t( 'threshold_short', 'Seuil' ) + ' ' + task.threshold + ' %' ) );
+			}
+		}
+
+		if ( 'exam' === task.type ) {
+			var retry = el( 'button', 'seca-btn seca-btn--small seca-btn--ghost', t( 'retry_exam', 'Recommencer l\'examen' ) );
+
+			retry.type = 'button';
+
+			retry.addEventListener( 'click', function () {
+				retry.disabled = true;
+
+				post( 'secura_start_exam', { room_id: roomId, task: currentIndex, force: '1' } ).then( function () {
+					openTask( currentIndex );
+				} ).catch( function ( error ) {
+					retry.disabled = false;
+					toast( error.message, true );
+				} );
+			} );
+
+			right.appendChild( retry );
+		}
+
+		headerNode.appendChild( right );
+	}
+
+	/**
+	 * Libellé lisible d'un type de tâche.
+	 *
+	 * @param {string} type Type.
+	 * @return {string} Libellé.
+	 */
+	function typeLabel( type ) {
+		if ( 'lesson' === type ) {
+			return t( 'lesson', 'Leçon' );
+		}
+
+		if ( 'practice' === type ) {
+			return t( 'practice', 'Entraînement' );
+		}
+
+		if ( 'test' === type ) {
+			return t( 'test', 'Test d\'application' );
+		}
+
+		return t( 'exam', 'Examen' );
+	}
+
+	/**
 	 * Affiche une tâche.
 	 *
 	 * @param {Object} task Tâche.
 	 */
 	function renderTask( task ) {
+		renderTaskHeader( task );
+
 		if ( contentNode ) {
 			contentNode.innerHTML = task.content || '';
 		}
@@ -714,8 +823,12 @@
 
 		result.classList.add( 'exam' === task.type ? ( percent >= task.pass_score ? 'is-pass' : 'is-fail' ) : 'is-pass' );
 		result.appendChild( el( 'div', 'seca-result-score', percent + ' %' ) );
-		result.appendChild( el( 'div', 'seca-result-title', t( 'task_done', 'Tâche terminée' ) ) );
+		result.appendChild( el( 'div', 'seca-result-title', t( 'task_done', 'Tâche réussie' ) ) );
 		result.appendChild( el( 'p', 'seca-result-sub', t( 'score', 'Score' ) + ' : ' + solved + '/' + total ) );
+
+		if ( task.threshold < 100 ) {
+			result.appendChild( el( 'p', 'seca-result-sub', t( 'threshold', 'Seuil' ) + ' : ' + task.threshold + ' %' ) );
+		}
 
 		actionsNode.appendChild( result );
 
