@@ -86,6 +86,7 @@ secura-academy/
 ├── tests/smoke-test.php                    # 169 assertions sur la logique serveur
 ├── docs/
 │   ├── ROADMAP.md                          # Feuille de route (source de vérité, revue à chaque session)
+│   ├── AUDIT-EXPERIENCE-APPRENANT.md      # Audit UX apprenant + comparaison THM + alignement MIT
 │   ├── labs.md                             # Documentation des labs (isolation, installation, branchement)
 │   ├── ANALYSE-UX-TRYHACKME.md             # Analyse UX/UI + comparaison + points à régler
 │   ├── CONTENU-MIT.md                      # Plan de contenu inspiré de 6.858 / 6.857
@@ -545,7 +546,9 @@ La configuration des secrets est détaillée dans
 ## Feuille de route
 
 La feuille de route complète — **lue et révisée à chaque session de travail** —
-est dans [`docs/ROADMAP.md`](docs/ROADMAP.md). Elle mappe chaque lacune
+est dans [`docs/ROADMAP.md`](docs/ROADMAP.md). L'audit complet de l'expérience
+apprenant et la comparaison avec TryHackMe (sur sources réelles) sont dans
+[`docs/AUDIT-EXPERIENCE-APPRENANT.md`](docs/AUDIT-EXPERIENCE-APPRENANT.md). Elle mappe chaque lacune
 (terminal scripté, volume de contenu, examen, comptes, qualité, visuel, UX) à
 une milestone avec des **critères d'acceptation vérifiables**, et tient un
 journal des revues. Les jalons en cours : **M1** (lab réel), puis **M2**

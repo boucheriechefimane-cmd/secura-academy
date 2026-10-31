@@ -15,8 +15,8 @@ rattaché à une milestone.
 > 5. Si une idée nouvelle n'est pas dans la roadmap : l'ajouter, ou l'écrire
 >    dans « Idées à classer ».
 
-**Dernière revue :** 31 octobre 2026 — v0.4.0 livré (moteur de lab réel +
-deux volets). M1 presque bouclée, M2 amorcée.
+**Dernière revue :** 31 octobre 2026 — v0.4.0 livré + **audit apprenant/THM**
+fait. M1 presque bouclée, M2 amorcée, M2 bis et M7 ajoutés au backlog.
 
 ---
 
@@ -73,6 +73,8 @@ M1 (lab réel)  ──┬──► M2 (UX deux volets + clavier + chaînes d'att
                  └──► M3 (contenu : 10 rooms, prérequis, récap, examen-practical)
 M4 (comptes)  ─────────────────────────────────► M5 (qualité : e2e, a11y, staging)
 M3 ─────────────────────────────────────────────► M6 (visuel + social + PDF)
+M2 bis ───────────────────────────────► M3 (les rooms de lab profitent du « sans réponse »)
+M1 ──► M7 (palier 3 : labs notés sur machines réelles)
 ```
 
 **M1 conditionne M3** : on n'écrit pas 10 rooms de labs tant que le lab n'existe pas.
@@ -115,6 +117,18 @@ On branche un pilote, on ne réécrit pas le front.
 | Défilement automatique + copie d'une commande | double-clic sur une commande → presse-papier | ⬜ |
 | « Faire d'abord » : la consigne devient un brief de 60 s, le terminal passe avant | la leçon ne bloque plus la manipulation | ⬜ |
 | Chaînes d'attaque : 2 cibles liées dans une même room | la room 2 nœuds a une cible secondaire | ⬜ |
+
+### M2 bis — Type de question « sans réponse » + walkthrough — ⬜ À VENIR
+
+> Issu de l'[audit apprenant](AUDIT-EXPERIENCE-APPRENANT.md) : c'est la
+> mécanique de THM la plus manquante chez nous, et la moins chère à ajouter.
+
+| Livrable | Critère d'acceptation | Statut |
+|---|---|---|
+| Question « sans réponse » (validation par case à cocher) | une tâche de manipulation se valide par l'action, pas par une phrase à orthographier | ⬜ |
+| Validation serveur de la case | impossible de cocher sans avoir joué (l'étape du terminal doit être atteinte) | ⬜ |
+| Corrigé détaillé débloqué après réussite | l'apprenant bloqué a une porte de sortie, comme les walkthroughs THM | ⬜ |
+| Récapitulatif d'erreurs déjà en place | à conserver et à étendre aux manipulations | ✅ fait |
 
 ---
 
@@ -167,6 +181,23 @@ On branche un pilote, on ne réécrit pas le front.
 
 ---
 
+### M7 — Palier 3 : parcours universitaire « format MIT » — ⬜ À VENIR
+
+> Le seul niveau où l'on peut légitimement dire « cette formation suit le
+> cours MIT » : on y fait les **labs**, les **quiz** et le **projet**, avec la
+> même répartition de la note.
+
+| Livrable | Critère d'acceptation | Statut |
+|---|---|---|
+| Parcours « Sécurité des systèmes » (format 6.858) | exposés + labs notés + projet final en groupe | ⬜ |
+| Barème MIT (quiz 20 %, labs 35 %, projet 25 %, homework 20 %) | le barème est affiché tel quel à l'apprenant | ⬜ |
+| Labs notés par scripts de vérification | note automatique, comme les scripts de grading MIT | ⬜ |
+| Devoirs de lecture avec question personnelle | le « homework reading question » de 6.858 | ⬜ |
+| Contenu adapté de l'OCW avec attribution + ShareAlike | chaque support cité, licence affichée | ⬜ |
+| Cours de cryptographie avancée (palier 3 de 6.857) | ZK, signatures, secret sharing, sécurité du vote | ⬜ |
+
+---
+
 ## 6. Décisions structurantes (ne pas les rouvrir implicitement)
 
 | # | Décision | Pourquoi |
@@ -203,4 +234,5 @@ On branche un pilote, on ne réécrit pas le front.
 |---|---|---|
 | 31/10/2026 | v0.2.0 | Revue « dev senior » : 10 lacunes listées. Décision : **les QCM restent**, ajout des tests pratiques obligatoires. |
 | 31/10/2026 | v0.3.0 | **Validation croisée livrée** (format par tâche, seuil effectif, terminal dans chaque room, réservation atomique, reprise d'examen, rate limiting, schéma versionné). Licence OCW **corrigée** : la réutilisation gratuite est autorisée (NC satisfait), avec attribution + ShareAlike. **M1 démarrée.** |
+| 31/10/2026 | audit | **Audit expérience apprenant + THM** (`docs/AUDIT-EXPERIENCE-APPRENANT.md`) : verdict senior, parcours 14 ans simulé, audit THM sur sources réelles (853 rooms, AttackBox, « no answer needed », onglets multi-machines), ce qu'on a de mieux (arabe RTL, gratuit, explication d'erreur systématique, seuil explicite) et ce qui manque. **Alignement MIT : non, et c'est normal** — 9/24 exposés 6.858, ~4/18 séances 6.857, public ≠ graduate. Ajout de **M2 bis** (question « sans réponse » + walkthrough) et **M7** (palier 3 universitaire). |
 | 31/10/2026 | v0.4.0 | **M1 livrée côté moteur** : `Secura_Lab` (deux pilotes, isolement dur, TTL, politique de commandes, repli automatique), 3 endpoints lab, méta-box de lab, barre « Déployer la machine », 3 machines réelles fournies (`labs/`), documentation (`docs/labs.md`). **M2 amorcée** : lecteur en deux volets + historique clavier. 169 assertions. Reste : projet Compose unique par apprenant, branchement des rooms, réseau sans sortie. |
