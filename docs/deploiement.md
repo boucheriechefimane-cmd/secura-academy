@@ -6,10 +6,18 @@ sur un hébergeur disposant d'un accès SSH.
 
 ## Fonctionnement
 
+Deux workflows distincts :
+
 ```
-push sur main
-   └─ job lint      → php -l sur tous les fichiers PHP (+ contrôle des espaces)
-        └─ job deploy (si le lint passe)
+.github/workflows/ci.yml
+   └─ job verify → php -l sur tous les fichiers PHP
+                → php tests/smoke-test.php (26 assertions)
+                → contrôle des espaces en fin de ligne
+
+.github/workflows/deploy.yml       (sur push sur main, ou lancement manuel)
+   └─ job deploy
+        ├─ configuration de la clé SSH
+        └─ bash scripts/deploy.sh
              ├─ sauvegarde de la version déployée (tar.gz)
              ├─ rsync du plugin et du thème (avec suppression des fichiers obsolètes)
              └─ contrôle HTTP du site
@@ -18,6 +26,15 @@ push sur main
 La sauvegarde est créée dans `~/secura-backups/` sur le serveur, avant chaque
 synchronisation. En cas de régression, il suffit de décompresser l'archive
 correspondante.
+
+Tant que les secrets ne sont pas renseignés, `scripts/deploy.sh` affiche
+« Secrets de déploiement absents : déploiement ignoré » et se termine en
+succès : la CI reste verte et le serveur n'est jamais touché par erreur.
+
+> **Note.** L'URL du site n'est pas déclarée dans `environment.url` : le
+> contexte `secrets` n'y est pas autorisé et provoque un rejet du workflow
+> ("workflow file issue", aucun job créé). L'adresse publique est passée au
+> script via une variable d'environnement.
 
 ## Secrets à configurer
 

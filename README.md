@@ -57,7 +57,9 @@ secura-academy/
 │       ├── footer.php
 │       ├── index.php
 │       └── page.php
-├── .github/workflows/deploy.yml         # Lint PHP + tests + déploiement vers WordPress
+├── .github/workflows/ci.yml              # Lint PHP + tests de logique
+├── .github/workflows/deploy.yml          # Déploiement vers WordPress (rsync + sauvegarde)
+├── scripts/deploy.sh                    # Script de déploiement appelé par le workflow
 ├── tests/smoke-test.php                 # Harnais de vérification de la logique serveur
 ├── docs/                                # Documentation de déploiement, backlog, passation
 ├── AUDIT-UX.md                          # Audit UX/UI et décisions de refonte
@@ -225,13 +227,19 @@ réponse. Plusieurs formulations peuvent être déclarées par question.
 
 ## Déploiement
 
-Le dépôt est versionné sur GitHub. Le workflow `.github/workflows/deploy.yml` :
+Le dépôt est versionné sur GitHub, en **repository privé**. Deux workflows
+GitHub Actions sont présents :
 
-1. vérifie la syntaxe de tous les fichiers PHP (job `lint`) ;
-2. sur `push` sur `main`, prend une **sauvegarde** de la version déployée,
-   synchronise le plugin et le thème via `rsync`, puis contrôle que le site répond.
+| Workflow | Déclenchement | Rôle |
+|---|---|---|
+| `.github/workflows/ci.yml` | push sur `main`, pull request, manuel | Vérifie la syntaxe PHP, exécute les tests de logique, contrôle les espaces en fin de ligne |
+| `.github/workflows/deploy.yml` | push sur `main`, manuel | Sauvegarde la version déployée, synchronise le plugin et le thème par `rsync`, contrôle que le site répond |
 
-La configuration des secrets GitHub est détaillée dans
+Tant que les secrets GitHub ne sont pas configurés, le job de déploiement
+s'arrête proprement en affichant « Secrets de déploiement absents » : la CI
+reste verte et rien n'est envoyé sur le serveur.
+
+La configuration des secrets est détaillée dans
 [`docs/deploiement.md`](docs/deploiement.md).
 
 ## Limites connues
