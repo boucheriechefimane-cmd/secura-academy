@@ -19,7 +19,6 @@ jobs:
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     environment:
       name: production
-      url: ${{ secrets.WP_SITE_URL }}
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
