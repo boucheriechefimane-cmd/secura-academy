@@ -49,7 +49,7 @@ ses illustrations ni ses composants propriétaires. L'identité visuelle et
 ```
 secura-academy/
 ├── wp-content/
-│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.4.0
+│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.5.0
 │   │   ├── secura-academy.php              # Amorçage, constantes, chargement des modules
 │   │   ├── includes/
 │   │   │   ├── default-content.php         # 6 rooms × 4 tâches + 2 parcours + traductions AR/EN
@@ -66,7 +66,7 @@ secura-academy/
 │   │       ├── academy.js                  # Lecteur de room : validation, terminal, level-up
 │   │       ├── admin.css                   # Styles de la méta-box d'édition
 │   │       └── admin.js                    # Éditeur de tâches / questions / sections
-│   └── themes/secura-learning/             # Thème sombre + RTL (v0.4.0)
+│   └── themes/secura-learning/             # Thème sombre + RTL (v0.5.0)
 │       ├── style.css                       # Styles + jetons de couleur
 │       ├── style-rtl.css                   # Ajustements arabe (chargé si la locale est RTL)
 │       ├── functions.php                   # Réglages, menus, Personnaliseur (palette)
@@ -83,13 +83,15 @@ secura-academy/
 ├── .github/workflows/ci.yml                 # Lint PHP + tests + espaces fin de ligne
 ├── .github/workflows/deploy.yml             # Déploiement vers WordPress (rsync + sauvegarde)
 ├── scripts/deploy.sh                       # Script de déploiement appelé par le workflow
-├── tests/smoke-test.php                    # 169 assertions sur la logique serveur
+├── tests/smoke-test.php                    # 189 assertions sur la logique serveur
 ├── docs/
-│   ├── ROADMAP.md                          # Feuille de route (source de vérité, revue à chaque session)
+│   ├── ROADMAP.md                          # CONSTITUTION du projet (source de vérité, revue à chaque session)
 │   ├── AUDIT-EXPERIENCE-APPRENANT.md      # Audit UX apprenant + comparaison THM + alignement MIT
+│   ├── ECARTS-TRYHACKME.md                 # Les 10 écarts face à THM et nos réponses concrètes
+│   ├── SOURCES-CONTENU.md                  # Registre des sources : licences vérifiées, attribution
 │   ├── labs.md                             # Documentation des labs (isolation, installation, branchement)
 │   ├── ANALYSE-UX-TRYHACKME.md             # Analyse UX/UI + comparaison + points à régler
-│   ├── CONTENU-MIT.md                      # Plan de contenu inspiré de 6.858 / 6.857
+│   ├── CONTENU-MIT.md                      # Plan de contenu inspiré de 6.858 / 6.857 (palier 3 inclus)
 │   ├── MODELE-XP-MEDAILES.md               # Spécification barème XP, médailles, examens
 │   ├── deploiement.md                      # Configuration du déploiement GitHub → WordPress
 │   ├── backlog.md                          # Backlog produit priorisé (P0 livré)
@@ -200,6 +202,20 @@ complète**. Chaque tâche porte un **format** affiché dans l'interface :
 | `qcm` | Test de validation par questions | Score ≥ seuil de la tâche |
 | `pratique` | Manipulation d'une machine (terminal) | Scénario du terminal terminé |
 | `mixte` | Les deux : questions **et** manipulation | Les deux conditions réunies |
+
+### Les trois types de question (v0.5.0)
+
+Une question n'est pas forcément une phrase à orthographier. Depuis la
+v0.5.0, l'éditeur choisit le type, et le serveur valide en conséquence :
+
+| Type | Ce que l'apprenant fait | Ce que le serveur vérifie |
+|---|---|---|
+| `text` | Il tape une réponse | la réponse normalisée est dans la liste acceptée |
+| `choice` | Il choisit une proposition | la proposition choisie est la bonne |
+| `action` | Il **confirme avoir réalisé l'action** | **l'état réel du terminal** : impossible de valider une action non faite |
+
+Les questions `choice` se traduisent (FR/AR/EN) comme les énoncés, et la
+bonne réponse **n'est jamais envoyée au navigateur** (vérifié par les tests).
 
 Règles appliquées côté serveur :
 
@@ -469,7 +485,7 @@ formulations peuvent être déclarées par question.
 php tests/smoke-test.php
 ```
 
-Le harnais émule les fonctions WordPress nécessaires et vérifie **169 assertions** :
+Le harnais émule les fonctions WordPress nécessaires et vérifie **189 assertions** :
 normalisation des réponses, paliers de niveau, barème et multiplicateurs,
 attribution et idempotence des XP, malus d'indice, verrouillage progressif,
 score pondéré, médailles, examens chronométrés (démarrage, expiration, nouvelle
@@ -543,18 +559,40 @@ La configuration des secrets est détaillée dans
 - **Revue de sécurité et tests d'accessibilité** à faire avec une version
   WordPress/PHP cible en staging, avant production.
 
-## Feuille de route
+## Feuille de route — la constitution
 
-La feuille de route complète — **lue et révisée à chaque session de travail** —
-est dans [`docs/ROADMAP.md`](docs/ROADMAP.md). L'audit complet de l'expérience
-apprenant et la comparaison avec TryHackMe (sur sources réelles) sont dans
-[`docs/AUDIT-EXPERIENCE-APPRENANT.md`](docs/AUDIT-EXPERIENCE-APPRENANT.md). Elle mappe chaque lacune
-(terminal scripté, volume de contenu, examen, comptes, qualité, visuel, UX) à
-une milestone avec des **critères d'acceptation vérifiables**, et tient un
-journal des revues. Les jalons en cours : **M1** (lab réel), puis **M2**
-(lecteur en deux volets, clavier, « faire d'abord »), **M3** (10 rooms réelles,
-prérequis, récap de section, examen par manipulation), **M4** (comptes),
-**M5** (e2e, accessibilité, staging), **M6** (social et visuel).
+[`docs/ROADMAP.md`](docs/ROADMAP.md) n'est plus une simple liste de tâches :
+c'est la **constitution du projet**, lue et révisée **à chaque session de
+travail**. Elle contient dix principes (l'apprenant d'abord, gratuit,
+multilingue, faire avant de lire, comprendre ses erreurs, contenu ouvert, le
+vrai lab sinon le dit, les mineurs d'abord, rien de cassé, route publique), dix
+**règles de décision** (comment on tranche quand deux options sont
+possibles), l'ordre des jalons, les décisions structurantes et un journal
+append-only.
+
+Documents liés :
+
+- [`docs/AUDIT-EXPERIENCE-APPRENANT.md`](docs/AUDIT-EXPERIENCE-APPRENANT.md) —
+  le **constat** (audit de l'expérience apprenant, comparaison THM sur sources
+  réelles, alignement MIT).
+- [`docs/ECARTS-TRYHACKME.md`](docs/ECARTS-TRYHACKME.md) — les **réponses** :
+  chacun des 10 écarts (vraie machine, question sans réponse, volume, AttackBox,
+  writeups, graphe, vidéos, onglets multi-machines, onboarding, classement) est
+  traité par une opération unique — RATTRAPER, ORIGINAL, PAR CITATION,
+  SUBSTITUER ou REFUSER — avec un critère de fermeture, un coût et un jalon.
+- [`docs/SOURCES-CONTENU.md`](docs/SOURCES-CONTENU.md) — le **registre des
+  sources** : licence vérifiée pour chaque source (MIT OCW, OWASP, pwn.college,
+  Stanford SEE, NIST), ce que nous en prenons, comment nous attribuons.
+  Règle par défaut : **lien seul** tant que la licence n'est pas vérifiée.
+- [`docs/CONTENU-MIT.md`](docs/CONTENU-MIT.md) — le **plan de contenu**,
+  paliers 1 à 3, dont le palier 3 « universitaire » (14 rooms 6.858 + 20 rooms
+  6.857, labs notés par scripts, barème 20/35/25/20).
+
+Jalons en cours : **M1** (lab réel : branchement des rooms + isolation par
+apprenant), puis **M3** (10 rooms réelles, prérequis, récap de section, examen
+par manipulation), **M4** (comptes), **M5** (e2e, accessibilité, staging),
+**M6** (social et visuel), **M7/M8** (palier 3 universitaire). **M2 bis** —
+types de question, dont la question « sans réponse » — est **livré en v0.5.0**.
 
 ## Prochaines étapes
 
@@ -577,11 +615,19 @@ Le **P0 est livré**. Restent en priorité :
 
 Le code est sous licence **MIT**.
 
-Le contenu pédagogique est **original**. Les cours MIT OpenCourseWare
-6.858 (*Computer Systems Security*, Fall 2014) et 6.857 (*Network and Computer
-Security*, Spring 2014) sont utilisés comme **sources bibliographiques** : leurs
-supports sont publiés sous **CC BY-NC-SA 4.0** (usage non commercial), ils ne
-sont donc ni reproduits ni adaptés dans le plugin — seul le **cadrage
-pédagogique** (leçon → exercice d'entraînement → test d'application → examen)
-est repris, avec attribution. Voir
-[`docs/CONTENU-MIT.md`](docs/CONTENU-MIT.md) § 0.
+Le contenu pédagogique livré à ce jour est **original** (6 rooms, traductions
+FR/AR/EN).
+
+Les cours MIT OpenCourseWare 6.858 (*Computer Systems Security*, Fall 2014) et
+6.857 (*Network and Computer Security*, Spring 2014) sont la **référence
+pédagogique** du palier 3. Leurs supports sont publiés sous **CC BY-NC-SA 4.0**
+(attribution, usage non commercial, ShareAlike) : la plateforme étant
+**gratuite**, la clause non commerciale est satisfaite, et toute adaptation
+sera **explicitement attribuée** et redistribuée sous la même licence
+(décision D6 de la constitution). Le **cadrage pédagogique** — leçon →
+entraînement → test d'application → examen — est repris tel quel.
+
+Le registre complet des sources réutilisables (licence vérifiée le jour de la
+réutilisation, mention type, périmètre autorisé) est dans
+[`docs/SOURCES-CONTENU.md`](docs/SOURCES-CONTENU.md) ; la justification
+juridique est dans [`docs/CONTENU-MIT.md`](docs/CONTENU-MIT.md) § 0.

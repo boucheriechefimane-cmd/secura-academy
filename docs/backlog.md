@@ -123,8 +123,9 @@ produit un état incohérent.
 | 2.2 | **Room témoin** | 6 rooms complètes livrées (leçon + entraînement + test + examen + terminal) servent de référence de rédaction |
 | 2.3 | **Vrais labs** | Conteneur Docker éphémère, isolation réseau, quotas, nettoyage automatique |
 | 2.4 | **Terminal honnête** | Badge « simulé » affiché dans le terminal (**livré**) |
+| 2.8 | **Types de question** | **Livré en v0.5.0** : réponse libre, choix multiple (vrai QCM), question « sans réponse » validée par l'état réel du terminal |
 | 2.5 | **Diagnostic** | Identifier les rooms ratées → recommander un parcours de remédiation |
-| 2.6 | **Communauté** | WRITE-ups, questions/réponses, signalement de contenu (modération) |
+| 2.6 | **Communauté** | Questions/réponses + signalement (modération) ; **pas de writeups** (interdits par pwn.college, et remplacés par nos indices + explications d'erreur) |
 | 2.7 | **i18n** | AR / EN / FR livrés ; ouvrir à d'autres langues via le dictionnaire + les méta de traduction |
 
 ---
@@ -132,7 +133,7 @@ produit un état incohérent.
 ## Qualité continue
 
 - [ ] `phpcs` WordPress Coding Standards dans la CI.
-- [x] Suite de tests sans WordPress complet : `tests/smoke-test.php` (116 assertions).
+- [x] Suite de tests sans WordPress complet : `tests/smoke-test.php` (189 assertions).
 - [ ] Suite PHPUnit avec WordPress complet.
 - [ ] Tests end-to-end du parcours inscription → validation → médaille.
 - [ ] Audit de contraste sur **chaque** paire de la palette personnalisable.

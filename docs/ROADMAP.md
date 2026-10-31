@@ -1,88 +1,153 @@
-# Roadmap produit — Secura Academy
+# CONSTITUTION — Secura Academy
 
-**Document de référence unique.** Il est relu **au début de chaque session de
-travail** (rituel « revue de route ») et **à chaque commit**. Toute nouvelle
-idée doit être classée ici avant d'être codée ; tout code livré doit être
-rattaché à une milestone.
+> **Ce document est la constitution du projet.** Il ne décrit pas ce qu'on
+> *voudrait* faire : il dit **ce que nous sommes obligés de faire**, dans quel
+> ordre, et selon quelles règles on tranche.
+>
+> Il prime sur les préférences du moment, sur la mode du jour,
+> et sur l'envie de coder vite. Toute modification de la constitution est un
+> **acte explicite**, daté, tracé dans le journal (§ 9).
+
+**Document de référence unique.** Relu **au début de chaque session de travail**
+(rituel « revue de constitution ») et **à chaque commit**. Toute idée nouvelle
+est classée ici avant d'être codée ; tout code livré est rattaché à un jalon.
 
 > **Rituel de revue (5 minutes, en tête de session) :**
-> 1. Lire le tableau des milestones et leurs statuts.
-> 2. Vérifier que la milestone « en cours » est bien celle qui doit avancer
->    (ordre du chemin critique ci-dessous).
-> 3. Relire les **décisions structurantes** : elles ne se remettent pas en
+> 1. Lire le tableau des jalons et leurs statuts.
+> 2. Vérifier que le jalon « en cours » est bien celui qui doit avancer
+>    (ordre du chemin critique, § 5).
+> 3. Relire les **décisions structurantes** (§ 7) : elles ne se remettent pas en
 >    cause sans nouvelle décision explicite de l'utilisateur.
 > 4. Cocher ce qui a été fait, déplacer le « en cours », dater la revue.
-> 5. Si une idée nouvelle n'est pas dans la roadmap : l'ajouter, ou l'écrire
->    dans « Idées à classer ».
+> 5. Si une idée n'est pas dans la constitution : l'ajouter, ou l'écrire dans
+>    « Idées à classer » (§ 8).
+> 6. Passer chaque nouveau contenu par le **registre des sources**
+>    (`docs/SOURCES-CONTENU.md`) avant toute réutilisation.
 
-**Dernière revue :** 31 octobre 2026 — v0.4.0 livré + **audit apprenant/THM**
-fait. M1 presque bouclée, M2 amorcée, M2 bis et M7 ajoutés au backlog.
+**Dernière revue :** 31 octobre 2026 — **v0.5.0** livré (types de question :
+réponse libre / choix multiple / **sans réponse**, + correction d'un bug bloquant
+qui rendait le champ de saisie invisible dans le navigateur). Les 10 écarts
+face à TryHackMe ont une réponse écrite (`docs/ECARTS-TRYHACKME.md`), le
+registre des sources est ouvert (`docs/SOURCES-CONTENU.md`), et le palier 3
+universitaire est planifié (`docs/CONTENU-MIT.md` § 9-13).
 
----
-
-## 1. Le problème, en une phrase
-
-TryHackMe n'est pas une plateforme de QCM bien designée : c'est une plateforme
-où l'apprenant **manipule une vraie machine**. Tout l'écart se réduit là.
-
-**Ce que Secura Academy est aujourd'hui :** une plateforme d'apprentissage
-ludifiée et multilingue avec un moteur de jeu complet (tâches à 4 types,
-verrouillage, barème, médailles, examens, parcours, certificats) mais **un
-terminal scripté** et **6 rooms**.
-
-**Ce que Secura Academy doit devenir :** une plateforme gratuite, multilingue,
-où un ado peut déployer une vraie machine vulnérable, la compromettre, et
-recevoir un certificat — sans payer et sans compte adulte.
+**Documents liés (tous dans `docs/`) :**
+`AUDIT-EXPERIENCE-APPRENANT.md` (le constat) · `ECARTS-TRYHACKME.md` (les
+réponses aux 10 écarts) · `SOURCES-CONTENU.md` (les licences) ·
+`CONTENU-MIT.md` (le contenu, palier 3 compris) · `labs.md` (l'exploitation des
+labs) · `MODELE-XP-MEDAILES.md` (la progression) · `backlog.md` (le détail
+technique) · `deploiement.md` (la mise en production).
 
 ---
 
-## 2. Les lacunes à résoudre (source : revue « dev senior »)
+## 1. Article 1 — Notre mission
 
-Chaque lacune est un **trou** de la roadmap. Aucune ne peut rester ouverte.
+> **Rendre l'apprentissage de la cybersécurité accessible, gratuit, pratique et
+> multilingue à un adolescent, et sérieux à un étudiant.**
 
-| # | Lacune | Impact | Milestone |
-|---|---|---|---|
-| L1 | Terminal scripté, aucune vraie machine | 🔴 Structurel | **M1** |
-| L2 | 6 rooms ≈ 8 h de contenu | 🔴 Rétention | **M3** |
-| L3 | Une seule machine, un seul shell, pas de chaîne d'attaque | 🟠 Pédagogie | **M2** |
-| L4 | L'examen = QCM chronométré (quiz, pas compétence) | 🟠 Validité | **M3** |
-| L5 | Onboarding cassé (pas de confirmation e-mail, pas de mot de passe oublié) | 🔴 Bloqueur public | **M4** |
-| L6 | Zéro e2e, zéro audit accessibilité, pas de staging | 🟠 Qualité | **M5** |
-| L7 | Écart visuel : pas d'illustration, pas de mur de succès, pas d'anneau de niveau | 🟡 | **M6** |
-| L8 | Écart UX : pas de deux volets, pas d'historique clavier | 🟡 | **M2** |
-| L9 | Écart pédagogique : on lit avant de faire | 🟠 | **M2** + **M3** |
-| L10 | Contenu : le plan partait de 178 h d'écriture originale | 🟠 | **M3** (licence corrigée : réutilisation gratuite autorisée) |
+Pas « une plateforme de QCM bien designée ». Une **plateforme où l'on
+manipule**, où l'on **comprend ses erreurs**, et où l'on **progresse
+visiblement**. Un ado de 14 ans doit pouvoir, seul et gratuitement :
+comprendre ce qu'est une requête HTTP piégée, la constater sur une vraie
+machine, expliquer pourquoi son script d'exploitation a marché, et repartir
+avec un certificat. Un étudiant doit pouvoir, lui, suivre un syllabus de
+niveau licence avec le même barème que MIT.
 
 ---
 
-## 3. Les 4 axes face à TryHackMe
+## 2. Article 2 — Les dix principes (non négociables)
 
-| Axe | Verdict | Écart à fermer | Milestones |
-|---|---|---|---|
-| Contenu | 🔴 Le plus loin | Quantité + graphe de prérequis + récap de section | M3 |
-| Facilité d'apprendre/pratiquer | 🟠 | Faire d'abord, lire après | M2, M3 |
-| UX | 🟡 | Deux volets, historique clavier, déploiement de machine | M2 |
-| Visuel | 🟡 | Direction artistique, illustrations, mur de succès | M6 |
+| # | Principe | Ce que cela interdit concrètement |
+|---|---|---|
+| **P1** | **L'apprenant d'abord.** Le public cible est 12-17 ans au palier 1-2, 17-22 au palier 3. | Interdire le contenu purement théorique, les paragraphes de manuel, le jargon non expliqué. |
+| **P2** | **Gratuit, vraiment gratuit.** Aucun contenu, aucun niveau, aucune note payante. | Interdire tout paywall, même « provisoire ». |
+| **P3** | **Multilingue par défaut** (FR, AR, EN ; arabe en RTL). La traduction n'est pas un bonus. | Interdire de livrer une fonctionnalité monolingue. |
+| **P4** | **Faire avant de lire.** L'apprenant manipule avant de comprendre. | Interdit la consigne de 6 min d'affilée avant le premier clic. |
+| **P5** | **Comprendre, pas deviner.** Chaque erreur est expliquée, jamais seulement sanctionnée. | Interdire le « faux » nu ; il faut dire *pourquoi*. |
+| **P6** | **Le contenu est un bien commun.** Licences ouvertes vérifiées, attribution visible. | Interdire la copie non vérifiée ; par défaut, **lien seul**. |
+| **P7** | **Le vrai lab, sinon le dit.** Si la machine est simulée, on le dit. | Interdire de faire croire qu'un script simulé est une vraie compromission. |
+| **P8** | **Les mineurs d'abord.** Aucun nom réel, aucune donnée de paiement, aucune publicité tierce. | Interdire le classement non opt-in, le streak culpabilisant par défaut, toute collecte inutile. |
+| **P9** | **Rien de cassé.** Un flux qui ne marche pas est un bug prioritaire, pas un détail. | Interdire de livrer une feature dont le test n'existe pas. |
+| **P10** | **La route est publique.** Les décisions, les licences et les échecs sont écrits. | Interdire les décisions prises « en passant ». |
 
 ---
 
-## 4. Chemin critique
+## 3. Article 3 — Les règles de décision (comment on tranche)
+
+Quand deux options sont possibles, on tranche dans cet ordre. Une décision
+qui ne peut pas être justifiée par une de ces règles est **hors constitution**.
+
+| # | Règle | Test à passer |
+|---|---|---|
+| **R1** | Toute idée est **classée** avant d'être codée. | La ligne existe dans cette constitution ou dans « Idées à classer ». |
+| **R2** | Tout livrable a un **critère d'acceptation vérifiable**. | On peut le tester (assertion, capture, mesure). |
+| **R3** | Les **décisions structurantes** (§ 7) ne se rouvrent pas implicitement. | Une nouvelle décision explicite de l'utilisateur est requise. |
+| **R4** | On répond à **cinq questions** avant de commencer. | Pourquoi ? Pour qui ? Comment sa-t-on que c'est fini ? Quel risque ? Quel coût ? |
+| **R5** | Le contenu passe le **test du 14 ans**. | Un ado de 14 ans comprend-il l'énoncé en 20 s sans aide ? |
+| **R6** | Le contenu passe le **test du registre**. | La source est dans `docs/SOURCES-CONTENU.md` avec licence vérifiée + attribution prévue. |
+| **R7** | Le code passe le **test de l'isolation**. | Aucune commande non filtrée, aucun privilège, aucun secret en clair, aucune réponse envoyée au client. |
+| **R8** | Le **chemin critique ne se contourne pas** : on ne saute pas un jalon pour en rattraper un autre (§ 5). | Le jalon précédent est « fait » ou explicitement neutralisé par une décision. |
+| **R9** | **Rien n'est « fait »** sans test automatique ou critère vérifiable et tracé. | Le journal des revues mentionne la preuve. |
+| **R10** | Le journal (§ 9) est **append-only** : on n'efface pas une revue. | L'historique reste lisible et daté. |
+
+---
+
+## 4. Article 4 — Les dix écarts face à TryHackMe, et leur traitement
+
+TryHackMe est la **référence d'usage**, pas le modèle à copier. Chaque écart est
+traité par une opération unique : **RATTRAPER** (reprendre la mécanique),
+**ORIGINAL** (inventer mieux), **PAR CITATION** (renvoyer, avec attribution),
+**SUBSTITUER** (remplacer par l'équivalent chez nous), **REFUSER** (ne pas le
+faire, et l'assumer).
+
+Le détail complet — ce que fait THM, ce que nous faisons, comment on le mesure,
+coût, risque — est dans **`docs/ECARTS-TRYHACKME.md`**.
+
+| # | Écart | Opération | Jalon | Statut |
+|---|---|---|---|---|
+| 1 | Vraie machine branchée aux rooms | RATTRAPER | M1 | moteur fait, branchement + isolation à faire |
+| 2 | Question « sans réponse » | RATTRAPER | **M2 bis** | ✅ **livré v0.5.0** |
+| 3 | Volume (6 → 853 rooms) | ORIGINAL | M3 → 12 mois | 10 rooms en M3, 60 visées |
+| 4 | AttackBox (bureau Linux) | SUBSTITUER | M3 | shell réel, pas de bureau |
+| 5 | Communauté / writeups | SUBSTITUER | M2 bis / M6 | indices + explication d'erreur (existant) |
+| 6 | Graphe de prérequis + récap | ORIGINAL | M3 | à faire |
+| 7 | Vidéos courtes | PAR CITATION | M3 / M6 | cyber.org (lien) + capsules SVG maison |
+| 8 | Onglets multi-machines | RATTRAPER | M3 | après l'isolation de M1 |
+| 9 | Onboarding (e-mail, mot de passe oublié) | SUBSTITUER | M4 | à faire |
+| 10 | Classement / first blood | RATTRAPER | M6 | opt-in obligatoire |
+
+**Interdits permanents** : copier un texte, une illustration, un composant ou
+l'échelle de niveaux de TryHackMe ; publier des writeups de challenges
+pwn.college (interdit par la source) ; faire payer quoi que ce soit.
+
+---
+
+## 5. Article 5 — Le chemin critique et l'ordre des jalons
 
 ```
-M1 (lab réel)  ──┬──► M2 (UX deux volets + clavier + chaînes d'attaque)
-                 └──► M3 (contenu : 10 rooms, prérequis, récap, examen-practical)
+M1 (lab réel + isolation) ──┬──► M2 (UX : deux volets, clavier, « faire d'abord »)
+                            └──► M3 (contenu : 10 rooms, prérequis, récap, examen pratique)
 M4 (comptes)  ─────────────────────────────────► M5 (qualité : e2e, a11y, staging)
 M3 ─────────────────────────────────────────────► M6 (visuel + social + PDF)
-M2 bis ───────────────────────────────► M3 (les rooms de lab profitent du « sans réponse »)
+M2 bis ───────────────────────────────► M3 (les rooms profitent du « sans réponse »)
 M1 ──► M7 (palier 3 : labs notés sur machines réelles)
+M1 ──► M8 (palier 3 : crypto avancée, lab crypto-01)
 ```
 
-**M1 conditionne M3** : on n'écrit pas 10 rooms de labs tant que le lab n'existe pas.
-**M4 et M5 sont parallélisables** et ne dépendent de rien.
+**Règles d'ordre (R8) :**
+- **M1 avant M3** : on n'écrit pas 10 rooms de lab tant que la machine n'est pas
+  branchée et isolée.
+- **M1 étape 2 avant l'écart n° 8** (onglets multi-machines) : deux apprenants
+  ne doivent jamais voir la même pile.
+- **M2 bis avant M3** : le type « sans réponse » doit exister avant d'écrire
+  10 rooms, sinon on les réécrit.
+- **M4 et M5 sont parallélisables** et ne dépendent de rien.
+- **M7 et M8 ne bloquent jamais M1-M6** : le palier 3 est produit en parallèle
+  et n'est visible qu'une fois complet.
 
 ---
 
-## 5. Les milestones
+## 6. Article 6 — Les jalons
 
 ### M1 — Lab réel : une vraie machine déployable — 🔵 EN COURS
 
@@ -91,44 +156,51 @@ réel sur une cible vulnérable isolée.
 
 | Livrable | Critère d'acceptation | Statut |
 |---|---|---|
-| Moteur de lab à deux pilotes : `simulated` (actuel) et `docker` | Le mode simulé reste 100 % fonctionnel, aucun contenu perdu | ✅ fait |
-| manifeste de lab par room (mémo `_secura_lab`) | image, service, shell, TTL, cible, politique de commandes | ✅ fait |
-| `Secura_Lab::start()` / `exec()` / `stop()` | conteneur éphémère par apprenant et par room, TTL, arrêt auto | ✅ fait |
-| Isolement dur (`--cap-drop=ALL`, `--network` dédié, `no-new-privileges`, limites CPU/mémoire/PIDs, pas de root) | revue de sécurité : aucune option privilégiée, pas de socket Docker monté | ✅ fait |
-| Filtre de commandes + sortie tronquée + timeout | une commande hors politique est refusée, sortie ≤ 8 Ko, exec ≤ 10 s | ✅ fait |
-| Repli automatique si Docker absent | `driver=auto` → simulation ; le site reste utilisable sur hébergement mutualisé | ✅ fait |
-| Bouton « Déployer la machine » + statut du lab dans la room | état visible : en cours / prête / expirée / indisponible | ✅ fait |
-| 3 labs réels : web vulnérable, binaire écrasable, réseau 2 nœuds | images + `docker-compose` fournis (`labs/`) | ✅ fait |
-| Branchement room ↔ machine | chaque room de lab déclare son manifeste dans l'admin | ⏳ à faire (3 rooms) |
-| Documentation d'exploitation (hébergement) | `docs/labs.md` : prérequis, réseau, ports, coûts | ✅ fait |
-| Projet Compose unique par apprenant | deux élèves ne partagent jamais la même pile | ⏳ à faire (risque isolation) |
+| Moteur de lab à deux pilotes : `simulated` et `docker` | le mode simulé reste 100 % fonctionnel | ✅ fait |
+| Manifeste de lab par room (mémo `_secura_lab`) | image, service, shell, TTL, cible, politique de commandes | ✅ fait |
+| `Secura_Lab::start()` / `run()` / `stop()` | conteneur éphémère par apprenant et par room, TTL, arrêt auto | ✅ fait |
+| Isolement dur (`--cap-drop=ALL`, `--network` dédié, `no-new-privileges`, limites CPU/mémoire/PIDs, pas de root) | revue de sécurité : aucune option privilégiée | ✅ fait |
+| Filtre de commandes + sortie tronquée + timeout | commande hors politique refusée, sortie ≤ 8 Ko, exec ≤ 10 s | ✅ fait |
+| Repli automatique si Docker absent | `driver=auto` → simulation ; le site reste utilisable en mutualisé | ✅ fait |
+| Bouton « Déployer la machine » + statut dans la room | état visible : en cours / prête / expirée / indisponible | ✅ fait |
+| 3 labs réels : web vulnérable, binaire écrasable, réseau 4 nœuds | images + `docker-compose` fournis (`labs/`) | ✅ fait |
+| Documentation d'exploitation | `docs/labs.md` | ✅ fait |
+| **Branchement room ↔ machine** (3 rooms) | chaque room de lab déclare son manifeste dans l'admin | ⏳ à faire |
+| **Projet Compose unique par apprenant** | deux élèves ne partagent jamais la même pile | ⏳ **bloquant avant ouverture publique** |
+| **Réseau sans sortie** pour `net-01` | `internal: true` + politique de trafic contrôlée | ⏳ à faire |
 
 **Décision structurante :** le contrat AJAX `secura_terminal` **ne change pas**.
 On branche un pilote, on ne réécrit pas le front.
 
 ---
 
-### M2 — UX : deux volets, clavier, « faire d'abord » — ⬜ À VENIR
+### M2 — UX : deux volets, clavier, « faire d'abord » — 🟡 PARTIEL
 
 | Livrable | Critère d'acceptation | Statut |
 |---|---|---|
-| Lecteur en deux volets (consigne \| terminal) sur ≥ 1024 px, empilé sinon | terminal toujours visible sur desktop, sans scroll interminable | 🟡 fait (CSS + gabarit) |
-| Historique du terminal navigable au clavier (↑ / ↓, tabulation, Ctrl+C) | ↑ rappelle la dernière commande, complétion sur Tab | 🟡 fait (récupération d'historique côté client) |
-| Défilement automatique + copie d'une commande | double-clic sur une commande → presse-papier | ⬜ |
-| « Faire d'abord » : la consigne devient un brief de 60 s, le terminal passe avant | la leçon ne bloque plus la manipulation | ⬜ |
-| Chaînes d'attaque : 2 cibles liées dans une même room | la room 2 nœuds a une cible secondaire | ⬜ |
+| Lecteur en deux volets (consigne \| terminal) sur ≥ 1024 px | terminal toujours visible sur desktop | ✅ fait |
+| Historique du terminal navigable au clavier (↑ / ↓, Tab, Ctrl+C) | ↑ rappelle la dernière commande | ✅ fait |
+| **Champ de réponse présent dans la page** | le champ de saisie est dans le DOM | ✅ **corrigé v0.5.0** (il n'y était pas : le flux était cassé) |
+| Défilement automatique + copie d'une commande | double-clic → presse-papier | ⬜ |
+| « Faire d'abord » : la consigne devient un brief de 60 s | la leçon ne bloque plus la manipulation | ⬜ |
+| Chaînes d'attaque : 2 cibles liées dans une même room | la room 2 nœuds a une cible secondaire | ⬜ (cf. écart n° 8) |
 
-### M2 bis — Type de question « sans réponse » + walkthrough — ⬜ À VENIR
+---
+
+### M2 bis — Types de question : libre, choix multiple, sans réponse — ✅ LIVRÉ (v0.5.0)
 
 > Issu de l'[audit apprenant](AUDIT-EXPERIENCE-APPRENANT.md) : c'est la
 > mécanique de THM la plus manquante chez nous, et la moins chère à ajouter.
 
 | Livrable | Critère d'acceptation | Statut |
 |---|---|---|
-| Question « sans réponse » (validation par case à cocher) | une tâche de manipulation se valide par l'action, pas par une phrase à orthographier | ⬜ |
-| Validation serveur de la case | impossible de cocher sans avoir joué (l'étape du terminal doit être atteinte) | ⬜ |
-| Corrigé détaillé débloqué après réussite | l'apprenant bloqué a une porte de sortie, comme les walkthroughs THM | ⬜ |
-| Récapitulatif d'erreurs déjà en place | à conserver et à étendre aux manipulations | ✅ fait |
+| Question « sans réponse » (mode `action`) | une tâche de manipulation se valide par l'action, pas par une phrase à orthographier | ✅ fait |
+| Validation serveur de l'action | impossible de valider sans avoir joué (l'étape du terminal doit être atteinte) | ✅ fait |
+| Vrai QCM à choix (mode `choice`) | une seule bonne proposition, les autres ne sont jamais acceptées | ✅ fait |
+| La bonne réponse n'est jamais envoyée au client | payload AJAX sans `answers` ni `correct` (assertion) | ✅ fait |
+| Traduction des choix (AR/EN) | les choix sont traduisibles dans la méta-box de traduction | ✅ fait |
+| Contenu de démonstration utilisant les 3 modes | room « Réseaux » : QCM à choix + action de fin de pratique | ✅ fait |
+| **Corrigé détaillé débloqué après réussite** (le « walkthrough ») | l'apprenant bloqué a une porte de sortie, comme les walkthroughs THM | ⬜ à faire (0,5 j) |
 
 ---
 
@@ -137,23 +209,31 @@ On branche un pilote, on ne réécrit pas le front.
 | Livrable | Critère d'acceptation | Statut |
 |---|---|---|
 | 10 rooms (dont 3 labs M1) | chacune suit `leçon → entraînement → test pratique → examen` | ⬜ |
-| Prérequis explicites entre rooms | l'UI affiche «requis : room X » et bloque si non validé | ⬜ |
+| Prérequis explicites entre rooms | l'UI affiche « requis : room X » et bloque si non validé | ⬜ |
 | « Topic Recap » en fin de section | 5 questions de synthèse, hors XP, badge de section | ⬜ |
-| Examen-practical : l'examen valide par **manipulation**, pas par QCM | une tâche `exam` peut exiger un flag à trouver (mode lab) | ⬜ |
-| Réutilisation OCW autorisée (gratuit) : adaptation + attribution + ShareAlike | chaque room adaptee cite la source OCW et sa licence | ⬜ |
-| Chaîne de production : gabarit + import/export CSV des traductions | une room FR + AR + EN se produit sans éditer le code | ⬜ |
+| Graphe de prérequis (SVG déduit des données) | jamais dessiné à la main → ne peut pas mentir | ⬜ |
+| Examen pratique : l'examen valide par **manipulation** | une tâche `exam` peut exiger un flag à trouver (mode lab) | ⬜ |
+| Shell réel dans la room (niveau 2 de l'AttackBox) | l'apprenant tape de vraies commandes sur la machine | ⬜ |
+| Onglets multi-machines (écart n° 8) | une room à 2 machines s'exploite par onglets | ⬜ |
+| Réutilisation OCW : adaptation + attribution + ShareAlike | chaque room adaptée cite sa source et sa licence | ⬜ |
+| Chaîne de production : gabarit + import/export CSV des traductions | une room FR + AR + EN se produit sans toucher au code | ⬜ |
+| Encart vidéo / capsule SVG (écart n° 7) | chaque notion difficile a une illustration < 2 min | ⬜ |
 
 ---
 
 ### M4 — Comptes : onboarding non cassé — ⬜ À VENIR
 
+**Principe directeur :** WordPress gère les comptes, **nous n'inventons pas un
+système d'authentification**. Ce qui est à construire, c'est le *parcours*
+d'inscription et l'accueil.
+
 | Livrable | Critère d'acceptation | Statut |
 |---|---|---|
-| Confirmation d'inscription par e-mail | jeton signé, expiration, renvoi | ⬜ |
-| Mot de passe oublié | jeton à usage unique, expiration courte | ⬜ |
-| Anti-spam | limite par IP + délai minimum + piège à robots | ⬜ |
-| Consentement RGPD + export/suppression des données | export JSON + suppression complète du compte | ⬜ |
-| Parcours mineur : pas de données de paiement, pas de publicité tierce | aucune donnée transmise à un tiers | ⬜ |
+| Inscription ouverte (WordPress natif) + e-mail de confirmation | aucun code d'authentification maison | ⬜ |
+| Mot de passe oublié | jeton à usage unique, expiration courte (natif WP) | ⬜ |
+| Onboarding en 3 écrans (langue + pseudonyme, défi de 3 min, 1re room) | 5 min maximum, la barre disparaît ensuite | ⬜ |
+| Anti-spam + RGPD : export JSON + suppression complète | aucun compte ne survit à une demande | ⬜ |
+| Parcours mineur : pas de paiement, pas de publicité tierce | aucune donnée transmise à un tiers | ⬜ |
 
 ---
 
@@ -161,10 +241,11 @@ On branche un pilote, on ne réécrit pas le front.
 
 | Livrable | Critère d'acceptation | Statut |
 |---|---|---|
-| Tests Playwright : inscription → room → validation → certificat | scenario(s) au vert en CI | ⬜ |
-| Audit clavier + lecteur d'écran + contraste | nav clavier complète, focus visible, aria-live | ⬜ |
-| Environnement de staging reproductible | `docker compose` qui monte WP + plugin + thème + labs | ⬜ |
-| Revue de sécurité avant ouverture | checklist OWASP preenchue, dependances à jour | ⬜ |
+| Tests Playwright : inscription → room → validation → certificat | scénario au vert en CI | ⬜ |
+| Audit clavier + lecteur d'écran + contraste | nav clavier complète, focus visible, `aria-live` | ⬜ |
+| Environnement de staging reproductible | `docker compose` : WP + plugin + thème + labs | ⬜ |
+| Revue de sécurité avant ouverture | checklist OWASP, dépendances à jour | ⬜ |
+| Revue de sécurité des labs (conteneur) | aucune commande d'évasion dans la liste blanche | 🟡 amorcé (tests) |
 
 ---
 
@@ -172,67 +253,97 @@ On branche un pilote, on ne réécrit pas le front.
 
 | Livrable | Critère d'acceptation | Statut |
 |---|---|---|
-| Direction artistique : illustrations de room, icônes de tâche, anneau de niveau | 6 visuels d'ambiance, 4 icônes | ⬜ |
-| Mur de succès / tableau de badges | page dediee, triee par date et par categorie | ⬜ |
-| First blood activé par défaut (sur les rooms lab) | classement par question, visible | ⬜ |
+| Direction artistique : illustrations, icônes de tâche, anneau de niveau | 6 visuels d'ambiance, 4 icônes | ⬜ |
+| Mur de succès / tableau de badges | page dédiée, triée par date et catégorie | ⬜ |
+| First blood activé (rooms lab) | « première capture : il y a 12 jours » | ⬜ |
+| Classement de room **opt-in** | pseudonyme obligatoire, aucune donnée nominative | ⬜ |
 | Séries (streak) et objectifs hebdomadaires | rappel discret, pas culpabilisant | ⬜ |
-| Certificat PDF (et non plus seulement imprimable) | PDF généré, signature, vérification en ligne | ⬜ |
-| Classement de parcours optionnel | opt-in explicite (verticalisation) | ⬜ |
+| Certificat PDF (et pas seulement imprimable) | PDF signé, vérifiable en ligne | ⬜ |
+| Série de capsules vidéo (20 × 90 s, FR/AR/EN) | sous-titrée, à nous | ⬜ |
 
 ---
 
-### M7 — Palier 3 : parcours universitaire « format MIT » — ⬜ À VENIR
+### M7 — Palier 3 « Systèmes » : format MIT 6.858 — ⬜ À VENIR
 
-> Le seul niveau où l'on peut légitimement dire « cette formation suit le
-> cours MIT » : on y fait les **labs**, les **quiz** et le **projet**, avec la
-> même répartition de la note.
+> Le seul niveau où l'on peut légitimement dire « cette formation suit le cours
+> MIT » : on y fait les **labs**, les **quiz** et le **projet**, avec la même
+> répartition de la note. Plan complet : `docs/CONTENU-MIT.md` § 9-10.
 
 | Livrable | Critère d'acceptation | Statut |
 |---|---|---|
-| Parcours « Sécurité des systèmes » (format 6.858) | exposés + labs notés + projet final en groupe | ⬜ |
-| Barème MIT (quiz 20 %, labs 35 %, projet 25 %, homework 20 %) | le barème est affiché tel quel à l'apprenant | ⬜ |
-| Labs notés par scripts de vérification | note automatique, comme les scripts de grading MIT | ⬜ |
-| Devoirs de lecture avec question personnelle | le « homework reading question » de 6.858 | ⬜ |
+| Couverture **24/24 leçons 6.858** | chaque notion a une room (les 10 manques comblés : capabilities, symbolic execution, side-channels, private browsing, anonymous comm., mobile, tracking, economics, Ur/Web, …) | ⬜ |
+| Barème MIT affiché tel quel (quiz 20 / labs 35 / projet 25 / homework 20) | l'apprenant voit la répartition avant de commencer | ⬜ |
+| **Labs notés par scripts** (checks à points partiels) | note automatique + retour pédagogique (« le padding n'a pas été appliqué ») | ⬜ |
+| Devoirs de lecture (5 PS) avec note automatique | 20 % du palier | ⬜ |
+| Projet final en groupe (3-4) avec grille publiée | 25 % du palier | ⬜ |
+| Relevé de notes + export PDF | tableau par composante MIT, mention, PDF | ⬜ |
 | Contenu adapté de l'OCW avec attribution + ShareAlike | chaque support cité, licence affichée | ⬜ |
-| Cours de cryptographie avancée (palier 3 de 6.857) | ZK, signatures, secret sharing, sécurité du vote | ⬜ |
 
 ---
 
-## 6. Décisions structurantes (ne pas les rouvrir implicitement)
+### M8 — Palier 3 « Crypto » : format MIT 6.857 — ⬜ À VENIR
+
+> 6.857 est un cours de **cryptographie avancée** : c'est le cœur mathématique
+> qui nous manque. Plan complet : `docs/CONTENU-MIT.md` § 11.
+
+| Livrable | Critère d'acceptation | Statut |
+|---|---|---|
+| Couverture **18/18 séances 6.857** | OTP/parfait secret, hachage, modes, MAC, DH, Pedersen, IND-CCA2, signatures, DSA/gap groups, bilinéaires, zero-knowledge, vote, Bitcoin | ⬜ |
+| Lab `labs/crypto-01` (Python, sans réseau, non-root) | challenges avec squelette + correcteur | ⬜ |
+| 5 problem sets notés automatiquement | 20 % du palier | ⬜ |
+| Challenge ZK et challenge vote (projets) | notés en projet | ⬜ |
+
+---
+
+## 7. Article 7 — Les décisions structurantes
+
+Elles ne se remettent pas en cause implicitement (R3).
 
 | # | Décision | Pourquoi |
 |---|---|---|
-| D1 | Plateforme **gratuite**, multilingue (AR, FR, +), sur WordPress | demande initiale |
-| D2 | Aucun copy de la marque TryHackMe : mécaniques reprises, textes et visuels originaux | cadre légal |
-| D3 | Le **QCM reste** comme test de validation, **en plus** des tests pratiques à réussir | demande du 31/10/2026 |
-| D4 | 12 niveaux aux noms originaux, first blood désactivé par défaut | expérience + prudence |
-| D5 | Le **code** reste sous licence MIT | Attire les contributeurs |
-| D6 | Le **contenu adapté de l'OCW** reste sous **CC BY-NC-SA 4.0** avec attribution explicite | clause ShareAlike ; le gratuit satisfait la clause NC |
-| D7 | Pas de push en production sans accord explicite | sécurité |
-| D8 | Une seule source de vérité : cette roadmap | éviter la dérive |
+| **D1** | Plateforme **gratuite**, multilingue (AR, FR, EN), sur WordPress | demande initiale |
+| **D2** | Aucun copy de la marque TryHackMe : mécaniques reprises, textes et visuels originaux | cadre légal |
+| **D3** | Le **QCM reste** comme test de validation, **en plus** des tests pratiques à réussir | demande du 31/10/2026 |
+| **D4** | 12 niveaux aux noms originaux ; first blood et classement **opt-in** | expérience + protection des mineurs |
+| **D5** | Le **code** reste sous licence **MIT** | attire les contributeurs |
+| **D6** | Le **contenu adapté de l'OCW** reste sous **CC BY-NC-SA 4.0**, avec attribution explicite | clause ShareAlike ; le gratuit satisfait la clause NC |
+| **D7** | **Pas de push en production** sans accord explicite | sécurité |
+| **D8** | **Une seule source de vérité** : cette constitution | éviter la dérive |
+| **D9** | Toute source de contenu passe par `docs/SOURCES-CONTENU.md` **avant** réutilisation ; **défaut = lien seul** | le gratuit n'est pas le libre |
+| **D10** | Le **palier 3** est construit **en parallèle** et ne bloque jamais les paliers 1-2 ; il reste **gratuit** | cohérence avec P2 |
+| **D11** | Le contenu **réseau** peut venir d'autres universités ou fondations (y compris « premium » si la licence le permet), **à condition qu'il aide le jeune à apprendre** | accord explicite du 31/10/2026 |
+| **D12** | Un **test du 14 ans** filtre tout contenu et toute fonctionnalité | P1 + P5 |
 
-> **Conséquence de D6 (à garder en tête) :** le contenu OCW adapté est gratuit mais
-> **non commercialisable** et **non revendable**. Toute évolution vers un modèle
-> payant doit réécrire le contenu ou obtenir une autorisation écrite de l'OCW.
-> Le code, lui, reste libre.
+> **Conséquence de D6 :** le contenu OCW adapté est gratuit mais **non
+> commercialisable**. Toute évolution vers un modèle payant doit réécrire le
+> contenu ou obtenir une autorisation écrite. Le code, lui, reste libre.
+>
+> **Conséquence de D9 :** aucune source n'est citée dans une room sans être
+> au registre. C'est ce qui nous a évité d'écrire « CC BY-SA » pour OWASP sur
+> la seule foi d'un README : la licence a été vérifiée via l'API GitHub.
 
 ---
 
-## 7. Idées à classer
+## 8. Article 8 — Idées à classer
 
 - Mode « hors ligne » / impression des labs.
 - App native (React Native) — trop lourd au regard de l'effort actuel.
-- IA tuteur dans le terminal (aide contextuelle) — dépend de M1.
-- Réseau social / clans de learners — hors périmètre tant que M6 n'est pas fait.
-- Export du profil en badge Open Badge (pour LinkedIn).
+- Tuteur IA dans le terminal — dépend de M1 et d'un cadre éthique (données des mineurs).
+- Réseau social / clans — hors périmètre tant que M6 n'est pas fait.
+- Export du profil en badge Open Badge (LinkedIn).
+- Mode « buddy » : deux apprenants sur la même room (avec contrainte de
+  protection des mineurs).
 
 ---
 
-## 8. Journal des revues
+## 9. Article 9 — Journal des revues
+
+*(append-only — on n'efface pas une revue, on en ajoute une.)*
 
 | Date | Version | Revue |
 |---|---|---|
 | 31/10/2026 | v0.2.0 | Revue « dev senior » : 10 lacunes listées. Décision : **les QCM restent**, ajout des tests pratiques obligatoires. |
 | 31/10/2026 | v0.3.0 | **Validation croisée livrée** (format par tâche, seuil effectif, terminal dans chaque room, réservation atomique, reprise d'examen, rate limiting, schéma versionné). Licence OCW **corrigée** : la réutilisation gratuite est autorisée (NC satisfait), avec attribution + ShareAlike. **M1 démarrée.** |
-| 31/10/2026 | audit | **Audit expérience apprenant + THM** (`docs/AUDIT-EXPERIENCE-APPRENANT.md`) : verdict senior, parcours 14 ans simulé, audit THM sur sources réelles (853 rooms, AttackBox, « no answer needed », onglets multi-machines), ce qu'on a de mieux (arabe RTL, gratuit, explication d'erreur systématique, seuil explicite) et ce qui manque. **Alignement MIT : non, et c'est normal** — 9/24 exposés 6.858, ~4/18 séances 6.857, public ≠ graduate. Ajout de **M2 bis** (question « sans réponse » + walkthrough) et **M7** (palier 3 universitaire). |
+| 31/10/2026 | audit | **Audit expérience apprenant + THM** (`docs/AUDIT-EXPERIENCE-APPRENANT.md`) : verdict senior, parcours 14 ans simulé, audit THM sur sources réelles (853 rooms, AttackBox, « no answer needed », onglets multi-machines), ce qu'on a de mieux (arabe RTL, gratuit, explication d'erreur systématique, seuil explicite) et ce qui manque. **Alignement MIT : non, et c'est normal** — 9/24 leçons 6.858, ~4/18 séances 6.857, public ≠ graduate. Ajout de **M2 bis** (question « sans réponse » + walkthrough) et **M7** (palier 3 universitaire). |
 | 31/10/2026 | v0.4.0 | **M1 livrée côté moteur** : `Secura_Lab` (deux pilotes, isolement dur, TTL, politique de commandes, repli automatique), 3 endpoints lab, méta-box de lab, barre « Déployer la machine », 3 machines réelles fournies (`labs/`), documentation (`docs/labs.md`). **M2 amorcée** : lecteur en deux volets + historique clavier. 169 assertions. Reste : projet Compose unique par apprenant, branchement des rooms, réseau sans sortie. |
+| 31/10/2026 | **v0.5.0** | **M2 bis livrée** : trois types de question (`text` / `choice` / `action`), validation serveur de l'action par l'état réel du terminal, vrai QCM à choix, choix traduisibles, contenu de démonstration mis à jour. **Bug bloquant corrigé** : le champ de saisie de la réponse n'était jamais inséré dans le DOM — le flux de réponse était cassé dans le navigateur (les tests PHP ne le voyaient pas ; un test statique sur le JS le couvre désormais). 189 assertions. **Écarts THM documentés** (`docs/ECARTS-TRYHACKME.md`), **registre des sources** ouvert (`docs/SOURCES-CONTENU.md`), **palier 3 planifié** (`docs/CONTENU-MIT.md` § 9-13 : 14 rooms 6.858 + 20 rooms 6.857 + lab `crypto-01` + barème 20/35/25/20). **La roadmap devient la constitution** (articles, règles de décision, ordre des jalons). |
