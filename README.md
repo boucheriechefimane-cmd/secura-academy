@@ -61,7 +61,13 @@ secura-academy/
 ├── .github/workflows/deploy.yml          # Déploiement vers WordPress (rsync + sauvegarde)
 ├── scripts/deploy.sh                    # Script de déploiement appelé par le workflow
 ├── tests/smoke-test.php                 # Harnais de vérification de la logique serveur
-├── docs/                                # Documentation de déploiement, backlog, passation
+├── docs/                                # Analyse UX, plan de contenu, modèle de jeu
+│   ├── ANALYSE-UX-TRYHACKME.md          # Analyse UX/UI + comparaison + points à régler
+│   ├── CONTENU-MIT.md                   # Plan de contenu inspiré de 6.858 / 6.857
+│   ├── MODELE-XP-MEDAILES.md            # Spécification barème XP, médailles, examens
+│   ├── deploiement.md                   # Configuration du déploiement GitHub → WordPress
+│   ├── backlog.md                       # Backlog produit priorisé
+│   └── PASSATION-SECURA-ARENA.md        # Contexte projet d'origine
 ├── AUDIT-UX.md                          # Audit UX/UI et décisions de refonte
 ├── .gitignore
 └── README.md
@@ -266,15 +272,30 @@ La configuration des secrets est détaillée dans
 
 ## Prochaines étapes
 
-1. Page de profil avec l'historique de progression et la collection de trophées.
-2. Catalogue avec recherche, filtre par difficulté et par durée.
-3. Badges configurables et tableau de bord enrichi (voir `docs/backlog.md`).
-4. Tests automatisés (PHPUnit + Playwright) et pipeline de staging.
-5. Cadre de confidentialité : export, suppression, durée de conservation.
+La feuille de route complète est détaillée dans
+[`docs/ANALYSE-UX-TRYHACKME.md`](docs/ANALYSE-UX-TRYHACKME.md) (analyse UX/UI,
+comparaison et points à régler), [`docs/CONTENU-MIT.md`](docs/CONTENU-MIT.md)
+(plan de contenu) et [`docs/MODELE-XP-MEDAILES.md`](docs/MODELE-XP-MEDAILES.md)
+(barème XP, médailles, examens).
 
-## Licence
+1. **Modèle de tâches** à 4 types : leçon → entraînement → test d'application → examen.
+2. **Médailles** bronze / argent / or, avec critères de score et d'usage des indices.
+3. **Barème de points** unifié (difficulté × type × first blood − malus d'indice).
+4. **Examens chronométrés** avec seuil de passage, chronométrage validé côté serveur.
+5. **Parcours et sections**, avec durée estimée, difficulté et certificat.
+6. **Anatomie de room** conforme : navigation par tâche, progression, minuteur.
+7. Page de profil, catalogue avec filtres, feedback pédagogique sur les erreurs.
+8. Cadre de confidentialité : export, suppression, durée de conservation.
 
-Code sous licence **MIT**. Les contenus pédagogiques sont originaux.
-Les références bibliographiques (MIT OpenCourseWare 6.858 / 6.857) sont citées
-à titre documentaire : vérifier licence, attribution et restrictions avant toute
-republication de supports issus de ces cours.
+## Licence et contenu
+
+Le code est sous licence **MIT**.
+
+Le contenu pédagogique est **original**. Les cours MIT OpenCourseWare
+6.858 (*Computer Systems Security*, Fall 2014) et 6.857 (*Network and Computer
+Security*, Spring 2014) sont utilisés comme **sources bibliographiques** : leurs
+supports sont publiés sous **CC BY-NC-SA 4.0** (usage non commercial), ils ne
+sont donc ni reproduits ni adaptés dans le plugin — seul le **cadrage
+pédagogique** (leçon → exercice d'entraînement → test d'application → examen →
+projet) est repris, avec attribution. Voir
+[`docs/CONTENU-MIT.md`](docs/CONTENU-MIT.md) § 0.
