@@ -655,6 +655,7 @@ require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-sec
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-terminal.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-lab.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-rooms.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-settings.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-paths.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-ajax.php';
 
@@ -1607,6 +1608,77 @@ check( strlen( Secura_Lab::sanitize_output( str_repeat( 'a', 20000 ) ) ) < 9000,
 $status = Secura_Lab::status( 7, 42 );
 check( ! $status['enabled'], 'une room sans lab n\'a pas de machine déployable' );
 check( 'simulated' === $status['state'] || 'idle' === $status['state'], 'le statut d\'un lab absent est neutre' );
+
+/* ---------------------------------------------------------------------
+ * Isolation des labs : un reseau et une pile par apprenant
+ * ------------------------------------------------------------------ */
+
+echo "\nIsolation des labs\n";
+
+$manifest_lab = array(
+	'enabled' => 1,
+	'driver'  => 'docker',
+	'mode'    => 'compose',
+	'compose' => 'net-01/docker-compose.yml',
+	'project' => 'seca_net01',
+	'network' => 'seca_lab',
+	'service' => 'attacker',
+	'ttl'     => 3600,
+);
+
+check( 'seca_lab_5_42' === Secura_Lab::network_name( 5, 42, $manifest_lab ), 'le reseau est unique par apprenant et par room' );
+check( 'seca_net01_5_42' === Secura_Lab::project_name( 5, 42, $manifest_lab ), 'le projet Compose est unique par apprenant et par room' );
+check( 'seca_net01_5_42' !== Secura_Lab::project_name( 6, 42, $manifest_lab ), 'deux apprenants ne partagent pas la meme pile' );
+check( 'seca_lab_5_42' !== Secura_Lab::network_name( 6, 42, $manifest_lab ), 'deux apprenants ne partagent pas le meme reseau' );
+
+$compose_line = Secura_Lab::compose_command( $manifest_lab, array( 'up', '-d' ), 5, 42 );
+
+check( in_array( '-p', $compose_line, true ), 'la commande Compose impose un projet' );
+check( in_array( 'seca_net01_5_42', $compose_line, true ), 'le projet impose porte le apprenant et la room' );
+
+$compose_env = Secura_Lab::compose_env( 5, 42, $manifest_lab );
+
+check( '5' === $compose_env['SECA_LAB_USER'], 'les variables Compose portent l apprenant' );
+check( '42' === $compose_env['SECA_LAB_ROOM'], 'les variables Compose portent la room' );
+check( 'seca_net01_5_42' === $compose_env['SECA_LAB_PROJECT'], 'les variables Compose portent le projet' );
+
+check( false !== strpos( Secura_Lab::resolve_path( 'net-01/docker-compose.yml' ), 'net-01/docker-compose.yml' ), 'un chemin relatif est resolu' );
+/* La commande de demarrage est verifiee champ par champ. */
+$single = Secura_Lab::normalize_manifest(
+	array(
+		'enabled' => 1,
+		'driver'  => 'docker',
+		'mode'    => 'single',
+		'image'   => 'securalabs/web-01:1.0',
+		'command' => 'sleep infinity',
+		'network' => 'seca_lab',
+		'ttl'     => 3600,
+	)
+);
+
+$line = Secura_Lab::container_command( 5, 42, $single );
+$text = implode( ' ', $line );
+
+check( false !== strpos( $text, '--name seca_lab_5_42' ), 'le conteneur est nomme par apprenant et room' );
+check( false !== strpos( $text, '--network seca_lab_5_42' ), 'le conteneur est branche sur le reseau de l apprenant' );
+check( false === strpos( $text, '--network seca_lab ' ), 'le conteneur n est jamais sur le reseau partage' );
+check( false !== strpos( $text, '--cap-drop ALL' ), 'le conteneur est sans privileges' );
+check( false !== strpos( $text, 'no-new-privileges' ), 'le conteneur bloque la montee de privileges' );
+check( false !== strpos( $text, '--tmpfs /tmp:rw,noexec,nosuid' ), 'le repertoire temporaire est inoffensif' );
+check( false !== strpos( $text, '--pids-limit' ) && false !== strpos( $text, '--memory' ), 'les ressources sont limitees' );
+
+check( '/opt/labs/x.yml' === Secura_Lab::resolve_path( '/opt/labs/x.yml' ), 'un chemin absolu est conserve' );
+
+/* Les rooms de demonstration sont branchees a une vraie machine. */
+$demo_labs = 0;
+
+foreach ( seca_default_rooms() as $demo_room ) {
+	if ( ! empty( $demo_room['lab'] ) && ! empty( $demo_room['lab']['enabled'] ) ) {
+		$demo_labs++;
+	}
+}
+
+check( 3 === $demo_labs, 'trois rooms de demonstration sont branchees a une machine reelle' );
 
 /* ---------------------------------------------------------------------
  * Frontend : le saisie de reponse doit etre branchee

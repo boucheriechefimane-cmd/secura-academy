@@ -49,7 +49,7 @@ ses illustrations ni ses composants propriétaires. L'identité visuelle et
 ```
 secura-academy/
 ├── wp-content/
-│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.5.0
+│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.5.1
 │   │   ├── secura-academy.php              # Amorçage, constantes, chargement des modules
 │   │   ├── includes/
 │   │   │   ├── default-content.php         # 6 rooms × 4 tâches + 2 parcours + traductions AR/EN
@@ -66,7 +66,7 @@ secura-academy/
 │   │       ├── academy.js                  # Lecteur de room : validation, terminal, level-up
 │   │       ├── admin.css                   # Styles de la méta-box d'édition
 │   │       └── admin.js                    # Éditeur de tâches / questions / sections
-│   └── themes/secura-learning/             # Thème sombre + RTL (v0.5.0)
+│   └── themes/secura-learning/             # Thème sombre + RTL (v0.5.1)
 │       ├── style.css                       # Styles + jetons de couleur
 │       ├── style-rtl.css                   # Ajustements arabe (chargé si la locale est RTL)
 │       ├── functions.php                   # Réglages, menus, Personnaliseur (palette)
@@ -83,7 +83,7 @@ secura-academy/
 ├── .github/workflows/ci.yml                 # Lint PHP + tests + espaces fin de ligne
 ├── .github/workflows/deploy.yml             # Déploiement vers WordPress (rsync + sauvegarde)
 ├── scripts/deploy.sh                       # Script de déploiement appelé par le workflow
-├── tests/smoke-test.php                    # 189 assertions sur la logique serveur
+├── tests/smoke-test.php                    # 208 assertions sur la logique serveur
 ├── docs/
 │   ├── ROADMAP.md                          # CONSTITUTION du projet (source de vérité, revue à chaque session)
 │   ├── AUDIT-EXPERIENCE-APPRENANT.md      # Audit UX apprenant + comparaison THM + alignement MIT
@@ -321,6 +321,11 @@ machine** : un conteneur Docker éphémère, isolé, propre à un apprenant.
 
 - **Un conteneur par apprenant et par room** : pas de partage, pas de fuite
   entre élèves. L'isolation est assurée par Docker, pas par une simulation.
+- **Un réseau par apprenant et par room** (`seca_lab_<apprenant>_<room>`),
+  créé **sans sortie Internet** : les conteneurs ne peuvent parler qu'entre
+  eux. En mode Compose, le projet est lui aussi renommé par apprenant
+  (`seca_net01_<apprenant>_<room>`) et aucun nom de conteneur n'est figé :
+  deux élèves peuvent jouer en même temps sans jamais se croiser.
 - **Durcissement systématique** : utilisateur non-root (`1000:1000`),
   `--cap-drop ALL`, `no-new-privileges`, `--pids-limit`, limites CPU/mémoire,
   `/tmp` en tmpfs `noexec`, aucun montage de l'hôte, aucun socket Docker exposé.
@@ -335,8 +340,14 @@ machine** : un conteneur Docker éphémère, isolé, propre à un apprenant.
 Le contrat AJAX ne change pas : c'est le serveur qui choisit le pilote. Trois
 machines sont fournies prêtes à construire (`labs/`) : une application web avec
 injection SQL, un binaire C avec dépassement de tampon, et un réseau à deux
-nœuds pour apprendre le pivot. Le branchement se fait dans l'admin, en une
-minute. Tout est détaillé dans [`docs/labs.md`](docs/labs.md).
+nœuds pour apprendre le pivot. **Les 3 rooms de démonstration correspondantes
+sont déjà branchées** ; le réglage se fait dans l'admin, ou dans
+**Réglages → Secura Academy** (dossier des labs, first blood). Tout est
+détaillé dans [`docs/labs.md`](docs/labs.md).
+
+> **À vérifier avant l'ouverture au public** : construction des images et test
+> « deux apprenants en parallèle » sur un hôte Docker réel (le bac à sable de
+> développement n'a pas de démon Docker).
 
 > ⚠ Docker reste un surface d'attaque majeure : un utilisateur autorisé à
 > parler au socket Docker peut prendre l'hôte. Sur mutualisé, on garde le mode
@@ -485,7 +496,7 @@ formulations peuvent être déclarées par question.
 php tests/smoke-test.php
 ```
 
-Le harnais émule les fonctions WordPress nécessaires et vérifie **189 assertions** :
+Le harnais émule les fonctions WordPress nécessaires et vérifie **208 assertions** :
 normalisation des réponses, paliers de niveau, barème et multiplicateurs,
 attribution et idempotence des XP, malus d'indice, verrouillage progressif,
 score pondéré, médailles, examens chronométrés (démarrage, expiration, nouvelle

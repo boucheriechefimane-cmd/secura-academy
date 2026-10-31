@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.5.0
+ * Version:           0.5.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,11 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.5.1 — Isolation stricte des machines cibles : réseau et projet Docker
+ *         Compose renommés par apprenant et par room, réseau créé sans sortie
+ *         Internet, rooms de démonstration branchées à une vraie machine,
+ *         page de réglages (dossier des labs, first blood).
  *
  * 0.5.0 — Types de question : réponse libre, choix multiple (vrai QCM) et
  *         question « sans réponse » (l'apprenant confirme l'action, le
@@ -30,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.5.0' );
+define( 'SECURA_ACADEMY_VERSION', '0.5.1' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
@@ -62,6 +67,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-paths.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-progress.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-terminal.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-lab.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-settings.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-ajax.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-dashboard.php';
 require_once SECURA_ACADEMY_PATH . 'includes/default-content.php';
@@ -81,6 +87,7 @@ final class Secura_Academy {
 		Secura_Progress::init();
 		Secura_Terminal::init();
 		Secura_Lab::init();
+	Secura_Settings::init();
 		Secura_Ajax::init();
 		Secura_Dashboard::init();
 	}

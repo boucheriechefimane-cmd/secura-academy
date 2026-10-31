@@ -24,9 +24,14 @@ est classée ici avant d'être codée ; tout code livré est rattaché à un jal
 > 6. Passer chaque nouveau contenu par le **registre des sources**
 >    (`docs/SOURCES-CONTENU.md`) avant toute réutilisation.
 
-**Dernière revue :** 31 octobre 2026 — **v0.5.0** livré (types de question :
-réponse libre / choix multiple / **sans réponse**, + correction d'un bug bloquant
-qui rendait le champ de saisie invisible dans le navigateur). Les 10 écarts
+**Dernière revue :** 31 octobre 2026 — **v0.5.1** livré : **M1 phase 2
+terminée** (les 6 rooms de démonstration sont branchées à une vraie machine,
+et l'isolation est stricte : réseau et pile Docker Compose renommés par
+apprenant et par room, réseau sans sortie Internet, page de réglages). Il
+reste à **vérifier sur un hôte Docker réel** (construction des images, deux
+apprenants en parallèle). v0.5.0 avait livré les types de question
+(réponse libre / choix multiple / **sans réponse**) et corrigé un bug bloquant
+qui rendait le champ de saisie invisible dans le navigateur. Les 10 écarts
 face à TryHackMe ont une réponse écrite (`docs/ECARTS-TRYHACKME.md`), le
 registre des sources est ouvert (`docs/SOURCES-CONTENU.md`), et le palier 3
 universitaire est planifié (`docs/CONTENU-MIT.md` § 9-13).
@@ -165,9 +170,12 @@ réel sur une cible vulnérable isolée.
 | Bouton « Déployer la machine » + statut dans la room | état visible : en cours / prête / expirée / indisponible | ✅ fait |
 | 3 labs réels : web vulnérable, binaire écrasable, réseau 4 nœuds | images + `docker-compose` fournis (`labs/`) | ✅ fait |
 | Documentation d'exploitation | `docs/labs.md` | ✅ fait |
-| **Branchement room ↔ machine** (3 rooms) | chaque room de lab déclare son manifeste dans l'admin | ⏳ à faire |
-| **Projet Compose unique par apprenant** | deux élèves ne partagent jamais la même pile | ⏳ **bloquant avant ouverture publique** |
-| **Réseau sans sortie** pour `net-01` | `internal: true` + politique de trafic contrôlée | ⏳ à faire |
+| **Branchement room ↔ machine** (3 rooms) | les rooms « Réseaux », « Web » et « Mémoire » portent un manifeste de lab | ✅ **fait (v0.5.1)** |
+| **Projet Compose unique par apprenant** | projet `seca_net01_<apprenant>_<room>` : deux élèves ne partagent jamais la même pile | ✅ **fait (v0.5.1)** |
+| **Réseau sans sortie** | réseau `seca_lab_<apprenant>_<room>` créé `--internal`, `internal: true` en Compose | ✅ **fait (v0.5.1)** |
+| **Nettoyage des piles Compose** | étiquettes sur chaque service : le nettoyage horaire retrouve et démonte la pile | ✅ **fait (v0.5.1)** |
+| **Page de réglages** | dossier des labs + first blood, sans toucher au code | ✅ **fait (v0.5.1)** |
+| **Vérification sur un hôte Docker réel** | build des images + test « deux apprenants en parallèle » | ⏳ **à faire sur le serveur** (le bac à sable n'a pas de démon Docker) |
 
 **Décision structurante :** le contrat AJAX `secura_terminal` **ne change pas**.
 On branche un pilote, on ne réécrit pas le front.
@@ -346,4 +354,5 @@ Elles ne se remettent pas en cause implicitement (R3).
 | 31/10/2026 | v0.3.0 | **Validation croisée livrée** (format par tâche, seuil effectif, terminal dans chaque room, réservation atomique, reprise d'examen, rate limiting, schéma versionné). Licence OCW **corrigée** : la réutilisation gratuite est autorisée (NC satisfait), avec attribution + ShareAlike. **M1 démarrée.** |
 | 31/10/2026 | audit | **Audit expérience apprenant + THM** (`docs/AUDIT-EXPERIENCE-APPRENANT.md`) : verdict senior, parcours 14 ans simulé, audit THM sur sources réelles (853 rooms, AttackBox, « no answer needed », onglets multi-machines), ce qu'on a de mieux (arabe RTL, gratuit, explication d'erreur systématique, seuil explicite) et ce qui manque. **Alignement MIT : non, et c'est normal** — 9/24 leçons 6.858, ~4/18 séances 6.857, public ≠ graduate. Ajout de **M2 bis** (question « sans réponse » + walkthrough) et **M7** (palier 3 universitaire). |
 | 31/10/2026 | v0.4.0 | **M1 livrée côté moteur** : `Secura_Lab` (deux pilotes, isolement dur, TTL, politique de commandes, repli automatique), 3 endpoints lab, méta-box de lab, barre « Déployer la machine », 3 machines réelles fournies (`labs/`), documentation (`docs/labs.md`). **M2 amorcée** : lecteur en deux volets + historique clavier. 169 assertions. Reste : projet Compose unique par apprenant, branchement des rooms, réseau sans sortie. |
+| 31/10/2026 | **v0.5.1** | **M1 phase 2 livrée** : branchement des 6 rooms de démonstration sur les vraies machines (`web-01`, `bin-01`, `net-01`), **isolation stricte par apprenant** (réseau `seca_lab_<apprenant>_<room>` créé `--internal`, projet Compose `<prefixe>_<apprenant>_<room>`, plus aucun nom de conteneur fixe dans `docker-compose.yml`), nettoyage horaire des piles Compose par étiquettes, **page de réglages** (dossier des labs, first blood), commande `docker run` refactorée et vérifiée champ par champ. 208 assertions. Reste : **vérification sur un hôte Docker réel** (le bac à sable de développement n'a pas de démon Docker). |
 | 31/10/2026 | **v0.5.0** | **M2 bis livrée** : trois types de question (`text` / `choice` / `action`), validation serveur de l'action par l'état réel du terminal, vrai QCM à choix, choix traduisibles, contenu de démonstration mis à jour. **Bug bloquant corrigé** : le champ de saisie de la réponse n'était jamais inséré dans le DOM — le flux de réponse était cassé dans le navigateur (les tests PHP ne le voyaient pas ; un test statique sur le JS le couvre désormais). 189 assertions. **Écarts THM documentés** (`docs/ECARTS-TRYHACKME.md`), **registre des sources** ouvert (`docs/SOURCES-CONTENU.md`), **palier 3 planifié** (`docs/CONTENU-MIT.md` § 9-13 : 14 rooms 6.858 + 20 rooms 6.857 + lab `crypto-01` + barème 20/35/25/20). **La roadmap devient la constitution** (articles, règles de décision, ordre des jalons). |

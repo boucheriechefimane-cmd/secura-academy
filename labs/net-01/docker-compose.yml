@@ -8,7 +8,14 @@
 # Construction :
 #   docker compose -f labs/net-01/docker-compose.yml build
 # Lancement (par le plugin) :
-#   docker compose -f labs/net-01/docker-compose.yml -p seca_net01 up -d
+#   docker compose -f labs/net-01/docker-compose.yml -p seca_lab_<apprenant>_<room> up -d
+#
+# Le plugin fournit les variables SECA_LAB_USER, SECA_LAB_ROOM, SECA_LAB_PROJECT
+# et SECA_LAB_COMPOSE : chaque service est labellisé, ce qui permet au
+# nettoyage automatique de retrouver la pile d'un apprenant et de la démonter.
+#
+# Aucun nom de conteneur fixe : Compose nomme les conteneurs
+# <projet>-<service>-1, donc deux apprenants ne se gênent jamais.
 #
 # L'apprenant travaille dans le service « attacker » et touche « web »,
 # puis « internal » une fois le premier indicateur trouvé.
@@ -17,9 +24,14 @@ services:
   attacker:
     build:
       context: ../web-01
-    container_name: seca_net01_attacker
     hostname: attacker
     user: "1000:1000"
+    labels:
+      - "seca.lab=1"
+      - "seca.lab.user=${SECA_LAB_USER:-0}"
+      - "seca.lab.room=${SECA_LAB_ROOM:-0}"
+      - "seca.lab.project=${SECA_LAB_PROJECT:-}"
+      - "seca.lab.compose=${SECA_LAB_COMPOSE:-}"
     cap_drop:
       - ALL
     security_opt:
@@ -39,9 +51,14 @@ services:
   web:
     build:
       context: ../web-01
-    container_name: seca_net01_web
     hostname: web
     user: "1000:1000"
+    labels:
+      - "seca.lab=1"
+      - "seca.lab.user=${SECA_LAB_USER:-0}"
+      - "seca.lab.room=${SECA_LAB_ROOM:-0}"
+      - "seca.lab.project=${SECA_LAB_PROJECT:-}"
+      - "seca.lab.compose=${SECA_LAB_COMPOSE:-}"
     cap_drop:
       - ALL
     security_opt:
@@ -59,9 +76,14 @@ services:
   db:
     build:
       context: ../web-01
-    container_name: seca_net01_db
     hostname: db
     user: "1000:1000"
+    labels:
+      - "seca.lab=1"
+      - "seca.lab.user=${SECA_LAB_USER:-0}"
+      - "seca.lab.room=${SECA_LAB_ROOM:-0}"
+      - "seca.lab.project=${SECA_LAB_PROJECT:-}"
+      - "seca.lab.compose=${SECA_LAB_COMPOSE:-}"
     cap_drop:
       - ALL
     security_opt:
@@ -81,9 +103,14 @@ services:
   internal:
     build:
       context: ../web-01
-    container_name: seca_net01_internal
     hostname: internal
     user: "1000:1000"
+    labels:
+      - "seca.lab=1"
+      - "seca.lab.user=${SECA_LAB_USER:-0}"
+      - "seca.lab.room=${SECA_LAB_ROOM:-0}"
+      - "seca.lab.project=${SECA_LAB_PROJECT:-}"
+      - "seca.lab.compose=${SECA_LAB_COMPOSE:-}"
     cap_drop:
       - ALL
     security_opt:
@@ -99,6 +126,8 @@ services:
     entrypoint: ["/bin/bash", "-c"]
 
 networks:
+  # Réseau sans sortie Internet : les conteneurs ne parlent qu'entre eux.
+  # Compose le préfixe par le nom du projet, donc un réseau par apprenant.
   seca_lab:
-    name: seca_lab
     driver: bridge
+    internal: true

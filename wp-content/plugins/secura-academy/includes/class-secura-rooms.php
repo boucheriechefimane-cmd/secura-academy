@@ -178,6 +178,10 @@ final class Secura_Rooms {
 			update_post_meta( $post_id, SECURA_META_XP_BONUS, (int) $room['xp_bonus'] );
 			update_post_meta( $post_id, SECURA_META_I18N, isset( $room['i18n'] ) ? $room['i18n'] : array() );
 
+			if ( ! empty( $room['lab'] ) ) {
+				update_post_meta( $post_id, '_secura_lab', $room['lab'] );
+			}
+
 			$order++;
 		}
 	}
@@ -492,6 +496,20 @@ final class Secura_Rooms {
 				<?php esc_html_e( 'Une machine réelle, isolée dans un conteneur éphémère, par apprenant et par room. Le conteneur est non-root, sans privilèges, sans réseau sortant, et expire automatiquement.', 'seca-academy' ); ?>
 			</p>
 
+			<p class="description">
+				<?php esc_html_e( 'Isolation automatique : le réseau Docker et le projet Compose sont renommés pour chaque apprenant et chaque room (suffixe _apprenant_room). Deux élèves ne partagent donc jamais la même pile. Le réseau est créé sans sortie Internet.', 'seca-academy' ); ?>
+			</p>
+
+			<p class="description">
+				<?php
+				printf(
+					/* translators: %s : chemin du dossier des labs sur le serveur. */
+					esc_html__( 'Dossier des labs sur ce serveur : %s (réglable dans Réglages → Secura Academy). Un chemin relatif dans le champ « docker-compose.yml » est résolu par rapport à ce dossier.', 'seca-academy' ),
+					'<code>' . esc_html( Secura_Lab::labs_path() ) . '</code>'
+				);
+				?>
+			</p>
+
 			<p>
 				<label><?php esc_html_e( 'Activer une machine cible', 'seca-academy' ); ?></label>
 				<input type="checkbox" name="secura_lab[enabled]" value="1" <?php checked( $manifest['enabled'] ); ?> />
@@ -522,7 +540,7 @@ final class Secura_Rooms {
 
 			<p>
 				<label><?php esc_html_e( 'Fichier docker-compose.yml (mode multi-nœuds)', 'seca-academy' ); ?></label>
-				<input type="text" class="large-text" name="secura_lab[compose]" value="<?php echo esc_attr( $manifest['compose'] ); ?>" placeholder="/opt/secura-labs/web-01/docker-compose.yml" />
+				<input type="text" class="large-text" name="secura_lab[compose]" value="<?php echo esc_attr( $manifest['compose'] ); ?>" placeholder="net-01/docker-compose.yml" />
 			</p>
 
 			<p>
@@ -536,7 +554,7 @@ final class Secura_Rooms {
 			</p>
 
 			<p>
-				<label><?php esc_html_e( 'Réseau Docker', 'seca-academy' ); ?></label>
+				<label><?php esc_html_e( 'Préfixe du réseau Docker (suffixé automatiquement par apprenant et room)', 'seca-academy' ); ?></label>
 				<input type="text" class="large-text" name="secura_lab[network]" value="<?php echo esc_attr( $manifest['network'] ); ?>" />
 			</p>
 

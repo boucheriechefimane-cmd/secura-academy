@@ -183,6 +183,19 @@ function seca_default_rooms() {
 			'difficulty' => 'facile',
 			'duration'   => 25,
 			'xp_bonus'   => 25,
+			'lab'        => array(
+				'enabled'    => 1,
+				'driver'     => 'auto',
+				'mode'       => 'compose',
+				'compose'    => 'net-01/docker-compose.yml',
+				'project'    => 'seca_net01',
+				'service'    => 'attacker',
+				'network'    => 'seca_lab',
+				'target'     => 'http://web:80',
+				'ttl'        => 3600,
+				'allow'      => array( 'ls', 'cat', 'grep', 'nmap', 'curl', 'python3', 'nc', 'ping' ),
+				'workdir'    => '/home/ctf',
+			),
 			'tasks'      => array(
 				array(
 					'type'    => 'lesson',
@@ -345,6 +358,18 @@ function seca_default_rooms() {
 			'difficulty' => 'moyen',
 			'duration'   => 35,
 			'xp_bonus'   => 40,
+			'lab'        => array(
+				'enabled'    => 1,
+				'driver'     => 'auto',
+				'mode'       => 'single',
+				'image'      => 'securalabs/web-01:1.0',
+				'command'    => 'sleep infinity',
+				'network'    => 'seca_lab',
+				'target'     => 'http://127.0.0.1:80',
+				'ttl'        => 3600,
+				'allow'      => array( 'ls', 'cat', 'grep', 'curl', 'python3', 'nc', 'nmap' ),
+				'workdir'    => '/home/ctf',
+			),
 			'tasks'      => array(
 				array(
 					'type'    => 'lesson',
@@ -494,6 +519,18 @@ function seca_default_rooms() {
 			'difficulty' => 'moyen',
 			'duration'   => 30,
 			'xp_bonus'   => 40,
+			'lab'        => array(
+				'enabled'    => 1,
+				'driver'     => 'auto',
+				'mode'       => 'single',
+				'image'      => 'securalabs/bin-01:1.0',
+				'command'    => 'sleep infinity',
+				'network'    => 'seca_lab',
+				'target'     => 'binaire vulnerable : /home/ctf/vuln',
+				'ttl'        => 3600,
+				'allow'      => array( 'ls', 'cat', 'file', 'checksec', 'gdb', 'python3', 'gcc' ),
+				'workdir'    => '/home/ctf',
+			),
 			'tasks'      => array(
 				array(
 					'type'    => 'lesson',

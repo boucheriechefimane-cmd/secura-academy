@@ -98,7 +98,7 @@ class Secura_Lab {
 		$manifest['mode']    = in_array( isset( $raw['mode'] ) ? $raw['mode'] : '', array( 'single', 'compose' ), true ) ? $raw['mode'] : 'single';
 		$manifest['image']   = isset( $raw['image'] ) ? trim( (string) $raw['image'] ) : '';
 		$manifest['service'] = isset( $raw['service'] ) ? trim( (string) $raw['service'] ) : '';
-		$manifest['compose'] = isset( $raw['compose'] ) ? trim( (string) $raw['compose'] ) : '';
+		$manifest['compose'] = self::resolve_path( isset( $raw['compose'] ) ? $raw['compose'] : '' );
 		$manifest['project'] = isset( $raw['project'] ) ? trim( (string) $raw['project'] ) : '';
 		$manifest['network'] = isset( $raw['network'] ) && '' !== trim( (string) $raw['network'] ) ? trim( (string) $raw['network'] ) : 'seca_lab';
 		$manifest['command'] = isset( $raw['command'] ) && '' !== trim( (string) $raw['command'] ) ? trim( (string) $raw['command'] ) : 'bash -l';
@@ -241,6 +241,116 @@ class Secura_Lab {
 	}
 
 	/**
+	 * Dossier des labs sur le serveur.
+	 *
+	 * Par défaut `wp-content/secura-labs`. Peut être surdéfinie par l'option
+	 * `secura_labs_path` (les labs vivent hors de WordPress).
+	 *
+	 * @return string
+	 */
+	public static function labs_path() {
+		$path = get_option( 'secura_labs_path', '' );
+
+		if ( ! is_string( $path ) || '' === trim( $path ) ) {
+			$path = defined( 'WP_CONTENT_DIR' ) ? WP_CONTENT_DIR . '/secura-labs' : ABSPATH . 'wp-content/secura-labs';
+		}
+
+		return rtrim( trim( $path ), '/' );
+	}
+
+	/**
+	 * Résout un chemin de lab : absolu, ou relatif au dossier des labs.
+	 *
+	 * @param string $path Chemin déclaré dans le manifeste.
+	 * @return string
+	 */
+	public static function resolve_path( $path ) {
+		$path = trim( (string) $path );
+
+		if ( '' === $path ) {
+			return '';
+		}
+
+		if ( '/' === substr( $path, 0, 1 ) ) {
+			return $path;
+		}
+
+		return self::labs_path() . '/' . ltrim( $path, '/' );
+	}
+
+	/**
+	 * Nom du réseau Docker d'un apprenant pour une room.
+	 *
+	 * Un réseau par apprenant et par room : deux élèves ne sont jamais sur le
+	 * même réseau, et le réseau est créé sans sortie Internet.
+	 *
+	 * @param int   $user_id  Identifiant de l'apprenant.
+	 * @param int   $room_id  Identifiant de la room.
+	 * @param array $manifest Manifeste.
+	 * @return string
+	 */
+	public static function network_name( $user_id, $room_id, $manifest = array() ) {
+		$base = isset( $manifest['network'] ) && '' !== trim( (string) $manifest['network'] ) ? trim( (string) $manifest['network'] ) : 'seca_lab';
+
+		return $base . '_' . absint( $user_id ) . '_' . absint( $room_id );
+	}
+
+	/**
+	 * Nom du projet Docker Compose d'un apprenant pour une room.
+	 *
+	 * @param int   $user_id  Identifiant de l'apprenant.
+	 * @param int   $room_id  Identifiant de la room.
+	 * @param array $manifest Manifeste.
+	 * @return string
+	 */
+	public static function project_name( $user_id, $room_id, $manifest = array() ) {
+		$prefix = isset( $manifest['project'] ) && '' !== trim( (string) $manifest['project'] ) ? trim( (string) $manifest['project'] ) : 'seca_lab';
+
+		return $prefix . '_' . absint( $user_id ) . '_' . absint( $room_id );
+	}
+
+	/**
+	 * Variables d'environnement passées à Docker Compose.
+	 *
+	 * Elles permettent au fichier `docker-compose.yml` de labelliser chaque
+	 * service : le nettoyage automatique sait alors retrouver la pile.
+	 *
+	 * @param int   $user_id  Identifiant de l'apprenant.
+	 * @param int   $room_id  Identifiant de la room.
+	 * @param array $manifest Manifeste.
+	 * @return array
+	 */
+	public static function compose_env( $user_id, $room_id, $manifest = array() ) {
+		return array(
+			'SECA_LAB_USER'    => (string) absint( $user_id ),
+			'SECA_LAB_ROOM'    => (string) absint( $room_id ),
+			'SECA_LAB_PROJECT' => self::project_name( $user_id, $room_id, $manifest ),
+			'SECA_LAB_COMPOSE' => isset( $manifest['compose'] ) ? (string) $manifest['compose'] : '',
+		);
+	}
+
+	/**
+	 * Crée le réseau dédié d'un apprenant s'il n'existe pas encore.
+	 *
+	 * Le réseau est créé `--internal` : aucune sortie vers Internet, aucune
+	 * passerelle vers l'hôte. Les conteneurs ne peuvent parler qu'entre eux.
+	 *
+	 * @param string $network Nom du réseau.
+	 * @return bool
+	 */
+	public static function ensure_network( $network ) {
+		$inspect = self::run( array( 'docker', 'network', 'inspect', $network ), 15 );
+
+		if ( 0 === $inspect['code'] ) {
+			return true;
+		}
+
+		$create = self::run( array( 'docker', 'network', 'create', '--internal', '--driver', 'bridge', $network ), 30 );
+
+		return 0 === $create['code'];
+	}
+
+	/**
 	 * État des labs d'un apprenant.
 	 *
 	 * @param int $user_id Identifiant de l'apprenant.
@@ -364,7 +474,7 @@ class Secura_Lab {
 		self::stop( $user_id, $room_id );
 
 		if ( 'compose' === $manifest['mode'] ) {
-			$result = self::compose_up( $manifest );
+			$result = self::compose_up( $manifest, $user_id, $room_id );
 		} else {
 			$result = self::container_up( $user_id, $room_id, $manifest );
 		}
@@ -411,10 +521,17 @@ class Secura_Lab {
 		}
 
 		if ( 'compose' === $manifest['mode'] ) {
-			self::run( self::compose_command( $manifest, array( 'down', '-v' ) ), 30 );
+			self::run(
+				self::compose_command( $manifest, array( 'down', '-v' ), $user_id, $room_id ),
+				30,
+				self::compose_env( $user_id, $room_id, $manifest )
+			);
 		} else {
 			self::run( array( 'docker', 'rm', '-f', self::container_name( $user_id, $room_id ) ), 20 );
 		}
+
+		/* Le reseau dedie est supprime avec la machine : rien ne traine. */
+		self::run( array( 'docker', 'network', 'rm', self::network_name( $user_id, $room_id, $manifest ) ), 20 );
 
 		$states = self::get_states( $user_id );
 		unset( $states[ (string) absint( $room_id ) ] );
@@ -476,7 +593,9 @@ class Secura_Lab {
 		if ( 'compose' === $manifest['mode'] ) {
 			$line = self::compose_command(
 				$manifest,
-				array( 'exec', '-T', '-w', $manifest['workdir'], $manifest['service'], 'bash', '-lc', $command )
+				array( 'exec', '-T', '-w', $manifest['workdir'], $manifest['service'], 'bash', '-lc', $command ),
+				$user_id,
+				$room_id
 			);
 		} else {
 			$line = array(
@@ -586,13 +705,13 @@ class Secura_Lab {
 	 * @param array $args     Arguments.
 	 * @return array
 	 */
-	public static function compose_command( $manifest, $args ) {
+	public static function compose_command( $manifest, $args, $user_id = 0, $room_id = 0 ) {
 		$line = array( 'docker', 'compose', '-f', $manifest['compose'] );
 
-		if ( ! empty( $manifest['project'] ) ) {
-			$line[] = '-p';
-			$line[] = $manifest['project'];
-		}
+		/* Le projet est toujours unique par apprenant et par room : deux
+		   élèves ne peuvent pas partager la même pile de conteneurs. */
+		$line[] = '-p';
+		$line[] = self::project_name( $user_id, $room_id, $manifest );
 
 		foreach ( $args as $arg ) {
 			$line[] = $arg;
@@ -602,22 +721,23 @@ class Secura_Lab {
 	}
 
 	/**
-	 * Démarre le conteneur d'une room (mode `single`).
+	 * Commande de démarrage du conteneur d'un apprenant (mode `single`).
+	 *
+	 * Le réseau est celui de l'apprenant : deux élèves ne sont jamais sur le
+	 * même réseau, et le réseau ne donne pas accès à Internet.
 	 *
 	 * @param int   $user_id  Identifiant de l'apprenant.
 	 * @param int   $room_id  Identifiant de la room.
 	 * @param array $manifest Manifeste.
 	 * @return array
 	 */
-	public static function container_up( $user_id, $room_id, $manifest ) {
-		$name = self::container_name( $user_id, $room_id );
-
-		$line = array(
+	public static function container_command( $user_id, $room_id, $manifest ) {
+		return array(
 			'docker',
 			'run',
 			'-d',
 			'--name',
-			$name,
+			self::container_name( $user_id, $room_id ),
 			'--label',
 			'seca.lab=1',
 			'--user',
@@ -635,12 +755,24 @@ class Secura_Lab {
 			'--tmpfs',
 			'/tmp:rw,noexec,nosuid,size=32m',
 			'--network',
-			$manifest['network'],
+			self::network_name( $user_id, $room_id, $manifest ),
 			'-w',
 			$manifest['workdir'],
 			$manifest['image'],
 			$manifest['command'],
 		);
+	}
+
+	/**
+	 * Démarre le conteneur d'une room (mode `single`).
+	 *
+	 * @param int   $user_id  Identifiant de l'apprenant.
+	 * @param int   $room_id  Identifiant de la room.
+	 * @param array $manifest Manifeste.
+	 * @return array
+	 */
+	public static function container_up( $user_id, $room_id, $manifest ) {
+		$line = self::container_command( $user_id, $room_id, $manifest );
 
 		$result = self::run( $line, 60 );
 
@@ -656,8 +788,12 @@ class Secura_Lab {
 	 * @param array $manifest Manifeste.
 	 * @return array
 	 */
-	public static function compose_up( $manifest ) {
-		$result = self::run( self::compose_command( $manifest, array( 'up', '-d' ) ), 120 );
+	public static function compose_up( $manifest, $user_id = 0, $room_id = 0 ) {
+		$result = self::run(
+			self::compose_command( $manifest, array( 'up', '-d' ), $user_id, $room_id ),
+			120,
+			self::compose_env( $user_id, $room_id, $manifest )
+		);
 
 		return array(
 			'ok'     => 0 === $result['code'],
@@ -672,7 +808,7 @@ class Secura_Lab {
 	 * @param int   $timeout Secondes.
 	 * @return array
 	 */
-	public static function run( $line, $timeout = 15 ) {
+	public static function run( $line, $timeout = 15, $env = array() ) {
 		$output = '';
 		$code   = -1;
 
@@ -689,8 +825,17 @@ class Secura_Lab {
 			2 => array( 'pipe', 'w' ),
 		);
 
+		$environment = array(
+			'LANG' => 'C.UTF-8',
+			'PATH' => getenv( 'PATH' ) ? getenv( 'PATH' ) : '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+		);
+
+		foreach ( (array) $env as $key => $value ) {
+			$environment[ (string) $key ] = (string) $value;
+		}
+
 		$pipes   = array();
-		$process = @proc_open( $line, $descriptors, $pipes, null, array( 'LANG' => 'C.UTF-8' ) );
+		$process = @proc_open( $line, $descriptors, $pipes, null, $environment );
 
 		if ( ! is_resource( $process ) ) {
 			return array(
@@ -767,40 +912,83 @@ class Secura_Lab {
 			return;
 		}
 
-		$containers = self::run( array( 'docker', 'ps', '-a', '--filter', 'label=seca.lab=1', '--format', '{{.Names}}' ), 15 );
+		$format = '{{.Names}}|{{.Label "seca.lab.project"}}|{{.Label "seca.lab.compose"}}|{{.Label "seca.lab.room"}}|{{.Label "seca.lab.user"}}';
+		$containers = self::run( array( 'docker', 'ps', '-a', '--filter', 'label=seca.lab=1', '--format', $format ), 15 );
 
 		if ( 0 !== $containers['code'] ) {
 			return;
 		}
 
-		foreach ( explode( "\n", $containers['output'] ) as $name ) {
-			$name = trim( $name );
+		foreach ( explode( "\n", $containers['output'] ) as $line ) {
+			$line = trim( $line );
+
+			if ( '' === $line ) {
+				continue;
+			}
+
+			$parts   = explode( '|', $line );
+			$name    = trim( isset( $parts[0] ) ? $parts[0] : '' );
+			$project = trim( isset( $parts[1] ) ? $parts[1] : '' );
+			$compose = trim( isset( $parts[2] ) ? $parts[2] : '' );
+			$room    = absint( isset( $parts[3] ) ? $parts[3] : 0 );
+			$user    = absint( isset( $parts[4] ) ? $parts[4] : 0 );
 
 			if ( '' === $name ) {
 				continue;
 			}
 
-			/* Le nom encode l'apprenant et la room : on compare au TTL du lab. */
+			/* Conteneur Compose : la room vient du label. */
+			if ( '' !== $project && $room > 0 ) {
+				$manifest = self::get_manifest( $room );
+				$started  = self::started_at( $name );
+
+				if ( $started > 0 && ( time() - $started ) > (int) $manifest['ttl'] ) {
+					if ( '' !== $compose && file_exists( $compose ) ) {
+						self::run(
+							array( 'docker', 'compose', '-f', $compose, '-p', $project, 'down', '-v' ),
+							30,
+							self::compose_env( $user, $room, $manifest )
+						);
+					} else {
+						self::run( array( 'docker', 'rm', '-f', $name ), 20 );
+					}
+				}
+
+				continue;
+			}
+
+			/* Conteneur unique : le nom encode l'apprenant et la room. */
 			if ( ! preg_match( '/^seca_lab_(\d+)_(\d+)$/', $name, $matches ) ) {
 				continue;
 			}
 
 			$room_id   = (int) $matches[2];
+			$user_id   = (int) $matches[1];
 			$manifest  = self::get_manifest( $room_id );
-			$inspect   = self::run( array( 'docker', 'inspect', '-f', '{{.State.StartedAt}}', $name ), 10 );
-			$started   = 0;
-
-			if ( 0 === $inspect['code'] ) {
-				$timestamp = strtotime( trim( $inspect['output'] ) );
-
-				if ( $timestamp ) {
-					$started = $timestamp;
-				}
-			}
+			$started   = self::started_at( $name );
 
 			if ( $started > 0 && ( time() - $started ) > (int) $manifest['ttl'] ) {
 				self::run( array( 'docker', 'rm', '-f', $name ), 20 );
+				self::run( array( 'docker', 'network', 'rm', self::network_name( $user_id, $room_id, $manifest ) ), 20 );
 			}
 		}
+	}
+
+	/**
+	 * Date de démarrage d'un conteneur (timestamp Unix), 0 si inconnu.
+	 *
+	 * @param string $name Nom du conteneur.
+	 * @return int
+	 */
+	public static function started_at( $name ) {
+		$inspect = self::run( array( 'docker', 'inspect', '-f', '{{.State.StartedAt}}', $name ), 10 );
+
+		if ( 0 !== $inspect['code'] ) {
+			return 0;
+		}
+
+		$timestamp = strtotime( trim( $inspect['output'] ) );
+
+		return $timestamp ? (int) $timestamp : 0;
 	}
 }

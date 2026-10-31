@@ -52,7 +52,7 @@ C'est la partie à faire relire avant toute mise en production.
 | Processus | `--pids-limit 256` : pas de fork bomb |
 | Ressources | `--memory 512m`, `--cpus 1` |
 | `/tmp` | `--tmpfs /tmp:rw,noexec,nosuid,size=32m` |
-| Réseau | réseau Docker dédié `seca_lab`, **pas** de sortie Internet par défaut (à durcir selon l'hébergeur) |
+| Réseau | **un réseau par apprenant et par room** (`seca_lab_<apprenant>_<room>`), créé `--internal` : **aucune sortie Internet**, aucune passerelle vers l'hôte |
 | Montages | **aucun** montage de l'hôte, aucun socket Docker exposé |
 | Durée de vie | TTL par défaut 1 h, nettoyage horaire (`seca_lab_cleanup`) |
 | Unité | un conteneur **par apprenant et par room** : pas de partage, pas de fuite entre élèves |
@@ -88,9 +88,19 @@ C'est la partie à faire relire avant toute mise en production.
 
 ### 4.2 Réseau dédié
 
+**Aucun réseau à créer à la main.** Depuis la v0.5.1, le plugin crée lui-même
+le réseau de chaque apprenant, avec la commande :
+
 ```bash
-docker network create seca_lab || true
+docker network create --internal --driver bridge seca_lab_<apprenant>_<room>
 ```
+
+Le réseau est **sans sortie Internet** (`--internal`) : les conteneurs ne
+peuvent parler qu'entre eux, jamais vers l'extérieur ni vers l'hôte. Il est
+supprimé avec la machine.
+
+> ⚠ Ne créez **plus** un réseau `seca_lab` global : un réseau partagé entre
+> apprenants permettrait à un élève d'atteindre la machine d'un autre.
 
 ### 4.3 Construire les images
 
@@ -119,20 +129,41 @@ Dans l'admin : **Rooms → [une room] → Machine cible (lab)**.
 | Pilote | Automatique | Automatique |
 | Mode | Conteneur unique | Docker Compose (plusieurs nœuds) |
 | Image Docker | `securalabs/web-01:1.0` | *(vide)* |
-| Fichier docker-compose.yml | *(vide)* | `/opt/secura-labs/net-01/docker-compose.yml` |
+| Fichier docker-compose.yml | *(vide)* | `net-01/docker-compose.yml` (chemin relatif, résolu depuis le dossier des labs) |
 | Service à attaquer | *(vide)* | `attacker` |
 | Cible affichée | `http://web:80` | `http://web:80` |
-| Réseau Docker | `seca_lab` | `seca_lab` |
+| Réseau Docker (préfixe) | `seca_lab` | `seca_lab` |
 | Durée de vie | 3600 | 3600 |
 | Commandes autorisées | *(vide = toutes)* | `ls`, `cat`, `grep`, `nmap`, `curl`, `python3`, `nc` |
 
 En mode Compose, le plugin lance `docker compose -f … -p … up -d` et exécute
 les commandes via `docker compose exec -T <service> bash -lc "<commande>"`.
 
-> ⚠ En mode Compose, le `project` doit être **unique par apprenant** pour
-> éviter que deux élèves se partagent la même pile de conteneurs. La version
-> actuelle utilise un nom de projet fixe : **à corriger avant d'ouvrir au
-> public** (voir `docs/ROADMAP.md`, M1, risque « isolation multi-apprenants »).
+### Isolation multi-apprenants (résolu en v0.5.1)
+
+Le plugin **suffixe automatiquement** le réseau et le projet Compose :
+
+| Élément | Nom calculé | Exemple (apprenant 5, room 42) |
+|---|---|---|
+| Conteneur (mode unique) | `seca_lab_<apprenant>_<room>` | `seca_lab_5_42` |
+| Réseau Docker | `<prefixe>_<apprenant>_<room>` | `seca_lab_5_42` |
+| Projet Compose | `<prefixe>_<apprenant>_<room>` | `seca_net01_5_42` |
+| Réseau Compose | `<projet>_seca_lab` | `seca_net01_5_42_seca_lab` |
+
+Le fichier `docker-compose.yml` ne fixe **plus** de nom de conteneur : Compose
+nomme les services `<projet>-<service>-1`. Deux apprenants peuvent donc jouer
+en même temps, sans jamais se croiser.
+
+Chaque service porte des étiquettes (`seca.lab.user`, `seca.lab.room`,
+`seca.lab.project`, `seca.lab.compose`) : le nettoyage horaire retrouve la pile
+d'un apprenant et la démonte quand le TTL est dépassé.
+
+### Dossier des labs
+
+Le dossier qui contient les machines se règle dans
+**Réglages → Secura Academy → Dossier des labs** (par défaut
+`wp-content/secura-labs`). Un chemin relatif dans le champ
+« docker-compose.yml » est résolu depuis ce dossier.
 
 ---
 
@@ -164,8 +195,14 @@ les commandes via `docker compose exec -T <service> bash -lc "<commande>"`.
 
 ## 7. Ce qui reste à faire (M1)
 
-- [ ] Nommage du projet Compose unique par apprenant (isolation stricte).
-- [ ] Réseau sans sortie Internet (`internal: true` + passerellecontrolled).
+- [x] Projet Compose et réseau uniques par apprenant et par room (v0.5.1).
+- [x] Réseau sans sortie Internet (`--internal`, `internal: true`).
+- [x] Rooms de démonstration branchées à une vraie machine (3 rooms).
+- [x] Page de réglages pour le dossier des labs et le first blood.
+- [ ] **Vérification sur un hôte Docker réel** : le bac à sable de
+      développement n'a pas de démon Docker ; la construction des images et le
+      test « deux apprenants en parallèle » restent à faire sur le serveur.
+- [ ] Rotation des images par digest (`@sha256:…`) au lieu des tags.
 - [ ] Rotation des images par digest (`@sha256:…`) au lieu des tags.
 - [ ] Répertoire de labs pour **toutes** les rooms de contenu (M3).
 - [ ] Journal d'audit accessible à l'admin (commandes jouées, par élève).
