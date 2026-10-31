@@ -1156,6 +1156,95 @@
 	}
 }
 
+/* --------------------------------------------------------- Certificats */
+
+.seca-certificates {
+	display: grid;
+	gap: 1rem;
+}
+
+.seca-section-note {
+	color: var(--sa-muted);
+	font-size: .9rem;
+	margin: -.4rem 0 .6rem;
+}
+
+.seca-certificate {
+	position: relative;
+	background:
+		radial-gradient(circle at 92% 10%, rgba(251, 191, 36, .12), transparent 38%),
+		var(--sa-surface);
+	border: 1px solid var(--sa-border);
+	border-inline-start: 4px solid var(--sa-gold);
+	border-radius: var(--sa-radius);
+	padding: 1.5rem 1.75rem;
+}
+
+.seca-certificate-kicker {
+	text-transform: uppercase;
+	letter-spacing: .16em;
+	font-size: .7rem;
+	font-weight: 800;
+	color: var(--sa-gold);
+	margin: 0 0 .25rem;
+}
+
+.seca-certificate-title {
+	font-size: 1.35rem;
+	margin: 0 0 .6rem;
+}
+
+.seca-certificate-name {
+	font-size: 1.5rem;
+	font-weight: 800;
+	color: var(--sa-accent);
+	margin: 0 0 .4rem;
+}
+
+.seca-certificate-text {
+	color: var(--sa-muted);
+	margin: 0 0 .9rem;
+}
+
+.seca-certificate-meta {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: .4rem;
+	margin: 0 0 1rem;
+	padding: 0;
+}
+
+.seca-certificate-meta li {
+	padding: .2em .7em;
+	border-radius: 999px;
+	border: 1px solid var(--sa-border);
+	background: var(--sa-surface-2);
+	color: var(--sa-muted);
+	font-size: .78rem;
+	font-weight: 600;
+}
+
+.seca-certificate-foot {
+	display: flex;
+	align-items: center;
+	gap: .75rem;
+	flex-wrap: wrap;
+	padding-top: .9rem;
+	border-top: 1px dashed var(--sa-border);
+}
+
+.seca-certificate-foot .seca-medal-badge {
+	width: 26px;
+	height: 26px;
+}
+
+.seca-certificate-site {
+	flex: 1 1 auto;
+	color: var(--sa-muted);
+	font-size: .85rem;
+}
+
 /* --------------------------------------------------------------- Toast */
 
 .seca-toast-wrap {
@@ -1225,5 +1314,36 @@
 	.seca-terminal-form,
 	.seca-lang-switch {
 		display: none !important;
+	}
+
+	/* Impression isolée du certificat. */
+	body * {
+		visibility: hidden !important;
+	}
+
+	.seca-certificate,
+	.seca-certificate * {
+		visibility: visible !important;
+	}
+
+	.seca-certificate {
+		position: absolute;
+		inset-inline-start: 0;
+		top: 0;
+		width: 100%;
+		background: #fff;
+		color: #111;
+		border: 2px solid #111;
+		box-shadow: none;
+	}
+
+	.seca-certificate .seca-certificate-text,
+	.seca-certificate .seca-certificate-site,
+	.seca-certificate .seca-certificate-meta li {
+		color: #333;
+	}
+
+	.seca-certificate .seca-certificate-name {
+		color: #0b6b52;
 	}
 }

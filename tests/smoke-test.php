@@ -509,6 +509,55 @@ function get_posts( $args = array() ) {
 }
 
 /**
+ * Utilisateur simulé.
+ *
+ * @param int $user_id Identifiant.
+ * @return object
+ */
+function get_userdata( $user_id ) {
+	$user = new stdClass();
+
+	$user->ID           = (int) $user_id;
+	$user->user_login   = 'apprenant';
+	$user->first_name   = 'Nadia';
+	$user->last_name    = 'Benali';
+	$user->display_name = 'Nadia Benali';
+
+	return $user;
+}
+
+/**
+ * Date formatée.
+ *
+ * @param string $format    Format.
+ * @param int    $timestamp Horodatage.
+ * @return string
+ */
+function date_i18n( $format, $timestamp = null ) {
+	return gmdate( 'Y-m-d', $timestamp ? $timestamp : time() );
+}
+
+/**
+ * Information du site.
+ *
+ * @param string $field Champ.
+ * @return string
+ */
+function get_bloginfo( $field = 'name' ) {
+	return 'Secura Academy';
+}
+
+/**
+ * Permalien.
+ *
+ * @param int $post_id Identifiant.
+ * @return string
+ */
+function get_permalink( $post_id = 0 ) {
+	return 'https://exemple.test/?p=' . (int) $post_id;
+}
+
+/**
  * Nonce valide.
  *
  * @param string $nonce Nonce.
@@ -1137,6 +1186,58 @@ foreach ( $rooms as $room ) {
 check( $structure_ok, 'chaque room suit le patron leçon → entraînement → test → examen avec réponses et explications' );
 check( isset( $rooms[0]['i18n']['ar'], $rooms[0]['i18n']['en'] ), 'chaque room propose une traduction arabe et anglaise' );
 check( isset( $rooms[1]['tasks'][2]['terminal']['steps'] ), 'une room embarque un terminal simulé' );
+
+/* ---------------------------------------------------------------------
+ * Certificat de parcours
+ * ------------------------------------------------------------------ */
+
+echo "\nCertificat de parcours\n";
+
+$path_post = new stdClass();
+
+$path_post->ID           = 10;
+$path_post->post_type    = SECURA_PATH_POST_TYPE;
+$path_post->post_title   = 'Fondations';
+$path_post->post_excerpt = 'Parcours de démonstration';
+$path_post->post_content = 'Contenu';
+$path_post->post_name    = 'fondations';
+
+$GLOBALS['securatest_posts'][10]     = $path_post;
+$GLOBALS['securatest_post_lists']    = array( 10 => $path_post );
+$GLOBALS['securatest_meta'][10][ SECURA_META_PATH_SECTIONS ] = array(
+	array( 'title' => 'Module 1', 'rooms' => array( 42 ) ),
+);
+$GLOBALS['securatest_meta'][10][ SECURA_META_DIFFICULTY ]    = 'facile';
+$GLOBALS['securatest_meta'][10][ SECURA_META_DURATION ]      = 60;
+$GLOBALS['securatest_meta'][10][ SECURA_META_XP_BONUS ]      = 100;
+$GLOBALS['securatest_meta'][10][ '_secura_certificate' ]    = 1;
+
+$GLOBALS['securatest_users'] = array();
+
+check( null === Secura_Paths::get_certificate( 7, 10 ), 'aucun certificat tant que le parcours n\'est pas terminé' );
+
+Secura_Progress::save_room_state(
+	7,
+	42,
+	array(
+		'tasks'      => array( '0' => array( 'solved' => array( '0' => true ), 'hints' => array(), 'done' => true ) ),
+		'completed'  => true,
+		'best_score' => 100,
+		'medal'      => 'gold',
+	)
+);
+
+$certificate = Secura_Paths::get_certificate( 7, 10 );
+
+check( is_array( $certificate ), 'un certificat est délivré une fois le parcours terminé' );
+check( 'Nadia Benali' === $certificate['name'], 'le certificat porte le nom de l\'apprenant' );
+check( 'Fondations' === $certificate['title'], 'le certificat porte le titre du parcours' );
+check( 1 === (int) $certificate['rooms'], 'le certificat compte les rooms validées' );
+check( 40 === (int) $certificate['xp'], 'le certificat totalise les bonus XP des rooms du parcours' );
+check( 1 === count( Secura_Paths::get_certificates( 7 ) ), 'le certificat est listé dans les certificats' );
+
+$GLOBALS['securatest_meta'][10][ '_secura_certificate' ] = 0;
+check( null === Secura_Paths::get_certificate( 7, 10 ), 'aucun certificat si l\'option est désactivée sur le parcours' );
 
 /* ---------------------------------------------------------------------
  * Bilan

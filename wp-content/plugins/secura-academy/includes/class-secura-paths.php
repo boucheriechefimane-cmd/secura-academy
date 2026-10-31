@@ -251,6 +251,83 @@ final class Secura_Paths {
 	}
 
 	/**
+	 * Parcours complétés par un utilisateur.
+	 *
+	 * @param int $user_id Identifiant de l'utilisateur.
+	 * @return array Liste de certificats (un par parcours terminé).
+	 */
+	public static function get_certificates( $user_id ) {
+		$certificates = array();
+
+		foreach ( self::get_paths() as $path ) {
+			$certificate = self::get_certificate( $user_id, $path->ID );
+
+			if ( $certificate ) {
+				$certificates[] = $certificate;
+			}
+		}
+
+		return $certificates;
+	}
+
+	/**
+	 * Certificat de complétion d'un parcours.
+	 *
+	 * Retourne null si le parcours n'est pas terminé ou si le certificat
+	 * n'est pas activé sur le parcours.
+	 *
+	 * @param int $user_id Identifiant de l'utilisateur.
+	 * @param int $path_id Identifiant du parcours.
+	 * @return array|null
+	 */
+	public static function get_certificate( $user_id, $path_id ) {
+		$view = self::get_path_view( $path_id );
+
+		if ( ! $view || empty( $view['certificate'] ) ) {
+			return null;
+		}
+
+		$progress = self::get_progress( $user_id, $path_id );
+
+		if ( $progress['total'] < 1 || $progress['done'] < $progress['total'] ) {
+			return null;
+		}
+
+		$user = get_userdata( $user_id );
+		$name = '';
+
+		if ( $user ) {
+			$name = trim( $user->first_name . ' ' . $user->last_name );
+
+			if ( '' === $name ) {
+				$name = $user->user_login;
+			}
+		}
+
+		$xp = 0;
+
+		foreach ( $view['sections'] as $section ) {
+			foreach ( $section['rooms'] as $room_id ) {
+				$xp += absint( get_post_meta( $room_id, SECURA_META_XP_BONUS, true ) );
+			}
+		}
+
+		return array(
+			'path_id'    => (int) $path_id,
+			'title'      => $view['title'],
+			'name'       => $name,
+			'date'       => date_i18n( get_option( 'date_format' ) ),
+			'medal'      => self::path_medal( $user_id, $path_id ),
+			'rooms'      => $progress['total'],
+			'xp'         => $xp,
+			'difficulty' => $view['difficulty'],
+			'duration'   => $view['duration'],
+			'site'       => get_bloginfo( 'name' ),
+			'url'        => get_permalink( $path_id ),
+		);
+	}
+
+	/**
 	 * Médailles de parcours.
 	 *
 	 * @param int $user_id Identifiant de l'utilisateur.

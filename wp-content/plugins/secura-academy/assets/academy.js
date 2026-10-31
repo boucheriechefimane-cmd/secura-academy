@@ -239,9 +239,24 @@
 		} );
 	}
 
+	/**
+	 * Bouton d'impression du certificat.
+	 */
+	function bindPrintButtons() {
+		var buttons = document.querySelectorAll( '[data-seca-print]' );
+
+		Array.prototype.forEach.call( buttons, function ( button ) {
+			button.addEventListener( 'click', function () {
+				window.print();
+			} );
+		} );
+	}
+
 	/* =====================================================================
 	 * Lecteur de room
 	 * ================================================================== */
+
+	bindPrintButtons();
 
 	var app = document.querySelector( '[data-seca-room]' );
 

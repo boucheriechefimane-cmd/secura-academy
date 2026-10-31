@@ -52,6 +52,7 @@ produit un état incohérent.
 - [x] Méta box de structure (sections, rooms, durée, certificat).
 - [x] Page de parcours : modules, rooms, durée, progression, bonus.
 - [x] Shortcode `[secura_academy]` avec le tableau de bord complet.
+- [x] Certificat de parcours nominatif, imprimable (CSS d'impression isolé).
 
 ### 0.6 · Anatomie de room conforme — [x]
 - [x] En-tête sticky : titre, progression, minuteur d'examen.
@@ -88,7 +89,7 @@ produit un état incohérent.
 | 1.3 | **Feedback pédagogique** | Explication affichée après chaque réponse (**livré**) ; enrichir le contenu d'explications plus guidantes |
 | 1.4 | **Streak** | Jours consécutifs calculés sur les dates de complétion (**livré**) |
 | 1.5 | **Classement** | Mensuel (remise à zéro le 1ᵉʳ du mois) + all-time, pseudonyme obligatoire |
-| 1.6 | **Certificat** | Indicateur de complétion (**livré**) ; génération PDF manquante |
+| 1.6 | **Certificat** | Certificat nominatif imprimable (**livré**) ; export PDF à produire |
 | 1.7 | **États vides** | Aucun parcours / aucune room / profil vierge (partiellement couvert) |
 | 1.8 | **Reprise de session** | « Reprendre » en tête du tableau de bord (**livré**) |
 | 1.9 | **URL propres** | Page `/rooms/<slug>` accessible et partageable (**livré** via le CPT) |
@@ -112,7 +113,7 @@ produit un état incohérent.
 ## Qualité continue
 
 - [ ] `phpcs` WordPress Coding Standards dans la CI.
-- [x] Suite de tests sans WordPress complet : `tests/smoke-test.php` (108 assertions).
+- [x] Suite de tests sans WordPress complet : `tests/smoke-test.php` (116 assertions).
 - [ ] Suite PHPUnit avec WordPress complet.
 - [ ] Tests end-to-end du parcours inscription → validation → médaille.
 - [ ] Audit de contraste sur **chaque** paire de la palette personnalisable.

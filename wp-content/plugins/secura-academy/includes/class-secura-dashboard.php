@@ -21,6 +21,7 @@ final class Secura_Dashboard {
 		add_shortcode( 'secura_academy', array( __CLASS__, 'shortcode' ) );
 		add_shortcode( 'secura_academy_room', array( __CLASS__, 'room_shortcode' ) );
 		add_shortcode( 'secura_academy_profile', array( __CLASS__, 'profile_shortcode' ) );
+		add_shortcode( 'secura_academy_certificate', array( __CLASS__, 'certificate_shortcode' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 	}
 
@@ -289,6 +290,8 @@ final class Secura_Dashboard {
 				<div class="seca-path-grid"><?php echo $paths_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?></div>
 			</section>
 
+			<?php echo self::render_certificates( $user_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rendu échappé. ?>
+
 			<section class="seca-section">
 				<h3 class="seca-section-heading"><?php esc_html_e( 'Toutes les rooms', 'seca-academy' ); ?></h3>
 				<ul class="seca-room-grid"><?php echo $rooms_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé ci-dessus. ?></ul>
@@ -433,6 +436,123 @@ final class Secura_Dashboard {
 		</div>
 		<?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * Rendu de la section « Certificats » du tableau de bord.
+	 *
+	 * @param int $user_id Identifiant de l'utilisateur.
+	 * @return string
+	 */
+	private static function render_certificates( $user_id ) {
+		$certificates = Secura_Paths::get_certificates( $user_id );
+
+		if ( empty( $certificates ) ) {
+			return '';
+		}
+
+		$items = '';
+
+		foreach ( $certificates as $certificate ) {
+			$items .= self::render_certificate( $certificate );
+		}
+
+		return sprintf(
+			'<section class="seca-section seca-certificates">
+				<h3 class="seca-section-heading">%1$s</h3>
+				<p class="seca-section-note">%2$s</p>
+				%3$s
+			</section>',
+			esc_html__( 'Certificats', 'seca-academy' ),
+			esc_html__( 'Terminez toutes les rooms d\'un parcours pour obtenir son certificat.', 'seca-academy' ),
+			$items
+		);
+	}
+
+	/**
+	 * Rendu d'un certificat.
+	 *
+	 * @param array $certificate Données du certificat.
+	 * @return string
+	 */
+	private static function render_certificate( $certificate ) {
+		$medal = isset( $certificate['medal'] ) ? $certificate['medal'] : '';
+
+		ob_start();
+		?>
+		<article class="seca-certificate">
+			<header class="seca-certificate-head">
+				<p class="seca-certificate-kicker"><?php esc_html_e( 'Certificat de complétion', 'seca-academy' ); ?></p>
+				<h3 class="seca-certificate-title"><?php echo esc_html( $certificate['title'] ); ?></h3>
+			</header>
+
+			<p class="seca-certificate-name"><?php echo esc_html( $certificate['name'] ); ?></p>
+
+			<p class="seca-certificate-text">
+				<?php
+				printf(
+					/* translators: %d : nombre de rooms validées. */
+					esc_html__( 'a validé les %d rooms de ce parcours.', 'seca-academy' ),
+					(int) $certificate['rooms']
+				);
+				?>
+			</p>
+
+			<ul class="seca-certificate-meta">
+				<li><?php echo esc_html( $certificate['date'] ); ?></li>
+				<li><?php echo esc_html( sprintf( /* translators: %d : XP. */ __( '%d XP', 'seca-academy' ), (int) $certificate['xp'] ) ); ?></li>
+				<li><?php echo esc_html( $certificate['difficulty'] ); ?></li>
+				<li><?php echo esc_html( sprintf( /* translators: %d : minutes. */ __( '%d min', 'seca-academy' ), (int) $certificate['duration'] ) ); ?></li>
+			</ul>
+
+			<footer class="seca-certificate-foot">
+				<span class="seca-medal-badge seca-medal-<?php echo esc_attr( $medal ? $medal : 'bronze' ); ?>" aria-hidden="true"></span>
+				<span class="seca-certificate-site"><?php echo esc_html( $certificate['site'] ); ?></span>
+				<button type="button" class="seca-btn seca-btn--small" data-seca-print><?php esc_html_e( 'Imprimer', 'seca-academy' ); ?></button>
+			</footer>
+		</article>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * [secura_academy_certificate] : certificats de parcours.
+	 *
+	 * @param array $atts Attributs.
+	 * @return string
+	 */
+	public static function certificate_shortcode( $atts ) {
+		$atts = shortcode_atts( array( 'path' => 0 ), $atts, 'secura_academy_certificate' );
+
+		if ( ! is_user_logged_in() ) {
+			return '<p class="seca-empty">' . esc_html__( 'Connectez-vous pour voir vos certificats.', 'seca-academy' ) . '</p>';
+		}
+
+		$user_id = get_current_user_id();
+
+		if ( $atts['path'] ) {
+			$certificate = Secura_Paths::get_certificate( $user_id, absint( $atts['path'] ) );
+
+			if ( ! $certificate ) {
+				return '<p class="seca-empty">' . esc_html__( 'Ce parcours n\'est pas encore terminé.', 'seca-academy' ) . '</p>';
+			}
+
+			return '<div class="seca-app seca-certificates">' . self::render_certificate( $certificate ) . '</div>';
+		}
+
+		$certificates = Secura_Paths::get_certificates( $user_id );
+
+		if ( empty( $certificates ) ) {
+			return '<p class="seca-empty">' . esc_html__( 'Aucun certificat pour le moment : terminez un parcours.', 'seca-academy' ) . '</p>';
+		}
+
+		$items = '';
+
+		foreach ( $certificates as $certificate ) {
+			$items .= self::render_certificate( $certificate );
+		}
+
+		return '<div class="seca-app seca-certificates">' . $items . '</div>';
 	}
 
 	/**

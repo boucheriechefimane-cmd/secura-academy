@@ -121,6 +121,7 @@ son contenu), ainsi que `wp-content/themes/secura-learning`, puis téléversez-l
 | `[secura_academy path="12"]` | Idem, restreint à un parcours (identifiant ou slug) |
 | `[secura_academy_room id="12"]` | Lecteur de room (le thème l'utilise automatiquement sur une room) |
 | `[secura_academy_profile]` | Profil de l'apprenant : médailles, série, XP |
+| `[secura_academy_certificate]` | Certificats de parcours (imprimables) |
 
 Créez une page « Parcours » avec `[secura_academy]` et une page « Mon profil » avec
 `[secura_academy_profile]`.
@@ -229,6 +230,12 @@ difficulté, le bonus XP et l'activation du certificat.
 La progression d'un parcours est calculée à partir des rooms terminées. Quand
 toutes les rooms d'un parcours sont terminées, une médaille de parcours est
 attribuée et le bonus XP du parcours est versé.
+
+Si l'option **certificat** est activée sur le parcours, un certificat nominatif
+apparaît alors dans le tableau de bord : nom de l'apprenant, titre du parcours,
+nombre de rooms validées, XP cumulés, date et médaille. Il s'imprime depuis le
+navigateur (bouton « Imprimer »), la feuille de style d'impression n'affichant que
+le certificat.
 
 ## Le terminal simulé
 
@@ -378,15 +385,16 @@ formulations peuvent être déclarées par question.
 php tests/smoke-test.php
 ```
 
-Le harnais émule les fonctions WordPress nécessaires et vérifie **108 assertions** :
+Le harnais émule les fonctions WordPress nécessaires et vérifie **116 assertions** :
 normalisation des réponses, paliers de niveau, barème et multiplicateurs,
 attribution et idempotence des XP, malus d'indice, verrouillage progressif,
 score pondéré, médailles, examens chronométrés (démarrage, expiration, nouvelle
 tentative, bonus versé une seule fois), terminal simulé (correspondances exactes
 et expressions régulières, progression, indices), multilingue (dictionnaires,
 direction RTL, traduction partielle), structure des rooms et des parcours,
-contenu de démonstration, et **contrat AJAX** (les réponses attendues ne sont
-jamais envoyées au client, l'explication n'est révélée qu'après la réussite).
+contenu de démonstration, délivrance du **certificat de parcours**, et **contrat
+AJAX** (les réponses attendues ne sont jamais envoyées au client, l'explication
+n'est révélée qu'après la réussite).
 
 La CI exécute en plus le lint PHP de tous les fichiers et le contrôle des espaces
 en fin de ligne.
@@ -420,8 +428,8 @@ La configuration des secrets est détaillée dans
   éditorial d'environ 178 h (voir `docs/CONTENU-MIT.md`).
 - **Pas de confirmation par e-mail**, ni mot de passe oublié personnalisé,
   ni anti-spam, ni limitation des tentatives (rate limiting).
-- **Certificat de parcours non généré en PDF** : l'indicateur de complétion est
-  présent, le fichier téléchargeable reste à produire.
+- **Certificat de parcours sans export PDF** : il est imprimable depuis le
+  navigateur (CSS d'impression isolé), mais aucun fichier PDF n'est produit.
 - **Catalogue sans recherche ni filtres** au-delà du parcours.
 - **Suppression / export des données** à formaliser (RGPD) : la progression et
   les médailles vivent dans les `user_meta`.
