@@ -49,7 +49,7 @@ ses illustrations ni ses composants propriétaires. L'identité visuelle et
 ```
 secura-academy/
 ├── wp-content/
-│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.5.1
+│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.5.2
 │   │   ├── secura-academy.php              # Amorçage, constantes, chargement des modules
 │   │   ├── includes/
 │   │   │   ├── default-content.php         # 6 rooms × 4 tâches + 2 parcours + traductions AR/EN
@@ -66,7 +66,7 @@ secura-academy/
 │   │       ├── academy.js                  # Lecteur de room : validation, terminal, level-up
 │   │       ├── admin.css                   # Styles de la méta-box d'édition
 │   │       └── admin.js                    # Éditeur de tâches / questions / sections
-│   └── themes/secura-learning/             # Thème sombre + RTL (v0.5.1)
+│   └── themes/secura-learning/             # Thème sombre + RTL (v0.5.2)
 │       ├── style.css                       # Styles + jetons de couleur
 │       ├── style-rtl.css                   # Ajustements arabe (chargé si la locale est RTL)
 │       ├── functions.php                   # Réglages, menus, Personnaliseur (palette)
@@ -83,7 +83,7 @@ secura-academy/
 ├── .github/workflows/ci.yml                 # Lint PHP + tests + espaces fin de ligne
 ├── .github/workflows/deploy.yml             # Déploiement vers WordPress (rsync + sauvegarde)
 ├── scripts/deploy.sh                       # Script de déploiement appelé par le workflow
-├── tests/smoke-test.php                    # 208 assertions sur la logique serveur
+├── tests/smoke-test.php                    # 218 assertions sur la logique serveur
 ├── docs/
 │   ├── ROADMAP.md                          # CONSTITUTION du projet (source de vérité, revue à chaque session)
 │   ├── AUDIT-EXPERIENCE-APPRENANT.md      # Audit UX apprenant + comparaison THM + alignement MIT
@@ -496,7 +496,7 @@ formulations peuvent être déclarées par question.
 php tests/smoke-test.php
 ```
 
-Le harnais émule les fonctions WordPress nécessaires et vérifie **208 assertions** :
+Le harnais émule les fonctions WordPress nécessaires et vérifie **218 assertions** :
 normalisation des réponses, paliers de niveau, barème et multiplicateurs,
 attribution et idempotence des XP, malus d'indice, verrouillage progressif,
 score pondéré, médailles, examens chronométrés (démarrage, expiration, nouvelle

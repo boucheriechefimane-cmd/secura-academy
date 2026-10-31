@@ -455,6 +455,8 @@ function get_current_user_id() {
  * @return string
  */
 function determine_locale() {
+	$GLOBALS['securatest_locale_calls'] = isset( $GLOBALS['securatest_locale_calls'] ) ? $GLOBALS['securatest_locale_calls'] + 1 : 1;
+
 	return 'fr_FR';
 }
 
@@ -925,6 +927,33 @@ $run = Secura_Terminal::run( 7, 42, 2, $task, 'cat config.txt' );
 check( $run['matched'], 'la seconde étape est atteinte' );
 check( 2 === $run['step'], 'le terminal est terminé' );
 check( $run['completed'], 'la fin du scénario est signalée' );
+
+/* ---------------------------------------------------------------------
+ * Filtre « locale » : il ne doit jamais boucler
+ * ------------------------------------------------------------------ */
+
+echo "\nFiltre locale\n";
+
+$GLOBALS['securatest_locale_calls'] = 0;
+
+$filtered = Secura_I18n::filter_locale( 'en_US' );
+
+check( 'en' === $filtered, 'le filtre locale mappe la langue du site sur la liste' );
+check( 0 === $GLOBALS['securatest_locale_calls'], 'le filtre locale ne rappelle pas determine_locale (pas de boucle infinie)' );
+
+$GLOBALS['securatest_locale_calls'] = 0;
+
+$current = Secura_I18n::current_lang();
+
+check( 'fr' === $current, 'la langue courante est la langue du site' );
+check( $GLOBALS['securatest_locale_calls'] <= 1, 'current_lang consulte la locale au plus une fois' );
+
+$GLOBALS['securatest_locale_calls'] = 0;
+
+$again = Secura_I18n::filter_locale( 'fr_FR' );
+
+check( 'fr' === $again, 'le filtre locale reste stable au second appel' );
+check( 0 === $GLOBALS['securatest_locale_calls'], 'le second appel ne redemande pas la locale' );
 
 /* ---------------------------------------------------------------------
  * Multilingue
@@ -1668,6 +1697,71 @@ check( false !== strpos( $text, '--tmpfs /tmp:rw,noexec,nosuid' ), 'le repertoir
 check( false !== strpos( $text, '--pids-limit' ) && false !== strpos( $text, '--memory' ), 'les ressources sont limitees' );
 
 check( '/opt/labs/x.yml' === Secura_Lab::resolve_path( '/opt/labs/x.yml' ), 'un chemin absolu est conserve' );
+
+/* Regression : le reseau dedie doit etre cree AVANT la machine. Docker ne
+   cree pas de reseau sur demande, donc « docker run --network ... »
+   echouerait si le reseau manquait. Un faux « docker » journalise les
+   commandes et permet de verifier l'ordre. */
+$fake_dir  = sys_get_temp_dir() . '/seca_docker_fake';
+$log_file  = $fake_dir . '/commands.log';
+$fake_bin  = $fake_dir . '/docker';
+
+if ( ! is_dir( $fake_dir ) ) {
+	mkdir( $fake_dir, 0777, true );
+}
+
+@unlink( $log_file );
+
+file_put_contents(
+	$fake_bin,
+	str_replace(
+		'__LOG__',
+		escapeshellarg( $log_file ),
+		<<<'SH'
+#!/bin/sh
+printf '%s\\n' "$*" >> __LOG__
+if [ "$1" = "info" ]; then echo 27.0.0; exit 0; fi
+if [ "$1" = "network" ] && [ "$2" = "inspect" ]; then exit 1; fi
+exit 0
+SH
+	)
+);
+
+chmod( $fake_bin, 0755 );
+
+$old_path = getenv( 'PATH' );
+
+putenv( 'PATH=' . $fake_dir . ':' . $old_path );
+
+update_post_meta(
+	42,
+	'_secura_lab',
+	array(
+		'enabled' => 1,
+		'driver'  => 'docker',
+		'mode'    => 'single',
+		'image'   => 'securalabs/web-01:1.0',
+		'command' => 'sleep infinity',
+		'network' => 'seca_lab',
+		'ttl'     => 3600,
+	)
+);
+
+set_transient( 'seca_docker_available', '1', 300 );
+
+$start_lab = Secura_Lab::start( 5, 42 );
+
+$journal = file_exists( $log_file ) ? file_get_contents( $log_file ) : '';
+
+putenv( 'PATH=' . $old_path );
+
+$pos_reseau   = strpos( $journal, 'network create' );
+$pos_machine  = strpos( $journal, 'run -d' );
+
+check( ! empty( $start_lab['ok'] ), 'la machine se deploie quand Docker est disponible' );
+check( false !== $pos_reseau && false !== $pos_machine && $pos_reseau < $pos_machine, 'le reseau dedie est cree AVANT la machine' );
+check( false !== strpos( $journal, 'network create --internal --driver bridge seca_lab_5_42' ), 'le reseau dedie est cree sans sortie Internet' );
+check( false !== strpos( $journal, 'run -d' ), 'la machine est lancee dans le conteneur dedie' );
 
 /* Les rooms de demonstration sont branchees a une vraie machine. */
 $demo_labs = 0;

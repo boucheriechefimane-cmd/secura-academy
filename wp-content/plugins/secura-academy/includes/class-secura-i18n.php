@@ -64,20 +64,64 @@ final class Secura_I18n {
 	 */
 	public static function current_lang() {
 		static $lang = null;
+		static $busy = false;
 
 		if ( null !== $lang ) {
 			return $lang;
 		}
 
+		/* Garde-fou : le filtre « locale » de WordPress peut rappeler cette
+		   methode. On ne doit jamais boucler. */
+		if ( $busy ) {
+			return 'fr';
+		}
+
+		$busy = true;
+
 		$languages = self::languages();
 		$default   = 'fr';
+		$forced    = self::forced_lang();
+
+		if ( $forced ) {
+			$lang = $forced;
+			$busy = false;
+
+			return $lang;
+		}
+
+		$locale = determine_locale();
+		$short  = substr( (string) $locale, 0, 2 );
+
+		if ( isset( $languages[ $short ] ) ) {
+			$lang = $short;
+			$busy = false;
+
+			return $lang;
+		}
+
+		$lang = $default;
+		$busy = false;
+
+		return $lang;
+	}
+
+	/**
+	 * Langue imposee par l'apprenant (parametre d'URL ou preference).
+	 *
+	 * Cette methode ne doit jamais appeler `determine_locale()` : elle est
+	 * utilisee par le filtre « locale » de WordPress, qui l'appellerait en
+	 * boucle infinie.
+	 *
+	 * @return string Langue imposee, ou chaine vide.
+	 */
+	public static function forced_lang() {
+		$languages = self::languages();
 
 		if ( isset( $_GET['lang'] ) ) {
 			$candidate = sanitize_key( wp_unslash( $_GET['lang'] ) );
 
 			if ( isset( $languages[ $candidate ] ) ) {
-				$lang = $candidate;
-				return $lang;
+				return $candidate;
 			}
 		}
 
@@ -85,22 +129,11 @@ final class Secura_I18n {
 			$saved = get_user_meta( get_current_user_id(), SECURA_USER_LANG, true );
 
 			if ( is_string( $saved ) && isset( $languages[ $saved ] ) ) {
-				$lang = $saved;
-				return $lang;
+				return $saved;
 			}
 		}
 
-		$locale = determine_locale();
-		$short  = substr( $locale, 0, 2 );
-
-		if ( isset( $languages[ $short ] ) ) {
-			$lang = $short;
-			return $lang;
-		}
-
-		$lang = $default;
-
-		return $lang;
+		return '';
 	}
 
 	/**
@@ -133,9 +166,19 @@ final class Secura_I18n {
 	 * @return string
 	 */
 	public static function filter_locale( $locale ) {
-		$lang = self::current_lang();
+		/* On ne passe surtout pas par current_lang() ici : cette fonction
+		   Calling determine_locale() appliquerait a nouveau le filtre
+		   « locale » et bouclerait a l'infini. */
+		$forced = self::forced_lang();
 
-		return $lang ? $lang : $locale;
+		if ( $forced ) {
+			return $forced;
+		}
+
+		$languages = self::languages();
+		$short     = substr( (string) $locale, 0, 2 );
+
+		return isset( $languages[ $short ] ) ? $short : $locale;
 	}
 
 	/**

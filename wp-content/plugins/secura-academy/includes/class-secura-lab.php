@@ -249,13 +249,69 @@ class Secura_Lab {
 	 * @return string
 	 */
 	public static function labs_path() {
-		$path = get_option( 'secura_labs_path', '' );
+		$path = self::labs_path_value();
 
 		if ( ! is_string( $path ) || '' === trim( $path ) ) {
 			$path = defined( 'WP_CONTENT_DIR' ) ? WP_CONTENT_DIR . '/secura-labs' : ABSPATH . 'wp-content/secura-labs';
 		}
 
 		return rtrim( trim( $path ), '/' );
+	}
+
+	/**
+	 * Valeur du dossier des labs, sans le repli par defaut.
+	 *
+	 * Trois sources sontessayees dans l'ordre :
+	 *
+	 * 1. la constante `SECURA_LABS_PATH` du fichier wp-config.php (la plus
+	 *    fiable : elle ndepend d'aucun cache) ;
+	 * 2. l'option `secura_labs_path` du menu Reglages ;
+	 * 3. une lecture directe en base, pour les servers dont le cache
+	 *    d'options declare a tort que l'option n'existe pas.
+	 *
+	 * @return string Chemin du dossier des labs, ou chaine vide.
+	 */
+	public static function labs_path_value() {
+		if ( defined( 'SECURA_LABS_PATH' ) && is_string( SECURA_LABS_PATH ) && '' !== trim( SECURA_LABS_PATH ) ) {
+			return trim( SECURA_LABS_PATH );
+		}
+
+		$path = get_option( 'secura_labs_path', '' );
+
+		if ( is_string( $path ) && '' !== trim( $path ) ) {
+			return trim( $path );
+		}
+
+		global $wpdb;
+
+		if ( isset( $wpdb ) && is_object( $wpdb ) ) {
+			/* Nom d'option fixe : aucune valeur saisie par l'utilisateur,
+			   donc aucune injection possible. */
+			$value = $wpdb->get_var( "SELECT option_value FROM {$wpdb->options} WHERE option_name = 'seca_labs_path' LIMIT 1" );
+
+			if ( is_string( $value ) && '' !== trim( $value ) ) {
+				return trim( $value );
+			}
+		}
+
+		return '';
+	}
+
+	/**
+	 * Indique d'ou vient le dossier des labs (constante, option ou defaut).
+	 *
+	 * @return string
+	 */
+	public static function labs_path_source() {
+		if ( defined( 'SECURA_LABS_PATH' ) && is_string( SECURA_LABS_PATH ) && '' !== trim( SECURA_LABS_PATH ) ) {
+			return 'constante';
+		}
+
+		if ( '' !== self::labs_path_value() ) {
+			return 'option';
+		}
+
+		return 'defaut';
 	}
 
 	/**
@@ -476,6 +532,11 @@ class Secura_Lab {
 		if ( 'compose' === $manifest['mode'] ) {
 			$result = self::compose_up( $manifest, $user_id, $room_id );
 		} else {
+			/* Le reseau dedie doit exister AVANT la machine : Docker ne
+			   cree pas un reseau demande par « --network », la commande
+			   echouerait donc si l'on oubliait cette etape. */
+			self::ensure_network( self::network_name( $user_id, $room_id, $manifest ) );
+
 			$result = self::container_up( $user_id, $room_id, $manifest );
 		}
 

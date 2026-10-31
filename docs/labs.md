@@ -165,6 +165,23 @@ Le dossier qui contient les machines se règle dans
 `wp-content/secura-labs`). Un chemin relatif dans le champ
 « docker-compose.yml » est résolu depuis ce dossier.
 
+Deux précautions ont été prises en v0.5.2, après vérification sur un
+WordPress 7.1 réel :
+
+1. **Une constante prime sur le champ.** Si le fichier `wp-config.php`
+   contient `define( 'SECURA_LABS_PATH', '/opt/secura-labs' );`, c'est cette
+   valeur qui est utilisée, quel que soit le contenu du champ. C'est la
+   méthode la plus fiable : la constante est lue par le serveur, jamais par
+   un cache.
+2. **Le champ n'est jamais perdu.** Si le cache d'options de WordPress
+   déclare à tort que l'option n'existe pas, le plugin relit la base de
+   données directement. Le dossier choisi dans les réglages est donc
+   toujours pris en compte.
+
+La page de réglages affiche en permanence le dossier réellement utilisé,
+sa source (constante, champ ou défaut) et un avertissement si le dossier
+est absent ou illisible.
+
 ---
 
 ## 6. Les trois machines fournies
@@ -199,10 +216,19 @@ Le dossier qui contient les machines se règle dans
 - [x] Réseau sans sortie Internet (`--internal`, `internal: true`).
 - [x] Rooms de démonstration branchées à une vraie machine (3 rooms).
 - [x] Page de réglages pour le dossier des labs et le first blood.
+- [x] **Validation en WordPress réel** (v0.5.2) : WordPress 7.1.4 +
+      MariaDB + plugin + thème installés, page de réglages vérifiée,
+      déploiement des machines, commandes réelles, drapeaux lus, boucle
+      pédagogique complète (cours → questions → XP → médaille), nettoyage
+      horaire vérifié.
+- [x] **Test « deux apprenants en parallèle »** (v0.5.2) : conteneurs,
+      réseaux et projets Compose différents pour Alice et Bob, aucun
+      croisement.
 - [ ] **Vérification sur un hôte Docker réel** : le bac à sable de
-      développement n'a pas de démon Docker ; la construction des images et le
-      test « deux apprenants en parallèle » restent à faire sur le serveur.
-- [ ] Rotation des images par digest (`@sha256:…`) au lieu des tags.
+      développement n'a pas de démon Docker (conteneur sans privilèges
+      noyau). La logique du plugin a été validée avec une console Docker
+      reproduite à l'identique ; la construction des images et l'isolement
+      noyau restent à confirmer sur le serveur.
 - [ ] Rotation des images par digest (`@sha256:…`) au lieu des tags.
 - [ ] Répertoire de labs pour **toutes** les rooms de contenu (M3).
 - [ ] Journal d'audit accessible à l'admin (commandes jouées, par élève).

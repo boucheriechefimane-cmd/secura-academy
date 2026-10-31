@@ -88,7 +88,10 @@ final class Secura_Settings {
 			return;
 		}
 
-		$labs_path = get_option( 'secura_labs_path', '' );
+		$labs_path = Secura_Lab::labs_path_value();
+		$source    = Secura_Lab::labs_path_source();
+		$used      = Secura_Lab::labs_path();
+		$readable  = is_dir( $used ) && is_readable( $used );
 		$first     = Secura_Progress::first_blood_enabled();
 		?>
 		<div class="wrap">
@@ -116,9 +119,25 @@ final class Secura_Settings {
 								printf(
 									/* translators: %s : dossier effectivement utilisé. */
 									esc_html__( 'Dossier actuellement utilisé : %s', 'seca-academy' ),
-									'<code>' . esc_html( Secura_Lab::labs_path() ) . '</code>'
+									'<code>' . esc_html( $used ) . '</code>'
 								);
 								?>
+							</p>
+							<p class="description">
+								<?php if ( 'constante' === $source ) : ?>
+									<?php esc_html_e( 'Source : constante SECURA_LABS_PATH du fichier wp-config.php (elle l\'emporte sur ce champ).', 'seca-academy' ); ?>
+								<?php elseif ( 'option' === $source ) : ?>
+									<?php esc_html_e( 'Source : le champ ci-dessus.', 'seca-academy' ); ?>
+								<?php else : ?>
+									<?php esc_html_e( 'Source : dossier par défaut du plugin.', 'seca-academy' ); ?>
+								<?php endif; ?>
+							</p>
+							<p class="description">
+								<?php if ( $readable ) : ?>
+									<strong style="color:#1a7f37;">&#10003; <?php esc_html_e( 'Dossier présent et lisible.', 'seca-academy' ); ?></strong>
+								<?php else : ?>
+									<strong style="color:#b32d2e;">&#10007; <?php esc_html_e( 'Dossier absent ou illisible : les machines ne pourront pas démarrer.', 'seca-academy' ); ?></strong>
+								<?php endif; ?>
 							</p>
 						</td>
 					</tr>

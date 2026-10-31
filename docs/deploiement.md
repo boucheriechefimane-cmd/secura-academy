@@ -115,6 +115,42 @@ wp cache flush --path=/chemin/wordpress
 wp plugin status secures-academy --path=/chemin/wordpress
 ```
 
+## Où sont les machines cibles (labs)
+
+Les machines cibles vivent **hors de WordPress** (pour que WordPress reste
+légère et que les images Docker ne soient pas versionnées avec le site).
+
+Deux façons de dire au plugin où elles sont :
+
+1. **Dans l'interface** : *Réglages → Secura Academy → Dossier des labs*,
+   par exemple `/opt/secura-labs`. La page affiche en permanence le dossier
+   réellement utilisé et signale s'il est absent ou illisible.
+2. **Dans `wp-config.php`** (méthode la plus fiable, elle prime sur la
+   précédente) :
+
+   ```php
+   define( 'SECURA_LABS_PATH', '/opt/secura-labs' );
+   ```
+
+Pour déposer les machines fournies :
+
+```bash
+# Sur le serveur
+sudo mkdir -p /opt/secura-labs
+sudo cp -r labs/* /opt/secura-labs/
+sudo chown -R www-data:www-data /opt/secura-labs
+
+# Construire les images
+docker build -t securalabs/web-01:1.0 /opt/secura-labs/web-01
+docker build -t securalabs/bin-01:1.0 /opt/secura-labs/bin-01
+docker compose -f /opt/secura-labs/net-01/docker-compose.yml build
+```
+
+Le script `scripts/deploy.sh` accepte la variable `WP_LABS_PATH` pour
+déposer le dossier `labs/` sur le serveur pendant un déploiement.
+
+---
+
 ## Limites
 
 - Le workflow ne synchronise **que** `wp-content/plugins/secura-academy` et
