@@ -36,15 +36,15 @@ RUN groupadd -g 1000 ctf \
 WORKDIR /home/ctf
 
 COPY src/ /home/ctf/src/
-COPY flag/ /root/flag.txt
-COPY notes/ /home/ctf/notes.txt
+COPY flag/flag.txt /root/flag.txt
+COPY notes/notes.txt /home/ctf/notes.txt
 
 RUN cd /home/ctf/src \
     && make \
     && cp vulnerable /home/ctf/vulnerable \
     && chmod 755 /home/ctf/vulnerable \
-    && chmod 400 /root/flag.txt \
-    && chown root:root /root/flag.txt \
+    && chmod 444 /root/flag.txt \
+    && chown root:ctf /root/flag.txt \
     && chmod 755 /root \
     && chown -R ctf:ctf /home/ctf
 

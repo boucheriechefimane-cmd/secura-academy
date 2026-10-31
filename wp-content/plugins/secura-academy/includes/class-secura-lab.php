@@ -177,7 +177,12 @@ class Secura_Lab {
 			$result = self::run( array( 'docker', 'info', '--format', '{{.ServerVersion}}' ), 6 );
 
 			if ( 0 !== $result['code'] ) {
-				$available = '0';
+				/* Certains moteurs (Podman) n'exposent pas ce champ. On
+				   verifie alors simplement que la commande de base
+				   repond : c'est le moteur qui compte, pas sa version. */
+				$fallback = self::run( array( 'docker', 'ps', '--format', '{{.Names}}' ), 12 );
+
+				$available = ( 0 === $fallback['code'] ) ? '1' : '0';
 			}
 		}
 
@@ -587,6 +592,32 @@ class Secura_Lab {
 				30,
 				self::compose_env( $user_id, $room_id, $manifest )
 			);
+
+			/* Selon le moteur de Compose, les conteneurs du projet ne
+			   portent pas toujours le meme nom (projet_service_1 ou
+			   projet-service-1). On supprime donc aussi tout ce qui
+			   porte l'etiquette du projet : rien ne doit traîner. */
+			$project = self::project_name( $user_id, $room_id, $manifest );
+			$listed  = self::run(
+				array(
+					'docker',
+					'ps',
+					'-a',
+					'--filter',
+					'label=seca.lab.project=' . $project,
+					'--format',
+					'{{.Names}}',
+				),
+				20
+			);
+
+			foreach ( preg_split( '/\R/', (string) $listed['output'] ) as $name ) {
+				$name = trim( $name );
+
+				if ( '' !== $name ) {
+					self::run( array( 'docker', 'rm', '-f', $name ), 20 );
+				}
+			}
 		} else {
 			self::run( array( 'docker', 'rm', '-f', self::container_name( $user_id, $room_id ) ), 20 );
 		}
@@ -793,7 +824,7 @@ class Secura_Lab {
 	 * @return array
 	 */
 	public static function container_command( $user_id, $room_id, $manifest ) {
-		return array(
+		$line = array(
 			'docker',
 			'run',
 			'-d',
@@ -820,20 +851,49 @@ class Secura_Lab {
 			'-w',
 			$manifest['workdir'],
 			$manifest['image'],
-			$manifest['command'],
 		);
+
+		/* La commande du manifeste est une chaine (« sleep infinity ») :
+		   Docker attend une liste d'arguments, sinon le conteneur
+		   cherche un programme du nom exact « sleep infinity » et
+		   s'arrete aussitot. */
+		foreach ( preg_split( '/\s+/', trim( (string) $manifest['command'] ) ) as $word ) {
+			if ( '' !== $word ) {
+				$line[] = $word;
+			}
+		}
+
+		return $line;
 	}
 
 	/**
-	 * Démarre le conteneur d'une room (mode `single`).
+	 * Commande de lancement d'une machine unique, sous forme de chaine.
 	 *
 	 * @param int   $user_id  Identifiant de l'apprenant.
 	 * @param int   $room_id  Identifiant de la room.
-	 * @param array $manifest Manifeste.
-	 * @return array
+	 * @param array $manifest Manifeste du lab.
+	 * @return string
 	 */
+	public static function container_command_line( $user_id, $room_id, $manifest ) {
+		return implode( ' ', self::container_command( $user_id, $room_id, $manifest ) );
+	}
+
 	public static function container_up( $user_id, $room_id, $manifest ) {
 		$line = self::container_command( $user_id, $room_id, $manifest );
+
+		/* Un conteneur du meme nom peut subsister : page rechargee, machine
+		   arretee brutalement, redemarrage du serveur. Sans ce nettoyage,
+		   Docker refuse de creer le conteneur (« name already in use ») et
+		   l'apprenant ne peut plus redeployer sa machine. */
+		self::run(
+			array(
+				'docker',
+				'rm',
+				'-f',
+				self::container_name( $user_id, $room_id ),
+			),
+			30
+		);
 
 		$result = self::run( $line, 60 );
 
@@ -850,15 +910,27 @@ class Secura_Lab {
 	 * @return array
 	 */
 	public static function compose_up( $manifest, $user_id = 0, $room_id = 0 ) {
+		$env = self::compose_env( $user_id, $room_id, $manifest );
+
+		/* Construction des images : la premiere fois, c'est long (telechargement
+		   de l'image de base et des paquets). Ensuite, le cache Docker rend
+		   l'operation quasi instantanee. On construit donc separement, avec
+		   un delai generous, puis on demarre la pile sans reconstruire. */
+		$build = self::run(
+			self::compose_command( $manifest, array( 'build' ), $user_id, $room_id ),
+			900,
+			$env
+		);
+
 		$result = self::run(
-			self::compose_command( $manifest, array( 'up', '-d' ), $user_id, $room_id ),
-			120,
-			self::compose_env( $user_id, $room_id, $manifest )
+			self::compose_command( $manifest, array( 'up', '-d', '--no-build' ), $user_id, $room_id ),
+			180,
+			$env
 		);
 
 		return array(
 			'ok'     => 0 === $result['code'],
-			'output' => $result['output'],
+			'output' => ( '' !== trim( $build['output'] ) ? $build['output'] . "\n" : '' ) . $result['output'],
 		);
 	}
 
@@ -886,10 +958,21 @@ class Secura_Lab {
 			2 => array( 'pipe', 'w' ),
 		);
 
-		$environment = array(
-			'LANG' => 'C.UTF-8',
-			'PATH' => getenv( 'PATH' ) ? getenv( 'PATH' ) : '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-		);
+		/* On part de l'environnement complet du serveur : sans cela, le
+		   client Docker ne retrouve ni le demon (DOCKER_HOST), ni le
+           dossier de configuration de l'utilisateur (HOME), et le lab
+		   demarre dans un contextedifferent de celui de l'administrateur. */
+		$environment = getenv();
+
+		if ( ! is_array( $environment ) ) {
+			$environment = array();
+		}
+
+		$environment['LANG'] = 'C.UTF-8';
+
+		if ( empty( $environment['PATH'] ) ) {
+			$environment['PATH'] = '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin';
+		}
 
 		foreach ( (array) $env as $key => $value ) {
 			$environment[ (string) $key ] = (string) $value;
@@ -973,30 +1056,35 @@ class Secura_Lab {
 			return;
 		}
 
-		$format = '{{.Names}}|{{.Label "seca.lab.project"}}|{{.Label "seca.lab.compose"}}|{{.Label "seca.lab.room"}}|{{.Label "seca.lab.user"}}';
-		$containers = self::run( array( 'docker', 'ps', '-a', '--filter', 'label=seca.lab=1', '--format', $format ), 15 );
+		/* Les noms d'un coup, puis les etiquettes un par un : la lecture
+		   des etiquettes passe par « inspect », qui parle la meme langue
+		   sur Docker et sur Podman. */
+		$containers = self::run( array( 'docker', 'ps', '-a', '--filter', 'label=seca.lab=1', '--format', '{{.Names}}' ), 15 );
 
 		if ( 0 !== $containers['code'] ) {
 			return;
 		}
 
+		$label_format = '{{index .Config.Labels "seca.lab.project"}}|{{index .Config.Labels "seca.lab.compose"}}|{{index .Config.Labels "seca.lab.room"}}|{{index .Config.Labels "seca.lab.user"}}';
+
 		foreach ( explode( "\n", $containers['output'] ) as $line ) {
-			$line = trim( $line );
-
-			if ( '' === $line ) {
-				continue;
-			}
-
-			$parts   = explode( '|', $line );
-			$name    = trim( isset( $parts[0] ) ? $parts[0] : '' );
-			$project = trim( isset( $parts[1] ) ? $parts[1] : '' );
-			$compose = trim( isset( $parts[2] ) ? $parts[2] : '' );
-			$room    = absint( isset( $parts[3] ) ? $parts[3] : 0 );
-			$user    = absint( isset( $parts[4] ) ? $parts[4] : 0 );
+			$name = trim( $line );
 
 			if ( '' === $name ) {
 				continue;
 			}
+
+			$labels = self::run( array( 'docker', 'inspect', '-f', $label_format, $name ), 10 );
+
+			if ( 0 !== $labels['code'] ) {
+				continue;
+			}
+
+			$parts   = explode( '|', $labels['output'] );
+			$project = trim( isset( $parts[0] ) ? $parts[0] : '' );
+			$compose = trim( isset( $parts[1] ) ? $parts[1] : '' );
+			$room    = absint( isset( $parts[2] ) ? $parts[2] : 0 );
+			$user    = absint( isset( $parts[3] ) ? $parts[3] : 0 );
 
 			/* Conteneur Compose : la room vient du label. */
 			if ( '' !== $project && $room > 0 ) {

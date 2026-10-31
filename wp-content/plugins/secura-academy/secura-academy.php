@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.5.2
+ * Version:           0.5.3
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,7 @@
  *
  * @package Secura_Academy
  *
+ * 0.5.3 — Machines réellement lancées (runtime rootless) + recette serveur
  * 0.5.2 — Corrections trouvées en conditions réelles (WordPress 7.1 + lab Docker)
  *   - le filtre « locale » ne boucle plus (le site se figeait) ;
  *   - le dossier des labs est lu de façon fiable (constante, option ou base) ;
@@ -40,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.5.2' );
+define( 'SECURA_ACADEMY_VERSION', '0.5.3' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

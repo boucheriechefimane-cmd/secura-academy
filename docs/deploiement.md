@@ -151,6 +151,24 @@ déposer le dossier `labs/` sur le serveur pendant un déploiement.
 
 ---
 
+## Recette serveur (à faire une fois, sur le serveur)
+
+Le site ne peut tourner ses machines de laboratoire que si **Docker est
+installé sur le serveur où WordPress tourne** : le plugin appelle la
+commande `docker` en local.
+
+La procédure complète (où coller quoi, checklist de 10 lignes, script de
+vérification, et que faire quand une ligne échoue) est dans
+**[`docs/RECETTE-SERVEUR.md`](RECETTE-SERVEUR.md)**.
+
+En résumé, sur le serveur :
+
+```bash
+bash /opt/secura-academy/scripts/recette-serveur.sh
+```
+
+Le résultat attendu est `Recette terminee : 22 reussis, 0 echecs`.
+
 ## Limites
 
 - Le workflow ne synchronise **que** `wp-content/plugins/secura-academy` et

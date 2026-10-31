@@ -8,7 +8,7 @@
 #   4. lire le drapeau.
 #
 # Construction : docker build -t securalabs/web-01:1.0 labs/web-01
-# Test         : docker run --rm -d -p 8080:80 securalabs/web-01:1.0
+# Test         : docker run --rm -d -p 8080:8080 securalabs/web-01:1.0
 
 FROM php:8.2-apache
 
@@ -32,17 +32,24 @@ RUN groupadd -g 1000 ctf \
 WORKDIR /var/www/html
 
 COPY app/ /var/www/html/
-COPY flag/ /root/flag.txt
-COPY notes/ /home/ctf/notes.txt
+COPY flag/flag.txt /root/flag.txt
+COPY notes/notes.txt /home/ctf/notes.txt
 
 RUN chown -R ctf:ctf /var/www/html /home/ctf \
-    && chmod 400 /root/flag.txt \
-    && chown root:root /root/flag.txt \
+    && chmod 444 /root/flag.txt \
+    && chown root:ctf /root/flag.txt \
     && chmod 755 /root \
     && chmod +x /var/www/html/entrypoint.sh
 
-# La page d'accueil est servie par Apache, port 80 dans le conteneur.
-EXPOSE 80
+# La page d'accueil est servie par Apache.
+#
+# Port 8080 et non 80 : le conteneur tourne sans privileges (utilisateur
+# 1000, toutes les capacites retirees). Un port inferieur a 1024 exige
+# une capability speciale, que l'on ne veut pas ouvrir dans un lab.
+RUN sed -i 's/^Listen 80$/Listen 8080/' /etc/apache2/ports.conf \
+    && sed -i 's/^Listen \[::\]:80$/Listen [::]:8080/' /etc/apache2/ports.conf
+
+EXPOSE 8080
 
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["apache2-foreground"]

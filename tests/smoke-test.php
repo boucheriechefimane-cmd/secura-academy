@@ -1696,6 +1696,10 @@ check( false !== strpos( $text, 'no-new-privileges' ), 'le conteneur bloque la m
 check( false !== strpos( $text, '--tmpfs /tmp:rw,noexec,nosuid' ), 'le repertoire temporaire est inoffensif' );
 check( false !== strpos( $text, '--pids-limit' ) && false !== strpos( $text, '--memory' ), 'les ressources sont limitees' );
 
+/* La commande du manifeste est une chaine : Docker attend une liste. */
+check( in_array( 'sleep', $line, true ) && in_array( 'infinity', $line, true ), 'la commande du manifeste est decoupee en arguments' );
+check( ! in_array( 'sleep infinity', $line, true ), 'la commande n est jamais un argument unique (le conteneur s arreterait aussitot)' );
+
 check( '/opt/labs/x.yml' === Secura_Lab::resolve_path( '/opt/labs/x.yml' ), 'un chemin absolu est conserve' );
 
 /* Regression : le reseau dedie doit etre cree AVANT la machine. Docker ne
@@ -1762,6 +1766,53 @@ check( ! empty( $start_lab['ok'] ), 'la machine se deploie quand Docker est disp
 check( false !== $pos_reseau && false !== $pos_machine && $pos_reseau < $pos_machine, 'le reseau dedie est cree AVANT la machine' );
 check( false !== strpos( $journal, 'network create --internal --driver bridge seca_lab_5_42' ), 'le reseau dedie est cree sans sortie Internet' );
 check( false !== strpos( $journal, 'run -d' ), 'la machine est lancee dans le conteneur dedie' );
+
+check( false !== strpos( $journal, 'rm -f seca_lab_5_42' ), 'un conteneur du meme nom est supprime avant la creation' );
+
+/* Regression : une pile Compose se construit d abord (c est long la
+   premiere fois), puis se demarre sans reconstruire. */
+update_post_meta(
+	42,
+	'_secura_lab',
+	array(
+		'enabled' => 1,
+		'driver'  => 'docker',
+		'mode'    => 'compose',
+		'compose' => 'net-01/docker-compose.yml',
+		'project' => 'seca_net01',
+		'service' => 'attacker',
+		'network' => 'seca_lab',
+		'ttl'     => 3600,
+	)
+);
+
+@unlink( $log_file );
+
+putenv( 'PATH=' . $fake_dir . ':' . $old_path );
+
+$start_compose = Secura_Lab::start( 5, 42 );
+
+$journal_compose = file_exists( $log_file ) ? file_get_contents( $log_file ) : '';
+
+putenv( 'PATH=' . $old_path );
+
+$pos_build = strpos( $journal_compose, 'build' );
+$pos_up    = strpos( $journal_compose, 'up -d --no-build' );
+
+check( ! empty( $start_compose['ok'] ), 'la pile Compose se deploie quand Docker est disponible' );
+check( false !== $pos_build && false !== $pos_up && $pos_build < $pos_up, 'les images sont construites avant le demarrage de la pile' );
+check( false !== strpos( $journal_compose, 'up -d --no-build' ), 'la pile demarre sans reconstruire les images' );
+
+/* Regression : le client Docker herite de l environnement du serveur
+   (DOCKER_HOST, HOME...). Sans cela, le client ne trouve pas le demon. */
+$env_test = Secura_Lab::run( array( 'printenv', 'HOME' ), 10 );
+$home_attendu = getenv( 'HOME' );
+
+check( '' !== trim( (string) $env_test['output'] ), 'le client Docker herite de l environnement du serveur' );
+
+if ( ! empty( $home_attendu ) ) {
+	check( false !== strpos( (string) $env_test['output'], $home_attendu ), 'le dossier personnel du serveur est transmis au client Docker' );
+}
 
 /* Les rooms de demonstration sont branchees a une vraie machine. */
 $demo_labs = 0;

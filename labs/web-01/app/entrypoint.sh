@@ -15,6 +15,8 @@ fi
 mkdir -p /var/www/html/backup
 cp /var/www/html/db.sqlite /var/www/html/backup/db.sqlite.bak
 
-chown -R ctf:ctf /var/www/html /home/ctf
+# Le conteneur peut tourner sans etre root : on ne casse pas le demarrage
+# si le changement de proprietaire est refuse.
+chown -R ctf:ctf /var/www/html /home/ctf 2>/dev/null || true
 
 exec "$@"

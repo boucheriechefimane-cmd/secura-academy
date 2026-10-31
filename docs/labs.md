@@ -111,7 +111,15 @@ docker build -t securalabs/bin-01:1.0 bin-01
 docker compose -f net-01/docker-compose.yml build
 ```
 
-### 4.4 Déploiement
+### 4.4 Port d'écoute : 8080 et non 80
+
+Les machines tournent **sans privilèges** (utilisateur 1000, toutes les
+capacités retirées, `no-new-privileges`). Un port inférieur à 1024
+exigerait une capability particulière (`NET_BIND_SERVICE`) : on l'ouvre
+donc pas. Le serveur web du lab écoute sur **8080**, d'où les cibles
+affichées `http://127.0.0.1:8080` et `http://web:8080`.
+
+### 4.5 Déploiement
 
 Le script `scripts/deploy.sh` copie le plugin et le thème. Les labs vont dans
 un dossier **hors WordPress**, par exemple `/opt/secura-labs`, avec des
@@ -131,7 +139,7 @@ Dans l'admin : **Rooms → [une room] → Machine cible (lab)**.
 | Image Docker | `securalabs/web-01:1.0` | *(vide)* |
 | Fichier docker-compose.yml | *(vide)* | `net-01/docker-compose.yml` (chemin relatif, résolu depuis le dossier des labs) |
 | Service à attaquer | *(vide)* | `attacker` |
-| Cible affichée | `http://web:80` | `http://web:80` |
+| Cible affichée | `http://127.0.0.1:8080` | `http://web:8080` |
 | Réseau Docker (préfixe) | `seca_lab` | `seca_lab` |
 | Durée de vie | 3600 | 3600 |
 | Commandes autorisées | *(vide = toutes)* | `ls`, `cat`, `grep`, `nmap`, `curl`, `python3`, `nc` |
@@ -210,6 +218,25 @@ est absent ou illisible.
 
 ---
 
+## 6 bis. Corrections apportées en v0.5.3
+
+Ces six défauts ont été trouvés en faisant tourner les machines **pour de
+vrai** (runtime rootless dans le bac à sable). Ils auraient cassé les
+laboratoires sur le serveur de production.
+
+| Défaut | Symptôme pour l'apprenant | Correction |
+|---|---|---|
+| La commande du manifeste passée en un seul argument | Le conteneur cherche un programme nommé « sleep infinity » et **s'arrête aussitôt** | La commande est **découpée en arguments** avant l'appel à Docker |
+| Apache sur le port 80 sans privilèges | « Permission denied » au démarrage du serveur web | Le lab écoute sur le **port 8080** (un port élevé ne demande aucune capability) |
+| Drapeau et notes copiés en tant que dossiers | `cat /root/flag.txt` → « Is a directory » : **le lab est impossible à finir** | `COPY flag/flag.txt …` : le **fichier** est copié |
+| Drapeau lisible par root seulement | L'apprenant (utilisateur 1000) ne peut pas lire le drapeau | Le fichier appartient à `root:ctf` en lecture seule (444) |
+| Environnement réduit pour le client Docker | Perte de `DOCKER_HOST`, `HOME`… : le client ne trouve pas le démon | Le client Docker **hérite de l'environnement du serveur** |
+| Reconstruction des images à chaque déploiement | La première machine d'un apprenant attend plusieurs minutes | `docker compose build` (avec cache) **puis** `up -d --no-build` ; les 4 services partagent la même image |
+| Conteneur déjà existant | « name already in use » : l'apprenant ne peut plus redéployer sa machine | Le conteneur du même nom est **supprimé avant** la création |
+| Arrêt d'une pile Compose | Des conteners peuvent rester si le moteur de Compose les nomme autrement | Arrêt **par étiquette** en complément de `compose down` |
+
+---
+
 ## 7. Ce qui reste à faire (M1)
 
 - [x] Projet Compose et réseau uniques par apprenant et par room (v0.5.1).
@@ -224,11 +251,17 @@ est absent ou illisible.
 - [x] **Test « deux apprenants en parallèle »** (v0.5.2) : conteneurs,
       réseaux et projets Compose différents pour Alice et Bob, aucun
       croisement.
-- [ ] **Vérification sur un hôte Docker réel** : le bac à sable de
-      développement n'a pas de démon Docker (conteneur sans privilèges
-      noyau). La logique du plugin a été validée avec une console Docker
-      reproduite à l'identique ; la construction des images et l'isolement
-      noyau restent à confirmer sur le serveur.
+- [x] **Vérification sur un hôte à conteneurs réel** (v0.5.3) : le bac à
+      sable n'a pas de démon Docker (aucun privilège noyau), mais un
+      runtime **rootless (Podman)** y fonctionne. Les trois machines ont été
+      construites et réellement lancées : réseau sans sortie Internet,
+      deux apprenants sur deux réseaux distincts (aucun croisement),
+      drapeaux lus, pile Compose de 4 services montée et arrêtée.
+- [x] **Recette serveur clé en main** (v0.5.3) :
+      `scripts/recette-serveur.sh` (22 vérifications) et
+      `docs/RECETTE-SERVEUR.md` (où coller la checklist de 10 lignes).
+- [ ] Validation finale sur le serveur de l'hébergeur (le script ci-dessus
+      doit y renvoyer 22 réussis, 0 échec).
 - [ ] Rotation des images par digest (`@sha256:…`) au lieu des tags.
 - [ ] Répertoire de labs pour **toutes** les rooms de contenu (M3).
 - [ ] Journal d'audit accessible à l'admin (commandes jouées, par élève).

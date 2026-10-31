@@ -49,7 +49,7 @@ ses illustrations ni ses composants propriétaires. L'identité visuelle et
 ```
 secura-academy/
 ├── wp-content/
-│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.5.2
+│   ├── plugins/secura-academy/             # Plugin « Secura Academy » v0.5.3
 │   │   ├── secura-academy.php              # Amorçage, constantes, chargement des modules
 │   │   ├── includes/
 │   │   │   ├── default-content.php         # 6 rooms × 4 tâches + 2 parcours + traductions AR/EN
@@ -66,7 +66,7 @@ secura-academy/
 │   │       ├── academy.js                  # Lecteur de room : validation, terminal, level-up
 │   │       ├── admin.css                   # Styles de la méta-box d'édition
 │   │       └── admin.js                    # Éditeur de tâches / questions / sections
-│   └── themes/secura-learning/             # Thème sombre + RTL (v0.5.2)
+│   └── themes/secura-learning/             # Thème sombre + RTL (v0.5.3)
 │       ├── style.css                       # Styles + jetons de couleur
 │       ├── style-rtl.css                   # Ajustements arabe (chargé si la locale est RTL)
 │       ├── functions.php                   # Réglages, menus, Personnaliseur (palette)
@@ -83,7 +83,7 @@ secura-academy/
 ├── .github/workflows/ci.yml                 # Lint PHP + tests + espaces fin de ligne
 ├── .github/workflows/deploy.yml             # Déploiement vers WordPress (rsync + sauvegarde)
 ├── scripts/deploy.sh                       # Script de déploiement appelé par le workflow
-├── tests/smoke-test.php                    # 218 assertions sur la logique serveur
+├── tests/smoke-test.php                    # 226 assertions sur la logique serveur
 ├── docs/
 │   ├── ROADMAP.md                          # CONSTITUTION du projet (source de vérité, revue à chaque session)
 │   ├── AUDIT-EXPERIENCE-APPRENANT.md      # Audit UX apprenant + comparaison THM + alignement MIT
@@ -496,7 +496,7 @@ formulations peuvent être déclarées par question.
 php tests/smoke-test.php
 ```
 
-Le harnais émule les fonctions WordPress nécessaires et vérifie **218 assertions** :
+Le harnais émule les fonctions WordPress nécessaires et vérifie **226 assertions** :
 normalisation des réponses, paliers de niveau, barème et multiplicateurs,
 attribution et idempotence des XP, malus d'indice, verrouillage progressif,
 score pondéré, médailles, examens chronométrés (démarrage, expiration, nouvelle
@@ -532,6 +532,24 @@ reste verte et rien n'est envoyé sur le serveur.
 
 La configuration des secrets est détaillée dans
 [`docs/deploiement.md`](docs/deploiement.md).
+
+## Recette serveur (une fois, sur le serveur)
+
+Le plugin lance la commande `docker` **sur la machine où WordPress tourne** :
+les machines de laboratoire ne peuvent donc fonctionner que si Docker est
+installé sur le même serveur (un hébergement mutualisé ne le permet pas).
+
+Une procédure clé en main est fournie :
+
+| Fichier | Rôle |
+|---|---|
+| `scripts/recette-serveur.sh` | 22 vérifications sur le serveur (Docker, plugin, images, réseau, isolation, pile Compose, nettoyage) |
+| `docs/RECETTE-SERVEUR.md` | Où coller quoi, la checklist de 10 lignes, et que faire quand une ligne échoue |
+
+```bash
+sudo bash /opt/secura-academy/scripts/recette-serveur.sh
+# attendu : Recette terminee : 22 reussis, 0 echecs
+```
 
 ## Limites connues
 
