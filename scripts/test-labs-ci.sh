@@ -564,7 +564,7 @@ if docker run -d --name "$CONT_DOJO" --network "$RESEAU" \
 		fi
 	done
 
-	for numero in $(seq -w 1 7); do
+	for numero in $(seq -w 01 07); do
 		if ! docker exec -u 0 "$CONT_DOJO" cat "/root/flags/flag-b$numero.txt" 2>/dev/null | grep -q 'FLAG=SECURA{'; then
 			MANQUES_DOJO=$((MANQUES_DOJO + 1))
 		fi

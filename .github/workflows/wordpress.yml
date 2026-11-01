@@ -81,7 +81,7 @@ jobs:
   recette:
     name: Recette complète (WordPress + machines + deux élèves)
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     services:
       mysql:
         image: mysql:8.0
@@ -110,10 +110,12 @@ jobs:
 
       - name: Construire les machines
         run: |
-          for machine in web-01 bin-01 multi-01 internal-01; do
+          for machine in web-01 bin-01 multi-01 internal-01 univ-01 dojo-01; do
             echo "Construction de $machine…"
             docker build -q -t "securalabs/$machine:1.0" "labs/$machine"
           done
+          echo "Construction du serveur de drapeaux (flags-01)…"
+          docker build -q -t "securalabs/flags-01:1.0" labs/juice-shop/flags
           docker images --format '{{.Repository}}:{{.Tag}}'
 
       - name: Installer WordPress et le plugin
