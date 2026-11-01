@@ -38,6 +38,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    env:
+      # Le dossier du WordPress de recette : dans l'espace de travail
+      # du runner (on ne peut pas ecrire dans /home/user sur GitHub).
+      SECA_WP_DIR: ${{ github.workspace }}/wp-ci
+
     services:
       mysql:
         image: mysql:8.0
