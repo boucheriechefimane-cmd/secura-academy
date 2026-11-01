@@ -275,4 +275,177 @@ audit_verifier(
 	'majeur'
 );
 
+/* ------------------------------------------------------------------ */
+echo "\n7. Les reponses generees par l'IA (guide officiel de Google)\n";
+
+/* Google rappelle que les reponses generees par l'IA s'appuient sur le
+   meme index que la recherche classique : ce qui compte, c'est que la
+   page soit indexable, explorable, et comprise sans JavaScript. On
+   verifie donc les points precis du guide « Optimizing your website for
+   generative AI features on Google Search ». */
+
+/* 1. Indexable : pas de « noindex ». */
+audit_verifier(
+	'la page est indexable (aucun « noindex »)',
+	false === stripos( $html, 'noindex' ),
+	'la page demande de ne pas etre indexee',
+	'bloquant'
+);
+
+/* 2. Explorable : le contenu est dans le HTML servi. */
+$texte_serve = trim( wp_strip_all_tags( $html ) );
+
+audit_verifier(
+	'le contenu est servi dans le HTML (un robot sans JavaScript voit la lecon)',
+	mb_strlen( $texte_serve ) > 400,
+	'le HTML servi ne contient presque aucun texte (' . mb_strlen( $texte_serve ) . ' caracteres)',
+	'bloquant'
+);
+
+/* 3. La canonique : absolue, unique, et auto-reference par langue. */
+preg_match( '/<link[^>]+rel=["\']canonical["\'][^>]*href=["\']([^"\']+)["\']/i', $html, $canon );
+preg_match( '/<link[^>]+rel=["\']canonical["\'][^>]*href=["\']([^"\']+)["\']/i', $page_ar_html, $canon_ar );
+
+$canon_url    = isset( $canon[1] ) ? $canon[1] : '';
+$canon_ar_url = isset( $canon_ar[1] ) ? $canon_ar[1] : '';
+
+audit_verifier(
+	'la page a une adresse canonique',
+	'' !== $canon_url,
+	'balise <link rel="canonical"> absente',
+	'majeur'
+);
+
+audit_verifier(
+	'la canonique est une adresse absolue',
+	'' !== $canon_url && 0 === strpos( $canon_url, 'http' ),
+	'canonique relative : ' . $canon_url,
+	'majeur'
+);
+
+audit_verifier(
+	'il n\'y a qu\'une seule adresse canonique (pas de doublon)',
+	1 === substr_count( $html, 'rel="canonical"' ),
+	substr_count( $html, 'rel="canonical"' ) . ' adresses canoniques dans la page',
+	'majeur'
+);
+
+audit_verifier(
+	'chaque langue se designe elle-meme (canonique auto-reference)',
+	'' !== $canon_url
+		&& false === strpos( $canon_url, 'seca_lang' )
+		&& '' !== $canon_ar_url
+		&& false !== strpos( $canon_ar_url, 'seca_lang=ar' ),
+	'canonique francaise : ' . $canon_url . ' | canonique arabe : ' . $canon_ar_url,
+	'majeur'
+);
+
+/* 4. Les versions de langue : des adresses absolues, et reciproques. */
+preg_match_all( '/<link[^>]+rel=["\']alternate["\'][^>]*hreflang=["\']([a-z-]+)["\'][^>]*href=["\']([^"\']+)["\']/i', $html, $alts, PREG_SET_ORDER );
+
+$langues_declarees = array();
+
+foreach ( $alts as $alt ) {
+	$langues_declarees[ $alt[1] ] = $alt[2];
+}
+
+audit_verifier(
+	'les versions de langue sont annoncees (francais, arabe, anglais) plus la version de repli',
+	isset( $langues_declarees['fr'], $langues_declarees['ar'], $langues_declarees['en'], $langues_declarees['x-default'] ),
+	'declarees : ' . implode( ', ', array_keys( $langues_declarees ) ),
+	'majeur'
+);
+
+$relatives = array();
+
+foreach ( $langues_declarees as $langue => $adresse ) {
+	if ( 0 !== strpos( $adresse, 'http' ) ) {
+		$relatives[] = $langue;
+	}
+}
+
+audit_verifier(
+	'aucune version de langue n\'est donnee en adresse relative (Google ignore les adresses relatives)',
+	empty( $relatives ),
+	implode( ', ', $relatives ),
+	'majeur'
+);
+
+/* 5. Les donnees structurees : valides, et declarant la ressource. */
+preg_match( '/<script[^>]+type=["\']application\/ld\+json["\'][^>]*>(.*?)<\/script>/is', $html, $ld );
+
+$schema = isset( $ld[1] ) ? json_decode( $ld[1], true ) : null;
+
+audit_verifier(
+	'la page declare des donnees structurees (schema.org) au format attendu',
+	is_array( $schema ) && isset( $schema['@context'] ) && isset( $schema['@graph'] ),
+	'pas de bloc JSON-LD valide',
+	'mineur'
+);
+
+$types = array();
+$video_schema = array();
+
+if ( is_array( $schema ) && isset( $schema['@graph'] ) ) {
+	foreach ( $schema['@graph'] as $element ) {
+		if ( isset( $element['@type'] ) ) {
+			$types[] = $element['@type'];
+		}
+
+		if ( isset( $element['@type'] ) && 'VideoObject' === $element['@type'] ) {
+			$video_schema = $element;
+		}
+	}
+}
+
+audit_verifier(
+	'la room est declaree comme ressource d\'apprentissage',
+	in_array( 'LearningResource', $types, true ),
+	'types declares : ' . implode( ', ', $types ),
+	'mineur'
+);
+
+audit_verifier(
+	'la video du cours est declaree (le moteur la voit, meme si l\'eleve ne clique jamais)',
+	in_array( 'VideoObject', $types, true ),
+	'pas de VideoObject : le moteur ne peut pas voir le cours video',
+	'mineur'
+);
+
+audit_verifier(
+	'la declaration video est complete (duree, miniature, adresse de lecture)',
+	! empty( $video_schema['duration'] ) && ! empty( $video_schema['thumbnailUrl'] ) && ! empty( $video_schema['contentUrl'] ),
+	'la declaration video est incomplete',
+	'info'
+);
+
+/* 6. Le guide de Google : pas besoin de « llms.txt », ni de decoupage
+      special, ni de reecriture pour l\'IA. On verifie que rien de
+      tout cela ne traine dans le site. */
+audit_verifier(
+	'le site ne contient pas de fichier « llms.txt » (Google dit que cela ne sert a rien)',
+	! file_exists( $racine . '/llms.txt' ),
+	'fichier llms.txt present : aucune utilite pour Google',
+	'info'
+);
+
+/* 7. La page reste legere : la rapidite fait partie de l\'experience. */
+audit_verifier(
+	'la page servie reste raisonnable en poids',
+	mb_strlen( $html ) < 300000,
+	'HTML de ' . round( mb_strlen( $html ) / 1024 ) . ' Ko',
+	'mineur'
+);
+
+/* 8. Un contenu structure en sections : c\'est ce que les modeles
+      recuperent pour repondre. */
+$h2 = substr_count( $html, '<h2' );
+
+audit_verifier(
+	'la page est structuree en sections (titres de niveau 2)',
+	$h2 >= 2,
+	'titres de niveau 2 trouves : ' . $h2,
+	'mineur'
+);
+
 exit( audit_fin() );

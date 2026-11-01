@@ -18,6 +18,7 @@ while ( have_posts() ) :
 		<div class="entry-content">
 			<?php if ( trim( wp_strip_all_tags( get_the_content() ) ) ) : ?>
 				<section class="seca-room-intro">
+					<h2 class="seca-room-section-title"><?php echo esc_html( class_exists( 'Secura_I18n' ) ? Secura_I18n::t( 'lesson', '', 'Leçon' ) : 'Leçon' ); ?></h2>
 					<?php the_content(); ?>
 				</section>
 			<?php endif; ?>

@@ -953,12 +953,46 @@
 	margin-bottom: .45rem;
 }
 
+/* Titre de section de la room (lecon, taches) : present dans le HTML
+   servi, donc lu par les moteurs et par les lecteurs d'ecran. */
+.seca-room-section-title {
+	font-size: 1.05rem;
+	font-weight: 800;
+	line-height: 1.3;
+	margin: 1.2rem 0 .5rem;
+	color: var(--sa-text);
+}
+
+/* Version de la room sans JavaScript : les etapes restent lisibles. */
+.seca-noscript {
+	margin: 1rem 0;
+	padding: 1rem 1.1rem;
+	border: 1px solid var(--sa-border);
+	border-radius: 12px;
+	background: rgba(52, 211, 153, .05);
+}
+
+.seca-noscript p {
+	margin: 0 0 .6rem;
+}
+
+.seca-noscript-list {
+	margin: 0;
+	padding-inline-start: 1.2rem;
+}
+
+.seca-noscript-list li {
+	margin-bottom: .45rem;
+}
+
 .seca-lab-title {
 	font-size: .8rem;
 	font-weight: 800;
 	text-transform: uppercase;
 	letter-spacing: .1em;
 	color: var(--sa-text);
+	margin: 0;
+	line-height: 1.3;
 }
 
 .seca-lab-state {
@@ -1036,6 +1070,8 @@
 	font-size: .85rem;
 	font-weight: 700;
 	color: var(--sa-success);
+	margin: 0;
+	line-height: 1.3;
 }
 
 .seca-terminal-badge {

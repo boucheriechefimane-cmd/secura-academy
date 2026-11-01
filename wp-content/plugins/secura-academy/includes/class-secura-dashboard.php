@@ -425,7 +425,25 @@ final class Secura_Dashboard {
 			}
 			?>
 
+			<h2 class="seca-room-section-title"><?php echo esc_html( Secura_I18n::t( 'tasks_title', $lang, 'Les tâches de la room' ) ); ?></h2>
+
 			<nav class="seca-task-nav" data-seca-task-nav aria-label="<?php esc_attr_e( 'Tâches de la room', 'seca-academy' ); ?>"></nav>
+
+			<noscript>
+				<div class="seca-noscript">
+					<p><?php echo esc_html( Secura_I18n::t( 'tasks_noscript', $lang, 'Voici les étapes de cette room (la version interactive nécessite JavaScript).' ) ); ?></p>
+					<ol class="seca-noscript-list">
+						<?php foreach ( $view['tasks'] as $seca_task ) : ?>
+							<li>
+								<strong><?php echo esc_html( $seca_task['title'] ? $seca_task['title'] : ( isset( Secura_Rooms::task_types()[ $seca_task['type'] ] ) ? Secura_Rooms::task_types()[ $seca_task['type'] ] : $seca_task['type'] ) ); ?></strong>
+								<?php if ( ! empty( $seca_task['content'] ) ) : ?>
+									<span><?php echo esc_html( wp_strip_all_tags( $seca_task['content'] ) ); ?></span>
+								<?php endif; ?>
+							</li>
+						<?php endforeach; ?>
+					</ol>
+				</div>
+			</noscript>
 
 			<div class="seca-task-view" data-seca-task-view>
 				<div class="seca-task-pane seca-task-pane--main">
@@ -442,7 +460,7 @@ final class Secura_Dashboard {
 				<aside class="seca-task-pane seca-task-pane--side">
 					<div class="seca-lab" data-seca-lab hidden>
 						<div class="seca-lab-head">
-							<span class="seca-lab-title"><?php esc_html_e( 'Machine cible', 'seca-academy' ); ?></span>
+							<h2 class="seca-lab-title"><?php esc_html_e( 'Machine cible', 'seca-academy' ); ?></h2>
 							<span class="seca-lab-state" data-seca-lab-state></span>
 						</div>
 						<p class="seca-lab-message" data-seca-lab-message role="status" aria-live="polite"></p>
@@ -455,7 +473,7 @@ final class Secura_Dashboard {
 
 					<div class="seca-terminal" data-seca-terminal hidden>
 						<div class="seca-terminal-head">
-							<span class="seca-terminal-title"><?php esc_html_e( 'Terminal', 'seca-academy' ); ?></span>
+							<h2 class="seca-terminal-title"><?php esc_html_e( 'Terminal', 'seca-academy' ); ?></h2>
 							<span class="seca-terminal-badge" data-seca-terminal-badge><?php esc_html_e( 'simulé', 'seca-academy' ); ?></span>
 						</div>
 						<pre class="seca-terminal-screen" data-seca-terminal-screen aria-live="polite"></pre>

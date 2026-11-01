@@ -407,6 +407,44 @@ et repris dans le résumé du run.
 avec quelle méthode, l'échelle de gravité, ce que le comité ne fait pas) et
 le suivi des constats dans `docs/AUDITS-REGISTRE.md`.
 
+### BLOC R — Conformité aux réponses générées par l'IA (guide Google) — ✅ LIVRÉ (v0.6.0)
+
+**L'idée.** Google a publié un guide sur l'optimisation d'un site pour les
+réponses générées par l'IA (AI Overviews, AI Mode). On l'a lu comme une
+grille d'audit, **point par point**, sur les pages réellement servies — et
+on a corrigé ce qui ne l'était pas.
+
+**Ce que le guide dit vraiment :** les réponses générées par l'IA
+s'appuient sur le **même index** que la recherche classique. Il ne faut
+donc pas « écrire pour l'IA » : il faut être **explorable**, **compréhensible**,
+**sans doublon**, **rapide**. Les données structurées (schema.org) sont
+**recommandées**, pas obligatoires. En revanche, trois idées sont des
+**mythes** : le fichier `llms.txt`, le découpage « en morceaux » du texte, et
+la réécriture du contenu pour l'IA — Google dit explicitement qu'ils
+n'apportent rien.
+
+**Les six écarts trouvés (et corrigés dans la même version) :**
+
+| # | Écart trouvé | Gravité | Traitement |
+|---|---|---|---|
+| 9 | `hreflang` en adresses **relatives** : Google les ignore | Majeur | FR/AR/EN + `x-default` en adresses absolues |
+| 10 | **Aucune adresse canonique** : la version arabe ressemblait à un doublon de la version française | Majeur | Canonique auto-référente par langue ; celle de WordPress (aveugle à la langue) retirée |
+| 11 | **Aucune donnée structurée** | Mineur | `Organization`, `LearningResource`, `VideoObject`, `BreadcrumbList`, `Course` |
+| 12 | La vidéo du cours n'était **déclarée nulle part** (la façade ne charge rien avant le clic) | Mineur | `VideoObject` : durée, miniature, adresse de lecture, éditeur, licence |
+| 13 | Une room n'avait **aucun titre de section** (`h2`) | Mineur | 4 titres de niveau 2 par room |
+| 14 | Les **étapes pratiques** étaient dessinées par le JavaScript : un robot sans JavaScript ne lisait pas le cœur du cours | Majeur | Liste des étapes servie dans le HTML, doublée en `<noscript>` |
+
+**La barrière.** L'auditeur SEO est passé de **20 à 35 contrôles** : les 15
+nouveaux portent sur les points du guide (indexabilité, contenu servi,
+canonique présente/absolue/unique/auto-référente, `hreflang` absolus et
+complets, données structurées valides, ressource déclarée, vidéo déclarée et
+complète, absence de `llms.txt`, poids de la page, sections). Ils sont
+rejoués dans le vrai WordPress de la CI, à chaque `push`.
+
+**Le compte rendu en langage simple** est dans `docs/SEO-GENERATION-AI.md`
+(le tableau point par point, les mythes, et ce qui reste à faire à la mise
+en ligne : Search Console, indexation, rapport « Generative AI performance »).
+
 ## 7. Article 7 — Les décisions structurantes
 
 Elles ne se remettent pas en cause implicitement (R3).
@@ -457,6 +495,7 @@ Elles ne se remettent pas en cause implicitement (R3).
 
 | Date | Version | Revue |
 |---|---|---|
+| 01/11/2026 | **Conformité IA (v0.6.0)** | **Le guide de Google sur les réponses générées par l'IA a été audité point par point, sur les pages réellement servies : six écarts réels trouvés, six corrigés.** **Ce que le guide tranche :** l'IA de Google lit le même index que la recherche classique — il n'existe pas de version « pour l'IA » du site ; les données structurées sont recommandées (pas obligatoires) ; et trois idées sont des mythes à ne pas appliquer (`llms.txt`, découpage « en morceaux », réécriture du contenu). **Ce qui ne collait pas :** les adresses de langue étaient **relatives** (Google les ignore : les versions arabe et anglaise risquaient d'être abandonnées) ; il n'y avait **aucune adresse canonique** (donc la version arabe ressemblerait à un doublon de la version française) ; **aucune donnée structurée** ; la **vidéo du cours** n'était déclarée nulle part (la façade ne charge rien avant le clic) ; une room n'avait **aucun titre de section** ; et les **étapes pratiques** étaient dessinées par le JavaScript, donc invisibles pour un robot sans JavaScript. **Corrections :** hreflang en adresses absolues ; canonique auto-référente par langue (celle de WordPress, aveugle à la langue, a été retirée) ; `class-secura-schema.php` qui déclare `Organization`, `LearningResource`, `VideoObject`, `BreadcrumbList` et `Course` ; la vidéo déclarée avec sa durée, sa miniature, son éditeur et sa licence ; quatre titres de niveau 2 par room ; et la liste des étapes servie dans le HTML, doublée en `<noscript>`. **La barrière :** l'auditeur SEO passe de 20 à **35 contrôles** (15 nouveaux, exactement les points du guide), rejoués dans le vrai WordPress de la CI à chaque push ; le comité d'audit passe de **93 à 108 contrôles, 0 constat**. Compte rendu : `docs/SEO-GENERATION-AI.md`. |
 | 01/11/2026 | **Comité d'audit externe (v0.6.0)** | **On ne fait pas demander à celui qui écrit le code si son code est bon : un comité de cinq auditeurs spécialisés passe la plateforme au crible, dans un vrai WordPress et avec un vrai moteur Docker, le tout sur GitHub.** **Les cinq auditeurs** : SEO (adressage, description, carte de partage, `hreflang`, plan du site), Contenu (squelette des 4 temps, questions avec explication et indice, traductions, attribution des vidéos, chemins de drapeaux, et la question qui compte : *la documentation dit-elle la vérité ?*), UX/UI (contrastes calculés selon WCAG AA, boutons nommés, RTL, cibles tactiles, sélecteur de langue), Développement (syntaxe, compatibilité PHP 7.4, échappement, injections SQL, nonces, tests) et Sécurité/infrastructure (secrets, isolation par élève, durcissement Docker, en-têtes HTTP, sauvegarde avec la base). **Premier passage : 93 contrôles, 8 constats réels, tous corrigés** — il manquait la description de page, la carte de partage, le `hreflang`, le sélecteur de langue lisible, les en-têtes de sécurité, et la sauvegarde de la base. **La barrière** : le workflow `audit.yml` échoue si un constat bloquant apparaît ; il rejoue les audits à chaque push et chaque lundi, et archive les rapports. Cadre : `docs/AUDITS-CADRE.md` ; registre : `docs/AUDITS-REGISTRE.md`. |
 | 01/11/2026 | **v0.6.0 (bloc U livré)** | **Le bloc universitaire est complet, et il tient ses promesses : la vidéo du cours est dans la room, et la preuve est lue dans la machine.** **Ce qui a été livré.** Les **36 rooms** du bloc (22 « Les universités » + 14 « Les labs avancés »), **255 questions**, **quatre parcours**, et **trois nouvelles machines**. **La façade vidéo** : dans chaque room de cours, la vidéo apparaît comme une image avec un bouton ▶ ; rien n'est chargé de YouTube avant le clic (le test vérifie qu'il n'y a **aucune balise iframe** dans la page), l'iframe `youtube-nocookie` apparaît au clic, le **lien vers la source** reste visible, et l'attribution (source, auteur, licence, durée) est traduite en français, arabe et anglais. **Les labs avancés** : l'application **OWASP Juice Shop** (l'image officielle, version épinglée, réseau fermé sans sortie Internet) ; un **dojo de vingt défis** en cinq ceintures (blanche, jaune, orange, verte, noire) ; **six vidéos de brief** qui expliquent comment s'y mettre ; et le **quiz Kahoot**, jouable en classe avec le code `SECURA1` ou seul dans la plateforme, **exportable en CSV et JSON** sans compte obligatoire. **La preuve reste la preuve** : le serveur lit le drapeau dans la machine de l'élève, en root, et compare. Pour Juice Shop, l'application calcule elle-même un code par défi résolu (HMAC-SHA1 avec la clé du lab) : le serveur recalcule le même code et compare — la valeur est donc vérifiable, pas secrète. **Vérifications :** 302 assertions au vert, et — dans la vraie CI GitHub, avec un vrai Docker — **52 rooms et 4 parcours** installés dans un WordPress réel, **22 contrôles de recette** au vert (façade, Kahoot, idempotence, XP), **67 contrôles des machines** au vert (dont le dojo et ses 27 drapeaux, et le lab Juice Shop : l'application répond, le drapeau du serveur est conforme à celui de l'application, les trois services tournent, le réseau n'a pas de sortie Internet). **Trois bugs trouvés et corrigés par cette CI** (invisibles en local) : les briefs du dojo étaient copiés au mauvais endroit, le service « flags » du lab Juice Shop s'arrêtait aussitôt (commande Compose mal écrite), et le workflow ne construisait pas les nouvelles images. **Reste ouvert :** le dojo **officiel** pwn.college est fourni (`labs/dojo-pwncollege`) mais pas construit en CI (image trop lourde) ; et les labs M7 sont volontairement difficiles. |
 | 01/11/2026 | **v0.6.0 (U1 → U3 livrés)** | **Le bloc universitaire commence à tourner pour de vrai.** **U1 — la façade vidéo** : dans chaque room, la vidéo du cours apparaît comme une **image avec un bouton ▶** ; rien n'est chargé de YouTube avant le clic (vérifié par le test : zéro balise `iframe` dans la page), l'iframe apparaît ensuite en `youtube-nocookie`, le **lien vers la source reste toujours visible**, et le bloc d'attribution (source, auteur, licence, durée) est traduit en français, arabe et anglais. **U2 — les 22 rooms** : MIT 6.858 (5), MIT 6.857 (4), pwn.college (4), CYBER.ORG (4), OWASP (3), Stanford (2). Chaque room suit le même patron (leçon → entraînement → mission → examen), **22 vidéos réelles** (aucun identifiant inventé : chacune est dans le catalogue vérifié), **155 questions** à quatre propositions avec la bonne réponse **répartie** sur les quatre positions (sinon l'élève apprend la place, pas la notion). Les 22 missions se valident par un **drapeau lu dans la machine** `univ-01` (22 livrables de cours, 22 drapeaux en `400 root:root` : l'élève ne lit jamais le drapeau, il le découvre dans les documents du cours). Nouveau parcours « Les universités » en 6 modules. **U3 — l'attribution** : chaque room porte sa source et sa licence, et le registre des sources gagne une section dédiée aux six universités/fondations. Vérifications : **276 assertions** au vert, et **38 rooms / 3 parcours** dans un WordPress réel (la recette de bout en bout passe avec la machine : 13/0). Reste : **U4** (Juice Shop, dojo à 20 défis, 6 vidéos de brief, Kahoot). |

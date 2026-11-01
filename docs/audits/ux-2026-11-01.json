@@ -1,7 +1,7 @@
 {
     "domaine": "ux",
     "titre": "Audit externe — Ergonomie et interface (UX / UI)",
-    "date": "2026-11-01T12:46:42+00:00",
+    "date": "2026-11-01T13:39:08+00:00",
     "ok": 16,
     "bloquant": 0,
     "majeur": 0,
@@ -15,7 +15,7 @@
         },
         {
             "libelle": "messages traduits dans le plugin (chaines __() )",
-            "detail": "33 chaines",
+            "detail": "35 chaines",
             "gravite": "info"
         }
     ]

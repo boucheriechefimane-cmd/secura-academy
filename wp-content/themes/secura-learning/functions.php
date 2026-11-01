@@ -108,10 +108,16 @@ function secures_learning_meta_tags() {
 
 	/* Les versions dans d'autres langues : sans cela, un moteur peut
 	   traiter la version arabe comme un doublon de la version
-	   francaise. */
-	$actuelle = determine_locale();
-	$actuelle = substr( $actuelle, 0, 2 );
-	$base     = remove_query_arg( 'seca_lang' );
+	   francaise.
+
+	   Deux règles que Google impose :
+	   - les adresses doivent etre ABSOLUES (une adresse relative est
+	     ignoree) ;
+	   - chaque version doit se designer elle-meme (canonique
+	     auto-reference), sinon la version arabe estConsideree comme
+	     un doublon de la version francaise et n'est pas indexee. */
+	/* L'adresse est deja absolue : remove_query_arg la renvoie telle quelle. */
+	$base = remove_query_arg( 'seca_lang', $url );
 
 	foreach ( array(
 		'fr' => $base,
@@ -126,8 +132,28 @@ function secures_learning_meta_tags() {
 	}
 
 	printf( '<link rel="alternate" hreflang="x-default" href="%s">' . "\n", esc_url( $base ) );
+
+	/* L'adresse de reference de cette page : elle se designe
+	   elle-meme, dans sa langue. */
+	$canonique = $base;
+
+	if ( isset( $_GET['seca_lang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- lecture seule, pour l'adresse canonique.
+		$langue = substr( sanitize_key( wp_unslash( $_GET['seca_lang'] ) ), 0, 2 );
+
+		if ( in_array( $langue, array( 'ar', 'en' ), true ) ) {
+			$canonique = add_query_arg( 'seca_lang', $langue, $base );
+		}
+	}
+
+	printf( '<link rel="canonical" href="%s">' . "\n", esc_url( $canonique ) );
 }
 add_action( 'wp_head', 'secures_learning_meta_tags', 1 );
+
+/* WordPress ajoute sa propre balise canonique, qui ignore la langue :
+   la version arabe serait alors designee comme un doublon de la version
+   francaise. On la retire pour garder la nôtre, qui sait, elle, que
+   chaque langue se reference elle-meme. */
+remove_action( 'wp_head', 'rel_canonical' );
 
 /**
  * Les en-tetes de securite du site.

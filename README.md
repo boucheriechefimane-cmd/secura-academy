@@ -566,9 +566,26 @@ réellement rendues, et dans de vrais conteneurs Docker quand il faut juger
 l'isolation entre élèves. Le workflow `audit.yml` échoue si un constat
 bloquant apparaît ; il rejoue les audits à chaque push et chaque lundi.
 
-Premier passage : **93 contrôles, 8 constats réels, tous corrigés**.
+Premier passage : **93 contrôles, 8 constats réels, tous corrigés** — puis
+**108 contrôles, 0 constat** après l'audit de conformité au guide Google sur
+les réponses générées par l'IA.
 Le cadre est dans [`docs/AUDITS-CADRE.md`](docs/AUDITS-CADRE.md), le
 registre des constats dans [`docs/AUDITS-REGISTRE.md`](docs/AUDITS-REGISTRE.md).
+
+### La conformité aux réponses générées par l'IA (guide Google)
+
+Le guide officiel de Google sur l'optimisation pour l'IA (AI Overviews,
+AI Mode) a été audité **point par point**, sur les pages réellement servies.
+Six écarts réels ont été trouvés et corrigés : adresses de langue en version
+relative, absence d'adresse canonique, absence de données structurées
+(schema.org), vidéo du cours non déclarée, room sans titre de section, étapes
+pratiques dessinées par le JavaScript seulement.
+
+Résultat : `hreflang` en adresses absolues, **canonique auto-référente par
+langue**, `Organization` / `LearningResource` / `VideoObject` /
+`BreadcrumbList` / `Course` déclarés, et **15 contrôles supplémentaires**
+dans l'auditeur SEO (rejoués à chaque push). Le compte rendu en langage simple
+est dans [`docs/SEO-GENERATION-AI.md`](docs/SEO-GENERATION-AI.md).
 
 Le dépôt est versionné sur GitHub, en **repository privé**. Deux workflows
 GitHub Actions sont présents :

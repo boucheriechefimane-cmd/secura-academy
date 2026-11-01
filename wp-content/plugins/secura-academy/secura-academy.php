@@ -113,6 +113,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/content-m3.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-universites.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-video.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-kahoot.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-schema.php';
 
 /**
  * Amorce le plugin.
@@ -134,6 +135,7 @@ final class Secura_Academy {
 		Secura_Dashboard::init();
 		Secura_Video::init();
 		Secura_Kahoot::init();
+		Secura_Schema::init();
 	}
 }
 
