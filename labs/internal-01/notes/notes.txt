@@ -1,0 +1,4 @@
+Nœud interne — archivage
+========================
+Ce nœud n'est accessible qu depuis le réseau du laboratoire.
+Le compte de service est manage par l'equipe exploitation.

@@ -33,21 +33,41 @@ WORKDIR /var/www/html
 
 COPY app/ /var/www/html/
 COPY flag/flag.txt /root/flag.txt
+COPY flag/ /root/flags/
 COPY notes/notes.txt /home/ctf/notes.txt
 
-RUN chown -R ctf:ctf /var/www/html /home/ctf \
+RUN mkdir -p /var/log/app /srv/app \
+    && chown -R ctf:ctf /var/www/html /home/ctf /var/log/app \
     && chmod 444 /root/flag.txt \
     && chown root:ctf /root/flag.txt \
+    && chmod 400 /root/flags/*.txt \
+    && chown root:root /root/flags/*.txt \
     && chmod 755 /root \
     && chmod +x /var/www/html/entrypoint.sh
+
+# Configuration interne de l'application : c'est ici qu'est le compte de
+# service, reutilise tel quel sur le noeud interne (scenario « pivot »).
+RUN mkdir -p /srv/app \
+    && printf '# Configuration interne — ne pas diffuser.\napp_user = admin\ndb_password = Intranet2019!\nproxy_tool = /proxy.php\n' > /srv/app/app.conf \
+    && chmod 644 /srv/app/app.conf \
+    && chown -R ctf:ctf /srv/app
 
 # La page d'accueil est servie par Apache.
 #
 # Port 8080 et non 80 : le conteneur tourne sans privileges (utilisateur
 # 1000, toutes les capacites retirees). Un port inferieur a 1024 exige
 # une capability speciale, que l'on ne veut pas ouvrir dans un lab.
+# Le site par defaut ecoute aussi sur le nouveau port, sinon Apache sert
+# une page vide sur 8080. Le site SSL par defaut (port 443) est desactive :
+# un port inferieur a 1024 est interdit sans privileges.
 RUN sed -i 's/^Listen 80$/Listen 8080/' /etc/apache2/ports.conf \
-    && sed -i 's/^Listen \[::\]:80$/Listen [::]:8080/' /etc/apache2/ports.conf
+    && sed -i 's/^Listen \[::\]:80$/Listen [::]:8080/' /etc/apache2/ports.conf \
+    && sed -i 's|<VirtualHost \*:80>|<VirtualHost *:8080>|' /etc/apache2/sites-available/000-default.conf \
+    && sed -i 's|<VirtualHost _default_:80>|<VirtualHost _default_:8080>|' /etc/apache2/sites-available/000-default.conf \
+    && a2dissite default-ssl \
+    && sed -i '/^[[:space:]]*Listen 443/d' /etc/apache2/ports.conf \
+    && printf 'ServerName localhost\n' > /etc/apache2/conf-available/secura-servername.conf \
+    && a2enconf secura-servername
 
 EXPOSE 8080
 

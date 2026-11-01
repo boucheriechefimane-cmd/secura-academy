@@ -19,4 +19,18 @@ cp /var/www/html/db.sqlite /var/www/html/backup/db.sqlite.bak
 # si le changement de proprietaire est refuse.
 chown -R ctf:ctf /var/www/html /home/ctf 2>/dev/null || true
 
-exec "$@"
+# Le serveur web est lance en arriere-plan AVANT la commande recue. Sans
+# cela, la commande de maintien en vie du plugin (sleep infinity)
+# remplacerait le serveur : la machine serait allumee mais ne repondrait
+# plus sur le port 8080.
+# Le dossier de journal peut ne pas exister (conteneur non root) :
+# on le cree si possible, sinon le journal part a la racine.
+mkdir -p /var/log/app 2>/dev/null || true
+apache2-foreground >/var/log/app/apache.log 2>&1 &
+WEB_PID=$!
+
+if [ "$#" -gt 0 ] && [ "$1" != "apache2-foreground" ]; then
+	exec "$@"
+fi
+
+wait "$WEB_PID"

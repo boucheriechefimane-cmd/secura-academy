@@ -108,8 +108,15 @@ supprimé avec la machine.
 cd /opt/secura-labs
 docker build -t securalabs/web-01:1.0 web-01
 docker build -t securalabs/bin-01:1.0 bin-01
+docker build -t securalabs/multi-01:1.0 multi-01
+docker build -t securalabs/internal-01:1.0 internal-01
 docker compose -f net-01/docker-compose.yml build
 ```
+
+> Les quatre images sont construites et testées **à chaque push** par la CI
+> GitHub Actions (`.github/workflows/labs.yml`), qui dispose de Docker. Le
+> script `scripts/test-labs-ci.sh` rejoue ensuite les dix scénarios M3 sur de
+> vrais conteneurs.
 
 ### 4.4 Port d'écoute : 8080 et non 80
 
@@ -192,7 +199,7 @@ est absent ou illisible.
 
 ---
 
-## 6. Les trois machines fournies
+## 6. Les cinq machines fournies
 
 ### 6.1 `labs/web-01` — application web vulnérable
 
@@ -210,11 +217,49 @@ est absent ou illisible.
   charge utile → shell → drapeau.
 - Drapeau : `SECURA{buffer_overflow}`.
 
-### 6.3 `labs/net-01` — réseau à deux nœuds
+### 6.3 `labs/net-01` — réseau à quatre nœuds
 
-- Trois services (`attacker`, `web`, `db`) + une cible interne (`internal`).
-- Parcours attendu :compromettre `web` → récupérer un accès à `internal` →
-  second drapeau. C'est l'introduction au **pivot**.
+- Quatre services (`attacker`, `web`, `db`, `internal`) répartis sur **deux
+  réseaux** : `seca_lab` (attaquant, web, base) et `backstage` (web, interne).
+- Parcours attendu : cartographier → trouver l'export du nœud `web` →
+  **pivoter** par l'outil de supervision du nœud web → se connecter à
+  `internal` avec le **mot de passe réutilisé** → second drapeau.
+- Le nœud `internal` est **invisible** depuis la machine de l'apprenant : ni
+  son nom ne se résout, ni son adresse ne répond. Le pivot n'est donc pas
+  décoratif, il est **nécessaire** (vérifié par la CI).
+
+### 6.4 `labs/multi-01` — la machine à plusieurs scénarios
+
+- Une seule image sert **sept scénarios** (triage, mot de passe oublié, XSS,
+  injection SQL, traversée de répertoire, journaux, TLS).
+- Contenu : application PHP + Apache (8080) et HTTPS (8443, certificat
+  auto-signé), base SQLite, sauvegarde oubliée dans `/var/backups/app`,
+  configuration dans `/srv/app/app.conf`, journal d'accès dans
+  `/var/log/app/access.log`, robot de supervision, page secrète uniquement
+  accessible en HTTPS.
+- Les fichiers de drapeau sont en `400 root:root` : **l'apprenant ne peut pas
+  les lire**, il doit les trouver par le travail (configuration, sauvegarde,
+  journal, page). Le serveur, lui, les lit en root.
+
+### 6.5 `labs/internal-01` — le nœud interne du pivot
+
+- Application d'archivage qui n'existe que sur ce nœud, avec son propre
+  système de fichiers.
+- Compte de service `admin` / mot de passe **réutilisé** depuis le nœud `web`
+  (c'est le message du scénario 8).
+- Drapeau : `SECURA{pivot_accompli}`.
+
+---
+
+## 6 ter. Ce qui a changé en v0.5.4 (les dix scénarios M3)
+
+| Défaut trouvé en faisant tourner les machines | Symptôme | Correction |
+|---|---|---|
+| Le journal d'Apache ne pouvait pas être écrit | Conteneur qui s'arrête aussitôt (« cannot create /var/log/app/apache.log ») | Le dossier `/var/log/app` est **créé à la construction** et donné à l'utilisateur du lab ; l'entréepoint le recrée s'il peut |
+| `COPY notes/ …` copiait un **dossier** | `cat /home/ctf/notes.txt` → « Is a directory » | `COPY notes/notes.txt …` : le **fichier** est copié |
+| Le binaire du scénario 9 n'était pas `setuid` | Le shell obtenu n'était pas root : le drapeau restait inaccessible | `chown root:root` + `chmod 4755` **après** le `chown -R` (sinon il est effacé) |
+| Le drapeau du scénario 10 ne correspondait pas | La page HTTPS annonçait un autre drapeau | `flag-10.txt` aligné sur `tls_not_proof` |
+| Le drapeau du pivot était lu dans le mauvais service | La validation échouait : le drapeau est sur `internal`, pas sur `attacker` | Nouvelle clé `flag_service` dans le manifeste : le serveur lit le drapeau **sur le bon nœud** |
 
 ---
 

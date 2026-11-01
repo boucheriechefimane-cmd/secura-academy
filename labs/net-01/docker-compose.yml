@@ -72,6 +72,7 @@ services:
       - /tmp:rw,noexec,nosuid,size=32m
     networks:
       - seca_lab
+      - backstage
     environment:
       - DB_HOST=db
 
@@ -104,9 +105,12 @@ services:
     entrypoint: ["/bin/bash", "-c"]
 
   internal:
-    image: securalabs/web-01:1.0
+    # Son propre systeme de fichiers : le drapeau n'existe que sur ce
+    # noeud. Il n'est joignable que depuis le reseau « backstage », partage
+    # avec le seul noeud « web » : c'est ce qui rend le pivot necessaire.
+    image: securalabs/internal-01:1.0
     build:
-      context: ../web-01
+      context: ../internal-01
     hostname: internal
     user: "1000:1000"
     labels:
@@ -125,13 +129,20 @@ services:
     tmpfs:
       - /tmp:rw,noexec,nosuid,size=16m
     networks:
-      - seca_lab
+      - backstage
     command: ["sleep infinity"]
     entrypoint: ["/bin/bash", "-c"]
 
 networks:
-  # Réseau sans sortie Internet : les conteneurs ne parlent qu'entre eux.
-  # Compose le préfixe par le nom du projet, donc un réseau par apprenant.
+  # Reseau sans sortie Internet : les conteneurs ne parlent qu'entre eux.
+  # Compose le prefixe par le nom du projet, donc un reseau par apprenant.
   seca_lab:
+    driver: bridge
+    internal: true
+
+  # Reseau « backstage » : seuls « web » et « internal » y sont.
+  # Le noeud interne n'est donc pas joignable depuis la machine de
+  # l'apprenant : il faut passer par le noeud « web » (pivot).
+  backstage:
     driver: bridge
     internal: true

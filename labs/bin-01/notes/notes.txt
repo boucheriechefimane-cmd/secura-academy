@@ -4,3 +4,8 @@ Le carnet de commandes plante quand on saisit un lot trop long.
 La version 0.9 est déployée sur les postes de l'accueil.
 
 La.libc du serveur est connue : `ldd vulnerable` donne la version.
+
+Le carnet de commandes est installé par l'équipe « postes de l'accueil »
+avec un droit particulier : `ls -l /home/ctf/vulnerable` montre un « s »
+en FACE DU GROUPE (mode setuid). Le programme tourne donc avec les droits
+de root, même si c'est l'utilisateur « ctf » qui le lance.

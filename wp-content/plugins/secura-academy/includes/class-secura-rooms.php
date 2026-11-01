@@ -24,6 +24,7 @@ final class Secura_Rooms {
 			'text'   => __( 'Reponse libre', 'seca-academy' ),
 			'choice' => __( 'Choix multiple (une seule bonne reponse)', 'seca-academy' ),
 			'action' => __( "Sans reponse (l'apprenant realise l'action)", 'seca-academy' ),
+			'flag'   => __( 'Drapeau (verifie dans la machine de l\'apprenant)', 'seca-academy' ),
 		);
 	}
 
@@ -155,7 +156,11 @@ final class Secura_Rooms {
 	public static function create_default_rooms() {
 		$order = 0;
 
-		foreach ( seca_default_rooms() as $room ) {
+		/* Les rooms de démonstration viennent d'abord, puis les dix
+		   scenarios M3 : ils forment le parcours « Scenarios M3 ». */
+		$rooms = array_merge( seca_default_rooms(), seca_default_rooms_m3() );
+
+		foreach ( $rooms as $room ) {
 			$post_id = wp_insert_post(
 				array(
 					'post_type'    => SECURA_POST_TYPE,
@@ -177,6 +182,10 @@ final class Secura_Rooms {
 			update_post_meta( $post_id, SECURA_META_DURATION, (int) $room['duration'] );
 			update_post_meta( $post_id, SECURA_META_XP_BONUS, (int) $room['xp_bonus'] );
 			update_post_meta( $post_id, SECURA_META_I18N, isset( $room['i18n'] ) ? $room['i18n'] : array() );
+
+			if ( ! empty( $room['track'] ) ) {
+				update_post_meta( $post_id, SECURA_META_TRACK, $room['track'] );
+			}
 
 			if ( ! empty( $room['lab'] ) ) {
 				update_post_meta( $post_id, '_secura_lab', $room['lab'] );
@@ -250,7 +259,7 @@ final class Secura_Rooms {
 
 					$mode = isset( $question['mode'] ) ? sanitize_key( $question['mode'] ) : 'text';
 
-					if ( ! in_array( $mode, array( 'text', 'choice', 'action' ), true ) ) {
+					if ( ! in_array( $mode, array( 'text', 'choice', 'action', 'flag' ), true ) ) {
 						$mode = 'text';
 					}
 
@@ -288,7 +297,20 @@ final class Secura_Rooms {
 
 					$correct = isset( $question['correct'] ) ? intval( $question['correct'] ) : -1;
 
-					if ( 'action' !== $mode && empty( $answers ) && empty( $choices ) ) {
+					/* Une question « drapeau » ne porte pas de reponse
+					   attendue : c'est le serveur qui va lire le fichier
+					   du drapeau dans la machine de l'apprenant. */
+					$flag_path = '';
+
+					if ( 'flag' === $mode ) {
+						$flag_path = isset( $question['flag_path'] ) ? Secura_Lab::safe_machine_path( $question['flag_path'] ) : '';
+					}
+
+					if ( 'action' !== $mode && 'flag' !== $mode && empty( $answers ) && empty( $choices ) ) {
+						continue;
+					}
+
+					if ( 'flag' === $mode && '' === $flag_path ) {
 						continue;
 					}
 
@@ -299,6 +321,7 @@ final class Secura_Rooms {
 					$questions[] = array(
 						'question'      => $text,
 						'mode'          => $mode,
+						'flag_path'     => $flag_path,
 						'answers'       => $answers,
 						'choices'       => $choices,
 						'correct'       => $correct,
@@ -546,6 +569,11 @@ final class Secura_Rooms {
 			<p>
 				<label><?php esc_html_e( 'Service à attaquer', 'seca-academy' ); ?></label>
 				<input type="text" class="large-text" name="secura_lab[service]" value="<?php echo esc_attr( $manifest['service'] ); ?>" placeholder="web" />
+			</p>
+
+			<p>
+				<label><?php esc_html_e( 'Service où se trouve le fichier de drapeau (laisser vide si c\'est le même)', 'seca-academy' ); ?></label>
+				<input type="text" class="large-text" name="secura_lab[flag_service]" value="<?php echo esc_attr( $manifest['flag_service'] ); ?>" placeholder="internal" />
 			</p>
 
 			<p>
@@ -1049,6 +1077,7 @@ final class Secura_Rooms {
 			'mode'    => isset( $raw_lab['mode'] ) ? sanitize_key( $raw_lab['mode'] ) : 'single',
 			'image'   => isset( $raw_lab['image'] ) ? sanitize_text_field( $raw_lab['image'] ) : '',
 			'service' => isset( $raw_lab['service'] ) ? sanitize_text_field( $raw_lab['service'] ) : '',
+			'flag_service' => isset( $raw_lab['flag_service'] ) ? sanitize_text_field( $raw_lab['flag_service'] ) : '',
 			'compose' => isset( $raw_lab['compose'] ) ? sanitize_text_field( $raw_lab['compose'] ) : '',
 			'project' => isset( $raw_lab['project'] ) ? sanitize_key( $raw_lab['project'] ) : '',
 			'network' => isset( $raw_lab['network'] ) ? sanitize_text_field( $raw_lab['network'] ) : 'seca_lab',

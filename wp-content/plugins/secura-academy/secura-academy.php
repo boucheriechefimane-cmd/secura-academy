@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.5.3
+ * Version:           0.5.4
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,11 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.5.4 — Les dix scénarios M3 : missions vérifiées sur une vraie machine
+ *   (le serveur lit le drapeau dans le conteneur de l'apprenant, en root),
+ *   vrais QCM à une seule bonne réponse, machines multi-01 et internal-01,
+ *   parcours « Scénarios M3 », audit honnête (docs/SCENARIOS-M3.md).
  *
  * 0.5.3 — Machines réellement lancées (runtime rootless) + recette serveur
  * 0.5.2 — Corrections trouvées en conditions réelles (WordPress 7.1 + lab Docker)
@@ -41,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.5.3' );
+define( 'SECURA_ACADEMY_VERSION', '0.5.4' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
@@ -54,6 +59,7 @@ define( 'SECURA_META_DIFFICULTY', '_secura_difficulty' );
 define( 'SECURA_META_DURATION', '_secura_duration' );
 define( 'SECURA_META_XP_BONUS', '_secura_xp_bonus' );
 define( 'SECURA_META_I18N', '_secura_i18n' );
+define( 'SECURA_META_TRACK', '_secura_track' );
 define( 'SECURA_META_PATH_SECTIONS', '_secura_path_sections' );
 define( 'SECURA_META_PATH_I18N', '_secura_path_i18n' );
 define( 'SECURA_USER_XP', 'secura_xp' );
@@ -77,6 +83,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-settings.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-ajax.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-dashboard.php';
 require_once SECURA_ACADEMY_PATH . 'includes/default-content.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-m3.php';
 
 /**
  * Amorce le plugin.

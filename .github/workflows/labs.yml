@@ -35,6 +35,8 @@ jobs:
         run: |
           docker build -t securalabs/web-01:1.0 labs/web-01
           docker build -t securalabs/bin-01:1.0 labs/bin-01
+          docker build -t securalabs/multi-01:1.0 labs/multi-01
+          docker build -t securalabs/internal-01:1.0 labs/internal-01
           docker compose -f labs/net-01/docker-compose.yml build
 
       - name: Tester les machines (isolation, drapeaux, pile reseau)

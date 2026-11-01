@@ -74,6 +74,7 @@ class Secura_Lab {
 			'mode'     => 'single',
 			'image'    => '',
 			'service'  => '',
+			'flag_service' => '',
 			'compose'  => '',
 			'project'  => '',
 			'network'  => 'seca_lab',
@@ -97,7 +98,8 @@ class Secura_Lab {
 		$manifest['driver']  = in_array( isset( $raw['driver'] ) ? $raw['driver'] : '', array( 'auto', 'docker', 'simulated' ), true ) ? $raw['driver'] : 'auto';
 		$manifest['mode']    = in_array( isset( $raw['mode'] ) ? $raw['mode'] : '', array( 'single', 'compose' ), true ) ? $raw['mode'] : 'single';
 		$manifest['image']   = isset( $raw['image'] ) ? trim( (string) $raw['image'] ) : '';
-		$manifest['service'] = isset( $raw['service'] ) ? trim( (string) $raw['service'] ) : '';
+		$manifest['service']  = isset( $raw['service'] ) ? trim( (string) $raw['service'] ) : '';
+		$manifest['flag_service'] = isset( $raw['flag_service'] ) ? trim( (string) $raw['flag_service'] ) : '';
 		$manifest['compose'] = self::resolve_path( isset( $raw['compose'] ) ? $raw['compose'] : '' );
 		$manifest['project'] = isset( $raw['project'] ) ? trim( (string) $raw['project'] ) : '';
 		$manifest['network'] = isset( $raw['network'] ) && '' !== trim( (string) $raw['network'] ) ? trim( (string) $raw['network'] ) : 'seca_lab';
@@ -640,6 +642,114 @@ class Secura_Lab {
 	 * @param string $command Commande.
 	 * @return array
 	 */
+	/**
+	 * Lit un fichier de la machine de l'apprenant (drapeau, par exemple).
+	 *
+	 * Le serveur lit le fichier DANS la machine de l'apprenant : le
+	 * drapeau attendu ne quitte jamais le serveur, et l'apprenant ne
+	 * peut pas valider l'etape sans l'avoir reellement trouve.
+	 *
+	 * @param int    $user_id  Identifiant de l'apprenant.
+	 * @param int    $room_id  Identifiant de la room.
+	 * @param string $path     Chemin du fichier dans la machine.
+	 * @return string Contenu du fichier (chaîne vide si illisible).
+	 */
+	public static function read_file( $user_id, $room_id, $path ) {
+		$path = self::safe_machine_path( $path );
+
+		if ( '' === $path ) {
+			return '';
+		}
+
+		$manifest = self::get_manifest( $room_id );
+		$status   = self::status( $user_id, $room_id );
+
+		if ( 'docker' !== $status['driver'] || 'running' !== $status['state'] ) {
+			return '';
+		}
+
+		/* La lecture se fait en root dans le conteneur : le fichier de
+		   reponse n'est pas lisible par l'apprenant (400 root), seule la
+		   machine elle-meme y accede. */
+		if ( 'compose' === $manifest['mode'] ) {
+			/* Le drapeau peut vivre sur un AUTRE service de la pile
+			   (c'est le cas du pivot : le secret est sur le noeud
+			   interne, pas sur la machine de l'apprenant). */
+			$flag_service = '' !== $manifest['flag_service'] ? $manifest['flag_service'] : $manifest['service'];
+
+			$line = self::compose_command(
+				$manifest,
+				array( 'exec', '-T', '-u', '0', $flag_service, 'cat', $path ),
+				$user_id,
+				$room_id
+			);
+		} else {
+			$line = array(
+				'docker',
+				'exec',
+				'-u',
+				'0',
+				self::container_name( $user_id, $room_id ),
+				'cat',
+				$path,
+			);
+		}
+
+		$result = self::run( $line, 15 );
+
+		if ( 0 !== $result['code'] ) {
+			return '';
+		}
+
+		return trim( (string) $result['output'] );
+	}
+
+	/**
+	 * Verifie que le drapeaux propose par l'apprenant est bien celui de
+	 * sa machine.
+	 *
+	 * @param int    $user_id  Identifiant de l'apprenant.
+	 * @param int    $room_id  Identifiant de la room.
+	 * @param string $path     Chemin du fichier de drapeau.
+	 * @param string $answer   Drapeau propose par l'apprenant.
+	 * @return bool
+	 */
+	public static function flag_matches( $user_id, $room_id, $path, $answer ) {
+		$answer = trim( (string) $answer );
+		$real   = self::read_file( $user_id, $room_id, $path );
+
+		if ( '' === $real || '' === $answer ) {
+			return false;
+		}
+
+		return 0 === strcasecmp( $real, $answer );
+	}
+
+	/**
+	 * Un chemin de fichier de drapeau doit etre absolu et sans caractere
+	 * dangerous : le plugin l'execute dans la machine de l'apprenant.
+	 *
+	 * @param string $path Chemin propose.
+	 * @return string Chemin accepte (chaîne vide si refuse).
+	 */
+	public static function safe_machine_path( $path ) {
+		$path = trim( (string) $path );
+
+		if ( '' === $path || '/' !== substr( $path, 0, 1 ) ) {
+			return '';
+		}
+
+		if ( ! preg_match( '#^/[A-Za-z0-9._/-]+$#', $path ) ) {
+			return '';
+		}
+
+		if ( false !== strpos( $path, '..' ) ) {
+			return '';
+		}
+
+		return $path;
+	}
+
 	public static function exec( $user_id, $room_id, $command ) {
 		$command = trim( (string) $command );
 

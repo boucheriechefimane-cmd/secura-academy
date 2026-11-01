@@ -989,11 +989,13 @@ function seca_default_rooms() {
 /**
  * Parcours de démonstration.
  *
- * @param array $room_ids Identifiants des rooms créées, dans l'ordre.
+ * @param array $room_ids     Identifiants des rooms de démonstration, dans l'ordre.
+ * @param array $m3_room_ids  Identifiants des rooms M3 (dix scénarios), dans l'ordre.
  * @return array
  */
-function seca_default_paths( $room_ids ) {
-	$room_ids = array_values( array_map( 'absint', (array) $room_ids ) );
+function seca_default_paths( $room_ids, $m3_room_ids = array() ) {
+	$room_ids     = array_values( array_map( 'absint', (array) $room_ids ) );
+	$m3_room_ids  = array_values( array_map( 'absint', (array) $m3_room_ids ) );
 
 	$paths = array(
 		array(
@@ -1052,6 +1054,64 @@ function seca_default_paths( $room_ids ) {
 						array( 'title' => 'Module 4: Memory and defenses' ),
 						array( 'title' => 'Module 5: Authentication' ),
 						array( 'title' => 'Module 6: Encryption and HTTPS' ),
+					),
+				),
+			),
+		),
+		/* --------------------------------------------------------------
+		 * Parcours « Scénarios M3 » : dix missions réelles, une par
+		 * semaine, chacune vérifiée sur une vraie machine.
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Scénarios M3 : dix missions réelles',
+			'excerpt'    => 'Dix situations de travail (serveur en panne, mot de passe oublié, page trahie, injection SQL, sauvegarde oubliée, journaux, ports, pivot, binaire, certificat). Chaque mission se valide sur une vraie machine : le serveur vérifie le drapeau dans ton conteneur.',
+			'content'    => 'Ce parcours ne se valide pas à la lecture. À chaque mission, tu déploies une machine, tu fais le travail, et tu rapportes une preuve : le drapeau. Le serveur va le lire dans ta machine — copier la réponse d\'autre part ne suffit pas.',
+			'difficulty' => 'moyen',
+			'duration'   => 300,
+			'xp_bonus'   => 250,
+			'sections'   => array(
+				array(
+					'title' => 'Module 1 : Triage et secrets (scénarios 1 et 2)',
+					'rooms' => array_slice( $m3_room_ids, 0, 2 ),
+				),
+				array(
+					'title' => 'Module 2 : Le web se trahit (scénarios 3 et 4)',
+					'rooms' => array_slice( $m3_room_ids, 2, 2 ),
+				),
+				array(
+					'title' => 'Module 3 : Fichiers et journaux (scénarios 5 et 6)',
+					'rooms' => array_slice( $m3_room_ids, 4, 2 ),
+				),
+				array(
+					'title' => 'Module 4 : Réseau et pivot (scénarios 7 et 8)',
+					'rooms' => array_slice( $m3_room_ids, 6, 2 ),
+				),
+				array(
+					'title' => 'Module 5 : Mémoire et TLS (scénarios 9 et 10)',
+					'rooms' => array_slice( $m3_room_ids, 8, 2 ),
+				),
+			),
+			'i18n'       => array(
+				'ar' => array(
+					'title'   => 'سيناريوهات M3: عشر مهام حقيقية',
+					'excerpt' => 'عشر مواقف من العمل الحقيقي، كل واحدة منها تُتحقَّق على آلة حقيقية: يقرأ الخادم العلم داخل حاويتك.',
+					'sections' => array(
+						array( 'title' => 'الوحدة 1: الفرز والأسرار (السيناريو 1 و 2)' ),
+						array( 'title' => 'الوحدة 2: الويب يخون (السيناريو 3 و 4)' ),
+						array( 'title' => 'الوحدة 3: الملفات والسجلات (السيناريو 5 و 6)' ),
+						array( 'title' => 'الوحدة 4: الشبكة والانعطافة (السيناريو 7 و 8)' ),
+						array( 'title' => 'الوحدة 5: الذاكرة و TLS (السيناريو 9 و 10)' ),
+					),
+				),
+				'en' => array(
+					'title'   => 'M3 scenarios: ten real missions',
+					'excerpt' => 'Ten real-life situations, each validated on a real machine: the server reads the flag inside your container.',
+					'sections' => array(
+						array( 'title' => 'Module 1: Triage and secrets (scenarios 1 and 2)' ),
+						array( 'title' => 'Module 2: The web gives itself away (scenarios 3 and 4)' ),
+						array( 'title' => 'Module 3: Files and logs (scenarios 5 and 6)' ),
+						array( 'title' => 'Module 4: Network and pivot (scenarios 7 and 8)' ),
+						array( 'title' => 'Module 5: Memory and TLS (scenarios 9 and 10)' ),
 					),
 				),
 			),

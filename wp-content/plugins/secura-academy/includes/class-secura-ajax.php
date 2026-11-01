@@ -357,6 +357,15 @@ final class Secura_Ajax {
 			/* Question sans reponse : l'apprenant declare avoir realise
 			   l'action. Le serveur verifie l'etat reel du terminal. */
 			$correct = Secura_Progress::action_completed( $user_id, $room_id, $index, $question );
+		} elseif ( 'flag' === $mode ) {
+			/* Le drapeau est lu dans la machine de l'apprenant : on ne
+			   peut pas valider l'etape sans l'avoir vraiment trouve. */
+			$correct = Secura_Lab::flag_matches(
+				$user_id,
+				$room_id,
+				isset( $question['flag_path'] ) ? $question['flag_path'] : '',
+				$answer
+			);
 		} elseif ( 'choice' === $mode ) {
 			$expected = isset( $question['choices'][ (int) $question['correct'] ] ) ? $question['choices'][ (int) $question['correct'] ] : '';
 			$correct  = ( '' !== $expected ) && Secura_Progress::answer_matches( $answer, array( $expected ) );

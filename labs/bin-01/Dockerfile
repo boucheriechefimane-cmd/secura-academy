@@ -10,6 +10,11 @@
 #   - pas d'ASLR             (-no-pie)
 #   - pas de NX sur la pile  (-z execstack)
 #
+# Il est en plus installé en setuid root (bit « s » du ls -l) : le shell
+# obtenu par débordement de tampon est donc un shell root, ce qui permet
+# de lire /root/flag.txt (400 root:root). Le scénario 9 « Le binaire qui
+# obéit trop » explique ce mécanisme.
+#
 # ⚠ Ce binaire est FAIBLE PAR CONSTRUCTION. Il ne doit jamais être déployé
 #   ailleurs que dans un lab isolé.
 
@@ -42,11 +47,14 @@ COPY notes/notes.txt /home/ctf/notes.txt
 RUN cd /home/ctf/src \
     && make \
     && cp vulnerable /home/ctf/vulnerable \
-    && chmod 755 /home/ctf/vulnerable \
-    && chmod 444 /root/flag.txt \
-    && chown root:ctf /root/flag.txt \
+    && chmod 400 /root/flag.txt \
+    && chown root:root /root/flag.txt \
     && chmod 755 /root \
-    && chown -R ctf:ctf /home/ctf
+    && chown -R ctf:ctf /home/ctf \
+    # Le binaire est setuid root : c'est le point pedagogique du scenario.
+    # Le chown recursif doit donc avoir lieu AVANT (sinon il efface root).
+    && chown root:root /home/ctf/vulnerable \
+    && chmod 4755 /home/ctf/vulnerable
 
 USER ctf
 

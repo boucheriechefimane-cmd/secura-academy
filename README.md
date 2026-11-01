@@ -53,6 +53,7 @@ secura-academy/
 │   │   ├── secura-academy.php              # Amorçage, constantes, chargement des modules
 │   │   ├── includes/
 │   │   │   ├── default-content.php         # 6 rooms × 4 tâches + 2 parcours + traductions AR/EN
+│   │   │   ├── content-m3.php               # 10 scénarios M3 × 4 tâches (missions à drapeaux)
 │   │   │   ├── class-secura-i18n.php       # Langues FR/AR/EN, direction RTL, traduction du contenu
 │   │   │   ├── class-secura-rooms.php      # CPT `secura_room`, méta-box tâches + traductions
 │   │   │   ├── class-secura-paths.php      # CPT `secura_path`, sections, progression, certificat
@@ -83,7 +84,7 @@ secura-academy/
 ├── .github/workflows/ci.yml                 # Lint PHP + tests + espaces fin de ligne
 ├── .github/workflows/deploy.yml             # Déploiement vers WordPress (rsync + sauvegarde)
 ├── scripts/deploy.sh                       # Script de déploiement appelé par le workflow
-├── tests/smoke-test.php                    # 226 assertions sur la logique serveur
+├── tests/smoke-test.php                    # 243 assertions sur la logique serveur
 ├── docs/
 │   ├── ROADMAP.md                          # CONSTITUTION du projet (source de vérité, revue à chaque session)
 │   ├── AUDIT-EXPERIENCE-APPRENANT.md      # Audit UX apprenant + comparaison THM + alignement MIT
@@ -115,8 +116,9 @@ secura-academy/
 2. Copier `wp-content/themes/secura-learning` dans le dossier `themes/`.
 3. Dans l'admin WordPress : **Extensions → Activer** « Secura Academy », puis
    **Apparence → Thèmes → Activer** « Secura Learning ».
-4. L'activation crée automatiquement **6 rooms** (4 tâches chacune) et **1 parcours**
-   en 6 modules, avec leurs traductions arabes et anglaises.
+4. L'activation crée automatiquement **16 rooms** (4 tâches chacune) et **2 parcours** :
+   les *Fondations* (6 rooms, 6 modules) et les *Scénarios M3* (10 missions réelles,
+   5 modules), avec leurs traductions arabes et anglaises.
 
 ### Via l'admin WordPress
 
@@ -156,7 +158,7 @@ rappeler une commande, `Ctrl+C` pour abandonner la ligne en cours).
   - La complétion d'une room verse un bonus XP et une médaille.
   - Animation de passage de niveau et confettis à la complétion d'une room.
 
-### Les 6 rooms livrées
+### Les 6 rooms de fondations
 
 | # | Room | Difficulté | Durée | Bonus |
 |---|---|---|---|---|
@@ -170,6 +172,27 @@ rappeler une commande, `Ctrl+C` pour abandonner la ligne en cours).
 > Ces contenus sont des exercices originaux d'introduction. Ce n'est **ni** un cours MIT,
 > **ni** une adaptation autorisée de supports MIT, **ni** une reproduction de contenus
 > TryHackMe. Voir `docs/PASSATION-SECURA-ARENA.md` pour le cadrage des références.
+
+### Les 10 scénarios M3 (missions vérifiées sur une vraie machine)
+
+| # | Scénario | Difficulté | Durée | Bonus |
+|---|---|---|---|---|
+| 01 | Le service qui ne répond plus (triage) | Facile | 25 min | 30 XP |
+| 02 | Le mot de passe oublié (secret en clair) | Facile | 20 min | 25 XP |
+| 03 | La page qui se trahit (XSS + robot) | Moyen | 30 min | 40 XP |
+| 04 | La requête qui ne se fie à personne (injection SQL) | Moyen | 30 min | 40 XP |
+| 05 | Le fichier qu'on n'aurait pas dû laisser (traversée) | Moyen | 25 min | 35 XP |
+| 06 | Qui a forcé la porte ? (journaux) | Moyen | 25 min | 35 XP |
+| 07 | Le réseau qui parle trop (ports, cartographie) | Moyen | 30 min | 40 XP |
+| 08 | Traverser le mur (pivot) | Difficile | 40 min | 60 XP |
+| 09 | Le binaire qui obéit trop (mémoire) | Difficile | 40 min | 60 XP |
+| 10 | Le certificat qui ne prouve rien (TLS) | Difficile | 35 min | 55 XP |
+
+Chaque mission se termine par une **preuve** : le serveur va lire le drapeau
+**dans la machine de l'apprenant** (en root) et compare. Recopier une réponse
+n'est pas possible. L'audit complet (difficulté par étape, ce que les tests
+prouvent ou non, alignement MIT, cours externes) est dans
+[`docs/SCENARIOS-M3.md`](docs/SCENARIOS-M3.md).
 
 ## Le modèle de tâches
 
@@ -339,15 +362,17 @@ machine** : un conteneur Docker éphémère, isolé, propre à un apprenant.
 
 Le contrat AJAX ne change pas : c'est le serveur qui choisit le pilote. Trois
 machines sont fournies prêtes à construire (`labs/`) : une application web avec
-injection SQL, un binaire C avec dépassement de tampon, et un réseau à deux
-nœuds pour apprendre le pivot. **Les 3 rooms de démonstration correspondantes
+injection SQL, un binaire C avec dépassement de tampon, un réseau à deux
+nœuds pour apprendre le pivot, une machine multi-usages (`multi-01`) qui sert
+sept scénarios, et le nœud interne (`internal-01`) du pivot. **Les 16 rooms
 sont déjà branchées** ; le réglage se fait dans l'admin, ou dans
 **Réglages → Secura Academy** (dossier des labs, first blood). Tout est
 détaillé dans [`docs/labs.md`](docs/labs.md).
 
-> **À vérifier avant l'ouverture au public** : construction des images et test
-> « deux apprenants en parallèle » sur un hôte Docker réel (le bac à sable de
-> développement n'a pas de démon Docker).
+> **Déjà vérifié** : la construction des images et le test « deux apprenants
+> en parallèle » sont rejoués **à chaque push** par GitHub Actions, qui dispose
+> de Docker (`scripts/test-labs-ci.sh`, 42 contrôles : isolation, drapeaux,
+> pile réseau, rejeu des 10 scénarios M3).
 
 > ⚠ Docker reste un surface d'attaque majeure : un utilisateur autorisé à
 > parler au socket Docker peut prendre l'hôte. Sur mutualisé, on garde le mode

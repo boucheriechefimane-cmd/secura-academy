@@ -84,7 +84,20 @@ final class Secura_Paths {
 			)
 		);
 
-		$paths = seca_default_paths( $rooms );
+		/* Les rooms M3 (marquees par la meta « track ») sont regroupees
+		   dans un parcours a part : dix missions, dans l'ordre. */
+		$demo_rooms = array();
+		$m3_rooms   = array();
+
+		foreach ( $rooms as $room_id ) {
+			if ( 'm3' === get_post_meta( $room_id, SECURA_META_TRACK, true ) ) {
+				$m3_rooms[] = $room_id;
+			} else {
+				$demo_rooms[] = $room_id;
+			}
+		}
+
+		$paths = seca_default_paths( $demo_rooms, $m3_rooms );
 		$order = 0;
 
 		foreach ( $paths as $path ) {
