@@ -130,6 +130,23 @@ wp eval 'Secura_Rooms::activate();' >/dev/null
 # RGPD a trouve, en CI, que les pages legales n'existaient pas.
 wp eval 'Secura_Site::install();' >/dev/null
 
+# Verification explicite : on ne suppose jamais que l'installation a
+# reussi, on le montre. Ce controle a permis de trouver le piege
+# WP-CLI : les pages legales n'etaient creees que sur un vrai serveur
+# web (ou une variable globale existe), jamais en ligne de commande
+# (ou WP-CLI charge WordPress dans une portee de fonction). Un
+# workflow qui echoue doit toujours dire pourquoi.
+say "3 bis. Les pages legales sont-elles publiees ?"
+
+if ! wp eval-file "$REPO_DIR/scripts/verifier-pages-legales.php"; then
+	echo "  ERREUR : les pages legales ne sont pas publiees." >&2
+	echo "  L'installation du site a echoue : les pages « politique de" >&2
+	echo "  confidentialite » et « mentions legales » doivent exister et" >&2
+	echo "  etre publiees — une plateforme qui accueille des mineurs doit" >&2
+	echo "  dire ce qu'elle collecte et qui l'edite (RGPD)." >&2
+	exit 1
+fi
+
 # Notre theme (et non celui de WordPress) et le pack de langue arabe :
 # sans le pack, WordPress ne sait pas que l'arabe s'ecrit de droite a
 # gauche, et la page arabe ne se met pas en RTL.

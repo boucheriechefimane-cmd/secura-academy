@@ -3,15 +3,15 @@
     "titre": "Audit externe — Développement technique",
     "expert": "",
     "perimetre": "",
-    "date": "2026-11-01T20:30:54+00:00",
-    "ok": 16,
+    "date": "2026-11-01T22:17:33+00:00",
+    "ok": 18,
     "non_etaye": 0,
     "forces": [],
     "scenarios": [],
     "bloquant": 0,
     "majeur": 0,
     "mineur": 0,
-    "info": 2,
+    "info": 3,
     "constats": [
         {
             "libelle": "volume de code examine",
@@ -23,6 +23,13 @@
         {
             "libelle": "resultat des tests internes",
             "detail": "---------------------------------------------- | Résultat : 302 test(s) réussi(s), 0 échec(s).",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Pourquoi ce controle existe",
+            "detail": "Le 01/11/2026, la CI a echoue sur un constat RGPD bloquant : les pages legales n existaient pas. La cause : le plugin rangeait les textes legaux dans une variable globale. Or WP-CLI charge WordPress dans une portee de fonction, ou une variable globale de plugin n existe pas. Tout fonctionnait donc sur un vrai serveur web (recette manuelle), et rien ne fonctionnait en ligne de commande. Le correctif : une fonction, qui existe dans tous les contextes ; et une verification explicite dans scripts/ci-wordpress.sh, qui echoue bruyamment — en disant pourquoi — si les pages legales ne sont pas publiees.",
             "gravite": "info",
             "preuve": "",
             "etaye": false

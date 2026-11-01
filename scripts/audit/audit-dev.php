@@ -376,4 +376,89 @@ audit_verifier(
 	sprintf( 'recette : %s', implode( ', ', $actions_test ) )
 );
 
+/* ------------------------------------------------------------------ */
+echo "\n10. Le code s'appuie-t-il sur des variables globales ? (le piège WP-CLI)\n";
+
+/* WP-CLI charge WordPress dans une PORTEE DE FONCTION
+   (Runner::load_wordpress). Une variable globale definie par un plugin
+   n'y existe donc pas : le code qui compte dessus fonctionne sur un
+   vrai serveur web, et nulle part ailleurs. C'est exactement comme
+   cela que les pages legales n'etaient creees que sur le web, et
+   jamais dans la CI — ou tout passe par WP-CLI.
+
+   Deux verifications : aucun « global $… » dans le code livre, et les
+   textes legaux sont bien atteignables par une fonction, qui elle
+   fonctionne dans tous les contextes. */
+
+/* Les globales que WordPress — et WP-CLI — fournissent reellement :
+   « global $wpdb; » est normal et fonctionne dans tous les contextes.
+   Ce qu'on interdit, c'est de lire une variable globale que le PLUGIN
+   lui-meme aurait definie : celle-la n'existe pas sous WP-CLI. */
+$globales_wordpress = array(
+	'wpdb', 'wp', 'wp_query', 'wp_rewrite', 'wp_roles', 'wp_scripts', 'wp_styles',
+	'wp_version', 'wp_db_version', 'post', 'posts', 'blog_id', 'site_id', 'current_site',
+	'current_blog', 'public', 'path', 'shortcode_tags', 'table_prefix', 'user_ID',
+	'current_user', 'authordata', 'pagenow', 'id', 'page', 'pages', 'multipage', 'more',
+);
+
+$globals_utilisees = array();
+
+foreach ( $fichiers as $fichier ) {
+	$numero = 0;
+
+	foreach ( file( $fichier ) as $ligne ) {
+		$numero++;
+
+		if ( preg_match_all( '/\bglobal\s+\$([a-zA-Z_][a-zA-Z0-9_]*)/', $ligne, $m ) ) {
+			foreach ( $m[1] as $nom ) {
+				if ( in_array( $nom, $globales_wordpress, true ) ) {
+					continue;
+				}
+
+				$globals_utilisees[] = basename( $fichier ) . ' ligne ' . $numero . ' : global $' . $nom;
+			}
+		}
+	}
+}
+
+audit_verifier(
+	'le code livre ne lit aucune variable globale definie par le plugin',
+	empty( $globals_utilisees ),
+	empty( $globals_utilisees )
+		? ''
+		: implode( ' | ', array_slice( $globals_utilisees, 0, 3 ) ),
+	'bloquant',
+	sprintf(
+		'%d fichiers PHP analyses (plugin et theme) : aucune lecture d une variable globale du plugin — une telle variable n existe pas sous WP-CLI, qui charge WordPress dans une portee de fonction. Les globales de WordPress lui-meme ($wpdb, $wp_query…) sont autorisees et fonctionnent partout.',
+		count( $fichiers )
+	)
+);
+
+$textes_legaux = function_exists( 'seca_textes_legaux' ) ? seca_textes_legaux() : array();
+$textes_legaux = is_array( $textes_legaux ) ? $textes_legaux : array();
+
+$slugs_attendus = array( 'politique-de-confidentialite', 'mentions-legales' );
+
+audit_verifier(
+	'les textes des pages legales sont atteignables par une fonction (donc dans tous les contextes)',
+	! empty( $textes_legaux ) && empty( array_diff( $slugs_attendus, array_keys( $textes_legaux ) ) ),
+	'Textes trouves : ' . ( empty( $textes_legaux ) ? 'aucun' : implode( ', ', array_keys( $textes_legaux ) ) ),
+	'bloquant',
+	sprintf(
+		'seca_textes_legaux() renvoie %d page(s) : %s — donc accessibles aussi bien en ligne de commande que sur un serveur web.',
+		count( $textes_legaux ),
+		implode( ', ', array_keys( $textes_legaux ) )
+	)
+);
+
+audit_info(
+	'Pourquoi ce controle existe',
+	'Le 01/11/2026, la CI a echoue sur un constat RGPD bloquant : les pages legales n existaient pas. '
+	. 'La cause : le plugin rangeait les textes legaux dans une variable globale. Or WP-CLI charge WordPress '
+	. 'dans une portee de fonction, ou une variable globale de plugin n existe pas. Tout fonctionnait donc sur '
+	. 'un vrai serveur web (recette manuelle), et rien ne fonctionnait en ligne de commande. '
+	. 'Le correctif : une fonction, qui existe dans tous les contextes ; et une verification explicite dans '
+	. 'scripts/ci-wordpress.sh, qui echoue bruyamment — en disant pourquoi — si les pages legales ne sont pas publiees.'
+);
+
 exit( audit_fin() );

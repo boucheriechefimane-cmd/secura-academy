@@ -18,10 +18,10 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 
 | # | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Verdict |
 |---|---|---|---|---|---|---|
-| 1 | SEO | 45 | 0 | 0 | 0 | **Conforme** |
+| 1 | SEO | 44 | 0 | 0 | 0 | **Conforme** |
 | 2 | Contenu | 18 | 0 | 0 | 0 | **Conforme** |
 | 3 | UX / UI | 16 | 0 | 0 | 0 | **Conforme** |
-| 4 | Développement | 16 | 0 | 0 | 0 | **Conforme** |
+| 4 | Développement | 18 | 0 | 0 | 0 | **Conforme** |
 | 5 | Sécurité & infra | 25 | 0 | 0 | 0 | **Conforme** |
 | 6 | **Pédagogie** | 12 | 0 | 0 | 0 | **Conforme** |
 | 7 | **Performance & Core Web Vitals** | 6 | 0 | 0 | 0 | **Conforme** |
@@ -33,7 +33,7 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 13 | **Onboarding** | 9 | 0 | 0 | 0 | **Conforme** |
 | 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | **Conforme** |
 | 15 | **DevOps & résilience** | 10 | 0 | 0 | 0 | **Conforme** |
-| | **Total** | **199** | **0** | **0** | **0** | **Conforme** |
+| | **Total** | **200** | **0** | **0** | **0** | **Conforme** |
 
 > Les 15 auditeurs produisent chacun **trois formats** de rapport dans
 > `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
@@ -221,6 +221,89 @@ la page ; remis à l'endroit, il repasse au vert.
 
 ---
 
+### 2 quinquies. Le piège WP-CLI : les pages légales qui n'existaient qu'à moitié (01/11/2026, v0.8.2)
+
+**Le symptôme.** Le workflow « Audit externe » est tombé rouge sur un
+constat **bloquant** de l'auditeur RGPD :
+
+> Politique de confidentialité (statut : **draft**) | Mentions légales
+> (**aucune page** « mentions-legales »)
+
+Autrement dit : sur un site installé **en ligne de commande**, les deux
+pages que la loi impose à une plateforme accueillant des mineurs
+n'existaient pas. La recette manuelle, elle, les montrait bien.
+
+**La cause — un contexte, pas une faute de logique.** Le plugin rangeait
+les textes légaux dans une **variable globale**
+(`$secura_pages_legales`). Or **WP-CLI charge WordPress à l'intérieur
+d'une fonction** (`WP_CLI\Runner::load_wordpress()`) : une variable
+globale définie par un plugin n'y existe pas. WordPress lui-même le
+dit, en tête de `wp-settings.php` :
+
+```php
+global $wp_version, $wp_db_version, $tinymce_version, … ;   // les seules globales
+```
+
+et WP-CLI le répète dans son propre code :
+
+```php
+// Globals not explicitly globalized in WordPress
+global $site_id, $wpdb, $public, $current_site, $current_blog, $path, $shortcode_tags;
+```
+
+**La preuve, mesurée** (et non supposée) :
+
+| Mesure | Résultat |
+|---|---|
+| `class_exists( 'Secura_Site' )` sous WP-CLI | **vrai** — le plugin est bien chargé |
+| `isset( $GLOBALS['secura_pages_legales'] )` sous WP-CLI | **faux** — la variable n'existe pas |
+| Même installation, servie par un vrai serveur web | les pages légales ** existent** |
+| Base neuve + installation en ligne de commande | pages légales **absentes** (le défaut rejoué) |
+
+**Pourquoi la recette manuelle ne l'avait pas vu.** Sur un serveur web,
+une variable de plugin est bien globale : tout fonctionnait. En CI,
+tout passe par WP-CLI : rien ne fonctionnait. **Le défaut ne vivait
+que dans un contexte** — et la recette jouait toujours dans l'autre.
+
+**Le traitement.**
+
+| Correction | Fichier |
+|---|---|
+| Les textes passent par une **fonction** (`seca_textes_legaux()`), qui existe dans tous les contextes — web, WP-CLI, cron, tests | `wp-content/plugins/secura-academy/secura-academy.php`, `includes/class-secura-site.php` |
+| L'installation est **vérifiée explicitement** : si les pages légales ne sont pas publiées, le script s'arrête en disant pourquoi | `scripts/verifier-pages-legales.php`, `scripts/ci-wordpress.sh` |
+
+**Les garde-fous (testés dans les deux sens).**
+
+1. `scripts/ci-wordpress.sh` affiche l'état des deux pages après
+   l'installation et **échoue bruyamment** si l'une manque ou n'est pas
+   publiée. Reproduit volontairement (textes vidés), le contrôle sort en
+   erreur en nommant la page absente.
+2. L'auditeur « Développement » gained **deux contrôles** (16 → 18) :
+   le code livré ne lit **aucune variable globale définie par le
+   plugin** (les globales de WordPress, comme `$wpdb`, restent
+   autorisées — elles existent vraiment), et les textes légaux sont
+   **atteignables par une fonction**.
+3. L'auditeur « Données structurées » compare désormais des textes
+   **normalisés** (entités décodées, apostrophes unifiées).
+
+**Un contre-exemple honnête.** Le contrôle « ce qui est déclaré
+apparaît aussi à l'écran » a d'abord produit un **faux positif** : le
+titre « Débordement de tampon : l'attaque et les défenses » était bien
+à l'écran, mais le HTML échappait l'apostrophe typographique
+(`&#8217;`) là où le JSON-LD gardait l'apostrophe droite. Le contrôle
+a été corrigé — on normalise les deux côtés avant de comparer — et non
+le contenu : le titre affiché reste parfaitement correct.
+
+> **La leçon.** « Ça marche sur mon serveur » n'est pas une preuve :
+> c'est une preuve **dans un contexte**. Un test qui rejoue
+> l'installation *dans un autre contexte* — la ligne de commande, une
+> base neuve — prouve ce que la recette manuelle ne prouve pas. Et un
+> workflow qui échoue doit **dire pourquoi dans son journal** : c'est
+> désormais le cas, l'installation est vérifiée et sa cause est
+> nommée.
+
+---
+
 ## 3. Ce que le comité a confirmé de bon
 
 C'est aussi utile qu'un constat : ces points sont **vérifiés à chaque
@@ -291,3 +374,4 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 | 01/11/2026 (nuit, suite) | v0.7.0 | Défaut d'outillage de test, **pas** du site : les contrôles « robots.txt nomme les robots d'IA » et « llms.txt cite les rooms » échouaient en CI alors qu'ils passaient en local. Cause isolée en conteneur (PHP 8.3 reproduit l'échec, PHP 8.4 non) : le serveur PHP intégré répond 404 pour une adresse à extension, donc `/robots.txt` et `/llms.txt` n'atteignaient jamais WordPress. Un vrai hébergeur (Apache/LiteSpeed) les route vers WordPress via `.htaccess` : le site était correct. **Correction :** les workflows servent le site via `scripts/audit/router.php`, comme le faisait déjà le workflow d'audit. Vérification après correction : **118 contrôles, 0 constat**, recette **34/34**, 5 workflows verts |
 | 01/11/2026 (nuit, suite) | v0.8.0 | Livraison du comité des quinze : **196 contrôles, 0 constat**. Mais deux workflows GitHub sont tombés en échec, et le rejeu de la recette à la main a montré un **vrai défaut** : les onze actions AJAX avaient été renommées de `secura_` en `seca_` dans le plugin seulement — le front continuait d'appeler les anciennes. Le site était donc **cassé pour les élèves** (bouton « Déployer la machine » inerte, message d'erreur muet). Corrigé, et **deux contrôles automatiques** ajoutés pour que la cohérence des noms soit vérifiée à chaque push. Voir § 2 ter |
 | 01/11/2026 (nuit, suite) | v0.8.1 | Deuxième passe de relecture : le mot « fonctionnalités » était écrit **en coréen** dans la politique de confidentialité. Invisible à l'écran ; **public via l'API REST**, qui publie le texte brut de la base. Corrigé, avec un **nouveau contrôle** qui cherche les caractères d'une écriture étrangère dans les fichiers livrés et dans les pages réellement servies. Les pages légales de la base sont désormais remises à jour à chaque version du plugin, **sans jamais écraser un texte retouché par le propriétaire**. Voir § 2 quater. Total : **199 contrôles, 0 constat** |
+| 01/11/2026 (nuit, suite 2) | v0.8.2 | Le workflow « Audit externe » est tombé rouge sur un constat RGPD **bloquant** : les pages légales n'existaient pas **sur un site installé en ligne de commande**. Cause mesurée : le plugin rangeait les textes dans une **variable globale**, et WP-CLI charge WordPress **dans une portée de fonction** — une telle variable n'y existe pas. Le défaut ne vivait donc que dans un contexte (la CI), invisible pour la recette manuelle jouée sur un vrai serveur web. **Correction :** les textes passent par une fonction, qui existe partout ; **garde-fou :** l'installation est vérifiée explicitement (l'échec nomme la page absente) et **deux contrôles** interdisent le retour de la faute. Un faux positif a été corrigé au passage (apostrophe typographique échappée en `&#8217;` dans la comparaison des données structurées). Voir § 2 quinquies. Total : **200 contrôles, 0 constat** |

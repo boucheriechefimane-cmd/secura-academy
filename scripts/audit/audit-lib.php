@@ -55,6 +55,38 @@ $GLOBALS['seca_audit'] = array(
 );
 
 /**
+ * Normalise un texte pour comparer deux écritures de la même chose.
+ *
+ * Le HTML servi et le JSON publié n'écrivent pas tout à fait de la même
+ * façon : WordPress transforme les apostrophes droites en apostrophes
+ * typographiques (’), et le HTML les échappe en &#8217;. Comparer les
+ * deux chaînes brutalement produit donc un FAUX POSITIF : le titre est
+ * bien à l'écran, mais l'octet diffère.
+ *
+ * On ramène donc les deux textes à la même forme : entités décodées,
+ * apostrophes unifiées, espaces réduits. On ne compare toujours que le
+ * texte — un titre vraiment différent reste détecté.
+ *
+ * @param string $texte Le texte à normaliser.
+ * @return string
+ */
+function audit_normaliser_texte( $texte ) {
+	$texte = html_entity_decode( (string) $texte, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
+	/* Apostrophes typographiques et guillemets : on ramène à l'apostrophe
+	   droite, comme dans la source du contenu. */
+	$texte = str_replace(
+		array( "\xe2\x80\x99", "\xe2\x80\x98", "\xe2\x80\x9b", "\xe2\x80\x9c", "\xe2\x80\x9d" ),
+		array( "'", "'", "'", '"', '"' ),
+		$texte
+	);
+
+	$texte = preg_replace( '/\s+/u', ' ', $texte );
+
+	return trim( (string) $texte );
+}
+
+/**
  * Démarre un audit.
  *
  * @param string $domaine Identifiant court (seo, contenu, ux, dev, securite).
@@ -195,7 +227,7 @@ function audit_scenario( $nom, $resultat, $sortie = '' ) {
 		'sortie'  => $sortie,
 	);
 
-	printf( "  [SCÉNARIO] %s → %s\n", $nom, $resultat );
+	printf( "  [SCÉNARIO] %s : %s\n", $nom, $resultat );
 }
 
 /**

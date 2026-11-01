@@ -611,7 +611,7 @@ fi
 # 10. Le lab « juice-shop » : l'application web vulnerable de l'OWASP
 # ---------------------------------------------------------------------------
 PROJET_JUICE="seca_test_juice_$$"
-COMPOSE_JUICE="labs/juice-shop/docker-compose.yml"
+COMPOSE_JUICE="$(pwd)/labs/juice-shop/docker-compose.yml"
 
 if docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" up -d --build >/dev/null 2>&1; then
 	# On demande a Compose les identifiants des conteneurs : c'est plus

@@ -129,18 +129,22 @@ class Secura_Site {
 	/**
 	 * Les textes legaux, charges a la demande.
 	 *
+	 * On passe par la fonction « seca_textes_legaux() » et non par une
+	 * variable globale : WP-CLI charge WordPress dans une portee de
+	 * fonction, ou une variable globale de plugin n'existe pas. C'est
+	 * precisement pour cela que les pages legales n'etaient creees que
+	 * sur un vrai serveur web, et jamais en CI.
+	 *
 	 * @return array
 	 */
 	protected static function textes_legaux() {
 		static $textes = null;
 
 		if ( null === $textes ) {
-			global $secura_pages_legales;
-
-			$textes = is_array( $secura_pages_legales ) ? $secura_pages_legales : array();
+			$textes = function_exists( 'seca_textes_legaux' ) ? seca_textes_legaux() : array();
 		}
 
-		return $textes;
+		return is_array( $textes ) ? $textes : array();
 	}
 
 	/**

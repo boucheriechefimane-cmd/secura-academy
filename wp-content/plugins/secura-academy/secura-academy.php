@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.8.1
+ * Version:           0.8.2
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,16 @@
  *
  * @package Secura_Academy
  *
+ * 0.8.2 — Correctif : les pages légales sont créées partout, pas seulement
+ *           sur un serveur web. Le plugin rangeait les textes légaux dans
+ *           une variable globale ; or WP-CLI charge WordPress dans une
+ *           portée de fonction, où une variable globale de plugin
+ *           n'existe pas. Les pages légales n'étaient donc créées que par
+ *           le web — jamais dans la CI, ni sur un site installé en ligne
+ *           de commande. Les textes passent désormais par une fonction,
+ *           qui existe dans tous les contextes ; et l'installation est
+ *           vérifiée explicitement (scripts/ci-wordpress.sh), avec un
+ *           message clair quand elle échoue.
  * 0.8.1 — Correctif : les noms d'actions AJAX sont revenus a leur contrat
  *           « secura_* » (le front, la recette et le plugin doivent
  *           employer le meme nom). Deux controles d'audit automatiques
@@ -97,7 +107,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.8.1' );
+define( 'SECURA_ACADEMY_VERSION', '0.8.2' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
@@ -145,8 +155,34 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-site.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-authors.php';
 
 /* Les pages legales : un simple tableau de textes, dans les trois
-   langues. On le charge une fois pour toute la vie du site. */
-$secura_pages_legales = require SECURA_ACADEMY_PATH . 'includes/content-legal.php';
+   langues. On le charge une fois pour toute la vie du site.
+
+   On passe par une FONCTION, et non par une variable globale. La
+   raison est subtle et a cout cher : WP-CLI charge WordPress dans une
+   PORTEE DE FONCTION (Runner::load_wordpress), et une variable globale
+   d'un plugin n'y existe donc pas. En CI, tout passe par WP-CLI : les
+   pages legales n'etaient donc jamais creees, alors que tout
+   fonctionnait sur un vrai serveur web. Une fonction, elle, existe
+   toujours, quel que soit le contexte. */
+if ( ! function_exists( 'seca_textes_legaux' ) ) {
+	/**
+	 * Les textes des pages legales, dans les trois langues.
+	 *
+	 * Le tableau est mis en cache pour la duree de la requete : il ne
+	 * change jamais au cours d'une visite.
+	 *
+	 * @return array
+	 */
+	function seca_textes_legaux() {
+		static $textes = null;
+
+		if ( null === $textes ) {
+			$textes = require SECURA_ACADEMY_PATH . 'includes/content-legal.php';
+		}
+
+		return is_array( $textes ) ? $textes : array();
+	}
+}
 
 /**
  * Amorce le plugin.

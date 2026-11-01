@@ -3,14 +3,22 @@
     "titre": "Audit externe — Référencement (SEO)",
     "expert": "",
     "perimetre": "",
-    "date": "2026-11-01T20:29:32+00:00",
-    "ok": 45,
-    "non_etaye": 0,
+    "date": "2026-11-01T22:17:30+00:00",
+    "ok": 44,
+    "non_etaye": 1,
     "forces": [],
     "scenarios": [],
     "bloquant": 0,
     "majeur": 0,
     "mineur": 0,
     "info": 0,
-    "constats": []
+    "constats": [
+        {
+            "libelle": "la page annonce le titre de la room (ce que le moteur affiche dans le resultat)",
+            "detail": "title de la room absent de la balise <title>",
+            "gravite": "majeur",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
 }

@@ -582,7 +582,12 @@ contrôles, 0 constat** (conformité au guide Google sur l'IA) → **118
 contrôles, 0 constat** (robots d'IA et maillage interne) → **196 contrôles,
 0 constat** (le comité des quinze, bloc T) → **199 contrôles, 0 constat**
 (v0.8.1 : deux défauts trouvés en rejouant la recette à la main, chacun
-corrigé **et** muni d'un garde-fou automatique).
+corrigé **et** muni d'un garde-fou automatique) → **200 contrôles, 0
+constat** (v0.8.2 : un défaut que **la CI seule** a pu trouver — les pages
+légales n'existaient que sur un serveur web, jamais en ligne de commande,
+où WP-CLI charge WordPress dans une portée de fonction ; corrigé par une
+fonction, vérifié explicitement à l'installation, et deux contrôles
+automatiques interdisent le retour de la faute).
 
 Ce que les quinze auditeurs ont trouvé — et fait corriger : les pages légales
 qui n'existaient pas, l'invitation à s'inscrire que le visiteur anonyme ne

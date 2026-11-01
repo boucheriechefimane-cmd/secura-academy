@@ -268,7 +268,16 @@ if ( isset( $blocs_par_page['room'] ) ) {
 			$reponse = wp_remote_get( $pages['room'], array( 'timeout' => 20 ) );
 			$visible = is_wp_error( $reponse ) ? '' : wp_remote_retrieve_body( $reponse );
 
-			if ( '' !== $visible && false === stripos( wp_strip_all_tags( $visible ), wp_strip_all_tags( $nom ) ) ) {
+			/* On compare des textes normalisés : le HTML échappe
+			   l'apostrophe typographique (&#8217;) et WordPress la
+			   transforme, alors que le JSON-LD garde l'apostrophe
+			   droite. Sans cette normalisation, le contrôle signalait
+			   un titre qui est pourtant bien à l'écran. */
+			$visible_normalise = audit_normaliser_texte( wp_strip_all_tags( $visible ) );
+			$nom_normalise     = audit_normaliser_texte( $nom );
+
+			if ( '' !== $visible_normalise && '' !== $nom_normalise
+				&& false === stripos( $visible_normalise, $nom_normalise ) ) {
 				$incoherences[] = '« ' . $nom . ' » est déclaré mais n\'apparaît pas dans le texte visible';
 			}
 		}
