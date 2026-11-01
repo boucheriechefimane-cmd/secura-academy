@@ -447,6 +447,137 @@ if ( $avec_machine ) {
 	}
 }
 
+/* ------------------------------------------------------------------ */
+echo "\n4. Le site vu de l'extérieur : maillage et robots\n";
+
+/* La page d'accueil doit exister et proposer les parcours : sans elle,
+   le site commence par le texte de demonstration de WordPress et les
+   rooms ne sont atteignables que par le plan du site. */
+$page_parcours = get_page_by_path( 'parcours' );
+
+verifier(
+	'la page « Parcours » existe',
+	(bool) $page_parcours,
+	'page introuvable'
+);
+
+verifier(
+	'la page « Parcours » est publiée',
+	$page_parcours && 'publish' === $page_parcours->post_status,
+	$page_parcours ? $page_parcours->post_status : '(absente)'
+);
+
+verifier(
+	'le site affiche la page « Parcours » en accueil',
+	'page' === get_option( 'show_on_front' ) && (int) get_option( 'page_on_front' ) > 0,
+	'show_on_front = ' . get_option( 'show_on_front' ) . ', page_on_front = ' . get_option( 'page_on_front' )
+);
+
+verifier(
+	'le shortcode de la plateforme est sur la page d\'accueil',
+	$page_parcours && false !== strpos( (string) $page_parcours->post_content, '[secura_academy' ),
+	'contenu : ' . ( $page_parcours ? substr( (string) $page_parcours->post_content, 0, 60 ) : '(absente)' )
+);
+
+/* Chaque room doit etre liee depuis son parcours : c'est le chemin que
+   suivent les robots, et le seul que l'eleve suive. */
+$rooms_liees = 0;
+
+foreach ( $paths as $parcours ) {
+	$page = get_permalink( $parcours->ID );
+	$html = wp_remote_get( $page );
+
+	if ( is_wp_error( $html ) ) {
+		continue;
+	}
+
+	$corps = wp_remote_retrieve_body( $html );
+
+	if ( false !== strpos( $corps, '/rooms/' ) ) {
+		$rooms_liees++;
+	}
+}
+
+verifier(
+	'chaque parcours lie ses rooms par de vrais liens',
+	count( $paths ) === $rooms_liees,
+	$rooms_liees . ' parcours sur ' . count( $paths )
+);
+
+/* Le fichier robots.txt doit nommer les robots d'IA et les autoriser. */
+$robots = wp_remote_get( home_url( '/robots.txt' ) );
+$robots_txt = is_wp_error( $robots ) ? '' : wp_remote_retrieve_body( $robots );
+
+verifier(
+	'le fichier robots.txt est servi',
+	'' !== trim( $robots_txt ),
+	'robots.txt vide'
+);
+
+$robots_ia = array( 'Googlebot', 'OAI-SearchBot', 'ChatGPT-User', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot', 'GPTBot', 'ClaudeBot', 'Google-Extended' );
+
+$robots_absents = array();
+
+foreach ( $robots_ia as $robot ) {
+	if ( false === stripos( $robots_txt, 'User-agent: ' . $robot ) ) {
+		$robots_absents[] = $robot;
+	}
+}
+
+verifier(
+	'robots.txt nomme les robots d\'IA',
+	empty( $robots_absents ),
+	'robots absents : ' . implode( ', ', $robots_absents )
+);
+
+/* On compare ligne par ligne : « Disallow: /wp-admin/ » contient la
+   chaine « Disallow: / » mais ne ferme évidemment pas tout le site. */
+$ferme_tout = false;
+
+foreach ( preg_split( '/\r\n|\r|\n/', $robots_txt ) as $ligne_robots ) {
+	if ( 'disallow: /' === strtolower( trim( $ligne_robots ) ) ) {
+		$ferme_tout = true;
+	}
+}
+
+verifier(
+	'robots.txt ne ferme pas tout le site',
+	! $ferme_tout,
+	'le site se ferme lui-meme a l\'indexation'
+);
+
+verifier(
+	'robots.txt declare le plan du site',
+	false !== stripos( $robots_txt, 'Sitemap:' ),
+	'aucun Sitemap: dans robots.txt'
+);
+
+/* Le fichier llms.txt est genere : il doit repondre, et lister les rooms. */
+$llms = wp_remote_get( home_url( '/llms.txt' ) );
+$llms_txt = is_wp_error( $llms ) ? '' : wp_remote_retrieve_body( $llms );
+
+verifier(
+	'le fichier llms.txt est servi',
+	'' !== trim( $llms_txt ),
+	'llms.txt vide'
+);
+
+verifier(
+	'llms.txt cite les rooms avec leurs adresses',
+	false !== strpos( $llms_txt, '/rooms/' ),
+	'aucune adresse de room dans llms.txt'
+);
+
+/* L'archive d'auteur ne doit pas exposer le compte d'administration. */
+$auteur = wp_remote_get( home_url( '/author/admin/' ) );
+$code_auteur = is_wp_error( $auteur ) ? 'erreur' : (string) wp_remote_retrieve_response_code( $auteur );
+
+verifier(
+	'l\'archive d\'auteur est fermee',
+	'404' === $code_auteur,
+	'code recu : ' . $code_auteur
+);
+
 echo "\n=== Résultat : " . (int) $GLOBALS['seca_e2e_ok'] . " réussi(s), " . (int) $GLOBALS['seca_e2e_ko'] . " échec(s) ===\n";
 
 if ( (int) $GLOBALS['seca_e2e_ko'] > 0 ) {
