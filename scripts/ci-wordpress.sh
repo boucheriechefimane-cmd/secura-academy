@@ -48,9 +48,11 @@ PLUGINS_TIERS=( "$@" )
 
 say() { printf '\n\033[1;34m== %s\033[0m\n' "$1"; }
 
+# « command wp » est indispensable : sans lui, la fonction s'appellerait
+# elle-meme (recursion infinie).
 wp() {
 	if [ "$WP_CLI" = "system" ]; then
-		wp --path="$WP_DIR" --allow-root "$@"
+		command wp --path="$WP_DIR" --allow-root "$@"
 	else
 		php "$WP_CLI" --path="$WP_DIR" --allow-root "$@"
 	fi
