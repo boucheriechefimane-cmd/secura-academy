@@ -1,6 +1,6 @@
 # Données structurées et entités
 
-- **Date** : 01/11/2026 23:10 UTC
+- **Date** : 01/11/2026 23:57 UTC
 - **Auditeur** : donnees-structurees
 - **Contrôles réussis** : 7
 - **Constats** : 0 bloquant(s), 0 majeur(s), 0 mineur(s), 7 info(s)

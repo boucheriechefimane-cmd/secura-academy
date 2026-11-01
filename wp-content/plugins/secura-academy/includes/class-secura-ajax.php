@@ -236,6 +236,15 @@ final class Secura_Ajax {
 			);
 		}
 
+		/* Chaque eleve recoit SA copie de l'epreuve : les questions
+		   tirees au sort (reservoir du niveau, propositions melangees,
+		   chiffres varies) remplacent la liste d'origine. C'est aussi
+		   ce qui rend l'examen impossible a repeter par capture
+		   d'ecran. */
+		$task['questions'] = Secura_Exam::paper( $user_id, $room_id, $index, $task );
+
+		$view['tasks'][ $index ] = $task;
+
 		$questions = array();
 
 		foreach ( $task['questions'] as $q_index => $question ) {
@@ -329,6 +338,14 @@ final class Secura_Ajax {
 
 		$user_id = get_current_user_id();
 		$task    = $view['tasks'][ $index ];
+
+		/* On note la copie TIREE, celle que l'eleve a reellement vue :
+		   si l'ordre des propositions a change, c'est la nouvelle
+		   position de la bonne reponse qui fait foi. */
+		$task['questions'] = Secura_Exam::paper( $user_id, $room_id, $index, $task );
+
+		$view['tasks'][ $index ] = $task;
+
 		$question = $view['tasks'][ $index ]['questions'][ $q_index ];
 		$state   = Secura_Progress::get_room_state( $user_id, $room_id );
 

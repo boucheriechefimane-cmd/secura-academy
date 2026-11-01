@@ -710,6 +710,7 @@ require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-sec
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-rooms.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-settings.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-paths.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-exam.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-ajax.php';
 
 /* ---------------------------------------------------------------------
@@ -1286,6 +1287,177 @@ check( ! empty( $payload['data']['exam'] ), 'la clôture d\'examen est calculée
 check( 100 === (int) $payload['data']['exam']['score'], 'le score de l\'examen vaut 100 %' );
 check( true === (bool) $payload['data']['exam']['passed'], 'l\'examen est réussi' );
 check( 'gold' === $payload['data']['exam']['medal'], 'une médaille est attribuée à l\'examen réussi' );
+
+/* ---------------------------------------------------------------------
+ * Le moteur d'épreuves : deux élèves, deux copies
+ * --------------------------------------------------------------------- */
+
+echo "\nLe moteur d'épreuves\n";
+
+/* Une question paramétrique : les chiffres sont des {mots}, le moteur
+   tire un jeu de valeurs par copie. */
+$question_parametrique = array(
+	'question'    => 'Un serveur ecoute sur le port {port}. Combien de connexions ?',
+	'mode'        => 'choice',
+	'choices'     => array( '{port} connexions', '10 connexions', '80 connexions' ),
+	'correct'     => 0,
+	'variants'    => array(
+		array( 'port' => '8080' ),
+		array( 'port' => '9090' ),
+		array( 'port' => '8443' ),
+	),
+	'explanation' => 'Le port {port} est celui du serveur de test.',
+);
+
+$variante_a = Secura_Exam::variante( $question_parametrique, 12345 );
+$variante_b = Secura_Exam::variante( $question_parametrique, 54321 );
+
+check( false === strpos( $variante_a['question'], '{port}' ), 'la valeur du {mot} est injectée dans l\'énoncé' );
+check( false === strpos( $variante_a['explanation'], '{port}' ), 'la valeur du {mot} est injectée dans l\'explication' );
+check( false === strpos( $variante_a['choices'][0], '{port}' ), 'la valeur du {mot} est injectée dans les propositions' );
+check( $variante_a['question'] !== $variante_b['question'] || $variante_a['choices'] !== $variante_b['choices'], 'deux tirages ne donnent pas la même copie' );
+
+/* La bonne réponse suit la proposition melangee. */
+$variante_c = Secura_Exam::variante(
+	array(
+		'question' => 'Q',
+		'mode'     => 'choice',
+		'choices'  => array( 'A', 'B', 'C', 'D' ),
+		'correct'  => 0,
+	),
+	987
+);
+
+check( 'A' === $variante_c['choices'][ (int) $variante_c['correct'] ], 'la bonne réponse reste la bonne après le mélange' );
+check( $variante_c['choices'] !== array( 'A', 'B', 'C', 'D' ), 'les propositions sont mélangées' );
+
+/* Une question de drapeau reste dans sa room : elle ne voyage pas. */
+$GLOBALS['securatest_meta'][ 45 ][ SECURA_META_TASKS ] = array(
+	array(
+		'type'      => 'exam',
+		'title'     => 'Task 1',
+		'content'   => '<p>Examen</p>',
+		'questions' => array(
+			array( 'question' => 'Drapeau', 'mode' => 'flag', 'flag_path' => '/root/flags/x.txt', 'xp' => 30 ),
+		),
+	),
+);
+
+$drapeaux_chez_elle = 0;
+$drapeaux_ailleurs  = 0;
+
+foreach ( Secura_Exam::pool( 45, array( 'exam' ) ) as $entree ) {
+	if ( 'flag' === $entree['question']['mode'] ) {
+		$drapeaux_chez_elle++;
+	}
+}
+
+foreach ( Secura_Exam::pool( 42, array( 'exam' ) ) as $entree ) {
+	if ( 'flag' === $entree['question']['mode'] ) {
+		$drapeaux_ailleurs++;
+	}
+}
+
+check( 1 === $drapeaux_chez_elle, 'la question de drapeau est dans le réservoir de SA room' );
+check( 0 === $drapeaux_ailleurs, 'une question de drapeau ne voyage pas dans une autre room' );
+
+/* Un examen avec plusieurs questions et plusieurs propositions : c'est
+   le cas reel (les examens de la plateforme ont de 2 a 10 questions). */
+$GLOBALS['securatest_meta'][ 42 ][ SECURA_META_TASKS ][2]['questions'] = array(
+	array(
+		'question' => 'E1',
+		'mode'     => 'choice',
+		'choices'  => array( 'a1', 'a2', 'a3', 'a4' ),
+		'correct'  => 1,
+		'xp'       => 20,
+	),
+	array(
+		'question' => 'E2',
+		'mode'     => 'choice',
+		'choices'  => array( 'b1', 'b2', 'b3', 'b4' ),
+		'correct'  => 2,
+		'xp'       => 20,
+	),
+	array(
+		'question' => 'E3',
+		'mode'     => 'choice',
+		'choices'  => array( 'c1', 'c2', 'c3', 'c4' ),
+		'correct'  => 3,
+		'xp'       => 20,
+	),
+);
+
+/* Deux eleves, deux copies ; le meme eleve, la meme copie. */
+$examen_room = 42;
+$examen_task = 2;
+$examen_tasks = Secura_Rooms::get_tasks( $examen_room );
+
+$copie_eleve_1 = Secura_Exam::paper( 101, $examen_room, $examen_task, $examen_tasks[ $examen_task ] );
+$copie_eleve_2 = Secura_Exam::paper( 102, $examen_room, $examen_task, $examen_tasks[ $examen_task ] );
+$copie_eleve_1_bis = Secura_Exam::paper( 101, $examen_room, $examen_task, $examen_tasks[ $examen_task ] );
+
+$empreinte = function ( $questions ) {
+	$texte = '';
+
+	foreach ( $questions as $question ) {
+		$texte .= $question['question'] . '|' . implode( '/', (array) $question['choices'] ) . '##';
+	}
+
+	return md5( $texte );
+};
+
+check( $empreinte( $copie_eleve_1 ) !== $empreinte( $copie_eleve_2 ), 'deux élèves ne reçoivent pas la même copie' );
+check( $empreinte( $copie_eleve_1 ) === $empreinte( $copie_eleve_1_bis ), 'recharger redonne la même copie' );
+check( ! empty( $copie_eleve_1 ), 'la copie d\'examen n\'est pas vide' );
+
+/* La copie interne garde les reponses attendues : c'est le serveur qui
+   corrige. Ce qui ne doit JAMAIS sortir, c'est la copie envoyee au
+   navigateur — verifie plus haut, dans la section AJAX. */
+check( ! empty( $copie_eleve_1[0]['choices'] ), 'la copie interne conserve les propositions (le serveur corrige)' );
+
+/* Le reservoir d'un examen est le niveau entier.
+   On prend deux rooms neuves (77 et 78) : le moteur garde en memoire
+   le niveau de chaque room, et l'on veut une mesure fraiche. */
+foreach ( array( 77, 78 ) as $numero ) {
+	$GLOBALS['securatest_meta'][ $numero ][ SECURA_META_TASKS ] = array(
+		array(
+			'type'      => 'exam',
+			'title'     => 'Task 1',
+			'content'   => '<p>Examen</p>',
+			'questions' => array(
+				array(
+					'question' => 'F' . $numero,
+					'mode'     => 'choice',
+					'choices'  => array( 'f1', 'f2', 'f3', 'f4' ),
+					'correct'  => 0,
+					'xp'       => 20,
+				),
+			),
+		),
+	);
+}
+
+$parcours = new stdClass();
+$parcours->ID         = 10;
+$parcours->post_type  = SECURA_PATH_POST_TYPE;
+$parcours->post_title = 'Fondations';
+
+$GLOBALS['securatest_posts'][10]  = $parcours;
+$GLOBALS['securatest_post_lists'] = array( 10 => $parcours );
+$GLOBALS['securatest_meta'][ 10 ][ SECURA_META_PATH_SECTIONS ] = array(
+	array( 'title' => 'Module 1', 'rooms' => array( 77, 78 ) ),
+);
+
+$pool_section = Secura_Exam::pool( 77, array( 'exam' ) );
+$rooms_du_pool = array();
+
+foreach ( $pool_section as $entree ) {
+	$rooms_du_pool[ $entree['room'] ] = true;
+}
+
+check( isset( $rooms_du_pool[78] ), 'le réservoir d\'un examen contient les rooms du niveau' );
+check( 2 === count( $rooms_du_pool ), 'le réservoir couvre les deux rooms du niveau' );
+
 
 /* ---------------------------------------------------------------------
  * Contenu de démonstration

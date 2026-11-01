@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Lance les quinze audits externes dans un WordPress réel.
+# Lance les dix-sept audits externes dans un WordPress réel.
 #
 # Chaque auditeur est un script PHP exécuté dans le site (comme le ferait
 # un visiteur : on lit les pages rendues, pas le code source).
@@ -20,17 +20,20 @@ REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
 WP_DIR="${SECA_WP_DIR:-/tmp/wp-audit}"
 WP_CLI="${WP_CLI:-wp}"   # peut contenir plusieurs mots ("php /chemin/wp-cli.phar")
 
-# Les quinze spécialités. Les cinq premières sont le comité d'origine ;
+# Les dix-sept spécialités. Les cinq premières sont le comité d'origine ;
 # les dix suivantes sont le bloc T (pédagogie, performance, données
 # structurées, accessibilité, multilingue, RGPD, moteur, onboarding,
-# licences, DevOps).
-AUDITS="seo contenu ux-ui dev securite pedagogie performance donnees-structurees accessibilite multilingue rgpd moteur onboarding licences devops"
+# licences, DevOps) ; la dernière est le panel des dix élèves, qui joue
+# la plateforme comme un élève et vérifie notamment que deux élèves ne
+# passent pas la même copie d'examen ; la dernière encore est le moteur
+# d'épreuves, qui mesure les réservoirs et les variantes.
+AUDITS="seo contenu ux-ui dev securite pedagogie performance donnees-structurees accessibilite multilingue rgpd moteur onboarding licences devops panel-eleves epreuves"
 CONSTATS=0
 
 cd "$REPO_DIR"
 
 echo "============================================================"
-echo " Comité d'audit externe — 15 auditeurs spécialisés"
+echo " Comité d'audit externe — 17 auditeurs spécialisés"
 echo " WordPress : $WP_DIR"
 echo "============================================================"
 

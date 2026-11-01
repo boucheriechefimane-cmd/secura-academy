@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.8.4
+ * Version:           0.9.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,23 @@
  *
  * @package Secura_Academy
  *
+ * 0.9.0 — Chaque eleve passe SA copie. Avant, tous les eleves avaient
+ *           exactement le meme examen : memes questions, meme ordre,
+ *           memes chiffres — une photo d'ecran suffisait a reussir.
+ *           Desormais l'examen est tire au sort dans le reservoir du
+ *           niveau (la section entiere du parcours), les propositions
+ *           sont melangees, et les chiffres changent quand l'explication
+ *           ne parle pas d'eux (sinon l'explication deviendrait fausse).
+ *           Une nouvelle tentative redonne une autre copie ; recharger
+ *           la page conserve la copie en cours.
+ *           Les questions PARAMETRIQUES vont plus loin : leurs chiffres
+ *           sont ecrits avec des {mots} (par exemple « un buffer de
+ *           {taille} octets ») et le moteur y injecte les valeurs d'une
+ *           variante tiree au sort. Deux eleves qui font le meme examen
+ *           ne voient donc pas les memes nombres — et l'explication, qui
+ *           utilise les memes {mots}, reste vraie. C'est la seule facon
+ *           de changer un chiffre qui est un fait (un port, un code
+ *           HTTP) : ici, le chiffre est invente par la question.
  * 0.8.4 — Correction : le bloc Kahoot titrait en <h3> alors que tous les
  *           autres blocs de room titrent en <h2>. Dans la room « Kahoot :
  *           la revision des labs avances », la hierarchie des titres
@@ -120,7 +137,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.8.3' );
+define( 'SECURA_ACADEMY_VERSION', '0.9.0' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
@@ -151,6 +168,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-i18n.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-rooms.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-paths.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-progress.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-exam.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-terminal.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-lab.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-settings.php';

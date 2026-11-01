@@ -3,7 +3,7 @@
 > Le registre tenu par le comité d'audit externe : qui a audité, quand,
 > ce qu'il a trouvé, ce qui a été fait, et ce qui reste ouvert.
 
-État : 01/11/2026 · version v0.7.0
+État : 01/11/2026 (nuit, suite 6) · version v0.9.0
 
 ---
 
@@ -33,13 +33,78 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 13 | **Onboarding** | 9 | 0 | 0 | 0 | **Conforme** |
 | 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | **Conforme** |
 | 15 | **DevOps & résilience** | 12 | 0 | 0 | 0 | **Conforme** |
-| | **Total** | **207** | **0** | **0** | **0** | **Conforme** |
+| 16 | **Panel des dix élèves** | 5 | 0 | 0 | 0 | **Conforme** |
+| 17 | **Moteur d'épreuves** | 10 | 0 | 0 | 1 | **Conforme (1 mineur de contenu)** |
+| | **Total** | **221** | **0** | **0** | **1** | **Conforme** |
 
-> Les 15 auditeurs produisent chacun **trois formats** de rapport dans
+> Les 17 auditeurs produisent chacun **trois formats** de rapport dans
 > `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
 > foi : verdict, périmètre, chiffres, scénarios joués, forces, constats avec
 > la preuve sous chaque ligne, et les limites explicites) et le JSON (pour
 > le tableau de bord de la CI).
+
+### 1 ter. Les deux auditeurs ajoutés le 01/11/2026 (nuit, suite 6)
+
+#### 16. Le panel des dix élèves
+
+Dix profils d'élèves distincts — **âge, langue et spécialité cyber
+différents** — jouent la plateforme **en HTTP réel** (inscription, connexion
+avec cookie, ouverture du parcours, leçon, réponses envoyées au serveur).
+Le panneau ne simule rien : il lit les réponses HTTP du serveur.
+
+| Persona | Âge | Langue | Spécialité | Appareil |
+|---|---|---|---|---|
+| Yasmine | 16 | arabe | sécurité cloud | mobile |
+| Lucas | 19 | français | développement web | ordinateur |
+| Amina | 22 | arabe | exploitation (centre opérationnel) | mobile |
+| Tomás | 24 | anglais | réseau | ordinateur |
+| Sarah | 17 | français | données personnelles | mobile |
+| Karim | 31 | arabe | administration Linux | ordinateur |
+| Mei | 15 | anglais | première expérience cyber | mobile |
+| Julien | 45 | français | direction des SI | ordinateur |
+| Nadia | 28 | français | test d'intrusion (débutante) | mobile |
+| Sofia | 34 | anglais | DevSecOps | ordinateur |
+
+| Ce qui est mesuré | Résultat mesuré |
+|---|---|
+| Créer un compte et commencer le parcours | **10 / 10** en une étape, connexion réussie (HTTP 200 + cookie), parcours ouvert |
+| Recevoir vraiment des points | **10 / 10** : 0 → **213 à 220 XP** selon l'élève |
+| Obtenir une médaille | **10 / 10** : **or, 100 %** |
+| Voir son niveau avancer | **10 / 10** : Observateur → Apprenti |
+| Recevoir une copie d'examen **différente** de celle des autres | **10 / 10** : **10 copies pour 10 élèves** |
+
+**Test négatif (la preuve que le contrôle morbite)** : en rétablissant
+l'ancien comportement — le tirage désactivé — le panel tombe à **1 copie
+pour 10 élèves** et le signale en **[MAJEUR]**. Le contrôle détecte donc
+bien ce qu'il prétend détecter.
+
+**Un piège de mesure, trouvé et compris** : le premier version du panel
+concluait « 0 point » alors que le serveur avait bien attribué les XP.
+La cause n'était pas la plateforme : le process WP-CLI lisait un **cache
+de méta-données périmé** (les XP sont écrits par le serveur web, dans un
+autre process). La lecture relit désormais la base. *Un audit qui se trompe
+sur la plateforme est aussi un audit raté.*
+
+#### 17. Le moteur d'épreuves
+
+| Ce qui est mesuré | Résultat mesuré |
+|---|---|
+| Le moteur est livré et chargé | oui |
+| Le tirage est reproductible (pas de hasard non maîtrisé) | oui — générateur déterministe, aucun `shuffle`/`array_rand`/`random_int` |
+| Réservoir d'un examen (le niveau entier) | **11 à 34 questions**, médiane **26** |
+| Copies possibles, tous examens confondus | **131 365 839** |
+| Questions paramétriques (chiffres qui changent) | **5** déjà écrites, format documenté |
+| Deux élèves ⇒ deux copies | **10 / 10** copies différentes |
+| Recharger redonne la même copie | oui |
+| Une question liée à une machine (drapeau, action) voyage dans une autre room | **jamais** |
+
+**Le seul constat ouvert (mineur, et c'est du contenu)** : le réservoir
+d'un examen va de 11 à 34 questions quand l'objectif du propriétaire est
+d'environ **200 questions par niveau**. Le moteur n'est pas en cause — il
+sait tirer dans un réservoir de 200 questions comme dans un réservoir de 30.
+C'est un **travail de rédaction** (environ 20 sections × 200 questions,
+en français, arabe et anglais). Le constat est mesuré à chaque passage et
+laissé visible, plutôt que masqué.
 
 ### Les constats trouvés par les dix nouveaux auditeurs — et leur traitement
 

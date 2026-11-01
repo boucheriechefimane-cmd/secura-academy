@@ -560,16 +560,17 @@ LiteSpeed Cache, Elementor, Contact Form 7, WooCommerce) : voir
 
 ### Le comité d'audit externe
 
-**Quinze auditeurs spécialisés** passent la plateforme au crible **dans un
+**Dix-sept auditeurs spécialisés** passent la plateforme au crible **dans un
 vrai WordPress**, sur les pages réellement rendues, et dans de vrais
 conteneurs Docker quand il faut juger l'isolation entre élèves. Le workflow
-`audit.yml` échoue si un constat bloquant apparaît ; il rejoue les audits à
-chaque push et chaque lundi.
+`audit.yml` échoue si un constat **bloquant ou majeur** apparaît ; il rejoue
+les audits à chaque push et chaque lundi.
 
 | | Spécialités |
 |---|---|
 | **Les cinq premiers** | SEO · Contenu · UX/UI · Développement · Sécurité & infra |
 | **Les dix nouveaux** | Pédagogie · Performance & Core Web Vitals · Données structurées · Accessibilité (WCAG 2.2 AA) · Multilingue · RGPD & mineurs · Moteur de lab & Docker · Onboarding · Licences & attribution · DevOps & résilience |
+| **Les deux derniers** | **Panel des dix élèves** (ils jouent la plateforme comme des élèves : créer un compte, commencer le parcours, gagner des points, obtenir une médaille, changer de niveau — et vérifier que deux élèves ne passent jamais la même copie) · **Moteur d'épreuves** (réservoirs, variantes, tirage, mémoire des copies) |
 
 **La règle de méthode : pas de rapport sans preuve.** Un auditeur n'a le
 droit de conclure que s'il a **joué un scénario, lu une ligne de code ou
@@ -602,7 +603,29 @@ faut ? » a été posée — et six des quinze auditeurs ne regardaient
 qu'une room sur 52. Tous regardent désormais **toute la collection** ;
 la CI **rougit** désormais sur un constat majeur, pas seulement
 bloquant ; et le comité rejoué deux fois donne **15/15 rapports
-identiques**).
+identiques**) → **221 contrôles, 0 bloquant, 0 majeur**
+(v0.9.0 : le moteur d'épreuves — chaque élève passe **sa** copie — et le
+panel des dix élèves, qui joue la plateforme pour de vrai).
+
+### Le moteur d'épreuves : deux élèves, deux copies
+
+Avant, **tous les élèves passaient exactement le même examen** : mêmes
+questions, même ordre, mêmes chiffres. Une photo d'écran suffisait à
+réussir. C'est désormais changé, et vérifié par la machine :
+
+| Ce que fait le moteur | Ce que ça change pour l'élève |
+|---|---|
+| **Réservoir du niveau** | L'examen tire ses questions dans la *section entière* du parcours (11 à 34 questions disponibles), pas seulement dans la room |
+| **Tirage sans remise** | Deux élèves n'ont pas les mêmes questions |
+| **Propositions mélangées** | La bonne réponse change de place d'une copie à l'autre |
+| **Chiffres paramétriques** | Une question écrite « un buffer de `{taille}` octets » devient « 32 », « 64 » ou « 128 » octets selon la copie — et l'explication, qui utilise le même `{taille}`, reste vraie |
+| **Copie mémorisée** | Recharger la page ne change rien ; **recommencer** l'examen donne une autre copie |
+
+Mesuré par l'auditeur « moteur d'épreuves » : **10 élèves ⇒ 10 copies
+différentes**, **131 365 839 copies possibles** au total sur la plateforme.
+Un contrôle automatique vérifie qu'aucune question liée à une machine
+(drapeau, action dans le terminal) ne voyage dans une autre room — sinon
+l'élève chercherait un fichier qui n'existe pas chez lui.
 
 Ce que les quinze auditeurs ont trouvé — et fait corriger : les pages légales
 qui n'existaient pas, l'invitation à s'inscrire que le visiteur anonyme ne

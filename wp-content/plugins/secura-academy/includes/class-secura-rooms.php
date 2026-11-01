@@ -379,7 +379,7 @@ final class Secura_Rooms {
 			$questions = array();
 
 			if ( isset( $task['questions'] ) && is_array( $task['questions'] ) ) {
-				foreach ( $task['questions'] as $question ) {
+				foreach ( $task['questions'] as $q_index => $question ) {
 					if ( ! is_array( $question ) ) {
 						continue;
 					}
@@ -451,9 +451,37 @@ final class Secura_Rooms {
 						continue;
 					}
 
+					/* Les variantes paramétriques : une liste de jeux de
+					   valeurs { cle => valeur }. Le moteur d'épreuves en
+					   tire un par copie (voir Secura_Exam). */
+					$variants = array();
+
+					if ( isset( $question['variants'] ) && is_array( $question['variants'] ) ) {
+						foreach ( $question['variants'] as $jeu ) {
+							if ( ! is_array( $jeu ) ) {
+								continue;
+							}
+
+							$nettoyage = array();
+
+							foreach ( $jeu as $cle => $valeur ) {
+								$cle = preg_replace( '/[^A-Za-z0-9_]/', '', (string) $cle );
+
+								if ( '' !== $cle ) {
+									$nettoyage[ $cle ] = (string) $valeur;
+								}
+							}
+
+							if ( ! empty( $nettoyage ) ) {
+								$variants[] = $nettoyage;
+							}
+						}
+					}
+
 					$questions[] = array(
 						'question'      => $text,
 						'mode'          => $mode,
+						'variants'      => $variants,
 						'flag_path'     => $flag_path,
 						'answers'       => $answers,
 						'choices'       => $choices,
@@ -1110,7 +1138,28 @@ final class Secura_Rooms {
 		$raw   = isset( $_POST['secura_tasks'] ) && is_array( $_POST['secura_tasks'] ) ? wp_unslash( $_POST['secura_tasks'] ) : array();
 		$clean = array();
 
-		foreach ( $raw as $task ) {
+		/* Les variantes paramétriques ne sont pas saisies dans le
+		   formulaire : on les reporte de la room enregistrée, pour
+		   qu'un enseignant qui corrige une question ne perde pas les
+		   chiffres varied de la question. */
+		$variantes_avant = array();
+		$avant           = get_post_meta( $post_id, SECURA_META_TASKS, true );
+
+		if ( is_array( $avant ) ) {
+			foreach ( $avant as $t_index => $tache ) {
+				if ( ! isset( $tache['questions'] ) || ! is_array( $tache['questions'] ) ) {
+					continue;
+				}
+
+				foreach ( $tache['questions'] as $q_index => $question ) {
+					if ( ! empty( $question['variants'] ) && is_array( $question['variants'] ) ) {
+						$variantes_avant[ $t_index . ':' . $q_index ] = $question['variants'];
+					}
+				}
+			}
+		}
+
+		foreach ( $raw as $t_index => $task ) {
 			if ( ! is_array( $task ) ) {
 				continue;
 			}
@@ -1162,6 +1211,7 @@ final class Secura_Rooms {
 				$questions[] = array(
 					'question'      => $text,
 					'mode'          => $mode,
+					'variants'      => isset( $variantes_avant[ $t_index . ':' . $q_index ] ) ? $variantes_avant[ $t_index . ':' . $q_index ] : array(),
 					'answers'       => $answers,
 					'choices'       => $choices,
 					'correct'       => $correct,
