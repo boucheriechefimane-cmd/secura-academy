@@ -21,7 +21,11 @@
  *   wp eval-file tools/recette-apprenants/wp-e2e.php --avec-machine
  */
 
-$avec_machine = in_array( '--avec-machine', isset( $args ) ? (array) $args : array(), true );
+/* WP-CLI n'accepte pas de parametre inconnu sur « eval-file » : le mode
+   « avec les vraies machines » passe donc par une variable
+   d'environnement (SECA_AVEC_MACHINE=1). */
+$avec_machine = ( '1' === (string) getenv( 'SECA_AVEC_MACHINE' ) )
+	|| in_array( '--avec-machine', isset( $args ) ? (array) $args : array(), true );
 
 /* « wp eval-file » exécute le fichier dans une fonction : les compteurs
    vivent donc dans les variables globales, sinon ils resteraient à zéro. */
@@ -312,6 +316,26 @@ if ( $avec_machine ) {
 
 		if ( ! empty( $demarrage['ok'] ) ) {
 			$taches  = get_post_meta( $room_m3->ID, '_secura_tasks', true );
+
+			/* Le verrouillage progressif est actif : la mission n'est
+			   ouverte que si l'entrainement est termine. On finit donc
+			   l'entrainement (on repond juste a chaque question). */
+			$pratique = isset( $taches[1]['questions'] ) ? $taches[1]['questions'] : array();
+
+			foreach ( $pratique as $index => $question ) {
+				$bonne = '';
+
+				if ( 'choice' === ( isset( $question['mode'] ) ? $question['mode'] : 'text' ) ) {
+					$bonne = $question['choices'][ $question['correct'] ];
+				} elseif ( isset( $question['answers'][0] ) ) {
+					$bonne = $question['answers'][0];
+				}
+
+				if ( '' !== $bonne ) {
+					repondre_a( $room_m3->ID, 1, $index, $bonne );
+				}
+			}
+
 			$mission = isset( $taches[2]['questions'][0] ) ? $taches[2]['questions'][0] : array();
 
 			/* Le drapeau attendu n'est pas dans le contenu (il est dans

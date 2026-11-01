@@ -45,22 +45,33 @@ jobs:
     name: Compatibilité — ${{ matrix.nom }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    if: ${{ matrix.toujours == 'oui' || github.event_name != 'push' }}
     strategy:
       fail-fast: false
       matrix:
         include:
+          # « toujours » : ces trois tests tournent a chaque push.
+          # Les autres tournent sur pull request, sur demande, et chaque
+          # semaine (le plan gratuit ne fait qu'un job a la fois : on ne
+          # gaspille pas les minutes).
           - nom: 'WordPress seul'
             plugins: ''
+            toujours: 'oui'
           - nom: 'Polylang'
             plugins: 'polylang'
+            toujours: 'oui'
           - nom: 'LiteSpeed Cache'
             plugins: 'litespeed-cache'
+            toujours: 'oui'
           - nom: 'Elementor'
             plugins: 'elementor'
+            toujours: 'non'
           - nom: 'Contact Form 7'
             plugins: 'contact-form-7'
+            toujours: 'non'
           - nom: 'WooCommerce'
             plugins: 'woocommerce'
+            toujours: 'non'
     services:
       mysql:
         image: mysql:8.0
@@ -83,7 +94,7 @@ jobs:
       - name: Installer PHP et WP-CLI
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           extensions: mysqli
           tools: wp-cli
 
@@ -162,7 +173,7 @@ jobs:
       - name: Installer PHP et WP-CLI
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           extensions: mysqli
           tools: wp-cli
 
@@ -189,7 +200,7 @@ jobs:
           exit 1
 
       - name: Recette avec les vraies machines
-        run: wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php --avec-machine
+        run: SECA_AVEC_MACHINE=1 wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php
 
       - name: Scénario des deux apprenants (isolation)
         run: |
