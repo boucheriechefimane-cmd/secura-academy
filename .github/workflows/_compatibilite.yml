@@ -69,7 +69,11 @@ jobs:
 
       - name: Démarrer le site
         run: |
-          nohup php -S 0.0.0.0:8080 -t "$SECA_WP_DIR" > /tmp/serveur.log 2>&1 &
+          # Le routeur est indispensable : il envoie vers WordPress les
+          # adresses que le serveur PHP ne sait pas servir seul
+          # (/robots.txt, /llms.txt, les permaliens). C'est exactement ce
+          # que fait un vrai hebergeur grace au fichier .htaccess.
+          nohup php -S 0.0.0.0:8080 -t "$SECA_WP_DIR" scripts/audit/router.php > /tmp/serveur.log 2>&1 &
           for i in $(seq 1 30); do
             code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/ || true)
             if [ "$code" = "200" ]; then echo "Site en ligne (HTTP $code)"; exit 0; fi
