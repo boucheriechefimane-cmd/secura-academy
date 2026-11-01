@@ -30,8 +30,14 @@ RUN apt-get update \
 RUN groupadd -g 1000 ctf \
     && useradd -u 1000 -g 1000 -m -s /bin/bash ctf
 
-# Les defis (lisibles par l'eleve).
-COPY cours/ /srv/dojo/
+# Les defis (lisibles par l'eleve) : les cinq ceintures dans /srv/dojo,
+# et les briefs dans /srv/briefs (c'est la ou les rooms les cherchent).
+COPY cours/1-blanche /srv/dojo/1-blanche
+COPY cours/2-jaune /srv/dojo/2-jaune
+COPY cours/3-orange /srv/dojo/3-orange
+COPY cours/4-verte /srv/dojo/4-verte
+COPY cours/5-noire /srv/dojo/5-noire
+COPY cours/briefs /srv/briefs
 COPY notes/notes.txt /home/ctf/notes.txt
 
 # Les drapeaux : lisibles par le serveur (root), pas par l'eleve.

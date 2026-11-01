@@ -614,11 +614,16 @@ PROJET_JUICE="seca_test_juice_$$"
 COMPOSE_JUICE="labs/juice-shop/docker-compose.yml"
 
 if docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" up -d --build >/dev/null 2>&1; then
+	# On demande a Compose les identifiants des conteneurs : c'est plus
+	# sur que de deviner leur nom.
+	CONT_ATTAQUE=$(docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" ps -q attacker 2>/dev/null | head -1)
+	CONT_FLAGS=$(docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" ps -q flags 2>/dev/null | head -1)
+
 	# L'application demarre en une trentaine de secondes : on attend.
 	REPONSE_JUICE=0
 
 	for essai in $(seq 1 30); do
-		if docker exec "$PROJET_JUICE-attacker-1" curl -s -o /dev/null -w '%{http_code}' http://juice:3000/ 2>/dev/null | grep -q '200'; then
+		if docker exec "$CONT_ATTAQUE" curl -s -o /dev/null -w '%{http_code}' http://juice:3000/ 2>/dev/null | grep -q '200'; then
 			REPONSE_JUICE=1
 			break
 		fi
@@ -631,14 +636,14 @@ if docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" up -d --build >/dev/nul
 		test_ko "juice-shop : l'application ne repond pas"
 	fi
 
-	if docker exec "$PROJET_JUICE-attacker-1" curl -s http://juice:3000/api/challenges 2>/dev/null | grep -q 'passwordHashLeakChallenge'; then
+	if docker exec "$CONT_ATTAQUE" curl -s http://juice:3000/api/challenges 2>/dev/null | grep -q 'passwordHashLeakChallenge'; then
 		test_ok "juice-shop : la liste des defis de l'application est lisible"
 	else
 		test_ko "juice-shop : la liste des defis est illisible"
 	fi
 
 	# Le drapeau du serveur : protege, et identique a celui de l'application.
-	if docker exec "$PROJET_JUICE-flags-1" cat /root/flags/flag-login-admin.txt >/dev/null 2>&1; then
+	if docker exec "$CONT_FLAGS" cat /root/flags/flag-login-admin.txt >/dev/null 2>&1; then
 		test_ko "juice-shop : l'apprenant lit directement le fichier de drapeau"
 	else
 		test_ok "juice-shop : le fichier de drapeau est illisible par l'apprenant"
@@ -648,17 +653,24 @@ if docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" up -d --build >/dev/nul
 	DRAPEAU_ATTENDU=$(python3 tools/juice-shop/ctf-flag.py --challenge "Login Admin" 2>/dev/null | grep '^drapeau:' | cut -d' ' -f2)
 
 	if [ -n "$DRAPEAU_ATTENDU" ]; then
-		DRAPEAU_JOUE=$(docker exec -u 0 "$PROJET_JUICE-flags-1" cat /root/flags/flag-login-admin.txt 2>/dev/null | tr -d '\r\n')
+		DRAPEAU_JOUE=$(docker exec -u 0 "$CONT_FLAGS" cat /root/flags/flag-login-admin.txt 2>/dev/null | tr -d '\r\n')
 	fi
 
 	if [ -n "$DRAPEAU_ATTENDU" ] && [ "$DRAPEAU_ATTENDU" = "$DRAPEAU_JOUE" ]; then
 		test_ok "juice-shop : le drapeau du serveur correspond a celui de l'application"
 	else
-		test_ko "juice-shop : le drapeau du serveur ne correspond pas a celui de l'application"
+		test_ko "juice-shop : le drapeau du serveur ne correspond pas a celui de l'application (attendu : ${DRAPEAU_ATTENDU:-vide} / lu : ${DRAPEAU_JOUE:-vide})"
+	fi
+
+	# Les conteneurs de la pile doivent etre la, tous les trois.
+	if [ -n "$CONT_ATTAQUE" ] && [ -n "$CONT_FLAGS" ]; then
+		test_ok "juice-shop : les trois services de la pile tournent"
+	else
+		test_ko "juice-shop : un service de la pile est absent"
 	fi
 
 	# L'eleve ne doit pas avoir de sortie Internet depuis le reseau du lab.
-	if docker exec "$PROJET_JUICE-attacker-1" curl -s --max-time 5 -o /dev/null http://example.com 2>/dev/null; then
+	if docker exec "$CONT_ATTAQUE" curl -s --max-time 5 -o /dev/null http://example.com 2>/dev/null; then
 		test_ko "juice-shop : le reseau du lab laisse sortir vers Internet"
 	else
 		test_ok "juice-shop : le reseau du lab n'a pas de sortie Internet"
