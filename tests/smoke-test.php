@@ -2046,6 +2046,60 @@ $m3_flag_ko  = Secura_Lab::flag_matches( 5, 77, '/root/flags/flag-01.txt', 'FLAG
 putenv( 'PATH=' . $old_path_flag );
 
 check( $m3_flag_ok, 'le serveur accepte le drapeau lu dans la machine de l\'apprenant' );
+
+/* Le client ne recoit jamais la bonne reponse, ni le drapeau attendu. */
+$m3_first = $m3[0];
+
+update_post_meta(
+	91,
+	SECURA_META_TASKS,
+	$m3_first['tasks']
+);
+
+update_post_meta(
+	91,
+	'_secura_lab',
+	$m3_first['lab']
+);
+
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 91,
+	'task'    => 0,
+);
+
+capture_json(
+	function () {
+		Secura_Ajax::complete_lesson();
+	}
+);
+
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 91,
+	'task'    => 1,
+);
+
+$payload_m3 = capture_json(
+	function () {
+		Secura_Ajax::get_task();
+	}
+);
+
+if ( $payload_m3 && is_array( $payload_m3['data'] ) ) {
+	$sent_m3 = $payload_m3['data']['task']['questions'];
+
+	$expose = false;
+
+	foreach ( $sent_m3 as $question_m3 ) {
+		if ( isset( $question_m3['correct'] ) || isset( $question_m3['answers'] ) || isset( $question_m3['flag_path'] ) ) {
+			$expose = true;
+		}
+	}
+
+	check( ! $expose, 'la bonne reponse et le chemin du drapeau ne quittent jamais le serveur' );
+	check( isset( $sent_m3[0]['choices'] ) && 4 === count( $sent_m3[0]['choices'] ), 'les quatre propositions du QCM sont envoyees au client' );
+}
 check( ! $m3_flag_ko, 'un mauvais drapeau est refuse meme si la machine est demarree' );
 check( '' === Secura_Lab::safe_machine_path( '/root/flags/../../../etc/passwd' ), 'un chemin de drapeau contenant « .. » est refuse' );
 
