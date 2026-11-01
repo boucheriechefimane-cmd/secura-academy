@@ -8,11 +8,13 @@ name: WordPress — recette et compatibilité
 #
 #   1. compatibilite — la plateforme doit continuer de fonctionner quand
 #      d'autres plugins sont installés (LiteSpeed Cache, Polylang, etc.) ;
-#   2. recette — la recette complète : WordPress + vraies machines Docker
-#      + deux apprenants en parallèle + les 45 contrôles des machines ;
-#   3. litespeed — le vrai serveur LiteSpeed (OpenLiteSpeed) avec le cache
-#      activé : nos pages dynamiques ne doivent jamais être servies par le
-#      cache.
+#   2. compatibilite-complete — les plugins plus lourds, testés moins
+#      souvent (le plan gratuit de GitHub ne fait qu'un job à la fois) ;
+#   3. recette — la recette complète : WordPress + vraies machines Docker
+#      + deux apprenants en parallèle + les 45 contrôles des machines.
+#
+# Le détail des contrôles est dans tools/recette-apprenants/wp-e2e.php et
+# la matrice des plugins dans docs/COMPATIBILITE-PLUGINS.md.
 
 on:
   push:
@@ -41,111 +43,40 @@ env:
   SECA_DB_PORT: 3306
 
 jobs:
+  # Les trois tests courts : à chaque push.
   compatibilite:
     name: Compatibilité — ${{ matrix.nom }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    if: ${{ matrix.toujours == 'oui' || github.event_name != 'push' }}
+    uses: ./.github/workflows/_compatibilite.yml
     strategy:
-      fail-fast: false
       matrix:
         include:
-          # « toujours » : ces trois tests tournent a chaque push.
-          # Les autres tournent sur pull request, sur demande, et chaque
-          # semaine (le plan gratuit ne fait qu'un job a la fois : on ne
-          # gaspille pas les minutes).
           - nom: 'WordPress seul'
             plugins: ''
-            toujours: 'oui'
           - nom: 'Polylang'
             plugins: 'polylang'
-            toujours: 'oui'
           - nom: 'LiteSpeed Cache'
             plugins: 'litespeed-cache'
-            toujours: 'oui'
+    with:
+      nom: ${{ matrix.nom }}
+      plugins: ${{ matrix.plugins }}
+
+  # Les plugins plus lourds : sur demande, en pull request, et chaque semaine.
+  compatibilite-complete:
+    name: Compatibilité — ${{ matrix.nom }}
+    if: github.event_name != 'push'
+    uses: ./.github/workflows/_compatibilite.yml
+    strategy:
+      matrix:
+        include:
           - nom: 'Elementor'
             plugins: 'elementor'
-            toujours: 'non'
           - nom: 'Contact Form 7'
             plugins: 'contact-form-7'
-            toujours: 'non'
           - nom: 'WooCommerce'
             plugins: 'woocommerce'
-            toujours: 'non'
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_DATABASE: ${{ env.SECA_DB_NAME }}
-          MYSQL_USER: ${{ env.SECA_DB_USER }}
-          MYSQL_PASSWORD: ${{ env.SECA_DB_PASSWORD }}
-          MYSQL_ROOT_PASSWORD: root_ci_pw
-        ports:
-          - '3306:3306'
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=12
-    steps:
-      - name: Récupérer le code
-        uses: actions/checkout@v4
-
-      - name: Installer PHP et WP-CLI
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          extensions: mysqli
-          tools: wp-cli
-
-      - name: Installer WordPress, le plugin et les plugins tiers
-        run: bash scripts/ci-wordpress.sh ${{ matrix.plugins }}
-
-      - name: Démarrer le site
-        run: |
-          nohup php -S 0.0.0.0:8080 -t "$SECA_WP_DIR" > /tmp/serveur.log 2>&1 &
-          for i in $(seq 1 30); do
-            code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/ || true)
-            if [ "$code" = "200" ]; then echo "Site en ligne (HTTP $code)"; exit 0; fi
-            sleep 1
-          done
-          echo "Le site ne répond pas" >&2
-          tail -20 /tmp/serveur.log >&2
-          exit 1
-
-      - name: Le site répond dans les trois langues
-        run: |
-          for langue in fr ar en; do
-            code=$(curl -s -o /tmp/page-$langue.html -w '%{http_code}' "http://localhost:8080/?seca_lang=$langue")
-            echo "  $langue : HTTP $code"
-            test "$code" = "200" || { echo "La page $langue ne répond pas" >&2; exit 1; }
-          done
-          grep -q 'dir="rtl"' /tmp/page-ar.html || { echo "La page arabe n'est pas en RTL" >&2; exit 1; }
-          echo "  La page arabe est bien en écriture de droite à gauche"
-
-      - name: Recette de bout en bout
-        run: wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php
-
-      - name: Chercher une erreur PHP fatale
-        run: |
-          journal="$SECA_WP_DIR/wp-content/debug.log"
-          if [ -f "$journal" ]; then
-            if grep -nE "Fatal error|Parse error|Uncaught" "$journal"; then
-              echo "::error::Erreur PHP fatale détectée avec les plugins : ${{ matrix.plugins }}"
-              exit 1
-            fi
-            echo "Journal PHP : $(wc -l < "$journal") ligne(s), aucune erreur fatale"
-          else
-            echo "Aucune erreur PHP"
-          fi
-
-      - name: Conserver le journal PHP
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: journal-php-${{ matrix.nom }}
-          path: ${{ env.SECA_WP_DIR }}/wp-content/debug.log
-          if-no-files-found: ignore
+    with:
+      nom: ${{ matrix.nom }}
+      plugins: ${{ matrix.plugins }}
 
   recette:
     name: Recette complète (WordPress + machines + deux élèves)
