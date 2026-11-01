@@ -193,13 +193,16 @@ if ( ! empty( $room ) ) {
 		}
 	}
 
-	/* B) Pratique : l'eleve peut-il repondre a une question ? */
+	/* B) Pratique : l'eleve peut-il repondre a une question ?
+	   Le nom de l'action est un contrat : il doit correspondre exactement
+	   a celui enregistre par le plugin (sinon WordPress repond « 0 »
+	   sans rien expliquer, et le controle ne teste plus rien). */
 	$reponse_api = wp_remote_post(
 		admin_url( 'admin-ajax.php' ),
 		array(
 			'timeout' => 20,
 			'body'    => array(
-				'action'     => 'seca_get_task',
+				'action'     => 'secura_get_task',
 				'room_id'    => $room_id,
 				'task_index' => 0,
 			),
@@ -210,9 +213,14 @@ if ( ! empty( $room ) ) {
 		$corps_api = trim( wp_remote_retrieve_body( $reponse_api ) );
 		$code_api  = (int) wp_remote_retrieve_response_code( $reponse_api );
 
-		$pratique_anonyme = ( 200 === $code_api && '' !== $corps_api && 0 !== (int) $corps_api );
+		/* On considere que l'appel « fonctionne » si le serveur a repondu
+		   avec une invitation explicite (401 « not_logged_in ») ou avec
+		   la tache demandee (200). Un corps « 0 » signifie que l'action
+		   n'est pas enregistree : la, le controle echouerait. */
+		$pratique_anonyme = ( 200 === $code_api && '' !== $corps_api && 0 !== (int) $corps_api )
+			|| ( 401 === $code_api && false !== strpos( $corps_api, 'not_logged_in' ) );
 
-		$preuve_pratique = 'POST admin-ajax.php (action=seca_get_task, room_id=' . $room_id . ') sans session → HTTP '
+		$preuve_pratique = 'POST admin-ajax.php (action=secura_get_task, room_id=' . $room_id . ') sans session → HTTP '
 			. $code_api . ' — corps de la réponse : « '
 			. ( '' === $corps_api ? '(vide)' : substr( $corps_api, 0, 80 ) ) . ' »';
 	}

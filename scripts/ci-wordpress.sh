@@ -122,6 +122,14 @@ wp rewrite structure '/%postname%/' --hard >/dev/null 2>&1 || true
 # a la main : c'est elle qui cree le contenu de depart.
 wp eval 'Secura_Rooms::activate();' >/dev/null
 
+# La preparation du site (page d'accueil « Parcours », pages legales
+# publiees, nettoyage des contenus de demonstration) est normalement
+# faite a l'activation. Ici aussi, l'activation est contournee : on
+# rejoue donc la meme installation, sinon la recette ne ressemble pas
+# a la production — et c'est precisement comme cela que l'auditeur
+# RGPD a trouve, en CI, que les pages legales n'existaient pas.
+wp eval 'Secura_Site::install();' >/dev/null
+
 # Notre theme (et non celui de WordPress) et le pack de langue arabe :
 # sans le pack, WordPress ne sait pas que l'arabe s'ecrit de droite a
 # gauche, et la page arabe ne se met pas en RTL.

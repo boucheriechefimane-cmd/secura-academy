@@ -580,7 +580,9 @@ l'audit **ne peut pas** mesurer.
 Historique : **93 contrôles, 8 constats réels, tous corrigés** → **108
 contrôles, 0 constat** (conformité au guide Google sur l'IA) → **118
 contrôles, 0 constat** (robots d'IA et maillage interne) → **196 contrôles,
-0 constat** (le comité des quinze, bloc T).
+0 constat** (le comité des quinze, bloc T) → **199 contrôles, 0 constat**
+(v0.8.1 : deux défauts trouvés en rejouant la recette à la main, chacun
+corrigé **et** muni d'un garde-fou automatique).
 
 Ce que les quinze auditeurs ont trouvé — et fait corriger : les pages légales
 qui n'existaient pas, l'invitation à s'inscrire que le visiteur anonyme ne
@@ -589,6 +591,15 @@ les entités HTML illisibles dans le JSON-LD, les workflows sans limite de
 temps, les sauvegardes jamais purgées, l'absence de procédure de
 restauration, le sens de lecture arabe non posé sur le document — et **la
 barrière bloquante qui ne bloquait pas**.
+
+Et ce que la **recette jouée à la main** a trouvé après coup, que les
+contrôles automatiques n'avaient pas vu : les **boutons de la page qui ne
+faisaient plus rien** (le nom des actions AJAX avait été raccourci dans le
+plugin seulement — le site était cassé pour les élèves, sans laisser la
+moindre trace dans les journaux), et le mot « fonctionnalités » **écrit en
+coréen** dans la politique de confidentialité — invisible à l'écran, mais
+public via l'API REST. Les deux sont corrigés, et **deux contrôles
+automatiques** vérifient désormais qu'ils ne reviennent pas.
 
 Le cadre est dans [`docs/AUDITS-CADRE.md`](docs/AUDITS-CADRE.md), le
 registre des constats dans [`docs/AUDITS-REGISTRE.md`](docs/AUDITS-REGISTRE.md).

@@ -3,7 +3,7 @@
     "titre": "Performance et Core Web Vitals",
     "expert": "Expert en performance web et en Core Web Vitals",
     "perimetre": "Mesure le poids de ce que le serveur envoie réellement (pages servies), le nombre et le coût des requêtes SQL, le nombre d'assets chargés, le poids des images, la présence de cache et d'optimisation, et les indicateurs que Google mesure (LCP, CLS, INP). Ne juge pas la qualité du contenu, ni la conception.",
-    "date": "2026-11-01T16:56:56+00:00",
+    "date": "2026-11-01T20:29:35+00:00",
     "ok": 6,
     "non_etaye": 0,
     "forces": [

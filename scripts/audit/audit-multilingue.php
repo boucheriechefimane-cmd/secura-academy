@@ -40,6 +40,9 @@ $rooms = get_posts(
 
 $langues = array( 'ar', 'en' );
 
+$racine = dirname( dirname( dirname( __FILE__ ) ) );
+$plugin = $racine . '/wp-content/plugins/secura-academy';
+
 /* ------------------------------------------------------------------ */
 echo "\n1. La couverture : chaque room est-elle traduite ?\n";
 
@@ -412,6 +415,154 @@ audit_verifier(
 		? 'Lien rel="alternate" présent avec hreflang et adresse absolue (https://) sur les pages contrôlées'
 		: implode( "\n", array_slice( $sans_hreflang, 0, 5 ) )
 );
+
+/* ------------------------------------------------------------------ */
+echo "\n5 bis. Les caractères d'une écriture étrangère\n";
+
+/* Un caractère cyrillique, grec ou coréen glissé dans une phrase française
+   est invisible à l'œil : il a la même allure que la lettre latine. Le
+   lecteur ne voit rien, mais la recherche du site ne trouve plus le mot,
+   et le texte copié-colé se casse. On a déjà trouvé « 기능 » au milieu
+   d'une phrase de la politique de confidentialité, en français.
+   L'arabe, lui, est attendu : c'est une des trois langues du site. */
+
+/* On n'utilise PAS \p{Greek} ni \p{Han} : dans PCRE, ces propriétés
+   désignent les jeux de caractères étendus, et le point médian « · »
+   (U+00B7) en fait partie — il serait donc signalé à tort. On prend
+   des plages Unicode explicites, sans ambiguïté. */
+$ecritures = array(
+	'cyrillique' => '/[\x{0400}-\x{04FF}\x{0500}-\x{052F}]/u',
+	'grecque'    => '/[\x{0370}-\x{03FF}\x{1F00}-\x{1FFF}]/u',
+	'han'        => '/[\x{3400}-\x{4DBF}\x{4E00}-\x{9FFF}\x{F900}-\x{FAFF}]/u',
+	'hiragana'   => '/[\x{3040}-\x{309F}]/u',
+	'katakana'   => '/[\x{30A0}-\x{30FF}]/u',
+	'hangul'     => '/[\x{AC00}-\x{D7AF}\x{1100}-\x{11FF}\x{3130}-\x{318F}]/u',
+	'devanagari' => '/[\x{0900}-\x{097F}]/u',
+	'thaï'       => '/[\x{0E00}-\x{0E7F}]/u',
+	'hebreu'     => '/[\x{0590}-\x{05FF}]/u',
+);
+
+$fichiers_a_scanner = array();
+
+foreach ( array( $plugin, $racine . '/wp-content/themes/secura-learning' ) as $dossier ) {
+	if ( ! is_dir( $dossier ) ) {
+		continue;
+	}
+	$iterateur = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dossier, FilesystemIterator::SKIP_DOTS ) );
+	foreach ( $iterateur as $fichier ) {
+		if ( $fichier->isFile() && preg_match( '/\.(php|css|js)$/', $fichier->getFilename() ) ) {
+			$fichiers_a_scanner[] = $fichier->getPathname();
+		}
+	}
+}
+
+$intrus = array();
+
+foreach ( $fichiers_a_scanner as $fichier ) {
+	$contenu = file_get_contents( $fichier );
+	foreach ( $ecritures as $nom => $motif ) {
+		if ( preg_match_all( $motif, $contenu, $trouves, PREG_OFFSET_CAPTURE ) ) {
+			foreach ( $trouves[0] as $trouve ) {
+				$caractere     = $trouve[0];
+				$position      = $trouve[1];
+				$numero_ligne  = substr_count( substr( $contenu, 0, $position ), "\n" ) + 1;
+				$intrus[]      = sprintf(
+					'%s (ligne %d) : écriture %s, caractère « %s » (U+%04X)',
+					str_replace( $racine . '/', '', $fichier ),
+					$numero_ligne,
+					$nom,
+					$caractere,
+					mb_ord( $caractere, 'UTF-8' )
+				);
+			}
+		}
+	}
+}
+
+/* On ne se contente pas de lire la base : on va chercher ce que le
+   visiteur recoit vraiment, et ce que l'API REST publie. C'est elle qui
+   expose le texte BRUT des pages — c'est donc par elle que le défaut
+   de la version 0.8.0 s'était propagé, alors que la page affichée,
+   elle, était correcte. */
+$pages_servies = array(
+	'page d\'accueil' => home_url( '/' ),
+);
+
+foreach ( array( 'politique-de-confidentialite', 'mentions-legales' ) as $slug ) {
+	$page = get_page_by_path( $slug );
+	if ( $page ) {
+		$pages_servies[ 'page « ' . $slug . ' »' ] = get_permalink( $page );
+	}
+}
+
+if ( ! empty( $rooms ) ) {
+	$room     = $rooms[0];
+	$url_room = get_permalink( $room );
+
+	$pages_servies[ 'room « ' . $room->post_title . ' » (FR)' ] = $url_room;
+	$pages_servies[ 'room « ' . $room->post_title . ' » (AR)' ] = add_query_arg( 'seca_lang', 'ar', $url_room );
+	$pages_servies[ 'room « ' . $room->post_title . ' » (EN)' ] = add_query_arg( 'seca_lang', 'en', $url_room );
+}
+
+/* L'API REST publie le texte brut des pages, sans le filtre
+   d'affichage : c'est la que l'on verrait passer un texte corige. */
+foreach ( array( 'politique-de-confidentialite', 'mentions-legales' ) as $slug ) {
+	$page = get_page_by_path( $slug );
+	if ( $page ) {
+		$pages_servies[ 'API REST — page « ' . $slug . ' »' ] = add_query_arg( 'rest_route', '/wp/v2/pages/' . $page->ID, home_url( '/' ) );
+	}
+}
+
+$pages_verifiees = array();
+
+foreach ( $pages_servies as $libelle => $url ) {
+	$html = audit_exec( 'curl -s -L --max-time 20 "' . $url . '"' );
+
+	if ( '' === trim( (string) $html ) ) {
+		continue;
+	}
+
+	$pages_verifiees[] = $libelle;
+
+	foreach ( $ecritures as $nom => $motif ) {
+		if ( preg_match_all( $motif, $html, $trouves ) ) {
+			foreach ( $trouves[0] as $caractere ) {
+				$intrus[] = sprintf(
+					'%s : écriture %s, caractère « %s » (U+%04X)',
+					$libelle,
+					$nom,
+					$caractere,
+					mb_ord( $caractere, 'UTF-8' )
+				);
+			}
+		}
+	}
+}
+
+audit_verifier(
+	'aucun caractère d\'une écriture étrangère ne s\'est glissé dans le contenu',
+	empty( $intrus ),
+	empty( $intrus )
+		? sprintf(
+			'%d fichier(s) livré(s) et %d page(s) réellement servie(s) — dont l\'API REST — vérifiés : aucune trace de cyrillique, grec, han, hiragana, katakana, hangul, devanagari, thaï ou hébreu. L\'arabe, langue officielle du site, n\'est pas concerné.',
+			count( $fichiers_a_scanner ),
+			count( $pages_verifiees )
+		)
+		: sprintf(
+			'%d intrusion(s) trouvée(s) — un caractère à l\'apparence latine mais d\'une autre écriture ; le lecteur ne le voit pas, mais la recherche du site ne trouve plus le mot : %s',
+			count( $intrus ),
+			implode( ' | ', array_slice( $intrus, 0, 8 ) )
+		),
+	'majeur',
+	implode( ' | ', array_slice( $intrus, 0, 8 ) )
+);
+
+if ( ! empty( $pages_verifiees ) ) {
+	audit_info(
+		'Ce qui a été vérifié',
+		implode( ' | ', $pages_verifiees )
+	);
+}
 
 /* ------------------------------------------------------------------ */
 echo "\n6. La limite de cet audit\n";

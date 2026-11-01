@@ -48,6 +48,10 @@ ROOMS = {
 OK = "\033[32mOK\033[0m"
 KO = "\033[31mKO\033[0m"
 
+# Les controles en echec sont memores : la recette doit bloquer la
+# chaine d'integration quand une isolation n'est pas respectee.
+ECHECS = []
+
 
 def say(text):
     print(text, flush=True)
@@ -84,19 +88,87 @@ def nonce_of(opener, url):
 
 
 def ajax(opener, action, nonce, **params):
+    """Appelle une action AJAX du plugin et renvoie TOUJOURS un dictionnaire.
+
+    Le plugin repond en JSON, mais WordPress peut repondre « 0 » (avec un
+    code HTTP 400) quand l'action n'est pas enregistree, ou un corps vide
+    si la connexion est coupee.  Sans cette normalisation, une simple
+    anomalie produirait une traceback Python illisible : on prefere un
+    message qui dit ce que le serveur a vraiment repondu.
+    """
     payload = {"action": action, "nonce": nonce}
     payload.update(params)
     request = urllib.request.Request(ADMIN_AJAX, data=urllib.parse.urlencode(payload).encode())
+
+    status = 0
     try:
-        raw = opener.open(request).read().decode("utf-8", "replace")
+        reponse = opener.open(request)
+        status = reponse.getcode()
+        raw = reponse.read().decode("utf-8", "replace")
     except urllib.error.HTTPError as exc:
         # Une erreur HTTP du plugin renvoie quand meme un corps JSON :
         # on le lit pour afficher le vrai message.
+        status = exc.code
         raw = exc.read().decode("utf-8", "replace")
+    except urllib.error.URLError as exc:
+        return {
+            "success": False,
+            "code": "network",
+            "http": 0,
+            "message": "Le site ne repond pas (%s)." % exc.reason,
+            "raw": "",
+        }
+
     try:
-        return json.loads(raw)
+        data = json.loads(raw)
     except ValueError:
-        return {"success": False, "raw": raw[:300]}
+        return {
+            "success": False,
+            "code": "not_json",
+            "http": status,
+            "message": "Le serveur n'a pas repondu en JSON.",
+            "raw": raw[:400],
+        }
+
+    if not isinstance(data, dict):
+        return {
+            "success": False,
+            "code": "not_object",
+            "http": status,
+            "message": "Le serveur a repondu avec autre chose qu'un objet JSON.",
+            "raw": raw[:400],
+        }
+
+    data.setdefault("http", status)
+    return data
+
+
+def resume(reponse):
+    """Resume lisible d'une reponse AJAX, pour les messages d'ecran."""
+    if not isinstance(reponse, dict):
+        return str(reponse)[:200]
+
+    if reponse.get("success"):
+        data = reponse.get("data")
+        if isinstance(data, dict):
+            return json.dumps(data, ensure_ascii=False)[:200]
+        return json.dumps(reponse, ensure_ascii=False)[:200]
+
+    morceaux = []
+    code = reponse.get("code")
+    if code:
+        morceaux.append(str(code))
+    message = reponse.get("message")
+    if message:
+        morceaux.append(str(message))
+    brut = reponse.get("raw")
+    if brut:
+        morceaux.append("corps=%s" % str(brut)[:160])
+    if reponse.get("http"):
+        morceaux.append("HTTP %s" % reponse["http"])
+    if not morceaux:
+        morceaux.append(json.dumps(reponse, ensure_ascii=False)[:200])
+    return " | ".join(morceaux)
 
 
 def docker_state():
@@ -135,6 +207,8 @@ def docker_networks():
 
 def check(label, condition, detail=""):
     print("  %s %s%s" % (OK if condition else KO, label, (" — " + detail) if detail else ""), flush=True)
+    if not condition:
+        ECHECS.append(label)
     return bool(condition)
 
 
@@ -148,7 +222,8 @@ def play(user, pwd, room_id, commands):
 
     start = ajax(opener, "secura_lab_start", nonce, room_id=room_id)
     result["start"] = start
-    result["started_at"] = start.get("data", {}).get("started_at") if start.get("success") else None
+    donnees = start.get("data") if isinstance(start.get("data"), dict) else {}
+    result["started_at"] = donnees.get("started_at")
 
     outs = []
     for command in commands:
@@ -168,6 +243,18 @@ def main():
     check("Alice est connectee", "deconnect" not in page(alice, BASE + "/").lower() or True)
     check("Bob est connecte", "deconnect" not in page(bob, BASE + "/").lower() or True)
 
+    # Avant toute chose, on verifie que la couche AJAX du plugin repond.
+    # C'est le diagnostic le plus utile : si elle est cassee, tout le reste
+    # de la recette est inexploitable, et il faut le dire clairement.
+    step("1 bis. La couche AJAX du plugin repond-elle ?")
+    url_premier, _ = ROOMS[ROOM_WEB]
+    nonce_premier, _ = nonce_of(alice, url_premier)
+    sonde = ajax(alice, "secura_get_room", nonce_premier, room_id=ROOM_WEB)
+    check("Le plugin repond a une action AJAX", bool(sonde.get("success")), resume(sonde))
+    if not sonde.get("success"):
+        say("  Le canal AJAX est casse : les controles suivants n'ont pas de sens.")
+        return 1
+
     step("2. Room « Securiser une application web » (machine unique, image web-01)")
     res_a = play("alice", "alice_pw", ROOM_WEB, ["id", "ls -la /var/www/html", "cat /root/flag.txt"])
     res_b = play("bob", "bob_pw", ROOM_WEB, ["id", "ls -la /var/www/html", "cat /root/flag.txt"])
@@ -177,12 +264,12 @@ def main():
     check(
         "Alice : la machine est deployee",
         res_a["start"].get("success"),
-        json.dumps(res_a["start"].get("data", {}), ensure_ascii=False)[:160],
+        resume(res_a["start"]),
     )
     check(
         "Bob : la machine est deployee",
         res_b["start"].get("success"),
-        json.dumps(res_b["start"].get("data", {}), ensure_ascii=False)[:160],
+        resume(res_b["start"]),
     )
 
     step("3. Commandes reelles dans la machine")
@@ -233,8 +320,8 @@ def main():
     step("5. Room « Les fondamentaux du reseau » (pile Compose, 4 services)")
     res_a2 = play("alice", "alice_pw", ROOM_NET, ["hostname", "ls /var/www/html"])
     res_b2 = play("bob", "bob_pw", ROOM_NET, ["hostname", "ls /var/www/html"])
-    check("Alice : pile Compose deployee", res_a2["start"].get("success"), json.dumps(res_a2["start"].get("data", {}), ensure_ascii=False)[:200])
-    check("Bob : pile Compose deployee", res_b2["start"].get("success"), json.dumps(res_b2["start"].get("data", {}), ensure_ascii=False)[:200])
+    check("Alice : pile Compose deployee", res_a2["start"].get("success"), resume(res_a2["start"]))
+    check("Bob : pile Compose deployee", res_b2["start"].get("success"), resume(res_b2["start"]))
 
     rows = docker_state()
     say("  Conteneurs simules :")
@@ -270,6 +357,16 @@ def main():
     rows = docker_state()
     say("  Conteneurs restants : %s" % (", ".join(row[0] for row in rows) or "(aucun)"))
 
+    if ECHECS:
+        step("Bilan")
+        say("  %d controle(s) en echec :" % len(ECHECS))
+        for libelle in ECHECS:
+            say("    - %s" % libelle)
+        return 1
+
+    say("  Tous les controles sont passes.")
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

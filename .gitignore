@@ -57,6 +57,12 @@ wp-includes/
 .php-cs-fixer.cache
 phpunit.xml.bak
 
+# Artefacts de laboratoire — fichiers créés par les conteneurs des élèves
+# pendant les recettes (ils ne doivent jamais être versionnés)
+labs/**/oom
+labs/**/flag.txt
+labs/**/.seca*
+
 # Python
 __pycache__/
 *.pyc

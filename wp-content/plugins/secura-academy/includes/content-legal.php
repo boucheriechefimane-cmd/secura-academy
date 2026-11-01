@@ -90,7 +90,7 @@ return array(
 <p>Les mots de passe sont hachés avec un algorithme inadapté à l’attaque (bcrypt). Les communications entre votre navigateur et le site sont chiffrées (HTTPS). Les machines d’entraînement sont isolées : deux élèves ne peuvent pas voir les machines l’un de l’autre, et les données de la plateforme ne sont pas accessibles depuis une machine d’entraînement.</p>
 
 <h2>11. Modifications</h2>
-<p>Cette politique peut être mise à jour (par exemple si la plateforme change de 기능 or d’hébergeur). La date de dernière mise à jour figure en bas de page. Les changements importants sont signalés sur la page d’accueil.</p>
+<p>Cette politique peut être mise à jour (par exemple si la plateforme change de fonctionnalités ou d’hébergeur). La date de dernière mise à jour figure en bas de page. Les changements importants sont signalés sur la page d’accueil.</p>
 HTML
 		),
 

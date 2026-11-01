@@ -30,20 +30,26 @@ final class Secura_Ajax {
 	 * Aucun risque de fuite : check_request() est appelé en tête de
 	 * chaque gestionnaire et renvoie 401 « Connectez-vous pour
 	 * continuer. » avant tout traitement.
+	 *
+	 * Les noms d'actions sont un CONTRAT : ils sont écrits dans
+	 * assets/academy.js (le front), dans les tests et dans la recette
+	 * des deux apprenants. Changer un de ces noms casse le site sans
+	 * qu'aucune erreur ne soit visible dans les journaux : WordPress
+	 * repond simplement « 0 » a l'appel AJAX. Ne pas y toucher.
 	 */
 	public static function init() {
 		$actions = array(
-			'seca_get_room'         => 'get_room',
-			'seca_get_task'         => 'get_task',
-			'seca_validate_answer'  => 'validate_answer',
-			'seca_hint'             => 'hint',
-			'seca_terminal'         => 'terminal',
-			'seca_complete_lesson'  => 'complete_lesson',
-			'seca_start_exam'       => 'start_exam',
-			'seca_lab_start'        => 'lab_start',
-			'seca_lab_stop'         => 'lab_stop',
-			'seca_lab_status'       => 'lab_status',
-			'seca_set_lang'         => 'set_lang',
+			'secura_get_room'        => 'get_room',
+			'secura_get_task'        => 'get_task',
+			'secura_validate_answer' => 'validate_answer',
+			'secura_hint'            => 'hint',
+			'secura_terminal'        => 'terminal',
+			'secura_complete_lesson' => 'complete_lesson',
+			'secura_start_exam'      => 'start_exam',
+			'secura_lab_start'       => 'lab_start',
+			'secura_lab_stop'        => 'lab_stop',
+			'secura_lab_status'      => 'lab_status',
+			'secura_set_lang'        => 'set_lang',
 		);
 
 		foreach ( $actions as $action => $methode ) {

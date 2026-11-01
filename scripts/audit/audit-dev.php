@@ -282,4 +282,98 @@ audit_info(
 	str_replace( "\n", ' | ', trim( $sortie_tests ) )
 );
 
+/* ------------------------------------------------------------------ */
+echo "\n9. Les noms d'actions AJAX sont-ils coherents ?\n";
+
+/* Un nom d'action AJAX est un CONTRAT : il est ecrit dans le front
+   (assets/academy.js), dans la recette des deux apprenants et dans le
+   plugin. Si le plugin enregistre « seca_lab_start » alors que le front
+   appelle « secura_lab_start », rien ne casse bruyamment : WordPress
+   repond simplement « 0 » et le bouton « Deployer la machine » ne fait
+   rien. C'est exactement ce qui s'est passe ; on verifie donc que les
+   trois listes disent la meme chose. */
+$fichier_js   = $plugin . '/assets/academy.js';
+$fichier_ajax = $plugin . '/includes/class-secura-ajax.php';
+
+$actions_js   = array();
+$actions_code = array();
+$actions_test = array();
+
+if ( file_exists( $fichier_js ) ) {
+	$contenu_js = file_get_contents( $fichier_js );
+	/* On capture TOUT nom d'action appele par le front, quel que soit son
+	   prefixe : un controle qui n'accepterait que « seca_… » ne
+	   verrait meme pas une faute de prefixe. */
+	if ( preg_match_all( "/post\(\s*'([a-z][a-z0-9_]*)'/", $contenu_js, $m ) ) {
+		$actions_js = array_values( array_unique( $m[1] ) );
+	}
+}
+
+if ( file_exists( $fichier_ajax ) ) {
+	$contenu_ajax = file_get_contents( $fichier_ajax );
+	/* On ne lit que le tableau « $actions » du plugin : c'est la liste
+	   de reference. Chercher dans tout le fichier ramasserait des
+	   cles etrangeres (« code », « type »…) et rendrait la preuve
+	   illisible. */
+	if ( preg_match( '/\$actions\s*=\s*array\((.*?)\);/s', $contenu_ajax, $bloc ) ) {
+		if ( preg_match_all( "/'([a-z][a-z0-9_]*)'\s*=>\s*'[a-z_]+'/", $bloc[1], $m ) ) {
+			$actions_code = array_values( array_unique( $m[1] ) );
+		}
+	}
+}
+
+$fichier_recette = $racine . '/tools/recette-apprenants/scenario.py';
+if ( file_exists( $fichier_recette ) ) {
+	$contenu_recette = file_get_contents( $fichier_recette );
+	if ( preg_match_all( '/ajax\(\s*[^,]+,\s*"([a-z][a-z0-9_]*)"/', $contenu_recette, $m ) ) {
+		$actions_test = array_values( array_unique( $m[1] ) );
+	}
+}
+
+$manquantes = array_diff( $actions_js, $actions_code );
+$manquantes = array_values( $manquantes );
+
+audit_verifier(
+	'les actions AJAX appelees par le front sont bien enregistrees par le plugin',
+	empty( $manquantes ),
+	empty( $manquantes )
+		? sprintf(
+			'%d action(s) appelee(s) par assets/academy.js, toutes enregistrees par class-secura-ajax.php : %s',
+			count( $actions_js ),
+			implode( ', ', $actions_js )
+		)
+		: sprintf(
+			'%d action(s) appelee(s) par le front ne sont PAS enregistrees par le plugin : %s — le front appelle %s, le plugin enregistre %s. Symptome : WordPress repond « 0 » et le bouton ne fait rien.',
+			count( $manquantes ),
+			implode( ', ', $manquantes ),
+			implode( ', ', $actions_js ),
+			implode( ', ', $actions_code )
+		),
+	'bloquant',
+	sprintf(
+		'front : %s | plugin : %s',
+		implode( ', ', $actions_js ),
+		implode( ', ', $actions_code )
+	)
+);
+
+$manquantes_test = array_values( array_diff( $actions_test, $actions_code ) );
+
+audit_verifier(
+	'la recette des deux apprenants appelle les memes actions que le plugin',
+	empty( $manquantes_test ),
+	empty( $manquantes_test )
+		? sprintf(
+			'%d action(s) appelee(s) par tools/recette-apprenants/scenario.py, toutes enregistrees par le plugin.',
+			count( $actions_test )
+		)
+		: sprintf(
+			'%d action(s) de la recette ne sont pas enregistrees : %s — la recette testerait une action qui n existe pas.',
+			count( $manquantes_test ),
+			implode( ', ', $manquantes_test )
+		),
+	'bloquant',
+	sprintf( 'recette : %s', implode( ', ', $actions_test ) )
+);
+
 exit( audit_fin() );

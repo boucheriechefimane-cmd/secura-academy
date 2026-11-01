@@ -21,19 +21,19 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 1 | SEO | 45 | 0 | 0 | 0 | **Conforme** |
 | 2 | Contenu | 18 | 0 | 0 | 0 | **Conforme** |
 | 3 | UX / UI | 16 | 0 | 0 | 0 | **Conforme** |
-| 4 | Développement | 14 | 0 | 0 | 0 | **Conforme** |
+| 4 | Développement | 16 | 0 | 0 | 0 | **Conforme** |
 | 5 | Sécurité & infra | 25 | 0 | 0 | 0 | **Conforme** |
 | 6 | **Pédagogie** | 12 | 0 | 0 | 0 | **Conforme** |
 | 7 | **Performance & Core Web Vitals** | 6 | 0 | 0 | 0 | **Conforme** |
 | 8 | **Données structurées** | 7 | 0 | 0 | 0 | **Conforme** |
 | 9 | **Accessibilité (WCAG 2.2 AA)** | 10 | 0 | 0 | 0 | **Conforme** |
-| 10 | **Multilingue & i18n** | 6 | 0 | 0 | 0 | **Conforme** |
+| 10 | **Multilingue & i18n** | 7 | 0 | 0 | 0 | **Conforme** |
 | 11 | **RGPD & mineurs** | 8 | 0 | 0 | 0 | **Conforme** |
 | 12 | **Moteur de lab & Docker** | 6 | 0 | 0 | 0 | **Conforme** |
 | 13 | **Onboarding** | 9 | 0 | 0 | 0 | **Conforme** |
 | 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | **Conforme** |
 | 15 | **DevOps & résilience** | 10 | 0 | 0 | 0 | **Conforme** |
-| | **Total** | **196** | **0** | **0** | **0** | **Conforme** |
+| | **Total** | **199** | **0** | **0** | **0** | **Conforme** |
 
 > Les 15 auditeurs produisent chacun **trois formats** de rapport dans
 > `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
@@ -116,6 +116,111 @@ réelles pour l'isolation.
 
 ---
 
+### 2 ter. La régression « les boutons ne faisaient plus rien » (01/11/2026, v0.8.1)
+
+**Le symptôme.** Après la livraison du comité d'audit à quinze experts
+(version 0.8.0), les deux workflows GitHub sont tombés en échec. En
+rejouant la recette des deux apprenants à la main, le site a montré un
+défaut bien plus grave que l'échec des tests : **le bouton « Déployer la
+machine » ne faisait plus rien**, et l'élève recevait « Une erreur est
+survenue. »
+
+**La cause racine.** Le nom d'une action AJAX (le nom que le navigateur
+envoie au site) est un **contrat** : il est écrit à trois endroits — le
+front `assets/academy.js`, le script de recette des deux apprenants, et le
+plugin qui enregistre la demande. Lors de la livraison du comité, le
+préfixe de ces noms avait été raccourci de `secura_` en `seca_` **dans le
+plugin seulement**. Le front, lui, continuait d'appeler `secura_lab_start`,
+`secura_terminal`, `secura_lab_status`, `secura_lab_stop`.
+
+Le symptôme est silencieux : WordPress ne dit pas « action inconnue », il
+répond **`0`** avec un code HTTP 400. Aucun journal, aucune erreur visible.
+Le bouton noumbla.
+
+**La preuve** (pas une déduction) :
+
+| Ce qui a été mesuré | Résultat |
+|---|---|
+| Crochet `wp_ajax_secura_get_room` | **présent** |
+| Crochets `wp_ajax_secura_lab_start`, `wp_ajax_secura_terminal`, `wp_ajax_secura_lab_status`, `wp_ajax_secura_lab_stop` | **absents** |
+| La version précédente du plugin (`git show d71a7e1`) | enregistrait bien `wp_ajax_secura_*` |
+| Appel direct de `secura_lab_start` depuis le navigateur | HTTP 400, corps `0` |
+| Scénario complet après correction | **100 % réussi**, code de sortie 0 : les deux élèves déploient leur machine, exécutent leurs commandes, lisent le drapeau `SECURA{sql_injection_web}` **dans leur propre conteneur** |
+
+**Le traitement.**
+
+| Correction | Fichier |
+|---|---|
+| Les **onze** actions sont revenues à leur contrat `secura_*` (et `wp_ajax_nopriv_` conservé, pour que l'invité reçoive une vraie invitation et non une erreur) | `wp-content/plugins/secura-academy/includes/class-secura-ajax.php` |
+| La sonde de pré-contrôle de la recette interroge la bonne action | `tools/recette-apprenants/scenario.py` |
+| L'auditeur « Onboarding » interroge la bonne action (il ne testait donc rien avant) | `scripts/audit/audit-onboarding.php` |
+| La CI crée les pages légales avant l'audit RGPD | `scripts/ci-wordpress.sh` |
+
+**Le garde-fou (pour que ça ne se reproduise plus).** Deux contrôles
+automatiques ont été ajoutés à l'auditeur « Développement » (14 → 16
+contrôles) : ils comparent **nom par nom** la liste des actions appelées
+par le front et par la recette avec la liste des actions enregistrées par
+le plugin. Une seule action qui diffère suffit à faire échouer l'audit en
+bloquant, avec le nom de l'action fautive.
+
+Ce garde-fou a été **testé dans les deux sens** : en le faisant échouer
+volontairement (le plugin enregistrant `seca_lab_start` au lieu de
+`secura_lab_start`), il a bien produit **2 constats bloquants** en
+dénommant l'action fautive ; remis à l'endroit, il repasse au vert.
+
+> **La leçon, écrite dans le plugin lui-même.** Un nom d'action AJAX ne se
+> renomme pas en un seul endroit. Cette règle est désormais rappelée en
+> commentaire dans le fichier qui enregistre les actions, et vérifiée à
+> chaque push.
+
+### 2 quater. Le mot « fonctionnalités » écrit en coréen (01/11/2026, v0.8.1)
+
+**Le symptôme.** En relisant les textes livrés, une phrase de la politique
+de confidentialité contenait deux caractères coréens à la place du mot
+« fonctionnalités ». À l'écran, rien ne se voit : les caractères coréens
+ont exactement l'apparence d'un texte latin.
+
+**Où le défaut était visible — et où il ne l'était pas.**
+
+| Endroit | Avant le correctif | Après |
+|---|---|---|
+| La page affichée dans le navigateur | **correcte** (le plugin sert son propre texte) | correcte |
+| Le texte brut en base de données | **corrompu** | corrigé |
+| **L'API REST** (`/wp-json/wp/v2/pages/3`) | **corrompu** — donc public | corrigé |
+
+**⇒ La leçon : « la page marche » ne prouve pas que « le contenu est
+propre ».** Le site affichait un texte correct parce que le plugin le
+remplace au moment du rendu ; mais l'API REST, elle, publie le texte
+brut de la base. Le défaut était donc accessible à quiconque knew l'adresse.
+
+**Le traitement.**
+
+| Correction | Fichier |
+|---|---|
+| Le texte est réécrit proprement | `wp-content/plugins/secura-academy/includes/content-legal.php` |
+| Les pages légales **de la base** sont mises à jour à chaque nouvelle version du plugin — en ne jamais écrasant un texte que le propriétaire aurait retouché à la main (comparaison par empreinte) | `wp-content/plugins/secura-academy/includes/class-secura-site.php` |
+
+**Le garde-fou.** Un contrôle a été ajouté à l'auditeur « Multilingue »
+(6 → 7 contrôles) : il cherche, dans les fichiers livrés **et dans les
+pages réellement servies** (y compris l'API REST), tout caractère
+appartenant à une écriture étrangère au site (cyrillique, grec, han,
+hiragana, katakana, hangul, devanagari, thaï, hébreu). L'arabe, langue
+officielle du site, n'est pas concerné.
+
+Ce contrôle a été **testé dans les deux sens** : en réintroduisant le
+caractère coréen, il a signalé **4 intrusions** en nommant le fichier et
+la page ; remis à l'endroit, il repasse au vert.
+
+> **Note de méthode.** La première version de ce contrôle lisait la base
+> de données et signalait le texte brut — y compris lorsqu'un
+> propriétaire y avait écrit son propre texte. C'était un **faux
+> positif** : le contrôle a été réécrit pour vérifier ce que le visiteur
+> reçoit vraiment. Un audit qui produit de faux positifs perd la
+> confiance de celui qui le lit ; il vaut mieux un audit étroit et vrai
+> qu'un audit large et approximatif.
+
+---
+
 ## 3. Ce que le comité a confirmé de bon
 
 C'est aussi utile qu'un constat : ces points sont **vérifiés à chaque
@@ -184,3 +289,5 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 | 01/11/2026 | v0.6.0 | Audit de conformité au guide Google « réponses générées par l'IA » : 6 constats, tous corrigés (hreflang absolus, canonique par langue, données structurées, vidéo déclarée, titres de section, étapes en HTML), **108 contrôles au vert** |
 | 01/11/2026 (nuit) | v0.7.0 | Second passage : **10 constats réels** trouvés en refaisant les tests à la main — maillage interne (0 room atteignable), `robots.txt` sans robots d'IA nommés, titre des pages arabes resté en français, 37 chaînes de traduction dégradées, archive d'auteur ouverte, page d'accueil en texte de démonstration, absence d'image de partage. Tous corrigés : **118 contrôles au vert** |
 | 01/11/2026 (nuit, suite) | v0.7.0 | Défaut d'outillage de test, **pas** du site : les contrôles « robots.txt nomme les robots d'IA » et « llms.txt cite les rooms » échouaient en CI alors qu'ils passaient en local. Cause isolée en conteneur (PHP 8.3 reproduit l'échec, PHP 8.4 non) : le serveur PHP intégré répond 404 pour une adresse à extension, donc `/robots.txt` et `/llms.txt` n'atteignaient jamais WordPress. Un vrai hébergeur (Apache/LiteSpeed) les route vers WordPress via `.htaccess` : le site était correct. **Correction :** les workflows servent le site via `scripts/audit/router.php`, comme le faisait déjà le workflow d'audit. Vérification après correction : **118 contrôles, 0 constat**, recette **34/34**, 5 workflows verts |
+| 01/11/2026 (nuit, suite) | v0.8.0 | Livraison du comité des quinze : **196 contrôles, 0 constat**. Mais deux workflows GitHub sont tombés en échec, et le rejeu de la recette à la main a montré un **vrai défaut** : les onze actions AJAX avaient été renommées de `secura_` en `seca_` dans le plugin seulement — le front continuait d'appeler les anciennes. Le site était donc **cassé pour les élèves** (bouton « Déployer la machine » inerte, message d'erreur muet). Corrigé, et **deux contrôles automatiques** ajoutés pour que la cohérence des noms soit vérifiée à chaque push. Voir § 2 ter |
+| 01/11/2026 (nuit, suite) | v0.8.1 | Deuxième passe de relecture : le mot « fonctionnalités » était écrit **en coréen** dans la politique de confidentialité. Invisible à l'écran ; **public via l'API REST**, qui publie le texte brut de la base. Corrigé, avec un **nouveau contrôle** qui cherche les caractères d'une écriture étrangère dans les fichiers livrés et dans les pages réellement servies. Les pages légales de la base sont désormais remises à jour à chaque version du plugin, **sans jamais écraser un texte retouché par le propriétaire**. Voir § 2 quater. Total : **199 contrôles, 0 constat** |

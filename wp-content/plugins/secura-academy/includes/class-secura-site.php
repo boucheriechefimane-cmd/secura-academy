@@ -41,6 +41,30 @@ class Secura_Site {
 		/* Les pages legales sont servies dans la langue du visiteur. */
 		add_filter( 'the_title', array( __CLASS__, 'titre_legal' ), 9, 2 );
 		add_filter( 'the_content', array( __CLASS__, 'contenu_legal' ), 9 );
+
+		/* Apres une mise a jour du plugin, on rejoue l'installation :
+		   c'est elle qui met les pages legales a jour. Sans cela, un
+		   site deja installe garderait forever le texte d'avant
+		   correction. */
+		add_action( 'init', array( __CLASS__, 'mise_a_jour_si_necessaire' ), 1 );
+	}
+
+	/**
+	 * Rejoue l'installation si la version du plugin a change.
+	 *
+	 * La lecture d'une option est negligeable ; l'installation, elle,
+	 * ne tourne qu'une fois par version.
+	 */
+	public static function mise_a_jour_si_necessaire() {
+		$version_installee = (string) get_option( 'seca_version_installee', '' );
+
+		if ( $version_installee === SECURA_ACADEMY_VERSION ) {
+			return;
+		}
+
+		self::install();
+
+		update_option( 'seca_version_installee', SECURA_ACADEMY_VERSION );
 	}
 
 	/**
@@ -120,6 +144,34 @@ class Secura_Site {
 	}
 
 	/**
+	 * L'empreinte des textes legaux tels qu'ils avaient ete livres
+	 * AVANT la version 0.8.1.
+	 *
+	 * En v0.8.0, un caractere etrange s'etait glisse dans une phrase de
+	 * la politique de confidentialite : deux caracteres coréens a la
+	 * place du mot « fonctionnalités » (on ne les reproduit pas ici :
+	 * meme dans un commentaire, le code livre ne doit contenir que les
+	 * ecritures du site). Invisible a l'ecran, le defaut etait bien
+	 * present dans la base et dans l'API REST.
+	 *
+	 * On note ici l'empreinte de chaque version livree. Cela permet de
+	 * distinguer trois situations, sans jamais deviner :
+	 *
+	 * - l'empreinte du texte en base est l'une de celles-ci : c'est
+	 *   NOTRE texte, dans une version ancienne ; on le remplace par la
+	 *   version corrigee ;
+	 * - l'empreinte du texte en base est celle que nous avions installee
+	 *   (meta « _secura_legal_hash ») : c'est NOTRE texte, on le met a
+	 *   jour si le plugin a change depuis ;
+	 * - l'empreinte ne correspond a aucune des deux : le proprietaire a
+	 *   retouche le texte a la main ; on ne y touche JAMAIS.
+	 */
+	const EMPREINTES_LEGALES_ANTIEURES = array(
+		'politique-de-confidentialite' => array( '2587a9dd91e7df53eb7c25157745df8c' ),
+		'mentions-legales'             => array( '13ffa760fa7f913623435490de2d9936' ),
+	);
+
+	/**
 	 * Cree (ou met a jour) les pages legales et les publie.
 	 *
 	 * Ces pages ne sont pas optionnelles : une plateforme qui accueille
@@ -136,6 +188,9 @@ class Secura_Site {
 			$contenu_fr = isset( $par_langue['fr']['content'] ) ? $par_langue['fr']['content'] : '';
 			$titre_fr  = isset( $par_langue['fr']['title'] ) ? $par_langue['fr']['title'] : $slug;
 
+			/* L'empreinte du texte que nous livrons aujourd'hui. */
+			$empreinte_livree = md5( $contenu_fr );
+
 			if ( $existante ) {
 				$id = (int) $existante->ID;
 
@@ -145,11 +200,33 @@ class Secura_Site {
 					$modifications['post_status'] = 'publish';
 				}
 
-				/* On ne remplace le contenu que s'il est encore celui
-				   par defaut de WordPress (le texte « Texte suggéré »).
-				   Un texte redige par l'editeur n'est jamais touche. */
-				if ( false !== strpos( (string) $existante->post_content, 'privacy-policy-tutorial' )
-					|| '' === trim( (string) $existante->post_content ) ) {
+				$contenu_base   = (string) $existante->post_content;
+				$empreinte_base = md5( $contenu_base );
+				$empreinte_ref  = (string) get_post_meta( $id, '_secura_legal_hash', true );
+
+				/* Trois cas, decides par la preuve — jamais par une
+				   impression. */
+				if ( '' === trim( $contenu_base )
+					|| false !== strpos( $contenu_base, 'privacy-policy-tutorial' ) ) {
+					/* Page vide ou encore celle de WordPress : on y met
+					   notre texte. */
+					$a_remplacer = true;
+				} elseif ( $empreinte_base === $empreinte_ref ) {
+					/* C'est exactement le texte que nous avions installe :
+					   si le plugin a ete corrige depuis, on met a jour. */
+					$a_remplacer = ( $empreinte_base !== $empreinte_livree );
+				} elseif ( isset( self::EMPREINTES_LEGALES_ANTIEURES[ $slug ] )
+					&& in_array( $empreinte_base, self::EMPREINTES_LEGALES_ANTIEURES[ $slug ], true ) ) {
+					/* Version anterieure de notre propre texte : on
+					   remplace par la version corrigee. */
+					$a_remplacer = true;
+				} else {
+					/* Le proprietaire a retouche le texte : on n'y touche
+					   jamais. */
+					$a_remplacer = false;
+				}
+
+				if ( $a_remplacer ) {
 					$modifications['post_content'] = $contenu_fr;
 					$modifications['post_title']   = $titre_fr;
 					$modifications['post_excerpt'] = isset( $par_langue['fr']['excerpt'] ) ? $par_langue['fr']['excerpt'] : '';
@@ -157,6 +234,12 @@ class Secura_Site {
 
 				if ( count( $modifications ) > 1 ) {
 					wp_update_post( $modifications );
+				}
+
+				if ( $a_remplacer ) {
+					/* On note l'empreinte du texte installe : la
+					   prochaine fois, on saura qu'il est de nous. */
+					update_post_meta( $id, '_secura_legal_hash', $empreinte_livree );
 				}
 			} else {
 				$id = wp_insert_post(
@@ -174,6 +257,9 @@ class Secura_Site {
 				if ( ! $id || is_wp_error( $id ) ) {
 					continue;
 				}
+
+				/* Page creee : on note l'empreinte du texte installe. */
+				update_post_meta( $id, '_secura_legal_hash', $empreinte_livree );
 			}
 
 			/* Les traductions sont rangees dans la meme metadonnee que
@@ -224,6 +310,8 @@ class Secura_Site {
 		self::assurer_page_parcours();
 		self::assurer_pages_legales();
 		self::nettoyer_contenus_par_defaut();
+
+		update_option( 'seca_version_installee', SECURA_ACADEMY_VERSION );
 	}
 
 	/**
