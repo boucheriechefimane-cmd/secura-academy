@@ -18,7 +18,7 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 
 | # | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Verdict |
 |---|---|---|---|---|---|---|
-| 1 | SEO | 45 | 0 | 0 | 0 | **Conforme** |
+| 1 | SEO | 46 | 0 | 0 | 0 | **Conforme** |
 | 2 | Contenu | 18 | 0 | 0 | 0 | **Conforme** |
 | 3 | UX / UI | 16 | 0 | 0 | 0 | **Conforme** |
 | 4 | Développement | 18 | 0 | 0 | 0 | **Conforme** |
@@ -33,7 +33,7 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 13 | **Onboarding** | 9 | 0 | 0 | 0 | **Conforme** |
 | 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | **Conforme** |
 | 15 | **DevOps & résilience** | 10 | 0 | 0 | 0 | **Conforme** |
-| | **Total** | **202** | **0** | **0** | **0** | **Conforme** |
+| | **Total** | **203** | **0** | **0** | **0** | **Conforme** |
 
 > Les 15 auditeurs produisent chacun **trois formats** de rapport dans
 > `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
@@ -57,6 +57,8 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 10 | Les actions GitHub n'étaient épinglées que par version majeure | DevOps | Mineur | Les 13 usages sont épinglés par **empreinte SHA** (empreintes réelles, vérifiées le 01/11/2026) | ✅ corrigé |
 | 11 | Le sens de lecture arabe (`dir="rtl"`) n'était posé que sur le bloc de l'application, pas sur le document : une page de contenu en arabe s'affichait de gauche à droite | Multilingue | (trouvé en cours de route) | Le sens de lecture est désormais porté par la balise `<html>` | ✅ corrigé |
 | 12 | **La barrière bloquante ne bloquait pas** : `audit_fin()` renvoyait le code par `return`, que `wp eval-file` ignore | DevOps | (trouvé en cours de route) | `audit_fin()` termine par `exit()` ; vérifié : un constat bloquant sort désormais avec le code 1 | ✅ corrigé |
+| 13 | **Un titre passait du niveau 1 au niveau 3** dans la room « Kahoot : la révision des labs avancés » : les lecteurs d'écran annonçaient un titre de niveau 2 manquant | Accessibilité (WCAG 2.2 AA) | **Majeur** | Le bloc Kahoot titre désormais en `<h2>`, comme les autres blocs de room ; **testé dans les deux sens** (le garde-fou détecte le retour de la faute) | ✅ corrigé |
+| 14 | **Deux contrôles ne regardaient qu'une room tirée au hasard** : le résultat dépendait de l'ordre des identifiants — un défaut visible en CI pouvait être invisible en local | Accessibilité, SEO | (trouvé en cours de route) | Les **53 pages** (accueil + 52 rooms) sont vérifiées à chaque audit, et le titre de **chaque** room est contrôlé sur la page réellement servie | ✅ corrigé |
 
 > **Sur le point 12.** C'est le genre de défaut que seule une vérification
 > expérimentale révèle : le code *avait l'air* correct, et le tableau de
@@ -374,6 +376,67 @@ propriété physique — vérifié sur les fichiers du dépôt.
 
 ---
 
+### 2 septies. Un audit qui tire au sort ne prouve rien (01/11/2026, v0.8.3-bis)
+
+**Le symptôme.** La CI a trouvé un **majeur d'accessibilité** que la recette
+locale ne voyait jamais : dans la room « Kahoot : la révision des labs
+avancés », la hiérarchie des titres sautait du niveau 1 au niveau 3
+(`<h1>` → `<h3>`). Un lecteur d'écran annonce alors « titre de niveau 2
+manquant » : la structure de la page n'est plus comprise.
+
+**Pourquoi la recette locale ne l'avait pas vu.** Le contrôle
+d'accessibilité **tirait une room au hasard** parmi celles qui existent.
+Selon l'identifiant tiré, le défaut apparaissait ou non : il était
+**visible en CI, invisible en local**, et son résultat changeait d'une
+exécution à l'autre. Un contrôle qui dépend d'un hasard n'est pas un
+contrôle.
+
+**La cause réelle du saut.** Les autres blocs d'une room (les tâches, la
+machine cible, le terminal) titrent en `<h2>`. Le bloc Kahoot titrait en
+`<h3>` : un niveau inventé, sans rapport avec sa place dans la page.
+
+**La preuve, mesurée.**
+
+| Mesure | Avant | Après |
+|---|---|---|
+| Séquence de titres de la room 59 | `h2, h1, h3, h2, h2, h2` | `h2, h1, h2, h2, h2, h2` |
+| Sauts de niveau détectés sur les 52 rooms | 1 (room 59) | **0** |
+| Rooms sans titre de niveau 1 unique | 0 | **0** |
+| Rooms contrôlées par l'audit | 1 (tirée au hasard) | **53** (accueil + 52 rooms) |
+
+**Le traitement.**
+
+| Correction | Fichier |
+|---|---|
+| Le bloc Kahoot titre en `<h2>` (le style est porté par la classe `seca-kahoot-title` : **le rendu visible ne change pas**) | `wp-content/plugins/secura-academy/includes/class-secura-kahoot.php` |
+| L'audit d'accessibilité vérifie **toutes** les rooms (accueil + 52), dans l'ordre des identifiants — plus aucun tirage au sort | `scripts/audit/audit-accessibilite.php` |
+| L'auditeur « SEO » vérifie le titre de **chaque** room sur la page réellement servie (comparaison après normalisation) | `scripts/audit/audit-seo.php` |
+
+**Les garde-fous.**
+
+1. **Le test négatif.** Le défaut a été **remis volontairement** dans la
+   source : l'audit a alors produit « room 59 : saut de niveau h1 → h3 »
+   (majeur, en nommant la room). La faute réintroduite, le défaut revient :
+   le garde-fou est vérifié **dans les deux sens**, pas seulement quand tout
+   va bien.
+2. **Aucun échantillon arbitraire.** Les audits qui portaient sur « une
+   room tirée au hasard » ne regardent plus qu'un tirage : ils regardent
+   **tout le catalogue** (53 pages), en deux secondes.
+3. **Le même traitement pour le SEO.** Le titre de chaque room est
+   comparé à ce que la page **servie** annonce, après normalisation des
+   entités et des apostrophes (droites dans la base, typographiques à
+   l'écran) — un contrôle qui produit des faux positifs perd la confiance
+   de celui qui le lit.
+
+> **La leçon.** « 0 constat » n'a de valeur que si le contrôle a regardé
+> **tout** ce qu'il prétend regarder. Un contrôle qui choisit sa cible au
+> hasard peut afficher « conforme » le jour où la cible est saine, et
+> « rouge » le lendemain pour une raison qui n'a rien à voir avec le
+> code. Le passage de 202 à **203 contrôles** n'est pas un ajout de
+> couverture : c'est un **dépistage qui ne laisse plus rien au hasard**.
+
+---
+
 ## 3. Ce que le comité a confirmé de bon
 
 C'est aussi utile qu'un constat : ces points sont **vérifiés à chaque
@@ -445,4 +508,5 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 | 01/11/2026 (nuit, suite) | v0.8.0 | Livraison du comité des quinze : **196 contrôles, 0 constat**. Mais deux workflows GitHub sont tombés en échec, et le rejeu de la recette à la main a montré un **vrai défaut** : les onze actions AJAX avaient été renommées de `secura_` en `seca_` dans le plugin seulement — le front continuait d'appeler les anciennes. Le site était donc **cassé pour les élèves** (bouton « Déployer la machine » inerte, message d'erreur muet). Corrigé, et **deux contrôles automatiques** ajoutés pour que la cohérence des noms soit vérifiée à chaque push. Voir § 2 ter |
 | 01/11/2026 (nuit, suite) | v0.8.1 | Deuxième passe de relecture : le mot « fonctionnalités » était écrit **en coréen** dans la politique de confidentialité. Invisible à l'écran ; **public via l'API REST**, qui publie le texte brut de la base. Corrigé, avec un **nouveau contrôle** qui cherche les caractères d'une écriture étrangère dans les fichiers livrés et dans les pages réellement servies. Les pages légales de la base sont désormais remises à jour à chaque version du plugin, **sans jamais écraser un texte retouché par le propriétaire**. Voir § 2 quater. Total : **199 contrôles, 0 constat** |
 | 01/11/2026 (nuit, suite 2) | v0.8.2 | Le workflow « Audit externe » est tombé rouge sur un constat RGPD **bloquant** : les pages légales n'existaient pas **sur un site installé en ligne de commande**. Cause mesurée : le plugin rangeait les textes dans une **variable globale**, et WP-CLI charge WordPress **dans une portée de fonction** — une telle variable n'y existe pas. Le défaut ne vivait donc que dans un contexte (la CI), invisible pour la recette manuelle jouée sur un vrai serveur web. **Correction :** les textes passent par une fonction, qui existe partout ; **garde-fou :** l'installation est vérifiée explicitement (l'échec nomme la page absente) et **deux contrôles** interdisent le retour de la faute. Un faux positif a été corrigé au passage (apostrophe typographique échappée en `&#8217;` dans la comparaison des données structurées). Voir § 2 quinquies. Total : **200 contrôles, 0 constat** |
+| 01/11/2026 (nuit, suite 4) | v0.8.3-bis | La CI a trouvé un **majeur d'accessibilité** que la recette locale ne voyait pas : un saut de titre `h1` → `h3` dans la room « Kahoot ». Deux causes : le bloc Kahoot titrait en `<h3>` alors que tous les autres blocs de room titrent en `<h2>` ; et surtout, **le contrôle d'accessibilité tirait une room au hasard** — visible en CI, invisible en local, et différent d'une exécution à l'autre. **Correction :** bloc Kahoot en `<h2>` (rendu inchangé, le style est porté par la classe) ; l'audit vérifie désormais **les 53 pages** (accueil + 52 rooms) ; l'auditeur « SEO » vérifie le titre de **chaque** room sur la page servie. **Garde-fou :** le défaut a été **remis volontairement** dans le code pour prouver que l'audit le détecte (il nomme la room), puis retiré — un garde-fou testé dans les deux sens. Total : **203 contrôles, 0 constat** |
 | 01/11/2026 (nuit, suite 3) | v0.8.3 | La CI a signalé un « majeur » multilingue : des propriétés physiques dans la feuille arabe. En cherchant, on a trouvé un **vrai défaut invisible** : le thème déclarait sa feuille arabe avec un **chemin de fichier** au lieu d'une **adresse**, donc le navigateur demandait une URL qui n'existait pas (404) — **la mise en page arabe n'était jamais appliquée**. Le constat, lui, était un **faux positif** : le contrôle mesurait la page 404 (qui contient le CSS de WordPress), pas une feuille de style. **Correction :** adresse correcte, et feuille arabe chargée dès que le visiteur lit en arabe, même sur un site en français ; version du thème cohérente. **Garde-fous :** un contrôle **bloquant** vérifie désormais que toutes les feuilles de style d'une page se chargent (HTTP 200), dans les trois langues ; et le contrôle ne mesure plus une page d'erreur comme si c'était une feuille de style. Un faux positif de l'auditeur « SEO » est corrigé au passage (apostrophes non normalisés). Total : **202 contrôles, 0 constat** |

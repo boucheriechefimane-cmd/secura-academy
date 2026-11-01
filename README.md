@@ -591,7 +591,12 @@ automatiques interdisent le retour de la faute) → **202 contrôles, 0
 constat** (v0.8.3 : la feuille de style arabe était déclarée à une adresse
 qui n'existait pas — **404**, donc mise en page arabe jamais appliquée ;
 corrigée, et un contrôle **bloquant** vérifie désormais que toutes les
-feuilles de style d'une page se chargent).
+feuilles de style d'une page se chargent) → **203 contrôles, 0
+constat** (v0.8.3-bis : un saut de titre `h1` → `h3` dans la room
+« Kahoot », trouvé par la CI et invisible en local — parce que le contrôle
+d'accessibilité **tirait une room au hasard** ; corrigé, et **aucun audit
+ne tire plus au sort** : les 53 pages et le titre de chaque room sont
+vérifiés à chaque passage).
 
 Ce que les quinze auditeurs ont trouvé — et fait corriger : les pages légales
 qui n'existaient pas, l'invitation à s'inscrire que le visiteur anonyme ne

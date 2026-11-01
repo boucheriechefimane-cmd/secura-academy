@@ -3,13 +3,13 @@
     "titre": "Accessibilité — WCAG 2.2 niveau AA",
     "expert": "Expert en accessibilité numérique (RGAA et WCAG 2.2 AA)",
     "perimetre": "Applique la grille WCAG 2.2 AA critère par critère aux pages servies : texte alternatif, nom accessible des commandes, étiquetage des champs, structure des titres, contraste, navigation clavier, lien d'évitement, langue déclarée, sens de lecture, zoom, cibles tactiles et animations. Un audit automatique ne remplace pas un test avec un lecteur d'écran : ce qui n'est pas automatisable est dit explicitement.",
-    "date": "2026-11-01T22:41:38+00:00",
+    "date": "2026-11-01T22:50:33+00:00",
     "ok": 10,
     "non_etaye": 0,
     "forces": [
         {
             "libelle": "Les images ont toutes une alternative textuelle (WCAG 1.1.1)",
-            "preuve": "Relevé sur 2 pages : 0 image sans alt"
+            "preuve": "Relevé sur 53 pages : 0 image sans alt"
         }
     ],
     "scenarios": [],
@@ -20,7 +20,7 @@
     "constats": [
         {
             "libelle": "Pages contrôlées",
-            "detail": "accueil, room",
+            "detail": "accueil, room 8, room 9, room 10, room 11, room 12, room 13, room 14, room 15, room 16, room 17, room 18, room 19, room 20, room 21, room 22, room 23, room 24, room 25, room 26, room 27, room 28, room 29, room 30, room 31, room 32, room 33, room 34, room 35, room 36, room 37, room 38, room 39, room 40, room 41, room 42, room 43, room 44, room 45, room 46, room 47, room 48, room 49, room 50, room 51, room 52, room 53, room 54, room 55, room 56, room 57, room 58, room 59",
             "gravite": "info",
             "preuve": "",
             "etaye": false

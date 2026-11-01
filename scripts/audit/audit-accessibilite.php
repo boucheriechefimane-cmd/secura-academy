@@ -37,10 +37,23 @@ echo "\n1. Les pages contrôlées\n";
 
 $pages = array( 'accueil' => home_url( '/' ) );
 
-$room = get_posts( array( 'post_type' => 'secura_room', 'numberposts' => 1, 'post_status' => 'any' ) );
+/* TOUTES les rooms, pas une seule. Choisir une room au hasard rendait le
+   contrôle dépendant de l'ordre des identifiants : une room à problème
+   pouvait être vérifiée en CI et ignorée en local (c'est ainsi qu'un
+   saut de niveau h1 → h3 a survécu). Le catalogue fait 52 rooms : on les
+   vérifie toutes. */
+$rooms = get_posts(
+	array(
+		'post_type'   => 'secura_room',
+		'numberposts' => -1,
+		'post_status' => 'publish',
+		'orderby'     => 'ID',
+		'order'       => 'ASC',
+	)
+);
 
-if ( ! empty( $room ) ) {
-	$pages[ 'room' ] = get_permalink( $room[0]->ID );
+foreach ( $rooms as $chambre ) {
+	$pages[ 'room ' . $chambre->ID ] = get_permalink( $chambre->ID );
 }
 
 $html = array();

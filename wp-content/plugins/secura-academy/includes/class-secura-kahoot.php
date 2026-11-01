@@ -69,7 +69,11 @@ class Secura_Kahoot {
 		ob_start();
 		?>
 		<section class="seca-kahoot" data-seca-kahoot>
-			<h3 class="seca-kahoot-title"><?php echo esc_html( $title ); ?></h3>
+			<?php /* Un niveau 2, comme les autres blocs de la room (« Les
+			    	taches », « Machine cible », « Terminal ») : un niveau 3
+			    	ici faisait sauter un niveau (h1 → h3), ce que
+			    	l'auditeur d'accessibilite signale (WCAG 1.3.1). */ ?>
+			<h2 class="seca-kahoot-title"><?php echo esc_html( $title ); ?></h2>
 
 			<?php if ( $intro ) : ?>
 				<p class="seca-kahoot-intro"><?php echo esc_html( $intro ); ?></p>

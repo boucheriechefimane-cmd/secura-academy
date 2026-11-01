@@ -103,6 +103,54 @@ audit_verifier(
 	'majeur'
 );
 
+/* Le meme controle, sur TOUTES les rooms. Choisir une room au hasard
+   rendait le resultat dependant de l'ordre des identifiants : une room
+   pouvait passer en CI et etre ignoree en local. Le catalogue fait
+   52 rooms : on les verifie toutes. */
+$titres_manquants = array();
+
+$rooms_tous = get_posts(
+	array(
+		'post_type'   => 'secura_room',
+		'numberposts' => -1,
+		'post_status' => 'publish',
+		'orderby'     => 'ID',
+		'order'       => 'ASC',
+	)
+);
+
+foreach ( $rooms_tous as $chambre ) {
+	$page = wp_remote_get( get_permalink( $chambre->ID ), array( 'timeout' => 20 ) );
+
+	if ( is_wp_error( $page ) ) {
+		$titres_manquants[] = $chambre->post_name . ' : page non servie';
+		continue;
+	}
+
+	$corps = wp_remote_retrieve_body( $page );
+
+	if ( false === strpos( $corps, '<title>' )
+		|| false === strpos(
+			audit_normaliser_texte( wp_strip_all_tags( $corps ) ),
+			audit_normaliser_texte( (string) $chambre->post_title )
+		) ) {
+		$titres_manquants[] = $chambre->post_name . ' : titre absent de la page servie';
+	}
+}
+
+audit_verifier(
+	'le titre de chaque room est annonce (ce que le moteur affiche dans le resultat)',
+	empty( $titres_manquants ),
+	count( $titres_manquants ) . ' room(s) sans titre annonce : ' . implode( ' | ', array_slice( $titres_manquants, 0, 5 ) ),
+	'majeur',
+	empty( $titres_manquants )
+		? sprintf(
+			'Les %d pages de room servies annoncent chacune leur titre, compare apres normalisation (entites decodees, apostrophes unifiees).',
+			count( $rooms_tous )
+		)
+		: implode( "\n", array_slice( $titres_manquants, 0, 5 ) )
+);
+
 audit_verifier(
 	'la page a une meta description (le résumé du moteur)',
 	false !== stripos( $html, '<meta name="description"' ),

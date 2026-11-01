@@ -1,6 +1,6 @@
 # Multilingue et internationalisation
 
-- **Date** : 01/11/2026 22:41 UTC
+- **Date** : 01/11/2026 22:50 UTC
 - **Auditeur** : multilingue
 - **Contrôles réussis** : 8
 - **Constats** : 0 bloquant(s), 0 majeur(s), 0 mineur(s), 2 info(s)

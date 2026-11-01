@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.8.3
+ * Version:           0.8.4
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,13 @@
  *
  * @package Secura_Academy
  *
+ * 0.8.4 — Correction : le bloc Kahoot titrait en <h3> alors que tous les
+ *           autres blocs de room titrent en <h2>. Dans la room « Kahoot :
+ *           la revision des labs avances », la hierarchie des titres
+ *           sautait donc du niveau 1 au niveau 3 — un lecteur d'ecran
+ *           annoncait « titre de niveau 2 manquant ». Le rendu visible
+ *           est inchange (le style est porte par la classe
+ *           « seca-kahoot-title »).
  * 0.8.3 — Le thème livre la feuille de style arabe : elle était demandée
  *           à une adresse qui n'existait pas (404), donc la mise en page
  *           arabe n'était jamais appliquée. Elle est en outre chargée

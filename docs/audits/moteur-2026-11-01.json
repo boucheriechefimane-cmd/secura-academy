@@ -3,7 +3,7 @@
     "titre": "Moteur de lab et orchestration Docker",
     "expert": "Expert en orchestration de conteneurs et en cycle de vie de machines virtuelles pédagogiques",
     "perimetre": "Vérifie que le moteur fonctionne autant qu'il est durci : cycle de vie complet (déployer → jouer → indice → arrêter → nettoyer), durée de vie, nettoyage automatique, isolation de deux apprenants, reprise après incident, et cohérence entre le code et le contenu réel des machines. Ne juge pas la sécurité des conteneurs : c'est l'auditeur sécurité.",
-    "date": "2026-11-01T22:41:40+00:00",
+    "date": "2026-11-01T22:50:37+00:00",
     "ok": 6,
     "non_etaye": 0,
     "forces": [
