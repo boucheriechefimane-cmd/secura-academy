@@ -618,6 +618,7 @@ if docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" up -d --build >/dev/nul
 	# sur que de deviner leur nom.
 	CONT_ATTAQUE=$(docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" ps -q attacker 2>/dev/null | head -1)
 	CONT_FLAGS=$(docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" ps -q flags 2>/dev/null | head -1)
+	CONT_JUICE=$(docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" ps -q juice 2>/dev/null | head -1)
 
 	# L'application demarre en une trentaine de secondes : on attend.
 	REPONSE_JUICE=0
@@ -662,11 +663,25 @@ if docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" up -d --build >/dev/nul
 		test_ko "juice-shop : le drapeau du serveur ne correspond pas a celui de l'application (attendu : ${DRAPEAU_ATTENDU:-vide} / lu : ${DRAPEAU_JOUE:-vide})"
 	fi
 
-	# Les conteneurs de la pile doivent etre la, tous les trois.
-	if [ -n "$CONT_ATTAQUE" ] && [ -n "$CONT_FLAGS" ]; then
+	# Les conteneurs de la pile doivent etre la, tous les trois, et tourner.
+	PILOTE_TOURNE=1
+
+	for conteneur in "$CONT_ATTAQUE" "$CONT_FLAGS" "$CONT_JUICE"; do
+		if [ -z "$conteneur" ]; then
+			PILOTE_TOURNE=0
+			break
+		fi
+
+		if [ "$(docker inspect -f '{{.State.Running}}' "$conteneur" 2>/dev/null)" != "true" ]; then
+			PILOTE_TOURNE=0
+			break
+		fi
+	done
+
+	if [ "$PILOTE_TOURNE" -eq 1 ]; then
 		test_ok "juice-shop : les trois services de la pile tournent"
 	else
-		test_ko "juice-shop : un service de la pile est absent"
+		test_ko "juice-shop : un service de la pile est absent ou arrete"
 	fi
 
 	# L'eleve ne doit pas avoir de sortie Internet depuis le reseau du lab.

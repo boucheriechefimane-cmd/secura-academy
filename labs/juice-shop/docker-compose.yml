@@ -103,7 +103,10 @@ services:
       - /tmp:rw,noexec,nosuid,size=16m
     networks:
       - seca_lab
-    command: ["sleep", "infinity"]
+    # Une seule chaine : « /bin/bash -c "sleep infinity" ». (Ecrire
+    # ["sleep", "infinity"] ferait interpretter « infinity » comme un
+    # argument de bash, et le conteneur s'arreterait aussitot.)
+    command: ["sleep infinity"]
     entrypoint: ["/bin/bash", "-c"]
 
 networks:
