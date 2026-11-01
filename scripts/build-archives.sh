@@ -77,6 +77,7 @@ cp "$REPO_DIR/scripts/audit/"*.php "$REPO_DIR/scripts/audit/run-audits.sh" "$TMP
 
 cp "$REPO_DIR/docs/AUDITS-CADRE.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/AUDITS-REGISTRE.md" "$TMP/recette/docs/"
+cp "$REPO_DIR/docs/SEO-GENERATION-AI.md" "$TMP/recette/docs/"
 
 python3 - "$TMP" "$DEST" <<'PY'
 import os
