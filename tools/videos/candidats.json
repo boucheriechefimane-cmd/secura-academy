@@ -1,0 +1,1328 @@
+{
+ "recherches": {
+  "pwn_college": [
+   {
+    "id": "HahXfnOsSUU",
+    "title": "pwn college - Assembly Crash Course - Memory",
+    "channel": "pwn.college",
+    "duration": "28:23",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "21MvbpgssU8",
+    "title": "pwn college - Assembly Crash Course - Data",
+    "channel": "pwn.college",
+    "duration": "27:16",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "o_kSgUPJk4c",
+    "title": "pwn.college - Assembly Crash Course - Computer Architecture",
+    "channel": "pwn.college",
+    "duration": "15:10",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "WMtSh7_CB4s",
+    "title": "Assembly Crash Course - CSE365 - Connor -2024.01.25",
+    "channel": "pwn.college",
+    "duration": "1:09:44",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "fpnE6UAfbtU",
+    "title": "Registers and RAM: Crash Course Computer Science #6",
+    "channel": "CrashCourse",
+    "duration": "12:17",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "_QSoqGO5b-c",
+    "title": "Assembly Crash Course - CSE365 - Connor - 2024.01.30",
+    "channel": "pwn.college",
+    "duration": "1:12:48",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "IWbIZerH930",
+    "title": "pwn college - Assembly Crash Course - Registers",
+    "channel": "pwn.college",
+    "duration": "13:47",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "0a8NlF7z7Ro",
+    "title": "pwn college - Assembly Crash Course - Control Flow",
+    "channel": "pwn.college",
+    "duration": "20:10",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "TdTOH1GfrWg",
+    "title": "pwn college - Assembly Crash Course - Assembly",
+    "channel": "pwn.college",
+    "duration": "13:06",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "z_XOhfsVKnU",
+    "title": "pwn.college - Memory Errors - Introduction",
+    "channel": "pwn.college",
+    "duration": "9:44",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "bSycdIx-C48",
+    "title": "How We Make Memories: Crash Course Psychology #13",
+    "channel": "CrashCourse",
+    "duration": "9:55",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "TQCr9RV7twk",
+    "title": "Memory & Storage: Crash Course Computer Science #19",
+    "channel": "CrashCourse",
+    "duration": "12:17",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "ImdnOGNZflU",
+    "title": "pwn.college - Assembly Refresher - Assembly",
+    "channel": "pwn.college",
+    "duration": "42:25",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "dVKsQjfdcg8",
+    "title": "Assembly Crash Course - CSE365 - Connor - 2024.01.23",
+    "channel": "pwn.college",
+    "duration": "1:11:24",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "SZbdK9e9bxs",
+    "title": "Memory: Crash Course Study Skills #3",
+    "channel": "CrashCourse",
+    "duration": "10:52",
+    "requete": "pwn.college assembly crash course memory"
+   },
+   {
+    "id": "El8-vMDJ1zY",
+    "title": "pwn.college - Return Oriented Programming - Introduction",
+    "channel": "pwn.college",
+    "duration": "8:54",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "L0gzNhbnOUA",
+    "title": "pwn.college - Return Oriented Programming - Binary Lego",
+    "channel": "pwn.college",
+    "duration": "20:19",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "8zRoMAkGYQE",
+    "title": "Exploiting Return Oriented Programming (ROP) tutorial - Binary Exploitation PWN101",
+    "channel": "RazviOverflow",
+    "duration": "26:41",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "Iq2IFCKDpKc",
+    "title": "pwn.college - Return Oriented Programming - Complications",
+    "channel": "pwn.college",
+    "duration": "19:30",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "OVkObKS0gOo",
+    "title": "pwn.college - Return Oriented Programming - Techniques",
+    "channel": "pwn.college",
+    "duration": "25:47",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "yS9pGmY_xuo",
+    "title": "Introduction to return oriented programming (ROP)",
+    "channel": "Pico Cetef",
+    "duration": "6:34",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "gWU2yOu0COk",
+    "title": "PwnTools: ROP (Return Oriented Programming)",
+    "channel": "Christopher Schafer",
+    "duration": "9:45",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "Bgs4N4_Aye0",
+    "title": "Return Oriented Programming - CSE466 - Michael - 2025.09.23",
+    "channel": "pwn.college",
+    "duration": "1:18:06",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "zaQVNM3or7k",
+    "title": "Weird Return-Oriented Programming Tutorial - bin 0x2A",
+    "channel": "LiveOverflow",
+    "duration": "15:12",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "PVx1hUlMxtQ",
+    "title": "pwn.college - Memory Errors - Smashing the Stack",
+    "channel": "pwn.college",
+    "duration": "16:35",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "QOihH6-htFw",
+    "title": "How I Exploited a Stack-Overflow Bug with ROP+ret2libc to get a ROOT Shell (CVE-2025-60690)",
+    "channel": "Jarrettgxz",
+    "duration": "3:00",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "1dTF_Np9Lcw",
+    "title": "Return Oriented Programming",
+    "channel": "Software Security",
+    "duration": "11:31",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "G24UC7q6QcU",
+    "title": "Tutorial - Return-oriented Programming Basics",
+    "channel": "Hack the Planet with Yeongjin Jang",
+    "duration": "1:09:09",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "l2grJd-37io",
+    "title": "CS6265 Lab 06 Return Oriented Programming",
+    "channel": "InfoSecLab at Georgia Tech",
+    "duration": "7:16",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "6jxS_KGFVtM",
+    "title": "encryptcvs 2019 all pwn challenges || Stack Buffer overflow || ROP || ret2libc",
+    "channel": "mehh",
+    "duration": "32:31",
+    "requete": "pwn.college stack overflow return oriented programming"
+   },
+   {
+    "id": "3l5wKOCVcEg",
+    "title": "Format String Vulnerabilities - CSE598 - Robert - 2025.01.29",
+    "channel": "pwn.college",
+    "duration": "1:47:55",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "vc_9Ujkpy7I",
+    "title": "Format String Exploits - Introduction",
+    "channel": "pwn.college",
+    "duration": "9:47",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "QOgD3jPHyRY",
+    "title": "Format String Exploits - Writing Data",
+    "channel": "pwn.college",
+    "duration": "17:05",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "iwNYoDw1hW4",
+    "title": "7: Format String Vulnerabilities (printf) - Buffer Overflows - Intro to Binary Exploitation (Pwn)",
+    "channel": "CryptoCat",
+    "duration": "18:32",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "l8jGa_B7wvM",
+    "title": "Format String Exploits - Leaking Data",
+    "channel": "pwn.college",
+    "duration": "9:58",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "ykMdLCURWFk",
+    "title": "Format String Vulnerabilities",
+    "channel": "Software Security",
+    "duration": "6:42",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "SCdzL7Nl07U",
+    "title": "Format Strings - CSE598 - Robert - 2024.01.30",
+    "channel": "pwn.college",
+    "duration": "1:01:07",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "MOmzbka0oFo",
+    "title": "Format String Exploits - CSE598 - Robert - 2024.02.02",
+    "channel": "pwn.college",
+    "duration": "2:20:30",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "fRgNtGXDMlY",
+    "title": "Format string exploit on an arduino - rhme2 Casino (pwn 150)",
+    "channel": "LiveOverflow",
+    "duration": "7:41",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "EYU16W2viOo",
+    "title": "Format Strings & Microarch - CSE598 - Adam - 2024.01.29",
+    "channel": "pwn.college",
+    "duration": "59:20",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "2HxyGWD1htg",
+    "title": "Introduction to format string vulnerabilities",
+    "channel": "Pico Cetef",
+    "duration": "11:21",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "0WvrSfcdq1I",
+    "title": "A simple Format String exploit example - bin 0x11",
+    "channel": "LiveOverflow",
+    "duration": "10:01",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "fAepfW6IDAc",
+    "title": "Format String Exploitation",
+    "channel": "Divine HF",
+    "duration": "2:00",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "2TmESD4W7Xk",
+    "title": "Format String Vulnerabilities Primer Part 4 Viewing the Stack",
+    "channel": "PcTube",
+    "duration": "5:30",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "DhVRI33s-D0",
+    "title": "Format String printf Vulnerabilities (PicoCTF 2022 #46 'flag-leak')",
+    "channel": "John Hammond",
+    "duration": "19:44",
+    "requete": "pwn.college format string vulnerability"
+   },
+   {
+    "id": "hh4XAU6XYP0",
+    "title": "Introduction: What is pwn.college?",
+    "channel": "pwn.college",
+    "duration": "9:10",
+    "requete": "pwn.college lecture introduction pwning"
+   },
+   {
+    "id": "UW13N0CV-4s",
+    "title": "pwn.college - Talking Web - Introduction",
+    "channel": "pwn.college",
+    "duration": "9:43",
+    "requete": "pwn.college lecture introduction pwning"
+   },
+   {
+    "id": "A5CnZGst5u4",
+    "title": "pwn.college - Exploitation Scenarios - Introduction",
+    "channel": "pwn.college",
+    "duration": "7:21",
+    "requete": "pwn.college lecture introduction pwning"
+   }
+  ],
+  "cyber_org": [
+   {
+    "id": "6iPKt6F64rc",
+    "title": "Social Media - Cyber Safety Series",
+    "channel": "CYBER. ORG",
+    "duration": "2:04",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "OiQKZWNeAjc",
+    "title": "Making Strong Passwords - Cyber Safety Series",
+    "channel": "CYBER. ORG",
+    "duration": "1:53",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "eEgYPsUionw",
+    "title": "Ransomware - Cyber Safety Series",
+    "channel": "CYBER. ORG",
+    "duration": "1:20",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "-mdIH67HKqk",
+    "title": "Multi-factor Authentication - Cyber Safety Series",
+    "channel": "CYBER. ORG",
+    "duration": "2:48",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "08oJtFFH6a0",
+    "title": "Phishing - Cyber Safety Series",
+    "channel": "CYBER. ORG",
+    "duration": "2:28",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "V1b4odH-20g",
+    "title": "Online Gaming Safety - Cyber Safety Series",
+    "channel": "CYBER. ORG",
+    "duration": "1:32",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "qgxqZZDG0VE",
+    "title": "Internet of Things - Cyber Safety Series",
+    "channel": "CYBER. ORG",
+    "duration": "2:10",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "2S-EPwigJJo",
+    "title": "Introduction to CYBER.ORG Cybersecurity",
+    "channel": "VirginiaCyberRange",
+    "duration": "42:47",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "LEC0r-v2EtU",
+    "title": "Don't Get Tricked! K-2 Cybersecurity Basics Lesson",
+    "channel": "CYBER. ORG",
+    "duration": "6:06",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "inWWhr5tnEA",
+    "title": "What Is Cyber Security | How It Works? | Cyber Security In 7 Minutes | Cyber Security | Simplilearn",
+    "channel": "Simplilearn",
+    "duration": "7:07",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "yrln8nyVBLU",
+    "title": "Safe Web Surfing: Top Tips for Kids and Teens Online",
+    "channel": "watchwellcast",
+    "duration": "5:02",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "m-Sy92NjFmY",
+    "title": "Video Call Safety - Cyber Safety Series",
+    "channel": "CYBER. ORG",
+    "duration": "2:31",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "iT80b59gLkE",
+    "title": "Family Cyber Safety Night - 8/16/2022",
+    "channel": "CYBER. ORG",
+    "duration": "58:28",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "Kz2es3-XJvw",
+    "title": "WCF Cyber Security Awareness Program - #ThinkTalkTeach - Internet Safety for Youth (English)",
+    "channel": "WNS",
+    "duration": "11:47",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "MB5VDIebMd8",
+    "title": "Being Safe Online",
+    "channel": "AMAZE Org",
+    "duration": "4:25",
+    "requete": "CYBER.ORG cyber safety series"
+   },
+   {
+    "id": "kY4ouOco570",
+    "title": "Pascal & Python Go Phishing",
+    "channel": "CYBER. ORG",
+    "duration": "2:34",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "XBkzBrXlle0",
+    "title": "Phishing Explained In 6 Minutes | What Is A Phishing Attack? | Phishing Attack | Simplilearn",
+    "channel": "Simplilearn",
+    "duration": "6:48",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "gSQgbCo6PAg",
+    "title": "Phishing Attack",
+    "channel": "James Daly",
+    "duration": "0:40",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "WNVTGTrWcvw",
+    "title": "Phishing - A game of deception - Cyber security awareness video - Security Quotient",
+    "channel": "Security Quotient",
+    "duration": "2:09",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "9fHV5bKDs3Y",
+    "title": "How Scammers Trick You With ONE CLICK (Phishing Explained)",
+    "channel": "Cyber Mind",
+    "duration": "10:56",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "GZc-CpV5Z1k",
+    "title": "Rob's Phishy Friday!  -  Phishing Awareness Training Video",
+    "channel": "usecure",
+    "duration": "3:28",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "vEnJp3LGegs",
+    "title": "What is Phishing? 🎣 | Phishing Attack Explained | Cybersecurity Awareness for Beginner",
+    "channel": "Cyber Tech",
+    "duration": "6:10",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "nSGQkE67jcg",
+    "title": "Phishing Defenses: Top Cybersecurity Strategies to Protect Your Data",
+    "channel": "IBM Technology",
+    "duration": "17:30",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "vqiRHdTx0pY",
+    "title": "Understanding Phishing Attacks | Cybersecurity Awareness Training CHAPTER 1",
+    "channel": "Rhyno",
+    "duration": "4:09",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "BnmneAjVrM4",
+    "title": "What is Phishing?",
+    "channel": "Kaspersky",
+    "duration": "1:49",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "XIe27xh_N0A",
+    "title": "What Is Phishing | The 5 Types of Phishing Scams To Avoid",
+    "channel": "VPNpro",
+    "duration": "5:22",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "64zYEwsGhRk",
+    "title": "Short Film About Cyber Crime (Phishing)",
+    "channel": "G2Y LOCO",
+    "duration": "0:47",
+    "requete": "CYBER.ORG phishing video"
+   },
+   {
+    "id": "wtCDiS-mZQQ",
+    "title": "Josie's Password Peril  -  Security Awareness Training Video",
+    "channel": "usecure",
+    "duration": "3:13",
+    "requete": "CYBER.ORG passwords video"
+   },
+   {
+    "id": "0Wd3JoUHXno",
+    "title": "Security Awareness Episode 1: Passwords",
+    "channel": "StaySafeOnline.org",
+    "duration": "3:09",
+    "requete": "CYBER.ORG passwords video"
+   },
+   {
+    "id": "2tA-aSab8CA",
+    "title": "Intro to the CYBER ORG Cyber Range",
+    "channel": "Learning Technology Center",
+    "duration": "43:27",
+    "requete": "CYBER.ORG passwords video"
+   },
+   {
+    "id": "YeUFL3GTFT0",
+    "title": "Get Cyber Safe | Create a strong password",
+    "channel": "Communications Security Establishment",
+    "duration": "2:50",
+    "requete": "CYBER.ORG passwords video"
+   },
+   {
+    "id": "-ZfbifHwEVE",
+    "title": "Password Attacks - CompTIA Security+ SY0-701 - 2.4",
+    "channel": "Professor Messer",
+    "duration": "7:16",
+    "requete": "CYBER.ORG passwords video"
+   },
+   {
+    "id": "u12Wzam8DXY",
+    "title": "Cybersecurity Simplified: How to Create a Strong Password",
+    "channel": "ControlCase: IT Certification and Compliance",
+    "duration": "7:01",
+    "requete": "CYBER.ORG passwords video"
+   },
+   {
+    "id": "iJEr5p5nrvo",
+    "title": "Password Attacks Explained 🔐 | Password Spraying, Dictionary Attack & Brute Force | Cybersecurity",
+    "channel": "Getyr_Cybersce",
+    "duration": "11:11",
+    "requete": "CYBER.ORG passwords video"
+   },
+   {
+    "id": "41v83rfTkps",
+    "title": "Cyber Security Funnies: Who's the Login, What's the Password, Security Question - The Cybermaniacs",
+    "channel": "The Cybermaniacs",
+    "duration": "1:01",
+    "requete": "CYBER.ORG passwords video"
+   },
+   {
+    "id": "gX097jLvdrY",
+    "title": "How Hackers Crack Passwords (And How to Stop Them) | Cyber Basics #2",
+    "channel": "Cyber Marinos",
+    "duration": "4:18",
+    "requete": "CYBER.ORG passwords video"
+   },
+   {
+    "id": "W-ASDjfjVdc",
+    "title": "Cyber Safety, Online Privacy and Password Security | Stay Safe on the Internet",
+    "channel": "TutionE Technology",
+    "duration": "2:10",
+    "requete": "CYBER.ORG safe browsing video"
+   },
+   {
+    "id": "bglWBr_rbM0",
+    "title": "The basics of safe browsing",
+    "channel": "Khan Academy",
+    "duration": "2:08",
+    "requete": "CYBER.ORG safe browsing video"
+   },
+   {
+    "id": "HxySrSbSY7o",
+    "title": "Being Safe on the Internet",
+    "channel": "AMAZE Org",
+    "duration": "2:58",
+    "requete": "CYBER.ORG safe browsing video"
+   },
+   {
+    "id": "DF9NljtwPHU",
+    "title": "Cybersecurity: Safe Internet Access — How to Browse Securely and Avoid Cyber Threats!",
+    "channel": "IT GRC with Germain",
+    "duration": "4:02",
+    "requete": "CYBER.ORG safe browsing video"
+   },
+   {
+    "id": "2ZZQlgV2Gus",
+    "title": "Internet Safety: Your Browser's Security Features",
+    "channel": "LearnFree",
+    "duration": "2:22",
+    "requete": "CYBER.ORG safe browsing video"
+   },
+   {
+    "id": "XJQr1m9HGAM",
+    "title": "How Enhanced Safe Browsing in Chrome proactively protects you online",
+    "channel": "Google Chrome",
+    "duration": "1:29",
+    "requete": "CYBER.ORG safe browsing video"
+   },
+   {
+    "id": "Zf5w_ZJeCoE",
+    "title": "Top Seven Tools for Safe Browsing | Cybersecurity Awareness Training | English Version",
+    "channel": "Kumar B.",
+    "duration": "7:02",
+    "requete": "CYBER.ORG safe browsing video"
+   },
+   {
+    "id": "ZyKu4liyGZg",
+    "title": "10 Essential Habits to Stay Safe Online | Ultimate Digital Hygiene Guide | cybersecurity | DPDP Act",
+    "channel": "Cyber Shikshak",
+    "duration": "5:13",
+    "requete": "CYBER.ORG safe browsing video"
+   },
+   {
+    "id": "qHbJXLlEK1o",
+    "title": "Safe Browsing - Cyber skills for seafarers - Be Cyber Aware At Sea",
+    "channel": "Fidra Films",
+    "duration": "1:28",
+    "requete": "CYBER.ORG safe browsing video"
+   },
+   {
+    "id": "w8uNzQqsTrU",
+    "title": "Enhanced Safe Browsing on Chrome",
+    "channel": "Google Chrome",
+    "duration": "2:01",
+    "requete": "CYBER.ORG safe browsing video"
+   }
+  ],
+  "owasp": [
+   {
+    "id": "Jzr0Jdnq_EI",
+    "title": "OWASP Top 10 2025: Your complete guide to securing your applications",
+    "channel": "Aikido Security",
+    "duration": "24:36",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "f_rq9YMfxBE",
+    "title": "OWASP Top 10 Explained with Real Examples (2026) | Web Security Made Easy",
+    "channel": "Cyber Skill",
+    "duration": "6:54",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "auS34nm9VAc",
+    "title": "The OWASP LLM Top 10 has a few surprises for you",
+    "channel": "IBM Technology",
+    "duration": "29:05",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "cYuesqIKf9A",
+    "title": "Explained: The OWASP Top 10 for Large Language Model Applications",
+    "channel": "IBM Technology",
+    "duration": "14:22",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "k9o7AbjLDTs",
+    "title": "OWASP Top 10 Full Course — All 10 Web Vulnerabilities Explained for Beginners",
+    "channel": "High Level Cyber",
+    "duration": "1:44:03",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "YYe0FdfdgDU",
+    "title": "OWASP API Security Top 10 Course – Secure Your Web Apps",
+    "channel": "freeCodeCamp.org",
+    "duration": "1:27:01",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "U_tsCjOrcK4",
+    "title": "OWASP top 10 Explained",
+    "channel": "Awesome",
+    "duration": "10:15",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "b1AZjolsHMU",
+    "title": "OWASP Top 10 Explained with Real Examples (2026) | Cybersecurity Basics",
+    "channel": "Security Masterclass",
+    "duration": "8:41",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "gUNXZMcd2jU",
+    "title": "OWASP's Top 10 Ways to Attack LLMs: AI Vulnerabilities Exposed",
+    "channel": "IBM Technology",
+    "duration": "25:12",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "cuV-wXMDrPg",
+    "title": "OWASP Top 10 (2025) 🔐✨ – Mitigating Modern Web App Risks 🚀",
+    "channel": "CyberSRC® Group",
+    "duration": "1:04:05",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "hryt-rCLJUA",
+    "title": "OWASP Top 10 2021 - The List and How You Should Use It",
+    "channel": "Cyber Citadel",
+    "duration": "8:51",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "fjwm91t3F0Y",
+    "title": "OWASP Top 10 2026: Explained with Examples!",
+    "channel": "Cyber Skill",
+    "duration": "11:32",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "wUaeKEl1RCw",
+    "title": "OWASP Top 10 Web Application Security Risks",
+    "channel": "Telusko",
+    "duration": "14:58",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "ZJr43oHBaJ8",
+    "title": "OWASP Top 10 Vulnerabilities 2026: Simple Explanations & Real Examples!",
+    "channel": "Cyber World YT",
+    "duration": "8:48",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "jikSmt1JpTE",
+    "title": "The NEW OWASP Top 10 2025: Every Risk EXPLAINED (Don’t Get Hacked!)",
+    "channel": "CyberBite",
+    "duration": "7:53",
+    "requete": "OWASP Top 10 video official channel"
+   },
+   {
+    "id": "MgBRix9Pvq4",
+    "title": "Injection Attacks Explained: OWASP Top 10 2025 #5 Web Vulnerability (SQL, NoSQL, OS Command)",
+    "channel": "CyberLearn Visual",
+    "duration": "8:08",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "pxzEq_xoLf0",
+    "title": "Admin Registration  | Juice Shop | OWASP | Improper Input Validation | Educational",
+    "channel": "Secure7",
+    "duration": "3:44",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "1TMBIfHSwQo",
+    "title": "Injection Explained | OWASP A03:2021",
+    "channel": "AppSecDojo",
+    "duration": "1:01",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "w5EcyES-Jxc",
+    "title": "Episode 5 – A05 Injection Explained (OWASP Top 10 – 2025 Release Candidate)",
+    "channel": "SOCDemystified",
+    "duration": "5:56",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "4FPyMdyVt2s",
+    "title": "★ ★ ★ Upload Type (Improper Input Validation)",
+    "channel": "Hacksplained",
+    "duration": "3:45",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "EA8-GuMZykg",
+    "title": "Real World Application Security - How to Test with OWASP [Input Validation I]",
+    "channel": "Cristi Vlad",
+    "duration": "12:08",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "Quq3FYa7Svk",
+    "title": "OWASP TOP 10 2021 | A03:2021 Injection",
+    "channel": "mutatedknutz",
+    "duration": "10:18",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "GKJL7_xIpo8",
+    "title": "Zero Stars  | Juice Shop | OWASP | Improper Input Validation   | Educational",
+    "channel": "Secure7",
+    "duration": "2:27",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "2AKUhpROhto",
+    "title": "Missing Encoding | juice shop | OWASP | Improper Input Validation  | Educational",
+    "channel": "Secure7",
+    "duration": "2:52",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "G1ftL_Mi84w",
+    "title": "A05: Injection Explained | SQL Injection, XSS & Command Injection | Complete Guide | OWASP Top 10",
+    "channel": "The Cyber NOAAR",
+    "duration": "7:00",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "58vMcC698pc",
+    "title": "Poison Null Byte - Improper Input Validation | OWASP Juice Shop Solution",
+    "channel": "Karthikeyan Nagaraj",
+    "duration": "0:58",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "3IXPfHZKpdA",
+    "title": "Detect & Fix Injection Vulnerabilities with IBM Bob & OWASP",
+    "channel": "IBM Bob",
+    "duration": "13:42",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "Y-scgITQFRE",
+    "title": "OWASP LLM01: PromptInjection",
+    "channel": "ZNexora Tech",
+    "duration": "16:44",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "i_k_06T5zRA",
+    "title": "OWASP LLM01: Prompt Injection Explained + Hands-On Hack (LLMGoat)",
+    "channel": "Raghu The Security Expert",
+    "duration": "5:51",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "CEVYb4ljSRs",
+    "title": "WAI OWASP Injection",
+    "channel": "DrZeroTrust",
+    "duration": "3:49",
+    "requete": "OWASP injection input validation video"
+   },
+   {
+    "id": "p0IrPebhuYs",
+    "title": "📊 A09: Security Logging & Monitoring Failures  OWASP Top10 2021  SAST+Real-World Breaches #devsecops",
+    "channel": "IT Achiever YT",
+    "duration": "18:03",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "hs5pYwwz5FU",
+    "title": "Security Logging & Monitoring Failures | OWASP Top 10 Explained with Demo",
+    "channel": "Secure7",
+    "duration": "7:01",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "ODpooAzCuwM",
+    "title": "Security Logging and Monitoring Failures Explained | OWASP A09:2021",
+    "channel": "AppSecDojo",
+    "duration": "1:01",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "6exz67BRq90",
+    "title": "Insufficient Logging and Monitoring | Top 10 OWASP",
+    "channel": "CyberSecurityTV",
+    "duration": "7:38",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "svUcZ8Ve45Q",
+    "title": "OWASP TOP 10 Insufficient Logging Monitoring - Explained with examples",
+    "channel": "Security in mind",
+    "duration": "6:25",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "9eCMHYiarx0",
+    "title": "What is Insufficient Logging & Monitoring? | OWASP Top 10 2017 | Video by Detectify",
+    "channel": "Detectify",
+    "duration": "1:59",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "tD230p0wxkI",
+    "title": "CyRC Developer Series:  #9 Security Logging and Monitoring Failures - OWASP Top 10 2021",
+    "channel": "Black Duck",
+    "duration": "2:11",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "TlB-vGW-xLQ",
+    "title": "how to CORRECTLY read logs as a Cybersecurity SOC Analyst",
+    "channel": "Tech with Jono",
+    "duration": "8:30",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "t_VWIGfkakc",
+    "title": "2021 OWASP Top Ten: Security Logging and Monitoring Failures",
+    "channel": "F5 DevCentral Community",
+    "duration": "9:05",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "NKZ1HXQB4I8",
+    "title": "[OWASP Top 10] A10: Insufficient Logging and Monitoring",
+    "channel": "Kacper Szurek",
+    "duration": "7:29",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "Vs6JIjSuyuA",
+    "title": "A Real Day in Life of a SOC Analyst | Remote Work from Home Reality",
+    "channel": "Tech with Jono",
+    "duration": "6:23",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "GpG19jOYQVo",
+    "title": "How to MASTER Logs as a BEGINNER in Cybersecurity",
+    "channel": "Tech with Jono",
+    "duration": "8:24",
+    "requete": "OWASP logging auditing video"
+   },
+   {
+    "id": "Dp019cWu1cg",
+    "title": "Application Security 101 - What you need to know in 8 minutes",
+    "channel": "Snyk",
+    "duration": "8:05",
+    "requete": "OWASP AppSec video application security"
+   },
+   {
+    "id": "nthEXs12nFE",
+    "title": "Cybersecurity Architecture: Application Security",
+    "channel": "IBM Technology",
+    "duration": "16:36",
+    "requete": "OWASP AppSec video application security"
+   },
+   {
+    "id": "gKf23mWrY-I",
+    "title": "OWASP Top 10:2025 — How to Build an Operational AppSec Program",
+    "channel": "Contra Average",
+    "duration": "20:35",
+    "requete": "OWASP AppSec video application security"
+   },
+   {
+    "id": "mPTmuaC2lOI",
+    "title": "AppSec EU 2017 Pushing Left Like A Boss: Application Security Foundations by Tanya Janca",
+    "channel": "OWASP Foundation",
+    "duration": "23:27",
+    "requete": "OWASP AppSec video application security"
+   },
+   {
+    "id": "91E7i65YT1g",
+    "title": "Application Security 101: SAST vs DAST Explained",
+    "channel": "Aikido Security",
+    "duration": "9:44",
+    "requete": "OWASP AppSec video application security"
+   },
+   {
+    "id": "ZuB9TZqkpeE",
+    "title": "Leveling up an application security program - David Rook - OWASP AppSec California 2015",
+    "channel": "OWASP Foundation",
+    "duration": "56:14",
+    "requete": "OWASP AppSec video application security"
+   },
+   {
+    "id": "3ZI1rVvMVr4",
+    "title": "Application Security Interview Questions - OWASP Top 10, SDLC & Secure Coding Guide",
+    "channel": "CodeLucky",
+    "duration": "10:54",
+    "requete": "OWASP AppSec video application security"
+   },
+   {
+    "id": "hs6O9mSaoRc",
+    "title": "OWASP Top 10: Essential Web Application Security Risks to Know (2025)",
+    "channel": "StackHawk",
+    "duration": "4:56",
+    "requete": "OWASP AppSec video application security"
+   },
+   {
+    "id": "rOkjq3e_uuU",
+    "title": "OWASP AppSec 2010: Automated vs. Manual Security: You Can't Filter The Stupid 1/3",
+    "channel": "Christiaan008",
+    "duration": "14:58",
+    "requete": "OWASP AppSec video application security"
+   },
+   {
+    "id": "VGBvpJCrzKw",
+    "title": "Application Security Engineer Roadmap | AppSec, OWASP, API Security & DevSecOps",
+    "channel": "ITlearn 360",
+    "duration": "13:38",
+    "requete": "OWASP AppSec video application security"
+   }
+  ],
+  "stanford": [
+   {
+    "id": "LOV_BwQfOqI",
+    "title": "Stanford CS105: Intro to Computers | 2021 | Lecture 1.1 Bits, Bytes, & Binary: It's all about 0 & 1",
+    "channel": "Stanford Online",
+    "duration": "4:00",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "Qpw-udshXdM",
+    "title": "Stanford CS105: Introduction to Computers | 2021 | Lecture 00 Introduction",
+    "channel": "Stanford Online",
+    "duration": "3:06",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "Suodr0VVHgM",
+    "title": "Stanford CS105: Intro to Computers | 2021 | Lecture 1.4 BB&B: Represent Hieroglyphs on a Computer",
+    "channel": "Stanford Online",
+    "duration": "20:25",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "6OxyB9yuSzo",
+    "title": "Stanford CS105: Introduction to Computers | 2021 | Lecture: 9.2 Creating Webpages: Specifying Colors",
+    "channel": "Stanford Online",
+    "duration": "15:05",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "yIdUOFxc0mQ",
+    "title": "Stanford CS105: Introduction to Computers | 2021 | Lecture 4.1 Computer Hardware: An Overview",
+    "channel": "Stanford Online",
+    "duration": "11:14",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "ypr3W8YbaH8",
+    "title": "Stanford CS105: Introduction to Computers | 2021 | Lecture 5.1 Computer Networks: Hardware",
+    "channel": "Stanford Online",
+    "duration": "17:29",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "_7MGRAuG3kc",
+    "title": "Stanford CS105: Introduction to Computers | 2021 | Lecture 6.1 Network Protocols: What is a Protocol",
+    "channel": "Stanford Online",
+    "duration": "12:11",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "eDh5_qZ5gNc",
+    "title": "Stanford CS105: Introduction to Computers | 2021 | Lecture 19.1 Strings",
+    "channel": "Stanford Online",
+    "duration": "19:12",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "KuLxqrdmais",
+    "title": "Stanford CS105: Intro to Computers | 2021 | Lecture 3.1 Digital Music: Science of Sound & Recording",
+    "channel": "Stanford Online",
+    "duration": "3:11",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "sYGcCi5xbtI",
+    "title": "Stanford CS105: Intro to Computers | 2021 | Lecture 7.4 Intro to HTML: Grammar & Vocabulary Rules",
+    "channel": "Stanford Online",
+    "duration": "17:49",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "ejJEzdUwFjQ",
+    "title": "Stanford CS105: Introduction to Computers | 2021 | Lecture 3.2 Digital Music: From Analog to Digital",
+    "channel": "Stanford Online",
+    "duration": "5:24",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "hFaI3a91ugo",
+    "title": "Stanford CS105: Intro to Computers | 2021 | Lecture 2.4 Digital Images: The Right Format for the Job",
+    "channel": "Stanford Online",
+    "duration": "17:50",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "qysuyTJ8FJY",
+    "title": "Stanford CS105: Introduction to Computers | 2021 | Lecture 2.3 Digital Images: Bitmaps vs. Objects",
+    "channel": "Stanford Online",
+    "duration": "11:48",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "dxxEJbxuJOE",
+    "title": "Stanford CS105: Intro to Computers | 2021 | Lecture 6.2 Network Protocols: Protocols of the Internet",
+    "channel": "Stanford Online",
+    "duration": "16:12",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "zymolE4q_Pk",
+    "title": "Stanford CS105: Intro to Computers | 2021 | Lecture 7.2 Intro to HTML: Hypertext Markup Language",
+    "channel": "Stanford Online",
+    "duration": "18:22",
+    "requete": "Stanford CS105 Introduction to Computers lecture"
+   },
+   {
+    "id": "xs_jmQt5D0s",
+    "title": "Stanford CS105: Introduction to Computers | 2021 | Lecture 4.4 Computer Hardware: Virtual Memory",
+    "channel": "Stanford Online",
+    "duration": "10:35",
+    "requete": "Stanford Online CS105 lecture operating systems"
+   },
+   {
+    "id": "pWSDCGNq3s0",
+    "title": "Stanford CS105: Intro to Computers | 2021 | Lec 10.3 Creating Webpages: Working with a Web Server",
+    "channel": "Stanford Online",
+    "duration": "20:50",
+    "requete": "Stanford Online CS105 lecture operating systems"
+   },
+   {
+    "id": "di0KgqNDqhA",
+    "title": "Stanford CS105: Introduction to Computers | 2021 | Lecture 18.2 Lists and Loops",
+    "channel": "Stanford Online",
+    "duration": "22:16",
+    "requete": "Stanford Online CS105 lecture operating systems"
+   }
+  ],
+  "mit6857": [
+   {
+    "id": "2SEF3LgFZ-4",
+    "title": "6.858 Spring 2020 Lecture 12: Network security",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:21:51",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "ongxioyCRW8",
+    "title": "6.858 Spring 2020 Lecture 20: MIT network security Q&A with IS&T staff",
+    "channel": "Nickolai Zeldovich",
+    "duration": "57:15",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "NOY01nuR5Tg",
+    "title": "6.858 Spring 2020 Lecture 2: Security architecture",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:22:48",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "QgaSDpj0b1o",
+    "title": "6.858 Spring 2020 Lecture 13: Secure channels",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:24:51",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "shTEOoySk1I",
+    "title": "6.858 Spring 2020 Lecture 7: Enclaves",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:20:38",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "H6p99fEBqyE",
+    "title": "6.858 Spring 2020 Lecture 9: Mobile app security",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:19:45",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "o15JQ2qk17E",
+    "title": "6.858 Spring 2020 Lecture 16: Messaging security",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:23:07",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "X9ksxGfVxqk",
+    "title": "6.858 Spring 2020 Lecture 14: Certificates",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:24:33",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "L7x2Fi9O56M",
+    "title": "6.858 Spring 2020 Lecture 11: Web security model",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:21:44",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "x6QsaB2aSmU",
+    "title": "6.858 Spring 2020 Lecture 1: Introduction",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:12:33",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "4U5DJVbVT0A",
+    "title": "6.858 Spring 2020 Lecture 8: Mobile device security",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:24:02",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "hOydIL0Lx5k",
+    "title": "6.858 Spring 2020 Lecture 3: User authentication",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:23:26",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "ImZoEbs_37U",
+    "title": "6.858 Spring 2020 Lecture 22: Final project presentations",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:19:54",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "0wTRMkwxr2s",
+    "title": "6.858 Spring 2020 Lecture 6: Software isolation",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:22:21",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "06Oa53bCpFI",
+    "title": "6.858 Spring 2020 Lecture 17: Untrusted storage servers",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:28:13",
+    "requete": "6.858 Spring 2020 lecture network security Zeldovich"
+   },
+   {
+    "id": "q1OF_0ICt9A",
+    "title": "14. SSL and HTTPS",
+    "channel": "MIT OpenCourseWare",
+    "duration": "1:18:18",
+    "requete": "MIT 6.858 Spring 2020 lecture authentication TLS"
+   },
+   {
+    "id": "MT7X17ZRo1U",
+    "title": "17. User Authentication",
+    "channel": "MIT OpenCourseWare",
+    "duration": "1:19:48",
+    "requete": "MIT 6.858 Spring 2020 lecture authentication TLS"
+   },
+   {
+    "id": "soLiUv1e_64",
+    "title": "6.858 Spring 2022 Lecture 3: User authentication",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:29:57",
+    "requete": "MIT 6.858 Spring 2020 lecture authentication TLS"
+   },
+   {
+    "id": "rdffvwUP0ak",
+    "title": "6.858 Spring 2022 Lecture 5: Privilege separation",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:29:58",
+    "requete": "MIT 6.858 Spring 2020 lecture authentication TLS"
+   },
+   {
+    "id": "iGh-P3lEU_0",
+    "title": "6.858 Spring 2020 Lecture 15: Guest lecture by Max Burkhardt: Information security in real life",
+    "channel": "Nickolai Zeldovich",
+    "duration": "1:30:09",
+    "requete": "MIT 6.858 Spring 2020 lecture authentication TLS"
+   }
+  ]
+ },
+ "playlists": {
+  "mit_6858_fall2014": [
+   "GqmQg-cszw4",
+   "r4KjHEgg9Wg",
+   "xSQxaie_h1o",
+   "dNl22h1kW1k",
+   "TQhmua7Z2cY",
+   "I0Psvvky-44",
+   "eRJ_r8WF1Y0",
+   "WlmKwIe9z1Q",
+   "yRVZPvHYHzw",
+   "XMEFdofERLI",
+   "BZTWXl9QNK8",
+   "QOtA76ga_fY",
+   "q1OF_0ICt9A",
+   "bA3xCpYLA34",
+   "3v5Von-oNUg",
+   "MT7X17ZRo1U",
+   "YTWXAFJf8bw",
+   "OgGTJIgNewE",
+   "uT7BXusDgDM",
+   "WG5UbMrUiLU",
+   "2PO8h1pVW50",
+   "8PdnOZI7H5E"
+  ]
+ }
+}

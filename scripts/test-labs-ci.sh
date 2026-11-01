@@ -59,7 +59,7 @@ fi
 # ---------------------------------------------------------------------------
 titre "2. Les images des machines sont construites"
 # ---------------------------------------------------------------------------
-for image in securalabs/web-01:1.0 securalabs/bin-01:1.0 securalabs/multi-01:1.0 securalabs/internal-01:1.0; do
+for image in securalabs/web-01:1.0 securalabs/bin-01:1.0 securalabs/multi-01:1.0 securalabs/internal-01:1.0 securalabs/univ-01:1.0; do
 	if docker image inspect "$image" >/dev/null 2>&1; then
 		test_ok "l'image $image existe"
 	else
@@ -444,9 +444,92 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 8. Aucun reste
+# 8. La machine « univ-01 » : les vingt-deux rooms universitaires
 # ---------------------------------------------------------------------------
-docker rm -f "$CONT" "$CONT_B" "$CONT_M3" "$CONT_BIN" >/dev/null 2>&1
+CONT_UNI="seca_test_univ_$$"
+
+if docker run -d --name "$CONT_UNI" --network "$RESEAU" \
+	--cap-drop ALL --security-opt no-new-privileges --pids-limit 256 \
+	--memory 512m --cpus 1.0 --tmpfs /tmp:rw,noexec,nosuid,size=32m \
+	--user 1000:1000 -w /home/ctf securalabs/univ-01:1.0 sleep infinity >/dev/null 2>&1; then
+	attendre 3
+
+	if docker exec "$CONT_UNI" cat /home/ctf/notes.txt 2>/dev/null | grep -q 'Salle des cours'; then
+		test_ok "univ-01 : l'apprenant lit les notes de la salle des cours"
+	else
+		test_ko "univ-01 : les notes de la salle des cours sont introuvables"
+	fi
+
+	if docker exec "$CONT_UNI" cat /srv/cours/mit858/analyse-risque.md 2>/dev/null | grep -q 'risque_critique = FLAG=SECURA{modele_de_menace}'; then
+		test_ok "univ-01 : le livrable du cours 6.858 contient la valeur attendue"
+	else
+		test_ko "univ-01 : le livrable du cours 6.858 ne contient pas la valeur attendue"
+	fi
+
+	if docker exec "$CONT_UNI" cat /etc/secura-policy/policy.conf 2>/dev/null | grep -q 'FLAG=SECURA{privileges_separes}'; then
+		test_ok "univ-01 : la politique de separation des privileges est lisible"
+	else
+		test_ko "univ-01 : la politique de separation des privileges est introuvable"
+	fi
+
+	if docker exec "$CONT_UNI" cat /home/ctf/pwn/memory-notebook.md 2>/dev/null | grep -q 'FLAG=SECURA{pile_x86}'; then
+		test_ok "univ-01 : les TP pwn.college sont lisibles"
+	else
+		test_ko "univ-01 : les TP pwn.college sont introuvables"
+	fi
+
+	# Les drapeaux ne doivent pas etre lisibles par l'apprenant...
+	if docker exec "$CONT_UNI" cat /root/flags/flag-u01.txt >/dev/null 2>&1; then
+		test_ko "univ-01 : l'apprenant lit directement un fichier de drapeau"
+	else
+		test_ok "univ-01 : les fichiers de drapeau sont illisibles par l'apprenant"
+	fi
+
+	# ... mais le serveur (root) doit pouvoir les lire.
+	MANQUES=0
+
+	for numero in $(seq -w 1 22); do
+		if ! docker exec -u 0 "$CONT_UNI" cat "/root/flags/flag-u$numero.txt" 2>/dev/null | grep -q 'FLAG=SECURA{'; then
+			MANQUES=$((MANQUES + 1))
+		fi
+	done
+
+	if [ "$MANQUES" -eq 0 ]; then
+		test_ok "univ-01 : le serveur lit les vingt-deux drapeaux en root"
+	else
+		test_ko "univ-01 : $MANQUES drapeau(s) illisibles en root"
+	fi
+
+	# Chaque valeur annoncee dans un livrable doit etre le drapeau du serveur.
+	COHERENCE=0
+
+	for numero in $(seq -w 1 22); do
+		VALEUR=$(docker exec -u 0 "$CONT_UNI" cat "/root/flags/flag-u$numero.txt" 2>/dev/null | tr -d '\r\n')
+
+		if [ -z "$VALEUR" ]; then
+			continue
+		fi
+
+		if ! docker exec "$CONT_UNI" grep -rl "$VALEUR" /srv/cours /etc/secura-policy /opt/labs /home/ctf 2>/dev/null | grep -q .; then
+			COHERENCE=$((COHERENCE + 1))
+		fi
+	done
+
+	if [ "$COHERENCE" -eq 0 ]; then
+		test_ok "univ-01 : chaque drapeau est decouvrable dans les livrables de cours"
+	else
+		test_ko "univ-01 : $COHERENCE drapeau(s) ne sont decouvrables nulle part"
+	fi
+
+	docker rm -f "$CONT_UNI" >/dev/null 2>&1
+else
+	test_ko "la machine univ-01 ne démarre pas"
+fi
+
+# ---------------------------------------------------------------------------
+# 9. Aucun reste
+# ---------------------------------------------------------------------------
+docker rm -f "$CONT" "$CONT_B" "$CONT_M3" "$CONT_BIN" "$CONT_UNI" >/dev/null 2>&1
 docker network rm "$RESEAU" "$RESEAU_B" >/dev/null 2>&1
 
 RESTE=$(docker ps -a --format '{{.Names}}' | grep -c '^seca_test' || true)

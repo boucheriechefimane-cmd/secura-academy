@@ -1,0 +1,17 @@
+Classement interne des risques - application de l'equipe
+(cours OWASP Top 10)
+====================================================
+
+Nous avons repris la liste Top 10 et l avons ordonnee selon ce que nous
+rencontrons reellement dans notre code.
+
+    top_risk = FLAG=SECURA{risque_priorise}
+    classement :
+      1. Controle d'acces casse (API de statistiques sans authentification)
+      2. Injection (requetes construites par concatenation)
+      3. Journalisation et surveillance insuffisantes
+      4. Misconfiguration (compte de service avec trop de droits)
+      5. Erreurs excessives affichees au navigateur
+
+Regle de l'equipe : on corrige d'abord ce qui est a la fois frequent et
+grave, et on revoit le classement apres chaque sprint.

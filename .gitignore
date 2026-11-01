@@ -56,3 +56,7 @@ wp-includes/
 .phpunit.result.cache
 .php-cs-fixer.cache
 phpunit.xml.bak
+
+# Python
+__pycache__/
+*.pyc

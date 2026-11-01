@@ -1,0 +1,22 @@
+Fiche des facteurs d'authentification (atelier CYBER.ORG)
+=====================================================
+
+Les trois categories
+--------------------
+    ce que je sais : mot de passe, PIN
+    ce que j'ai    : telephone, cle USB, carte
+    ce que je suis : empreinte, visage
+
+Regles de l'atelier
+-------------------
+    recommended_factors = FLAG=SECURA{deux_categories}
+    categories_to_mix   = obligatoire (deux categories differentes)
+    sms                 = tolere, moins robuste
+    application         : preferee
+    cle physique FIDO2  : la plus resistente
+    question secrete    : refusee (ce n'est pas une autre categorie)
+
+Rappel
+------
+Un code recu par SMS ne se communique a personne : il prouve que c'est
+toi qui es connecte.

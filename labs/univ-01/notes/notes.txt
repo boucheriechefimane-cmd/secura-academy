@@ -1,0 +1,20 @@
+Salle des cours - machine du laboratoire
+=====================================
+
+Cette machine rassemble les livrables des cours suivis par l'equipe.
+Chaque dossier correspond a un cours ; chaque document contient le
+resultat du travail demande dans la room associee.
+
+Ou trouver quoi
+---------------
+    /srv/cours/mit858/      cours MIT 6.858 (modele de menace, web)
+    /srv/cours/mit857/      cours MIT 6.857 (reseau, TLS, auth, crypto)
+    /srv/cours/owasp/       atelier OWASP (Top 10, validation, journaux)
+    /srv/cours/cyber/       atelier CYBER.ORG (hygiene numerique)
+    /home/ctf/pwn/          TP pwn.college (memoire, pile, ROP, format)
+    /srv/cours/stanford/    cours Stanford CS105 (machine, rangement)
+    /etc/secura-policy/     politique du laboratoire (privileges, bac a sable)
+    /opt/labs/              TP du cours 6.858 (binaire vulnerable)
+
+La valeur a relever est toujours ecrite dans le document, precedee de son
+intitule (par exemple « risque_critique = ... »).

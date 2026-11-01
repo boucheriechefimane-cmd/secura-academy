@@ -647,6 +647,155 @@
 	color: var(--sa-muted);
 }
 
+/* ------------------------------------------------------- Facade vidéo */
+
+/* La facade n'est PAS une image distante : c'est un degrade peint par le
+   navigateur. Aucune requete ne part vers YouTube avant le clic. */
+.seca-video {
+	margin: 0;
+	padding: clamp(.75rem, 2vw, 1.25rem) clamp(1rem, 3vw, 2rem) 0;
+}
+
+.seca-video-frame {
+	position: relative;
+	border: 1px solid var(--sa-border);
+	border-radius: var(--sa-radius);
+	overflow: hidden;
+	background: var(--sa-surface-2);
+}
+
+.seca-video-facade {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	width: 100%;
+	margin: 0;
+	padding: 1.1rem 1.25rem;
+	border: 0;
+	background:
+		radial-gradient(120% 140% at 100% 0%, rgba(56, 189, 248, .28), transparent 60%),
+		radial-gradient(120% 140% at 0% 100%, rgba(45, 212, 167, .22), transparent 60%),
+		var(--sa-surface-2);
+	color: var(--sa-text);
+	font: inherit;
+	text-align: start;
+	cursor: pointer;
+	transition: background .2s ease, transform .2s ease;
+}
+
+.seca-video-facade:hover,
+.seca-video-facade:focus-visible {
+	transform: translateY(-1px);
+	background:
+		radial-gradient(120% 140% at 100% 0%, rgba(56, 189, 248, .38), transparent 60%),
+		radial-gradient(120% 140% at 0% 100%, rgba(45, 212, 167, .32), transparent 60%),
+		var(--sa-surface-2);
+}
+
+.seca-video-facade:focus-visible {
+	outline: 2px solid var(--sa-accent-2);
+	outline-offset: 2px;
+}
+
+.seca-video-play {
+	display: grid;
+	place-items: center;
+	flex: 0 0 auto;
+	width: 3.2rem;
+	height: 3.2rem;
+	border-radius: 50%;
+	background: var(--sa-accent);
+	color: #06121f;
+	font-size: 1.2rem;
+	line-height: 1;
+	box-shadow: 0 6px 18px rgba(45, 212, 167, .35);
+}
+
+.seca-video-facade-text {
+	display: grid;
+	gap: .15rem;
+	min-width: 0;
+}
+
+.seca-video-kicker {
+	font-size: .72rem;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: var(--sa-accent);
+}
+
+.seca-video-title {
+	font-weight: 600;
+	color: var(--sa-text);
+}
+
+.seca-video-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .5rem .9rem;
+	font-size: .8rem;
+	color: var(--sa-muted);
+}
+
+.seca-video-player {
+	position: relative;
+	aspect-ratio: 16 / 9;
+	background: #000;
+}
+
+.seca-video-player[hidden] {
+	display: none;
+}
+
+.seca-video-player iframe {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.seca-video-attribution {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: .35rem .9rem;
+	padding: .7rem .25rem 0;
+	font-size: .78rem;
+	color: var(--sa-muted);
+	line-height: 1.5;
+}
+
+.seca-video-note {
+	flex: 1 1 100%;
+	color: var(--sa-muted);
+}
+
+.seca-video-source strong {
+	color: var(--sa-text);
+	font-weight: 600;
+}
+
+.seca-video-license {
+	opacity: .85;
+}
+
+.seca-video-link {
+	color: var(--sa-accent-2);
+	font-weight: 600;
+	text-decoration: none;
+	border-bottom: 1px solid rgba(56, 189, 248, .4);
+}
+
+.seca-video-link:hover,
+.seca-video-link:focus-visible {
+	border-bottom-color: currentColor;
+}
+
+.seca-video-noscript {
+	display: none;
+}
+
 /* --------------------------------------------------- Navigation tâches */
 
 .seca-task-nav {

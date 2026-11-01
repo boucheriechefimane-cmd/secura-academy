@@ -84,20 +84,26 @@ final class Secura_Paths {
 			)
 		);
 
-		/* Les rooms M3 (marquees par la meta « track ») sont regroupees
-		   dans un parcours a part : dix missions, dans l'ordre. */
+		/* Les rooms M3 et les rooms universitaires (marquees par la meta
+		   « track ») sont regroupees dans un parcours a part : dix
+		   missions, puis vingt-deux rooms de cours. */
 		$demo_rooms = array();
 		$m3_rooms   = array();
+		$uni_rooms  = array();
 
 		foreach ( $rooms as $room_id ) {
-			if ( 'm3' === get_post_meta( $room_id, SECURA_META_TRACK, true ) ) {
+			$track = get_post_meta( $room_id, SECURA_META_TRACK, true );
+
+			if ( 'm3' === $track ) {
 				$m3_rooms[] = $room_id;
+			} elseif ( 'universites' === $track ) {
+				$uni_rooms[] = $room_id;
 			} else {
 				$demo_rooms[] = $room_id;
 			}
 		}
 
-		$paths = seca_default_paths( $demo_rooms, $m3_rooms );
+		$paths = seca_default_paths( $demo_rooms, $m3_rooms, $uni_rooms );
 		$order = 0;
 
 		foreach ( $paths as $path ) {

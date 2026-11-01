@@ -157,8 +157,13 @@ final class Secura_Rooms {
 		$order = 0;
 
 		/* Les rooms de démonstration viennent d'abord, puis les dix
-		   scenarios M3 : ils forment le parcours « Scenarios M3 ». */
-		$rooms = array_merge( seca_default_rooms(), seca_default_rooms_m3() );
+		   scenarios M3 (parcours « Scenarios M3 »), puis les vingt-deux
+		   rooms universitaires (parcours « Les universites »). */
+		$rooms = array_merge(
+			seca_default_rooms(),
+			seca_default_rooms_m3(),
+			seca_default_rooms_universites()
+		);
 
 		foreach ( $rooms as $room ) {
 			$post_id = wp_insert_post(
@@ -189,6 +194,12 @@ final class Secura_Rooms {
 
 			if ( ! empty( $room['lab'] ) ) {
 				update_post_meta( $post_id, '_secura_lab', $room['lab'] );
+			}
+
+			/* La video du cours : une facade (rien n'est charge avant le
+			   clic) et le bloc d'attribution sous la video. */
+			if ( ! empty( $room['video'] ) && is_array( $room['video'] ) ) {
+				update_post_meta( $post_id, Secura_Video::META, $room['video'] );
 			}
 
 			$order++;

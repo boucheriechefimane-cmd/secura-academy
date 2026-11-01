@@ -343,6 +343,12 @@ final class Secura_I18n {
 				'task_done' => 'Tâche terminée',
 				'time_up_hint' => "Relance l'examen pour réessayer.",
 				'room_complete' => 'Room terminée, bravo !',
+				'video_play' => 'Regarder la vidéo du cours',
+				'video_source' => 'Voir la vidéo sur la source',
+				'video_attribution' => 'Source',
+				'video_license' => 'Licence',
+				'video_note' => "Vidéo du cours de l'université, en complément de la room.",
+				'video_duration' => 'Durée',
 			),
 			'ar' => array(
 				'dashboard'        => 'لوحة التحكم',
@@ -441,6 +447,12 @@ final class Secura_I18n {
 				'task_done' => 'اكتملت المهمة',
 				'time_up_hint' => 'أعد تشغيل الامتحان للمحاولة مرة أخرى.',
 				'room_complete' => 'أكملت الغرفة، أحسنت!',
+				'video_play' => 'شاهد فيديو الدرس',
+				'video_source' => 'شاهد الفيديو في المصدر',
+				'video_attribution' => 'المصدر',
+				'video_license' => 'الرخصة',
+				'video_note' => 'فيديو درس الجامعة، إضافة إلى الغرفة.',
+				'video_duration' => 'المدة',
 			),
 			'en' => array(
 				'dashboard'        => 'Dashboard',
@@ -539,6 +551,12 @@ final class Secura_I18n {
 				'task_done' => 'Task complete',
 				'time_up_hint' => 'Restart the exam to try again.',
 				'room_complete' => 'Room complete, well done!',
+				'video_play' => 'Watch the course video',
+				'video_source' => 'Watch the video on the source',
+				'video_attribution' => 'Source',
+				'video_license' => 'License',
+				'video_note' => 'Course video from the university, as a complement to the room.',
+				'video_duration' => 'Duration',
 			),
 		);
 	}

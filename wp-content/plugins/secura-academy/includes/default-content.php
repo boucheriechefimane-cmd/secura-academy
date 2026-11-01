@@ -993,9 +993,10 @@ function seca_default_rooms() {
  * @param array $m3_room_ids  Identifiants des rooms M3 (dix scénarios), dans l'ordre.
  * @return array
  */
-function seca_default_paths( $room_ids, $m3_room_ids = array() ) {
+function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array() ) {
 	$room_ids     = array_values( array_map( 'absint', (array) $room_ids ) );
 	$m3_room_ids  = array_values( array_map( 'absint', (array) $m3_room_ids ) );
+	$uni_room_ids = array_values( array_map( 'absint', (array) $uni_room_ids ) );
 
 	$paths = array(
 		array(
@@ -1112,6 +1113,72 @@ function seca_default_paths( $room_ids, $m3_room_ids = array() ) {
 						array( 'title' => 'Module 3: Files and logs (scenarios 5 and 6)' ),
 						array( 'title' => 'Module 4: Network and pivot (scenarios 7 and 8)' ),
 						array( 'title' => 'Module 5: Memory and TLS (scenarios 9 and 10)' ),
+					),
+				),
+			),
+		),
+		/* --------------------------------------------------------------
+		 * Parcours « Les universites » : vingt-deux rooms, six cours
+		 * reellement gratuits et ouverts (MIT, pwn.college, CYBER.ORG,
+		 * OWASP, Stanford). Chaque room montre le cours en video et
+		 * demande la preuve dans la machine du laboratoire.
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Les universites : 22 rooms, 6 cours',
+			'excerpt'    => 'MIT 6.858, MIT 6.857, pwn.college, CYBER.ORG, OWASP et Stanford : le cours original en video, et notre pratique dans la machine.',
+			'content'    => 'Ce parcours est le plus exigeant de la plateforme. Pour chaque notion, tu vois le cours du professeur (l\'original, charge au clic) et tu fais le travail dans la machine du laboratoire. Le drapeau se lit dans ta machine : impossible de recopier une reponse.',
+			'difficulty' => 'difficile',
+			'duration'   => 780,
+			'xp_bonus'   => 500,
+			'sections'   => array(
+				array(
+					'title' => 'MIT 6.858 : systemes securises (5 rooms)',
+					'rooms' => array_slice( $uni_room_ids, 0, 5 ),
+				),
+				array(
+					'title' => 'MIT 6.857 : reseau et cryptographie (4 rooms)',
+					'rooms' => array_slice( $uni_room_ids, 5, 4 ),
+				),
+				array(
+					'title' => 'pwn.college : de la memoire au shell (4 rooms)',
+					'rooms' => array_slice( $uni_room_ids, 9, 4 ),
+				),
+				array(
+					'title' => 'CYBER.ORG : hygiene numerique (4 rooms)',
+					'rooms' => array_slice( $uni_room_ids, 13, 4 ),
+				),
+				array(
+					'title' => 'OWASP : securite des applications (3 rooms)',
+					'rooms' => array_slice( $uni_room_ids, 17, 3 ),
+				),
+				array(
+					'title' => 'Stanford : comment marche un ordinateur (2 rooms)',
+					'rooms' => array_slice( $uni_room_ids, 20, 2 ),
+				),
+			),
+			'i18n'       => array(
+				'ar' => array(
+					'title'   => 'الجامعات: 22 غرفة، 6 دورات',
+					'excerpt' => 'MIT 6.858 و6.857 وpwn.college وCYBER.ORG وOWASP وStanford: الدرس الأصلي بالفيديو، وتطبيقنا في الآلة.',
+					'sections' => array(
+						array( 'title' => 'MIT 6.858: أنظمة آمنة (5 غرف)' ),
+						array( 'title' => 'MIT 6.857: الشبكة والتشفير (4 غرف)' ),
+						array( 'title' => 'pwn.college: من الذاكرة إلى الصدفة (4 غرف)' ),
+						array( 'title' => 'CYBER.ORG: النظافة الرقمية (4 غرف)' ),
+						array( 'title' => 'OWASP: أمن التطبيقات (3 غرف)' ),
+						array( 'title' => 'Stanford: كيف يعمل الحاسوب (غرفتان)' ),
+					),
+				),
+				'en' => array(
+					'title'   => 'The universities: 22 rooms, 6 courses',
+					'excerpt' => 'MIT 6.858, MIT 6.857, pwn.college, CYBER.ORG, OWASP and Stanford: the original course video, and our practice in the machine.',
+					'sections' => array(
+						array( 'title' => 'MIT 6.858: secure systems (5 rooms)' ),
+						array( 'title' => 'MIT 6.857: networks and cryptography (4 rooms)' ),
+						array( 'title' => 'pwn.college: from memory to shell (4 rooms)' ),
+						array( 'title' => 'CYBER.ORG: digital hygiene (4 rooms)' ),
+						array( 'title' => 'OWASP: application security (3 rooms)' ),
+						array( 'title' => 'Stanford: how a computer works (2 rooms)' ),
 					),
 				),
 			),

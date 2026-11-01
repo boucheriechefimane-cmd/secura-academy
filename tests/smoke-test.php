@@ -369,6 +369,16 @@ function esc_textarea( $text ) {
 }
 
 /**
+ * Échappement d'URL.
+ *
+ * @param mixed $text Valeur.
+ * @return string
+ */
+function esc_url( $text ) {
+	return htmlspecialchars( (string) $text, ENT_QUOTES, 'UTF-8' );
+}
+
+/**
  * Fusion d'arguments.
  *
  * @param array $args     Arguments.
@@ -1889,6 +1899,8 @@ check( false !== strpos( $css, '.seca-action-note' ), 'la consigne sans reponse 
 echo "\nScénarios M3\n";
 
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-m3.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-video.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-universites.php';
 
 $labs_dir = dirname( __DIR__ ) . '/labs';
 
@@ -2029,10 +2041,19 @@ check( is_file( $labs_dir . '/net-01/docker-compose.yml' ), 'la pile multi-nœud
 $paths = seca_default_paths( array( 1, 2, 3, 4, 5, 6 ), array( 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ) );
 $m3_path = isset( $paths[1] ) ? $paths[1] : array();
 
-check( 2 === count( $paths ), 'deux parcours sont crees : les fondations et les scénarios M3' );
+check( 3 === count( $paths ), 'trois parcours sont crees : les fondations, les scénarios M3 et Les universites' );
 check( isset( $m3_path['sections'] ) && 5 === count( $m3_path['sections'] ), 'le parcours M3 compte cinq modules' );
-check( 10 === array_sum( array_map( 'count', $m3_path['sections'] ) ), 'le parcours M3 contient les dix scénarios' );
+check( 10 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $m3_path['sections'] ) ), 'le parcours M3 contient les dix scénarios' );
 check( isset( $m3_path['i18n']['ar'], $m3_path['i18n']['en'] ), 'le parcours M3 est traduit en arabe et en anglais' );
+
+/* Le parcours « Les universités » : vingt-deux rooms en six modules. */
+$paths_uni = seca_default_paths( array( 1 ), array( 2 ), array( 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 ) );
+$uni_path  = isset( $paths_uni[2] ) ? $paths_uni[2] : array();
+
+check( 3 === count( $paths_uni ), 'un troisieme parcours est cree : Les universites' );
+check( isset( $uni_path['sections'] ) && 6 === count( $uni_path['sections'] ), 'le parcours universitaire compte six modules' );
+check( 22 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $uni_path['sections'] ) ), 'le parcours universitaire contient les vingt-deux rooms' );
+check( isset( $uni_path['i18n']['ar'], $uni_path['i18n']['en'] ), 'le parcours universitaire est traduit en arabe et en anglais' );
 
 /* Le moteur : un drapeau lu dans la machine de l'apprenant, en root. */
 $flag_dir  = sys_get_temp_dir() . '/seca_docker_flag';
@@ -2138,6 +2159,175 @@ if ( $payload_m3 && is_array( $payload_m3['data'] ) ) {
 }
 check( ! $m3_flag_ko, 'un mauvais drapeau est refuse meme si la machine est demarree' );
 check( '' === Secura_Lab::safe_machine_path( '/root/flags/../../../etc/passwd' ), 'un chemin de drapeau contenant « .. » est refuse' );
+
+/* ---------------------------------------------------------------------
+ * Bloc universitaire : la facade video, les vingt-deux rooms et leurs
+ * missions (preuve lue dans la machine « univ-01 »).
+ * ------------------------------------------------------------------ */
+
+echo "\nBloc universitaire\n";
+
+$uni_rooms = seca_default_rooms_universites();
+
+check( 22 === count( $uni_rooms ), 'vingt-deux rooms universitaires sont fournies' );
+
+$uni_pattern_ok   = true;
+$uni_video_ok     = true;
+$uni_video_ids    = array();
+$uni_flags_ok     = true;
+$uni_questions_ok = true;
+$uni_answers_balanced = true;
+$uni_i18n_ok      = true;
+$uni_lab_ok       = true;
+
+$uni_labs_dir = dirname( __DIR__ ) . '/labs';
+$uni_flag_dir = $uni_labs_dir . '/univ-01/flag';
+
+foreach ( $uni_rooms as $room_uni ) {
+	/* Le patron : lecon -> entrainement -> mission -> examen. */
+	if ( ! isset( $room_uni['tasks'] ) || 4 !== count( $room_uni['tasks'] ) ) {
+		$uni_pattern_ok = false;
+		continue;
+	}
+
+	$types_uni = array();
+
+	foreach ( $room_uni['tasks'] as $task_uni ) {
+		$types_uni[] = $task_uni['type'];
+	}
+
+	if ( array( 'lesson', 'practice', 'test', 'exam' ) !== $types_uni ) {
+		$uni_pattern_ok = false;
+	}
+
+	/* La video : identifiant reel, institution et licence. */
+	if ( ! isset( $room_uni['video']['id'] ) || ! preg_match( '/^[A-Za-z0-9_-]{11}$/', $room_uni['video']['id'] ) ) {
+		$uni_video_ok = false;
+	} else {
+		$uni_video_ids[] = $room_uni['video']['id'];
+	}
+
+	if ( empty( $room_uni['video']['institution'] ) || empty( $room_uni['video']['license'] ) || empty( $room_uni['video']['title'] ) ) {
+		$uni_video_ok = false;
+	}
+
+	/* Les questions : QCM a quatre propositions, une seule bonne reponse. */
+	$correct_positions = array();
+
+	foreach ( $room_uni['tasks'] as $task_uni ) {
+		foreach ( $task_uni['questions'] as $question_uni ) {
+			if ( 'choice' !== $question_uni['mode'] ) {
+				continue;
+			}
+
+			if ( 4 !== count( $question_uni['choices'] ) || ! isset( $question_uni['correct'] ) ) {
+				$uni_questions_ok = false;
+				continue;
+			}
+
+			$correct_positions[] = $question_uni['correct'];
+
+			if ( empty( $question_uni['explanation'] ) || empty( $question_uni['hint'] ) ) {
+				$uni_questions_ok = false;
+			}
+		}
+	}
+
+	/* La bonne reponse ne doit pas toujours etre a la meme place. */
+	if ( count( array_unique( $correct_positions ) ) < 3 ) {
+		$uni_answers_balanced = false;
+	}
+
+	/* La mission : un drapeau reellement present dans la machine. */
+	foreach ( $room_uni['tasks'] as $task_uni ) {
+		foreach ( $task_uni['questions'] as $question_uni ) {
+			if ( 'flag' !== $question_uni['mode'] ) {
+				continue;
+			}
+
+			$flag_name = basename( $question_uni['flag_path'] );
+
+			if ( ! is_file( $uni_flag_dir . '/' . $flag_name ) ) {
+				$uni_flags_ok = false;
+			}
+		}
+	}
+
+	/* La machine : une image qui existe dans le depot. */
+	if ( empty( $room_uni['lab']['image'] ) || 'securalabs/univ-01:1.0' !== $room_uni['lab']['image'] ) {
+		$uni_lab_ok = false;
+	}
+
+	/* Les traductions. */
+	if ( ! isset( $room_uni['i18n']['ar']['title'], $room_uni['i18n']['en']['title'] ) ) {
+		$uni_i18n_ok = false;
+	} elseif ( 4 !== count( $room_uni['i18n']['ar']['tasks'] ) || 4 !== count( $room_uni['i18n']['en']['tasks'] ) ) {
+		$uni_i18n_ok = false;
+	}
+}
+
+check( $uni_pattern_ok, 'chaque room universitaire suit le patron lecon → entrainement → mission → examen' );
+check( $uni_video_ok, 'chaque room universitaire porte une video reelle, avec institution et licence' );
+check( $uni_questions_ok, 'chaque question universitaire est un QCM a quatre propositions, avec indice et explication' );
+check( $uni_answers_balanced, 'la bonne reponse n\'est pas toujours a la meme place' );
+check( $uni_flags_ok, 'chaque mission universitaire valide un drapeau present dans la machine univ-01' );
+check( $uni_lab_ok, 'chaque room universitaire est branchee sur la machine univ-01' );
+check( $uni_i18n_ok, 'chaque room universitaire est traduite en arabe et en anglais' );
+check( 22 === count( array_unique( $uni_video_ids ) ), 'les vingt-deux rooms utilisent vingt-deux videos differentes' );
+check( is_file( $uni_labs_dir . '/univ-01/Dockerfile' ), 'la machine univ-01 existe dans le depot' );
+
+/* Le catalogue des videos verifiees : aucune identifiant invente. */
+$uni_catalogue = dirname( __DIR__ ) . '/tools/videos/videos-verifies.json';
+
+if ( is_file( $uni_catalogue ) ) {
+	$uni_json = json_decode( file_get_contents( $uni_catalogue ), true );
+	$uni_known = array();
+
+	if ( isset( $uni_json['videos'] ) && is_array( $uni_json['videos'] ) ) {
+		foreach ( $uni_json['videos'] as $entry ) {
+			if ( isset( $entry['id'] ) ) {
+				$uni_known[] = $entry['id'];
+			}
+		}
+	}
+
+	check( count( $uni_known ) >= 22, 'le catalogue des videos verifiees contient au moins vingt-deux entrees' );
+	check( 0 === count( array_diff( $uni_video_ids, $uni_known ) ), 'chaque video utilisee est dans le catalogue verifie (aucun identifiant invente)' );
+} else {
+	check( false, 'le catalogue des videos verifiees est present dans le depot' );
+}
+
+/* La facade : rien n\'est charge avant le clic. */
+$GLOBALS['securatest_meta'] = array();
+
+update_post_meta( 4242, Secura_Video::META, array(
+	'id'          => 'GqmQg-cszw4',
+	'title'       => '1. Introduction, Threat Models',
+	'channel'     => 'MIT OpenCourseWare',
+	'institution' => 'MIT - 6.858 Computer Systems Security (Fall 2014)',
+	'license'     => 'CC BY-NC-SA 4.0 - MIT OpenCourseWare',
+	'duration'    => '1:17:13',
+	'note'        => 'Cours video de l\'universite.',
+) );
+
+$uni_html = Secura_Video::render( 4242, 'fr' );
+
+check( false !== strpos( $uni_html, 'data-seca-video-play' ), 'la facade video propose un bouton de lecture' );
+check( false === strpos( $uni_html, '<iframe' ), 'aucun iframe n\'est present avant le clic' );
+check( false === strpos( $uni_html, 'autoplay=1' ), 'la facade video ne demarre aucune lecture automatique' );
+check( false !== strpos( $uni_html, 'youtube.com/watch?v=GqmQg-cszw4' ), 'le lien de secours vers la source est toujours visible' );
+check( false !== strpos( $uni_html, 'youtube-nocookie.com/embed/GqmQg-cszw4' ), 'l\'integration prevue utilise youtube-nocookie' );
+check( false !== strpos( $uni_html, 'CC BY-NC-SA 4.0' ), 'le bloc d\'attribution affiche la licence' );
+check( false !== strpos( $uni_html, 'MIT - 6.858' ), 'le bloc d\'attribution affiche la source' );
+check( false !== strpos( $uni_html, 'data-seca-video-id="GqmQg-cszw4"' ), 'la facade porte l\'identifiant de la video' );
+check( '' === Secura_Video::render( 999999, 'fr' ), 'une room sans video n\'affiche aucun bloc video' );
+
+/* Un identifiant invalide n\'est jamais accepte. */
+$GLOBALS['securatest_meta'] = array();
+
+update_post_meta( 4243, Secura_Video::META, array( 'id' => 'pas-un-id' ) );
+
+check( false === Secura_Video::get( 4243 ), 'un identifiant de video invalide est refuse' );
 
 /* ---------------------------------------------------------------------
  * Bilan

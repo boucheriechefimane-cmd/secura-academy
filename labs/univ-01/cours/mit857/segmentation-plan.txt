@@ -1,0 +1,24 @@
+Plan de segmentation du reseau du laboratoire
+(cours 6.857 - Network and Computer Security)
+
+Objectif : qu'une compromission dans une zone ne donne pas acces aux
+autres zones. Le pare-feu est place ENTRE les zones, pas autour.
+
++---------------------+---------------+--------------------------+
+| Zone                | zone_id       | Contenu                  |
++---------------------+---------------+--------------------------+
+| Public              | 1             | Serveur web, proxy       |
+| Donnees sensibles   | FLAG=SECURA{zone_interdite}       | Base de notes, secrets   |
+| Interne             | 3             | Nœud d'archivage         |
+| Administration       | 4             | Supervision, sauvegardes  |
++---------------------+---------------+--------------------------+
+
+Regles de flux
+--------------
+1. Public -> Donnees sensibles : autorise uniquement sur le port 443.
+2. Public -> Interne : interdit.
+3. Administration -> toutes zones : autorise (avec authentification).
+4. Interne -> Public : interdit (anti-pivot).
+
+Le plan a ete revu apres l'incident du mois dernier : le port 8080 du
+service de statistiques etait joignable depuis la zone publique.

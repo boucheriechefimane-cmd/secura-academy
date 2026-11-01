@@ -252,11 +252,53 @@
 		} );
 	}
 
+	/**
+	 * Facade video : l'iframe n'est cree qu'au clic.
+	 *
+	 * Sans JavaScript, le lien « Voir la video sur la source » reste
+	 * utilisable : la room n'est jamais cassee.
+	 */
+	function bindVideoFacades() {
+		var blocks = document.querySelectorAll( '[data-seca-video]' );
+
+		Array.prototype.forEach.call( blocks, function ( block ) {
+			var play = block.querySelector( '[data-seca-video-play]' );
+			var player = block.querySelector( '[data-seca-video-player]' );
+			var videoId = block.getAttribute( 'data-seca-video-id' );
+
+			if ( ! play || ! player || ! videoId ) {
+				return;
+			}
+
+			play.addEventListener( 'click', function () {
+				if ( player.getAttribute( 'data-seca-video-loaded' ) ) {
+					return;
+				}
+
+				var frame = document.createElement( 'iframe' );
+
+				frame.src = 'https://www.youtube-nocookie.com/embed/' +
+					encodeURIComponent( videoId ) +
+					'?rel=0&modestbranding=1&playsinline=1&autoplay=1';
+				frame.title = play.getAttribute( 'aria-label' ) || '';
+				frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share';
+				frame.allowFullscreen = true;
+				frame.setAttribute( 'loading', 'lazy' );
+
+				player.appendChild( frame );
+				player.setAttribute( 'data-seca-video-loaded', '1' );
+				player.hidden = false;
+				play.hidden = true;
+			} );
+		} );
+	}
+
 	/* =====================================================================
 	 * Lecteur de room
 	 * ================================================================== */
 
 	bindPrintButtons();
+	bindVideoFacades();
 
 	var app = document.querySelector( '[data-seca-room]' );
 

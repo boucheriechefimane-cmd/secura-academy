@@ -1,0 +1,19 @@
+Charte de publication sur les reseaux sociaux (atelier CYBER.ORG)
+============================================================
+
+Regles de l'atelier
+-------------------
+    publication_delay_hours = FLAG=SECURA{publie_plus_tard}
+    localisation_en_direct  = interdite pendant un desplazamiento
+    photo_de_badge          = interdite
+    adresse_complete        = jamais
+    regle_des_trois_questions = avant de publier :
+        1. est-ce que ca me concerne encore dans cinq ans ?
+        2. est-ce que j'aimerais que ma famille le voie ?
+        3. est-ce que je peux l'expliquer a un recruteur ?
+
+Ce que les autres publient sur toi
+----------------------------------
+Une photo de toi peut etre postee par quelqu'un d'autre. Tu peux
+demander la suppression, signaler, garder une preuve, et durcir tes
+reglages de visibilite.

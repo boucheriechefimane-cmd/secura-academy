@@ -1,0 +1,24 @@
+Audit TLS - service interne du laboratoire
+(cours 6.857 - Network and Computer Security)
+
+Objet : verifier ce que le certificat du service garantit reellement.
+
+Certificat analyse
+-------------------
+    sujet            = CN=intranet.lab
+    SAN              = DNS:intranet.lab, DNS:web.lab, IP:127.0.0.1
+    validite_du      = 2026-01-15
+    validite_au      = 2027-01-15
+    autorite         = CN=Secura Lab Root CA
+    signature_algorithm = FLAG=SECURA{tls_signe}
+    chaine           = Secura Lab Root CA -> Secura Lab Intermediate CA
+
+Points de controle
+-------------------
+- Le certificat couvre-t-il le nom utilise par les clients ? oui
+- La chaine est-elle complete jusqu'a la racine de confiance ? oui
+- La duree de validite est-elle raisonnable ? oui
+- Les algorithmes proposes sont-ils encore acceptes ? oui
+
+Ce que l'audit ne dit pas : si le site est honnete. TLS protege le tuyau,
+pas ce qu'il y a a l'autre bout.

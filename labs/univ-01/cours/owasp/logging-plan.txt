@@ -1,0 +1,24 @@
+Plan de journalisation - service applicatif (OWASP A09:2021)
+==========================================================
+
+Evenements journalises
+----------------------
+    event_count = FLAG=SECURA{trace_utile}
+    evenements :
+      - authentification reussie / refusee
+      - changement de mot de passe
+      - changement de privileges
+      - export de donnees
+      - refus d'acces (403)
+      - erreur serveur (500)
+
+Contenu d'une ligne
+-------------------
+    horodatage | utilisateur | action | resultat | IP | user-agent
+
+Regles de l'equipe
+------------------
+- On ne journalise JAMAIS un mot de passe, une carte ou un jeton.
+- Les journaux sont proteges et conserves 30 jours maximum.
+- Une alerte est declenchee sur rafale d'echecs et changement de privileges.
+- Un journal que personne ne lit ne sert a rien : la revue est hebdomadaire.

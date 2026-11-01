@@ -95,6 +95,8 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-ajax.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-dashboard.php';
 require_once SECURA_ACADEMY_PATH . 'includes/default-content.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-m3.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-universites.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-video.php';
 
 /**
  * Amorce le plugin.
@@ -114,6 +116,7 @@ final class Secura_Academy {
 	Secura_Settings::init();
 		Secura_Ajax::init();
 		Secura_Dashboard::init();
+		Secura_Video::init();
 	}
 }
 

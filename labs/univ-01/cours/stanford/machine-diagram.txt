@@ -1,0 +1,26 @@
+Schema de la machine - cours Stanford CS105
+=========================================
+
+Quatre couches, de la donnee au programme
+-----------------------------------------
+1. Donnees : tout est binaire ; un caractere, une image, un son sont
+   des nombres.
+2. Memoire : une suite d'octets numerotes ; une adresse designe une case.
+   Une variable est un nom donne a une adresse.
+3. Instruction : une operation elementaire (charger, ajouter, stocker,
+   sauter).
+4. Cycle : le processeur prend l'instruction, l'execute, passe a la
+   suivante, sauf saut.
+
+Chiffres du schema
+------------------
+    address_size      = 8 octets (64 bits)
+    bus_width         = 64 bits
+    word_size         = 8 octets
+    address_size_bytes = FLAG=SECURA{adresse_64_bits}
+
+Consequence pour la securite
+-----------------------------
+Sans ASLR, les adresses sont previsibles ; c'est pourquoi le processus
+aleatoire des adresses existe, et pourquoi une fuite d'adresse est si
+precieuse pour un attaquant.

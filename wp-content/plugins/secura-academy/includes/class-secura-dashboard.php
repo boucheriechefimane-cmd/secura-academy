@@ -408,6 +408,15 @@ final class Secura_Dashboard {
 				</div>
 			</header>
 
+			<?php
+			/* La facade video du cours : rien n'est charge avant le clic. */
+			$seca_video_html = Secura_Video::render( $room_id, $lang );
+
+			if ( $seca_video_html ) {
+				echo $seca_video_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- deja echappe dans Secura_Video::render().
+			}
+			?>
+
 			<nav class="seca-task-nav" data-seca-task-nav aria-label="<?php esc_attr_e( 'Tâches de la room', 'seca-academy' ); ?>"></nav>
 
 			<div class="seca-task-view" data-seca-task-view>

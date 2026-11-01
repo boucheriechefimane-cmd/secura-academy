@@ -1,0 +1,287 @@
+{
+ "_comment": "Catalogue des videos utilisees par Secura Academy. Chaque identifiant a ete controle (API oEmbed de YouTube) le 01/11/2026 : il existe et son titre correspond. AUCUN identifiant n'est invente. Pour recontroler : python3 tools/videos/yt_lookup.py verify <id>",
+ "_controle": "oEmbed YouTube (https://www.youtube.com/oembed) - verification d'existence + titre + auteur",
+ "_date_controle": "2026-11-01",
+ "videos": [
+  {
+   "id": "GqmQg-cszw4",
+   "title": "1. Introduction, Threat Models",
+   "channel": "MIT OpenCourseWare",
+   "institution": "MIT - 6.858 Computer Systems Security (Fall 2014)",
+   "license": "CC BY-NC-SA 4.0 - MIT OpenCourseWare",
+   "duration": "1:17:13",
+   "usage": "room",
+   "room": "Menaces, vulnerabilites et modele de menace"
+  },
+  {
+   "id": "xSQxaie_h1o",
+   "title": "3. Buffer Overflow Exploits and Defenses",
+   "channel": "MIT OpenCourseWare",
+   "institution": "MIT - 6.858 Computer Systems Security (Fall 2014)",
+   "license": "CC BY-NC-SA 4.0 - MIT OpenCourseWare",
+   "duration": "1:21:38",
+   "usage": "room",
+   "room": "Debordement de tampon : l'attaque et les defenses"
+  },
+  {
+   "id": "dNl22h1kW1k",
+   "title": "4. Privilege Separation",
+   "channel": "MIT OpenCourseWare",
+   "institution": "MIT - 6.858 Computer Systems Security (Fall 2014)",
+   "license": "CC BY-NC-SA 4.0 - MIT OpenCourseWare",
+   "duration": "1:23:29",
+   "usage": "room",
+   "room": "Architecture de confiance : separer les privileges"
+  },
+  {
+   "id": "I0Psvvky-44",
+   "title": "7. Sandboxing Native Code",
+   "channel": "MIT OpenCourseWare",
+   "institution": "MIT - 6.858 Computer Systems Security (Fall 2014)",
+   "license": "CC BY-NC-SA 4.0 - MIT OpenCourseWare",
+   "duration": "1:23:21",
+   "usage": "room",
+   "room": "Bac a sable : confiner le code natif"
+  },
+  {
+   "id": "WlmKwIe9z1Q",
+   "title": "9. Securing Web Applications",
+   "channel": "MIT OpenCourseWare",
+   "institution": "MIT - 6.858 Computer Systems Security (Fall 2014)",
+   "license": "CC BY-NC-SA 4.0 - MIT OpenCourseWare",
+   "duration": "1:22:08",
+   "usage": "room",
+   "room": "Le web et ses regles : SOP, CSRF et sessions"
+  },
+  {
+   "id": "BZTWXl9QNK8",
+   "title": "12. Network Security",
+   "channel": "MIT OpenCourseWare",
+   "institution": "MIT - 6.858 Computer Systems Security (Fall 2014)",
+   "license": "CC BY-NC-SA 4.0 - MIT OpenCourseWare",
+   "duration": "1:18:26",
+   "usage": "room",
+   "room": "Segmenter, isoler, pivoter : la securite reseau"
+  },
+  {
+   "id": "q1OF_0ICt9A",
+   "title": "14. SSL and HTTPS",
+   "channel": "MIT OpenCourseWare",
+   "institution": "MIT - 6.858 Computer Systems Security (Fall 2014)",
+   "license": "CC BY-NC-SA 4.0 - MIT OpenCourseWare",
+   "duration": "1:18:18",
+   "usage": "room",
+   "room": "TLS et HTTPS : le chiffrement qui tient la route"
+  },
+  {
+   "id": "MT7X17ZRo1U",
+   "title": "17. User Authentication",
+   "channel": "MIT OpenCourseWare",
+   "institution": "MIT - 6.858 Computer Systems Security (Fall 2014)",
+   "license": "CC BY-NC-SA 4.0 - MIT OpenCourseWare",
+   "duration": "1:19:48",
+   "usage": "room",
+   "room": "S'authentifier : mot de passe, session, second facteur"
+  },
+  {
+   "id": "hRDOmMEZtPo",
+   "title": "Lecture 10: Cryptography",
+   "channel": "MIT OpenCourseWare",
+   "institution": "MIT - 6.042 Mathematics for Computer Science (R. Rivest)",
+   "license": "CC BY-NC-SA 4.0 - MIT OpenCourseWare",
+   "duration": "1:21:09",
+   "usage": "room",
+   "room": "Cryptographie : cle, chiffrement, signature"
+  },
+  {
+   "id": "HahXfnOsSUU",
+   "title": "pwn college - Assembly Crash Course - Memory",
+   "channel": "pwn.college",
+   "institution": "pwn.college (Arizona State University)",
+   "license": "Reutilisation non commerciale autorisee, avec attribution (pwn.college)",
+   "duration": "28:23",
+   "usage": "room",
+   "room": "x86 et memoire : comprendre la pile"
+  },
+  {
+   "id": "PVx1hUlMxtQ",
+   "title": "pwn.college - Memory Errors - Smashing the Stack",
+   "channel": "pwn.college",
+   "institution": "pwn.college (Arizona State University)",
+   "license": "Reutilisation non commerciale autorisee, avec attribution (pwn.college)",
+   "duration": "16:35",
+   "usage": "room",
+   "room": "Déborder la pile : le canari et l'offset"
+  },
+  {
+   "id": "El8-vMDJ1zY",
+   "title": "pwn.college - Return Oriented Programming - Introduction",
+   "channel": "pwn.college",
+   "institution": "pwn.college (Arizona State University)",
+   "license": "Reutilisation non commerciale autorisee, avec attribution (pwn.college)",
+   "duration": "8:54",
+   "usage": "room",
+   "room": "ROP : construire une attaque sans shellcode"
+  },
+  {
+   "id": "vc_9Ujkpy7I",
+   "title": "Format String Exploits - Introduction",
+   "channel": "pwn.college",
+   "institution": "pwn.college (Arizona State University)",
+   "license": "Reutilisation non commerciale autorisee, avec attribution (pwn.college)",
+   "duration": "9:47",
+   "usage": "room",
+   "room": "Vulnerabilite de format string : printf qui parle trop"
+  },
+  {
+   "id": "OiQKZWNeAjc",
+   "title": "Making Strong Passwords - Cyber Safety Series",
+   "channel": "CYBER. ORG",
+   "institution": "CYBER.ORG",
+   "license": "Usage pedagogique avec attribution (CYBER.ORG)",
+   "duration": "1:53",
+   "usage": "room",
+   "room": "Mots de passe : la longueur bat la complicite"
+  },
+  {
+   "id": "08oJtFFH6a0",
+   "title": "Phishing - Cyber Safety Series",
+   "channel": "CYBER. ORG",
+   "institution": "CYBER.ORG",
+   "license": "Usage pedagogique avec attribution (CYBER.ORG)",
+   "duration": "2:28",
+   "usage": "room",
+   "room": "Hameconnage : lire un message avant de cliquer"
+  },
+  {
+   "id": "6iPKt6F64rc",
+   "title": "Social Media - Cyber Safety Series",
+   "channel": "CYBER. ORG",
+   "institution": "CYBER.ORG",
+   "license": "Usage pedagogique avec attribution (CYBER.ORG)",
+   "duration": "2:04",
+   "usage": "room",
+   "room": "Publier en ligne : ce que la crowd voit de toi"
+  },
+  {
+   "id": "-mdIH67HKqk",
+   "title": "Multi-factor Authentication - Cyber Safety Series",
+   "channel": "CYBER. ORG",
+   "institution": "CYBER.ORG",
+   "license": "Usage pedagogique avec attribution (CYBER.ORG)",
+   "duration": "2:48",
+   "usage": "room",
+   "room": "Hygiene numerique : le deuxieme facteur"
+  },
+  {
+   "id": "nq-Igdk0o7s",
+   "title": "The How and Why of the OWASP Top Ten 2021 - Brian Glas",
+   "channel": "OWASP Foundation",
+   "institution": "OWASP Foundation",
+   "license": "Usage pedagogique avec attribution (OWASP Foundation)",
+   "duration": "49:37",
+   "usage": "room",
+   "room": "Le Top 10 OWASP et la surface d'attaque"
+  },
+  {
+   "id": "EA8-GuMZykg",
+   "title": "Real World Application Security - How to Test with OWASP [Input Validation]",
+   "channel": "Cristi Vlad",
+   "institution": "OWASP (chapitre Presedint)",
+   "license": "Usage pedagogique avec attribution (Cristi Vlad)",
+   "duration": "12:08",
+   "usage": "room",
+   "room": "Valider les entrees : le premier remede anti-injection"
+  },
+  {
+   "id": "ODpooAzCuwM",
+   "title": "Security Logging and Monitoring Failures Explained | OWASP A09:2021",
+   "channel": "AppSecDojo",
+   "institution": "OWASP Top 10 (A09:2021)",
+   "license": "Usage pedagogique avec attribution (AppSecDojo)",
+   "duration": "1:01",
+   "usage": "room",
+   "room": "Journaux et audit : la trace qui vaut de l'or"
+  },
+  {
+   "id": "KkMDCCdjyW8",
+   "title": "Lecture 1 | Programming Methodology (Stanford)",
+   "channel": "Stanford",
+   "institution": "Stanford - Engineering Everywhere (SEE)",
+   "license": "CC BY-NC-SA 4.0 - Stanford Engineering Everywhere",
+   "duration": "49:47",
+   "usage": "room",
+   "room": "Comment marche un ordinateur : de la donnee au programme"
+  },
+  {
+   "id": "0LoKDDRlfZc",
+   "title": "Lecture 2 | Programming Methodology (Stanford)",
+   "channel": "Stanford",
+   "institution": "Stanford - Engineering Everywhere (SEE)",
+   "license": "CC BY-NC-SA 4.0 - Stanford Engineering Everywhere",
+   "duration": "48:20",
+   "usage": "room",
+   "room": "Donnees et systemes : organiser l'information"
+  },
+  {
+   "id": "hh4XAU6XYP0",
+   "title": "Introduction: What is pwn.college?",
+   "channel": "pwn.college",
+   "institution": "pwn.college (Arizona State University)",
+   "license": "Reutilisation non commerciale autorisee, avec attribution (pwn.college)",
+   "duration": "9:10",
+   "usage": "brief",
+   "room": "Brief du dojo pwn.college"
+  },
+  {
+   "id": "UW13N0CV-4s",
+   "title": "pwn.college - Talking Web - Introduction",
+   "channel": "pwn.college",
+   "institution": "pwn.college (Arizona State University)",
+   "license": "Reutilisation non commerciale autorisee, avec attribution (pwn.college)",
+   "duration": "9:43",
+   "usage": "brief",
+   "room": "Brief du dojo pwn.college"
+  },
+  {
+   "id": "A5CnZGst5u4",
+   "title": "pwn.college - Exploitation Scenarios - Introduction",
+   "channel": "pwn.college",
+   "institution": "pwn.college (Arizona State University)",
+   "license": "Reutilisation non commerciale autorisee, avec attribution (pwn.college)",
+   "duration": "7:21",
+   "usage": "brief",
+   "room": "Brief du dojo pwn.college"
+  },
+  {
+   "id": "IWbIZerH930",
+   "title": "pwn college - Assembly Crash Course - Registers",
+   "channel": "pwn.college",
+   "institution": "pwn.college (Arizona State University)",
+   "license": "Reutilisation non commerciale autorisee, avec attribution (pwn.college)",
+   "duration": "13:47",
+   "usage": "brief",
+   "room": "Brief du dojo pwn.college"
+  },
+  {
+   "id": "LEC0r-v2EtU",
+   "title": "Don't Get Tricked! K-2 Cybersecurity Basics Lesson",
+   "channel": "CYBER. ORG",
+   "institution": "CYBER.ORG",
+   "license": "Usage pedagogique avec attribution (CYBER.ORG)",
+   "duration": "6:06",
+   "usage": "brief",
+   "room": "Brief du bloc hygiene numerique"
+  },
+  {
+   "id": "Xf162olFpfo",
+   "title": "Exploring Web Application Security with OWASP Juice Shop",
+   "channel": "Joe Ma",
+   "institution": "OWASP Juice Shop",
+   "license": "Usage pedagogique avec attribution (Joe Ma)",
+   "duration": "4:23",
+   "usage": "brief",
+   "room": "Brief du lab OWASP Juice Shop"
+  }
+ ]
+}

@@ -5,7 +5,7 @@
 > ligne de ce registre n'est pas vérifiée, la source reste **non réutilisée**
 > (lien seul).
 >
-> État : 31/10/2026 · HEAD `3d44950` (v0.5.0)
+> État : 01/11/2026 · HEAD `ba403c1` (v0.5.6) → bloc U en cours (v0.6.0)
 
 ---
 
@@ -198,6 +198,17 @@ gamification et le **CYBER.ORG Range** (plateforme d'entraînement).
 pouvons recommander une vidéo (encart « en savoir plus ») et l'afficher par
 intégration, tant que nous n'en réécrivons pas le contenu.
 
+> **Mise à jour 01/11/2026 (bloc U).** Quatre vidéos CYBER.ORG sont désormais
+> **intégrées** dans les rooms correspondantes (hameçonnage, mots de passe,
+> publication en ligne, second facteur), avec la **façade** (image + ▶, rien
+> n'est chargé avant le clic), l'**attribution visible** sous la vidéo et le
+> **lien vers la source** toujours présent. On ne copie pas le fichier vidéo :
+> la plateforme lit le flux YouTube (`youtube-nocookie`). Le texte des rooms
+> est **original** (notions réécrites avec nos exemples et notre lab), et les
+> conditions d réutilisation du site CYBER.ORG restent à vérifier — d'où la
+> règle : **intégration et citation seulement**, jamais de copie, jamais de
+> téléchargement, jamais de modification de la vidéo.
+
 **Pourquoi c'est précieux** : c'est **exactement** notre public (12-17 ans) et
 c'est la réponse au manque « vidéos courtes » (écart n° 7). Mais : anglais
 seulement, donc **inadapté à l'arabe** → d'où notre décision de fabriquer nos
@@ -273,7 +284,7 @@ reproduction de paragraphe entier.
 
 | Source | Ce qu'il faut vérifier | Qui / quand | Impact si non vérifiable |
 |---|---|---|---|
-| cyber.org | conditions de réutilisation des vidéos | M3 | on garde le lien seul |
+| cyber.org | conditions de réutilisation des **supports** (hors intégration) | M3/U4 | on garde l'intégration + citation, sans copie |
 | RUB | licence des supports de cours | M3 | on garde le lien seul |
 | securityeducationresourcecollection.net | nature des ressources listées | M3 | veille uniquement |
 | MIT OCW | mentions obligatoires de la page de chaque cours | M3 | on applique la règle § 2 (mention type) |
@@ -281,7 +292,58 @@ reproduction de paragraphe entier.
 
 ---
 
-## 12. La mention type, réutilisable
+## 12. Les vidéos des universités — réemploi vérifié (bloc U, 01/11/2026)
+
+Les vingt-deux rooms « Les universités » montrent chacune **une vidéo de
+cours** : la version longue et officielle de la notion que la room pratique
+en version courte. Le principe reste « réécriture > copie » : **on ne
+télécharge pas, on ne recopie pas, on ne traduit pas la vidéo** ; on la
+**intègre** (façade + `youtube-nocookie`), on **cite** l'auteur et la
+licence, et on garde **le lien vers la source** visible en permanence.
+
+### 12.1 Les six sources retenues
+
+| Établissement | Cours / chaîne | Licence (vérifiée le 01/11/2026) | Ce que nous en prenons | Décision |
+|---|---|---|---|---|
+| **MIT OpenCourseWare** | 6.858 Computer Systems Security (Fall 2014) | **CC BY-NC-SA 4.0** (page « Privacy & Terms of Use ») | Les 5 vidéos de la playlist officielle (menaces, tampon, privilèges, bac à sable, web) | **INTÉGRATION + attribution** |
+| **MIT OpenCourseWare** | 6.857 / 6.042 (réseau, TLS, auth, crypto) | **CC BY-NC-SA 4.0** | Les vidéos de la playlist 6.858 (support réseau) et la vidéo de cryptographie (6.042) | **INTÉGRATION + attribution** (sans annoncer « 6.857 » : le cours 6.857 n'a pas de playlist officielle) |
+| **pwn.college (ASU)** | Vidéos du compte officiel | « libres pour un usage non commercial, avec attribution » | 4 vidéos de technique (mémoire, pile, ROP, format string) | **INTÉGRATION + attribution**, **aucun writeup** |
+| **CYBER.ORG** | Cyber Safety Series | Intégration et citation (licence des supports non vérifiée) | 4 vidéos courtes (phishing, mots de passe, publication, MFA) | **INTÉGRATION + citation** (texte original) |
+| **OWASP** | Vidéos de la fondation | **CC BY-SA 4.0** (Cheat Sheet Series) | 3 vidéos (Top 10, validation des entrées, journaux et audit) | **INTÉGRATION + attribution + ShareAlike** |
+| **Stanford** | CS106A / Stanford Online | **CC BY-NC-SA 4.0** (Stanford SEE) | 2 vidéos « comment marche un ordinateur » | **INTÉGRATION + attribution** |
+
+### 12.2 Les règles appliquées dans la plateforme
+
+1. **Façade obligatoire** : image + bouton ▶ ; l'iframe `youtube-nocookie` n'est
+   créé **qu'au clic**. Aucune vidéo ne se charge toute seule, aucune
+  -autoplay-.
+2. **Lien de secours** : le lien direct vers la vidéo d'origine reste
+   visible (utile si l'intégration est bloquée par l'école ou le réseau).
+3. **Attribution sous la vidéo** : auteur, institution, titre, licence, durée
+   — dans les trois langues (français, arabe, anglais).
+4. **Aucune copie** : pas de fichier vidéo téléchargé, pas de transcription
+   intégrale, pas de modification de la vidéo.
+5. **Pas d'endorsement** : la mention « pas d'endorsement de MIT » figure dans
+   le pied de page du contenu CC.
+6. **ShareAlike** : tout contenu adapté reste sous **CC BY-NC-SA 4.0**.
+7. **Vérification** : chaque identifiant de vidéo est présent dans
+   `tools/videos/videos-verifies.json` (contrôle oEmbed + licence notée le
+   01/11/2026). Le test automatisé refuse toute room dont la vidéo n'est pas
+   dans ce catalogue.
+
+### 12.3 La mention type, pour une room de cours
+
+```
+Cette room montre une vidéo de cours de <établissement>.
+Vidéo : « <titre> » — <auteur/chaîne>, <licence>.
+Source : <lien direct>. Intégrée sans téléchargement.
+Modifications : le texte de la room est original (exemples et lab Secura Academy).
+Pas d'endorsement de l'établissement.
+```
+
+---
+
+## 13. La mention type, réutilisable
 
 À insérer dans la room (encart « Sources ») et dans le contenu dérivé :
 

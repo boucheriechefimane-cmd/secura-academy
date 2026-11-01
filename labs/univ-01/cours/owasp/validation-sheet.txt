@@ -1,0 +1,22 @@
+Fiche de validation des entrees (TP OWASP - injection)
+=====================================================
+
+Controles du formulaire d'inscription
+--------------------------------------
+    champ email        : format verifie, longueur max 254
+    champ age          : entier, entre 13 et 99
+    champ code postal  : format AAA-999, 6 caracteres
+    zip_checks         = FLAG=SECURA{validation_stricte}
+    champ mot de passe : longueur min 14, refuse les listes connues
+    tous les champs    : echappement a la sortie, requetes preparees
+
+Regle de l'equipe
+-----------------
+Le format est verifie cote serveur. Les messages d'erreur ne disent pas
+quel controle a echoue (pas de fuite d'information), mais ils disent a
+l'utilisateur quoi corriger.
+
+Trois erreurs vues en revue de code :
+- un filtre de mots cles (OR, DROP) au lieu d'une requete preparee
+- une validation uniquement dans le navigateur
+- un echappement fait a la main au lieu de la fonction de la bibliotheque

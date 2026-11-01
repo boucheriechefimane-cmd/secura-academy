@@ -326,6 +326,52 @@ d'inscription et l'accueil.
 
 ---
 
+### BLOC U — Le bloc universitaire (M4 → M7 de la demande du 01/11/2026) — 🔵 EN COURS
+
+> **Pourquoi ce nom :** la demande du 01/11/2026 numérote « M4 → M7 » quatre
+> chantiers qui ne recoupent **pas** les jalons M4 à M8 du présent article
+> (comptes, qualité, social, palier 3). Pour ne pas confondre deux
+> numérotations dans la même constitution, ce bloc est nommé **U** (universités)
+> et ses quatre étapes sont **U1, U2, U3, U4**. Le contenu du bloc est celui
+> validé par l'utilisateur le 01/11/2026 : *« valide tout le bloc d'un seul
+> coup »*, *« choisit la façade vidéo »*, *« Docker réel sur GitHub maintenant,
+> VPS en production plus tard si tout est OK »*.
+>
+> **Ce que le bloc change dans la doctrine :** jusqu'ici, une vidéo était
+> presentationnelles (écart n° 7 : « capsule SVG de moins de 2 min, à nous »).
+> Ici, la vidéo est **le cours de l'université, en complément de la room** :
+> on n'écrit plus une version réduite de la leçon, on montre la leçon
+> originale et on y ajoute notre pratique. C'est une décision de fond :
+> **notre valeur ajoutée n'est plus le contenu, c'est la machine, la preuve et
+> le chemin.**
+
+| Étape | Livrable | Critère d'acceptation | Statut |
+|---|---|---|---|
+| **U1** | **Façade vidéo** (image + ▶, `youtube-nocookie`, iframe chargé **au clic**) | **aucune** requête vers YouTube avant le clic ; pas d'autoplay ; lien de secours vers la source ; fonctionne sans JavaScript (le lien seul suffit) | ✅ **v0.6.0** |
+| **U1** | **Bloc d'attribution** (source, auteur, licence) affiché sous la vidéo | chaque vidéo porte institution + titre + licence + lien vers la source | ✅ **v0.6.0** |
+| **U1** | Pack arabe des libellés de la façade | façade et attribution traduites AR/EN, RTL correct | ✅ **v0.6.0** |
+| **U2** | **22 rooms** « Les universités » | MIT 6.858 (5) · MIT 6.857 (4) · pwn.college (4) · CYBER.ORG (4) · OWASP (3) · Stanford SEE (2) | ✅ **v0.6.0** |
+| **U2** | **22 vidéos réelles** (une par room, identifiants YouTube vérifiés) | chaque identifiant **existe** (contrôle oEmbed automatisé dans `tools/videos/`) — **aucun identifiant inventé** | ✅ **v0.6.0** |
+| **U2** | **155 questions** (entraînement + examen, 7 à 8 par room) | une seule bonne réponse, distracteurs = vraies erreurs d'apprenant, bonne réponse **répartie** sur les 4 positions | ✅ **v0.6.0** |
+| **U2** | Parcours « Les universités » (6 modules, 22 rooms) | parcours à sections, badge propre, pas de mélange avec les parcours existants | ✅ **v0.6.0** |
+| **U3** | Attribution + licence **par room** (et non par vidéo) | source, auteur, licence, lien ; le matériel adapté de l'OCW reste sous **CC BY-NC-SA** avec ShareAlike | ✅ **v0.6.0** |
+| **U3** | Registre des sources complété | `docs/SOURCES-CONTENU.md` : les 6 sources university/fondation y sont inscrites **avec licence vérifiée** | ✅ **v0.6.0** (§ 12) |
+| **U4** | Lab **OWASP Juice Shop** (image officielle `bkimminich/juice-shop`) | déployable en un clic, cible reachable, isolement `--internal` | 🔵 en cours |
+| **U4** | Lab **dojo pwn.college** (20 défis) | manifeste fourni, image **non construite en CI** (trop lourde) → mode simulé documenté | ⬜ |
+| **U4** | 6 **vidéos de brief** (avant de commencer) | une capsule d'introduction par grand bloc | ⬜ |
+| **U4** | **Kahoot** (M3 bis) | quiz associé au parcours, exportable en CSV/JSON, sans compte obligatoire | ⬜ |
+
+**Règles du bloc (R9) :**
+- **U1 avant U2** : pas de vidéo en iframe direct. On ne charge rien avant
+  le clic (pistage, lenteur sur connexion modeste, cadre vide si YouTube est
+  bloqué). Le repli est un **lien** vers la source.
+- **U2 avant U4** : on n'écrit pas un lab tant que la room qu'il sert n'existe pas.
+- **Le bloc ne bloque pas M1-M3 ni M4-M8 du présent article** : il est produit
+  en parallèle (R10 : « les paliers ne bloquent jamais »).
+- **Toute vidéo est attribuée** (U3) : institution, auteur, licence, lien.
+
+---
+
 ## 7. Article 7 — Les décisions structurantes
 
 Elles ne se remettent pas en cause implicitement (R3).
@@ -344,6 +390,9 @@ Elles ne se remettent pas en cause implicitement (R3).
 | **D10** | Le **palier 3** est construit **en parallèle** et ne bloque jamais les paliers 1-2 ; il reste **gratuit** | cohérence avec P2 |
 | **D11** | Le contenu **réseau** peut venir d'autres universités ou fondations (y compris « premium » si la licence le permet), **à condition qu'il aide le jeune à apprendre** | accord explicite du 31/10/2026 |
 | **D12** | Un **test du 14 ans** filtre tout contenu et toute fonctionnalité | P1 + P5 |
+| **D13** | Une vidéo est une **façade** : rien n'est chargé avant le clic, iframe `youtube-nocookie` ensuite, lien de secours toujours visible | accord explicite du 01/11/2026 (pistage, lenteur, cadre vide) |
+| **D14** | Toute vidéo university/fondation est **attribuée** (institution, auteur, licence, lien) et **vérifiée** : aucun identifiant YouTube n'est écrit sans contrôle automatique | D9 appliqué aux médias |
+| **D15** | Le bloc universitaire part **en un seul lot** ; Docker réel d'abord **sur GitHub**, VPS en production **plus tard**, seulement si tout est vert | accord explicite du 01/11/2026 |
 
 > **Conséquence de D6 :** le contenu OCW adapté est gratuit mais **non
 > commercialisable**. Toute évolution vers un modèle payant doit réécrire le
@@ -373,6 +422,8 @@ Elles ne se remettent pas en cause implicitement (R3).
 
 | Date | Version | Revue |
 |---|---|---|
+| 01/11/2026 | **v0.6.0 (U1 → U3 livrés)** | **Le bloc universitaire commence à tourner pour de vrai.** **U1 — la façade vidéo** : dans chaque room, la vidéo du cours apparaît comme une **image avec un bouton ▶** ; rien n'est chargé de YouTube avant le clic (vérifié par le test : zéro balise `iframe` dans la page), l'iframe apparaît ensuite en `youtube-nocookie`, le **lien vers la source reste toujours visible**, et le bloc d'attribution (source, auteur, licence, durée) est traduit en français, arabe et anglais. **U2 — les 22 rooms** : MIT 6.858 (5), MIT 6.857 (4), pwn.college (4), CYBER.ORG (4), OWASP (3), Stanford (2). Chaque room suit le même patron (leçon → entraînement → mission → examen), **22 vidéos réelles** (aucun identifiant inventé : chacune est dans le catalogue vérifié), **155 questions** à quatre propositions avec la bonne réponse **répartie** sur les quatre positions (sinon l'élève apprend la place, pas la notion). Les 22 missions se valident par un **drapeau lu dans la machine** `univ-01` (22 livrables de cours, 22 drapeaux en `400 root:root` : l'élève ne lit jamais le drapeau, il le découvre dans les documents du cours). Nouveau parcours « Les universités » en 6 modules. **U3 — l'attribution** : chaque room porte sa source et sa licence, et le registre des sources gagne une section dédiée aux six universités/fondations. Vérifications : **276 assertions** au vert, et **38 rooms / 3 parcours** dans un WordPress réel (la recette de bout en bout passe avec la machine : 13/0). Reste : **U4** (Juice Shop, dojo à 20 défis, 6 vidéos de brief, Kahoot). |
+| 01/11/2026 | **v0.6.0 (bloc U en cours)** | **Le bloc universitaire est ouvert, en un seul lot.** Quatre étapes nommées **U1 à U4** (pour ne pas confondre avec les jalons M4-M8 de l'article 6) : **U1** la façade vidéo (rien n'est chargé avant le clic, iframe `youtube-nocookie` au clic, lien de secours, attribution source/auteur/licence) ; **U2** les **22 rooms** « Les universités » (MIT 6.858 : 5, MIT 6.857 : 4, pwn.college : 4, CYBER.ORG : 4, OWASP : 3, Stanford : 2) avec leurs **vidéos réelles** — chaque identifiant YouTube a été **contrôlé automatiquement** (`tools/videos/yt_lookup.py`, contrôle oEmbed) : **aucun identifiant n'est inventé**, et les vidéos non intégrables (Stanford Online/CS105, accès réservé) ont été **remplacées** par des équivalents publics (Stanford CS106A) ; **U3** l'attribution et la licence par room, avec le registre des sources complété ; **U4** les labs avancés (OWASP Juice Shop, dojo pwn.college à 20 défis), les 6 vidéos de brief et le Kahoot (M3 bis). Le principe qui change : **notre valeur ajoutée n'est plus le contenu de la leçon, c'est la machine, la preuve et le chemin** — la vidéo est le cours original de l'université, la room est notre pratique. |
 | 31/10/2026 | v0.2.0 | Revue « dev senior » : 10 lacunes listées. Décision : **les QCM restent**, ajout des tests pratiques obligatoires. |
 | 31/10/2026 | v0.3.0 | **Validation croisée livrée** (format par tâche, seuil effectif, terminal dans chaque room, réservation atomique, reprise d'examen, rate limiting, schéma versionné). Licence OCW **corrigée** : la réutilisation gratuite est autorisée (NC satisfait), avec attribution + ShareAlike. **M1 démarrée.** |
 | 31/10/2026 | audit | **Audit expérience apprenant + THM** (`docs/AUDIT-EXPERIENCE-APPRENANT.md`) : verdict senior, parcours 14 ans simulé, audit THM sur sources réelles (853 rooms, AttackBox, « no answer needed », onglets multi-machines), ce qu'on a de mieux (arabe RTL, gratuit, explication d'erreur systématique, seuil explicite) et ce qui manque. **Alignement MIT : non, et c'est normal** — 9/24 leçons 6.858, ~4/18 séances 6.857, public ≠ graduate. Ajout de **M2 bis** (question « sans réponse » + walkthrough) et **M7** (palier 3 universitaire). |
