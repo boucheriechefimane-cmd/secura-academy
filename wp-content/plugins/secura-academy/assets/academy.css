@@ -1696,6 +1696,20 @@
 	font-weight: 700;
 	font-size: .9rem;
 	animation: seca-toast-in .25s ease;
+	/* Le conteneur des messages ne bloque pas les clics ; le message,
+	   lui, doit pouvoir contenir un lien cliquable (invitation à
+	   s'inscrire quand l'élève n'est pas connecté). */
+	pointer-events: auto;
+	max-width: 22rem;
+}
+
+.seca-toast__link {
+	display: inline-block;
+	margin-inline-start: .45rem;
+	color: var(--sa-accent, #2dd4a7);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	pointer-events: auto;
 }
 
 .seca-toast.is-bad {

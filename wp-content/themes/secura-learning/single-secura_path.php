@@ -40,6 +40,35 @@ while ( have_posts() ) :
 				</section>
 			<?php endif; ?>
 
+			<?php if ( $seca_vue && ! empty( $seca_vue['certification']['nom'] ) ) : ?>
+				<?php $seca_cert = $seca_vue['certification']; ?>
+				<section class="seca-path-certification">
+					<h2 class="seca-room-section-title"><?php esc_html_e( 'Où ce parcours mène', 'seca-academy' ); ?></h2>
+
+					<p class="seca-cert-nom">
+						<span class="seca-chip"><?php esc_html_e( 'Certification visée', 'seca-academy' ); ?></span>
+						<strong><?php echo esc_html( $seca_cert['nom'] ); ?></strong>
+					</p>
+
+					<?php if ( ! empty( $seca_cert['preparation'] ) ) : ?>
+						<p class="seca-cert-preparation"><?php echo esc_html( $seca_cert['preparation'] ); ?></p>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $seca_cert['cout'] ) ) : ?>
+						<p class="seca-cert-cout">
+							<span class="seca-chip"><?php esc_html_e( 'Coût de l’examen', 'seca-academy' ); ?></span>
+							<?php echo esc_html( $seca_cert['cout'] ); ?>
+						</p>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $seca_vue['certificate'] ) ) : ?>
+						<p class="seca-cert-note">
+							<?php esc_html_e( 'Ce parcours délivre aussi le certificat de la plateforme, vérifiable en ligne.', 'seca-academy' ); ?>
+						</p>
+					<?php endif; ?>
+				</section>
+			<?php endif; ?>
+
 			<?php if ( $seca_vue && ! empty( $seca_vue['sections'] ) ) : ?>
 				<section class="seca-path-sections">
 					<h2 class="seca-room-section-title"><?php esc_html_e( 'Les étapes de ce parcours', 'seca-academy' ); ?></h2>

@@ -65,7 +65,32 @@ class Secura_Schema {
 			return;
 		}
 
+		/* Un contenu contenant « </script » fermerait le bloc avant
+		   sa fin : on l'echappe. Le JSON reste valide. */
+		$json = str_replace( '</', '<\/', $json );
+
 		echo '<script type="application/ld+json">' . $json . '</script>' . "\n";
+	}
+
+	/**
+	 * Normalise un texte destine au JSON-LD.
+	 *
+	 * WordPress convertit l'apostrophe typographique (') en entite
+	 * HTML (&#8217;) quand il affiche un titre. Dans une page HTML,
+	 * le navigateur redecode : tout va bien. Mais dans un bloc
+	 * <script>, les entites ne sont PAS decodees : un moteur de
+	 * recherche lirait litteralement « ce qu&#8217;un ».
+	 *
+	 * On ramene donc le texte a son caractere reel avant de l'encoder.
+	 *
+	 * @param string $valeur Le texte.
+	 * @return string Le texte normalise.
+	 */
+	protected static function texte( $valeur ) {
+		$valeur = wp_strip_all_tags( (string) $valeur );
+		$valeur = html_entity_decode( $valeur, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
+		return trim( $valeur );
 	}
 
 	/**
@@ -106,6 +131,16 @@ class Secura_Schema {
 			if ( $cours ) {
 				$graphe[] = $cours;
 			}
+
+			/* La liste ordonnée des rooms du parcours : c'est ce que
+			   permet à un moteur (ou à un système génératif) de
+			   comprendre la structure du cours, pas seulement son
+			   titre. */
+			$liste = self::liste_des_rooms();
+
+			if ( $liste ) {
+				$graphe[] = $liste;
+			}
 		} else {
 			$site = self::site();
 
@@ -138,9 +173,9 @@ class Secura_Schema {
 		return array(
 			'@type'       => 'Organization',
 			'@id'         => home_url( '/#organization' ),
-			'name'        => $nom,
+			'name'        => self::texte( $nom ),
 			'url'         => home_url( '/' ),
-			'description' => $description,
+			'description' => self::texte( $description ),
 		);
 	}
 
@@ -153,7 +188,7 @@ class Secura_Schema {
 		return array(
 			'@type'        => 'WebSite',
 			'@id'          => home_url( '/#website' ),
-			'name'         => get_bloginfo( 'name' ),
+			'name'         => self::texte( get_bloginfo( 'name' ) ),
 			'url'          => home_url( '/' ),
 			'inLanguage'   => self::langue(),
 			'publisher'    => array( '@id' => home_url( '/#organization' ) ),
@@ -184,8 +219,8 @@ class Secura_Schema {
 		$ressource = array(
 			'@type'       => 'LearningResource',
 			'@id'         => get_permalink( $room->ID ) . '#ressource',
-			'name'        => $vue['title'],
-			'description' => $description,
+			'name'        => self::texte( $vue['title'] ),
+			'description' => self::texte( $description ),
 			'url'         => get_permalink( $room->ID ),
 			'inLanguage'  => self::langue(),
 			'learningResourceType' => __( 'Exercice de cybersécurité', 'seca-academy' ),
@@ -225,15 +260,15 @@ class Secura_Schema {
 
 		$objet = array(
 			'@type'       => 'VideoObject',
-			'name'        => $video['title'],
-			'description' => wp_strip_all_tags( (string) $video['note'] ),
+			'name'        => self::texte( $video['title'] ),
+			'description' => self::texte( $video['note'] ),
 			'thumbnailUrl' => 'https://i.ytimg.com/vi/' . rawurlencode( $video['id'] ) . '/hqdefault.jpg',
 			'embedUrl'    => Secura_Video::embed_url( $video['id'] ),
 			'contentUrl'  => Secura_Video::watch_url( $video['id'] ),
 			'inLanguage'  => self::langue(),
 			'publisher'   => array(
 				'@type' => 'Organization',
-				'name'  => $video['institution'] ? $video['institution'] : $video['channel'],
+				'name'  => self::texte( $video['institution'] ? $video['institution'] : $video['channel'] ),
 			),
 		);
 
@@ -280,7 +315,7 @@ class Secura_Schema {
 			$elements[] = array(
 				'@type'    => 'ListItem',
 				'position' => $position,
-				'name'     => $parcours['title'],
+				'name'     => self::texte( $parcours['title'] ),
 				'item'     => $parcours['url'],
 			);
 
@@ -290,12 +325,72 @@ class Secura_Schema {
 		$elements[] = array(
 			'@type'    => 'ListItem',
 			'position' => $position,
-			'name'     => get_the_title( $room ),
+			'name'     => self::texte( get_the_title( $room ) ),
 			'item'     => get_permalink( $room->ID ),
 		);
 
 		return array(
 			'@type'           => 'BreadcrumbList',
+			'itemListElement' => $elements,
+		);
+	}
+
+	/**
+	 * La liste des rooms du parcours (ItemList).
+	 *
+	 * Sur une page de parcours, on décrit la suite des rooms dans
+	 * l'ordre : c'est ce qui permet à un lecteur automatique de
+	 * savoir ce que contient le parcours, sans le parcourir.
+	 *
+	 * @return array|null
+	 */
+	protected static function liste_des_rooms() {
+		$parcours = get_queried_object();
+
+		if ( ! $parcours || ! isset( $parcours->ID ) ) {
+			return null;
+		}
+
+		$sections = Secura_Paths::get_sections( $parcours->ID );
+
+		if ( empty( $sections ) ) {
+			return null;
+		}
+
+		$elements = array();
+		$position = 1;
+
+		foreach ( $sections as $section ) {
+			if ( empty( $section['rooms'] ) || ! is_array( $section['rooms'] ) ) {
+				continue;
+			}
+
+			foreach ( $section['rooms'] as $room_id ) {
+				$room = get_post( $room_id );
+
+				if ( ! $room || SECURA_POST_TYPE !== $room->post_type ) {
+					continue;
+				}
+
+				$elements[] = array(
+					'@type'    => 'ListItem',
+					'position' => $position,
+					'name'     => self::texte( get_the_title( $room ) ),
+					'url'      => get_permalink( $room->ID ),
+				);
+
+				$position++;
+			}
+		}
+
+		if ( empty( $elements ) ) {
+			return null;
+		}
+
+		return array(
+			'@type'           => 'ItemList',
+			'name'            => __( 'Les rooms de ce parcours', 'seca-academy' ),
+			'numberOfItems'   => count( $elements ),
 			'itemListElement' => $elements,
 		);
 	}
@@ -316,8 +411,8 @@ class Secura_Schema {
 
 		$cours = array(
 			'@type'       => 'Course',
-			'name'        => $parcours->post_title,
-			'description' => wp_strip_all_tags( (string) $parcours->post_excerpt ),
+			'name'        => self::texte( $parcours->post_title ),
+			'description' => self::texte( $parcours->post_excerpt ),
 			'url'         => get_permalink( $parcours->ID ),
 			'inLanguage'  => self::langue(),
 			'isAccessibleForFree' => true,

@@ -1,4 +1,4 @@
-name: Audit externe — comité de 5 auditeurs
+name: Audit externe — comité de 15 auditeurs
 
 # Un comité d'audit externe, comme dans une organisation qui veut savoir
 # ce que dira un regard neuf avant la mise en production.
@@ -10,6 +10,19 @@ name: Audit externe — comité de 5 auditeurs
 #   ux         — l'élève peut-il s'en servir sur un téléphone, en RTL ?
 #   dev        — le code est-il propre, compatible, testé ?
 #   securite   — les secrets, l'isolation, les en-têtes, la livraison ?
+#
+# Et les dix specialties du bloc T :
+#
+#   pedagogie          — l'élève apprend-il vraiment, et vers quelle certification ?
+#   performance        — le site est-il rapide, et que ralentit-il ?
+#   donnees-structurees— les moteurs et les IA peuvent-ils lire le site ?
+#   accessibilite      — WCAG 2.2 AA : le site reste-t-il utilisable ?
+#   multilingue        — FR / AR / EN : la traduction est-elle complète ?
+#   rgpd               — que collecte-t-on d'un mineur, et peut-il sortir ?
+#   moteur             — le moteur de lab fonctionne-t-il vraiment ?
+#   onboarding         — le premier clic mène-t-il à un premier succès ?
+#   licences           — ce qu'on reprend, sous quelle licence, avec quelle attribution ?
+#   devops             — que se passe-t-il quand tout va mal ?
 #
 # Ils travaillent dans un vrai WordPress (MySQL + PHP), sur le site
 # réellement rendu, et leurs rapports sont archivés comme des artefacts.
@@ -34,9 +47,9 @@ concurrency:
 
 jobs:
   audit:
-    name: Audit externe (5 auditeurs, WordPress réel)
+    name: Audit externe (15 auditeurs, WordPress réel)
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     env:
       # Le dossier du WordPress de recette : dans l'espace de travail
@@ -69,10 +82,10 @@ jobs:
 
     steps:
       - name: Récupérer le code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Installer PHP et WP-CLI
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
         with:
           php-version: '8.3'
           extensions: mysqli
@@ -92,7 +105,7 @@ jobs:
           echo "Le site ne répond pas" >&2
           exit 1
 
-      - name: Les cinq auditeurs passent au crible
+      - name: Les quinze auditeurs passent au crible
         run: bash scripts/audit/run-audits.sh
 
       - name: Lister les rapports produits
@@ -103,7 +116,7 @@ jobs:
 
       - name: Archiver les rapports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: rapports-audit-externe
           path: docs/audits/
@@ -112,11 +125,20 @@ jobs:
       - name: Résumé de l'audit
         if: always()
         run: |
-          echo "## Comité d'audit externe" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Comité d'audit externe — 15 auditeurs" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Auditeur | Réussis | Bloquant | Majeur | Mineur | Info |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|---|---|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          for fichier in docs/audits/*.json; do
+            [ -f "$fichier" ] || continue
+            python3 -c "import json,sys;d=json.load(open(sys.argv[1]));print('| %s | %d | %d | %d | %d | %d |' % (d.get('titre',''),d.get('ok',0),d.get('bloquant',0),d.get('majeur',0),d.get('mineur',0),d.get('info',0)))" "$fichier" >> "$GITHUB_STEP_SUMMARY" || true
+          done
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Constats" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           for fichier in docs/audits/*.md; do
             [ -f "$fichier" ] || continue
-            echo "### $(basename "$fichier")" >> "$GITHUB_STEP_SUMMARY"
+            echo "#### $(basename "$fichier" .md)" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
             sed -n '/## Constats/,/## Verdict/p' "$fichier" | head -60 >> "$GITHUB_STEP_SUMMARY" || true
             echo "" >> "$GITHUB_STEP_SUMMARY"

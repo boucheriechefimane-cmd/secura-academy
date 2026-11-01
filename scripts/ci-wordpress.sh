@@ -107,6 +107,14 @@ cp -r "$REPO_DIR/wp-content/themes/secura-learning" "$WP_DIR/wp-content/themes/s
 wp option update active_plugins --format=json \
 	'["secura-academy/secura-academy.php","akismet/akismet.php"]' >/dev/null
 wp option update seca_labs_path "$LABS_PATH" >/dev/null
+
+# L'inscription libre doit etre activee : la plateforme est gratuite et
+# son bouton principal est « Creer un compte gratuit ». Reglage natif de
+# WordPress, mais desactive par defaut dans certaines installations :
+# on l'active explicitement pour que la recette ressemble a la
+# production, et pour que les tests exercent le vrai chemin.
+wp option update users_can_register 1 >/dev/null
+
 wp rewrite structure '/%postname%/' --hard >/dev/null 2>&1 || true
 
 # L'activation du plugin installe les rooms et les parcours. Comme on

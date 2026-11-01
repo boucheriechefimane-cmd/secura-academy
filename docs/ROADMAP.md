@@ -552,12 +552,111 @@ Elles ne se remettent pas en cause implicitement (R3).
 
 ---
 
+### BLOC T — Le comité d'audit à 15 experts — ✅ LIVRÉ (v0.8.0)
+
+**L'idée.** Cinq auditeurs étaient une bonne beginnings, mais insuffisants :
+ils regardaient le site à travers cinq lunettes et laissaient passer des angles
+morts entiers. Le propriétaire demande un comité de **quinze** experts, un par
+domaine, capable de statuer sur **le thème, le plugin et le moteur** ensemble.
+
+**La règle qui change tout : la preuve.** Un auditeur n'a le droit de conclure
+que s'il a joué un scénario, lu une ligne de code, ou mesuré une valeur. Un
+constat sans preuve est **rejeté** — pas « signalé avec réserve », *rejeté*.
+Cette règle est appliquée par le harnais lui-même : `audit_verifier()` exige
+une preuve (tiré de la page servie, d'un fichier, d'une commande), et le rapport
+HTML la reproduit mot pour mot sous chaque constat. Un rapport qui affirme
+« l'ergonomie pourrait être améliorée » sans une mesure est **invalide**.
+
+**Les quinze domaines.** Les cinq premiers sont conservés tels quels (ils sont
+sains) ; les dix suivants comblent des angles morts vérifiés dans le code :
+
+| # | Domaine | Objet | Angle mort comblé |
+|---|---|---|---|
+| 1 | SEO | Indexation, titres, maillage, données structurées, robots d'IA | — (existant) |
+| 2 | Contenu | Squelette, qualité des questions, sources, vérité de la documentation | — (existant) |
+| 3 | UX/UI | Contrastes, téléphone, RTL, messages à l'élève | — (existant) |
+| 4 | Développement | Syntaxe, compatibilité, échappement, SQL, AJAX, tests | — (existant) |
+| 5 | Sécurité | Secrets, isolation, durcissement, en-têtes, livraison | — (existant) |
+| 6 | **Pédagogie** | Les 4 temps, le verrouillage, la difficulté, la surcharge cognitive, la qualité du feedback | Aucun audit ne vérifie que le plugin **enseigne** |
+| 7 | **Performance** | Poids des pages, requêtes SQL, temps de réponse, LCP/CLS/INP | Aucun audit de performance n'existe |
+| 8 | **Données structurées** | Complétude du JSON-LD sur **toutes** les pages, cohérence, correspondance au visible | Vérifié : `Course` n'est servi sur aucune page |
+| 9 | **Accessibilité** | Grille WCAG 2.2 AA critère par critère, clavier, lecteurs d'écran, zoom | L'UX en prend un échantillon, pas la grille |
+| 10 | **Multilingue** | Cohérence FR/AR/EN sur **tous** les champs, RTL de bout en bout, dates/nombres | 72 corrections à la main, sans garde-fou automatique |
+| 11 | **RGPD & mineurs** | Confidentialité, cookies, données d'un mineur, export/suppression | La Politique de confidentialité est **en brouillon** |
+| 12 | **Moteur de lab** | Cycle de vie complet, TTL, nettoyage, deux apprenants, reprise après panne | La Sécurité vérifie le durcissement, pas le **fonctionnement** |
+| 13 | **Onboarding** | Inscription, première room, premier déploiement, première réussite | Aucun audit : on peut avoir 52 rooms parfaites et un élève qui abandonne |
+| 14 | **Licences & attribution** | Attribution du contenu repris (MIT, Stanford, pwn.college), licences, sources | Seules les **vidéos** sont attribuées, pas le texte repris |
+| 15 | **DevOps & résilience** | Déploiement, rollback **testé**, sauvegarde **et restauration**, logs, secrets | Personne ne vérifie qu'on peut revenir en arrière |
+
+**La neutralité est une exigence de méthode, pas une politesse.** Chaque
+auditeur est écrit pour **chercher la faute**, y compris dans le travail du
+propriétaire. Un auditeur qui ne trouve rien sur un sujet qu'on sait imparfait
+est un auditeur mal écrit : le rapport doit donc aussi porter les **forces**,
+mesurées, et l'audit ne vaut que s'il est capable de dire les deux.
+
+**Les rapports sont en HTML**, complets : verdict, forces, faiblesses, et sous
+chaque constat la **preuve** (extrait de code, sortie de scénario, mesure).
+Un rapport Markdown reste produit en parallèle (pour l'historique et le
+dépôt), mais c'est le HTML qui fait foi.
+
+**Ce qu'aucun audit ne peut faire — et qui ne sera pas maquillé.** Un script
+mesure ; il ne *ressent* pas. Ces points resteront des jugements humains, et le
+rapport le dira explicitement plutôt que de les déguiser en contrôle :
+la compréhension d'une leçon, la qualité d'une traduction, le rythme d'un
+parcours, la valeur perçue d'un badge.
+
+**Le contenu : au-delà du MIT.** La commande est explicite : ne pas s'arrêter au
+MIT, mais couvrir **les grandes universités du monde** — avec vidéo, avec
+exercices et avec **certificats gratuits disponibles**, et préparer l'élève à
+**passer les vrais examens renommés** (et non à lessimuler). Ce travail est
+livré dans `docs/CERTIFICATIONS.md`, avec la distinction honnête entre :
+certificats **réellement gratuits** (Harvard CS50, picoCTF de Carnegie Mellon,
+PortSwigger Web Security Academy, OWASP Juice Shop, freeCodeCamp, OpenLearn),
+certificats **gratuits en formation mais payants à l'examen** (CompTIA
+Security+, Google Cloud Digital Leader, Microsoft SC-900, eJPT, OSCP), et
+certificats **fermés aux nouveaux candidats** (ISC2 CC, depuis le 20/05/2026 —
+un piège de plus-value : beaucoup de pages « gratuites » de 2025 n'ont pas
+été mises à jour). Chaque **parcours** est rattaché à une certification
+nommée, avec le coût exact de l'examen affiché à l'élève dans les trois
+langues : l'élève sait où il va, et ce qu'il lui reste à payer lui-même.
+
+**Le seuil.** Le workflow `audit.yml` échoue si un seul constat **bloquant**
+survient. C'est la barrière automatique : la conformité ne peut pas se dégrader
+en silence.
+
+### BLOC T — Résultat (01/11/2026)
+
+Les quinze auditeurs sont écrits, joués et **verts** : **196 contrôles
+réussis, 0 constat** (0 bloquant, 0 majeur, 0 mineur). Les rapports sont en
+HTML complet (verdict, périmètre, chiffres, scénarios joués, forces, constats
+avec la preuve, limites explicites), en Markdown et en JSON.
+
+Les constats trouvés — et corrigés — sont listés dans
+`docs/AUDITS-REGISTRE.md` (§ 1 bis). En résumé :
+
+- **1 bloquant** : les pages légales (politique de confidentialité et mentions
+  légales) n'existaient pas ou restaient en brouillon — écrites, publiées, en
+  trois langues, avec liens au pied de page.
+- **8 majeurs** : l'invitation à s'inscrire pour le visiteur anonyme, la
+  création de compte ouverte, la certification de chaque parcours, le
+  `ItemList` des parcours, les entités HTML dans le JSON-LD, les timeouts des
+  workflows, la purge des sauvegardes, la procédure de restauration.
+- **2 défauts trouvés en cours de route** : le sens de lecture arabe n'était
+  pas posé sur le document, et la **barrière bloquante ne bloquait pas**
+  (`return` ignoré par `wp eval-file`).
+
+Le catalogue mondial et les certifications sont livrés dans
+`docs/CERTIFICATIONS.md`.
+
+---
+
 ## 9. Article 9 — Journal des revues
 
 *(append-only — on n'efface pas une revue, on en ajoute une.)*
 
 | Date | Version | Revue |
 |---|---|---|
+| 01/11/2026 (bloc T) | **Le comité des 15 experts (v0.8.0)** | **Cinq auditeurs regardaient le site à travers cinq lunettes ; le propriétaire en a demandé quinze, et surtout une méthode : pas de rapport sans preuve.** Un auditeur n'a le droit de conclure que s'il a **joué un scénario, lu une ligne de code ou mesuré une valeur** ; un constat sans preuve est rejeté, pas « signalé avec réserve ». La règle est appliquée par le harnais lui-même : `audit_verifier()` exige la preuve, et le rapport **HTML** la reproduit mot pour mot sous chaque constat. **Le comité compte maintenant quinze spécialités** — les cinq premières conservées (SEO, Contenu, UX/UI, Développement, Sécurité), et dix nouvelles : Pédagogie, Performance & Core Web Vitals, Données structurées, Accessibilité WCAG 2.2 AA, Multilingue, RGPD & mineurs, Moteur de lab & Docker, Onboarding, Licences & attribution, DevOps & résilience. **Résultat : 196 contrôles réussis, 0 constat.** Mais les constats trouvés **en chemin** valent mieux que le résultat : **la barrière bloquante ne bloquait pas.** Le code *avait l'air* correct — `audit_fin()` renvoyait le code de sortie par `return` — or `wp eval-file` **ignore la valeur de retour** : le workflow aurait donc laissé passer n'importe quel constat bloquant. Vérifié par l'expérience (`return 3` → sortie 0 ; `exit(7)` → sortie 7), corrigé à la racine dans la bibliothèque. **Ensuite, un bloquant** : la politique de confidentialité était **en brouillon** et les mentions légales n'existaient pas — inadmissible pour une plateforme qui accueille des mineurs. Les deux pages ont été **écrites à partir de ce que la plateforme fait réellement** (les données stockées, l'absence de traceur, la durée de conservation, les droits), **publiées**, et traduites en français, arabe et anglais. **Un majeur d'usage** : le visiteur anonyme lisait tout le contenu mais, en cliquant sur une tâche, recevait « Une erreur est survenue. » — parce que les actions AJAX n'étaient enregistrées que pour les connectés. Elles le sont désormais pour tous : l'invité reçoit « Connectez-vous pour continuer. » avec un **lien cliquable**. Et le bouton « Créer un compte gratuit » ne menait nulle part : l'inscription était désactivée. Elle est maintenant activée **par la CI**, donc vérifiée à chaque push. **Le reste :** chaque parcours est rattaché à une **certification nommée** avec son **coût d'examen** affiché à l'élève (Security+ 439 $, eJPT ~249 $, Google Cybersecurity, PortSwigger BSCP) ; le JSON-LD ne contient plus d'entités HTML illisibles pour un moteur ; `ci.yml` et `deploy.yml` ont une limite de temps ; les sauvegardes sont purgées ; la **procédure de restauration** est écrite ; les 13 actions GitHub sont épinglées par empreinte SHA ; et le sens de lecture arabe est porté par la balise `<html>` — une page de contenu en arabe s'affichait de gauche à droite. **Sur le contenu** : le catalogue mondial et les certifications sont livrés dans `docs/CERTIFICATIONS.md`, avec la distinction honnête entre certificat **gratuit** (Harvard CS50, Fortinet NSE 1-3, freeCodeCamp, PortSwigger Academy) et formation gratuite à examen **payant** (Security+ 439 $, OSCP ~1 500 $) — et le rappel que **l'ISC2 CC est fermé aux nouveaux candidats depuis le 20/05/2026**. |
 | 01/11/2026 (nuit, suite) | **La recette tient en CI (v0.7.0)** | **Un test qui échoue à cause du test, pas du site : c'est le pire piège, et la CI l'a posé.** Les contrôles « robots.txt nomme les robots d'IA » et « llms.txt cite les rooms » passaient en local et échouaient en CI. La cause a été isolée proprement (un conteneur PHP 8.3 reproduit l'échec, un conteneur PHP 8.4 le fait disparaître) : **le serveur de développement intégré de PHP répond 404 pour une adresse qui porte une extension** (`/robots.txt`, `/llms.txt`) quand le fichier n'existe pas sur le disque — avec PHP 8.3, la requête **n'atteignait jamais WordPress**. Un vrai hébergeur (Apache, LiteSpeed) renvoie ces adresses vers WordPress grâce au `.htaccess` : le site était donc **correct**, c'est l'outillage de test qui mentait. **Correction :** les deux workflows qui démarrent le site passent désormais par `scripts/audit/router.php` — exactement ce que faisait déjà le workflow d'audit, qui était vert depuis le début. **Au passage :** la recette suit maintenant la redirection du site au lieu de s'y perdre (elle accusait un 301 de « robots absents »), et **elle montre le contenu réellement reçu** quand un contrôle échoue — on ne devine plus, on lit la preuve. Résultat : **5 workflows verts, 34 contrôles de recette réussis, 118 contrôles d'audit, 0 constat**, 52 rooms sur 52 liées. |
 | 01/11/2026 (nuit) | **Robots d'IA et maillage interne (v0.7.0)** | **Deux demandes, et une réponse franche.** « Le fichier robots doit accepter tous les LLM — Claude, OpenAI, bref tout le monde — pour être lisible et cité » : c'est fait, et le `robots.txt` ne se contente plus d'un `User-agent: *` muet — il **nomme** 20 robots, en deux sections qui disent la vérité : les robots de **recherche et de citation** (Googlebot, OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot…), et les robots d'**entraînement** (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot…). Google le rappelle dans son guide : `Google-Extended` **ne** contrôle pas les AI Overviews — c'est `Googlebot` qui le fait. Autoriser `Google-Extended` ne garantit donc pas la citation : le maillage, le contenu et les données structurées, si. « Es-tu sûr que le site est conforme à 100 % au guide SEO de Google ? » : la réponse est **non, et voici pourquoi** — l'audit refait à la main a trouvé **dix écarts réels** que l'audit automatique ne voyait pas. **Le pire :** les 52 rooms n'étaient atteignables **que par le plan du site** (l'accueil affichait « Bonjour tout le monde ! », le texte de démonstration de WordPress ; la page d'un parcours affichait « Lire la suite » et zéro lien) — alors que le guide demande précisément que le contenu soit « facilement trouvable par liens internes ». **Les autres :** `/parcours/` en 404 alors que le menu du thème la visait ; les titres des pages **arabes** restés en français (donc, pour Google, des doublons) ; **37 chaînes de traduction dégradées** et 2 extraits français corrompus (« il travaille dans une dozen de cases àDisposed très vite ») ; l'archive `/author/admin/` ouverte, qui exposait le nom du compte d'administration ; aucune image de partage ; pas de gabarit 404. **Tout est corrigé :** 72 corrections de traduction par un script qui refuse de modifier un fichier sans ancre exacte, la page d'accueil créée automatiquement, l'archive d'auteur fermée, un visuel de partage livré, `llms.txt` **généré** (donc jamais faux). **La barrière :** l'auditeur SEO passe de 35 à **45 contrôles** (10 nouveaux : robots d'IA nommés et autorisés, maillage mesuré, cohérence des traductions, archive fermée, image de partage) ; un script séparé vérifie le maillage **comme un robot** et mesure **52 rooms sur 52** liées depuis un parcours ; le comité d'audit passe de **108 à 118 contrôles, 0 constat**. **La réponse à « 100 % » :** conforme sur tout ce qui se vérifie sur une machine, **pas** de garantie sur ce qui dépend de Google (indexation réelle, présence dans un AI Overview, Core Web Vitals, citations effectives) — cela se mesure après la mise en ligne, dans la Search Console. Compte rendu : `docs/SEO-GENERATION-AI.md`. |
 | 01/11/2026 | **Conformité IA (v0.6.0)** | **Le guide de Google sur les réponses générées par l'IA a été audité point par point, sur les pages réellement servies : six écarts réels trouvés, six corrigés.** **Ce que le guide tranche :** l'IA de Google lit le même index que la recherche classique — il n'existe pas de version « pour l'IA » du site ; les données structurées sont recommandées (pas obligatoires) ; et trois idées sont des mythes à ne pas appliquer (`llms.txt`, découpage « en morceaux », réécriture du contenu). **Ce qui ne collait pas :** les adresses de langue étaient **relatives** (Google les ignore : les versions arabe et anglaise risquaient d'être abandonnées) ; il n'y avait **aucune adresse canonique** (donc la version arabe ressemblerait à un doublon de la version française) ; **aucune donnée structurée** ; la **vidéo du cours** n'était déclarée nulle part (la façade ne charge rien avant le clic) ; une room n'avait **aucun titre de section** ; et les **étapes pratiques** étaient dessinées par le JavaScript, donc invisibles pour un robot sans JavaScript. **Corrections :** hreflang en adresses absolues ; canonique auto-référente par langue (celle de WordPress, aveugle à la langue, a été retirée) ; `class-secura-schema.php` qui déclare `Organization`, `LearningResource`, `VideoObject`, `BreadcrumbList` et `Course` ; la vidéo déclarée avec sa durée, sa miniature, son éditeur et sa licence ; quatre titres de niveau 2 par room ; et la liste des étapes servie dans le HTML, doublée en `<noscript>`. **La barrière :** l'auditeur SEO passe de 20 à **35 contrôles** (15 nouveaux, exactement les points du guide), rejoués dans le vrai WordPress de la CI à chaque push ; le comité d'audit passe de **93 à 108 contrôles, 0 constat**. Compte rendu : `docs/SEO-GENERATION-AI.md`. |

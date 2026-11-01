@@ -1007,6 +1007,12 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 			'difficulty' => 'facile',
 			'duration'   => 170,
 			'xp_bonus'   => 100,
+			'certification' => array(
+				'nom'         => 'CompTIA Security+ (SY0-701)',
+				'cout'        => 'Examen : 439 $ (au 01/11/2026). Préparation gratuite (Professor Messer).',
+				'preparation' => 'Ce parcours couvre les domaines de Security+ : réseaux, web, chiffrement, gestion des risques.',
+				'gratuit'     => false,
+			),
 			'sections'   => array(
 				array(
 					'title' => 'Module 1 : Introduction à la cybersécurité',
@@ -1071,6 +1077,12 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 			'difficulty' => 'moyen',
 			'duration'   => 300,
 			'xp_bonus'   => 250,
+			'certification' => array(
+				'nom'         => 'eJPT — Junior Penetration Tester (eLearnSecurity)',
+				'cout'        => 'Examen : environ 249 $. Préparation : 120labs eLearnSecurity (payante).',
+				'preparation' => 'Dix missions pratiques : triage, exploitation, journaux, pivot — le geste du test d\'intrusion.',
+				'gratuit'     => false,
+			),
 			'sections'   => array(
 				array(
 					'title' => 'Module 1 : Triage et secrets (scénarios 1 et 2)',
@@ -1131,6 +1143,12 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 			'difficulty' => 'difficile',
 			'duration'   => 780,
 			'xp_bonus'   => 500,
+			'certification' => array(
+				'nom'         => 'Google Cybersecurity Professional Certificate',
+				'cout'        => 'Cours et certificat payants (49 $/mois). Des vouchers gratuits sont distribués par Google et lors d\'événements.',
+				'preparation' => 'Vingt-deux rooms, six cours universitaires : le périmètre le plus large de la plateforme (systèmes, réseaux, web, crypto, normes).',
+				'gratuit'     => false,
+			),
 			'sections'   => array(
 				array(
 					'title' => 'MIT 6.858 : systemes securises (5 rooms)',
@@ -1197,6 +1215,12 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 			'difficulty' => 'difficile',
 			'duration'   => 420,
 			'xp_bonus'   => 400,
+			'certification' => array(
+				'nom'         => 'PortSwigger Web Security Academy → certification BSCP',
+				'cout'        => 'L\'académie et ses 200+ ateliers sont gratuits ; l\'examen BSCP est payant et séparé.',
+				'preparation' => 'Juice Shop et le dojo : les attaques web (XSS, SQLi, contrôle d\'accès) pratiquées sur une vraie application.',
+				'gratuit'     => true,
+			),
 			'sections'   => array(
 				array(
 					'title' => 'Lab 1 : OWASP Juice Shop (2 rooms)',

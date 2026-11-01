@@ -62,6 +62,16 @@
 
 				error.code = ( json && json.data && json.data.code ) || '';
 
+				/* Si l'eleve n'est pas connecte, on transporte les
+				   adresses de connexion et d'inscription : l'ecran
+				   pourra proposer un clic au lieu d'un mur. */
+				if ( 'not_logged_in' === error.code ) {
+					error.action = {
+						url: ( json && json.data && json.data.register_url ) || '',
+						label: t( 'create_account', 'Creer un compte gratuit' )
+					};
+				}
+
 				throw error;
 			}
 
@@ -101,7 +111,7 @@
 	 * @param {string} message Message.
 	 * @param {boolean} bad    Erreur ?
 	 */
-	function toast( message, bad ) {
+	function toast( message, bad, action ) {
 		var wrap = document.querySelector( '.seca-toast-wrap' );
 
 		if ( ! wrap ) {
@@ -110,6 +120,15 @@
 		}
 
 		var item = el( 'div', 'seca-toast' + ( bad ? ' is-bad' : '' ), message );
+
+		/* Quand l'eleve n'est pas connecte, on ne laisse pas un simple
+		   message : on propose la porte a pousser. */
+		if ( action && action.url ) {
+			var link = el( 'a', 'seca-toast__link', action.label || action.url );
+
+			link.setAttribute( 'href', action.url );
+			item.appendChild( link );
+		}
 
 		wrap.appendChild( item );
 
@@ -490,7 +509,7 @@
 				stopTimer();
 			}
 		} ).catch( function ( error ) {
-			toast( error.message, true );
+			toast( error.message, true, error.action );
 		} );
 	}
 
@@ -542,7 +561,7 @@
 					openTask( currentIndex );
 				} ).catch( function ( error ) {
 					retry.disabled = false;
-					toast( error.message, true );
+					toast( error.message, true, error.action );
 				} );
 			} );
 
@@ -628,7 +647,7 @@
 					openTask( currentIndex );
 				} ).catch( function ( error ) {
 					lessonButton.disabled = false;
-					toast( error.message, true );
+					toast( error.message, true, error.action );
 				} );
 			} );
 
@@ -868,7 +887,7 @@
 				showHint( data.hint );
 			} ).catch( function ( error ) {
 				hintButton.disabled = false;
-				toast( error.message, true );
+				toast( error.message, true, error.action );
 			} );
 		} );
 
@@ -1168,7 +1187,7 @@
 				renderLab( result );
 				toast( result.message || '' );
 			} ).catch( function ( error ) {
-				toast( error.message, true );
+				toast( error.message, true, error.action );
 				refreshLab();
 			} );
 		} );
@@ -1179,7 +1198,7 @@
 			post( 'secura_lab_stop', { room_id: roomId } ).then( function ( status ) {
 				renderLab( status );
 			} ).catch( function ( error ) {
-				toast( error.message, true );
+				toast( error.message, true, error.action );
 			} );
 		} );
 	}

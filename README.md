@@ -560,18 +560,56 @@ LiteSpeed Cache, Elementor, Contact Form 7, WooCommerce) : voir
 
 ### Le comité d'audit externe
 
-Cinq auditeurs spécialisés (SEO, contenu, UX/UI, développement, sécurité)
-passent la plateforme au crible **dans un vrai WordPress**, sur les pages
-réellement rendues, et dans de vrais conteneurs Docker quand il faut juger
-l'isolation entre élèves. Le workflow `audit.yml` échoue si un constat
-bloquant apparaît ; il rejoue les audits à chaque push et chaque lundi.
+**Quinze auditeurs spécialisés** passent la plateforme au crible **dans un
+vrai WordPress**, sur les pages réellement rendues, et dans de vrais
+conteneurs Docker quand il faut juger l'isolation entre élèves. Le workflow
+`audit.yml` échoue si un constat bloquant apparaît ; il rejoue les audits à
+chaque push et chaque lundi.
 
-Premier passage : **93 contrôles, 8 constats réels, tous corrigés** — puis
-**108 contrôles, 0 constat** après l'audit de conformité au guide Google sur
-les réponses générées par l'IA — puis **118 contrôles, 0 constat** après le
-second passage « robots d'IA et maillage interne ».
+| | Spécialités |
+|---|---|
+| **Les cinq premiers** | SEO · Contenu · UX/UI · Développement · Sécurité & infra |
+| **Les dix nouveaux** | Pédagogie · Performance & Core Web Vitals · Données structurées · Accessibilité (WCAG 2.2 AA) · Multilingue · RGPD & mineurs · Moteur de lab & Docker · Onboarding · Licences & attribution · DevOps & résilience |
+
+**La règle de méthode : pas de rapport sans preuve.** Un auditeur n'a le
+droit de conclure que s'il a **joué un scénario, lu une ligne de code ou
+mesuré une valeur**. Un constat sans preuve est *rejeté*. Chaque rapport
+HTML reproduit la preuve sous chaque constat, et indique aussi ce que
+l'audit **ne peut pas** mesurer.
+
+Historique : **93 contrôles, 8 constats réels, tous corrigés** → **108
+contrôles, 0 constat** (conformité au guide Google sur l'IA) → **118
+contrôles, 0 constat** (robots d'IA et maillage interne) → **196 contrôles,
+0 constat** (le comité des quinze, bloc T).
+
+Ce que les quinze auditeurs ont trouvé — et fait corriger : les pages légales
+qui n'existaient pas, l'invitation à s'inscrire que le visiteur anonyme ne
+recevait pas, la création de compte bloquée, les parcours sans certification,
+les entités HTML illisibles dans le JSON-LD, les workflows sans limite de
+temps, les sauvegardes jamais purgées, l'absence de procédure de
+restauration, le sens de lecture arabe non posé sur le document — et **la
+barrière bloquante qui ne bloquait pas**.
+
 Le cadre est dans [`docs/AUDITS-CADRE.md`](docs/AUDITS-CADRE.md), le
 registre des constats dans [`docs/AUDITS-REGISTRE.md`](docs/AUDITS-REGISTRE.md).
+
+### Où mènent les parcours, et à quel prix
+
+Chaque parcours affiche la **certification réelle** qu'il prépare, avec le
+coût exact de l'examen — parce qu'un élève de 12 ans ne doit pas découvrir à
+l'examen qu'il fallait payer.
+
+| Parcours | Certification visée | Coût de l'examen |
+|---|---|---|
+| Fondations (6 rooms) | CompTIA **Security+ SY0-701** | 439 $ (préparation gratuite) |
+| Scénarios M3 (10 rooms) | **eJPT** (eLearnSecurity) | ≈ 249 $ |
+| Les universités (22 rooms) | **Google Cybersecurity Professional Certificate** | 49 $/mois (vouchers gratuits existants) |
+| Les labs avancés (14 rooms) | **PortSwigger Web Security Academy → BSCP** | Académie gratuite, examen séparé et payant |
+
+Le catalogue mondial du contenu gratuit (MIT OCW, Harvard CS50, pwn.college,
+Stanford SEE, CYBER.ORG, OWASP, freeCodeCamp, Fortinet NSE…) et le détail
+honête de ce qui est **gratuit** et de ce qui est **payant** sont dans
+[`docs/CERTIFICATIONS.md`](docs/CERTIFICATIONS.md).
 
 ### La conformité aux réponses générées par l'IA (guide Google)
 
@@ -750,6 +788,11 @@ Documents liés :
 - [`docs/CONTENU-MIT.md`](docs/CONTENU-MIT.md) — le **plan de contenu**,
   paliers 1 à 3, dont le palier 3 « universitaire » (14 rooms 6.858 + 20 rooms
   6.857, labs notés par scripts, barème 20/35/25/20).
+- [`docs/CERTIFICATIONS.md`](docs/CERTIFICATIONS.md) — **le catalogue du
+  contenu gratuit des grandes universités du monde** (vidéo, exercices,
+  certificat) et des certifications réelles, avec la distinction honnête
+  entre certificat gratuit et examen payant, et le rappel que l'ISC2 CC est
+  fermé aux nouveaux candidats depuis le 20/05/2026.
 
 Jalons en cours : **M1** (lab réel : branchement des rooms + isolation par
 apprenant), puis **M3** (10 rooms réelles, prérequis, récap de section, examen

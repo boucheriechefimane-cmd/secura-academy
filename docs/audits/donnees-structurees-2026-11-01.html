@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Données structurées et entités — rapport d'audit</title>
+<style>
+:root{--encre:#1a1d21;--gris:#5b6470;--trait:#e3e6ea;--fond:#f7f8fa}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--encre);background:var(--fond)}
+.page{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+header{background:#fff;border-bottom:1px solid var(--trait);padding:36px 0 26px;margin-bottom:28px}
+header .page{padding-bottom:0}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);font-weight:700}
+h1{font-size:30px;line-height:1.25;margin:10px 0 6px}
+h2{font-size:21px;margin:38px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--trait)}
+h3{font-size:17px;margin:24px 0 10px}
+.sub{color:var(--gris);margin:0}
+.verdict{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--trait);border-left:5px solid var(--teinte);border-radius:10px;padding:18px 20px;margin:22px 0}
+.verdict .badge{flex:0 0 auto;background:var(--teinte);color:#fff;font-weight:700;font-size:14px;padding:7px 14px;border-radius:999px;letter-spacing:.02em}
+.verdict p{margin:0}
+.grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
+.carte{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:14px 16px}
+.carte .n{font-size:26px;font-weight:700;line-height:1.1}
+.carte .t{font-size:12.5px;color:var(--gris);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.carte.ok .n{color:#1b7f4b}.carte.bad .n{color:#b3261e}.carte.warn .n{color:#9a5b00}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--trait);border-radius:10px;overflow:hidden;margin:14px 0}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--trait);vertical-align:top;font-size:15px}
+th{background:#f2f4f7;font-size:12.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--gris)}
+tr:last-child td{border-bottom:0}
+.constat{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:0;margin:14px 0;overflow:hidden}
+.constat .tete{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-bottom:1px solid var(--trait)}
+.constat .etiquette{flex:0 0 auto;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.constat .corps{padding:14px 16px}
+.constat .corps p{margin:0 0 8px}
+.tag{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px;display:inline-block}
+.preuve{background:#11161c;color:#d7e0ea;border-radius:8px;padding:13px 15px;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-wrap;word-break:break-word;margin:10px 0 0;overflow-x:auto}
+.preuve .etiq{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#7f8ea3;margin-bottom:7px}
+.forces li{margin-bottom:9px}
+.aucune{background:#fff;border:1px dashed var(--trait);border-radius:10px;padding:16px;color:var(--gris)}
+.honnete{background:#fff;border:1px solid var(--trait);border-left:5px solid #1d4ed8;border-radius:10px;padding:16px 18px;margin:18px 0}
+.honnete h3{margin-top:0}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--trait);color:var(--gris);font-size:13.5px}
+a{color:#1d4ed8}
+</style></head><body>
+<header><div class="page">
+<div class="eyebrow">Comité d'audit externe — rapport d'expert</div>
+<h1>Données structurées et entités</h1>
+<p class="sub">Expert en données structurées (schema.org) et en référencement sémantique — WordPress réel, 01/11/2026 à 16:56 UTC</p>
+</div></header>
+<div class="page">
+<div class="verdict" style="--teinte:#1b7f4b"><span class="badge">Conforme avec observations</span><p>Aucun constat bloquant ni majeur.</p></div>
+<h2>Périmètre de l'expert</h2>
+<p class="sub">Vérifie le JSON-LD réellement servi par le site : présence, validité JSON, complétude des types, cohérence avec le contenu visible (ce qui est déclaré doit exister à l&#039;écran), et cohérence entre les versions linguistiques. Ces données sont le langage que parlent les moteurs de recherche et les systèmes génératifs.</p>
+<div class="grille"><div class="carte ok"><div class="n">7</div><div class="t">Contrôles réussis</div></div><div class="carte "><div class="n">0</div><div class="t">Bloquants</div></div><div class="carte "><div class="n">0</div><div class="t">Majeurs</div></div><div class="carte"><div class="n">0</div><div class="t">Mineurs</div></div><div class="carte"><div class="n">4</div><div class="t">Observations</div></div><div class="carte"><div class="n">0</div><div class="t">Scénarios joués</div></div></div>
+<h2>Forces constatées</h2>
+<table><thead><tr><th style="width:42%">Point fort</th><th>Preuve</th></tr></thead><tbody><tr><td>Les données structurées sont servies et valides sur toutes les pages contrôlées</td><td><pre class="preuve">Pages contrôlées : accueil, room, parcours — JSON décodé sans erreur</pre></td></tr><tr><td>La plateforme se déclare comme un cours (type « Course »)</td><td><pre class="preuve">Type « Course » présent dans le JSON-LD servi</pre></td></tr><tr><td>Le JSON-LD est lisible tel quel (les apostrophes typographiques sont des caractères, pas des entités)</td><td><pre class="preuve">Aucune entité HTML dans le JSON-LD servi</pre></td></tr></tbody></table>
+<h2>Infos (4)</h2>
+<div class="constat"><div class="tete"><span class="etiquette" style="background:#f1f3f5;color:#4b5563">Info</span><strong>Types déclarés sur « accueil »</strong></div><div class="corps"><p><strong>Constat :</strong> Organization, WebSite</p></div></div>
+<div class="constat"><div class="tete"><span class="etiquette" style="background:#f1f3f5;color:#4b5563">Info</span><strong>Types déclarés sur « room »</strong></div><div class="corps"><p><strong>Constat :</strong> Organization, LearningResource, VideoObject, BreadcrumbList</p></div></div>
+<div class="constat"><div class="tete"><span class="etiquette" style="background:#f1f3f5;color:#4b5563">Info</span><strong>Types déclarés sur « parcours »</strong></div><div class="corps"><p><strong>Constat :</strong> Organization, Course, ItemList</p></div></div>
+<div class="constat"><div class="tete"><span class="etiquette" style="background:#f1f3f5;color:#4b5563">Info</span><strong>Une donnée structurée bien écrite ne garantit pas d&#039;apparition dans un résultat</strong></div><div class="corps"><p><strong>Constat :</strong> Google et les systèmes génératifs lisent ces données, mais leur usage dépend du reste : la qualité du contenu, la fiabilité du site, et leurs propres algorithmes. Cet audit vérifie la correction et la complétude des données — pas leur effet.</p></div></div>
+<div class="honnete"><h3>Ce que cet audit ne peut pas affirmer</h3>
+<p>Un audit automatisé mesure ; il ne ressent pas. Ce rapport ne dit donc rien sur la compréhension d'une leçon par un élève, sur la qualité d'une traduction, sur le rythme d'un parcours, ni sur la valeur perçue d'un badge. Ces points restent des jugements humains. Ce qui est affirmé ici repose sur une preuve reproduite plus haut.</p></div>
+<footer>Généré par le comité d'audit externe — donnees-structurees — 01/11/2026 16:56 UTC. Constats : 0 bloquant, 0 majeur, 0 mineur, 4 info. Contrôles réussis : 7.</footer>
+</div></body></html>

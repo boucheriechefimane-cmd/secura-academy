@@ -1,0 +1,37 @@
+{
+    "domaine": "multilingue",
+    "titre": "Multilingue et internationalisation",
+    "expert": "Expert en internationalisation (i18n) et en langues droite-à-gauche",
+    "perimetre": "Vérifie que les trois versions (français, arabe, anglais) sont complètes et cohérentes sur tous les champs — titres, questions, explications, consignes — que le sens de lecture arabe est complet, que les adresses alternatives sont correctes, et qu'aucune chaîne non traduite ne subsiste. Ne juge pas la qualité/style d'une traduction : c'est un jugement humain.",
+    "date": "2026-11-01T16:56:57+00:00",
+    "ok": 6,
+    "non_etaye": 0,
+    "forces": [
+        {
+            "libelle": "Les 52 rooms existent dans les trois langues",
+            "preuve": "52 rooms sur 52 portent une traduction arabe et anglaise"
+        },
+        {
+            "libelle": "Le sens de lecture est complet : la version arabe est en droite-à-gauche, sans propriété physique",
+            "preuve": "Vérifié sur les pages servies en arabe et en anglais : dir=\"rtl\" / dir=\"ltr\" corrects, aucune propriété margin-left / margin-right / padding-left / padding-right"
+        },
+        {
+            "libelle": "Le document entier est orienté dans la bonne direction",
+            "preuve": "<html> porte dir=\"rtl\" pour l'arabe et dir=\"ltr\" pour le français et l'anglais"
+        }
+    ],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 1,
+    "constats": [
+        {
+            "libelle": "La qualité d'une traduction ne se mesure pas par un script",
+            "detail": "Cet audit vérifie la COUVERTURE et la COHÉRENCE : que chaque champ soit traduit, qu'aucune chaîne ne soit restée en français, que le sens de lecture soit complet. Il ne juge pas si la traduction est naturelle, exacte ou idiomatique : c'est le travail d'un traducteur, et cela demande un humain.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

@@ -37,6 +37,165 @@ class Secura_Site {
 	 */
 	public static function init() {
 		add_action( 'admin_notices', array( __CLASS__, 'notice' ) );
+
+		/* Les pages legales sont servies dans la langue du visiteur. */
+		add_filter( 'the_title', array( __CLASS__, 'titre_legal' ), 9, 2 );
+		add_filter( 'the_content', array( __CLASS__, 'contenu_legal' ), 9 );
+	}
+
+	/**
+	 * Le contenu des pages legales, dans la langue du visiteur.
+	 *
+	 * @param string $contenu Le contenu normal.
+	 * @return string
+	 */
+	public static function contenu_legal( $contenu ) {
+		$page = get_queried_object();
+
+		if ( ! $page || ! isset( $page->ID ) || 'page' !== $page->post_type ) {
+			return $contenu;
+		}
+
+		$textes = self::textes_legaux();
+
+		if ( ! isset( $textes[ $page->post_name ] ) ) {
+			return $contenu;
+		}
+
+		$langue = Secura_I18n::current_lang();
+		$page_tr = $textes[ $page->post_name ];
+
+		if ( isset( $page_tr[ $langue ]['content'] ) ) {
+			return $page_tr[ $langue ]['content'];
+		}
+
+		return $contenu;
+	}
+
+	/**
+	 * Le titre des pages legales, dans la langue du visiteur.
+	 *
+	 * @param string $titre Le titre normal.
+	 * @param int    $id    L'identifiant du contenu.
+	 * @return string
+	 */
+	public static function titre_legal( $titre, $id = 0 ) {
+		$page = get_post( $id );
+
+		if ( ! $page || 'page' !== $page->post_type ) {
+			return $titre;
+		}
+
+		$textes = self::textes_legaux();
+
+		if ( ! isset( $textes[ $page->post_name ] ) ) {
+			return $titre;
+		}
+
+		$langue = Secura_I18n::current_lang();
+		$page_tr = $textes[ $page->post_name ];
+
+		if ( isset( $page_tr[ $langue ]['title'] ) ) {
+			return $page_tr[ $langue ]['title'];
+		}
+
+		return $titre;
+	}
+
+	/**
+	 * Les textes legaux, charges a la demande.
+	 *
+	 * @return array
+	 */
+	protected static function textes_legaux() {
+		static $textes = null;
+
+		if ( null === $textes ) {
+			global $secura_pages_legales;
+
+			$textes = is_array( $secura_pages_legales ) ? $secura_pages_legales : array();
+		}
+
+		return $textes;
+	}
+
+	/**
+	 * Cree (ou met a jour) les pages legales et les publie.
+	 *
+	 * Ces pages ne sont pas optionnelles : une plateforme qui accueille
+	 * des mineurs doit dire ce qu'elle collecte et qui l'edite. On les
+	 * publie donc a l'activation, en FR, avec les traductions AR et EN
+	 * dans les metadonnees.
+	 */
+	public static function assurer_pages_legales() {
+		$textes = self::textes_legaux();
+
+		foreach ( $textes as $slug => $par_langue ) {
+			$existante = get_page_by_path( $slug );
+
+			$contenu_fr = isset( $par_langue['fr']['content'] ) ? $par_langue['fr']['content'] : '';
+			$titre_fr  = isset( $par_langue['fr']['title'] ) ? $par_langue['fr']['title'] : $slug;
+
+			if ( $existante ) {
+				$id = (int) $existante->ID;
+
+				$modifications = array( 'ID' => $id );
+
+				if ( 'publish' !== $existante->post_status ) {
+					$modifications['post_status'] = 'publish';
+				}
+
+				/* On ne remplace le contenu que s'il est encore celui
+				   par defaut de WordPress (le texte « Texte suggéré »).
+				   Un texte redige par l'editeur n'est jamais touche. */
+				if ( false !== strpos( (string) $existante->post_content, 'privacy-policy-tutorial' )
+					|| '' === trim( (string) $existante->post_content ) ) {
+					$modifications['post_content'] = $contenu_fr;
+					$modifications['post_title']   = $titre_fr;
+					$modifications['post_excerpt'] = isset( $par_langue['fr']['excerpt'] ) ? $par_langue['fr']['excerpt'] : '';
+				}
+
+				if ( count( $modifications ) > 1 ) {
+					wp_update_post( $modifications );
+				}
+			} else {
+				$id = wp_insert_post(
+					array(
+						'post_title'   => $titre_fr,
+						'post_name'    => $slug,
+						'post_content' => $contenu_fr,
+						'post_excerpt' => isset( $par_langue['fr']['excerpt'] ) ? $par_langue['fr']['excerpt'] : '',
+						'post_status'  => 'publish',
+						'post_type'    => 'page',
+						'post_author'  => self::auteur_id(),
+					)
+				);
+
+				if ( ! $id || is_wp_error( $id ) ) {
+					continue;
+				}
+			}
+
+			/* Les traductions sont rangees dans la meme metadonnee que
+			   les rooms et les parcours. */
+			$traductions = array();
+
+			foreach ( array( 'ar', 'en' ) as $langue ) {
+				if ( ! isset( $par_langue[ $langue ] ) ) {
+					continue;
+				}
+
+				$traductions[ $langue ] = array(
+					'title'   => isset( $par_langue[ $langue ]['title'] ) ? $par_langue[ $langue ]['title'] : '',
+					'excerpt' => isset( $par_langue[ $langue ]['excerpt'] ) ? $par_langue[ $langue ]['excerpt'] : '',
+					'content' => isset( $par_langue[ $langue ]['content'] ) ? $par_langue[ $langue ]['content'] : '',
+				);
+			}
+
+			if ( ! empty( $traductions ) ) {
+				update_post_meta( $id, '_secura_i18n', $traductions );
+			}
+		}
 	}
 
 	/**
@@ -63,6 +222,7 @@ class Secura_Site {
 	 */
 	public static function install() {
 		self::assurer_page_parcours();
+		self::assurer_pages_legales();
 		self::nettoyer_contenus_par_defaut();
 	}
 

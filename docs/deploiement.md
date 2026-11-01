@@ -25,7 +25,13 @@ Deux workflows distincts :
 
 La sauvegarde est créée dans `~/secura-backups/` sur le serveur, avant chaque
 synchronisation. En cas de régression, il suffit de décompresser l'archive
-correspondante.
+correspondante — la procédure complète est décrite plus bas
+(« Restaurer une sauvegarde »).
+
+Les sauvegardes sont **purgées automatiquement** : seules les 10 plus
+récentes sont conservées (`WP_GARDER_SAUVEGARDES` pour changer ce nombre).
+Sans cette purge, les archives s'empilent à chaque déploiement jusqu'à
+saturer le disque du serveur.
 
 Tant que les secrets ne sont pas renseignés, `scripts/deploy.sh` affiche
 « Secrets de déploiement absents : déploiement ignoré » et se termine en
@@ -114,6 +120,61 @@ wp cache flush --path=/chemin/wordpress
 # Vérifier l'état du plugin
 wp plugin status secures-academy --path=/chemin/wordpress
 ```
+
+## Restaurer une sauvegarde
+
+> Une sauvegarde que l'on ne sait pas remettre en place ne sert à rien.
+> Voici la procédure exacte, à exécuter **sur le serveur**, en SSH.
+> Testez-la d'abord sur un environnement de test, jamais en production
+> sans avoir vérifié que la sauvegarde est bonne.
+
+### 1. Lister les sauvegardes disponibles
+
+```bash
+ls -lht ~/secura-backups/
+```
+
+Vous verrez deux familles de fichiers :
+
+| Fichier | Contenu |
+|---|---|
+| `secura-AAAAMMJJ-HHMMSS.tar.gz` | le plugin et le thème de la version déployée |
+| `base-AAAAMMJJ-HHMMSS.sql.gz` | la base de données (élèves, progrès, médailles) |
+
+### 2. Restaurer le code (plugin + thème)
+
+```bash
+cd /chemin/wordpress
+tar -xzf ~/secura-backups/secura-AAAAMMJJ-HHMMSS.tar.gz -C /chemin/wordpress
+```
+
+### 3. Restaurer la base de données
+
+```bash
+cd /chemin/wordpress
+gunzip -c ~/secura-backups/base-AAAAMMJJ-HHMMSS.sql.gz | wp db import -
+```
+
+> **Attention.** Cette commande **remplace** la base actuelle par la
+> sauvegarde : les élèves inscrits et leurs progrès disparaissent.
+> Ne l'exécutez que si vous savez que la sauvegarde est la bonne.
+
+### 4. Vérifier
+
+```bash
+wp cache flush --path=/chemin/wordpress
+wp plugin status secures-academy --path=/chemin/wordpress
+curl -fsS -o /dev/null -w 'HTTP %{http_code}\n' https://votre-site
+```
+
+### 5. Revenir en arrière plus tard
+
+Le dépôt Git contient tout le code : si le problème vient du code,
+`git revert` du commit fautif et redéployez — plus propre qu'une
+restauration. La restauration d'archive sert surtout quand le serveur
+a été modifié hors Git (ou quand la base est corrompue).
+
+---
 
 ## Où sont les machines cibles (labs)
 

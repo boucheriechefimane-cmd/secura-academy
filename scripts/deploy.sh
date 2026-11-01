@@ -67,4 +67,17 @@ if [ -n "${WP_SITE_URL:-}" ]; then
 	curl -fsS --max-time 20 "$WP_SITE_URL" -o /dev/null -w 'HTTP %{http_code}\n'
 fi
 
+echo ">> Purge des sauvegardes anciennes"
+
+# Sans purge, les archives s'empilent a chaque deploiement et finissent
+# par saturer le disque du serveur : le site tombe, non pas a cause d'une
+# intrusion, mais parce qu'il n'y a plus de place. On garde les N
+# sauvegardes les plus recentes (archivage des eleves compris).
+GARDER_SAUVEGARDES="${WP_GARDER_SAUVEGARDES:-10}"
+
+ssh "${SSH_ARGS[@]}" "$TARGET" \
+	"cd '$BACKUP_DIR' 2>/dev/null && ls -1t 2>/dev/null | tail -n +$((GARDER_SAUVEGARDES + 1)) \
+	 | while IFS= read -r vieux; do rm -f \"\$vieux\"; done; \
+	 echo \"Sauvegardes conservees : \$(ls -1 2>/dev/null | wc -l) (maximum $GARDER_SAUVEGARDES)\""
+
 echo ">> Déploiement terminé."

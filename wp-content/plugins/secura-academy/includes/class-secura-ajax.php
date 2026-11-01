@@ -16,19 +16,40 @@ final class Secura_Ajax {
 
 	/**
 	 * Branche les hooks.
+	 *
+	 * Chaque action est enregistrée DEUX fois : pour les visiteurs
+	 * connectés (wp_ajax_) et pour les visiteurs non connectés
+	 * (wp_ajax_nopriv_).
+	 *
+	 * Pourquoi ? Sans le pendant « nopriv », WordPress ne fait jamais
+	 * appel au gestionnaire pour un visiteur anonyme : il répond « 0 »
+	 * à la requête, sans code HTTP exploitable. Le script du navigateur
+	 * recevait alors une erreur muette (« Une erreur est survenue. »)
+	 * au lieu d'une invitation à créer un compte.
+	 *
+	 * Aucun risque de fuite : check_request() est appelé en tête de
+	 * chaque gestionnaire et renvoie 401 « Connectez-vous pour
+	 * continuer. » avant tout traitement.
 	 */
 	public static function init() {
-		add_action( 'wp_ajax_secura_get_room', array( __CLASS__, 'get_room' ) );
-		add_action( 'wp_ajax_secura_get_task', array( __CLASS__, 'get_task' ) );
-		add_action( 'wp_ajax_secura_validate_answer', array( __CLASS__, 'validate_answer' ) );
-		add_action( 'wp_ajax_secura_hint', array( __CLASS__, 'hint' ) );
-		add_action( 'wp_ajax_secura_terminal', array( __CLASS__, 'terminal' ) );
-		add_action( 'wp_ajax_secura_complete_lesson', array( __CLASS__, 'complete_lesson' ) );
-		add_action( 'wp_ajax_secura_start_exam', array( __CLASS__, 'start_exam' ) );
-		add_action( 'wp_ajax_secura_lab_start', array( __CLASS__, 'lab_start' ) );
-		add_action( 'wp_ajax_secura_lab_stop', array( __CLASS__, 'lab_stop' ) );
-		add_action( 'wp_ajax_secura_lab_status', array( __CLASS__, 'lab_status' ) );
-		add_action( 'wp_ajax_secura_set_lang', array( __CLASS__, 'set_lang' ) );
+		$actions = array(
+			'seca_get_room'         => 'get_room',
+			'seca_get_task'         => 'get_task',
+			'seca_validate_answer'  => 'validate_answer',
+			'seca_hint'             => 'hint',
+			'seca_terminal'         => 'terminal',
+			'seca_complete_lesson'  => 'complete_lesson',
+			'seca_start_exam'       => 'start_exam',
+			'seca_lab_start'        => 'lab_start',
+			'seca_lab_stop'         => 'lab_stop',
+			'seca_lab_status'       => 'lab_status',
+			'seca_set_lang'         => 'set_lang',
+		);
+
+		foreach ( $actions as $action => $methode ) {
+			add_action( 'wp_ajax_' . $action, array( __CLASS__, $methode ) );
+			add_action( 'wp_ajax_nopriv_' . $action, array( __CLASS__, $methode ) );
+		}
 	}
 
 	/**
@@ -52,6 +73,10 @@ final class Secura_Ajax {
 				array(
 					'message' => Secura_I18n::t( 'not_logged_in', '', 'Connectez-vous pour continuer.' ),
 					'code'    => 'not_logged_in',
+					/* Les adresses suivent : l'élève voit une porte à
+					   pousser, pas un mur. */
+					'login_url'    => wp_login_url(),
+					'register_url' => wp_registration_url(),
 				),
 				401
 			);

@@ -9,6 +9,62 @@
 
 ## 1. Le tableau de bord
 
+### 1 bis. Le comité des 15 auditeurs (bloc T, 01/11/2026)
+
+Le comité est passé de 5 à 15 spécialités : dix nouveaux experts ont été
+recrutés, chacun avec son domaine, sa grille de contrôle et l'obligation
+de **produire une preuve** (un scénario joué, un code lu, une mesure) avant
+de formuler le moindre constat. Un audit sans preuve ne compte pas.
+
+| # | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Verdict |
+|---|---|---|---|---|---|---|
+| 1 | SEO | 45 | 0 | 0 | 0 | **Conforme** |
+| 2 | Contenu | 18 | 0 | 0 | 0 | **Conforme** |
+| 3 | UX / UI | 16 | 0 | 0 | 0 | **Conforme** |
+| 4 | Développement | 14 | 0 | 0 | 0 | **Conforme** |
+| 5 | Sécurité & infra | 25 | 0 | 0 | 0 | **Conforme** |
+| 6 | **Pédagogie** | 12 | 0 | 0 | 0 | **Conforme** |
+| 7 | **Performance & Core Web Vitals** | 6 | 0 | 0 | 0 | **Conforme** |
+| 8 | **Données structurées** | 7 | 0 | 0 | 0 | **Conforme** |
+| 9 | **Accessibilité (WCAG 2.2 AA)** | 10 | 0 | 0 | 0 | **Conforme** |
+| 10 | **Multilingue & i18n** | 6 | 0 | 0 | 0 | **Conforme** |
+| 11 | **RGPD & mineurs** | 8 | 0 | 0 | 0 | **Conforme** |
+| 12 | **Moteur de lab & Docker** | 6 | 0 | 0 | 0 | **Conforme** |
+| 13 | **Onboarding** | 9 | 0 | 0 | 0 | **Conforme** |
+| 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | **Conforme** |
+| 15 | **DevOps & résilience** | 10 | 0 | 0 | 0 | **Conforme** |
+| | **Total** | **196** | **0** | **0** | **0** | **Conforme** |
+
+> Les 15 auditeurs produisent chacun **trois formats** de rapport dans
+> `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
+> foi : verdict, périmètre, chiffres, scénarios joués, forces, constats avec
+> la preuve sous chaque ligne, et les limites explicites) et le JSON (pour
+> le tableau de bord de la CI).
+
+### Les constats trouvés par les dix nouveaux auditeurs — et leur traitement
+
+| # | Constat | Auditeur | Gravité | Traitement | État |
+|---|---|---|---|---|---|
+| 1 | La politique de confidentialité était **en brouillon** et les mentions légales n'existaient pas | RGPD | **Bloquant** | Les deux pages ont été **rédigées** à partir de ce que la plateforme fait réellement (données stockées, traceurs, durée de conservation, droits) et **publiées**, en français, arabe et anglais, avec liens au pied de page | ✅ corrigé |
+| 2 | Le visiteur anonyme lisait tout le contenu mais, en cliquant sur une tâche, recevait « Une erreur est survenue. » | Onboarding | Majeur | Les actions AJAX sont désormais enregistrées pour les visiteurs non connectés : ils reçoivent **« Connectez-vous pour continuer. »** avec un **lien cliquable** vers l'inscription | ✅ corrigé |
+| 3 | Le bouton « Créer un compte gratuit » ne menait nulle part : l'inscription était désactivée dans la recette | Onboarding | Majeur | L'inscription libre est activée **automatiquement** par la CI, et le réglage est vérifié par un audit | ✅ corrigé |
+| 4 | Les 4 parcours n'étaient rattachés à **aucune** certification | Pédagogie | Majeur | Chaque parcours vise maintenant une certification **nommée**, avec son **coût d'examen** affiché à l'élève dans les trois langues | ✅ corrigé |
+| 5 | Le type `ItemList` manquait sur les pages de parcours ; le JSON-LD ne décrivait pas la suite des rooms | Données structurées | Majeur | Un `ItemList` liste désormais les rooms du parcours, dans l'ordre | ✅ corrigé |
+| 6 | Le JSON-LD contenait des **entités HTML** (`&#8217;`) au lieu de caractères réels — invisible à l'écran, mais visible pour un moteur | Données structurées | Majeur | Les textes sont normalisés avant encodage ; un contrôle anti-régression a été ajouté | ✅ corrigé |
+| 7 | `ci.yml` et `deploy.yml` n'avaient **aucune limite de temps** : un job bloqué aurait consommé le runner pendant des heures | DevOps | Majeur | `timeout-minutes` ajouté aux deux | ✅ corrigé |
+| 8 | Les sauvegardes du serveur s'empilaient **sans limite** — jusqu'à saturer le disque | DevOps | Majeur | Purge automatique : les 10 sauvegardes les plus récentes sont conservées | ✅ corrigé |
+| 9 | **Aucune procédure de restauration écrite** : une sauvegarde que l'on ne sait pas remettre en place ne sert à rien | DevOps | Majeur | Procédure complète écrite dans `docs/deploiement.md`, avec les commandes exactes | ✅ corrigé |
+| 10 | Les actions GitHub n'étaient épinglées que par version majeure | DevOps | Mineur | Les 13 usages sont épinglés par **empreinte SHA** (empreintes réelles, vérifiées le 01/11/2026) | ✅ corrigé |
+| 11 | Le sens de lecture arabe (`dir="rtl"`) n'était posé que sur le bloc de l'application, pas sur le document : une page de contenu en arabe s'affichait de gauche à droite | Multilingue | (trouvé en cours de route) | Le sens de lecture est désormais porté par la balise `<html>` | ✅ corrigé |
+| 12 | **La barrière bloquante ne bloquait pas** : `audit_fin()` renvoyait le code par `return`, que `wp eval-file` ignore | DevOps | (trouvé en cours de route) | `audit_fin()` termine par `exit()` ; vérifié : un constat bloquant sort désormais avec le code 1 | ✅ corrigé |
+
+> **Sur le point 12.** C'est le genre de défaut que seule une vérification
+> expérimentale révèle : le code *avait l'air* correct, et le tableau de
+> bord annonçait « conforme ». C'est pourquoi chaque constat de ce document
+> porte une preuve reproductible.
+
+### Le tableau de bord des 5 premiers auditeurs (contexte)
+
 | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Verdict |
 |---|---|---|---|---|---|
 | SEO | 45 | 0 | 0 | 0 | **Conforme** |
@@ -16,7 +72,6 @@
 | UX / UI | 16 | 0 | 0 | 0 | **Conforme** |
 | Développement | 14 | 0 | 0 | 0 | **Conforme** |
 | Sécurité & infra | 25 | 0 | 0 | 0 | **Conforme** |
-| **Total** | **118** | **0** | **0** | **0** | **Conforme** |
 
 > Le passage du 01/11/2026 au soir a ajouté **15 contrôles SEO** : ce sont
 > les points du guide officiel de Google sur les réponses générées par l'IA
@@ -96,10 +151,12 @@ push** désormais, et ne peuvent plus se dégrader.
 
 | Sujet | Pourquoi | Suite |
 |---|---|---|
-| Le dojo pwn.college officiel n'est pas construit en CI | Son image est trop lourde | À faire sur le VPS, quand il existera |
 | Les labs M7 sont volontairement difficiles | C'est le palier 3 | Un parcours d'échauffement avant le dojo, à évaluer après usage |
 | Les vidéos de brief sont en anglais | Les cours originaux sont des sources anglaises | Les leçons écrites sont, elles, traduites AR/EN |
-| Pas de mesure de performance (Core Web Vitals) | Nécessite un vrai trafic | À installer quand le site sera en ligne |
+| Les Core Web Vitals réels (LCP, CLS, INP) ne se mesurent pas depuis le serveur | Ils se mesurent dans le navigateur du visiteur | L'auditeur Performance vérifie les **causes racines** ; la mesure réelle se fera avec PageSpeed Insights à la mise en ligne |
+| Pas de contrôle d'âge ni de consentement parental | Exigence RGPD pour les moins de 15 ans | Signalé par l'auditeur RGPD — à traiter au niveau du produit |
+| 14 rooms sur 52 n'ont pas de machine d'entraînement | Leur exercice d'application est un QCM, pas une manipulation | Mesuré par l'auditeur Pédagogie — au backlog |
+| La traduction AR/EN des textes de certification manque | Le nom de la certification est le même partout, l'explication reste en français | Au backlog |
 | Search Console non connectée, donc pas de rapport « Generative AI performance » | Le site n'est pas public | À connecter à la mise en ligne, puis à suivre chaque mois |
 | Le dojo pwn.college officiel n'est pas construit en CI | Son image est trop lourde | À faire sur le VPS, quand il existera |
 

@@ -7,7 +7,18 @@
  *
  *   - un compteur par gravité (bloquant, majeur, mineur, info) ;
  *   - une ligne de constat horodatée ;
- *   - un rapport Markdown + un résumé JSON, écrits dans docs/audits/.
+ *   - un rapport Markdown + un rapport HTML + un résumé JSON, écrits dans
+ *     docs/audits/.
+ *
+ * LA RÈGLE DE LA PREUVE
+ * ---------------------
+ * Un auditeur n'a pas le droit de conclure sans preuve. Toute vérification
+ * porte donc une preuve : un extrait de la page réellement servie, une ligne
+ * de code avec son numéro, ou la sortie d'une commande. Le harnais refuse
+ * d'enregistrer un constat sans preuve (il le classe alors « non étayé »),
+ * et le rapport HTML reproduit la preuve mot pour mot. C'est ce qui sépare
+ * un audit d'un avis : l'avis dit « ça pourrait être mieux », l'audit montre
+ * la ligne de code et la mesure.
  *
  * Gravité (échelle de l'audit externe) :
  *   bloquant — le site est en danger ou inutilisable : à corriger avant toute mise en ligne ;
@@ -25,10 +36,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once __DIR__ . '/rapport-html.php';
+
 $GLOBALS['seca_audit'] = array(
 	'domaine'   => 'audit',
 	'titre'     => 'Audit',
+	'expert'    => '',
+	'perimetre' => '',
 	'constats'  => array(),
+	'forces'    => array(),
+	'scenarios' => array(),
 	'ok'        => 0,
 	'bloquant'  => 0,
 	'majeur'    => 0,
@@ -57,9 +74,10 @@ function audit_titre( $domaine, $titre ) {
  * @param bool   $condition Résultat du contrôle.
  * @param string $detail    Détail utile en cas d'échec.
  * @param string $gravite   bloquant|majeur|mineur|info (quand l'échec compte).
+ * @param string $preuve    La PREUVE : extrait servi, ligne de code, mesure.
  * @return bool
  */
-function audit_verifier( $libelle, $condition, $detail = '', $gravite = 'mineur' ) {
+function audit_verifier( $libelle, $condition, $detail = '', $gravite = 'mineur', $preuve = '' ) {
 	if ( $condition ) {
 		$GLOBALS['seca_audit']['ok']++;
 
@@ -68,10 +86,32 @@ function audit_verifier( $libelle, $condition, $detail = '', $gravite = 'mineur'
 		return true;
 	}
 
+	/* Un constat sans preuve n'est pas un constat : il est rejeté par le
+	   harnais, et compté à part pour que le rapport le dise. */
+	$etaye = ( '' !== trim( (string) $preuve ) );
+
+	if ( ! $etaye ) {
+		$GLOBALS['seca_audit']['constats'][] = array(
+			'libelle' => $libelle,
+			'detail'  => $detail,
+			'gravite' => $gravite,
+			'preuve'  => '',
+			'etaye'   => false,
+		);
+
+		$GLOBALS['seca_audit']['non_etaye'] = $GLOBALS['seca_audit']['non_etaye'] + 1;
+
+		printf( "  %-7s %s — [NON ÉTAYÉ : aucune preuve] %s\n", strtoupper( $gravite ), $libelle, ( '' !== $detail ? '— ' . $detail : '' ) );
+
+		return false;
+	}
+
 	$GLOBALS['seca_audit']['constats'][] = array(
 		'libelle' => $libelle,
 		'detail'  => $detail,
 		'gravite' => $gravite,
+		'preuve'  => $preuve,
+		'etaye'   => true,
 	);
 
 	if ( isset( $GLOBALS['seca_audit'][ $gravite ] ) ) {
@@ -89,16 +129,73 @@ function audit_verifier( $libelle, $condition, $detail = '', $gravite = 'mineur'
  * @param string $libelle Remarque.
  * @param string $detail  Détail.
  */
-function audit_info( $libelle, $detail = '' ) {
+function audit_info( $libelle, $detail = '', $preuve = '' ) {
 	$GLOBALS['seca_audit']['constats'][] = array(
 		'libelle' => $libelle,
 		'detail'  => $detail,
 		'gravite' => 'info',
+		'preuve'  => $preuve,
+		'etaye'   => '' !== trim( (string) $preuve ),
 	);
 
 	$GLOBALS['seca_audit']['info']++;
 
 	printf( "  [INFO] %s%s\n", $libelle, ( '' !== $detail ? ' — ' . $detail : '' ) );
+}
+
+/**
+ * Identifie l'expert : son domaine et son périmètre exact.
+ *
+ * Un auditeur qui ne dit pas ce qu'il couvre (et ce qu'il ne couvre pas)
+ * n'est pas impartial : son silence serait pris pour une garantie.
+ *
+ * @param string $expert    Nom du domaine d'expertise.
+ * @param string $perimetre Ce qui est couvert, et ce qui ne l'est pas.
+ */
+function audit_expert( $expert, $perimetre ) {
+	$GLOBALS['seca_audit']['expert']    = $expert;
+	$GLOBALS['seca_audit']['perimetre'] = $perimetre;
+
+	printf( "\n  Expert : %s\n", $expert );
+	printf( "  Périmètre : %s\n", $perimetre );
+}
+
+/**
+ * Enregistre une force constatée (et sa preuve).
+ *
+ * Un rapport qui ne dit que les défauts est injuste : il faut aussi dire
+ * ce qui est bon, et le prouver de la même manière.
+ *
+ * @param string $libelle Ce qui est bon.
+ * @param string $preuve  La preuve.
+ */
+function audit_force( $libelle, $preuve = '' ) {
+	$GLOBALS['seca_audit']['forces'][] = array(
+		'libelle' => $libelle,
+		'preuve'  => $preuve,
+	);
+
+	printf( "  [FORCE] %s\n", $libelle );
+}
+
+/**
+ * Enregistre un scénario réellement joué, avec sa sortie.
+ *
+ * C'est la trace d'exécution : le Comité peut vérifier qu'un scénario a
+ * bien été joué, et relire ce qu'il a produit.
+ *
+ * @param string $nom    Nom du scénario.
+ * @param string $resultat Ce que le scénario a donné (court).
+ * @param string $sortie  La sortie brute (la preuve).
+ */
+function audit_scenario( $nom, $resultat, $sortie = '' ) {
+	$GLOBALS['seca_audit']['scenarios'][] = array(
+		'nom'     => $nom,
+		'resultat'=> $resultat,
+		'sortie'  => $sortie,
+	);
+
+	printf( "  [SCÉNARIO] %s → %s\n", $nom, $resultat );
 }
 
 /**
@@ -176,14 +273,22 @@ function audit_fin( $dossier = null ) {
 
 	file_put_contents( $dossier . '/' . $nom . '.md', $markdown );
 
+	/* Le rapport HTML fait foi : il porte les preuves et les forces. */
+	file_put_contents( $dossier . '/' . $nom . '.html', audit_html_rapport( $a ) );
+
 	file_put_contents(
 		$dossier . '/' . $nom . '.json',
 		wp_json_encode(
 			array(
-				'domaine'  => $a['domaine'],
-				'titre'    => $a['titre'],
-				'date'     => gmdate( 'c', $a['debut'] ),
-				'ok'       => $a['ok'],
+				'domaine'   => $a['domaine'],
+				'titre'     => $a['titre'],
+				'expert'    => $a['expert'],
+				'perimetre' => $a['perimetre'],
+				'date'      => gmdate( 'c', $a['debut'] ),
+				'ok'        => $a['ok'],
+				'non_etaye' => isset( $a['non_etaye'] ) ? $a['non_etaye'] : 0,
+				'forces'    => $a['forces'],
+				'scenarios' => $a['scenarios'],
 				'bloquant' => $a['bloquant'],
 				'majeur'   => $a['majeur'],
 				'mineur'   => $a['mineur'],
@@ -204,9 +309,17 @@ function audit_fin( $dossier = null ) {
 		$a['info']
 	);
 
-	printf( "Rapport : docs/audits/%s.md\n", $nom );
+	printf( "Rapport : docs/audits/%s.html\n", $nom );
 
-	return $a['bloquant'] > 0 ? 1 : 0;
+	/* IMPORTANT
+	   On termine par exit() et non par return : quand un script est
+	   lancé par « wp eval-file », la valeur renvoyée par return est
+	   IGNORÉE par WP-CLI, et le code de sortie reste 0. La barrière
+	   (run-audits.sh) repose pourtant sur ce code de sortie : sans
+	   exit(), un constat bloquant ne bloquerait rien.
+	   Vérifié le 01/11/2026 : « wp eval-file » avec « return 3 »
+	   sort avec le code 0 ; avec « exit(7) » il sort avec le code 7. */
+	exit( $a['bloquant'] > 0 ? 1 : 0 );
 }
 
 /**

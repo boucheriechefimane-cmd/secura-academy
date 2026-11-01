@@ -145,6 +145,18 @@ final class Secura_Paths {
 			update_post_meta( $post_id, SECURA_META_XP_BONUS, $path['xp_bonus'] );
 			update_post_meta( $post_id, SECURA_META_PATH_I18N, isset( $path['i18n'] ) ? $path['i18n'] : array() );
 
+			/* La certification visee : ou cette formation mene-t-elle
+			   l'eleve, et a quel cout ? C'est la question que l'eleve
+			   pose. On l'ecrit, on ne la laisse pas implicite. */
+			if ( ! empty( $path['certification'] ) ) {
+				update_post_meta( $post_id, '_secura_certification', $path['certification'] );
+
+				/* Le parcours delivre bien un certificat : celui de la
+				   plateforme, en plus de la preparation a une
+				   certification reconnue. */
+				update_post_meta( $post_id, '_secura_certificate', 1 );
+			}
+
 			$order++;
 		}
 	}
@@ -241,6 +253,27 @@ final class Secura_Paths {
 			$room_count += count( $section['rooms'] );
 		}
 
+		/* La certification visee : ou ce parcours mène l'eleve. Les
+		   textes explicatifs sont traduits dans la langue du visiteur ;
+		   le nom de la certification, lui, reste identique partout. */
+		$certification = get_post_meta( $path_id, '_secura_certification', true );
+
+		if ( ! is_array( $certification ) || empty( $certification ) ) {
+			$certification = array();
+		} else {
+			$traductions = isset( $translation['certification'] ) && is_array( $translation['certification'] )
+				? $translation['certification']
+				: array();
+
+			if ( isset( $traductions[ $lang ]['preparation'] ) ) {
+				$certification['preparation'] = $traductions[ $lang ]['preparation'];
+			}
+
+			if ( isset( $traductions[ $lang ]['cout'] ) ) {
+				$certification['cout'] = $traductions[ $lang ]['cout'];
+			}
+		}
+
 		return array(
 			'id'          => $path->ID,
 			'title'       => $translation['title'] ? $translation['title'] : get_the_title( $path ),
@@ -252,6 +285,7 @@ final class Secura_Paths {
 			'duration'    => absint( get_post_meta( $path->ID, SECURA_META_DURATION, true ) ),
 			'xp_bonus'    => absint( get_post_meta( $path->ID, SECURA_META_XP_BONUS, true ) ),
 			'certificate' => (bool) get_post_meta( $path->ID, '_secura_certificate', true ),
+			'certification' => $certification,
 		);
 	}
 

@@ -16,12 +16,14 @@ jobs:
   deploy:
     name: Déploiement vers WordPress
     runs-on: ubuntu-latest
+    # Un déploiement bloqué (SSH qui traîne) doit s'arrêter tout seul.
+    timeout-minutes: 30
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     environment:
       name: production
     steps:
       - name: Récupérer le code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Configurer SSH
         env:

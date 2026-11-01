@@ -56,6 +56,30 @@ add_action( 'after_setup_theme', 'secures_learning_setup' );
  * La description de la page, la carte de partage et les versions
  * dans d'autres langues (hreflang).
  */
+/**
+ * Le sens de lecture du document.
+ *
+ * La direction d'ecriture est une propriete du DOCUMENT, pas d'un
+ * bloc a l'interieur : elle doit etre portee par la balise <html>.
+ *
+ * WordPress ne le fait pas de lui-meme : sans cela, une page de
+ * contenu servie en arabe (les pages legales, un article) s'affiche
+ * de gauche a droite, avec la ponctuation a l'envers. C'est le
+ * defaut le plus visible de la version arabe.
+ *
+ * @return string ltr ou rtl.
+ */
+function secures_learning_direction() {
+	if ( class_exists( 'Secura_I18n' ) ) {
+		return Secura_I18n::direction();
+	}
+
+	return 'ltr';
+}
+
+/**
+ * Les balises meta de la page.
+ */
 function secures_learning_meta_tags() {
 	$est_room = is_singular( 'secura_room' );
 	$est_path = is_singular( 'secura_path' );
@@ -447,6 +471,26 @@ function secures_learning_footer_fallback() {
 		esc_url( home_url( '/' ) ),
 		esc_html__( 'Accueil', 'secura-learning' )
 	);
+
+	/* Les pages legales doivent etre accessibles : c'est une exigence
+	   legale, pas un agrement. */
+	foreach ( array(
+		'politique-de-confidentialite' => __( 'Politique de confidentialité', 'secura-learning' ),
+		'mentions-legales'             => __( 'Mentions légales', 'secura-learning' ),
+	) as $slug => $libelle ) {
+		$page = get_page_by_path( $slug );
+
+		if ( ! $page || 'publish' !== $page->post_status ) {
+			continue;
+		}
+
+		printf(
+			'<li><a href="%1$s">%2$s</a></li>',
+			esc_url( get_permalink( $page->ID ) ),
+			esc_html( $libelle )
+		);
+	}
+
 	echo '</ul>';
 }
 

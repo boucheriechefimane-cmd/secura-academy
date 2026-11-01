@@ -1,0 +1,36 @@
+{
+    "domaine": "accessibilite",
+    "titre": "Accessibilité — WCAG 2.2 niveau AA",
+    "expert": "Expert en accessibilité numérique (RGAA et WCAG 2.2 AA)",
+    "perimetre": "Applique la grille WCAG 2.2 AA critère par critère aux pages servies : texte alternatif, nom accessible des commandes, étiquetage des champs, structure des titres, contraste, navigation clavier, lien d'évitement, langue déclarée, sens de lecture, zoom, cibles tactiles et animations. Un audit automatique ne remplace pas un test avec un lecteur d'écran : ce qui n'est pas automatisable est dit explicitement.",
+    "date": "2026-11-01T16:56:57+00:00",
+    "ok": 10,
+    "non_etaye": 0,
+    "forces": [
+        {
+            "libelle": "Les images ont toutes une alternative textuelle (WCAG 1.1.1)",
+            "preuve": "Relevé sur 2 pages : 0 image sans alt"
+        }
+    ],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 2,
+    "constats": [
+        {
+            "libelle": "Pages contrôlées",
+            "detail": "accueil, room",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Un test avec un lecteur d'écran reste nécessaire",
+            "detail": "Ce que fait cet audit : il vérifie la présence des attributs (alt, aria-label, lang, dir), la structure des titres, et quelques règles mesurables dans le HTML. Ce qu'il ne fait pas : la lecture par un vrai lecteur d'écran (NVDA, VoiceOver), la navigation au clavier dans un navigateur réel, et le contraste calculé pixel par pixel — ce dernier est traité par l'auditeur UX/UI. Ces vérifications demandent un humain et un navigateur : elles sont signalées, pas masquées.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

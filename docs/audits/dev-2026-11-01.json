@@ -1,8 +1,13 @@
 {
     "domaine": "dev",
     "titre": "Audit externe — Développement technique",
-    "date": "2026-11-01T15:38:10+00:00",
+    "expert": "",
+    "perimetre": "",
+    "date": "2026-11-01T16:56:54+00:00",
     "ok": 14,
+    "non_etaye": 0,
+    "forces": [],
+    "scenarios": [],
     "bloquant": 0,
     "majeur": 0,
     "mineur": 0,
@@ -10,13 +15,17 @@
     "constats": [
         {
             "libelle": "volume de code examine",
-            "detail": "29 fichiers PHP (/home/user/secura-academy/wp-content/plugins/secura-academy et /home/user/secura-academy/wp-content/themes/secura-learning)",
-            "gravite": "info"
+            "detail": "30 fichiers PHP (/home/user/secura-academy/wp-content/plugins/secura-academy et /home/user/secura-academy/wp-content/themes/secura-learning)",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
         },
         {
             "libelle": "resultat des tests internes",
             "detail": "---------------------------------------------- | Résultat : 302 test(s) réussi(s), 0 échec(s).",
-            "gravite": "info"
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
         }
     ]
 }
