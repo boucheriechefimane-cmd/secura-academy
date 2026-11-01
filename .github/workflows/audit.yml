@@ -47,10 +47,11 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_DATABASE: wordpress
-          MYSQL_USER: wordpress
-          MYSQL_PASSWORD: wordpress
-          MYSQL_ROOT_PASSWORD: root
+          # Meme base et meme identifiants que la recette (scripts/ci-wordpress.sh).
+          MYSQL_DATABASE: seca_wp
+          MYSQL_USER: secures
+          MYSQL_PASSWORD: seca_ci_pw
+          MYSQL_ROOT_PASSWORD: root_ci_pw
         ports:
           - 3306:3306
         options: >-
