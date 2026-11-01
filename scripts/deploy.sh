@@ -34,6 +34,16 @@ echo ">> Sauvegarde de la version déployée"
 ssh "${SSH_ARGS[@]}" "$TARGET" \
 	"mkdir -p '$BACKUP_DIR' && tar -czf '$BACKUP_DIR/secura-$STAMP.tar.gz' -C '$WP_PATH' '$PLUGIN_PATH' '$THEME_PATH'"
 
+# La base de donnees part dans la meme sauvegarde : sans elle, une
+# restauration apres un incident perd les eleves, leurs progresses et
+# leurs medailles. (Recommandation de l'audit de securite.)
+echo ">> Sauvegarde de la base de données"
+ssh "${SSH_ARGS[@]}" "$TARGET" \
+	"cd '$WP_PATH' && ( wp db export '$BACKUP_DIR/base-$STAMP.sql' --add-drop-table 2>/dev/null \
+	   || mysqldump --single-transaction --quick \"\$(wp db query 'SELECT DATABASE()' --skip-column-names 2>/dev/null)\" > '$BACKUP_DIR/base-$STAMP.sql' ) \
+	   && gzip -f '$BACKUP_DIR/base-$STAMP.sql' \
+	   && ls -la '$BACKUP_DIR/base-$STAMP.sql.gz'"
+
 echo ">> Synchronisation du plugin"
 rsync -az --delete --no-owner --no-group -e "ssh -i $KEY -o StrictHostKeyChecking=yes -o BatchMode=yes" \
 	"$PLUGIN_PATH/" "$TARGET:$WP_PATH/$PLUGIN_PATH/"

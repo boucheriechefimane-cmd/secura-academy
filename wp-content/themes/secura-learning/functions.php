@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_LEARNING_VERSION', '0.5.6' );
+define( 'SECURA_LEARNING_VERSION', '0.6.0' );
 
 /**
  * Déclare les fonctionnalités du thème.
@@ -44,6 +44,146 @@ function secures_learning_setup() {
 	);
 }
 add_action( 'after_setup_theme', 'secures_learning_setup' );
+
+/* ----------------------------------------------------------------------
+ * Visibilité : ce que les moteurs et les réseaux sociaux voient.
+ *
+ * Sans ces balises, un moteur invente le résumé d'une room, et un
+ * partage sur WhatsApp ou Facebook s'affiche sans titre niaperçu.
+ * -------------------------------------------------------------------- */
+
+/**
+ * La description de la page, la carte de partage et les versions
+ * dans d'autres langues (hreflang).
+ */
+function secures_learning_meta_tags() {
+	$est_room = is_singular( 'secura_room' );
+	$titre    = $est_room ? get_the_title() : wp_get_document_title();
+	$url      = $est_room ? get_permalink() : home_url( '/' );
+
+	/* Le resume : celui de la room, ou celui du site. */
+	$description = '';
+
+	if ( $est_room ) {
+		$description = get_the_excerpt();
+	}
+
+	if ( '' === trim( (string) $description ) ) {
+		$description = get_bloginfo( 'description' );
+	}
+
+	if ( '' === trim( (string) $description ) ) {
+		$description = __( 'Plateforme gratuite et multilingue d\'apprentissage de la cybersecurite.', 'secura-learning' );
+	}
+
+	$description = wp_strip_all_tags( $description );
+
+	printf(
+		'<meta name="description" content="%s">' . "\n",
+		esc_attr( wp_html_excerpt( $description, 160, '…' ) )
+	);
+
+	/* La carte de partage (Facebook, WhatsApp, LinkedIn, X). */
+	printf( '<meta property="og:site_name" content="%s">' . "\n", esc_attr( get_bloginfo( 'name' ) ) );
+	printf( '<meta property="og:type" content="%s">' . "\n", esc_attr( $est_room ? 'article' : 'website' ) );
+	printf( '<meta property="og:title" content="%s">' . "\n", esc_attr( $titre ) );
+	printf( '<meta property="og:description" content="%s">' . "\n", esc_attr( wp_html_excerpt( $description, 160, '…' ) ) );
+	printf( '<meta property="og:url" content="%s">' . "\n", esc_url( $url ) );
+	printf( '<meta property="og:locale" content="%s">' . "\n", esc_attr( str_replace( '-', '_', determine_locale() ) ) );
+
+	$icone = get_site_icon_url( 512 );
+
+	if ( $icone ) {
+		printf( '<meta property="og:image" content="%s">' . "\n", esc_url( $icone ) );
+	}
+
+	/* La carte Twitter / X. */
+	printf( '<meta name="twitter:card" content="%s">' . "\n", 'summary_large_image' );
+	printf( '<meta name="twitter:title" content="%s">' . "\n", esc_attr( $titre ) );
+	printf( '<meta name="twitter:description" content="%s">' . "\n", esc_attr( wp_html_excerpt( $description, 160, '…' ) ) );
+
+	if ( $icone ) {
+		printf( '<meta name="twitter:image" content="%s">' . "\n", esc_url( $icone ) );
+	}
+
+	/* Les versions dans d'autres langues : sans cela, un moteur peut
+	   traiter la version arabe comme un doublon de la version
+	   francaise. */
+	$actuelle = determine_locale();
+	$actuelle = substr( $actuelle, 0, 2 );
+	$base     = remove_query_arg( 'seca_lang' );
+
+	foreach ( array(
+		'fr' => $base,
+		'ar' => add_query_arg( 'seca_lang', 'ar', $base ),
+		'en' => add_query_arg( 'seca_lang', 'en', $base ),
+	) as $langue => $adresse ) {
+		printf(
+			'<link rel="alternate" hreflang="%s" href="%s">' . "\n",
+			esc_attr( $langue ),
+			esc_url( $adresse )
+		);
+	}
+
+	printf( '<link rel="alternate" hreflang="x-default" href="%s">' . "\n", esc_url( $base ) );
+}
+add_action( 'wp_head', 'secures_learning_meta_tags', 1 );
+
+/**
+ * Les en-tetes de securite du site.
+ *
+ * Pas de cadres externes (clickjacking), pas de reanalyse de type
+ * MIME, et une politique de referant qui ne dit pas a quel site tiers
+ * l'eleve vient.
+ */
+function secures_learning_security_headers() {
+	if ( headers_sent() ) {
+		return;
+	}
+
+	header( 'X-Frame-Options: SAMEORIGIN' );
+	header( 'X-Content-Type-Options: nosniff' );
+	header( 'Referrer-Policy: strict-origin-when-cross-origin' );
+	header( 'Permissions-Policy: geolocation=(), microphone=(), camera=()' );
+}
+add_action( 'send_headers', 'secures_learning_security_headers' );
+
+/**
+ * Le choix de la langue : de vrais liens (donc utilisables meme sans
+ * JavaScript, et repérables par un moteur).
+ *
+ * @return string
+ */
+function secures_learning_language_switcher() {
+	$base   = remove_query_arg( 'seca_lang' );
+	$actuel = substr( (string) determine_locale(), 0, 2 );
+
+	$langues = array(
+		'fr' => __( 'Francais', 'secura-learning' ),
+		'ar' => __( 'Arabe', 'secura-learning' ),
+		'en' => __( 'Anglais', 'secura-learning' ),
+	);
+
+	$html = '<nav class="site-lang" aria-label="' . esc_attr__( 'Choisir la langue', 'secura-learning' ) . '">';
+
+	foreach ( $langues as $code => $nom ) {
+		$adresse = ( 'fr' === $code ) ? $base : add_query_arg( 'seca_lang', $code, $base );
+		$actif   = ( $code === $actuel );
+
+		$html .= sprintf(
+			'<a class="site-lang__link%s" href="%s" hreflang="%s"%s>%s</a>',
+			$actif ? ' is-active' : '',
+			esc_url( $adresse ),
+			esc_attr( $code ),
+			$actif ? ' aria-current="true"' : '',
+			esc_html( $nom )
+		);
+	}
+
+	$html .= '</nav>';
+
+	return $html;
+}
 
 /**
  * Charge la feuille de style du thème.

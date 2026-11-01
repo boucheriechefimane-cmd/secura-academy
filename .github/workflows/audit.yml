@@ -1,0 +1,110 @@
+name: Audit externe — comité de 5 auditeurs
+
+# Un comité d'audit externe, comme dans une organisation qui veut savoir
+# ce que dira un regard neuf avant la mise en production.
+#
+# Chaque auditeur a sa spécialité et sa grille de contrôle :
+#
+#   seo        — le site est-il compris et indexable par les moteurs ?
+#   contenu    — le contenu est-il complet, traduit, attribué, honnête ?
+#   ux         — l'élève peut-il s'en servir sur un téléphone, en RTL ?
+#   dev        — le code est-il propre, compatible, testé ?
+#   securite   — les secrets, l'isolation, les en-têtes, la livraison ?
+#
+# Ils travaillent dans un vrai WordPress (MySQL + PHP), sur le site
+# réellement rendu, et leurs rapports sont archivés comme des artefacts.
+#
+# Un constat « bloquant » fait échouer le job : c'est une barrière.
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+  schedule:
+    # Un audit complet chaque semaine (le lundi à 6 h), comme un
+    # contrôle qualité récurrent.
+    - cron: '0 6 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-externe
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Audit externe (5 auditeurs, WordPress réel)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: wordpress
+          MYSQL_USER: wordpress
+          MYSQL_PASSWORD: wordpress
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer PHP et WP-CLI
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mysqli
+          tools: wp-cli
+
+      - name: Installer WordPress et le plugin
+        run: bash scripts/ci-wordpress.sh
+
+      - name: Démarrer le site
+        run: |
+          nohup php -S 0.0.0.0:8080 -t "$SECA_WP_DIR" scripts/audit/router.php > /tmp/serveur.log 2>&1 &
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/ || true)
+            if [ "$code" = "200" ]; then echo "Site en ligne (HTTP $code)"; exit 0; fi
+            sleep 1
+          done
+          echo "Le site ne répond pas" >&2
+          exit 1
+
+      - name: Les cinq auditeurs passent au crible
+        run: bash scripts/audit/run-audits.sh
+
+      - name: Lister les rapports produits
+        if: always()
+        run: |
+          mkdir -p docs/audits
+          ls -la docs/audits/ || true
+
+      - name: Archiver les rapports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapports-audit-externe
+          path: docs/audits/
+          retention-days: 90
+
+      - name: Résumé de l'audit
+        if: always()
+        run: |
+          echo "## Comité d'audit externe" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          for fichier in docs/audits/*.md; do
+            [ -f "$fichier" ] || continue
+            echo "### $(basename "$fichier")" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '/## Constats/,/## Verdict/p' "$fichier" | head -60 >> "$GITHUB_STEP_SUMMARY" || true
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+          done

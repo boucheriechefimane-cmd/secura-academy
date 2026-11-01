@@ -321,3 +321,42 @@ img {
 		scroll-behavior: auto !important;
 	}
 }
+
+/* ----------------------------------------------------------------------
+ * Le choix de la langue
+ * -------------------------------------------------------------------- */
+
+.site-lang {
+	display: flex;
+	gap: .35rem;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.site-lang__link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.25rem;
+	min-width: 2.25rem;
+	padding-inline: .55rem;
+	border: 1px solid var(--secura-border);
+	border-radius: 999px;
+	color: var(--secura-muted);
+	text-decoration: none;
+	font-size: .85rem;
+	line-height: 1;
+}
+
+.site-lang__link:hover,
+.site-lang__link:focus-visible {
+	color: var(--secura-text);
+	border-color: var(--secura-accent);
+}
+
+.site-lang__link.is-active {
+	background: var(--secura-accent);
+	border-color: var(--secura-accent);
+	color: #07131f;
+	font-weight: 700;
+}

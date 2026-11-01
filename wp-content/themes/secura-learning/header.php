@@ -37,6 +37,12 @@
 			);
 			?>
 		</nav>
+
+		<?php
+		/* Le choix de la langue : de vrais liens, utilisables meme sans
+		   JavaScript (et repérables par les moteurs). */
+		echo secures_learning_language_switcher(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- la fonction renvoie du HTML deja echappe.
+		?>
 	</div>
 </header>
 
