@@ -17,23 +17,32 @@ execute, seule l'isolement noyau n'est pas verifiable ici.
 
 import http.cookiejar
 import json
+import os
 import re
 import subprocess
 import sys
 import urllib.parse
 import urllib.request
 
-BASE = "http://localhost:8080"
+BASE = os.environ.get("SECA_BASE_URL", "http://localhost:8080")
 ADMIN_AJAX = BASE + "/wp-admin/admin-ajax.php"
 
-ROOM_WEB = 6     # « Securiser une application web »  (mode single, web-01)
-ROOM_NET = 5     # « Les fondamentaux du reseau »   (mode compose, net-01)
-ROOM_BIN = 7     # « Memoire et defenses »          (mode single, bin-01)
+# Les identifiants des rooms sont donnes par l'environnement quand la
+# recette tourne dans la CI (les numeros changent d'une installation a
+# l'autre) ; sinon, on garde ceux du bac a sable local.
+ROOM_WEB = int(os.environ.get("SECA_ROOM_WEB", 6))   # « Securiser une application web » (mode single, web-01)
+ROOM_NET = int(os.environ.get("SECA_ROOM_NET", 5))   # « Les fondamentaux du reseau »  (mode compose, net-01)
+ROOM_BIN = int(os.environ.get("SECA_ROOM_BIN", 7))   # « Memoire et defenses »         (mode single, bin-01)
+
+# Identifiants des apprenants : ils sont lus dans WordPress au demarrage
+# (ils dependent de l'installation), sinon on prend les valeurs usuelles.
+USER_ALICE = int(os.environ.get("SECA_USER_ALICE", 2))
+USER_BOB = int(os.environ.get("SECA_USER_BOB", 3))
 
 ROOMS = {
-    ROOM_WEB: ("http://localhost:8080/?secura_room=securiser-une-application-web", "web-01"),
-    ROOM_NET: ("http://localhost:8080/?secura_room=les-fondamentaux-du-reseau", "net-01"),
-    ROOM_BIN: ("http://localhost:8080/?secura_room=memoire-et-defenses", "bin-01"),
+    ROOM_WEB: (BASE + "/?secura_room=securiser-une-application-web", "web-01"),
+    ROOM_NET: (BASE + "/?secura_room=les-fondamentaux-du-reseau", "net-01"),
+    ROOM_BIN: (BASE + "/?secura_room=memoire-et-defenses", "bin-01"),
 }
 
 OK = "\033[32mOK\033[0m"
@@ -137,17 +146,17 @@ def play(user, pwd, room_id, commands):
     result["nonce"] = bool(nonce)
     result["has_lab_bar"] = 'data-seca-lab' in html
 
-    start = ajax(opener, "securа_lab_start".replace("а", "a"), nonce, room_id=room_id)
+    start = ajax(opener, "secura_lab_start", nonce, room_id=room_id)
     result["start"] = start
     result["started_at"] = start.get("data", {}).get("started_at") if start.get("success") else None
 
     outs = []
     for command in commands:
-        answer = ajax(opener, "securа_terminal".replace("а", "a"), nonce, room_id=room_id, task=0, command=command)
+        answer = ajax(opener, "secura_terminal", nonce, room_id=room_id, task=0, command=command)
         outs.append((command, answer))
     result["commands"] = outs
 
-    status = ajax(opener, "securа_lab_status".replace("а", "a"), nonce, room_id=room_id)
+    status = ajax(opener, "secura_lab_status", nonce, room_id=room_id)
     result["status"] = status
     return result
 
@@ -202,15 +211,22 @@ def main():
 
     names = [row[0] for row in rows]
     check("Les conteneurs ont des noms differents", len(names) == len(set(names)), ", ".join(names))
-    check("Un reseau par apprenant", len([n for n in nets if n.startswith("seca_lab_2_")]) == 1 and len([n for n in nets if n.startswith("seca_lab_3_")]) == 1, ", ".join(nets))
+    prefixe_alice = "seca_lab_%d_" % USER_ALICE
+    prefixe_bob = "seca_lab_%d_" % USER_BOB
+    check(
+        "Un reseau par apprenant",
+        len([n for n in nets if n.startswith(prefixe_alice)]) == 1
+        and len([n for n in nets if n.startswith(prefixe_bob)]) == 1,
+        ", ".join(nets),
+    )
     check(
         "Le conteneur d'Alice porte son identifiant",
-        any(row[0].startswith("seca_lab_2_") for row in rows),
+        any(row[0].startswith(prefixe_alice) for row in rows),
         ", ".join(row[0] for row in rows),
     )
     check(
         "Le conteneur de Bob porte son identifiant",
-        any(row[0].startswith("seca_lab_3_") for row in rows),
+        any(row[0].startswith(prefixe_bob) for row in rows),
         ", ".join(row[0] for row in rows),
     )
 
@@ -234,7 +250,11 @@ def main():
     projects = [p for p in projects if p]
     say("  Projets Compose : %s" % ", ".join(projects))
     check("Deux projets Compose distincts", len(projects) == 2, ", ".join(projects))
-    check("Projet d'Alice != projet de Bob", all("2_" not in p or p not in [q for q in projects if "3_" in q] for p in projects))
+    check(
+        "Projet d'Alice != projet de Bob",
+        all(prefixe_alice.replace("lab_", "") not in p or p not in [q for q in projects if prefixe_bob.replace("lab_", "") in q] for p in projects),
+        ", ".join(projects),
+    )
 
     step("6. Arret des machines")
     for user, pwd, room in (
@@ -246,7 +266,7 @@ def main():
         opener = session(user, pwd)
         url, _ = ROOMS[room]
         nonce, _ = nonce_of(opener, url)
-        ajax(opener, "securа_lab_stop".replace("а", "a"), nonce, room_id=room)
+        ajax(opener, "secura_lab_stop", nonce, room_id=room)
     rows = docker_state()
     say("  Conteneurs restants : %s" % (", ".join(row[0] for row in rows) or "(aucun)"))
 

@@ -84,7 +84,7 @@ secura-academy/
 ├── .github/workflows/ci.yml                 # Lint PHP + tests + espaces fin de ligne
 ├── .github/workflows/deploy.yml             # Déploiement vers WordPress (rsync + sauvegarde)
 ├── scripts/deploy.sh                       # Script de déploiement appelé par le workflow
-├── tests/smoke-test.php                    # 246 assertions sur la logique serveur
+├── tests/smoke-test.php                    # 250 assertions sur la logique serveur
 ├── docs/
 │   ├── ROADMAP.md                          # CONSTITUTION du projet (source de vérité, revue à chaque session)
 │   ├── AUDIT-EXPERIENCE-APPRENANT.md      # Audit UX apprenant + comparaison THM + alignement MIT
@@ -521,7 +521,7 @@ formulations peuvent être déclarées par question.
 php tests/smoke-test.php
 ```
 
-Le harnais émule les fonctions WordPress nécessaires et vérifie **226 assertions** :
+Le harnais émule les fonctions WordPress nécessaires et vérifie **250 assertions** :
 normalisation des réponses, paliers de niveau, barème et multiplicateurs,
 attribution et idempotence des XP, malus d'indice, verrouillage progressif,
 score pondéré, médailles, examens chronométrés (démarrage, expiration, nouvelle
@@ -541,6 +541,18 @@ blanche/noire, blocages systématiques), nettoyage de la sortie et troncature.
 La CI exécute en plus le lint PHP de tous les fichiers et le contrôle des espaces
 en fin de ligne.
 
+### La recette complète, dans GitHub (et plus seulement dans le bac à sable)
+
+Le workflow `wordpress.yml` installe un **vrai WordPress** (MySQL en service,
+plugin et thème du dépôt, pack de langue arabe) et rejoue la recette de bout
+en bout : le site répond en français, en arabe et en anglais, les 16 rooms et
+les 2 parcours existent, un QCM se valide, l'XP monte, une mauvaise réponse est
+refusée, et la bonne réponse ne quitte jamais le serveur.
+
+Il le fait **avec** les plugins que le site pourrait héberger (Polylang,
+LiteSpeed Cache, Elementor, Contact Form 7, WooCommerce) : voir
+[`docs/COMPATIBILITE-PLUGINS.md`](docs/COMPATIBILITE-PLUGINS.md).
+
 ## Déploiement
 
 Le dépôt est versionné sur GitHub, en **repository privé**. Deux workflows
@@ -550,7 +562,8 @@ GitHub Actions sont présents :
 |---|---|---|
 | `.github/workflows/ci.yml` | push sur `main`, pull request, manuel | Lint PHP, tests de logique, espaces en fin de ligne |
 | `.github/workflows/deploy.yml` | push sur `main`, manuel | Sauvegarde la version déployée, synchronise le plugin et le thème par `rsync`, contrôle que le site répond |
-| `.github/workflows/labs.yml` | push sur `main`, manuel | **Vraies machines Docker** : construit les 3 images, lance deux apprenants sur deux réseaux, vérifie l'isolation, les drapeaux et la pile réseau (17 contrôles) |
+| `.github/workflows/labs.yml` | push sur `main`, manuel | **Vraies machines Docker** : construit les 4 images, lance deux apprenants sur deux réseaux, vérifie l'isolation, les drapeaux, la pile réseau et rejoue les dix scénarios (45 contrôles) |
+| `.github/workflows/wordpress.yml` | push sur `main`, pull request, manuel, hebdomadaire | **WordPress réel** : installe le site, rejoue la recette de bout en bout, vérifie les trois langues et la compatibilité avec les plugins tiers (Polylang, LiteSpeed Cache, Elementor, Contact Form 7, WooCommerce) |
 
 Tant que les secrets GitHub ne sont pas configurés, le job de déploiement
 s'arrête proprement en affichant « Secrets de déploiement absents » : la CI
@@ -626,9 +639,10 @@ VPS est dans [`docs/RECETTE-SERVEUR.md`](docs/RECETTE-SERVEUR.md).
   Docker Compose est encore fixe, deux élèves pourraient se partager la même
   pile de conteneurs. À corriger avant l'ouverture publique (M1).
 - **Multi-site** non pris en charge explicitement.
-- **Aucune suite de tests end-to-end.** La CI vérifie la syntaxe PHP et exécute
-  `tests/smoke-test.php`. Le comportement en conditions réelles reste à valider
-  en staging.
+- **La recette automatique ne remplace pas la recette sur l'hébergement réel.**
+  La CI rejoue tout dans un WordPress standard ; le cache LiteSpeed de
+  l'hébergeur et le comportement exact de l'hébergement restent à vérifier sur
+  la machine de staging (`docs/RECETTE-SERVEUR.md`).
 - **Revue de sécurité et tests d'accessibilité** à faire avec une version
   WordPress/PHP cible en staging, avant production.
 

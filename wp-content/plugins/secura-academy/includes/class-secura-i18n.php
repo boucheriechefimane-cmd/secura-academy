@@ -51,7 +51,10 @@ final class Secura_I18n {
 	 */
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'maybe_switch_locale' ), 1 );
-		add_filter( 'locale', array( __CLASS__, 'filter_locale' ) );
+
+		/* Priorite haute : si un autre plugin multilingue propose aussi
+		   une locale, c'est la nôtre qui gagne (l'apprenant a choisi). */
+		add_filter( 'locale', array( __CLASS__, 'filter_locale' ), 99 );
 	}
 
 	/**
@@ -117,7 +120,20 @@ final class Secura_I18n {
 	public static function forced_lang() {
 		$languages = self::languages();
 
-		if ( isset( $_GET['lang'] ) ) {
+		/* Notre parametre a nous (« seca_lang ») : il ne peut pas
+		   entrer en conflit avec un autre plugin multilingue. */
+		if ( isset( $_GET['seca_lang'] ) ) {
+			$candidate = sanitize_key( wp_unslash( $_GET['seca_lang'] ) );
+
+			if ( isset( $languages[ $candidate ] ) ) {
+				return $candidate;
+			}
+		}
+
+		/* « lang » reste accepté, mais seulement si aucun plugin
+		   multilingue ne s'en sert deja (Polylang utilise « lang »
+		   pour ses propres adresses : on ne se marche pas dessus). */
+		if ( isset( $_GET['lang'] ) && ! self::other_language_plugin() ) {
 			$candidate = sanitize_key( wp_unslash( $_GET['lang'] ) );
 
 			if ( isset( $languages[ $candidate ] ) ) {
@@ -648,11 +664,17 @@ final class Secura_I18n {
 	 * @param string $lang Code de langue.
 	 */
 	public static function switch_language() {
-		if ( ! isset( $_GET['lang'] ) ) {
-			return;
+		$parametre = 'seca_lang';
+
+		if ( ! isset( $_GET[ $parametre ] ) ) {
+			if ( isset( $_GET['lang'] ) && ! self::other_language_plugin() ) {
+				$parametre = 'lang';
+			} else {
+				return;
+			}
 		}
 
-		$lang = sanitize_key( wp_unslash( $_GET['lang'] ) );
+		$lang = sanitize_key( wp_unslash( $_GET[ $parametre ] ) );
 
 		if ( ! isset( self::languages()[ $lang ] ) ) {
 			return;
@@ -662,10 +684,23 @@ final class Secura_I18n {
 			self::set_user_lang( $lang );
 		}
 
-		$target = remove_query_arg( array( 'lang' ), self::current_url() );
+		$target = remove_query_arg( array( 'seca_lang', 'lang' ), self::current_url() );
 
-		wp_safe_redirect( add_query_arg( 'lang', $lang, $target ) );
+		wp_safe_redirect( add_query_arg( $parametre, $lang, $target ) );
 		exit;
+	}
+
+	/**
+	 * Un autre plugin multilingue est-il actif (Polylang, WPML...) ?
+	 *
+	 * Ces plugins utilisent le parametre « lang » dans leurs adresses.
+	 * Quand ils sont presents, on ne touche pas a ce parametre : nos
+	 * propres liens utilisent « seca_lang », et chacun garde son adresse.
+	 *
+	 * @return bool
+	 */
+	public static function other_language_plugin() {
+		return defined( 'POLYLANG_VERSION' ) || defined( 'ICL_SITEPRESS_VERSION' ) || function_exists( 'pll_default_language' );
 	}
 
 	/**

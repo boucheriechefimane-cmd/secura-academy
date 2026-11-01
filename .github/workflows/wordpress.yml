@@ -1,0 +1,225 @@
+name: WordPress — recette et compatibilité
+
+# Ce workflow remplace le bac à sable local : il installe un vrai WordPress
+# (avec MySQL en service), active le plugin et le thème du dépôt, puis
+# vérifie que tout fonctionne vraiment.
+#
+# Trois choses sont testées :
+#
+#   1. compatibilite — la plateforme doit continuer de fonctionner quand
+#      d'autres plugins sont installés (LiteSpeed Cache, Polylang, etc.) ;
+#   2. recette — la recette complète : WordPress + vraies machines Docker
+#      + deux apprenants en parallèle + les 45 contrôles des machines ;
+#   3. litespeed — le vrai serveur LiteSpeed (OpenLiteSpeed) avec le cache
+#      activé : nos pages dynamiques ne doivent jamais être servies par le
+#      cache.
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+  schedule:
+    - cron: '23 5 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SECA_WP_DIR: ${{ github.workspace }}/wp-ci
+  SECA_WP_URL: http://localhost:8080
+  SECA_LABS_PATH: ${{ github.workspace }}/labs
+  SECA_DB_NAME: seca_wp
+  SECA_DB_USER: seca
+  SECA_DB_PASSWORD: seca_ci_pw
+  SECA_DB_HOST: 127.0.0.1
+  SECA_DB_PORT: 3306
+
+jobs:
+  compatibilite:
+    name: Compatibilité — ${{ matrix.nom }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - nom: 'WordPress seul'
+            plugins: ''
+          - nom: 'Polylang'
+            plugins: 'polylang'
+          - nom: 'LiteSpeed Cache'
+            plugins: 'litespeed-cache'
+          - nom: 'Elementor'
+            plugins: 'elementor'
+          - nom: 'Contact Form 7'
+            plugins: 'contact-form-7'
+          - nom: 'WooCommerce'
+            plugins: 'woocommerce'
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: ${{ env.SECA_DB_NAME }}
+          MYSQL_USER: ${{ env.SECA_DB_USER }}
+          MYSQL_PASSWORD: ${{ env.SECA_DB_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: root_ci_pw
+        ports:
+          - '3306:3306'
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer PHP et WP-CLI
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mysqli
+          tools: wp-cli
+
+      - name: Installer WordPress, le plugin et les plugins tiers
+        run: bash scripts/ci-wordpress.sh ${{ matrix.plugins }}
+
+      - name: Démarrer le site
+        run: |
+          nohup php -S 0.0.0.0:8080 -t "$SECA_WP_DIR" > /tmp/serveur.log 2>&1 &
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/ || true)
+            if [ "$code" = "200" ]; then echo "Site en ligne (HTTP $code)"; exit 0; fi
+            sleep 1
+          done
+          echo "Le site ne répond pas" >&2
+          tail -20 /tmp/serveur.log >&2
+          exit 1
+
+      - name: Le site répond dans les trois langues
+        run: |
+          for langue in fr ar en; do
+            code=$(curl -s -o /tmp/page-$langue.html -w '%{http_code}' "http://localhost:8080/?seca_lang=$langue")
+            echo "  $langue : HTTP $code"
+            test "$code" = "200" || { echo "La page $langue ne répond pas" >&2; exit 1; }
+          done
+          grep -q 'dir="rtl"' /tmp/page-ar.html || { echo "La page arabe n'est pas en RTL" >&2; exit 1; }
+          echo "  La page arabe est bien en écriture de droite à gauche"
+
+      - name: Recette de bout en bout
+        run: wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php
+
+      - name: Chercher une erreur PHP fatale
+        run: |
+          journal="$SECA_WP_DIR/wp-content/debug.log"
+          if [ -f "$journal" ]; then
+            if grep -nE "Fatal error|Parse error|Uncaught" "$journal"; then
+              echo "::error::Erreur PHP fatale détectée avec les plugins : ${{ matrix.plugins }}"
+              exit 1
+            fi
+            echo "Journal PHP : $(wc -l < "$journal") ligne(s), aucune erreur fatale"
+          else
+            echo "Aucune erreur PHP"
+          fi
+
+      - name: Conserver le journal PHP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: journal-php-${{ matrix.nom }}
+          path: ${{ env.SECA_WP_DIR }}/wp-content/debug.log
+          if-no-files-found: ignore
+
+  recette:
+    name: Recette complète (WordPress + machines + deux élèves)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: ${{ env.SECA_DB_NAME }}
+          MYSQL_USER: ${{ env.SECA_DB_USER }}
+          MYSQL_PASSWORD: ${{ env.SECA_DB_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: root_ci_pw
+        ports:
+          - '3306:3306'
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer PHP et WP-CLI
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mysqli
+          tools: wp-cli
+
+      - name: Construire les machines
+        run: |
+          for machine in web-01 bin-01 multi-01 internal-01; do
+            echo "Construction de $machine…"
+            docker build -q -t "securalabs/$machine:1.0" "labs/$machine"
+          done
+          docker images --format '{{.Repository}}:{{.Tag}}'
+
+      - name: Installer WordPress et le plugin
+        run: bash scripts/ci-wordpress.sh
+
+      - name: Démarrer le site
+        run: |
+          nohup php -S 0.0.0.0:8080 -t "$SECA_WP_DIR" > /tmp/serveur.log 2>&1 &
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/ || true)
+            if [ "$code" = "200" ]; then echo "Site en ligne (HTTP $code)"; exit 0; fi
+            sleep 1
+          done
+          echo "Le site ne répond pas" >&2
+          exit 1
+
+      - name: Recette avec les vraies machines
+        run: wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php --avec-machine
+
+      - name: Scénario des deux apprenants (isolation)
+        run: |
+          SECA_ROOM_WEB=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=securiser-une-application-web --field=ID)
+          SECA_ROOM_NET=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=les-fondamentaux-du-reseau --field=ID)
+          SECA_ROOM_BIN=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=memoire-et-defenses --field=ID)
+          SECA_USER_ALICE=$(wp --path="$SECA_WP_DIR" --allow-root user get alice --field=ID)
+          SECA_USER_BOB=$(wp --path="$SECA_WP_DIR" --allow-root user get bob --field=ID)
+          echo "Rooms : web=$SECA_ROOM_WEB net=$SECA_ROOM_NET bin=$SECA_ROOM_BIN"
+          echo "Apprenants : alice=$SECA_USER_ALICE bob=$SECA_USER_BOB"
+          SECA_ROOM_WEB="$SECA_ROOM_WEB" SECA_ROOM_NET="$SECA_ROOM_NET" SECA_ROOM_BIN="$SECA_ROOM_BIN" \
+          SECA_USER_ALICE="$SECA_USER_ALICE" SECA_USER_BOB="$SECA_USER_BOB" \
+            python3 tools/recette-apprenants/scenario.py
+
+      - name: Les 45 contrôles des machines
+        run: bash scripts/test-labs-ci.sh
+
+      - name: Chercher une erreur PHP fatale
+        run: |
+          journal="$SECA_WP_DIR/wp-content/debug.log"
+          if [ -f "$journal" ] && grep -nE "Fatal error|Parse error|Uncaught" "$journal"; then
+            echo "::error::Erreur PHP fatale pendant la recette"
+            exit 1
+          fi
+          echo "Aucune erreur PHP fatale"
+
+      - name: Conserver le journal PHP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: journal-php-recette
+          path: ${{ env.SECA_WP_DIR }}/wp-content/debug.log
+          if-no-files-found: ignore

@@ -963,6 +963,25 @@ echo "\nMultilingue\n";
 check( 3 === count( Secura_I18n::languages() ), 'trois langues sont proposées' );
 check( 'rtl' === Secura_I18n::languages()['ar']['dir'], 'l\'arabe est en écriture de droite à gauche' );
 check( 'fr' === Secura_I18n::current_lang(), 'le français est la langue par défaut' );
+
+/* Regression : « ?lang= » appartient aux plugins multilingues (Polylang
+   l'utilise pour ses adresses). Notre parametre a nous est « ?seca_lang= »,
+   et « ?lang= » n'est lu que si aucun autre plugin ne s'en sert. */
+check( false === Secura_I18n::other_language_plugin(), 'aucun plugin multilingue tiers n est detecte' );
+
+$_GET['seca_lang'] = 'ar';
+
+check( 'ar' === Secura_I18n::forced_lang(), 'notre parametre de langue fonctionne' );
+
+$_GET['lang'] = 'en';
+
+check( 'ar' === Secura_I18n::forced_lang(), 'notre parametre a la priorite sur le parametre classique' );
+
+unset( $_GET['seca_lang'] );
+
+check( 'en' === Secura_I18n::forced_lang(), 'le parametre classique reste accepte quand personne ne le revendique' );
+
+unset( $_GET['lang'] );
 check( 'ltr' === Secura_I18n::direction(), 'la direction par défaut est LTR' );
 
 $dictionary = Secura_I18n::dictionary();

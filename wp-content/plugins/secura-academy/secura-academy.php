@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.5.5
+ * Version:           0.5.6
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,13 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.5.6 — La recette WordPress passe dans GitHub (avec vrais plugins tiers)
+ *   - nouveau workflow « wordpress.yml » : vrai WordPress + MySQL en service,
+ *     recette de bout en bout et compatibilité avec les plugins du site ;
+ *   - notre sélecteur de langue utilise « ?seca_lang= » : il ne se marche
+ *     plus dessus avec Polylang (qui Teachait une erreur 404 sur nos pages) ;
+ *   - notre choix de langue passe devant celui des autres plugins multilingues.
  *
  * 0.5.5 — Correction : un déploiement réussi n'est plus déclaré en échec
  *   (lecture du code de sortie fiable sur PHP 7.4 et 8), outillage de
@@ -50,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.5.5' );
+define( 'SECURA_ACADEMY_VERSION', '0.5.6' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
