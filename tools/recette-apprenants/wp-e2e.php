@@ -42,6 +42,59 @@ function verifier( $libelle, $condition, $detail = '' ) {
 	}
 }
 
+/**
+ * Telecharge une adresse du site, en conservant le nom d'hote declare.
+ *
+ * WordPress peut rediriger une requete dont l'hote ne correspond pas a
+ * l'adresse du site (code 301). On renvoie alors l'adresse canonique
+ * declaree, qui est la bonne.
+ *
+ * @param string $url L'adresse a telecharger.
+ * @return array Le corps de la reponse et son code.
+ */
+function securite_telecharger( $url ) {
+	$reponse = wp_remote_get(
+		$url,
+		array(
+			'timeout'     => 20,
+			'redirection' => 5,
+			'sslverify'   => false,
+		)
+	);
+
+	if ( is_wp_error( $reponse ) ) {
+		return array( '', 0 );
+	}
+
+	$code = (int) wp_remote_retrieve_response_code( $reponse );
+
+	/* Une redirection vers l'adresse du site : on la suit a la main,
+	   en gardant le nom d'hote attendu par WordPress. */
+	if ( 301 === $code || 302 === $code ) {
+		$hote = wp_parse_url( home_url( '/' ), PHP_URL_HOST );
+		$port = wp_parse_url( home_url( '/' ), PHP_URL_PORT );
+
+		if ( $hote ) {
+			$cible = 'http://' . $hote . ( $port ? ':' . $port : '' ) . wp_parse_url( $url, PHP_URL_PATH );
+
+			$second = wp_remote_get(
+				$cible,
+				array(
+					'timeout'   => 20,
+					'sslverify' => false,
+					'headers'   => array( 'Host' => $hote . ( $port ? ':' . $port : '' ) ),
+				)
+			);
+
+			if ( ! is_wp_error( $second ) ) {
+				return array( wp_remote_retrieve_body( $second ), (int) wp_remote_retrieve_response_code( $second ) );
+			}
+		}
+	}
+
+	return array( wp_remote_retrieve_body( $reponse ), $code );
+}
+
 echo "\n=== Recette de bout en bout (WordPress réel) ===\n";
 
 /* ------------------------------------------------------------------ */
@@ -485,13 +538,11 @@ $rooms_liees = 0;
 
 foreach ( $paths as $parcours ) {
 	$page = get_permalink( $parcours->ID );
-	$html = wp_remote_get( $page );
+	list( $corps, $code_page ) = securite_telecharger( $page );
 
-	if ( is_wp_error( $html ) ) {
+	if ( '' === $corps ) {
 		continue;
 	}
-
-	$corps = wp_remote_retrieve_body( $html );
 
 	if ( false !== strpos( $corps, '/rooms/' ) ) {
 		$rooms_liees++;
@@ -505,8 +556,7 @@ verifier(
 );
 
 /* Le fichier robots.txt doit nommer les robots d'IA et les autoriser. */
-$robots = wp_remote_get( home_url( '/robots.txt' ) );
-$robots_txt = is_wp_error( $robots ) ? '' : wp_remote_retrieve_body( $robots );
+list( $robots_txt, $code_robots ) = securite_telecharger( home_url( '/robots.txt' ) );
 
 verifier(
 	'le fichier robots.txt est servi',
@@ -553,8 +603,7 @@ verifier(
 );
 
 /* Le fichier llms.txt est genere : il doit repondre, et lister les rooms. */
-$llms = wp_remote_get( home_url( '/llms.txt' ) );
-$llms_txt = is_wp_error( $llms ) ? '' : wp_remote_retrieve_body( $llms );
+list( $llms_txt, $code_llms ) = securite_telecharger( home_url( '/llms.txt' ) );
 
 verifier(
 	'le fichier llms.txt est servi',
@@ -569,12 +618,11 @@ verifier(
 );
 
 /* L'archive d'auteur ne doit pas exposer le compte d'administration. */
-$auteur = wp_remote_get( home_url( '/author/admin/' ) );
-$code_auteur = is_wp_error( $auteur ) ? 'erreur' : (string) wp_remote_retrieve_response_code( $auteur );
+list( $corps_auteur, $code_auteur ) = securite_telecharger( home_url( '/author/admin/' ) );
 
 verifier(
 	'l\'archive d\'auteur est fermee',
-	'404' === $code_auteur,
+	404 === (int) $code_auteur,
 	'code recu : ' . $code_auteur
 );
 
