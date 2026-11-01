@@ -33,7 +33,8 @@ import rooms_mit857      # noqa: E402
 import rooms_pwn         # noqa: E402
 import rooms_cyber       # noqa: E402
 import rooms_owasp       # noqa: E402
-import rooms_stanford    # noqa: E402
+import rooms_stanford
+import rooms_m7    # noqa: E402
 
 BLOCKS = [
     ('MIT 6.858 — Computer Systems Security (Fall 2014)', rooms_mit858.ROOMS),
@@ -42,6 +43,7 @@ BLOCKS = [
     ('CYBER.ORG — Cybersecurity & Infrastructure Security Education', rooms_cyber.ROOMS),
     ('OWASP Foundation', rooms_owasp.ROOMS),
     ('Stanford — Engineering Everywhere (SEE)', rooms_stanford.ROOMS),
+    ('M7 — Les labs avancés (Juice Shop, dojo, briefs, Kahoot)', rooms_m7.ROOMS),
 ]
 
 
@@ -125,18 +127,27 @@ def render_room(room, room_index=0):
     lines.append("\t'difficulty' => " + php_str(room.get('difficulty', 'moyen')) + ',')
     lines.append("\t'duration' => %d," % int(room.get('duration', 30)))
     lines.append("\t'xp_bonus' => %d," % int(room.get('xp_bonus', 40)))
-    lines.append("\t'track' => 'universites',")
+    lines.append("\t'track' => " + php_str(room.get('track', 'universites')) + ",")
     lines.append("\t'lab' => array(")
     lines.append("\t\t'enabled' => 1,")
     lines.append("\t\t'driver' => 'auto',")
-    lines.append("\t\t'mode' => 'single',")
-    lines.append("\t\t'image' => 'securalabs/univ-01:1.0',")
-    lines.append("\t\t'network' => 'seca_lab',")
-    lines.append("\t\t'command' => 'sleep infinity',")
-    lines.append("\t\t'workdir' => '/home/ctf',")
-    lines.append("\t\t'target' => 'http://127.0.0.1:8080',")
-    lines.append("\t\t'ttl' => 3600,")
-    lines.append("\t\t'allow' => array( 'ls', 'cat', 'grep', 'head', 'tail', 'wc', 'find', 'file', 'stat', 'strings' ),")
+
+    lab = room.get('lab', {})
+
+    lines.append("\t\t'mode' => " + php_str(lab.get('mode', 'single')) + ",")
+    lines.append("\t\t'image' => " + php_str(lab.get('image', 'securalabs/univ-01:1.0')) + ",")
+
+    if lab.get('mode') == 'compose':
+        lines.append("\t\t'compose' => " + php_str(lab.get('compose', '')) + ",")
+        lines.append("\t\t'project' => " + php_str(lab.get('project', '')) + ",")
+        lines.append("\t\t'flag_service' => " + php_str(lab.get('flag_service', '')) + ",")
+
+    lines.append("\t\t'network' => " + php_str(lab.get('network', 'seca_lab')) + ",")
+    lines.append("\t\t'command' => " + php_str(lab.get('command', 'sleep infinity')) + ",")
+    lines.append("\t\t'workdir' => " + php_str(lab.get('workdir', '/home/ctf')) + ",")
+    lines.append("\t\t'target' => " + php_str(lab.get('target', 'http://127.0.0.1:8080')) + ",")
+    lines.append("\t\t'ttl' => %d," % int(lab.get('ttl', 3600)))
+    lines.append("\t\t'allow' => array( " + ', '.join("'%s'" % item for item in lab.get('allow', ['ls', 'cat', 'grep', 'head', 'tail', 'wc', 'find', 'file', 'stat', 'strings'])) + " ),")
     lines.append('\t),')
 
     video = room['video']
@@ -175,21 +186,26 @@ def render_room(room, room_index=0):
 
     # Task 3 : la mission (preuve lue dans la machine).
     mission = room['mission']
+    preuves = mission.get('questions') or [mission]
+
     lines.append("\t\tarray(")
     lines.append("\t\t\t'type' => 'test',")
     lines.append("\t\t\t'format' => 'pratique',")
     lines.append("\t\t\t'title' => " + php_str(room['mission_title']) + ',')
     lines.append("\t\t\t'content' => " + php_str(mission['prompt']) + ',')
     lines.append("\t\t\t'questions' => array(")
-    lines.append("\t\t\t\tarray(")
-    lines.append("\t\t\t\t\t'question' => " + php_str(mission['question']) + ',')
-    lines.append("\t\t\t\t\t'mode' => 'flag',")
-    lines.append("\t\t\t\t\t'flag_path' => " + php_str(mission['flag_path']) + ',')
-    lines.append("\t\t\t\t\t'xp' => %d," % int(mission.get('xp', 30)))
-    lines.append("\t\t\t\t\t'hint' => " + php_str(mission.get('hint', '')) + ',')
-    lines.append("\t\t\t\t\t'explanation' => " + php_str(mission.get('explain', '')) + ',')
-    lines.append('\t\t\t\t),')
-    lines.append('\t\t\t),')
+
+    for preuve in preuves:
+        lines.append("\t\t\t\tarray(")
+        lines.append("\t\t\t\t\t'question' => " + php_str(preuve['question']) + ',')
+        lines.append("\t\t\t\t\t'mode' => 'flag',")
+        lines.append("\t\t\t\t\t'flag_path' => " + php_str(preuve['flag_path']) + ',')
+        lines.append("\t\t\t\t\t'xp' => %d," % int(preuve.get('xp', 30)))
+        lines.append("\t\t\t\t\t'hint' => " + php_str(preuve.get('hint', '')) + ',')
+        lines.append("\t\t\t\t\t'explanation' => " + php_str(preuve.get('explain', '')) + ',')
+        lines.append('\t\t\t\t),')
+
+    lines.append("\t\t\t),")
     lines.append('\t\t),')
 
     # Task 4 : l'examen.
@@ -208,6 +224,16 @@ def render_room(room, room_index=0):
 
     lines.append('\t),')
 
+    # Le bloc Kahoot (facultatif) : le quiz a lancer en classe.
+    if room.get('kahoot'):
+        kahoot = room['kahoot']
+        lines.append("\t'kahoot' => array(")
+        lines.append("\t\t'title' => " + php_str(kahoot.get('title', '')) + ',')
+        lines.append("\t\t'intro' => " + php_str(kahoot.get('intro', '')) + ',')
+        lines.append("\t\t'link' => " + php_str(kahoot.get('link', '')) + ',')
+        lines.append("\t\t'code' => " + php_str(kahoot.get('code', '')) + ',')
+        lines.append('\t),')
+
     # Traductions (titre, extrait, titres de taches) comme pour les scenarios M3.
     lines.append("\t'i18n' => array(")
     for lang in ('ar', 'en'):
@@ -223,6 +249,34 @@ def render_room(room, room_index=0):
     lines.append('\t),')
 
     lines.append('),')
+    return '\n'.join(lines)
+
+
+def render_function(name, doc, blocks):
+    """Genere une fonction PHP qui renvoie les rooms d'une liste de blocs."""
+
+    lines = []
+    lines.append('/**')
+    lines.append(' * %s' % doc)
+    lines.append(' *')
+    lines.append(' * @return array[]')
+    lines.append(' */')
+    lines.append('function %s() {' % name)
+    lines.append('\treturn array(')
+
+    for titre, rooms in blocks:
+        lines.append('/* =====================================================================')
+        lines.append(' * %s' % titre)
+        lines.append(' * ================================================================== */')
+        lines.append('')
+
+        for index, room in enumerate(rooms):
+            lines.append(render_room(room, index))
+            lines.append('')
+
+    lines.append('\t);')
+    lines.append('}')
+
     return '\n'.join(lines)
 
 
@@ -251,31 +305,24 @@ def main():
  */
 
 defined( 'ABSPATH' ) || exit;
-
-/**
- * Les vingt-deux rooms universitaires, groupees par etablissement.
- *
- * @return array[]
- */
-function seca_default_rooms_universites() {
-\treturn array(
 '''
 
-    body = []
-    for title, rooms in BLOCKS:
-        body.append('/* =====================================================================')
-        body.append(' * %s' % title)
-        body.append(' * ================================================================== */')
-        body.append('')
-        for index, room in enumerate(rooms):
-            body.append(render_room(room, index))
-            body.append('')
+    universites = [(titre, rooms) for titre, rooms in BLOCKS if titre.startswith('M7') is False]
+    avance = [(titre, rooms) for titre, rooms in BLOCKS if titre.startswith('M7')]
 
-    footer = '''\t);
-}
-'''
+    corps_universites = render_function(
+        'seca_default_rooms_universites',
+        'Les vingt-deux rooms « Les universites ».',
+        universites
+    )
 
-    text = header + '\n'.join(body) + footer
+    corps_avance = render_function(
+        'seca_default_rooms_avance',
+        'Les quatorze rooms des labs avances (M7).',
+        avance
+    )
+
+    text = header + corps_universites + '\n\n' + corps_avance + '\n'
     with io.open(OUT, 'w', encoding='utf-8') as handle:
         handle.write(text)
 
@@ -283,7 +330,9 @@ function seca_default_rooms_universites() {
     questions = 0
     for _, rooms in BLOCKS:
         for room in rooms:
-            questions += len(room['practice']) + len(room['exam']) + 1
+            mission = room.get('mission', {})
+            preuves = mission.get('questions') or ([mission] if mission else [])
+            questions += len(room['practice']) + len(room['exam']) + len(preuves)
     print('ecrit : %s' % OUT)
     print('rooms : %d | questions : %d' % (total, questions))
 

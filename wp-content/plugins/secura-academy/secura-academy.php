@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.5.6
+ * Version:           0.6.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,21 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.6.0 — Le bloc universitaire : la vidéo du cours dans la room, et les
+ *   labs avancés.
+ *   - la vidéo d'un cours apparaît en FAÇADE (image + bouton) : rien n'est
+ *     chargé de YouTube avant le clic, iframe « youtube-nocookie » ensuite,
+ *     lien de secours toujours visible, attribution (source, auteur, licence,
+ *     durée) traduite en français, arabe et anglais ;
+ *   - 22 rooms « Les universités » (MIT 6.858, MIT 6.857, pwn.college,
+ *     CYBER.ORG, OWASP, Stanford) avec leurs vidéos réelles et 155 questions ;
+ *   - 14 rooms de labs avancés : OWASP Juice Shop (application vulnérable
+ *     officielle), un dojo de vingt défis en cinq ceintures, six briefs vidéo,
+ *     et le quiz Kahoot exportable en CSV ;
+ *   - trois nouvelles machines : « univ-01 » (salle des cours), « dojo-01 »
+ *     (le dojo) et le lab Juice Shop (réseau fermé, drapeaux protégés) ;
+ *   - les preuves restent vérifiées par le serveur, dans la machine, en root.
  *
  * 0.5.6 — La recette WordPress passe dans GitHub (avec vrais plugins tiers)
  *   - nouveau workflow « wordpress.yml » : vrai WordPress + MySQL en service,
@@ -57,7 +72,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.5.6' );
+define( 'SECURA_ACADEMY_VERSION', '0.6.0' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
@@ -97,6 +112,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/default-content.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-m3.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-universites.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-video.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-kahoot.php';
 
 /**
  * Amorce le plugin.
@@ -117,6 +133,7 @@ final class Secura_Academy {
 		Secura_Ajax::init();
 		Secura_Dashboard::init();
 		Secura_Video::init();
+		Secura_Kahoot::init();
 	}
 }
 

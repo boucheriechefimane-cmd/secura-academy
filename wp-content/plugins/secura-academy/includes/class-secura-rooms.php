@@ -140,9 +140,10 @@ final class Secura_Rooms {
 			)
 		);
 
-		if ( empty( $existing ) ) {
-			self::create_default_rooms();
-		}
+		/* Les rooms sont (re)creees a chaque activation : les nouvelles
+		   rooms d'une mise a jour apparaissent, et les corrections de
+		   contenu sont livrees — sauf si un enseignant a retouche la room. */
+		self::create_default_rooms();
 
 		Secura_Paths::create_default_paths();
 		Secura_Progress::maybe_create_table();
@@ -152,37 +153,124 @@ final class Secura_Rooms {
 
 	/**
 	 * Insère les rooms et les parcours de démonstration.
+	 *
+	 * Cette méthode est idempotente : elle peut être rejouée à chaque
+	 * activation du plugin. Les rooms déjà installées sont mises à jour
+	 * (pour livrer les corrections de contenu), mais seulement si
+	 * l'enseignant ne les a pas retouchées : la progression des élèves
+	 * n'est jamais touchée.
 	 */
 	public static function create_default_rooms() {
 		$order = 0;
 
 		/* Les rooms de démonstration viennent d'abord, puis les dix
 		   scenarios M3 (parcours « Scenarios M3 »), puis les vingt-deux
-		   rooms universitaires (parcours « Les universites »). */
-		$rooms = array_merge(
-			seca_default_rooms(),
-			seca_default_rooms_m3(),
-			seca_default_rooms_universites()
+		   rooms universitaires et les quatorze rooms des labs avances. */
+		$blocs = array(
+			'demo'   => seca_default_rooms(),
+			'm3'     => seca_default_rooms_m3(),
+			'univ'   => seca_default_rooms_universites(),
+			'avance' => seca_default_rooms_avance(),
 		);
 
-		foreach ( $rooms as $room ) {
-			$post_id = wp_insert_post(
-				array(
-					'post_type'    => SECURA_POST_TYPE,
-					'post_status'  => 'publish',
-					'post_title'   => $room['title'],
-					'post_excerpt' => $room['excerpt'],
-					'post_content' => isset( $room['content'] ) ? $room['content'] : '',
-					'menu_order'   => $order,
-				),
-				true
-			);
+		/* Les rooms deja installees, retrouvees par leur cle stable. */
+		$existantes = array();
 
-			if ( is_wp_error( $post_id ) ) {
-				continue;
+		$ids = get_posts(
+			array(
+				'post_type'      => SECURA_POST_TYPE,
+				'post_status'    => 'any',
+				'numberposts'    => -1,
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'suppress_filters' => false,
+			)
+		);
+
+		/* Les titres de reference : ils permettent de reconnaitre les
+		   rooms installees avant l'existence des cles (mise a jour). */
+		$titres = array();
+
+		foreach ( $blocs as $nom_bloc => $liste ) {
+			$index = 0;
+
+			foreach ( $liste as $room ) {
+				$titres[ $room['title'] ] = $nom_bloc . '-' . sprintf( '%02d', $index + 1 );
+
+				$index++;
+			}
+		}
+
+		foreach ( (array) $ids as $id ) {
+			$cle = get_post_meta( $id, '_secura_key', true );
+
+			if ( ! $cle ) {
+				/* Migration : une room installee avant les cles. */
+				$post = get_post( $id );
+
+				if ( $post && isset( $titres[ $post->post_title ] ) ) {
+					$cle = $titres[ $post->post_title ];
+
+					update_post_meta( $id, '_secura_key', $cle );
+					update_post_meta( $id, '_secura_content_hash', self::content_hash( $id ) );
+				}
 			}
 
-			update_post_meta( $post_id, SECURA_META_TASKS, $room['tasks'] );
+			if ( $cle ) {
+				$existantes[ $cle ] = (int) $id;
+			}
+		}
+
+		foreach ( $blocs as $nom_bloc => $liste ) {
+			$index = 0;
+
+			foreach ( $liste as $room ) {
+				$cle = $nom_bloc . '-' . sprintf( '%02d', $index + 1 );
+
+				$index++;
+
+				$post_id = isset( $existantes[ $cle ] ) ? $existantes[ $cle ] : 0;
+
+				if ( $post_id ) {
+					/* La room existe : on ne la remplace que si personne
+					   ne l'a retouchee (empreinte du contenu stocke). */
+					$empreinte = self::content_hash( $post_id );
+
+					if ( $empreinte && $empreinte !== get_post_meta( $post_id, '_secura_content_hash', true ) ) {
+						$order++;
+
+						continue;
+					}
+
+					wp_update_post(
+						array(
+							'ID'           => $post_id,
+							'post_title'   => $room['title'],
+							'post_excerpt' => $room['excerpt'],
+							'post_content' => isset( $room['content'] ) ? $room['content'] : '',
+							'menu_order'   => $order,
+						)
+					);
+				} else {
+					$post_id = wp_insert_post(
+						array(
+							'post_type'    => SECURA_POST_TYPE,
+							'post_status'  => 'publish',
+							'post_title'   => $room['title'],
+							'post_excerpt' => $room['excerpt'],
+							'post_content' => isset( $room['content'] ) ? $room['content'] : '',
+							'menu_order'   => $order,
+						),
+						true
+					);
+
+					if ( is_wp_error( $post_id ) ) {
+						continue;
+					}
+				}
+
+				update_post_meta( $post_id, '_secura_key', $cle );
+				update_post_meta( $post_id, SECURA_META_TASKS, $room['tasks'] );
 			update_post_meta( $post_id, SECURA_META_DIFFICULTY, $room['difficulty'] );
 			update_post_meta( $post_id, SECURA_META_DURATION, (int) $room['duration'] );
 			update_post_meta( $post_id, SECURA_META_XP_BONUS, (int) $room['xp_bonus'] );
@@ -202,8 +290,37 @@ final class Secura_Rooms {
 				update_post_meta( $post_id, Secura_Video::META, $room['video'] );
 			}
 
+			/* Le bloc Kahoot (facultatif) : le quiz de classe. */
+			if ( ! empty( $room['kahoot'] ) && is_array( $room['kahoot'] ) ) {
+				update_post_meta( $post_id, Secura_Kahoot::META, $room['kahoot'] );
+			}
+
+			/* L'empreinte du contenu de reference : elle permet de savoir,
+			   a la prochaine activation, si un enseignant a retouche la
+			   room (et donc de ne pas l'ecraser). */
+			update_post_meta( $post_id, '_secura_content_hash', self::content_hash( $post_id ) );
+
 			$order++;
+			}
 		}
+	}
+
+	/**
+	 * L'empreinte du contenu d'une room (contenu + taches).
+	 *
+	 * @param int $post_id Identifiant de la room.
+	 * @return string
+	 */
+	protected static function content_hash( $post_id ) {
+		$post = get_post( $post_id );
+
+		if ( ! $post ) {
+			return '';
+		}
+
+		$taches = get_post_meta( $post_id, SECURA_META_TASKS, true );
+
+		return md5( $post->post_content . '|' . wp_json_encode( $taches ) );
 	}
 
 	/**

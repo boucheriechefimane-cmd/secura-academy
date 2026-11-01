@@ -54,6 +54,22 @@ cp "$REPO_DIR/docs/RECETTE-SERVEUR.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/HEBERGEMENT.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/SCENARIOS-M3.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/SOURCES-CONTENU.md" "$TMP/recette/docs/"
+cp "$REPO_DIR/docs/LABS-AVANCES.md" "$TMP/recette/docs/"
+cp "$REPO_DIR/docs/ROADMAP.md" "$TMP/recette/docs/"
+cp "$REPO_DIR/docs/COMPATIBILITE-PLUGINS.md" "$TMP/recette/docs/"
+cp "$REPO_DIR/docs/CONTENU-MIT.md" "$TMP/recette/docs/"
+
+# Les outils : le generateur de contenu (avec le controle qualite),
+# l'outil de verification des drapeaux Juice Shop et le catalogue video.
+mkdir -p "$TMP/recette/tools"
+cp -r "$REPO_DIR/tools/contenu-universites" "$TMP/recette/tools/contenu-universites"
+cp -r "$REPO_DIR/tools/contenu-m3" "$TMP/recette/tools/contenu-m3"
+cp -r "$REPO_DIR/tools/juice-shop" "$TMP/recette/tools/juice-shop"
+cp -r "$REPO_DIR/tools/videos" "$TMP/recette/tools/videos"
+rm -rf "$TMP/recette/tools/contenu-universites/__pycache__"
+
+cp "$REPO_DIR/scripts/ci-wordpress.sh" "$TMP/recette/scripts/"
+cp "$REPO_DIR/scripts/build-archives.sh" "$TMP/recette/scripts/"
 
 python3 - "$TMP" "$DEST" <<'PY'
 import os

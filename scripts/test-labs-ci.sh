@@ -59,7 +59,7 @@ fi
 # ---------------------------------------------------------------------------
 titre "2. Les images des machines sont construites"
 # ---------------------------------------------------------------------------
-for image in securalabs/web-01:1.0 securalabs/bin-01:1.0 securalabs/multi-01:1.0 securalabs/internal-01:1.0 securalabs/univ-01:1.0; do
+for image in securalabs/web-01:1.0 securalabs/bin-01:1.0 securalabs/multi-01:1.0 securalabs/internal-01:1.0 securalabs/univ-01:1.0 securalabs/dojo-01:1.0 securalabs/flags-01:1.0; do
 	if docker image inspect "$image" >/dev/null 2>&1; then
 		test_ok "l'image $image existe"
 	else
@@ -527,9 +527,152 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 9. Aucun reste
+# 9. La machine « dojo-01 » : vingt defis, cinq ceintures, sept briefs
 # ---------------------------------------------------------------------------
-docker rm -f "$CONT" "$CONT_B" "$CONT_M3" "$CONT_BIN" "$CONT_UNI" >/dev/null 2>&1
+CONT_DOJO="seca_test_dojo_$$"
+
+if docker run -d --name "$CONT_DOJO" --network "$RESEAU" \
+	--cap-drop ALL --security-opt no-new-privileges --pids-limit 256 \
+	--memory 512m --cpus 1.0 --tmpfs /tmp:rw,noexec,nosuid,size=32m \
+	--user 1000:1000 -w /home/ctf securalabs/dojo-01:1.0 sleep infinity >/dev/null 2>&1; then
+	attendre 3
+
+	if docker exec "$CONT_DOJO" cat /home/ctf/notes.txt 2>/dev/null | grep -q 'Dojo Secura'; then
+		test_ok "dojo-01 : l'apprenant lit les notes du dojo"
+	else
+		test_ko "dojo-01 : les notes du dojo sont introuvables"
+	fi
+
+	if docker exec "$CONT_DOJO" ls /srv/dojo/1-blanche >/dev/null 2>&1 && \
+		docker exec "$CONT_DOJO" ls /srv/dojo/5-noire >/dev/null 2>&1; then
+		test_ok "dojo-01 : les cinq ceintures sont presentes"
+	else
+		test_ko "dojo-01 : les ceintures du dojo sont introuvables"
+	fi
+
+	if docker exec "$CONT_DOJO" ls /srv/briefs >/dev/null 2>&1; then
+		test_ok "dojo-01 : les briefs sont presents"
+	else
+		test_ko "dojo-01 : les briefs sont introuvables"
+	fi
+
+	MANQUES_DOJO=0
+
+	for numero in $(seq -w 1 20); do
+		if ! docker exec -u 0 "$CONT_DOJO" cat "/root/flags/flag-d$numero.txt" 2>/dev/null | grep -q 'FLAG=SECURA{'; then
+			MANQUES_DOJO=$((MANQUES_DOJO + 1))
+		fi
+	done
+
+	for numero in $(seq -w 1 7); do
+		if ! docker exec -u 0 "$CONT_DOJO" cat "/root/flags/flag-b$numero.txt" 2>/dev/null | grep -q 'FLAG=SECURA{'; then
+			MANQUES_DOJO=$((MANQUES_DOJO + 1))
+		fi
+	done
+
+	if [ "$MANQUES_DOJO" -eq 0 ]; then
+		test_ok "dojo-01 : le serveur lit les vingt-sept drapeaux en root"
+	else
+		test_ko "dojo-01 : $MANQUES_DOJO drapeau(s) illisibles en root"
+	fi
+
+	if docker exec "$CONT_DOJO" cat /root/flags/flag-d01.txt >/dev/null 2>&1; then
+		test_ko "dojo-01 : l'apprenant lit directement un fichier de drapeau"
+	else
+		test_ok "dojo-01 : les fichiers de drapeau sont illisibles par l'apprenant"
+	fi
+
+	COHERENCE_DOJO=0
+
+	for fichier in $(docker exec -u 0 "$CONT_DOJO" ls /root/flags 2>/dev/null); do
+		VALEUR=$(docker exec -u 0 "$CONT_DOJO" cat "/root/flags/$fichier" 2>/dev/null | tr -d '\r\n')
+
+		if [ -z "$VALEUR" ]; then
+			continue
+		fi
+
+		if ! docker exec "$CONT_DOJO" grep -rl "$VALEUR" /srv/dojo /srv/briefs 2>/dev/null | grep -q .; then
+			COHERENCE_DOJO=$((COHERENCE_DOJO + 1))
+		fi
+	done
+
+	if [ "$COHERENCE_DOJO" -eq 0 ]; then
+		test_ok "dojo-01 : chaque drapeau est decouvrable dans les documents du dojo"
+	else
+		test_ko "dojo-01 : $COHERENCE_DOJO drapeau(s) ne sont decouvrables nulle part"
+	fi
+
+	docker rm -f "$CONT_DOJO" >/dev/null 2>&1
+else
+	test_ko "la machine dojo-01 ne demarre pas"
+fi
+
+# ---------------------------------------------------------------------------
+# 10. Le lab « juice-shop » : l'application web vulnerable de l'OWASP
+# ---------------------------------------------------------------------------
+PROJET_JUICE="seca_test_juice_$$"
+COMPOSE_JUICE="labs/juice-shop/docker-compose.yml"
+
+if docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" up -d --build >/dev/null 2>&1; then
+	# L'application demarre en une trentaine de secondes : on attend.
+	REPONSE_JUICE=0
+
+	for essai in $(seq 1 30); do
+		if docker exec "$PROJET_JUICE-attacker-1" curl -s -o /dev/null -w '%{http_code}' http://juice:3000/ 2>/dev/null | grep -q '200'; then
+			REPONSE_JUICE=1
+			break
+		fi
+		sleep 5
+	done
+
+	if [ "$REPONSE_JUICE" -eq 1 ]; then
+		test_ok "juice-shop : l'application OWASP Juice Shop repond"
+	else
+		test_ko "juice-shop : l'application ne repond pas"
+	fi
+
+	if docker exec "$PROJET_JUICE-attacker-1" curl -s http://juice:3000/api/challenges 2>/dev/null | grep -q 'passwordHashLeakChallenge'; then
+		test_ok "juice-shop : la liste des defis de l'application est lisible"
+	else
+		test_ko "juice-shop : la liste des defis est illisible"
+	fi
+
+	# Le drapeau du serveur : protege, et identique a celui de l'application.
+	if docker exec "$PROJET_JUICE-flags-1" cat /root/flags/flag-login-admin.txt >/dev/null 2>&1; then
+		test_ko "juice-shop : l'apprenant lit directement le fichier de drapeau"
+	else
+		test_ok "juice-shop : le fichier de drapeau est illisible par l'apprenant"
+	fi
+
+	DRAPEAU_JOUE=0
+	DRAPEAU_ATTENDU=$(python3 tools/juice-shop/ctf-flag.py --challenge "Login Admin" 2>/dev/null | grep '^drapeau:' | cut -d' ' -f2)
+
+	if [ -n "$DRAPEAU_ATTENDU" ]; then
+		DRAPEAU_JOUE=$(docker exec -u 0 "$PROJET_JUICE-flags-1" cat /root/flags/flag-login-admin.txt 2>/dev/null | tr -d '\r\n')
+	fi
+
+	if [ -n "$DRAPEAU_ATTENDU" ] && [ "$DRAPEAU_ATTENDU" = "$DRAPEAU_JOUE" ]; then
+		test_ok "juice-shop : le drapeau du serveur correspond a celui de l'application"
+	else
+		test_ko "juice-shop : le drapeau du serveur ne correspond pas a celui de l'application"
+	fi
+
+	# L'eleve ne doit pas avoir de sortie Internet depuis le reseau du lab.
+	if docker exec "$PROJET_JUICE-attacker-1" curl -s --max-time 5 -o /dev/null http://example.com 2>/dev/null; then
+		test_ko "juice-shop : le reseau du lab laisse sortir vers Internet"
+	else
+		test_ok "juice-shop : le reseau du lab n'a pas de sortie Internet"
+	fi
+
+	docker compose -f "$COMPOSE_JUICE" -p "$PROJET_JUICE" down -v >/dev/null 2>&1
+else
+	test_ko "le lab juice-shop ne demarre pas"
+fi
+
+# ---------------------------------------------------------------------------
+# 11. Aucun reste
+# ---------------------------------------------------------------------------
+docker rm -f "$CONT" "$CONT_B" "$CONT_M3" "$CONT_BIN" "$CONT_UNI" "$CONT_DOJO" >/dev/null 2>&1
 docker network rm "$RESEAU" "$RESEAU_B" >/dev/null 2>&1
 
 RESTE=$(docker ps -a --format '{{.Names}}' | grep -c '^seca_test' || true)

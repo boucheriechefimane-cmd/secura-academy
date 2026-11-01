@@ -1,0 +1,50 @@
+# Le dojo officiel de pwn.college (Arizona State University)
+#
+# ATTENTION : cette pile n'est PAS construite dans la CI (l'image est très
+# lourde et la mise en place demande un serveur). Elle est fournie pour
+# ceux qui veulent le vrai dojo pwn.college chez eux, sur un VPS ou en
+# local. Le dojo Secura (labs/dojo-01) est la version légère, jouable
+# dans la plateforme, et c'est celle qui est testée à chaque push.
+#
+# Source du moteur : https://github.com/pwncollege/dojo (licence BSD-2-Clause).
+# Le code du dojo est donc réutilisable ; les défis, eux, sont des scénarios
+# réécrits (jamais de writeup publié, comme pwn.college le demande).
+#
+# Démarrage (sur une machine avec Docker) :
+#   docker compose -f labs/dojo-pwncollege/docker-compose.yml up -d
+#
+# L'interface est alors sur http://localhost:1337 (créer un compte au
+# premier lancement).
+
+services:
+  dojo:
+    image: ghcr.io/pwncollege/dojo:latest
+    hostname: dojo
+    environment:
+      # Le drapeau du CTF : c'est ce qui apparait quand un defi est resolu.
+      - CTF_KEY=SECURA{dojo_pwn_college}
+      - DOJO_HOSTNAME=dojo
+    volumes:
+      # Les donnees du dojo (defis, comptes, drapeaux) persistent ici.
+      - dojo-data:/opt/dojo
+    networks:
+      - seca_lab
+    labels:
+      - "seca.lab=1"
+      - "seca.lab.project=seca_dojo"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 1024
+    mem_limit: 4g
+    cpus: 2.0
+
+volumes:
+  dojo-data:
+
+networks:
+  # Reseau sans sortie Internet : le dojo ne parle qu'a lui-meme.
+  seca_lab:
+    driver: bridge
+    internal: true

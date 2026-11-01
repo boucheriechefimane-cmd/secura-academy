@@ -1,0 +1,8 @@
+# Brief 2 - le web, comment on parle a un serveur
+
+Ce document resume le brief : ce qu'il faut savoir avant de commencer
+les labs, et la regle a retenir.
+
+Le compte rendu du brief :
+
+    02_talking_web = FLAG=SECURA{brief_talking_web}

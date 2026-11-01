@@ -1,0 +1,12 @@
+# Defi d02 - Le dossier cache
+
+Ceinture 1 (blanche) : Lire, chercher, comprendre
+
+Outil attendu : ls -a
+
+Le compte rendu du dojo (a lire dans la machine) :
+
+    02_dossier_cache = FLAG=SECURA{cache_oublie}
+
+Ce que tu fais : tu ouvres le fichier /srv/dojo/1-blanche/02-dossier-cache.txt, tu trouves
+la ligne de compte rendu, et tu recopies la valeur entre accolades.

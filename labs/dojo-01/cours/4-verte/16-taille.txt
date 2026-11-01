@@ -1,0 +1,12 @@
+# Defi d16 - La taille du fichier
+
+Ceinture 4 (verte) : Binaires, chaines, memoire
+
+Outil attendu : stat ou wc -c
+
+Le compte rendu du dojo (a lire dans la machine) :
+
+    16_taille = FLAG=SECURA{grosseur_anormale}
+
+Ce que tu fais : tu ouvres le fichier /srv/dojo/4-verte/16-taille.txt, tu trouves
+la ligne de compte rendu, et tu recopies la valeur entre accolades.

@@ -1,0 +1,8 @@
+# Revision - les dix questions du quiz
+
+Ce document resume le brief : ce qu'il faut savoir avant de commencer
+les labs, et la regle a retenir.
+
+Le compte rendu du brief :
+
+    07_revision = FLAG=SECURA{brief_revision}

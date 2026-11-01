@@ -59,20 +59,6 @@ final class Secura_Paths {
 	 * Crée les parcours de démonstration.
 	 */
 	public static function create_default_paths() {
-		$existing = get_posts(
-			array(
-				'post_type'      => SECURA_PATH_POST_TYPE,
-				'post_status'    => 'any',
-				'numberposts'    => 1,
-				'fields'         => 'ids',
-				'no_found_rows'  => true,
-			)
-		);
-
-		if ( ! empty( $existing ) ) {
-			return;
-		}
-
 		$rooms = get_posts(
 			array(
 				'post_type'      => SECURA_POST_TYPE,
@@ -87,9 +73,10 @@ final class Secura_Paths {
 		/* Les rooms M3 et les rooms universitaires (marquees par la meta
 		   « track ») sont regroupees dans un parcours a part : dix
 		   missions, puis vingt-deux rooms de cours. */
-		$demo_rooms = array();
-		$m3_rooms   = array();
-		$uni_rooms  = array();
+		$demo_rooms   = array();
+		$m3_rooms     = array();
+		$uni_rooms    = array();
+		$avance_rooms = array();
 
 		foreach ( $rooms as $room_id ) {
 			$track = get_post_meta( $room_id, SECURA_META_TRACK, true );
@@ -98,29 +85,58 @@ final class Secura_Paths {
 				$m3_rooms[] = $room_id;
 			} elseif ( 'universites' === $track ) {
 				$uni_rooms[] = $room_id;
+			} elseif ( 'avance' === $track ) {
+				$avance_rooms[] = $room_id;
 			} else {
 				$demo_rooms[] = $room_id;
 			}
 		}
 
-		$paths = seca_default_paths( $demo_rooms, $m3_rooms, $uni_rooms );
+		$paths = seca_default_paths( $demo_rooms, $m3_rooms, $uni_rooms, $avance_rooms );
 		$order = 0;
 
-		foreach ( $paths as $path ) {
-			$post_id = wp_insert_post(
-				array(
-					'post_type'    => SECURA_PATH_POST_TYPE,
-					'post_status'  => 'publish',
-					'post_title'   => $path['title'],
-					'post_excerpt' => $path['excerpt'],
-					'post_content' => $path['content'],
-					'menu_order'   => $order,
-				),
-				true
-			);
+		/* Les parcours deja installes, retrouves par leur titre : un
+		   parcours ajoute par une mise a jour s'ajoute, et les anciens
+		   gardent leurs sections (les rooms qui y sont rangeres). */
+		$existants = array();
 
-			if ( is_wp_error( $post_id ) ) {
-				continue;
+		foreach ( get_posts( array( 'post_type' => SECURA_PATH_POST_TYPE, 'post_status' => 'any', 'numberposts' => -1, 'fields' => 'ids' ) ) as $id ) {
+			$post = get_post( $id );
+
+			if ( $post ) {
+				$existants[ $post->post_title ] = (int) $id;
+			}
+		}
+
+		foreach ( $paths as $path ) {
+			$post_id = isset( $existants[ $path['title'] ] ) ? $existants[ $path['title'] ] : 0;
+
+			if ( $post_id ) {
+				wp_update_post(
+					array(
+						'ID'           => $post_id,
+						'post_title'   => $path['title'],
+						'post_excerpt' => $path['excerpt'],
+						'post_content' => $path['content'],
+						'menu_order'   => $order,
+					)
+				);
+			} else {
+				$post_id = wp_insert_post(
+					array(
+						'post_type'    => SECURA_PATH_POST_TYPE,
+						'post_status'  => 'publish',
+						'post_title'   => $path['title'],
+						'post_excerpt' => $path['excerpt'],
+						'post_content' => $path['content'],
+						'menu_order'   => $order,
+					),
+					true
+				);
+
+				if ( is_wp_error( $post_id ) ) {
+					continue;
+				}
 			}
 
 			update_post_meta( $post_id, SECURA_META_PATH_SECTIONS, $path['sections'] );

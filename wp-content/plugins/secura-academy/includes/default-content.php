@@ -993,10 +993,11 @@ function seca_default_rooms() {
  * @param array $m3_room_ids  Identifiants des rooms M3 (dix scénarios), dans l'ordre.
  * @return array
  */
-function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array() ) {
-	$room_ids     = array_values( array_map( 'absint', (array) $room_ids ) );
-	$m3_room_ids  = array_values( array_map( 'absint', (array) $m3_room_ids ) );
-	$uni_room_ids = array_values( array_map( 'absint', (array) $uni_room_ids ) );
+function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array() ) {
+	$room_ids       = array_values( array_map( 'absint', (array) $room_ids ) );
+	$m3_room_ids    = array_values( array_map( 'absint', (array) $m3_room_ids ) );
+	$uni_room_ids   = array_values( array_map( 'absint', (array) $uni_room_ids ) );
+	$avance_room_ids = array_values( array_map( 'absint', (array) $avance_room_ids ) );
 
 	$paths = array(
 		array(
@@ -1179,6 +1180,54 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 						array( 'title' => 'CYBER.ORG: digital hygiene (4 rooms)' ),
 						array( 'title' => 'OWASP: application security (3 rooms)' ),
 						array( 'title' => 'Stanford: how a computer works (2 rooms)' ),
+					),
+				),
+			),
+		),
+		/* --------------------------------------------------------------
+		 * Parcours « Les labs avances » : Juice Shop, dojo, briefs et le
+		 * quiz Kahoot. C'est le bloc le plus exigeant : une vraie
+		 * application vulnerable, une echelle de vingt defis, et les
+		 * videos de brief qui expliquent comment s'y mettre.
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Les labs avances : Juice Shop, dojo et quiz',
+			'excerpt'    => 'Une vraie application web vulnerable (OWASP Juice Shop), un dojo de vingt defis en cinq ceintures, six briefs video et le quiz de revision.',
+			'content'    => 'Ce parcours demande de l\'autonomie : on te donne une cible (l\'application OWASP Juice Shop, isolee dans ton reseau), une echelle (le dojo, cinq ceintures, vingt defis) et des methodes (les six videos de brief). Chaque mission se valide sur une preuve lue dans la machine.',
+			'difficulty' => 'difficile',
+			'duration'   => 420,
+			'xp_bonus'   => 400,
+			'sections'   => array(
+				array(
+					'title' => 'Lab 1 : OWASP Juice Shop (2 rooms)',
+					'rooms' => array_slice( $avance_room_ids, 0, 2 ),
+				),
+				array(
+					'title' => 'Le dojo : cinq ceintures, vingt defis (5 rooms)',
+					'rooms' => array_slice( $avance_room_ids, 2, 5 ),
+				),
+				array(
+					'title' => 'Les briefs et le quiz de revision (7 rooms)',
+					'rooms' => array_slice( $avance_room_ids, 7, 7 ),
+				),
+			),
+			'i18n'       => array(
+				'ar' => array(
+					'title'   => 'المخابر المتقدمة: Juice Shop والدوجو والمسابقة',
+					'excerpt' => 'تطبيق ويب مصاب حقيقي (OWASP Juice Shop)، ودوجو من عشرين تحديًا في خمسة أحزمة، وستة موجزات فيديو، ومسابقة المراجعة.',
+					'sections' => array(
+						array( 'title' => 'المختبر 1: OWASP Juice Shop (غرفتان)' ),
+						array( 'title' => 'الدوجو: خمسة أحزمة، عشرون تحديًا (5 غرف)' ),
+						array( 'title' => 'الموجزات ومسابقة المراجعة (7 غرف)' ),
+					),
+				),
+				'en' => array(
+					'title'   => 'The advanced labs: Juice Shop, dojo and quiz',
+					'excerpt' => 'A real vulnerable web application (OWASP Juice Shop), a dojo of twenty challenges in five belts, six video briefs and the review quiz.',
+					'sections' => array(
+						array( 'title' => 'Lab 1: OWASP Juice Shop (2 rooms)' ),
+						array( 'title' => 'The dojo: five belts, twenty challenges (5 rooms)' ),
+						array( 'title' => 'The briefs and the review quiz (7 rooms)' ),
 					),
 				),
 			),

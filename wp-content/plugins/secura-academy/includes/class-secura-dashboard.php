@@ -415,6 +415,14 @@ final class Secura_Dashboard {
 			if ( $seca_video_html ) {
 				echo $seca_video_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- deja echappe dans Secura_Video::render().
 			}
+
+			/* Le bloc Kahoot : le quiz de classe, jouable en classe ou
+			   seul, et exportable en CSV. */
+			$seca_kahoot_html = Secura_Kahoot::render( $room_id, $lang );
+
+			if ( $seca_kahoot_html ) {
+				echo $seca_kahoot_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- deja echappe dans Secura_Kahoot::render().
+			}
 			?>
 
 			<nav class="seca-task-nav" data-seca-task-nav aria-label="<?php esc_attr_e( 'Tâches de la room', 'seca-academy' ); ?>"></nav>

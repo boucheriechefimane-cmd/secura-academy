@@ -1,0 +1,12 @@
+# Defi d20 - Le mot de passe hashe
+
+Ceinture 5 (noire) : Cryptographie, cles, empreintes
+
+Outil attendu : sha256sum
+
+Le compte rendu du dojo (a lire dans la machine) :
+
+    20_hache = FLAG=SECURA{empreinte_du_mot_de_passe}
+
+Ce que tu fais : tu ouvres le fichier /srv/dojo/5-noire/20-hache.txt, tu trouves
+la ligne de compte rendu, et tu recopies la valeur entre accolades.

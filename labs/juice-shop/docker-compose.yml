@@ -1,0 +1,114 @@
+# Lab « juice-shop » — l'application vulnérable de l'OWASP
+#
+# But pédagogique : l'apprenant s'attaque à une vraie application web
+# vulnérable (Juice Shop), seule en réseau fermé, et prouve ce qu'il a
+# trouvé en recopiant le drapeau affiché par l'application.
+#
+# Trois services :
+#   attacker — la machine de l'apprenant (outils, terminal)
+#   juice    — l'application OWASP Juice Shop (image officielle)
+#   flags    — le serveur : il garde le drapeau, l'eleve ne peut pas le lire
+#
+# Construction (par le plugin) :
+#   docker compose -f labs/juice-shop/docker-compose.yml build
+# Lancement (par le plugin) :
+#   docker compose -f labs/juice-shop/docker-compose.yml \
+#       -p seca_lab_<apprenant>_<room> up -d
+#
+# Le plugin fournit SECA_LAB_USER, SECA_LAB_ROOM, SECA_LAB_PROJECT et
+# SECA_LAB_COMPOSE : chaque service est labellise, ce qui permet au
+# nettoyage automatique de retrouver la pile d'un apprenant.
+#
+# Aucun nom de conteneur fixe : Compose nomme les conteneurs
+# <projet>-<service>-1, donc deux apprenants ne se genent jamais.
+
+services:
+  attacker:
+    image: securalabs/web-01:1.0
+    build:
+      context: ../web-01
+    hostname: attacker
+    user: "1000:1000"
+    labels:
+      - "seca.lab=1"
+      - "seca.lab.user=${SECA_LAB_USER:-0}"
+      - "seca.lab.room=${SECA_LAB_ROOM:-0}"
+      - "seca.lab.project=${SECA_LAB_PROJECT:-}"
+      - "seca.lab.compose=${SECA_LAB_COMPOSE:-}"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 256
+    mem_limit: 512m
+    cpus: 1.0
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    networks:
+      - seca_lab
+    entrypoint: ["/bin/bash", "-c"]
+    command: ["sleep infinity"]
+    stdin_open: true
+    tty: true
+
+  juice:
+    image: docker.io/bkimminich/juice-shop:v20.3.0
+    hostname: juice
+    environment:
+      # Mode CTF de Juice Shop : quand l'eleve resout un defi, l'application
+      # lui affiche le drapeau de ce defi (une empreinte calculee avec
+      # CTF_KEY, tools/juice-shop/ctf-flag.py la recalcule).
+      - CTF_KEY=SECURA{juice_shop_owasp}
+      - NODE_ENV=ctf
+    labels:
+      - "seca.lab=1"
+      - "seca.lab.user=${SECA_LAB_USER:-0}"
+      - "seca.lab.room=${SECA_LAB_ROOM:-0}"
+      - "seca.lab.project=${SECA_LAB_PROJECT:-}"
+      - "seca.lab.compose=${SECA_LAB_COMPOSE:-}"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 512
+    mem_limit: 1g
+    cpus: 1.0
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    networks:
+      - seca_lab
+
+  flags:
+    # Le serveur garde le drapeau : fichier 400 root:root, illisible par
+    # l'apprenant. Seul le plugin (docker exec -u 0) peut le lire.
+    image: securalabs/flags-01:1.0
+    build:
+      context: ./flags
+    hostname: flags
+    user: "1000:1000"
+    labels:
+      - "seca.lab=1"
+      - "seca.lab.user=${SECA_LAB_USER:-0}"
+      - "seca.lab.room=${SECA_LAB_ROOM:-0}"
+      - "seca.lab.project=${SECA_LAB_PROJECT:-}"
+      - "seca.lab.compose=${SECA_LAB_COMPOSE:-}"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+    mem_limit: 256m
+    cpus: 0.5
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    networks:
+      - seca_lab
+    command: ["sleep", "infinity"]
+    entrypoint: ["/bin/bash", "-c"]
+
+networks:
+  # Reseau sans sortie Internet : les conteneurs ne parlent qu'entre eux.
+  # Compose le prefixe par le nom du projet, donc un reseau par apprenant.
+  seca_lab:
+    driver: bridge
+    internal: true

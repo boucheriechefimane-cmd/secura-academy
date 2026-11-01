@@ -1,0 +1,12 @@
+# Defi d07 - La ligne cachee
+
+Ceinture 2 (jaune) : Permissions, proprietaire, contenu
+
+Outil attendu : grep -n
+
+Le compte rendu du dojo (a lire dans la machine) :
+
+    07_ligne_cachee = FLAG=SECURA{ligne_en_milieu}
+
+Ce que tu fais : tu ouvres le fichier /srv/dojo/2-jaune/07-ligne-cachee.txt, tu trouves
+la ligne de compte rendu, et tu recopies la valeur entre accolades.

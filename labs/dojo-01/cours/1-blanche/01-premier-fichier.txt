@@ -1,0 +1,12 @@
+# Defi d01 - Le premier fichier
+
+Ceinture 1 (blanche) : Lire, chercher, comprendre
+
+Outil attendu : cat
+
+Le compte rendu du dojo (a lire dans la machine) :
+
+    01_premier_fichier = FLAG=SECURA{drapeau_blanc}
+
+Ce que tu fais : tu ouvres le fichier /srv/dojo/1-blanche/01-premier-fichier.txt, tu trouves
+la ligne de compte rendu, et tu recopies la valeur entre accolades.

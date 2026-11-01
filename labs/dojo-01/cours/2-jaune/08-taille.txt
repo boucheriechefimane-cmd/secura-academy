@@ -1,0 +1,12 @@
+# Defi d08 - Le compte des caracteres
+
+Ceinture 2 (jaune) : Permissions, proprietaire, contenu
+
+Outil attendu : wc
+
+Le compte rendu du dojo (a lire dans la machine) :
+
+    08_taille = FLAG=SECURA{bon_comptage}
+
+Ce que tu fais : tu ouvres le fichier /srv/dojo/2-jaune/08-taille.txt, tu trouves
+la ligne de compte rendu, et tu recopies la valeur entre accolades.

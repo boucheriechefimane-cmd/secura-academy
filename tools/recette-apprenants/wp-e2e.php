@@ -78,6 +78,71 @@ foreach ( $rooms as $room ) {
 
 verifier( 'les scénarios M3 sont là (10)', 10 === $m3, 'trouvés : ' . $m3 );
 
+/* Le bloc universitaire : les 22 rooms de cours et les 14 rooms des
+   labs avancés. */
+$universites = 0;
+$avance      = 0;
+$avec_video  = 0;
+$avec_kahoot = 0;
+
+foreach ( $rooms as $room ) {
+	$track = get_post_meta( $room->ID, '_secura_track', true );
+
+	if ( 'universites' === $track ) {
+		$universites++;
+	} elseif ( 'avance' === $track ) {
+		$avance++;
+	}
+
+	if ( get_post_meta( $room->ID, '_secura_video', true ) ) {
+		$avec_video++;
+	}
+
+	if ( get_post_meta( $room->ID, '_secura_kahoot', true ) ) {
+		$avec_kahoot++;
+	}
+}
+
+/* Rejouer l'activation (ce que fait WordPress a chaque mise a jour du
+   plugin) ne doit ni dupliquer les rooms, ni dupliquer les parcours,
+   ni ecraser une room retouchee par l'enseignant. */
+$avant_rooms    = count( $rooms );
+$avant_parcours = count( $paths );
+
+Secura_Rooms::activate();
+
+$apres_rooms = count( get_posts( array( 'post_type' => 'secura_room', 'post_status' => 'any', 'numberposts' => -1 ) ) );
+$apres_chemins = count( get_posts( array( 'post_type' => 'secura_path', 'post_status' => 'any', 'numberposts' => -1 ) ) );
+
+verifier( 'réactiver le plugin ne duplique pas les rooms', $avant_rooms === $apres_rooms, 'avant : ' . $avant_rooms . ' après : ' . $apres_rooms );
+verifier( 'réactiver le plugin ne duplique pas les parcours', $avant_parcours === $apres_chemins, 'avant : ' . $avant_parcours . ' après : ' . $apres_chemins );
+
+verifier( 'les rooms universitaires sont là (22)', 22 === $universites, 'trouvées : ' . $universites );
+verifier( 'les rooms des labs avancés sont là (14)', 14 === $avance, 'trouvées : ' . $avance );
+verifier( 'chaque room universitaire a sa vidéo (36)', 36 === $avec_video, 'trouvées : ' . $avec_video );
+verifier( 'le quiz Kahoot est installé (1)', 1 === $avec_kahoot, 'trouvés : ' . $avec_kahoot );
+
+/* La façade vidéo : la page de la room contient l'image et le bouton,
+   mais aucune balise iframe tant que l'élève n'a pas cliqué. */
+$room_video = null;
+
+foreach ( $rooms as $room ) {
+	if ( get_post_meta( $room->ID, '_secura_video', true ) ) {
+		$room_video = $room;
+		break;
+	}
+}
+
+if ( ! $room_video ) {
+	verifier( 'une room avec vidéo est disponible', false );
+} else {
+	$page = do_shortcode( '[secura_academy_room id="' . $room_video->ID . '"]' );
+
+	verifier( 'la façade vidéo est affichée', false !== strpos( $page, 'seca-video' ) );
+	verifier( 'aucune iframe n’est chargée avant le clic', false === strpos( $page, '<iframe' ) );
+	verifier( 'le lien vers la source reste visible', false !== strpos( $page, 'youtube.com/watch' ) );
+}
+
 /* ------------------------------------------------------------------ */
 echo "\n2. Les trois langues\n";
 

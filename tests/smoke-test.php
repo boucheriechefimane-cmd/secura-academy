@@ -379,6 +379,47 @@ function esc_url( $text ) {
 }
 
 /**
+ * Encodage JSON (emulation).
+ *
+ * @param mixed $data Donnees.
+ * @return string
+ */
+function wp_json_encode( $data ) {
+	return json_encode( $data );
+}
+
+/**
+ * L'adresse du site (emulation).
+ *
+ * @param string $path Chemin.
+ * @return string
+ */
+function home_url( $path = '' ) {
+	return 'https://exemple.test/' . ltrim( (string) $path, '/' );
+}
+
+/**
+ * Ajout de parametres a une adresse (emulation).
+ *
+ * @param array  $args   Parametres.
+ * @param string $url    Adresse.
+ * @return string
+ */
+function add_query_arg( $args, $url = '' ) {
+	$pairs = array();
+
+	foreach ( (array) $args as $key => $value ) {
+		$pairs[] = rawurlencode( $key ) . '=' . rawurlencode( (string) $value );
+	}
+
+	if ( ! $pairs ) {
+		return $url;
+	}
+
+	return $url . ( false === strpos( $url, '?' ) ? '?' : '&' ) . implode( '&', $pairs );
+}
+
+/**
  * Fusion d'arguments.
  *
  * @param array $args     Arguments.
@@ -1901,6 +1942,7 @@ echo "\nScénarios M3\n";
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-m3.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-video.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-universites.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-kahoot.php';
 
 $labs_dir = dirname( __DIR__ ) . '/labs';
 
@@ -2041,19 +2083,25 @@ check( is_file( $labs_dir . '/net-01/docker-compose.yml' ), 'la pile multi-nœud
 $paths = seca_default_paths( array( 1, 2, 3, 4, 5, 6 ), array( 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ) );
 $m3_path = isset( $paths[1] ) ? $paths[1] : array();
 
-check( 3 === count( $paths ), 'trois parcours sont crees : les fondations, les scénarios M3 et Les universites' );
+check( 4 === count( $paths ), 'quatre parcours sont crees : les fondations, les scénarios M3, Les universites et Les labs avances' );
 check( isset( $m3_path['sections'] ) && 5 === count( $m3_path['sections'] ), 'le parcours M3 compte cinq modules' );
 check( 10 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $m3_path['sections'] ) ), 'le parcours M3 contient les dix scénarios' );
 check( isset( $m3_path['i18n']['ar'], $m3_path['i18n']['en'] ), 'le parcours M3 est traduit en arabe et en anglais' );
 
 /* Le parcours « Les universités » : vingt-deux rooms en six modules. */
-$paths_uni = seca_default_paths( array( 1 ), array( 2 ), array( 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 ) );
+$paths_uni = seca_default_paths( array( 1 ), array( 2 ), array( 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 ), array( 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53 ) );
 $uni_path  = isset( $paths_uni[2] ) ? $paths_uni[2] : array();
+$avance_path = isset( $paths_uni[3] ) ? $paths_uni[3] : array();
 
-check( 3 === count( $paths_uni ), 'un troisieme parcours est cree : Les universites' );
+check( 4 === count( $paths_uni ), 'un quatrieme parcours est cree : Les labs avances' );
 check( isset( $uni_path['sections'] ) && 6 === count( $uni_path['sections'] ), 'le parcours universitaire compte six modules' );
 check( 22 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $uni_path['sections'] ) ), 'le parcours universitaire contient les vingt-deux rooms' );
 check( isset( $uni_path['i18n']['ar'], $uni_path['i18n']['en'] ), 'le parcours universitaire est traduit en arabe et en anglais' );
+
+/* Le parcours « Les labs avancés » : trois modules, quatorze rooms. */
+check( isset( $avance_path['sections'] ) && 3 === count( $avance_path['sections'] ), 'le parcours des labs avancés compte trois modules' );
+check( 14 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $avance_path['sections'] ) ), 'le parcours des labs avancés contient les quatorze rooms' );
+check( isset( $avance_path['i18n']['ar'], $avance_path['i18n']['en'] ), 'le parcours des labs avancés est traduit en arabe et en anglais' );
 
 /* Le moteur : un drapeau lu dans la machine de l'apprenant, en root. */
 $flag_dir  = sys_get_temp_dir() . '/seca_docker_flag';
@@ -2328,6 +2376,153 @@ $GLOBALS['securatest_meta'] = array();
 update_post_meta( 4243, Secura_Video::META, array( 'id' => 'pas-un-id' ) );
 
 check( false === Secura_Video::get( 4243 ), 'un identifiant de video invalide est refuse' );
+
+/* ---------------------------------------------------------------------
+ * M7 : les labs avances (Juice Shop, dojo, briefs, Kahoot).
+ * ------------------------------------------------------------------ */
+
+echo "\nM7 : les labs avancés\n";
+
+$avance_rooms = seca_default_rooms_avance();
+
+check( 14 === count( $avance_rooms ), 'quatorze rooms de labs avancés sont fournies' );
+
+$m7_juice   = 0;
+$m7_dojo    = 0;
+$m7_briefs  = 0;
+$m7_kahoot  = 0;
+$m7_flags   = true;
+$m7_labs    = true;
+$m7_videos  = true;
+
+$labs_root = dirname( __DIR__ ) . '/labs';
+
+foreach ( $avance_rooms as $room_m7 ) {
+	$lab = isset( $room_m7['lab'] ) ? $room_m7['lab'] : array();
+
+	/* La video doit etre verifiee. */
+	if ( empty( $room_m7['video']['id'] ) || ! preg_match( '/^[A-Za-z0-9_-]{11}$/', $room_m7['video']['id'] ) ) {
+		$m7_videos = false;
+	}
+
+	/* La mission est la troisieme tache (« test »), en mode drapeau. */
+	$preuves = array();
+
+	foreach ( $room_m7['tasks'] as $tache ) {
+		if ( isset( $tache['type'] ) && 'test' === $tache['type'] ) {
+			foreach ( $tache['questions'] as $question ) {
+				if ( isset( $question['mode'] ) && 'flag' === $question['mode'] ) {
+					$preuves[] = $question;
+				}
+			}
+		}
+	}
+
+	foreach ( $preuves as $preuve ) {
+		$chemin = $preuve['flag_path'];
+		$nom    = basename( $chemin );
+
+		if ( isset( $lab['mode'] ) && 'compose' === $lab['mode'] ) {
+			/* Lab Juice Shop : les drapeaux vivent dans le service « flags ». */
+			$dossier = $labs_root . '/' . dirname( $lab['compose'] ) . '/flags';
+		} else {
+			$dossier = $labs_root . '/' . preg_replace( '/^securalabs\//', '', $lab['image'] );
+			$dossier = preg_replace( '/:.*$/', '', $dossier ) . '/flag';
+		}
+
+		if ( ! is_file( $dossier . '/' . $nom ) ) {
+			$m7_flags = false;
+		}
+	}
+
+	if ( isset( $lab['mode'] ) && 'compose' === $lab['mode'] ) {
+		$m7_juice++;
+
+		if ( empty( $lab['flag_service'] ) || 'flags' !== $lab['flag_service'] ) {
+			$m7_labs = false;
+		}
+	} elseif ( ! empty( $room_m7['kahoot'] ) ) {
+		$m7_kahoot++;
+	} elseif ( 4 === count( $preuves ) ) {
+		$m7_dojo++;
+	} else {
+		$m7_briefs++;
+	}
+}
+
+check( 2 === $m7_juice, 'deux rooms Juice Shop (application web vulnérable)' );
+check( 5 === $m7_dojo, 'cinq rooms de dojo (une par ceinture)' );
+check( 6 === $m7_briefs, 'six rooms de brief (les six vidéos d\'introduction)' );
+check( 1 === $m7_kahoot, 'une room Kahoot (le quiz de révision)' );
+check( $m7_flags, 'chaque mission des labs avancés valide un drapeau présent dans le dépôt' );
+check( $m7_labs, 'le lab Juice Shop garde ses drapeaux dans un service dédié' );
+check( $m7_videos, 'chaque room des labs avancés porte une vidéo vérifiée' );
+
+/* Le dojo : vingt défis, cinq ceintures, dans la machine. */
+$dojo_dir = $labs_root . '/dojo-01';
+
+check( is_file( $dojo_dir . '/Dockerfile' ), 'la machine dojo-01 existe dans le dépôt' );
+
+$dojo_flags = 0;
+
+if ( is_dir( $dojo_dir . '/flag' ) ) {
+	foreach ( (array) glob( $dojo_dir . '/flag/flag-*.txt' ) as $fichier ) {
+		$dojo_flags++;
+	}
+}
+
+check( 27 === $dojo_flags, 'le dojo-01 contient les vingt défis et les sept briefs (27 drapeaux)' );
+
+/* Le lab Juice Shop : l'image officielle, isolee, et le service des drapeaux. */
+$juice_compose = $labs_root . '/juice-shop/docker-compose.yml';
+
+check( is_file( $juice_compose ), 'le lab Juice Shop existe dans le dépôt' );
+
+if ( is_file( $juice_compose ) ) {
+	$juice_texte = file_get_contents( $juice_compose );
+
+	check( false !== strpos( $juice_texte, 'bkimminich/juice-shop' ), 'le lab Juice Shop utilise l\'image officielle de l\'OWASP' );
+	check( false !== strpos( $juice_texte, 'internal: true' ), 'le lab Juice Shop est dans un reseau sans sortie' );
+	check( false !== strpos( $juice_texte, 'CTF_KEY=' ), 'le lab Juice Shop definit la cle de ses drapeaux' );
+}
+
+/* Le bloc Kahoot : rendu et export. */
+$kahoot_room = null;
+$kahoot_id   = 5150;
+
+foreach ( $avance_rooms as $room_m7 ) {
+	if ( ! empty( $room_m7['kahoot'] ) ) {
+		$kahoot_room = $room_m7;
+		break;
+	}
+}
+
+check( null !== $kahoot_room, 'la room Kahoot est presente' );
+
+if ( $kahoot_room ) {
+	update_post_meta( $kahoot_id, Secura_Kahoot::META, $kahoot_room['kahoot'] );
+	update_post_meta( $kahoot_id, SECURA_META_TASKS, $kahoot_room['tasks'] );
+
+	$kahoot_html = Secura_Kahoot::render( $kahoot_id, 'fr' );
+
+	check( false !== strpos( $kahoot_html, 'seca-kahoot' ), 'le bloc Kahoot s\'affiche dans la room' );
+	check( false !== strpos( $kahoot_html, 'SECURA1' ), 'le bloc Kahoot affiche le code du quiz' );
+	check( false !== strpos( $kahoot_html, 'seca_kahoot=csv' ), 'le bloc Kahoot propose le telechargement du quiz' );
+
+	$kahoot_csv = Secura_Kahoot::csv( $kahoot_id );
+	$kahoot_lignes = explode( "\r\n", $kahoot_csv );
+
+	check( 10 === count( $kahoot_lignes ), 'le quiz exporte contient les dix questions' );
+	check( false !== strpos( $kahoot_csv, '"' ) && count( $kahoot_lignes ) > 0, 'l\'export CSV est bien formate' );
+
+	$kahoot_json = json_decode( Secura_Kahoot::json( $kahoot_id ), true );
+
+	check( is_array( $kahoot_json ) && 10 === count( $kahoot_json ), 'l\'export JSON contient les dix questions' );
+	check( isset( $kahoot_json[0]['correct'] ) && isset( $kahoot_json[0]['explain'] ), 'l\'export JSON garde la bonne reponse et l\'explication (pour l\'enseignant)' );
+
+	/* Le quiz n'est pas exportable par un visiteur non connecte. */
+	check( '' === Secura_Kahoot::csv( 999999 ), 'une room sans quiz n\'exporte rien' );
+}
 
 /* ---------------------------------------------------------------------
  * Bilan

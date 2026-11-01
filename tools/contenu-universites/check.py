@@ -29,6 +29,7 @@ MODULES = [
     'rooms_cyber',
     'rooms_owasp',
     'rooms_stanford',
+    'rooms_m7',
 ]
 
 REQUIRED = [
@@ -42,6 +43,21 @@ VIDEO_KEYS = ['id', 'title', 'channel', 'institution', 'license']
 SUSPECT = re.compile(r'[\u4e00-\u9fff\u3040-\u30ff\u0400-\u04ff\uac00-\ud7af]')
 LATIN_IN_ARABIC = re.compile(r'[\u0600-\u06FF][A-Za-z]{2,}')
 ENGLISH = re.compile(r'\b(the|and|is|are|you|not|with|from|this|that|when|what|why|how|your|be)\b')
+
+
+def lab_flags_folder(room):
+    """Le dossier du lab ou se trouvent les drapeaux de cette room."""
+
+    lab = room.get('lab', {})
+
+    if lab.get('mode') == 'compose':
+        compose = lab.get('compose', '')
+        return os.path.join(ROOT, 'labs', os.path.dirname(compose), 'flags')
+
+    image = lab.get('image', 'securalabs/univ-01:1.0')
+    nom = image.split('/')[-1].split(':')[0]
+
+    return os.path.join(ROOT, 'labs', nom, 'flag')
 
 
 def main():
@@ -127,11 +143,21 @@ def main():
                                 break
 
         mission = room.get('mission', {})
-        for key in ('prompt', 'question', 'flag_path', 'hint', 'explain'):
-            if not mission.get(key):
-                problems.append('%s : mission incomplete (%s)' % (title, key))
-        if not str(mission.get('flag_path', '')).startswith('/root/flags/'):
-            problems.append('%s : chemin de drapeau inattendu %r' % (title, mission.get('flag_path')))
+        if not mission.get('prompt'):
+            problems.append('%s : mission incomplete (prompt)' % title)
+
+        preuves = mission.get('questions') or [mission]
+        dossier = lab_flags_folder(room)
+
+        for preuve in preuves:
+            for key in ('question', 'flag_path', 'hint', 'explain'):
+                if not preuve.get(key):
+                    problems.append('%s : mission incomplete (%s)' % (title, key))
+            chemin = str(preuve.get('flag_path', ''))
+            if not chemin.startswith('/root/flags/'):
+                problems.append('%s : chemin de drapeau inattendu %r' % (title, chemin))
+            elif dossier and not os.path.isfile(os.path.join(dossier, os.path.basename(chemin))):
+                problems.append('%s : drapeau absent du lab (%s)' % (title, os.path.basename(chemin)))
 
         i18n = room.get('i18n', {})
         for lang in ('ar', 'en'):
@@ -146,9 +172,14 @@ def main():
 
     print('rooms : %d' % len(rooms))
     print('videos : %d (identifiants uniques : %d)' % (len(ids), len(set(ids))))
-    print('questions : %d' % sum(
-        len(r.get('practice', [])) + len(r.get('exam', [])) + 1 for r in rooms
-    ))
+    total_questions = 0
+
+    for room in rooms:
+        mission = room.get('mission', {})
+        preuves = mission.get('questions') or ([mission] if mission else [])
+        total_questions += len(room.get('practice', [])) + len(room.get('exam', [])) + len(preuves)
+
+    print('questions : %d' % total_questions)
 
     if problems:
         print('\n%d probleme(s) :' % len(problems))

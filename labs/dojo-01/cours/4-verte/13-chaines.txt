@@ -1,0 +1,12 @@
+# Defi d13 - Le binaire et ses chaines
+
+Ceinture 4 (verte) : Binaires, chaines, memoire
+
+Outil attendu : strings
+
+Le compte rendu du dojo (a lire dans la machine) :
+
+    13_chaines = FLAG=SECURA{chaine_du_binaire}
+
+Ce que tu fais : tu ouvres le fichier /srv/dojo/4-verte/13-chaines.txt, tu trouves
+la ligne de compte rendu, et tu recopies la valeur entre accolades.

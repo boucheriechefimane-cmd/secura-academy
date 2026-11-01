@@ -1,0 +1,8 @@
+# Brief 6 - explorer une application web
+
+Ce document resume le brief : ce qu'il faut savoir avant de commencer
+les labs, et la regle a retenir.
+
+Le compte rendu du brief :
+
+    06_explorer_application = FLAG=SECURA{brief_explorer}

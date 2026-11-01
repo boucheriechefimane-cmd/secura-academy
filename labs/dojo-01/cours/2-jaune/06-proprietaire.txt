@@ -1,0 +1,12 @@
+# Defi d06 - Le dossier du vrai proprietaire
+
+Ceinture 2 (jaune) : Permissions, proprietaire, contenu
+
+Outil attendu : ls -l
+
+Le compte rendu du dojo (a lire dans la machine) :
+
+    06_proprietaire = FLAG=SECURA{compte_du_service}
+
+Ce que tu fais : tu ouvres le fichier /srv/dojo/2-jaune/06-proprietaire.txt, tu trouves
+la ligne de compte rendu, et tu recopies la valeur entre accolades.

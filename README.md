@@ -116,9 +116,11 @@ secura-academy/
 2. Copier `wp-content/themes/secura-learning` dans le dossier `themes/`.
 3. Dans l'admin WordPress : **Extensions → Activer** « Secura Academy », puis
    **Apparence → Thèmes → Activer** « Secura Learning ».
-4. L'activation crée automatiquement **16 rooms** (4 tâches chacune) et **2 parcours** :
-   les *Fondations* (6 rooms, 6 modules) et les *Scénarios M3* (10 missions réelles,
-   5 modules), avec leurs traductions arabes et anglaises.
+4. L'activation crée automatiquement **52 rooms** (4 tâches chacune) et **4 parcours** :
+   les *Fondations* (6 rooms, 6 modules), les *Scénarios M3* (10 missions réelles,
+   5 modules), les *Universités* (22 rooms de cours, 6 modules) et les *Labs
+   avancés* (14 rooms : Juice Shop, dojo, briefs, Kahoot), avec leurs
+   traductions arabes et anglaises.
 
 ### Via l'admin WordPress
 
@@ -364,7 +366,8 @@ Le contrat AJAX ne change pas : c'est le serveur qui choisit le pilote. Trois
 machines sont fournies prêtes à construire (`labs/`) : une application web avec
 injection SQL, un binaire C avec dépassement de tampon, un réseau à deux
 nœuds pour apprendre le pivot, une machine multi-usages (`multi-01`) qui sert
-sept scénarios, et le nœud interne (`internal-01`) du pivot. **Les 16 rooms
+sept scénarios, le nœud interne (`internal-01`) du pivot, la salle des cours
+(`univ-01`), le dojo (`dojo-01`) et le lab OWASP Juice Shop. **Les 52 rooms
 sont déjà branchées** ; le réglage se fait dans l'admin, ou dans
 **Réglages → Secura Academy** (dossier des labs, first blood). Tout est
 détaillé dans [`docs/labs.md`](docs/labs.md).
@@ -545,8 +548,8 @@ en fin de ligne.
 
 Le workflow `wordpress.yml` installe un **vrai WordPress** (MySQL en service,
 plugin et thème du dépôt, pack de langue arabe) et rejoue la recette de bout
-en bout : le site répond en français, en arabe et en anglais, les 16 rooms et
-les 2 parcours existent, un QCM se valide, l'XP monte, une mauvaise réponse est
+en bout : le site répond en français, en arabe et en anglais, les 52 rooms et
+les 4 parcours existent, un QCM se valide, l'XP monte, une mauvaise réponse est
 refusée, et la bonne réponse ne quitte jamais le serveur.
 
 Il le fait **avec** les plugins que le site pourrait héberger (Polylang,

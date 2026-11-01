@@ -1,0 +1,37 @@
+Dojo Secura - vingt defis, cinq ceintures
+==========================================
+
+Chaque defi se resout en lisant un document du dojo. La valeur relevee
+est la preuve : le serveur la compare au drapeau du serveur, dans la
+machine, en root. Tu ne peux pas la copier ailleurs.
+
+Ceintures :
+    /srv/dojo/1-blanche/    Lire, chercher, comprendre
+    /srv/dojo/2-jaune/    Permissions, proprietaire, contenu
+    /srv/dojo/3-orange/    Reseau, processus, configuration
+    /srv/dojo/4-verte/    Binaires, chaines, memoire
+    /srv/dojo/5-noire/    Cryptographie, cles, empreintes
+    /srv/briefs/           les six briefs et le document de revision
+
+
+Outils : ls, cat, grep, head, tail, wc, find, file, stat, strings, sha256sum
+
+Ceinture 1 (blanche) : Lire, chercher, comprendre
+La ceinture blanche : on apprend a regarder. Un defi se resout souvent
+par une seule commande bien choisie, mais il faut la choisir.
+
+Ceinture 2 (jaune) : Permissions, proprietaire, contenu
+La ceinture jaune : le systeme te dit non. Un fichier protege, un
+dossier du vrai proprietaire, une ligne cachee au milieu des autres.
+
+Ceinture 3 (orange) : Reseau, processus, configuration
+La ceinture orange : on quitte les fichiers. Un port ouvert, un
+processus qui ecoute, une configuration oubliee.
+
+Ceinture 4 (verte) : Binaires, chaines, memoire
+La ceinture verte : on regarde des binaires. Les chaines qu'ils
+contiennent racontent souvent ce qu'ils font.
+
+Ceinture 5 (noire) : Cryptographie, cles, empreintes
+La ceinture noire : on regarde des secrets. Une empreinte se calcule,
+une cle se cherche, un certificat se lit.

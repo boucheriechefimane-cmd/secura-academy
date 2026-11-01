@@ -1739,3 +1739,54 @@
 		color: #0b6b52;
 	}
 }
+
+/* ---------------------------------------------------------------------
+ * Bloc Kahoot : le quiz de classe (jouable en classe ou seul)
+ * ------------------------------------------------------------------ */
+
+.seca-kahoot {
+	margin: 1.4rem 0;
+	padding: 1rem 1.1rem;
+	border: 1px solid var(--sa-border, rgba(15, 23, 42, .12));
+	border-radius: .9rem;
+	background: var(--sa-surface, rgba(15, 23, 42, .03));
+}
+
+.seca-kahoot-title {
+	margin: 0 0 .35rem;
+	font-size: 1rem;
+	line-height: 1.35;
+}
+
+.seca-kahoot-intro {
+	margin: 0 0 .8rem;
+	font-size: .88rem;
+	color: var(--sa-muted, rgba(15, 23, 42, .68));
+	line-height: 1.55;
+}
+
+.seca-kahoot-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: .6rem;
+}
+
+.seca-kahoot-code {
+	display: inline-flex;
+	align-items: baseline;
+	gap: .4rem;
+	padding: .35rem .7rem;
+	border-radius: .6rem;
+	background: rgba(15, 23, 42, .06);
+	font-size: .82rem;
+}
+
+.seca-kahoot-code-label {
+	color: var(--sa-muted, rgba(15, 23, 42, .68));
+}
+
+.seca-kahoot-code strong {
+	letter-spacing: .12em;
+	font-size: .95rem;
+}

@@ -1,0 +1,12 @@
+# Defi d10 - Le processus suspect
+
+Ceinture 3 (orange) : Reseau, processus, configuration
+
+Outil attendu : ps
+
+Le compte rendu du dojo (a lire dans la machine) :
+
+    10_processus = FLAG=SECURA{processus_ecoute}
+
+Ce que tu fais : tu ouvres le fichier /srv/dojo/3-orange/10-processus.txt, tu trouves
+la ligne de compte rendu, et tu recopies la valeur entre accolades.
