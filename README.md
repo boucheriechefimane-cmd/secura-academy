@@ -587,7 +587,11 @@ constat** (v0.8.2 : un défaut que **la CI seule** a pu trouver — les pages
 légales n'existaient que sur un serveur web, jamais en ligne de commande,
 où WP-CLI charge WordPress dans une portée de fonction ; corrigé par une
 fonction, vérifié explicitement à l'installation, et deux contrôles
-automatiques interdisent le retour de la faute).
+automatiques interdisent le retour de la faute) → **202 contrôles, 0
+constat** (v0.8.3 : la feuille de style arabe était déclarée à une adresse
+qui n'existait pas — **404**, donc mise en page arabe jamais appliquée ;
+corrigée, et un contrôle **bloquant** vérifie désormais que toutes les
+feuilles de style d'une page se chargent).
 
 Ce que les quinze auditeurs ont trouvé — et fait corriger : les pages légales
 qui n'existaient pas, l'invitation à s'inscrire que le visiteur anonyme ne

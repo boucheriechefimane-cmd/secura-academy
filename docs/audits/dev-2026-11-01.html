@@ -44,7 +44,7 @@ a{color:#1d4ed8}
 <header><div class="page">
 <div class="eyebrow">Comité d'audit externe — rapport d'expert</div>
 <h1>Audit externe — Développement technique</h1>
-<p class="sub">WordPress réel, 01/11/2026 à 22:17 UTC</p>
+<p class="sub">WordPress réel, 01/11/2026 à 22:41 UTC</p>
 </div></header>
 <div class="page">
 <div class="verdict" style="--teinte:#1b7f4b"><span class="badge">Conforme avec observations</span><p>Aucun constat bloquant ni majeur.</p></div>
@@ -57,5 +57,5 @@ a{color:#1d4ed8}
 <div class="constat"><div class="tete"><span class="etiquette" style="background:#f1f3f5;color:#4b5563">Info</span><strong>Pourquoi ce controle existe</strong></div><div class="corps"><p><strong>Constat :</strong> Le 01/11/2026, la CI a echoue sur un constat RGPD bloquant : les pages legales n existaient pas. La cause : le plugin rangeait les textes legaux dans une variable globale. Or WP-CLI charge WordPress dans une portee de fonction, ou une variable globale de plugin n existe pas. Tout fonctionnait donc sur un vrai serveur web (recette manuelle), et rien ne fonctionnait en ligne de commande. Le correctif : une fonction, qui existe dans tous les contextes ; et une verification explicite dans scripts/ci-wordpress.sh, qui echoue bruyamment — en disant pourquoi — si les pages legales ne sont pas publiees.</p></div></div>
 <div class="honnete"><h3>Ce que cet audit ne peut pas affirmer</h3>
 <p>Un audit automatisé mesure ; il ne ressent pas. Ce rapport ne dit donc rien sur la compréhension d'une leçon par un élève, sur la qualité d'une traduction, sur le rythme d'un parcours, ni sur la valeur perçue d'un badge. Ces points restent des jugements humains. Ce qui est affirmé ici repose sur une preuve reproduite plus haut.</p></div>
-<footer>Généré par le comité d'audit externe — dev — 01/11/2026 22:17 UTC. Constats : 0 bloquant, 0 majeur, 0 mineur, 3 info. Contrôles réussis : 18.</footer>
+<footer>Généré par le comité d'audit externe — dev — 01/11/2026 22:41 UTC. Constats : 0 bloquant, 0 majeur, 0 mineur, 3 info. Contrôles réussis : 18.</footer>
 </div></body></html>

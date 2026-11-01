@@ -209,6 +209,12 @@ echo "\n4. Le sens de lecture (droite à gauche)\n";
 
 $sens_lecture = array();
 
+/* Les feuilles de style qui ne se chargent pas : on le note à part.
+   Une feuille absente, c'est une page sans mise en page — et cela a
+   longtemps échappé : la feuille arabe du thème était demandée à une
+   adresse qui n'existait pas, et rien ne le signalait. */
+$feuilles_cassees = array();
+
 foreach ( $langues as $langue ) {
 	$url = add_query_arg( 'seca_lang', $langue, home_url( '/' ) );
 
@@ -243,16 +249,29 @@ foreach ( $langues as $langue ) {
 	$exemples  = array();
 
 	foreach ( $feuilles as $href ) {
-		$css = '';
+		$css  = '';
+		$code = 0;
 
 		if ( 0 === strpos( $href, 'http' ) ) {
 			$reponse_css = wp_remote_get( $href, array( 'timeout' => 15 ) );
 
 			if ( ! is_wp_error( $reponse_css ) ) {
-				$css = wp_remote_retrieve_body( $reponse_css );
+				$code = (int) wp_remote_retrieve_response_code( $reponse_css );
+				$css  = wp_remote_retrieve_body( $reponse_css );
 			}
 		} elseif ( file_exists( $href ) ) {
 			$css = file_get_contents( $href );
+		}
+
+		/* On ne mesure que des FEUILLES DE STYLE. Une page d'erreur
+		   (404) contient le CSS de WordPress en ligne — et ce CSS
+		   appartient à WordPress, pas à notre code. Le 1er/11/2026, la
+		   feuille arabe du thème était demandée à une adresse fausse :
+		   le contrôle mesurait donc une page 404, et signalait des
+		   « propriétés physiques » qui n'étaient pas les nôtres. */
+		if ( 0 !== $code && 200 !== $code ) {
+			$feuilles_cassees[] = $langue . ' : ' . $href . ' (HTTP ' . $code . ')';
+			continue;
 		}
 
 		if ( '' === $css ) {
@@ -263,7 +282,7 @@ foreach ( $langues as $langue ) {
 			$physiques += count( $m[0] );
 
 			foreach ( array_slice( $m[0], 0, 3 ) as $exemple ) {
-				$exemples[] = basename( $href ) . ' : ' . trim( preg_replace( '/\s+/', ' ', $exemple ) );
+				$exemples[] = $href . ' : ' . trim( preg_replace( '/\s+/', ' ', $exemple ) );
 			}
 		}
 	}
@@ -281,7 +300,7 @@ audit_verifier(
 	'majeur',
 	empty( $sens_lecture )
 		? 'Pages servies en arabe (dir="rtl") et en anglais (dir="ltr") : sens de lecture correct, '
-			. 'aucune propriété physique de marge ou de marge intérieure'
+		. 'aucune propriété physique de marge ou de marge intérieure'
 		: implode( "\n", array_slice( $sens_lecture, 0, 5 ) )
 );
 
@@ -289,9 +308,21 @@ if ( empty( $sens_lecture ) ) {
 	audit_force(
 		'Le sens de lecture est complet : la version arabe est en droite-à-gauche, sans propriété physique',
 		'Vérifié sur les pages servies en arabe et en anglais : dir="rtl" / dir="ltr" corrects, '
-			. 'aucune propriété margin-left / margin-right / padding-left / padding-right'
+		. 'aucune propriété margin-left / margin-right / padding-left / padding-right'
 	);
 }
+
+audit_verifier(
+	'toutes les feuilles de style de la page se chargent (HTTP 200)',
+	empty( $feuilles_cassees ),
+	count( $feuilles_cassees ) . ' feuille(s) de style en erreur : '
+		. implode( ' | ', array_slice( $feuilles_cassees, 0, 5 ) ),
+	'bloquant',
+	empty( $feuilles_cassees )
+		? 'Feuilles de style référencées par les pages servies en français, en arabe et en anglais : '
+		. 'toutes répondent HTTP 200'
+		: implode( "\n", $feuilles_cassees )
+);
 
 /* ------------------------------------------------------------------ */
 echo "\n4 bis. Le sens de lecture est-il porté par le document ?\n";

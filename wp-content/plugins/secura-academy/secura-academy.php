@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.8.2
+ * Version:           0.8.3
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,12 @@
  *
  * @package Secura_Academy
  *
+ * 0.8.3 — Le thème livre la feuille de style arabe : elle était demandée
+ *           à une adresse qui n'existait pas (404), donc la mise en page
+ *           arabe n'était jamais appliquée. Elle est en outre chargée
+ *           dès que le visiteur lit en arabe, même si le site est en
+ *           français. Un contrôle automatique vérifie désormais que
+ *           toutes les feuilles de style d'une page se chargent.
  * 0.8.2 — Correctif : les pages légales sont créées partout, pas seulement
  *           sur un serveur web. Le plugin rangeait les textes légaux dans
  *           une variable globale ; or WP-CLI charge WordPress dans une
@@ -107,7 +113,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.8.2' );
+define( 'SECURA_ACADEMY_VERSION', '0.8.3' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

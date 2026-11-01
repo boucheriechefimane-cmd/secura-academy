@@ -3,7 +3,7 @@
     "titre": "Moteur de lab et orchestration Docker",
     "expert": "Expert en orchestration de conteneurs et en cycle de vie de machines virtuelles pédagogiques",
     "perimetre": "Vérifie que le moteur fonctionne autant qu'il est durci : cycle de vie complet (déployer → jouer → indice → arrêter → nettoyer), durée de vie, nettoyage automatique, isolation de deux apprenants, reprise après incident, et cohérence entre le code et le contenu réel des machines. Ne juge pas la sécurité des conteneurs : c'est l'auditeur sécurité.",
-    "date": "2026-11-01T22:17:37+00:00",
+    "date": "2026-11-01T22:41:40+00:00",
     "ok": 6,
     "non_etaye": 0,
     "forces": [
@@ -20,7 +20,7 @@
         {
             "nom": "Docker répond et liste les images disponibles",
             "resultat": "Docker opérationnel",
-            "sortie": "Docker version : 5.4.2\nImages :\nlocalhost/securalabs/dojo-01:1.0\n<none>:<none>\nlocalhost/securalabs/flags-01:1.0\n<none>:<none>\nlocalhost/securalabs/univ-01:1.0\nlocalhost/securalabs/bin-01:1.0\nlocalhost/securalabs/internal-01:1.0\nlocalhost/securalabs/multi-01:1.0\nlocalhost/securalabs/web-01:1.0\ndocker.io/library/php:8.2-apache\ndocker.io/library/php:8.3-cli\ndocker.io/library/php:8.4-cli\ndocker.io/library/debian:bookworm-slim\nlocalhost/docker.io/bkimminich/juice-shop:v20.3.0\ndocker.io/bkimminich/juice-shop:v20.3.0\ndocker.io/library/php:7.4-cli"
+            "sortie": "Docker version : 5.4.2\nImages :\nlocalhost/securalabs/dojo-01:1.0\n<none>:<none>\nlocalhost/securalabs/flags-01:1.0\n<none>:<none>\nlocalhost/securalabs/univ-01:1.0\nlocalhost/securalabs/bin-01:1.0\nlocalhost/securalabs/internal-01:1.0\nlocalhost/securalabs/multi-01:1.0\nlocalhost/securalabs/web-01:1.0\ndocker.io/library/php:8.2-apache\ndocker.io/library/php:8.3-cli\ndocker.io/library/php:8.4-cli\ndocker.io/library/debian:bookworm-slim\ndocker.io/bkimminich/juice-shop:v20.3.0\nlocalhost/docker.io/bkimminich/juice-shop:v20.3.0\ndocker.io/library/php:7.4-cli"
         }
     ],
     "bloquant": 0,

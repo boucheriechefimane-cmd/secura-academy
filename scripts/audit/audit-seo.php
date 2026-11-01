@@ -94,7 +94,11 @@ if ( '' === trim( $html ) ) {
 
 audit_verifier(
 	'la page annonce le titre de la room (ce que le moteur affiche dans le resultat)',
-	false !== strpos( $html, '<title>' ) && false !== strpos( $html, htmlspecialchars( (string) $room->post_title, ENT_QUOTES ) ),
+	false !== strpos( $html, '<title>' )
+		&& false !== strpos(
+			audit_normaliser_texte( wp_strip_all_tags( $html ) ),
+			audit_normaliser_texte( (string) $room->post_title )
+		),
 	'title de la room absent de la balise <title>',
 	'majeur'
 );

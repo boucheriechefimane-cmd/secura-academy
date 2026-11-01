@@ -18,7 +18,7 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 
 | # | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Verdict |
 |---|---|---|---|---|---|---|
-| 1 | SEO | 44 | 0 | 0 | 0 | **Conforme** |
+| 1 | SEO | 45 | 0 | 0 | 0 | **Conforme** |
 | 2 | Contenu | 18 | 0 | 0 | 0 | **Conforme** |
 | 3 | UX / UI | 16 | 0 | 0 | 0 | **Conforme** |
 | 4 | Développement | 18 | 0 | 0 | 0 | **Conforme** |
@@ -27,13 +27,13 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 7 | **Performance & Core Web Vitals** | 6 | 0 | 0 | 0 | **Conforme** |
 | 8 | **Données structurées** | 7 | 0 | 0 | 0 | **Conforme** |
 | 9 | **Accessibilité (WCAG 2.2 AA)** | 10 | 0 | 0 | 0 | **Conforme** |
-| 10 | **Multilingue & i18n** | 7 | 0 | 0 | 0 | **Conforme** |
+| 10 | **Multilingue & i18n** | 8 | 0 | 0 | 0 | **Conforme** |
 | 11 | **RGPD & mineurs** | 8 | 0 | 0 | 0 | **Conforme** |
 | 12 | **Moteur de lab & Docker** | 6 | 0 | 0 | 0 | **Conforme** |
 | 13 | **Onboarding** | 9 | 0 | 0 | 0 | **Conforme** |
 | 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | **Conforme** |
 | 15 | **DevOps & résilience** | 10 | 0 | 0 | 0 | **Conforme** |
-| | **Total** | **200** | **0** | **0** | **0** | **Conforme** |
+| | **Total** | **202** | **0** | **0** | **0** | **Conforme** |
 
 > Les 15 auditeurs produisent chacun **trois formats** de rapport dans
 > `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
@@ -304,6 +304,76 @@ le contenu : le titre affiché reste parfaitement correct.
 
 ---
 
+### 2 sexies. La feuille de style arabe, demandée à une adresse qui n'existait pas (01/11/2026, v0.8.3)
+
+**Le symptôme.** L'auditeur « Multilingue » signalait, dans la CI
+seulement, « 4 propriétés physiques au lieu de logiques » dans un fichier
+appelé `style-rtl.css`. Un fichier nommé « style-rtl » : notre feuille
+arabe, censée porter les ajustements de mise en page et de typographie de
+la version arabe.
+
+**Ce qui se passait vraiment.** Le thème déclarait sa feuille arabe avec
+un **chemin de fichier** là où il fallait une **adresse** :
+
+```php
+get_template_directory() . '/style-rtl.css'   // /chemin/du/serveur/…
+get_template_directory_uri() . '/style-rtl.css' // https://site/…  ← correct
+```
+
+Le navigateur demandait donc `/tmp/wp-ci-fresh/wp-content/themes/…/style-rtl.css`
+à la racine du site : la réponse était un **404**, et **la feuille arabe
+n'était jamais chargée**. Le site paraissait correct — l'attribut
+`dir="rtl"` est posé par le plugin — mais aucune mise en page arabe
+n'était appliquée.
+
+**La preuve, mesurée.**
+
+| Mesure | Avant | Après |
+|---|---|---|
+| Adresse demandée par le navigateur pour la feuille arabe | `http://site/tmp/…/style-rtl.css?ver=0.7.0` | `http://site/wp-content/themes/secura-learning/style-rtl.css?ver=0.8.3` |
+| Réponse du serveur | **404** (60 Ko de HTML) | **200** (feuille de style) |
+| Feuilles de style en erreur sur la page arabe | 1 | **0** |
+
+**Et le faux positif.** Le contrôle mesurait la réponse **404** — c'est-à-
+dire une page d'erreur de WordPress, qui contient le CSS de WordPress en
+ligne, avec des propriétés physiques (légitimes : ce sont les fichiers
+RTL de WordPress, la contrepartie de ses fichiers LTR). Le contrôle
+signalait donc **le CSS de WordPress**, pas le nôtre. Nos deux feuilles
+de style (celles du plugin et celles du thème) contiennent **zéro**
+propriété physique — vérifié sur les fichiers du dépôt.
+
+**Le traitement.**
+
+| Correction | Fichier |
+|---|---|
+| La feuille arabe est déclarée avec une **adresse**, et non un chemin | `wp-content/themes/secura-learning/functions.php` |
+| Elle est en outre chargée dès que le **visiteur** lit en arabe — même si le site est en français (c'est le cas par défaut) | `wp-content/themes/secura-learning/functions.php` |
+| La version du thème est cohérente partout (elle était restée à `0.7.0` dans le code, alors que l'en-tête du CSS annonçait `0.8.2`) | `wp-content/themes/secura-learning/functions.php`, `style.css` |
+| Le contrôle ne mesure plus que des **feuilles de style** (HTTP 200) et nomme l'adresse complète dans sa preuve | `scripts/audit/audit-multilingue.php` |
+
+**Les garde-fous.**
+
+1. **Un contrôle nouveau (bloquant)** : « toutes les feuilles de style de
+   la page se chargent (HTTP 200) », dans les trois langues. C'est celui
+   qui aurait dû attraper ce défaut dès le début — il était invisible
+   parce que personne ne vérifiait que la feuille était *chargée*.
+2. Un contrôle de l'auditeur « Multilingue » ne mesure plus une page
+   d'erreur comme si c'était une feuille de style, et la preuve affiche
+   l'adresse complète : un constat est actionnable.
+3. Un faux positif de l'auditeur « SEO » est corrigé au passage : le
+   titre d'une room était comparé à la page **sans normaliser les
+   apostrophes** (droites dans la base, typographiques à l'écran) —
+   d'où un « titre absent » qui n'était pas absent.
+
+> **La leçon.** « La page s'affiche en arabe » ne prouve pas que « la
+> mise en page arabe est appliquée ». Il y a deux choses : le sens de
+> lecture du **document** (`dir="rtl"`), et celui de la **mise en page**
+> (la feuille de style). Les deux doivent être vérifiés, séparément — et
+> une feuille de style doit être vérifiée **en la chargeant**, pas en
+> presumant qu'elle est là parce qu'elle est déclarée.
+
+---
+
 ## 3. Ce que le comité a confirmé de bon
 
 C'est aussi utile qu'un constat : ces points sont **vérifiés à chaque
@@ -375,3 +445,4 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 | 01/11/2026 (nuit, suite) | v0.8.0 | Livraison du comité des quinze : **196 contrôles, 0 constat**. Mais deux workflows GitHub sont tombés en échec, et le rejeu de la recette à la main a montré un **vrai défaut** : les onze actions AJAX avaient été renommées de `secura_` en `seca_` dans le plugin seulement — le front continuait d'appeler les anciennes. Le site était donc **cassé pour les élèves** (bouton « Déployer la machine » inerte, message d'erreur muet). Corrigé, et **deux contrôles automatiques** ajoutés pour que la cohérence des noms soit vérifiée à chaque push. Voir § 2 ter |
 | 01/11/2026 (nuit, suite) | v0.8.1 | Deuxième passe de relecture : le mot « fonctionnalités » était écrit **en coréen** dans la politique de confidentialité. Invisible à l'écran ; **public via l'API REST**, qui publie le texte brut de la base. Corrigé, avec un **nouveau contrôle** qui cherche les caractères d'une écriture étrangère dans les fichiers livrés et dans les pages réellement servies. Les pages légales de la base sont désormais remises à jour à chaque version du plugin, **sans jamais écraser un texte retouché par le propriétaire**. Voir § 2 quater. Total : **199 contrôles, 0 constat** |
 | 01/11/2026 (nuit, suite 2) | v0.8.2 | Le workflow « Audit externe » est tombé rouge sur un constat RGPD **bloquant** : les pages légales n'existaient pas **sur un site installé en ligne de commande**. Cause mesurée : le plugin rangeait les textes dans une **variable globale**, et WP-CLI charge WordPress **dans une portée de fonction** — une telle variable n'y existe pas. Le défaut ne vivait donc que dans un contexte (la CI), invisible pour la recette manuelle jouée sur un vrai serveur web. **Correction :** les textes passent par une fonction, qui existe partout ; **garde-fou :** l'installation est vérifiée explicitement (l'échec nomme la page absente) et **deux contrôles** interdisent le retour de la faute. Un faux positif a été corrigé au passage (apostrophe typographique échappée en `&#8217;` dans la comparaison des données structurées). Voir § 2 quinquies. Total : **200 contrôles, 0 constat** |
+| 01/11/2026 (nuit, suite 3) | v0.8.3 | La CI a signalé un « majeur » multilingue : des propriétés physiques dans la feuille arabe. En cherchant, on a trouvé un **vrai défaut invisible** : le thème déclarait sa feuille arabe avec un **chemin de fichier** au lieu d'une **adresse**, donc le navigateur demandait une URL qui n'existait pas (404) — **la mise en page arabe n'était jamais appliquée**. Le constat, lui, était un **faux positif** : le contrôle mesurait la page 404 (qui contient le CSS de WordPress), pas une feuille de style. **Correction :** adresse correcte, et feuille arabe chargée dès que le visiteur lit en arabe, même sur un site en français ; version du thème cohérente. **Garde-fous :** un contrôle **bloquant** vérifie désormais que toutes les feuilles de style d'une page se chargent (HTTP 200), dans les trois langues ; et le contrôle ne mesure plus une page d'erreur comme si c'était une feuille de style. Un faux positif de l'auditeur « SEO » est corrigé au passage (apostrophes non normalisés). Total : **202 contrôles, 0 constat** |

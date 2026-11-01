@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_LEARNING_VERSION', '0.7.0' );
+define( 'SECURA_LEARNING_VERSION', '0.8.3' );
 
 /**
  * Déclare les fonctionnalités du thème.
@@ -338,11 +338,30 @@ function secures_learning_assets() {
 		SECURA_LEARNING_VERSION
 	);
 
-	/* Ajustements RTL (arabe) : chargés en plus de la feuille de base. */
-	if ( is_rtl() ) {
+	/* Ajustements RTL (arabe) : chargés en plus de la feuille de base.
+
+	   Deux conditions, parce qu'il y a deux façons de lire en arabe :
+	   - le SITE est en arabe (is_rtl()) ;
+	   - le VISITEUR a choisi l'arabe dans le sélecteur de langue, alors
+	     que le site est en français : dans ce cas, la page est déjà
+	     posée en droite-à-gauche (attribut dir), elle doit donc aussi
+	     avoir ses ajustements de mise en page et de typographie.
+
+	   Attention : une ADRESSE, pas un chemin de fichier. Avec un chemin,
+	   le navigateur demandait « /wp-content/…/style-rtl.css » à la racine
+	   du site : la réponse était un 404, et la feuille arabe n'était
+	   jamais chargée. Le site paraissait correct (l'attribut dir est posé
+	   par le plugin), mais aucune mise en page arabe n'était appliquée. */
+	$en_arabe = is_rtl();
+
+	if ( ! $en_arabe && class_exists( 'Secura_I18n' ) ) {
+		$en_arabe = ( 'ar' === Secura_I18n::current_lang() );
+	}
+
+	if ( $en_arabe ) {
 		wp_enqueue_style(
 			'secura-learning-rtl',
-			get_template_directory() . '/style-rtl.css',
+			get_template_directory_uri() . '/style-rtl.css',
 			array( 'secura-learning-style' ),
 			SECURA_LEARNING_VERSION
 		);
