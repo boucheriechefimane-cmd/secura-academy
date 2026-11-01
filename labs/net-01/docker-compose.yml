@@ -130,8 +130,8 @@ services:
       - /tmp:rw,noexec,nosuid,size=16m
     networks:
       - backstage
-    command: ["sleep infinity"]
-    entrypoint: ["/bin/bash", "-c"]
+    # Le noeud interne lance son serveur web (comme le noeud « web ») :
+    # c'est une application, pas une simple machine a commandes.
 
 networks:
   # Reseau sans sortie Internet : les conteneurs ne parlent qu'entre eux.

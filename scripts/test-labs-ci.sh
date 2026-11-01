@@ -237,10 +237,10 @@ if [ -f "$COMPOSE" ]; then
 		fi
 
 		# --- Scénario 1 : la page de diagnostic mène à la configuration.
-		if docker exec "$WEB" curl -s http://localhost:8080/status.php 2>/dev/null | grep -q 'app.conf'; then
-			test_ok "scénario 1 : la page d'état indique où est la configuration"
+		if docker exec "$WEB" curl -s http://localhost:8080/diag.php 2>/dev/null | grep -q 'app.conf'; then
+			test_ok "scénario 1 : la page de diagnostic indique où est la configuration"
 		else
-			test_ko "scénario 1 : la page d'état ne répond pas"
+			test_ko "scénario 1 : la page de diagnostic ne répond pas"
 		fi
 
 		# --- Scénario 2 : le mot de passe en clair dans la configuration.
@@ -250,8 +250,9 @@ if [ -f "$COMPOSE" ]; then
 			test_ko "scénario 2 : le mot de passe attendu est introuvable dans la configuration"
 		fi
 
-		# --- Scénario 4 : l'injection SQL passe.
-		if docker exec "$WEB" curl -s -d "username=admin'--" -d "password=x" http://localhost:8080/index.php 2>/dev/null | grep -q 'Connect'; then
+		# --- Scénario 4 : l'injection SQL passe (le formulaire redirige
+		#     vers l'espace administrateur : on suit la redirection).
+		if docker exec "$WEB" sh -c "curl -s -c /tmp/cj -b /tmp/cj -L -d \"username=admin'--\" -d 'password=x' http://localhost:8080/index.php" 2>/dev/null | grep -q 'Administration'; then
 			test_ok "scénario 4 : l'injection SQL permet de se connecter"
 		else
 			test_ko "scénario 4 : l'injection SQL ne fonctionne pas"
