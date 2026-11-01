@@ -617,6 +617,20 @@ Vérification mesurée : **52 rooms sur 52** liées depuis un parcours
 la réponse honnête à « le site est-il conforme à 100 % ? » — est dans
 [`docs/SEO-GENERATION-AI.md`](docs/SEO-GENERATION-AI.md).
 
+Un point mérite d'être dit, car il a coûté cher et qu'il est instructif :
+pendant la livraison de la v0.7.0, deux contrôles de la recette échouaient
+**en CI seulement** — « robots.txt nomme les robots d'IA » et « llms.txt cite
+les rooms ». Le site servait pourtant ces deux fichiers correctement en local.
+La cause a été isolée en conteneur : **le serveur de développement intégré de
+PHP répond 404 pour une adresse qui porte une extension** (`/robots.txt`,
+`/llms.txt`) quand le fichier n'existe pas sur le disque — avec PHP 8.3, la
+requête **n'atteignait jamais WordPress**. Un vrai hébergeur (Apache,
+LiteSpeed) route ces adresses vers WordPress grâce au `.htaccess` : le site
+était donc **correct**, c'est l'outillage de test qui mentait. Les workflows
+servent désormais le site via `scripts/audit/router.php`, comme le faisait
+déjà le workflow d'audit. La recette montre en outre le **contenu réellement
+reçu** quand un contrôle échoue : on ne devine plus, on lit la preuve.
+
 Le dépôt est versionné sur GitHub, en **repository privé**. Deux workflows
 GitHub Actions sont présents :
 
