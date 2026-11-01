@@ -561,7 +561,7 @@ list( $robots_txt, $code_robots ) = securite_telecharger( home_url( '/robots.txt
 verifier(
 	'le fichier robots.txt est servi',
 	'' !== trim( $robots_txt ),
-	'robots.txt vide'
+	'robots.txt vide (code ' . $code_robots . ')'
 );
 
 $robots_ia = array( 'Googlebot', 'OAI-SearchBot', 'ChatGPT-User', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot', 'GPTBot', 'ClaudeBot', 'Google-Extended' );
@@ -578,6 +578,8 @@ verifier(
 	'robots.txt nomme les robots d\'IA',
 	empty( $robots_absents ),
 	'robots absents : ' . implode( ', ', $robots_absents )
+		. ' | code ' . $code_robots
+		. ' | debut : ' . substr( preg_replace( '/\s+/', ' ', (string) $robots_txt ), 0, 200 )
 );
 
 /* On compare ligne par ligne : « Disallow: /wp-admin/ » contient la
@@ -599,7 +601,7 @@ verifier(
 verifier(
 	'robots.txt declare le plan du site',
 	false !== stripos( $robots_txt, 'Sitemap:' ),
-	'aucun Sitemap: dans robots.txt'
+	'aucun Sitemap: dans robots.txt (code ' . $code_robots . ')'
 );
 
 /* Le fichier llms.txt est genere : il doit repondre, et lister les rooms. */
@@ -608,13 +610,14 @@ list( $llms_txt, $code_llms ) = securite_telecharger( home_url( '/llms.txt' ) );
 verifier(
 	'le fichier llms.txt est servi',
 	'' !== trim( $llms_txt ),
-	'llms.txt vide'
+	'llms.txt vide (code ' . $code_llms . ')'
 );
 
 verifier(
 	'llms.txt cite les rooms avec leurs adresses',
 	false !== strpos( $llms_txt, '/rooms/' ),
-	'aucune adresse de room dans llms.txt'
+	'aucune adresse de room dans llms.txt (code ' . $code_llms . ') | debut : '
+		. substr( preg_replace( '/\s+/', ' ', (string) $llms_txt ), 0, 200 )
 );
 
 /* L'archive d'auteur ne doit pas exposer le compte d'administration. */
