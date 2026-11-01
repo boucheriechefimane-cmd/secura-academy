@@ -349,12 +349,39 @@ final class Secura_Dashboard {
 					}
 					?>
 					<li class="seca-room-card is-todo">
-						<h3 class="seca-room-title"><?php echo esc_html( $view['title'] ); ?></h3>
+						<h3 class="seca-room-title"><a href="<?php echo esc_url( get_permalink( $room->ID ) ); ?>"><?php echo esc_html( $view['title'] ); ?></a></h3>
 						<p class="seca-room-excerpt"><?php echo esc_html( $view['excerpt'] ); ?></p>
 						<div class="seca-room-meta"><span class="seca-chip"><?php echo esc_html( $view['difficulty'] ); ?></span><span class="seca-chip"><?php echo esc_html( sprintf( /* translators: %d : minutes. */ __( '%d min', 'seca-academy' ), $view['duration'] ) ); ?></span></div>
 					</li>
 				<?php endforeach; ?>
 			</ul>
+
+			<?php
+			/* Les parcours, en liens reels : sans eux, ni un eleve ni un
+			   robot ne trouve le chemin vers les rooms. */
+			$parcours_liste = Secura_Paths::get_paths();
+
+			if ( ! empty( $parcours_liste ) ) :
+				?>
+				<h3 class="seca-guest-paths-title"><?php esc_html_e( 'Les parcours', 'seca-academy' ); ?></h3>
+				<ul class="seca-guest-paths">
+					<?php
+					foreach ( $parcours_liste as $parcours ) :
+						$vue_parcours = Secura_Paths::get_path_view( $parcours->ID );
+
+						if ( ! $vue_parcours ) {
+							continue;
+						}
+						?>
+						<li>
+							<a href="<?php echo esc_url( get_permalink( $parcours->ID ) ); ?>">
+								<strong><?php echo esc_html( $vue_parcours['title'] ); ?></strong>
+								<span><?php echo esc_html( $vue_parcours['excerpt'] ); ?></span>
+							</a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			<?php endif; ?>
 		</div>
 		<?php
 		return ob_get_clean();

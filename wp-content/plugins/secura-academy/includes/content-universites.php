@@ -769,7 +769,7 @@ array(
 
 array(
 	'title' => 'Le web et ses règles : SOP, CSRF et sessions',
-	'excerpt' => 'Pourquoi le navigateur mélange sometimes les sites, et comment on empêche un site de jouer à ta place.',
+	'excerpt' => 'Pourquoi le navigateur mélange parfois les sites, et comment on empêche un site de jouer à ta place.',
 	'content' => 'La leçon 9 de 6.858 : le modèle de sécurité du web, la même origine, et les attaques CSRF.',
 	'difficulty' => 'moyen',
 	'duration' => 35,
@@ -3098,7 +3098,7 @@ array(
 	'i18n' => array(
 		'ar' => array(
 			'title' => 'النظافة الرقمية: العامل الثاني',
-			'excerpt' => 'رمز من ستة أرقام لا يحمي إلا إذا لم يستطع أحد تخمينه، ومن هنا_lists.',
+			'excerpt' =>  'رمز من ستة أرقام لا يحمي إلا إذا لم يستطع أحد تخمينه، ومن هنا تأتي قوائم الأكواد.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — العوامل الثلاثة' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -3282,7 +3282,7 @@ array(
 	'i18n' => array(
 		'ar' => array(
 			'title' => 'أفضل 10 مخاطر من OWASP وسطح الهجوم',
-			'excerpt' => 'القائمة التيEveryoneApproval يشير إليها، وما فائدتها الحقيقية: ترتيب المخاطر لا عدّ الثغرات.',
+			'excerpt' =>  'القائمة التي يشير إليها الجميع، وما فائدتها الحقيقية: ترتيب المخاطر لا عدّ الثغرات.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — قائمة مخاطر لا كتالوج ثغرات' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -4550,20 +4550,20 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'الحزام blanche: lire, chercher, comprendre',
-			'excerpt' => 'Quatre défis pour apprendre à regarder un fichier et à y trouver ce qu\'on cherche.',
+			'title' =>  'الحزام الأبيض: اقرأ، ابحث، افهم',
+			'excerpt' =>  'أربعة تحديات لتتعلم النظر إلى ملف والعثور داخله على ما تبحث عنه.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — الحزام blanche' ),
+				array( 'title' => 'المهمة 1: الدرس — الحزام الأبيض' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — تحديات الحزام الأربعة' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'The blanche belt: lire, chercher, comprendre',
-			'excerpt' => 'Quatre défis pour apprendre à regarder un fichier et à y trouver ce qu\'on cherche.',
+			'title' =>  'White belt: read, search, understand',
+			'excerpt' =>  'Four challenges to learn how to read a file and find in it what you are looking for.',
 			'tasks' => array(
-				array( 'title' => 'Task 1: Lesson - the blanche belt' ),
+				array( 'title' => 'Task 1: Lesson - the white belt' ),
 				array( 'title' => 'Task 2: Practice' ),
 				array( 'title' => 'Task 3: Mission - the four challenges of the belt' ),
 				array( 'title' => 'Task 4: End-of-room exam' ),
@@ -4743,20 +4743,20 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'الحزام jaune: permissions, propriétaire, contenu',
-			'excerpt' => 'Quand le système te dit non : qui possède le fichier, quelles sont ses permissions, et ce qu\'il contient vraiment.',
+			'title' =>  'الحزام الأصفر: الأذونات، المالك، المحتوى',
+			'excerpt' =>  'عندما يقول لك النظام لا: من يملك الملف، وما هي أذوناته، وما يحتويه فعلا.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — الحزام jaune' ),
+				array( 'title' => 'المهمة 1: الدرس — الحزام الأصفر' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — تحديات الحزام الأربعة' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'The jaune belt: permissions, propriétaire, contenu',
-			'excerpt' => 'Quand le système te dit non : qui possède le fichier, quelles sont ses permissions, et ce qu\'il contient vraiment.',
+			'title' =>  'Yellow belt: permissions, owner, content',
+			'excerpt' =>  'When the system says no: who owns the file, what its permissions are, and what it really contains.',
 			'tasks' => array(
-				array( 'title' => 'Task 1: Lesson - the jaune belt' ),
+				array( 'title' => 'Task 1: Lesson - the yellow belt' ),
 				array( 'title' => 'Task 2: Practice' ),
 				array( 'title' => 'Task 3: Mission - the four challenges of the belt' ),
 				array( 'title' => 'Task 4: End-of-room exam' ),
@@ -4936,18 +4936,18 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'الحزام orange: réseau, processus, configuration',
-			'excerpt' => 'On quitte les fichiers : ce qui écoute, ce qui tourne, et ce qui a été oublié dans la configuration.',
+			'title' =>  'الحزام البرتقالي: الشبكة، العمليات، الإعداد',
+			'excerpt' =>  'نترك الملفات: ما الذي يستمع، وما الذي يعمل، وما الذي نُسي في الإعداد.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — الحزام orange' ),
+				array( 'title' => 'المهمة 1: الدرس — الحزام البرتقالي' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — تحديات الحزام الأربعة' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'The orange belt: réseau, processus, configuration',
-			'excerpt' => 'On quitte les fichiers : ce qui écoute, ce qui tourne, et ce qui a été oublié dans la configuration.',
+			'title' =>  'Orange belt: network, processes, configuration',
+			'excerpt' =>  'We leave the files behind: what is listening, what is running, and what was forgotten in the configuration.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - the orange belt' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -5129,20 +5129,20 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'الحزام verte: binaires, chaînes, mémoire',
-			'excerpt' => 'On regarde des programmes compilés : ce qu\'ils contiennent, ce qu\'ils sont, et ce qu\'il y a dedans.',
+			'title' =>  'الحزام الأخضر: الملفات الثنائية، السلاسل، الذاكرة',
+			'excerpt' =>  'ننظر إلى برامج مترجمة: ماذا تحتوي، وماذا هي، وما بداخلها.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — الحزام verte' ),
+				array( 'title' => 'المهمة 1: الدرس — الحزام الأخضر' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — تحديات الحزام الأربعة' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'The verte belt: binaires, chaînes, mémoire',
-			'excerpt' => 'On regarde des programmes compilés : ce qu\'ils contiennent, ce qu\'ils sont, et ce qu\'il y a dedans.',
+			'title' =>  'Green belt: binaries, strings, memory',
+			'excerpt' =>  'We look at compiled programs: what they contain, what they are, and what is inside them.',
 			'tasks' => array(
-				array( 'title' => 'Task 1: Lesson - the verte belt' ),
+				array( 'title' => 'Task 1: Lesson - the green belt' ),
 				array( 'title' => 'Task 2: Practice' ),
 				array( 'title' => 'Task 3: Mission - the four challenges of the belt' ),
 				array( 'title' => 'Task 4: End-of-room exam' ),
@@ -5322,20 +5322,20 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'الحزام noire: cryptographie, clés, empreintes',
-			'excerpt' => 'La dernière ceinture : lire une empreinte, reconnaître une clé, lire un certificat.',
+			'title' =>  'الحزام الأسود: التشفير، المفاتيح، البصمات',
+			'excerpt' =>  'الحزام الأخير: قراءة بصمة، والتعرف على مفتاح، وقراءة شهادة.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — الحزام noire' ),
+				array( 'title' => 'المهمة 1: الدرس — الحزام الأسود' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — تحديات الحزام الأربعة' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'The noire belt: cryptographie, clés, empreintes',
-			'excerpt' => 'La dernière ceinture : lire une empreinte, reconnaître une clé, lire un certificat.',
+			'title' =>  'Black belt: cryptography, keys, fingerprints',
+			'excerpt' =>  'The last belt: reading a fingerprint, recognising a key, reading a certificate.',
 			'tasks' => array(
-				array( 'title' => 'Task 1: Lesson - the noire belt' ),
+				array( 'title' => 'Task 1: Lesson - the black belt' ),
 				array( 'title' => 'Task 2: Practice' ),
 				array( 'title' => 'Task 3: Mission - the four challenges of the belt' ),
 				array( 'title' => 'Task 4: End-of-room exam' ),
@@ -5474,20 +5474,20 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'موجز 1 : le dojo, comment on s\'entraîne',
-			'excerpt' => 'Avant les défis : la méthode. Le dojo n\'est pas un jeu de casse, c\'est une échelle.',
+			'title' =>  'موجز 1: الدوجو، كيف تتدرّب',
+			'excerpt' =>  'قبل التحديات: الطريقة. الدوجو ليس لعبة كسر، بل سُلّم.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — le dojo, comment on s\'entraîne' ),
+				array( 'title' => 'المهمة 1: الدرس — الدوجو، كيف تتدرّب' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — دليل الموجز' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'Brief 1 : le dojo, comment on s\'entraîne',
-			'excerpt' => 'Avant les défis : la méthode. Le dojo n\'est pas un jeu de casse, c\'est une échelle.',
+			'title' =>  'Brief 1: the dojo, how you train',
+			'excerpt' =>  'Before the challenges: the method. The dojo is not a cracking game, it is a ladder.',
 			'tasks' => array(
-				array( 'title' => 'Task 1: Lesson - le dojo, comment on s\'entraîne' ),
+				array( 'title' => 'Task 1: Lesson - the dojo, how you train' ),
 				array( 'title' => 'Task 2: Practice' ),
 				array( 'title' => 'Task 3: Mission - the proof of the brief' ),
 				array( 'title' => 'Task 4: End-of-room exam' ),
@@ -5626,20 +5626,20 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'موجز 2 : le web, comment on parle à un serveur',
-			'excerpt' => 'HTTP, en clair : une requête, une réponse. Le web n\'est pas magique.',
+			'title' =>  'موجز 2: الويب، كيف يتحدث إلى خادم',
+			'excerpt' =>  'HTTP، بوضوح: طلب ثم رد. الويب ليس سحرا.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — le web, comment on parle à un serveur' ),
+				array( 'title' => 'المهمة 1: الدرس — الويب، كيف يتحدث إلى خادم' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — دليل الموجز' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'Brief 2 : le web, comment on parle à un serveur',
-			'excerpt' => 'HTTP, en clair : une requête, une réponse. Le web n\'est pas magique.',
+			'title' =>  'Brief 2: the web, how you talk to a server',
+			'excerpt' =>  'HTTP, in plain words: a request, a response. The web is not magic.',
 			'tasks' => array(
-				array( 'title' => 'Task 1: Lesson - le web, comment on parle à un serveur' ),
+				array( 'title' => 'Task 1: Lesson - the web, how you talk to a server' ),
 				array( 'title' => 'Task 2: Practice' ),
 				array( 'title' => 'Task 3: Mission - the proof of the brief' ),
 				array( 'title' => 'Task 4: End-of-room exam' ),
@@ -5778,20 +5778,20 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'موجز 3 : les scénarios d\'exploitation',
-			'excerpt' => 'Exploiter, ce n\'est pas « casser » : c\'est faire faire à un programme quelque chose qu\'il ne prévoyait pas.',
+			'title' =>  'موجز 3: سيناريوهات الاستغلال',
+			'excerpt' =>  'الاستغلال ليس «الكسر»: إنك تجعل برنامجا يفعل شيئا لم يتوقعه.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — les scénarios d\'exploitation' ),
+				array( 'title' => 'المهمة 1: الدرس — سيناريوهات الاستغلال' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — دليل الموجز' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'Brief 3 : les scénarios d\'exploitation',
-			'excerpt' => 'Exploiter, ce n\'est pas « casser » : c\'est faire faire à un programme quelque chose qu\'il ne prévoyait pas.',
+			'title' =>  'Brief 3: exploitation scenarios',
+			'excerpt' =>  'Exploiting is not "breaking": it is making a program do something it did not expect.',
 			'tasks' => array(
-				array( 'title' => 'Task 1: Lesson - les scénarios d\'exploitation' ),
+				array( 'title' => 'Task 1: Lesson - exploitation scenarios' ),
 				array( 'title' => 'Task 2: Practice' ),
 				array( 'title' => 'Task 3: Mission - the proof of the brief' ),
 				array( 'title' => 'Task 4: End-of-room exam' ),
@@ -5802,7 +5802,7 @@ array(
 
 array(
 	'title' => 'Brief 4 : les registres, le carnet du processeur',
-	'excerpt' => 'Le processeur ne garde presque rien en mémoire : il travaille dans une dozen de cases àDisposed très vite.',
+	'excerpt' => 'Le processeur ne garde presque rien en mémoire : il travaille dans une douzaine de cases qu\'on oublie aussitôt.',
 	'content' => 'Brief 4 : les registres du processeur (pwn.college, « Assembly Crash Course — Registers »).',
 	'difficulty' => 'facile',
 	'duration' => 20,
@@ -5930,20 +5930,20 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'موجز 4 : les registres, le carnet du processeur',
-			'excerpt' => 'Le processeur ne garde presque rien en mémoire : il travaille dans une dozen de cases àDisposed très vite.',
+			'title' =>  'موجز 4: السجلات، دفتر المعالج',
+			'excerpt' =>  'المعالج لا يحتفظ في الذاكرة بشيء تقريبًا: يعمل في اثنتي عشرة خانة ينساها بسرعة.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — les registres, le carnet du processeur' ),
+				array( 'title' => 'المهمة 1: الدرس — السجلات، دفتر المعالج' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — دليل الموجز' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'Brief 4 : les registres, le carnet du processeur',
-			'excerpt' => 'Le processeur ne garde presque rien en mémoire : il travaille dans une dozen de cases àDisposed très vite.',
+			'title' =>  'Brief 4: registers, the processor\'s notebook',
+			'excerpt' =>  'The processor keeps almost nothing in memory: it works in a dozen slots it forgets very quickly.',
 			'tasks' => array(
-				array( 'title' => 'Task 1: Lesson - les registres, le carnet du processeur' ),
+				array( 'title' => 'Task 1: Lesson - registers, the processor\'s notebook' ),
 				array( 'title' => 'Task 2: Practice' ),
 				array( 'title' => 'Task 3: Mission - the proof of the brief' ),
 				array( 'title' => 'Task 4: End-of-room exam' ),
@@ -6082,20 +6082,20 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'موجز 5 : ne pas se faire avoir',
-			'excerpt' => 'La règle d\'or de l\'hygiène numérique : ce qui a l\'air trop beau, ou trop urgent, est presque toujours une mise en scène.',
+			'title' =>  'موجز 5: لا تُخدع',
+			'excerpt' =>  'القاعدة الذهبية للنظافة الرقمية: ما يبدو جميلا جدا، أو عاجلا جدا، هو في الغالب تمثيل.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — ne pas se faire avoir' ),
+				array( 'title' => 'المهمة 1: الدرس — لا تُخدع' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — دليل الموجز' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'Brief 5 : ne pas se faire avoir',
-			'excerpt' => 'La règle d\'or de l\'hygiène numérique : ce qui a l\'air trop beau, ou trop urgent, est presque toujours une mise en scène.',
+			'title' =>  'Brief 5: do not get fooled',
+			'excerpt' =>  'The golden rule of digital hygiene: what looks too good, or too urgent, is almost always a set-up.',
 			'tasks' => array(
-				array( 'title' => 'Task 1: Lesson - ne pas se faire avoir' ),
+				array( 'title' => 'Task 1: Lesson - do not get fooled' ),
 				array( 'title' => 'Task 2: Practice' ),
 				array( 'title' => 'Task 3: Mission - the proof of the brief' ),
 				array( 'title' => 'Task 4: End-of-room exam' ),
@@ -6234,20 +6234,20 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' => 'موجز 6 : explorer une application web',
-			'excerpt' => 'Avant de chercher une faille : regarde l\'application comme un utilisateur, puis comme un attaquant.',
+			'title' =>  'موجز 6: استكشاف تطبيق ويب',
+			'excerpt' =>  'قبل البحث عن ثغرة: انظر التطبيق ك مستخدم، ثم ك مهاجم.',
 			'tasks' => array(
-				array( 'title' => 'المهمة 1: الدرس — explorer une application web' ),
+				array( 'title' => 'المهمة 1: الدرس — استكشاف تطبيق ويب' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
 				array( 'title' => 'المهمة 3: المهمة — دليل الموجز' ),
 				array( 'title' => 'المهمة 4: امتحان نهاية الغرفة' ),
 			),
 		),
 		'en' => array(
-			'title' => 'Brief 6 : explorer une application web',
-			'excerpt' => 'Avant de chercher une faille : regarde l\'application comme un utilisateur, puis comme un attaquant.',
+			'title' =>  'Brief 6: exploring a web application',
+			'excerpt' =>  'Before looking for a flaw: look at the application as a user, then as an attacker.',
 			'tasks' => array(
-				array( 'title' => 'Task 1: Lesson - explorer une application web' ),
+				array( 'title' => 'Task 1: Lesson - exploring a web application' ),
 				array( 'title' => 'Task 2: Practice' ),
 				array( 'title' => 'Task 3: Mission - the proof of the brief' ),
 				array( 'title' => 'Task 4: End-of-room exam' ),

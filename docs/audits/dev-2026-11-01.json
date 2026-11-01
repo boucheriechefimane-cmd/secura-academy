@@ -1,7 +1,7 @@
 {
     "domaine": "dev",
     "titre": "Audit externe — Développement technique",
-    "date": "2026-11-01T13:39:08+00:00",
+    "date": "2026-11-01T14:54:26+00:00",
     "ok": 14,
     "bloquant": 0,
     "majeur": 0,
@@ -10,7 +10,7 @@
     "constats": [
         {
             "libelle": "volume de code examine",
-            "detail": "23 fichiers PHP (/home/user/secura-academy/wp-content/plugins/secura-academy et /home/user/secura-academy/wp-content/themes/secura-learning)",
+            "detail": "29 fichiers PHP (/home/user/secura-academy/wp-content/plugins/secura-academy et /home/user/secura-academy/wp-content/themes/secura-learning)",
             "gravite": "info"
         },
         {

@@ -420,12 +420,17 @@ audit_verifier(
 );
 
 /* 6. Le guide de Google : pas besoin de « llms.txt », ni de decoupage
-      special, ni de reecriture pour l\'IA. On verifie que rien de
-      tout cela ne traine dans le site. */
+      special, ni de reecriture pour l'IA.
+      Le fichier « llms.txt » est neanmoins fourni : c'est une demande
+      explicite du proprietaire, qui veut etre lu par les robots d'IA.
+      Google dit lui-meme que cela ne lui apporte rien — mais cela ne
+      nuit pas non plus. On verifie qu'il est ABSENT du dossier de code
+      (donc livre comme un fichier qui pourrait devenir faux), et
+      qu'il est bien servi par le site. */
 audit_verifier(
-	'le site ne contient pas de fichier « llms.txt » (Google dit que cela ne sert a rien)',
+	'le fichier « llms.txt » n\'est pas un fichier statique dans le code (il est genere, donc toujours a jour)',
 	! file_exists( $racine . '/llms.txt' ),
-	'fichier llms.txt present : aucune utilite pour Google',
+	'fichier llms.txt present dans le code : il peut devenir faux sans que personne ne le voie',
 	'info'
 );
 
@@ -445,6 +450,209 @@ audit_verifier(
 	'la page est structuree en sections (titres de niveau 2)',
 	$h2 >= 2,
 	'titres de niveau 2 trouves : ' . $h2,
+	'mineur'
+);
+
+/* ------------------------------------------------------------------ */
+echo "\n8. Les robots d'IA et le maillage interne\n";
+
+/* Ce controle va au-dela du guide Google : c'est une demande
+   explicite du proprietaire, qui veut etre lu et cite par les
+   robots d'IA. On verifie donc que le fichier robots.txt nomme les
+   robots d'IA et les autorise, et que le contenu est atteignable
+   par liens internes (le seul chemin que les robots suivent). */
+
+$robots_ia = array(
+	'Googlebot'        => 'recherche Google (alimente les AI Overviews)',
+	'OAI-SearchBot'    => 'index de recherche OpenAI',
+	'ChatGPT-User'     => 'ouverture de page demandee par ChatGPT',
+	'Claude-SearchBot' => 'index de recherche Anthropic',
+	'Claude-User'      => 'ouverture de page demandee par Claude',
+	'PerplexityBot'    => 'index de recherche Perplexity',
+	'Google-Extended'  => 'entrainement et ancrage Google',
+	'GPTBot'           => 'entrainement OpenAI',
+	'ClaudeBot'        => 'entrainement Anthropic',
+	'Applebot'         => 'recherche Apple',
+);
+
+$robots_absents = array();
+$robots_refuses = array();
+
+foreach ( $robots_ia as $robot => $role ) {
+	if ( false === stripos( $plan, 'User-agent: ' . $robot ) ) {
+		$robots_absents[] = $robot;
+		continue;
+	}
+
+	/* On verifie que le robot rencontre bien « Allow: / » avant la
+	   prochaine section « User-agent: ». */
+	$autorise = false;
+	$section  = false;
+
+	foreach ( explode( "\n", $plan ) as $ligne_plan ) {
+		$ligne_plan = trim( $ligne_plan );
+
+		if ( 0 === stripos( $ligne_plan, 'User-agent:' ) ) {
+			if ( $section ) {
+				break;
+			}
+
+			if ( 0 === strcasecmp( $ligne_plan, 'User-agent: ' . $robot ) ) {
+				$section = true;
+			}
+
+			continue;
+		}
+
+		if ( $section && 0 === stripos( $ligne_plan, 'Allow:' ) ) {
+			$autorise = true;
+			break;
+		}
+	}
+
+	if ( ! $autorise ) {
+		$robots_refuses[] = $robot;
+	}
+}
+
+audit_verifier(
+	'robots.txt nomme explicitement les robots d\'IA (Googlebot, OpenAI, Anthropic, Perplexity, Apple)',
+	empty( $robots_absents ),
+	'robots non cites : ' . implode( ', ', $robots_absents ),
+	'majeur'
+);
+
+audit_verifier(
+	'chaque robot d\'IA cite est autorise a lire le site',
+	empty( $robots_refuses ),
+	'robots non autorises : ' . implode( ', ', $robots_refuses ),
+	'bloquant'
+);
+
+audit_verifier(
+	'le plan du site (sitemap) est declare dans robots.txt',
+	false !== stripos( $plan, 'Sitemap:' ),
+	'robots.txt ne declare aucun plan du site',
+	'majeur'
+);
+
+/* Le maillage interne : le guide Google demande que le contenu soit
+   « facilement trouvable par liens internes ». On mesure les liens
+   reellement presents dans le HTML servi. */
+$accueil_html = audit_exec( 'curl -sL "' . $url_site . '"' );
+
+preg_match_all( '/href="([^"]*\/rooms\/[^"]*)"/', $accueil_html, $liens_accueil );
+$liens_accueil = array_unique( $liens_accueil[1] );
+
+audit_verifier(
+	'l\'accueil propose des liens vers les rooms (le contenu est trouvable sans passer par le sitemap)',
+	count( $liens_accueil ) >= 10,
+	'liens vers des rooms trouves sur l\'accueil : ' . count( $liens_accueil ),
+	'bloquant'
+);
+
+preg_match_all( '/href="([^"]*\/parcours\/[^"]*)"/', $accueil_html, $liens_parcours );
+$liens_parcours = array_unique( $liens_parcours[1] );
+
+audit_verifier(
+	'l\'accueil propose des liens vers les parcours',
+	count( $liens_parcours ) >= 1,
+	'liens vers des parcours trouves sur l\'accueil : ' . count( $liens_parcours ),
+	'majeur'
+);
+
+/* Chaque parcours doit lister ses rooms : c'est le chemin de
+   navigation que suit un robot. */
+$parcours_sans_rooms = array();
+
+foreach ( get_posts( array( 'post_type' => 'secura_path', 'post_status' => 'publish', 'numberposts' => -1 ) ) as $parcours ) {
+	$page_parcours = audit_exec( 'curl -sL "' . get_permalink( $parcours->ID ) . '"' );
+
+	preg_match_all( '/href="([^"]*\/rooms\/[^"]*)"/', $page_parcours, $liens_room );
+
+	if ( empty( $liens_room[1] ) ) {
+		$parcours_sans_rooms[] = $parcours->post_name;
+	}
+}
+
+audit_verifier(
+	'chaque parcours liste ses rooms par des liens reels',
+	empty( $parcours_sans_rooms ),
+	'parcours sans room liee : ' . implode( ', ', $parcours_sans_rooms ),
+	'bloquant'
+);
+
+/* La coherence des versions traduites : si le titre affiche et le titre
+   annonce (balise <title>) sont dans deux langues differentes, Google
+   lit la page arabe comme un doublon de la page francaise. */
+preg_match( '/<title>(.*?)<\/title>/is', $page_ar_html, $titre_ar );
+$titre_ar = isset( $titre_ar[1] ) ? html_entity_decode( $titre_ar[1] ) : '';
+
+$vue_ar = class_exists( 'Secura_Rooms' ) ? Secura_Rooms::get_room_view( $room->ID, 'ar' ) : null;
+$titre_attendu_ar = $vue_ar ? $vue_ar['title'] : '';
+
+audit_verifier(
+	'la version arabe porte un titre en arabe (le titre annonce suit la langue affichee)',
+	'' !== $titre_ar && '' !== $titre_attendu_ar && false !== strpos( $titre_ar, $titre_attendu_ar ),
+	'titre de la page arabe : « ' . $titre_ar . ' » (attendu : « ' . $titre_attendu_ar . ' »)',
+	'majeur'
+);
+
+/* Les traductions ne doivent pas rester en francais : une version
+   « arabe » qui est du francais est un doublon. */
+$traductions_non_faites = array();
+
+foreach ( get_posts( array( 'post_type' => 'secura_room', 'post_status' => 'publish', 'numberposts' => -1 ) ) as $room_i18n ) {
+	$brut = get_post_meta( $room_i18n->ID, '_secura_i18n', true );
+
+	if ( ! is_array( $brut ) ) {
+		continue;
+	}
+
+	foreach ( array( 'ar', 'en' ) as $langue_i18n ) {
+		if ( ! isset( $brut[ $langue_i18n ] ) || ! is_array( $brut[ $langue_i18n ] ) ) {
+			$traductions_non_faites[] = $room_i18n->post_name . ' (' . $langue_i18n . ', absente)';
+			continue;
+		}
+
+		$extrait = isset( $brut[ $langue_i18n ]['excerpt'] ) ? trim( (string) $brut[ $langue_i18n ]['excerpt'] ) : '';
+
+		if ( '' === $extrait ) {
+			$traductions_non_faites[] = $room_i18n->post_name . ' (' . $langue_i18n . ', sans extrait)';
+			continue;
+		}
+
+		/* Un extrait identique mot pour mot au francais signale une
+		   traduction restee en francais. */
+		if ( '' !== trim( $room_i18n->post_excerpt ) && $extrait === trim( $room_i18n->post_excerpt ) ) {
+			$traductions_non_faites[] = $room_i18n->post_name . ' (' . $langue_i18n . ', non traduite)';
+		}
+	}
+}
+
+audit_verifier(
+	'chaque version traduite a bien son propre texte (aucune version restee en francais)',
+	empty( $traductions_non_faites ),
+	count( $traductions_non_faites ) . ' version(s) non traduite(s) : ' . implode( ', ', array_slice( $traductions_non_faites, 0, 8 ) ),
+	'majeur'
+);
+
+/* L'archive d'auteur expose le nom du compte d'administration et
+   duplique les contenus : elle doit repondre « introuvable ». */
+$code_auteur = audit_exec( 'curl -s -o /dev/null -w "%{http_code}" "' . $url_site . 'author/admin/"' );
+
+audit_verifier(
+	'l\'archive d\'auteur est fermee (le nom du compte d\'administration ne doit pas etre expose)',
+	'404' === trim( $code_auteur ),
+	'code recu : ' . trim( $code_auteur ),
+	'majeur'
+);
+
+/* L'image de partage : sans elle, un partage n'a pas de vignette. */
+audit_verifier(
+	'la page annonce une image de partage (og:image)',
+	false !== stripos( $html, 'og:image' ),
+	'aucune balise og:image',
 	'mineur'
 );
 

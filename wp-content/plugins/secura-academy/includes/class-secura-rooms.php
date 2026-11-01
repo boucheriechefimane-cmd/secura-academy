@@ -148,6 +148,11 @@ final class Secura_Rooms {
 		Secura_Paths::create_default_paths();
 		Secura_Progress::maybe_create_table();
 
+		/* La page d'accueil et le nettoyage des textes de demonstration
+		   de WordPress : sans cela, le site commence par afficher
+		   « Bonjour tout le monde ! » et n'expose aucun parcours. */
+		Secura_Site::install();
+
 		flush_rewrite_rules();
 	}
 

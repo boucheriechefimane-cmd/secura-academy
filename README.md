@@ -568,7 +568,8 @@ bloquant apparaît ; il rejoue les audits à chaque push et chaque lundi.
 
 Premier passage : **93 contrôles, 8 constats réels, tous corrigés** — puis
 **108 contrôles, 0 constat** après l'audit de conformité au guide Google sur
-les réponses générées par l'IA.
+les réponses générées par l'IA — puis **118 contrôles, 0 constat** après le
+second passage « robots d'IA et maillage interne ».
 Le cadre est dans [`docs/AUDITS-CADRE.md`](docs/AUDITS-CADRE.md), le
 registre des constats dans [`docs/AUDITS-REGISTRE.md`](docs/AUDITS-REGISTRE.md).
 
@@ -586,6 +587,35 @@ langue**, `Organization` / `LearningResource` / `VideoObject` /
 `BreadcrumbList` / `Course` déclarés, et **15 contrôles supplémentaires**
 dans l'auditeur SEO (rejoués à chaque push). Le compte rendu en langage simple
 est dans [`docs/SEO-GENERATION-AI.md`](docs/SEO-GENERATION-AI.md).
+
+### Les robots d'IA et le maillage interne (v0.7.0)
+
+Le `robots.txt` est écrit par le plugin : il **nomme** les robots au lieu de se
+contenter d'un `User-agent: *` muet, en deux sections qui disent la vérité —
+les robots de **recherche et de citation** (Googlebot, OAI-SearchBot,
+ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot…) et les robots
+d'**entraînement** (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended,
+CCBot…). Google rappelle dans son guide que `Google-Extended` **ne** contrôle
+pas les AI Overviews : c'est `Googlebot` qui le fait.
+
+Un `llms.txt` est fourni — mais **généré à partir du contenu réel**, donc il
+ne peut pas devenir faux.
+
+Le second audit, refait à la main, a trouvé **dix écarts réels** que
+l'automatique ne voyait pas. Le plus grave : les **52 rooms n'étaient
+atteignables que par le plan du site**. L'accueil affichait le texte de
+démonstration de WordPress, et la page d'un parcours n'affichait « Lire la
+suite » — **aucun lien**. Tout est corrigé : l'accueil liste les 52 rooms et
+les 4 parcours, chaque parcours liste ses rooms, la page d'accueil est
+créée automatiquement, l'archive d'auteur est fermée (elle exposait le nom du
+compte d'administration), les titres suivent la langue affichée, et **37
+chaînes de traduction dégradées** ont été reprises.
+
+Vérification mesurée : **52 rooms sur 52** liées depuis un parcours
+(`scripts/audit/verif-maillage.php`). L'auditeur SEO passe de 35 à
+**45 contrôles** ; le comité d'audit à **118**. Le compte rendu — y compris
+la réponse honnête à « le site est-il conforme à 100 % ? » — est dans
+[`docs/SEO-GENERATION-AI.md`](docs/SEO-GENERATION-AI.md).
 
 Le dépôt est versionné sur GitHub, en **repository privé**. Deux workflows
 GitHub Actions sont présents :

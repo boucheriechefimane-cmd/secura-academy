@@ -3,7 +3,7 @@
 > Le registre tenu par le comité d'audit externe : qui a audité, quand,
 > ce qu'il a trouvé, ce qui a été fait, et ce qui reste ouvert.
 
-État : 01/11/2026 · version v0.6.0
+État : 01/11/2026 · version v0.7.0
 
 ---
 
@@ -11,16 +11,23 @@
 
 | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Verdict |
 |---|---|---|---|---|---|
-| SEO | 35 | 0 | 0 | 0 | **Conforme** |
+| SEO | 45 | 0 | 0 | 0 | **Conforme** |
 | Contenu | 18 | 0 | 0 | 0 | **Conforme** |
 | UX / UI | 16 | 0 | 0 | 0 | **Conforme** |
 | Développement | 14 | 0 | 0 | 0 | **Conforme** |
 | Sécurité & infra | 25 | 0 | 0 | 0 | **Conforme** |
-| **Total** | **108** | **0** | **0** | **0** | **Conforme** |
+| **Total** | **118** | **0** | **0** | **0** | **Conforme** |
 
 > Le passage du 01/11/2026 au soir a ajouté **15 contrôles SEO** : ce sont
 > les points du guide officiel de Google sur les réponses générées par l'IA
 > (voir `docs/SEO-GENERATION-AI.md`).
+>
+> Le passage du 01/11/2026 (nuit) a ajouté **10 contrôles SEO de plus** :
+> les robots d'IA nommés et autorisés dans `robots.txt`, le maillage
+> interne (liens vers les rooms et les parcours), la cohérence des
+> versions traduites, la fermeture de l'archive d'auteur, l'image de
+> partage. Ces contrôles ont été ajoutés **après avoir trouvé** les
+> écarts qu'ils vérifient — ils existaient bel et bien.
 
 Environnement de l'audit : WordPress 7.1.4 réel (MySQL 11.8), PHP 8.3,
 plugin et thème du dépôt, pages récupérées en HTTP, machines Docker
@@ -118,3 +125,4 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 |---|---|---|
 | 01/11/2026 | v0.6.0 | Premier passage du comité externe : 8 constats, tous corrigés, **93 contrôles au vert** |
 | 01/11/2026 | v0.6.0 | Audit de conformité au guide Google « réponses générées par l'IA » : 6 constats, tous corrigés (hreflang absolus, canonique par langue, données structurées, vidéo déclarée, titres de section, étapes en HTML), **108 contrôles au vert** |
+| 01/11/2026 (nuit) | v0.7.0 | Second passage : **10 constats réels** trouvés en refaisant les tests à la main — maillage interne (0 room atteignable), `robots.txt` sans robots d'IA nommés, titre des pages arabes resté en français, 37 chaînes de traduction dégradées, archive d'auteur ouverte, page d'accueil en texte de démonstration, absence d'image de partage. Tous corrigés : **118 contrôles au vert** |

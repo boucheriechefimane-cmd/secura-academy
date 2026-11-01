@@ -785,7 +785,7 @@ name = intranet
 array(
 			'title' => 'Le fichier qu\'on n\'aurait pas du laisser',
 			'excerpt' => 'Une page qui telecharge un fichier sur demande. Et si tu demandais un autre fichier que celui prevu ?',
-			'content' => 'Le service de documentation permet de telecharger un fichier par son nom. C\'est une feature tres agreable — et une porte directe vers tout ce que le serveur peut lire.',
+			'content' => 'Le service de documentation permet de télécharger un fichier par son nom. C\'est une feature très agréable — et une porte directe vers tout ce que le serveur peut lire.',
 			'difficulty' => 'moyen',
 			'duration' => 25,
 			'xp_bonus' => 35,
@@ -925,7 +925,7 @@ INSERT INTO licences VALUES (1, \'licence principale\', \'FLAG=SECURA{backup_exp
 			),
 			'i18n' => array(
 				'ar' => array(
-					'title' => 'الملف الذي كان shouldn\'t يبقى',
+					'title' =>  'الملف الذي كان يجب ألا يبقى',
 					'excerpt' => 'صفحة تنزّل ملفًا بالاسم. وماذا لو طلبت ملفًا آخر؟',
 					'tasks' => array(
 						array(

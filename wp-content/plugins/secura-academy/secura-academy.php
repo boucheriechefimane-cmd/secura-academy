@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.6.0
+ * Version:           0.7.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,25 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.7.0 — Les robots d'IA et le maillage interne.
+ *   - robots.txt écrit par le plugin : les robots de recherche et de
+ *     citation (Googlebot, OAI-SearchBot, ChatGPT-User, Claude-SearchBot,
+ *     Claude-User, PerplexityBot…) et les robots d'entraînement (GPTBot,
+ *     ClaudeBot, Google-Extended, Applebot-Extended, CCBot…) sont nommés
+ *     un par un et explicitement autorisés ; le plan du site est déclaré ;
+ *   - llms.txt généré à partir du contenu réel (parcours et rooms avec
+ *     leurs vraies adresses) : il ne peut pas devenir faux ;
+ *   - l'accueil liste les 52 rooms et les 4 parcours ; chaque page de
+ *     parcours liste ses rooms ; le catalogue public lie chaque room ;
+ *   - la page d'accueil « Parcours » est créée automatiquement, et les
+ *     textes de démonstration de WordPress sont mis de côté ;
+ *   - l'archive d'auteur est fermée : elle exposait le nom du compte
+ *     d'administration et dupliquait les contenus ;
+ *   - les titres et descriptions suivent la langue affichée : une page
+ *     arabe ne porte plus un titre français (Google y voyait un doublon) ;
+ *   - 37 chaînes de traduction dégradées et 2 extraits français corrompus
+ *     ont été reprises (72 corrections).
  *
  * 0.6.0 — Le bloc universitaire : la vidéo du cours dans la room, et les
  *   labs avancés.
@@ -72,7 +91,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.6.0' );
+define( 'SECURA_ACADEMY_VERSION', '0.7.0' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
@@ -114,6 +133,10 @@ require_once SECURA_ACADEMY_PATH . 'includes/content-universites.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-video.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-kahoot.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-schema.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-robots.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-llms.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-site.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-authors.php';
 
 /**
  * Amorce le plugin.
@@ -136,6 +159,10 @@ final class Secura_Academy {
 		Secura_Video::init();
 		Secura_Kahoot::init();
 		Secura_Schema::init();
+		Secura_Robots::init();
+		Secura_Llms::init();
+		Secura_Site::init();
+		Secura_Authors::init();
 	}
 }
 

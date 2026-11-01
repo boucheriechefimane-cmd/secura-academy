@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_LEARNING_VERSION', '0.6.0' );
+define( 'SECURA_LEARNING_VERSION', '0.7.0' );
 
 /**
  * Déclare les fonctionnalités du thème.
@@ -58,14 +58,62 @@ add_action( 'after_setup_theme', 'secures_learning_setup' );
  */
 function secures_learning_meta_tags() {
 	$est_room = is_singular( 'secura_room' );
+	$est_path = is_singular( 'secura_path' );
 	$titre    = $est_room ? get_the_title() : wp_get_document_title();
-	$url      = $est_room ? get_permalink() : home_url( '/' );
+	$url      = ( $est_room || $est_path ) ? get_permalink() : home_url( '/' );
+
+	/* Le titre et le resume doivent etre dans la meme langue que le
+	   texte affiche. Sans cela, la version arabe porte un titre et une
+	   description en francais : Google la lit alors comme un doublon
+	   de la version francaise, et ne l'indexe pas.
+
+	   On interroge donc le plugin, qui connait la traduction ; et on
+	   retombe sur le texte d'origine si le plugin est absent. */
+	/* L'identifiant vient de la requete, pas de la boucle : au moment
+	   du <head>, la boucle WordPress n'a pas encore demarre. */
+	$id = get_queried_object_id();
+
+	if ( $est_room && class_exists( 'Secura_Rooms' ) ) {
+		$vue = Secura_Rooms::get_room_view( $id );
+
+		if ( $vue ) {
+			$titre = $vue['title'];
+		}
+	}
+
+	if ( $est_path && class_exists( 'Secura_Paths' ) ) {
+		$vue = Secura_Paths::get_path_view( $id );
+
+		if ( $vue ) {
+			$titre = $vue['title'];
+		}
+	}
 
 	/* Le resume : celui de la room, ou celui du site. */
 	$description = '';
 
 	if ( $est_room ) {
 		$description = get_the_excerpt();
+
+		if ( class_exists( 'Secura_Rooms' ) ) {
+			$vue = Secura_Rooms::get_room_view( $id );
+
+			if ( $vue && '' !== trim( (string) $vue['excerpt'] ) ) {
+				$description = $vue['excerpt'];
+			}
+		}
+	}
+
+	if ( $est_path ) {
+		$description = get_the_excerpt();
+
+		if ( class_exists( 'Secura_Paths' ) ) {
+			$vue = Secura_Paths::get_path_view( $id );
+
+			if ( $vue && '' !== trim( (string) $vue['excerpt'] ) ) {
+				$description = $vue['excerpt'];
+			}
+		}
 	}
 
 	if ( '' === trim( (string) $description ) ) {
@@ -91,11 +139,20 @@ function secures_learning_meta_tags() {
 	printf( '<meta property="og:url" content="%s">' . "\n", esc_url( $url ) );
 	printf( '<meta property="og:locale" content="%s">' . "\n", esc_attr( str_replace( '-', '_', determine_locale() ) ) );
 
+	/* L'image de partage : l'icone du site si l'enseignant en a mis une,
+	   sinon le visuel livre avec le theme. Sans image, un partage sur
+	   WhatsApp ou Facebook s'affiche sans vignette — et une reponse
+	   generee par l'IA s'affiche elle aussi sans visuel. */
 	$icone = get_site_icon_url( 512 );
 
-	if ( $icone ) {
-		printf( '<meta property="og:image" content="%s">' . "\n", esc_url( $icone ) );
+	if ( ! $icone ) {
+		$icone = get_template_directory_uri() . '/assets/img/og-default.png';
 	}
+
+	printf( '<meta property="og:image" content="%s">' . "\n", esc_url( $icone ) );
+	printf( '<meta property="og:image:width" content="1200">' . "\n" );
+	printf( '<meta property="og:image:height" content="630">' . "\n" );
+	printf( '<meta property="og:image:alt" content="%s">' . "\n", esc_attr( get_bloginfo( 'name' ) ) );
 
 	/* La carte Twitter / X. */
 	printf( '<meta name="twitter:card" content="%s">' . "\n", 'summary_large_image' );
@@ -148,6 +205,41 @@ function secures_learning_meta_tags() {
 	printf( '<link rel="canonical" href="%s">' . "\n", esc_url( $canonique ) );
 }
 add_action( 'wp_head', 'secures_learning_meta_tags', 1 );
+
+/**
+ * La balise title dans la langue affichee.
+ *
+ * WordPress fabrique lui-meme le titre de l onglet, a partir du titre
+ * du billet d origine : sur la version arabe, l onglet affiche donc
+ * encore le titre francais. Google compare le titre de l onglet au
+ * texte de la page : quand ils different de langue, la page arabe
+ * passe pour un doublon. On remplace donc le titre par sa traduction.
+ *
+ * @param string $titre Le titre fabrique par WordPress.
+ * @return string
+ */
+function secures_learning_document_title( $titre ) {
+	if ( ! class_exists( 'Secura_Rooms' ) && ! class_exists( 'Secura_Paths' ) ) {
+		return $titre;
+	}
+
+	$id = get_queried_object_id();
+
+	if ( is_singular( 'secura_room' ) ) {
+		$vue = Secura_Rooms::get_room_view( $id );
+	} elseif ( is_singular( 'secura_path' ) ) {
+		$vue = Secura_Paths::get_path_view( $id );
+	} else {
+		return $titre;
+	}
+
+	if ( $vue && '' !== trim( (string) $vue['title'] ) ) {
+		return $vue['title'];
+	}
+
+	return $titre;
+}
+add_filter( 'pre_get_document_title', 'secures_learning_document_title' );
 
 /* WordPress ajoute sa propre balise canonique, qui ignore la langue :
    la version arabe serait alors designee comme un doublon de la version

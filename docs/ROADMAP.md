@@ -445,6 +445,69 @@ rejoués dans le vrai WordPress de la CI, à chaque `push`.
 (le tableau point par point, les mythes, et ce qui reste à faire à la mise
 en ligne : Search Console, indexation, rapport « Generative AI performance »).
 
+---
+
+### BLOC S — Les robots d'IA et le maillage interne — ✅ LIVRÉ (v0.7.0)
+
+**L'idée.** Deux demandes explicites du propriétaire, à ne pas confondre avec
+le guide Google :
+
+1. « Le fichier robots doit accepter tous les LLM — Claude, OpenAI, bref tout
+   le monde — pour être lisible et cité. »
+2. « Es-tu sûr que le site est conforme à 100 % au guide SEO de Google ? »
+
+À la première, on répond par un `robots.txt` qui **nomme** les robots, au
+lieu de se contenter d'un `User-agent: *` muet. À la seconde, on répond par un
+audit refait à la main — et il a trouvé **dix écarts réels** que l'audit
+automatique previous ne voyait pas.
+
+**L'écart le plus grave : le maillage interne.** Un audit vérifiait la
+*structure* du site (balises, données structurées) mais jamais la question
+essentielle : *un robot peut-il atteindre les rooms ?* La réponse était non.
+Les 52 rooms n'étaient atteignables **que par le plan du site**. L'accueil
+affichait « Bonjour tout le monde ! » (le texte de démonstration de
+WordPress). La page d'un parcours affichait « Lire la suite » et zéro lien.
+Un visiteur non connecté ne trouvait aucun lien.
+
+**Les dix écarts trouvés (et corrigés dans la même version) :**
+
+| # | Écart trouvé | Gravité | Traitement |
+|---|---|---|---|
+| 15 | **0 room sur 52** atteignable par liens internes | Bloquant | L'accueil liste les 52 rooms et les 4 parcours ; chaque parcours liste ses rooms ; le catalogue public lie chaque carte |
+| 16 | `/parcours/` = 404 (le menu du thème la visait) | Majeur | Page « Parcours » **créée automatiquement** à l'installation, et mise en accueil |
+| 17 | `robots.txt` ne nommait **aucun** robot d'IA | Majeur | 20 robots nommés un par un, en deux sections (citation / entraînement) |
+| 18 | Le titre des pages **arabes** restait en français (Google y voyait un doublon) | Majeur | Le titre et la description suivent la langue affichée |
+| 19 | **37 chaînes de traduction dégradées** + 2 extraits français corrompus | Majeur | 72 corrections, par un script qui refuse de modifier un fichier sans ancre exacte |
+| 20 | `/author/admin/` **ouverte** : le nom du compte d'administration exposé, et les contenus dupliqués | Majeur | Archive fermée (404) et retirée du plan du site |
+| 21 | Accueil = texte de démonstration de WordPress | Majeur | Page d'accueil créée automatiquement ; textes de démonstration mis de côté |
+| 22 | Aucune image de partage | Mineur | Visuel 1200×630 livré avec le thème ; `og:image` et `twitter:image` toujours déclarés |
+| 23 | Pas de gabarit 404 dans le thème | Mineur | `404.php` créé : la page d'erreur propose les parcours et les rooms |
+| 24 | Pas de `llms.txt` | Info | Généré à partir du contenu réel (impossible qu'il devienne faux) |
+
+**La nuance qui compte, sur `Google-Extended`.** Google le dit dans son guide :
+`Google-Extended` sert à l'**entraînement** et à l'**ancrage** dans *les
+autres* systèmes Google — il ne contrôle **pas** les AI Overviews ni l'AI
+Mode. Ce qui les contrôle, c'est `Googlebot`. Autoriser `Google-Extended`
+ne garantit donc **pas** la citation : c'est le maillage, le contenu et les
+données structurées qui l'obtiennent. Le `robots.txt` distingue les deux familles
+pour que le choix soit fait en connaissance de cause.
+
+**La barrière.** L'auditeur SEO passe de **35 à 45 contrôles** (10
+nouveaux : robots d'IA nommés, robots d'IA autorisés, plan déclaré dans
+`robots.txt`, liens vers les rooms sur l'accueil, liens vers les parcours,
+chaque parcours listant ses rooms, titre arabe suivant la langue, aucune
+version restée en français, archive d'auteur fermée, image de partage). Un
+script séparé, `scripts/audit/verif-maillage.php`, mesure le maillage en
+téléchargeant les pages **comme un robot** : il vérifie que **52 rooms sur
+52** sont liées depuis un parcours. Le comité d'audit passe de **108 à 118
+contrôles, 0 constat**.
+
+**La réponse honnête à « 100 % ? »** est dans `docs/SEO-GENERATION-AI.md` :
+conforme sur **tout ce qui se vérifie sur une machine**, et **pas** de
+garantie sur ce qui dépend de Google (indexation réelle, présence dans un
+AI Overview, Core Web Vitals, citations effectives). Ces quatre choses se
+mesurent après la mise en ligne, dans la Search Console.
+
 ## 7. Article 7 — Les décisions structurantes
 
 Elles ne se remettent pas en cause implicitement (R3).
@@ -495,6 +558,7 @@ Elles ne se remettent pas en cause implicitement (R3).
 
 | Date | Version | Revue |
 |---|---|---|
+| 01/11/2026 (nuit) | **Robots d'IA et maillage interne (v0.7.0)** | **Deux demandes, et une réponse franche.** « Le fichier robots doit accepter tous les LLM — Claude, OpenAI, bref tout le monde — pour être lisible et cité » : c'est fait, et le `robots.txt` ne se contente plus d'un `User-agent: *` muet — il **nomme** 20 robots, en deux sections qui disent la vérité : les robots de **recherche et de citation** (Googlebot, OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot…), et les robots d'**entraînement** (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot…). Google le rappelle dans son guide : `Google-Extended` **ne** contrôle pas les AI Overviews — c'est `Googlebot` qui le fait. Autoriser `Google-Extended` ne garantit donc pas la citation : le maillage, le contenu et les données structurées, si. « Es-tu sûr que le site est conforme à 100 % au guide SEO de Google ? » : la réponse est **non, et voici pourquoi** — l'audit refait à la main a trouvé **dix écarts réels** que l'audit automatique ne voyait pas. **Le pire :** les 52 rooms n'étaient atteignables **que par le plan du site** (l'accueil affichait « Bonjour tout le monde ! », le texte de démonstration de WordPress ; la page d'un parcours affichait « Lire la suite » et zéro lien) — alors que le guide demande précisément que le contenu soit « facilement trouvable par liens internes ». **Les autres :** `/parcours/` en 404 alors que le menu du thème la visait ; les titres des pages **arabes** restés en français (donc, pour Google, des doublons) ; **37 chaînes de traduction dégradées** et 2 extraits français corrompus (« il travaille dans une dozen de cases àDisposed très vite ») ; l'archive `/author/admin/` ouverte, qui exposait le nom du compte d'administration ; aucune image de partage ; pas de gabarit 404. **Tout est corrigé :** 72 corrections de traduction par un script qui refuse de modifier un fichier sans ancre exacte, la page d'accueil créée automatiquement, l'archive d'auteur fermée, un visuel de partage livré, `llms.txt` **généré** (donc jamais faux). **La barrière :** l'auditeur SEO passe de 35 à **45 contrôles** (10 nouveaux : robots d'IA nommés et autorisés, maillage mesuré, cohérence des traductions, archive fermée, image de partage) ; un script séparé vérifie le maillage **comme un robot** et mesure **52 rooms sur 52** liées depuis un parcours ; le comité d'audit passe de **108 à 118 contrôles, 0 constat**. **La réponse à « 100 % » :** conforme sur tout ce qui se vérifie sur une machine, **pas** de garantie sur ce qui dépend de Google (indexation réelle, présence dans un AI Overview, Core Web Vitals, citations effectives) — cela se mesure après la mise en ligne, dans la Search Console. Compte rendu : `docs/SEO-GENERATION-AI.md`. |
 | 01/11/2026 | **Conformité IA (v0.6.0)** | **Le guide de Google sur les réponses générées par l'IA a été audité point par point, sur les pages réellement servies : six écarts réels trouvés, six corrigés.** **Ce que le guide tranche :** l'IA de Google lit le même index que la recherche classique — il n'existe pas de version « pour l'IA » du site ; les données structurées sont recommandées (pas obligatoires) ; et trois idées sont des mythes à ne pas appliquer (`llms.txt`, découpage « en morceaux », réécriture du contenu). **Ce qui ne collait pas :** les adresses de langue étaient **relatives** (Google les ignore : les versions arabe et anglaise risquaient d'être abandonnées) ; il n'y avait **aucune adresse canonique** (donc la version arabe ressemblerait à un doublon de la version française) ; **aucune donnée structurée** ; la **vidéo du cours** n'était déclarée nulle part (la façade ne charge rien avant le clic) ; une room n'avait **aucun titre de section** ; et les **étapes pratiques** étaient dessinées par le JavaScript, donc invisibles pour un robot sans JavaScript. **Corrections :** hreflang en adresses absolues ; canonique auto-référente par langue (celle de WordPress, aveugle à la langue, a été retirée) ; `class-secura-schema.php` qui déclare `Organization`, `LearningResource`, `VideoObject`, `BreadcrumbList` et `Course` ; la vidéo déclarée avec sa durée, sa miniature, son éditeur et sa licence ; quatre titres de niveau 2 par room ; et la liste des étapes servie dans le HTML, doublée en `<noscript>`. **La barrière :** l'auditeur SEO passe de 20 à **35 contrôles** (15 nouveaux, exactement les points du guide), rejoués dans le vrai WordPress de la CI à chaque push ; le comité d'audit passe de **93 à 108 contrôles, 0 constat**. Compte rendu : `docs/SEO-GENERATION-AI.md`. |
 | 01/11/2026 | **Comité d'audit externe (v0.6.0)** | **On ne fait pas demander à celui qui écrit le code si son code est bon : un comité de cinq auditeurs spécialisés passe la plateforme au crible, dans un vrai WordPress et avec un vrai moteur Docker, le tout sur GitHub.** **Les cinq auditeurs** : SEO (adressage, description, carte de partage, `hreflang`, plan du site), Contenu (squelette des 4 temps, questions avec explication et indice, traductions, attribution des vidéos, chemins de drapeaux, et la question qui compte : *la documentation dit-elle la vérité ?*), UX/UI (contrastes calculés selon WCAG AA, boutons nommés, RTL, cibles tactiles, sélecteur de langue), Développement (syntaxe, compatibilité PHP 7.4, échappement, injections SQL, nonces, tests) et Sécurité/infrastructure (secrets, isolation par élève, durcissement Docker, en-têtes HTTP, sauvegarde avec la base). **Premier passage : 93 contrôles, 8 constats réels, tous corrigés** — il manquait la description de page, la carte de partage, le `hreflang`, le sélecteur de langue lisible, les en-têtes de sécurité, et la sauvegarde de la base. **La barrière** : le workflow `audit.yml` échoue si un constat bloquant apparaît ; il rejoue les audits à chaque push et chaque lundi, et archive les rapports. Cadre : `docs/AUDITS-CADRE.md` ; registre : `docs/AUDITS-REGISTRE.md`. |
 | 01/11/2026 | **v0.6.0 (bloc U livré)** | **Le bloc universitaire est complet, et il tient ses promesses : la vidéo du cours est dans la room, et la preuve est lue dans la machine.** **Ce qui a été livré.** Les **36 rooms** du bloc (22 « Les universités » + 14 « Les labs avancés »), **255 questions**, **quatre parcours**, et **trois nouvelles machines**. **La façade vidéo** : dans chaque room de cours, la vidéo apparaît comme une image avec un bouton ▶ ; rien n'est chargé de YouTube avant le clic (le test vérifie qu'il n'y a **aucune balise iframe** dans la page), l'iframe `youtube-nocookie` apparaît au clic, le **lien vers la source** reste visible, et l'attribution (source, auteur, licence, durée) est traduite en français, arabe et anglais. **Les labs avancés** : l'application **OWASP Juice Shop** (l'image officielle, version épinglée, réseau fermé sans sortie Internet) ; un **dojo de vingt défis** en cinq ceintures (blanche, jaune, orange, verte, noire) ; **six vidéos de brief** qui expliquent comment s'y mettre ; et le **quiz Kahoot**, jouable en classe avec le code `SECURA1` ou seul dans la plateforme, **exportable en CSV et JSON** sans compte obligatoire. **La preuve reste la preuve** : le serveur lit le drapeau dans la machine de l'élève, en root, et compare. Pour Juice Shop, l'application calcule elle-même un code par défi résolu (HMAC-SHA1 avec la clé du lab) : le serveur recalcule le même code et compare — la valeur est donc vérifiable, pas secrète. **Vérifications :** 302 assertions au vert, et — dans la vraie CI GitHub, avec un vrai Docker — **52 rooms et 4 parcours** installés dans un WordPress réel, **22 contrôles de recette** au vert (façade, Kahoot, idempotence, XP), **67 contrôles des machines** au vert (dont le dojo et ses 27 drapeaux, et le lab Juice Shop : l'application répond, le drapeau du serveur est conforme à celui de l'application, les trois services tournent, le réseau n'a pas de sortie Internet). **Trois bugs trouvés et corrigés par cette CI** (invisibles en local) : les briefs du dojo étaient copiés au mauvais endroit, le service « flags » du lab Juice Shop s'arrêtait aussitôt (commande Compose mal écrite), et le workflow ne construisait pas les nouvelles images. **Reste ouvert :** le dojo **officiel** pwn.college est fourni (`labs/dojo-pwncollege`) mais pas construit en CI (image trop lourde) ; et les labs M7 sont volontairement difficiles. |
