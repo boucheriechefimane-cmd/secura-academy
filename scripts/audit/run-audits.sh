@@ -8,8 +8,11 @@
 # Usage :
 #   SECA_WP_DIR=/chemin/vers/wordpress bash scripts/audit/run-audits.sh
 #
-# Le script sort avec le code 1 si un seul audit trouve un constat
-# bloquant : c'est la barrière automatique.
+# Le script sort avec le code 1 si un seul audit trouve un constat de
+# fond (bloquant OU majeur) : c'est la barrière automatique. Avant le
+# 01/11/2026, seul le « bloquant » bloquait — un défaut réel de gravité
+# « majeur » passait en silence alors que la plateforme était déclarée
+# conforme. Les niveaux « mineur » et « info » restent informatifs.
 
 set -uo pipefail
 
@@ -22,8 +25,7 @@ WP_CLI="${WP_CLI:-wp}"   # peut contenir plusieurs mots ("php /chemin/wp-cli.pha
 # structurées, accessibilité, multilingue, RGPD, moteur, onboarding,
 # licences, DevOps).
 AUDITS="seo contenu ux-ui dev securite pedagogie performance donnees-structurees accessibilite multilingue rgpd moteur onboarding licences devops"
-BLOQUANTS=0
-MAJEURS=0
+CONSTATS=0
 
 cd "$REPO_DIR"
 
@@ -43,19 +45,20 @@ for audit in $AUDITS; do
 	code=$?
 
 	if [ "$code" -ne 0 ]; then
-		BLOQUANTS=$((BLOQUANTS + 1))
+		CONSTATS=$((CONSTATS + 1))
 	fi
 done
 
 echo ""
 echo "============================================================"
 
-if [ "$BLOQUANTS" -gt 0 ]; then
-	echo " $BLOQUANTS audit(s) ont trouvé un constat BLOQUANT."
+if [ "$CONSTATS" -gt 0 ]; then
+	echo " $CONSTATS audit(s) ont trouvé un constat de fond (bloquant ou majeur)."
+	echo " La plateforme ne peut pas être déclarée conforme : corriger, puis relancer."
 else
-	echo " Aucun constat bloquant : la plateforme peut passer en ligne."
+	echo " Aucun constat de fond : la plateforme peut passer en ligne."
 fi
 
 echo "============================================================"
 
-exit "$BLOQUANTS"
+exit "$CONSTATS"

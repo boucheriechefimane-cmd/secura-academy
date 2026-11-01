@@ -18,7 +18,7 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 
 | # | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Verdict |
 |---|---|---|---|---|---|---|
-| 1 | SEO | 46 | 0 | 0 | 0 | **Conforme** |
+| 1 | SEO | 48 | 0 | 0 | 0 | **Conforme** |
 | 2 | Contenu | 18 | 0 | 0 | 0 | **Conforme** |
 | 3 | UX / UI | 16 | 0 | 0 | 0 | **Conforme** |
 | 4 | Développement | 18 | 0 | 0 | 0 | **Conforme** |
@@ -32,8 +32,8 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 12 | **Moteur de lab & Docker** | 6 | 0 | 0 | 0 | **Conforme** |
 | 13 | **Onboarding** | 9 | 0 | 0 | 0 | **Conforme** |
 | 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | **Conforme** |
-| 15 | **DevOps & résilience** | 10 | 0 | 0 | 0 | **Conforme** |
-| | **Total** | **203** | **0** | **0** | **0** | **Conforme** |
+| 15 | **DevOps & résilience** | 12 | 0 | 0 | 0 | **Conforme** |
+| | **Total** | **207** | **0** | **0** | **0** | **Conforme** |
 
 > Les 15 auditeurs produisent chacun **trois formats** de rapport dans
 > `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
@@ -434,6 +434,91 @@ machine cible, le terminal) titrent en `<h2>`. Le bloc Kahoot titrait en
 > « rouge » le lendemain pour une raison qui n'a rien à voir avec le
 > code. Le passage de 202 à **203 contrôles** n'est pas un ajout de
 > couverture : c'est un **dépistage qui ne laisse plus rien au hasard**.
+>
+> *(Complété le 01/11/2026, v0.8.4 : cette leçon ne s'appliquait qu'au
+> contrôle d'accessibilité. La contre-expertise des quinze scripts a montré
+> que **six autres auditeurs** tiraient eux aussi leur cible — voir
+> § 2 octies. La règle est désormais appliquée à tous.)*
+
+---
+
+### 2 octies. Six audits qui ne regardaient qu'une room sur 52 — et une barrière qui ne rougissait que sur les constats bloquants (01/11/2026, v0.8.4)
+
+**La question posée.** « As-tu fait tous les tests qu'il faut ? Si on
+redemande aux quinze auditeurs le même audit, qu'obtiendra-t-on ? »
+Autrement dit : **le « 0 constat » est-il le résultat d'un travail
+exhaustif, ou celui d'un regard partiel ?**
+
+**La contre-expertise.** La relecture des quinze scripts d'audit a cherché
+une seule chose : *un contrôle qui tire sa cible au hasard, ou qui
+n'en regarde qu'une*. Six l'ont fait :
+
+| Auditeur | Ce qui était mesuré | Ce qui est mesuré désormais |
+|---|---|---|
+| Données structurées | 1 room + 1 parcours | **les 52 rooms + les 4 parcours**, et les **versions arabes et anglaises de chaque room** (104 pages de plus) |
+| Onboarding | 1 room jouée sans compte | **les 52 rooms jouées une par une** (leçon servie + invitation à s'inscrire, pour chacune) |
+| UX / UI | 1 room rendue | **les 52 rooms rendues** (titre unique, boutons nommés, champs étiquetés, façade vidéo, lien de secours) |
+| Performance | accueil + parcours + 1 room | **les 54 pages** (accueil, parcours, 52 rooms) : poids, temps, scripts, iframes |
+| Multilingue | 1 room pour les liens de version linguistique | **les 53 pages** (accueil + 52 rooms) ; et **160 pages réellement servies** lues à la place d'une seule |
+| SEO | 1 room pour le résumé, la canonique, le partage | **les 52 rooms** pour le titre, le résumé, l'adresse canonique, l'aperçu de partage, la langue déclarée, l'affichage téléphone — **et la version arabe de chacune** (HTTP 200 + `dir="rtl"`) |
+
+**Le résultat : aucun nouveau constat.** La plateforme était saine — mais
+on ne le savait pas encore, parce qu'on ne l'avait pas cherché partout.
+
+**La preuve que le regard est désormais complet (test négatif).** Une
+room a été amputée **exprès** de son résumé (meta description) dans le
+bac à sable — la room 59, celle que l'ancien contrôle ne regardait pas :
+
+| Contrôle | Avant (une seule room) | Après (toutes les rooms) |
+|---|---|---|
+| « la page a une meta description » | **ok** — il regardait la room 8 | **ok** — il regarde toujours la room 8 |
+| « chaque room est prête pour le moteur » | *(ce contrôle n'existait pas)* | **[MAJEUR]** — « kahoot-la-revision-des-labs-avances : meta description » |
+
+Le défaut était **invisible** pour l'ancien contrôle et **visible** pour
+le nouveau, qui nomme la room concernée. C'est exactement ce que l'on
+attend d'un garde-fou : il doit voir ce que l'ancien ne voyait pas.
+
+**Le trou de la barrière — le plus important de ce passage.** La CI
+passait au **vert** dès qu'un constat existait, tant qu'il n'était pas
+« bloquant ». Concrètement : le défaut `h1 → h3` de la room « Kahoot »
+( Gravité **majeur**) a été **livré** ; la CI était verte ; la
+plateforme était déclarée « conforme » ; et le défaut n'est apparu que
+parce qu'un humain a lu le journal de la CI.
+
+La barrière est donc **durcie** : elle bloque désormais sur un constat
+**bloquant ou majeur**. Le niveau « mineur » et le niveau « info »
+restent informatifs.
+
+| État | Avant | Après |
+|---|---|---|
+| Aucun constat | code 0 | code 0 |
+| Un constat mineur | code 0 | code 0 |
+| Un constat **majeur** | **code 0** (la CI passait au vert) | **code 1** (la CI rougit) |
+| Un constat bloquant | code 1 | code 1 |
+
+**Le garde-fou de ce garde-fou.** L'auditeur « DevOps » vérifie désormais
+la barrière **lui-même**, en comportement et non en lecture : il extrait
+la condition de sortie du code de `audit_fin()`, l'évalue avec trois
+états (aucun constat, un majeur, un bloquant) et exige les codes
+**0 / 1 / 1**. Testé dans les deux sens : avec l'ancienne barrière
+(« bloquant seul »), l'audit produit **[MAJEUR]** « la barrière
+automatique bloque sur un constat majeur, pas seulement bloquant » ;
+avec la nouvelle, il est vert.
+
+**La reproductibilité, mesurée.** Le comité a été **rejoué deux fois de
+suite** sur le même code, et les quinze rapports JSON ont été comparés
+champ par champ : **15/15 identiques** (hors horodatage). Un audit dont
+le résultat change d'une exécution à l'autre n'est pas un audit ; celui-ci
+ne bouge plus.
+
+> **La leçon.** « 0 constat » ne veut rien dire tant qu'on ne sait pas
+> *ce qui a été regardé*. La question utile n'est donc pas « le comité
+> est-il vert ? » mais « **le comité a-t-il regardé tout ?** ». Cette
+> fois-ci, la réponse est mesurable : 53 pages pour l'accessibilité, 57
+> pour les données structurées, 160 pages servies pour le multilingue,
+> 54 pages pesées pour la performance, 52 rooms jouées pour l'onboarding
+> et pour l'ergonomie, 104 versions arabes et anglaises pour le SEO — et
+> une barrière qui rougit dès qu'un constat de fond existe.
 
 ---
 
@@ -508,5 +593,6 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 | 01/11/2026 (nuit, suite) | v0.8.0 | Livraison du comité des quinze : **196 contrôles, 0 constat**. Mais deux workflows GitHub sont tombés en échec, et le rejeu de la recette à la main a montré un **vrai défaut** : les onze actions AJAX avaient été renommées de `secura_` en `seca_` dans le plugin seulement — le front continuait d'appeler les anciennes. Le site était donc **cassé pour les élèves** (bouton « Déployer la machine » inerte, message d'erreur muet). Corrigé, et **deux contrôles automatiques** ajoutés pour que la cohérence des noms soit vérifiée à chaque push. Voir § 2 ter |
 | 01/11/2026 (nuit, suite) | v0.8.1 | Deuxième passe de relecture : le mot « fonctionnalités » était écrit **en coréen** dans la politique de confidentialité. Invisible à l'écran ; **public via l'API REST**, qui publie le texte brut de la base. Corrigé, avec un **nouveau contrôle** qui cherche les caractères d'une écriture étrangère dans les fichiers livrés et dans les pages réellement servies. Les pages légales de la base sont désormais remises à jour à chaque version du plugin, **sans jamais écraser un texte retouché par le propriétaire**. Voir § 2 quater. Total : **199 contrôles, 0 constat** |
 | 01/11/2026 (nuit, suite 2) | v0.8.2 | Le workflow « Audit externe » est tombé rouge sur un constat RGPD **bloquant** : les pages légales n'existaient pas **sur un site installé en ligne de commande**. Cause mesurée : le plugin rangeait les textes dans une **variable globale**, et WP-CLI charge WordPress **dans une portée de fonction** — une telle variable n'y existe pas. Le défaut ne vivait donc que dans un contexte (la CI), invisible pour la recette manuelle jouée sur un vrai serveur web. **Correction :** les textes passent par une fonction, qui existe partout ; **garde-fou :** l'installation est vérifiée explicitement (l'échec nomme la page absente) et **deux contrôles** interdisent le retour de la faute. Un faux positif a été corrigé au passage (apostrophe typographique échappée en `&#8217;` dans la comparaison des données structurées). Voir § 2 quinquies. Total : **200 contrôles, 0 constat** |
+| 01/11/2026 (nuit, suite 5) | v0.8.4 | Question posée par le propriétaire : « as-tu fait tous les tests qu'il faut ? si on redemande aux 15 agents le même audit, qu'obtiendra-t-on ? ». **Contre-expertise des quinze scripts** : six contrôles ne regardaient qu'une room sur 52 (données structurées, onboarding, UX/UI, performance, multilingue, SEO). Tous ont été étendus à **toute la collection** — 207 contrôles au lieu de 203. **Aucun nouveau constat** : la plateforme était saine, mais on ne l'avait pas vérifié partout. **Test négatif** : une room amputée de son résumé en bac à sable est invisible pour l'ancien contrôle (« ok ») et détectée par le nouveau, qui la nomme. **Trou de la barrière** : la CI ne rougissait que sur les constats *bloquants* — le défaut `h1 → h3` (majeur) avait été livré avec une CI verte ; la barrière bloque désormais sur **majeur ou bloquant**, et un contrôle de l'auditeur « DevOps » vérifie ce comportement **en l'exécutant** (codes 0/1/1), testé dans les deux sens. **Reproductibilité** : le comité rejoué deux fois donne **15/15 rapports identiques**. Total : **207 contrôles, 0 constat** |
 | 01/11/2026 (nuit, suite 4) | v0.8.3-bis | La CI a trouvé un **majeur d'accessibilité** que la recette locale ne voyait pas : un saut de titre `h1` → `h3` dans la room « Kahoot ». Deux causes : le bloc Kahoot titrait en `<h3>` alors que tous les autres blocs de room titrent en `<h2>` ; et surtout, **le contrôle d'accessibilité tirait une room au hasard** — visible en CI, invisible en local, et différent d'une exécution à l'autre. **Correction :** bloc Kahoot en `<h2>` (rendu inchangé, le style est porté par la classe) ; l'audit vérifie désormais **les 53 pages** (accueil + 52 rooms) ; l'auditeur « SEO » vérifie le titre de **chaque** room sur la page servie. **Garde-fou :** le défaut a été **remis volontairement** dans le code pour prouver que l'audit le détecte (il nomme la room), puis retiré — un garde-fou testé dans les deux sens. Total : **203 contrôles, 0 constat** |
 | 01/11/2026 (nuit, suite 3) | v0.8.3 | La CI a signalé un « majeur » multilingue : des propriétés physiques dans la feuille arabe. En cherchant, on a trouvé un **vrai défaut invisible** : le thème déclarait sa feuille arabe avec un **chemin de fichier** au lieu d'une **adresse**, donc le navigateur demandait une URL qui n'existait pas (404) — **la mise en page arabe n'était jamais appliquée**. Le constat, lui, était un **faux positif** : le contrôle mesurait la page 404 (qui contient le CSS de WordPress), pas une feuille de style. **Correction :** adresse correcte, et feuille arabe chargée dès que le visiteur lit en arabe, même sur un site en français ; version du thème cohérente. **Garde-fous :** un contrôle **bloquant** vérifie désormais que toutes les feuilles de style d'une page se chargent (HTTP 200), dans les trois langues ; et le contrôle ne mesure plus une page d'erreur comme si c'était une feuille de style. Un faux positif de l'auditeur « SEO » est corrigé au passage (apostrophes non normalisés). Total : **202 contrôles, 0 constat** |

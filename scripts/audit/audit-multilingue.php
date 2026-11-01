@@ -390,10 +390,13 @@ echo "\n5. Les adresses alternatives (hreflang)\n";
 
 $sans_hreflang = array();
 
-$pages_a_verifier = array();
+/* TOUTES les rooms sont vérifiées : une seule l'était. Une room
+   oubliée dans ses liens de version linguistique est une room que le
+   moteur ne regroupe pas avec ses versions traduites. */
+$pages_a_verifier = array( 'accueil' => home_url( '/' ) );
 
-if ( ! empty( $rooms ) ) {
-	$pages_a_verifier['room'] = get_permalink( $rooms[0]->ID );
+foreach ( $rooms as $chambre ) {
+	$pages_a_verifier[ 'room ' . $chambre->ID ] = get_permalink( $chambre->ID );
 }
 
 foreach ( $pages_a_verifier as $nom => $url ) {
@@ -526,13 +529,16 @@ foreach ( array( 'politique-de-confidentialite', 'mentions-legales' ) as $slug )
 	}
 }
 
-if ( ! empty( $rooms ) ) {
-	$room     = $rooms[0];
-	$url_room = get_permalink( $room );
+/* TOUTES les rooms sont servies et lues dans les TROIS langues : une
+   room et trois pages, c'était insuffisant pour dire que le contenu
+   entier est propre (le défaut de v0.8.1 — du coréen dans une page
+   légale — ne s'était vu que dans une page). */
+foreach ( $rooms as $chambre ) {
+	$url_room = get_permalink( $chambre->ID );
 
-	$pages_servies[ 'room « ' . $room->post_title . ' » (FR)' ] = $url_room;
-	$pages_servies[ 'room « ' . $room->post_title . ' » (AR)' ] = add_query_arg( 'seca_lang', 'ar', $url_room );
-	$pages_servies[ 'room « ' . $room->post_title . ' » (EN)' ] = add_query_arg( 'seca_lang', 'en', $url_room );
+	$pages_servies[ 'room « ' . $chambre->post_title . ' » (FR)' ] = $url_room;
+	$pages_servies[ 'room « ' . $chambre->post_title . ' » (AR)' ] = add_query_arg( 'seca_lang', 'ar', $url_room );
+	$pages_servies[ 'room « ' . $chambre->post_title . ' » (EN)' ] = add_query_arg( 'seca_lang', 'en', $url_room );
 }
 
 /* L'API REST publie le texte brut des pages, sans le filtre
@@ -589,9 +595,20 @@ audit_verifier(
 );
 
 if ( ! empty( $pages_verifiees ) ) {
+	/* Resume : la liste complete des 160 pages rendrait le rapport
+	   illisible. Le compte, lui, reste exact. */
+	$rooms_verifiees = count( array_filter(
+		$pages_verifiees,
+		function ( $libelle ) {
+			return 0 === strpos( $libelle, 'room « ' );
+		}
+	) );
+
 	audit_info(
 		'Ce qui a été vérifié',
-		implode( ' | ', $pages_verifiees )
+		count( $pages_verifiees ) . ' pages réellement servies et lues : la page d\'accueil, les pages légales '
+			. '(version affichée et version publiée par l\'API REST), et ' . $rooms_verifiees
+			. ' pages de room servies dans les trois langues (français, arabe, anglais).'
 	);
 }
 

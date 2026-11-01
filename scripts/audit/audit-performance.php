@@ -39,10 +39,12 @@ $pages = array(
 	'Parcours'   => get_permalink( get_page_by_path( 'parcours' ) ? get_page_by_path( 'parcours' )->ID : 0 ),
 );
 
-$room = get_posts( array( 'post_type' => 'secura_room', 'numberposts' => 1, 'post_status' => 'any' ) );
+/* TOUTES les rooms sont mesurees : une seule l'etait, donc le poids
+   reel de la plateforme n'etait pas connu. */
+$rooms = get_posts( array( 'post_type' => 'secura_room', 'numberposts' => -1, 'post_status' => 'publish', 'orderby' => 'ID', 'order' => 'ASC' ) );
 
-if ( ! empty( $room ) ) {
-	$pages[ 'Une room' ] = get_permalink( $room[0]->ID );
+foreach ( $rooms as $chambre ) {
+	$pages[ 'room ' . $chambre->ID ] = get_permalink( $chambre->ID );
 }
 
 $mesures_pages = array();
@@ -92,17 +94,33 @@ if ( ! empty( $mesures_pages ) ) {
 		$detail[] = $nom . ' : ' . number_format( $m['octets'], 0, ',', ' ' ) . ' octets';
 	}
 
+		/* Resume lisible : le detail page par page (54 pages) ferait
+		   un texte de plusieurs kilo-octets. */
+	$tri_par_poids = $mesures_pages;
+	uasort(
+		$tri_par_poids,
+		function ( $a, $b ) {
+			return $b['octets'] <=> $a['octets'];
+		}
+	);
+	$plus_lourde = key( $tri_par_poids );
+	$octets      = wp_list_pluck( $mesures_pages, 'octets' );
+	$resume      = count( $mesures_pages ) . ' pages mesurees ; la plus lourde : ' . $plus_lourde
+		. ' (' . number_format( max( $octets ), 0, ',', ' ' ) . ' octets) ; la plus legere : '
+		. number_format( min( $octets ), 0, ',', ' ' ) . ' octets ; moyenne : '
+		. number_format( (int) round( array_sum( $octets ) / count( $octets ) ), 0, ',', ' ' ) . ' octets';
+
 	audit_verifier(
 		'le HTML d\'une page reste raisonnable (moins de 500 000 octets)',
 		500000 > max( wp_list_pluck( $mesures_pages, 'octets' ) ),
-		'Pages mesurées — ' . implode( ' ; ', $detail ),
+		$resume,
 		'mineur',
-		'Mesures réelles (page servie) : ' . wp_json_encode( $mesures_pages )
+		$resume . ' — le detail page par page est dans le rapport JSON'
 	);
 
 	audit_force(
 		'Le HTML servi est compact — la page d\'accueil ne pèse pas lourd',
-		'Mesures : ' . implode( ' ; ', $detail )
+		$resume
 	);
 }
 

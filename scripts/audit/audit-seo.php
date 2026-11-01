@@ -108,6 +108,8 @@ audit_verifier(
    pouvait passer en CI et etre ignoree en local. Le catalogue fait
    52 rooms : on les verifie toutes. */
 $titres_manquants = array();
+$pages_mal_preparees = array();
+$versions_ar_defectueuses = array();
 
 $rooms_tous = get_posts(
 	array(
@@ -123,7 +125,8 @@ foreach ( $rooms_tous as $chambre ) {
 	$page = wp_remote_get( get_permalink( $chambre->ID ), array( 'timeout' => 20 ) );
 
 	if ( is_wp_error( $page ) ) {
-		$titres_manquants[] = $chambre->post_name . ' : page non servie';
+		$titres_manquants[]   = $chambre->post_name . ' : page non servie';
+		$pages_mal_preparees[] = $chambre->post_name . ' : page non servie';
 		continue;
 	}
 
@@ -135,6 +138,56 @@ foreach ( $rooms_tous as $chambre ) {
 			audit_normaliser_texte( (string) $chambre->post_title )
 		) ) {
 		$titres_manquants[] = $chambre->post_name . ' : titre absent de la page servie';
+	}
+
+	/* Ce que le moteur lit sur la page : résumé, adresse canonique,
+	   aperçu de partage, langue déclarée, écran étroit. On le mesure
+	   sur TOUTES les rooms : sur une seule, un défaut passait. */
+	$manques = array();
+
+	if ( false === stripos( $corps, '<meta name="description"' ) ) {
+		$manques[] = 'meta description';
+	}
+
+	if ( false === stripos( $corps, 'rel="canonical"' ) ) {
+		$manques[] = 'adresse canonique';
+	}
+
+	if ( false === stripos( $corps, 'property="og:title"' ) || false === stripos( $corps, 'property="og:description"' ) ) {
+		$manques[] = 'aperçu de partage (Open Graph)';
+	}
+
+	if ( false === stripos( $corps, 'name="twitter:card"' ) ) {
+		$manques[] = 'carte Twitter';
+	}
+
+	if ( false === stripos( $corps, 'lang=' ) ) {
+		$manques[] = 'langue déclarée';
+	}
+
+	if ( false === stripos( $corps, 'name="viewport"' ) ) {
+		$manques[] = 'affichage sur téléphone';
+	}
+
+	if ( ! empty( $manques ) ) {
+		$pages_mal_preparees[] = $chambre->post_name . ' : ' . implode( ', ', $manques );
+	}
+
+	/* La version arabe : elle doit répondre, et porter la direction
+	   du texte. On le vérifie room par room. */
+	$page_ar = wp_remote_get( add_query_arg( 'seca_lang', 'ar', get_permalink( $chambre->ID ) ), array( 'timeout' => 20 ) );
+
+	if ( is_wp_error( $page_ar ) ) {
+		$versions_ar_defectueuses[] = $chambre->post_name . ' : version arabe non servie';
+	} else {
+		$code_ar = (int) wp_remote_retrieve_response_code( $page_ar );
+		$corps_ar = wp_remote_retrieve_body( $page_ar );
+
+		if ( 200 !== $code_ar ) {
+			$versions_ar_defectueuses[] = $chambre->post_name . ' : version arabe en HTTP ' . $code_ar;
+		} elseif ( false === stripos( $corps_ar, 'dir="rtl"' ) ) {
+			$versions_ar_defectueuses[] = $chambre->post_name . ' : version arabe sans dir="rtl"';
+		}
 	}
 }
 
@@ -149,6 +202,32 @@ audit_verifier(
 			count( $rooms_tous )
 		)
 		: implode( "\n", array_slice( $titres_manquants, 0, 5 ) )
+);
+
+audit_verifier(
+	'chaque room est prete pour le moteur (resume, adresse canonique, partage, langue, telephone)',
+	empty( $pages_mal_preparees ),
+	count( $pages_mal_preparees ) . ' room(s) incompletes : ' . implode( ' | ', array_slice( $pages_mal_preparees, 0, 5 ) ),
+	'majeur',
+	empty( $pages_mal_preparees )
+		? sprintf(
+			'Les %d pages de room servies portent chacune : un resume (meta description), une adresse canonique, un apercu de partage, une carte Twitter, une langue declaree et un affichage adapte aux ecrans etroits.',
+			count( $rooms_tous )
+		)
+		: implode( "\n", array_slice( $pages_mal_preparees, 0, 5 ) )
+);
+
+audit_verifier(
+	'chaque version arabe repond et se lit de droite a gauche',
+	empty( $versions_ar_defectueuses ),
+	count( $versions_ar_defectueuses ) . ' room(s) concernee(s) : ' . implode( ' | ', array_slice( $versions_ar_defectueuses, 0, 5 ) ),
+	'majeur',
+	empty( $versions_ar_defectueuses )
+		? sprintf(
+			'Les %d versions arabes des rooms repondent toutes en HTTP 200 et portent dir="rtl" : le texte arabe est aligne a droite.',
+			count( $rooms_tous )
+		)
+		: implode( "\n", array_slice( $versions_ar_defectueuses, 0, 5 ) )
 );
 
 audit_verifier(

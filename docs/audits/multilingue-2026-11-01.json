@@ -3,7 +3,7 @@
     "titre": "Multilingue et internationalisation",
     "expert": "Expert en internationalisation (i18n) et en langues droite-à-gauche",
     "perimetre": "Vérifie que les trois versions (français, arabe, anglais) sont complètes et cohérentes sur tous les champs — titres, questions, explications, consignes — que le sens de lecture arabe est complet, que les adresses alternatives sont correctes, et qu'aucune chaîne non traduite ne subsiste. Ne juge pas la qualité/style d'une traduction : c'est un jugement humain.",
-    "date": "2026-11-01T22:50:35+00:00",
+    "date": "2026-11-01T23:10:37+00:00",
     "ok": 8,
     "non_etaye": 0,
     "forces": [
@@ -28,7 +28,7 @@
     "constats": [
         {
             "libelle": "Ce qui a été vérifié",
-            "detail": "page d'accueil | page « politique-de-confidentialite » | page « mentions-legales » | room « Débordement de tampon : l'attaque et les défenses » (FR) | room « Débordement de tampon : l'attaque et les défenses » (AR) | room « Débordement de tampon : l'attaque et les défenses » (EN) | API REST — page « politique-de-confidentialite » | API REST — page « mentions-legales »",
+            "detail": "161 pages réellement servies et lues : la page d'accueil, les pages légales (version affichée et version publiée par l'API REST), et 156 pages de room servies dans les trois langues (français, arabe, anglais).",
             "gravite": "info",
             "preuve": "",
             "etaye": false

@@ -61,19 +61,22 @@ echo "\n1. Le JSON-LD est-il servi et valide ?\n";
 
 $pages = array( 'accueil' => home_url( '/' ) );
 
-$room = get_posts( array( 'post_type' => 'secura_room', 'numberposts' => 1, 'post_status' => 'any' ) );
+/* TOUTES les rooms et TOUS les parcours sont contrôlés. Choisir
+   « une room » laissait passer les défauts de toutes les autres : le
+   résultat dépendait alors de l'identifiant tiré. */
+$rooms    = get_posts( array( 'post_type' => 'secura_room', 'numberposts' => -1, 'post_status' => 'any', 'orderby' => 'ID', 'order' => 'ASC' ) );
+$parcours = get_posts( array( 'post_type' => 'secura_path', 'numberposts' => -1, 'post_status' => 'any', 'orderby' => 'ID', 'order' => 'ASC' ) );
 
-if ( ! empty( $room ) ) {
-	$pages[ 'room' ] = get_permalink( $room[0]->ID );
+foreach ( $rooms as $chambre ) {
+	$pages[ 'room ' . $chambre->ID ] = get_permalink( $chambre->ID );
 }
 
-$parcours = get_posts( array( 'post_type' => 'secura_path', 'numberposts' => 1, 'post_status' => 'any' ) );
-
-if ( ! empty( $parcours ) ) {
-	$pages[ 'parcours' ] = get_permalink( $parcours[0]->ID );
+foreach ( $parcours as $chemin ) {
+	$pages[ 'parcours ' . $chemin->ID ] = get_permalink( $chemin->ID );
 }
 
 $blocs_par_page = array();
+$corps_par_page = array();
 $json_invalide  = array();
 $sans_jsonld    = array();
 
@@ -81,6 +84,7 @@ foreach ( $pages as $nom => $url ) {
 	$reponse = wp_remote_get( $url, array( 'timeout' => 20 ) );
 
 	if ( is_wp_error( $reponse ) ) {
+		$sans_jsonld[] = $nom . ' (' . $url . ') : page non servie';
 		continue;
 	}
 
@@ -105,6 +109,7 @@ foreach ( $pages as $nom => $url ) {
 	}
 
 	$blocs_par_page[ $nom ] = $blocs;
+	$corps_par_page[ $nom ] = $corps;
 }
 
 audit_verifier(
@@ -157,10 +162,35 @@ foreach ( $blocs_par_page as $nom => $blocs ) {
 	$types_par_page[ $nom ] = array_values( array_unique( $types ) );
 }
 
+/* Le relevé est agrégé : une ligne par type de page, pas une ligne par
+   room — sinon le rapport noierait le lecteur sous 52 lignes
+   identiques. */
+$types_rooms = array();
+
 foreach ( $types_par_page as $nom => $types ) {
+	if ( 0 === strpos( $nom, 'room ' ) ) {
+		$types_rooms[ $nom ] = implode( ', ', $types );
+		continue;
+	}
+
 	audit_info(
 		'Types déclarés sur « ' . $nom . ' »',
 		implode( ', ', $types )
+	);
+}
+
+if ( ! empty( $types_rooms ) ) {
+	$formes_rooms = array_count_values( $types_rooms );
+
+	audit_info(
+		'Types déclarés sur les ' . count( $types_rooms ) . ' rooms',
+		implode( ' ; ', array_map(
+			function ( $nombre, $types ) {
+				return $nombre . ' room(s) : ' . $types;
+			},
+			array_keys( $formes_rooms ),
+			array_values( $formes_rooms )
+		) )
 	);
 }
 
@@ -169,11 +199,15 @@ echo "\n3. La complétude : le type attendu est-il là ?\n";
 
 /* Un « Course » sans « LearningResource », ou l'inverse, envoie un
    signal incomplet. On vérifie page par page ce qui est attendu. */
-$attendus = array(
-	'accueil'  => array( 'Organization', 'WebSite' ),
-	'room'    => array( 'LearningResource', 'BreadcrumbList' ),
-	'parcours' => array( 'ItemList' ),
-);
+$attendus = array( 'accueil' => array( 'Organization', 'WebSite' ) );
+
+foreach ( $rooms as $chambre ) {
+	$attendus[ 'room ' . $chambre->ID ] = array( 'LearningResource', 'BreadcrumbList' );
+}
+
+foreach ( $parcours as $chemin ) {
+	$attendus[ 'parcours ' . $chemin->ID ] = array( 'ItemList' );
+}
 
 $manquants = array();
 
@@ -205,9 +239,12 @@ audit_verifier(
 	count( $manquants ) . ' type(s) manquant(s) : ' . implode( ' | ', $manquants ),
 	'majeur',
 	empty( $manquants )
-		? 'Relevé : accueil [' . implode( ', ', isset( $types_par_page['accueil'] ) ? $types_par_page['accueil'] : array() ) . '] ; '
-			. 'room [' . implode( ', ', isset( $types_par_page['room'] ) ? $types_par_page['room'] : array() ) . '] ; '
-			. 'parcours [' . implode( ', ', isset( $types_par_page['parcours'] ) ? $types_par_page['parcours'] : array() ) . ']'
+		? sprintf(
+			'Relevé : accueil [%s] ; %d room(s) déclarant toutes « LearningResource » et « BreadcrumbList » ; %d parcours déclarant « ItemList »',
+			implode( ', ', isset( $types_par_page['accueil'] ) ? $types_par_page['accueil'] : array() ),
+			count( $rooms ),
+			count( $parcours )
+		)
 		: implode( "\n", $manquants )
 );
 
@@ -252,8 +289,14 @@ echo "\n4. La cohérence : le déclaré existe-t-il à l'écran ?\n";
    le texte déclaré et le texte visible. */
 $incoherences = array();
 
-if ( isset( $blocs_par_page['room'] ) ) {
-	foreach ( $blocs_par_page['room'] as $bloc ) {
+foreach ( $blocs_par_page as $nom_page => $blocs ) {
+	if ( 0 !== strpos( $nom_page, 'room ' ) ) {
+		continue;
+	}
+
+	$visible = isset( $corps_par_page[ $nom_page ] ) ? $corps_par_page[ $nom_page ] : '';
+
+	foreach ( $blocs as $bloc ) {
 		foreach ( audit_entites_jsonld( $bloc ) as $entree ) {
 			if ( ! is_array( $entree ) || ! isset( $entree['@type'] ) ) {
 				continue;
@@ -265,9 +308,6 @@ if ( isset( $blocs_par_page['room'] ) ) {
 				continue;
 			}
 
-			$reponse = wp_remote_get( $pages['room'], array( 'timeout' => 20 ) );
-			$visible = is_wp_error( $reponse ) ? '' : wp_remote_retrieve_body( $reponse );
-
 			/* On compare des textes normalisés : le HTML échappe
 			   l'apostrophe typographique (&#8217;) et WordPress la
 			   transforme, alors que le JSON-LD garde l'apostrophe
@@ -278,7 +318,7 @@ if ( isset( $blocs_par_page['room'] ) ) {
 
 			if ( '' !== $visible_normalise && '' !== $nom_normalise
 				&& false === stripos( $visible_normalise, $nom_normalise ) ) {
-				$incoherences[] = '« ' . $nom . ' » est déclaré mais n\'apparaît pas dans le texte visible';
+				$incoherences[] = $nom_page . ' : « ' . $nom . ' » est déclaré mais n\'apparaît pas dans le texte visible';
 			}
 		}
 	}
@@ -290,7 +330,7 @@ audit_verifier(
 	count( $incoherences ) . ' incohérence(s) : ' . implode( ' | ', array_slice( $incoherences, 0, 5 ) ),
 	'majeur',
 	empty( $incoherences )
-		? 'Comparaison faite entre le champ « name » du JSON-LD et le texte visible de la page : tout correspond'
+		? 'Comparaison faite, room par room, entre le champ « name » du JSON-LD et le texte visible de la même page : les ' . count( $rooms ) . ' rooms concordent'
 		: implode( "\n", $incoherences )
 );
 
@@ -301,20 +341,24 @@ echo "\n5. La cohérence entre les langues\n";
    moteurs peuvent voir deux pages différentes pour le même contenu. */
 $incoherences_langue = array();
 
-if ( ! empty( $room ) ) {
-	$room_id = $room[0]->ID;
+/* Chaque room est vérifiée dans les DEUX autres langues : une room
+   oubliée en arabe est un piège pour le moteur (deux pages différentes
+   pour le même contenu). */
+foreach ( $rooms as $chambre ) {
+	$titre_fr = (string) $chambre->post_title;
 
 	foreach ( array( 'ar', 'en' ) as $langue ) {
-		$reponse = wp_remote_get( add_query_arg( 'seca_lang', $langue, $pages['room'] ), array( 'timeout' => 20 ) );
+		$reponse = wp_remote_get( add_query_arg( 'seca_lang', $langue, get_permalink( $chambre->ID ) ), array( 'timeout' => 20 ) );
 
 		if ( is_wp_error( $reponse ) ) {
+			$incoherences_langue[] = 'room ' . $chambre->ID . ' : la version ' . $langue . ' n\'a pas été servie';
 			continue;
 		}
 
 		$corps = wp_remote_retrieve_body( $reponse );
 
 		if ( ! preg_match_all( '/<script[^>]+type=["\']application\/ld\+json["\'][^>]*>(.*?)<\/script>/is', $corps, $m ) ) {
-			$incoherences_langue[] = 'la version ' . $langue . ' ne sert aucun JSON-LD';
+			$incoherences_langue[] = 'room ' . $chambre->ID . ' : la version ' . $langue . ' ne sert aucun JSON-LD';
 			continue;
 		}
 
@@ -337,9 +381,9 @@ if ( ! empty( $room ) ) {
 		}
 
 		if ( '' === $nom_trouve ) {
-			$incoherences_langue[] = 'la version ' . $langue . ' ne déclare pas de LearningResource';
-		} elseif ( $nom_trouve === $room[0]->post_title ) {
-			$incoherences_langue[] = 'la version ' . $langue . ' déclare encore le titre français « '
+			$incoherences_langue[] = 'room ' . $chambre->ID . ' : la version ' . $langue . ' ne déclare pas de LearningResource';
+		} elseif ( $nom_trouve === $titre_fr ) {
+			$incoherences_langue[] = 'room ' . $chambre->ID . ' : la version ' . $langue . ' déclare encore le titre français « '
 				. $nom_trouve . ' »';
 		}
 	}
@@ -351,7 +395,7 @@ audit_verifier(
 	count( $incoherences_langue ) . ' problème(s) : ' . implode( ' | ', $incoherences_langue ),
 	'majeur',
 	empty( $incoherences_langue )
-		? 'Versions contrôlées : arabe et anglais — chacune déclare un LearningResource avec son propre titre'
+		? 'Versions contrôlées : arabe et anglais, pour les ' . count( $rooms ) . ' rooms — chacune déclare un LearningResource avec son propre titre'
 		: implode( "\n", $incoherences_langue )
 );
 

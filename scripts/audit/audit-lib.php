@@ -350,8 +350,17 @@ function audit_fin( $dossier = null ) {
 	   (run-audits.sh) repose pourtant sur ce code de sortie : sans
 	   exit(), un constat bloquant ne bloquerait rien.
 	   Vérifié le 01/11/2026 : « wp eval-file » avec « return 3 »
-	   sort avec le code 0 ; avec « exit(7) » il sort avec le code 7. */
-	exit( $a['bloquant'] > 0 ? 1 : 0 );
+	   sort avec le code 0 ; avec « exit(7) » il sort avec le code 7.
+
+	   La barrière bloque sur un constat BLOQUANT **et** sur un constat
+	   MAJEUR. Avant, seul le bloquant arrêtait la CI : un défaut réel
+	   de gravité « majeur » (le saut de titre h1 → h3 de la room
+	   « Kahoot », livré en v0.8.3) était passé en silence, et la
+	   plateforme pouvait être déclarée « conforme » avec lui. L'objectif
+	   du comité est « zéro constat » : la CI doit donc rougir dès
+	   qu'un constat de fond existe. Les niveaux « mineur » et « info »
+	   restent informatifs. */
+	exit( ( $a['bloquant'] > 0 || $a['majeur'] > 0 ) ? 1 : 0 );
 }
 
 /**

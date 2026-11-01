@@ -113,11 +113,15 @@ audit_info(
 /* ------------------------------------------------------------------ */
 echo "\n2. L'ecran de l'eleve : ce que la page contient vraiment\n";
 
+/* TOUTES les rooms sont rendues et verifiees : une seule room etait
+   rendue, donc le verdict dependait de l'identifiant tire. */
 $rooms = get_posts(
 	array(
 		'post_type'   => 'secura_room',
 		'post_status' => 'publish',
-		'numberposts' => 1,
+		'numberposts' => -1,
+		'orderby'     => 'ID',
+		'order'       => 'ASC',
 	)
 );
 
@@ -127,56 +131,118 @@ if ( empty( $rooms ) ) {
 	exit( audit_fin() );
 }
 
-$room = $rooms[0];
+$h1_en_double         = array();
+$boutons_sans_nom     = array();
+$champs_sans_etiquette = array();
+$sans_aria            = array();
+$facade_rompue        = array();
+$lien_secours_absent  = array();
+$rooms_avec_video     = 0;
+$room                 = $rooms[0];
 
-ob_start();
-echo do_shortcode( '[secura_academy_room id="' . $room->ID . '"]' );
-$html = (string) ob_get_clean();
+foreach ( $rooms as $chambre ) {
+	ob_start();
+	echo do_shortcode( '[secura_academy_room id="' . $chambre->ID . '"]' );
+	$html = (string) ob_get_clean();
+
+	$nombre_h1 = substr_count( $html, '<h1' );
+
+	if ( 1 !== $nombre_h1 ) {
+		$h1_en_double[] = 'room ' . $chambre->ID . ' (« ' . $chambre->post_title . ' ») : ' . $nombre_h1 . ' titre(s) de niveau 1';
+	}
+
+	$nb_boutons = preg_match_all( '/<button(?![^>]*aria-label)(?![^>]*>\s*[^<])[^>]*>\s*<\/button>/i', $html );
+
+	if ( $nb_boutons ) {
+		$boutons_sans_nom[] = 'room ' . $chambre->ID . ' : ' . $nb_boutons . ' bouton(s) vide(s) ou sans libellé';
+	}
+
+	$nb_champs = preg_match_all( '/<(input|textarea|select)(?![^>]*(aria-label|aria-labelledby|id="[^"]+"))[^>]*>/i', $html );
+
+	if ( $nb_champs ) {
+		$champs_sans_etiquette[] = 'room ' . $chambre->ID . ' : ' . $nb_champs . ' champ(s) sans étiquette';
+	}
+
+	if ( false === stripos( $html, 'aria-' ) ) {
+		$sans_aria[] = 'room ' . $chambre->ID . ' : aucun attribut ARIA';
+	}
+
+	/* La facade video ne concerne que les rooms qui portent une
+	   video : exiger d'un lecteur video d'une room qui n'en a pas
+	   serait un faux positif. */
+	$video = get_post_meta( $chambre->ID, '_secura_video', true );
+
+	if ( is_array( $video ) && ! empty( $video['id'] ) ) {
+		$rooms_avec_video++;
+
+		if ( false === stripos( $html, 'seca-video' ) || false !== stripos( $html, '<iframe' ) ) {
+			$facade_rompue[] = 'room ' . $chambre->ID . ' (« ' . $chambre->post_title . ' »)';
+		}
+
+		if ( false === stripos( $html, 'youtube.com/watch' ) ) {
+			$lien_secours_absent[] = 'room ' . $chambre->ID . ' (« ' . $chambre->post_title . ' »)';
+		}
+	}
+}
 
 audit_verifier(
-	'la room a un titre de niveau 1 (un seul, pour ne pas perdre le lecteur d\'ecran)',
-	1 === substr_count( $html, '<h1' ),
-	'trouve : ' . substr_count( $html, '<h1' ),
-	'majeur'
+	'chaque room a un titre de niveau 1 (un seul, pour ne pas perdre le lecteur d\'ecran)',
+	empty( $h1_en_double ),
+	count( $h1_en_double ) . ' room(s) concernée(s) : ' . implode( ' | ', array_slice( $h1_en_double, 0, 3 ) ),
+	'majeur',
+	empty( $h1_en_double )
+		? count( $rooms ) . ' rooms rendues une par une : chacune a exactement un titre de niveau 1'
+		: implode( "\n", $h1_en_double )
 );
-
-$boutons_sans_nom = preg_match_all( '/<button(?![^>]*aria-label)(?![^>]*>\s*[^<])[^>]*>\s*<\/button>/i', $html );
 
 audit_verifier(
 	'chaque bouton a un nom lisible (ce qu\'on lit quand le curseur est dessus)',
-	0 === $boutons_sans_nom,
-	$boutons_sans_nom . ' bouton(s) vide(s) ou sans libelle',
-	'majeur'
+	empty( $boutons_sans_nom ),
+	count( $boutons_sans_nom ) . ' room(s) concernée(s) : ' . implode( ' | ', array_slice( $boutons_sans_nom, 0, 3 ) ),
+	'majeur',
+	empty( $boutons_sans_nom )
+		? count( $rooms ) . ' rooms rendues : aucun bouton vide ou sans libellé'
+		: implode( "\n", $boutons_sans_nom )
 );
-
-$champs_sans_etiquette = preg_match_all( '/<(input|textarea|select)(?![^>]*(aria-label|aria-labelledby|id="[^"]+"))[^>]*>/i', $html );
 
 audit_verifier(
 	'chaque champ de saisie est etiquete',
-	0 === $champs_sans_etiquette,
-	$champs_sans_etiquette . ' champ(s) sans etiquette',
-	'majeur'
+	empty( $champs_sans_etiquette ),
+	count( $champs_sans_etiquette ) . ' room(s) concernée(s) : ' . implode( ' | ', array_slice( $champs_sans_etiquette, 0, 3 ) ),
+	'majeur',
+	empty( $champs_sans_etiquette )
+		? count( $rooms ) . ' rooms rendues : chaque champ porte une étiquette'
+		: implode( "\n", $champs_sans_etiquette )
 );
 
 audit_verifier(
 	'la zone de progression est annoncee (aria) et pas seulement coloree',
-	false !== stripos( $html, 'aria-' ),
-	'la page ne semble pas utiliser les attributs ARIA',
-	'info'
+	empty( $sans_aria ),
+	count( $sans_aria ) . ' room(s) concernée(s) : ' . implode( ' | ', array_slice( $sans_aria, 0, 3 ) ),
+	'info',
+	empty( $sans_aria )
+		? count( $rooms ) . ' rooms rendues : les attributs ARIA sont présents partout'
+		: implode( "\n", $sans_aria )
 );
 
 audit_verifier(
 	'la video du cours se presente avant d\'etre chargee (image + bouton, pas un lecteur vide)',
-	false !== stripos( $html, 'seca-video' ) && false === stripos( $html, '<iframe' ),
-	'la facade video n\'est pas respectee',
-	'majeur'
+	empty( $facade_rompue ),
+	count( $facade_rompue ) . ' room(s) concernée(s) : ' . implode( ' | ', array_slice( $facade_rompue, 0, 3 ) ),
+	'majeur',
+	empty( $facade_rompue )
+		? $rooms_avec_video . ' rooms portent une video : chacune présente une image et un bouton, aucun lecteur n\'est chargé avant le clic'
+		: implode( "\n", $facade_rompue )
 );
 
 audit_verifier(
 	'un lien de secours vers la source de la video reste visible',
-	false !== stripos( $html, 'youtube.com/watch' ),
-	'l\'eleve est bloque si YouTube est bloque',
-	'majeur'
+	empty( $lien_secours_absent ),
+	count( $lien_secours_absent ) . ' room(s) concernée(s) : ' . implode( ' | ', array_slice( $lien_secours_absent, 0, 3 ) ),
+	'majeur',
+	empty( $lien_secours_absent )
+		? $rooms_avec_video . ' rooms portent une video : le lien vers la source reste visible (l\'élève n\'est pas bloqué si YouTube est bloqué)'
+		: implode( "\n", $lien_secours_absent )
 );
 
 /* ------------------------------------------------------------------ */

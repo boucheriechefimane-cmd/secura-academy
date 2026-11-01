@@ -596,7 +596,13 @@ constat** (v0.8.3-bis : un saut de titre `h1` → `h3` dans la room
 « Kahoot », trouvé par la CI et invisible en local — parce que le contrôle
 d'accessibilité **tirait une room au hasard** ; corrigé, et **aucun audit
 ne tire plus au sort** : les 53 pages et le titre de chaque room sont
-vérifiés à chaque passage).
+vérifiés à chaque passage) → **207 contrôles, 0
+constat** (v0.8.4 : la question « as-tu fait tous les tests qu'il
+faut ? » a été posée — et six des quinze auditeurs ne regardaient
+qu'une room sur 52. Tous regardent désormais **toute la collection** ;
+la CI **rougit** désormais sur un constat majeur, pas seulement
+bloquant ; et le comité rejoué deux fois donne **15/15 rapports
+identiques**).
 
 Ce que les quinze auditeurs ont trouvé — et fait corriger : les pages légales
 qui n'existaient pas, l'invitation à s'inscrire que le visiteur anonyme ne

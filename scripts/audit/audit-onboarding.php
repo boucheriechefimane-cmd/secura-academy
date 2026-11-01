@@ -139,17 +139,48 @@ echo "\n3. Le parcours d'un élève sans compte\n";
    Deux choses distinctes : LIRE (le contenu de la leçon est-il servi ?)
    et PRATIQUER (peut-on répondre à une question ?). Les deux comptent :
    une leçon lisible mais impraticable, c'est une porte qui grince. */
-$room = get_posts( array( 'post_type' => 'secura_room', 'numberposts' => 1, 'post_status' => 'any' ) );
+/* TOUTES les rooms sont jouees : une room etait tiree au hasard, donc
+   le resultat dependait de l'identifiant tire. Une room dont la lecon
+   ne serait pas servie au visiteur anonyme pouvait passer inaperdue. */
+$rooms = get_posts( array( 'post_type' => 'secura_room', 'numberposts' => -1, 'post_status' => 'publish', 'orderby' => 'ID', 'order' => 'ASC' ) );
 
-$lecture_anonyme   = false;
-$preuve_lecture    = '';
-$pratique_anonyme  = false;
-$preuve_pratique   = '';
-$message_atteint   = false;
-$preuve_message    = '';
+$lectures_manquantes  = array();
+$pratiques_manquantes = array();
+$rooms_jouees         = 0;
 
-if ( ! empty( $room ) ) {
-	$room_id = $room[0]->ID;
+$message_atteint = false;
+$preuve_message  = '';
+$preuve_lecture  = '';
+$pratique_anonyme = false;
+$preuve_pratique = '';
+
+$fichier_ajax = $plugin . '/includes/class-secura-ajax.php';
+
+if ( file_exists( $fichier_ajax ) ) {
+	$contenu_ajax = file_get_contents( $fichier_ajax );
+
+	$message_connnexion = ( false !== strpos( $contenu_ajax, 'not_logged_in' ) );
+	/* L'action « nopriv » peut être déclarée explicitement OU
+	   enregistrée dans une boucle. On accepte les deux formes. */
+	$action_nopriv      = ( false !== strpos( $contenu_ajax, 'wp_ajax_nopriv_secura_get_task' )
+		|| false !== strpos( $contenu_ajax, "wp_ajax_nopriv_' . \$action" ) );
+
+	if ( $message_connnexion && $action_nopriv ) {
+		$message_atteint = true;
+		$preuve_message  = 'L\'action est enregistrée pour les visiteurs non connectés : le message '
+			. '« Connectez-vous pour continuer. » leur parvient.';
+	} else {
+		$preuve_message = 'Le message « Connectez-vous pour continuer. » existe bien dans le code '
+			. '(class-secura-ajax.php, clé not_logged_in) mais l\'action n\'est enregistrée que pour les '
+			. 'visiteurs connectés (wp_ajax_ sans le pendant wp_ajax_nopriv_) : le message prévu ne peut donc '
+			. 'jamais atteindre un visiteur anonyme, qui reçoit à la place une réponse brute « 0 ».';
+	}
+}
+
+foreach ( $rooms as $chambre ) {
+	$room_id = $chambre->ID;
+
+	$rooms_jouees++;
 
 	/* A) Lecture : la page servie contient-elle la leçon ? */
 	$reponse_page = wp_remote_get( get_permalink( $room_id ), array( 'timeout' => 20 ) );
@@ -182,15 +213,16 @@ if ( ! empty( $room ) ) {
 			$extrait = trim( substr( audit_onboarding_texte( $lecon ), 0, 60 ) );
 
 			if ( '' !== $extrait && false !== stripos( $visible, $extrait ) ) {
-				$lecture_anonyme = true;
-				$preuve_lecture  = 'GET ' . get_permalink( $room_id ) . ' sans session → HTTP '
+				$preuve_lecture = 'GET ' . get_permalink( $room_id ) . ' sans session → HTTP '
 					. (int) wp_remote_retrieve_response_code( $reponse_page )
 					. ' ; début de la leçon présent dans le HTML servi : « ' . $extrait . ' … »';
 			} else {
-				$preuve_lecture = 'GET ' . get_permalink( $room_id )
-					. ' sans session → le début de la leçon (« ' . $extrait . ' ») est introuvable dans le HTML servi';
+				$lectures_manquantes[] = 'room ' . $room_id . ' (« ' . $chambre->post_title . ' ») : '
+					. 'le début de la leçon (« ' . $extrait . ' ») est introuvable dans le HTML servi';
 			}
 		}
+	} else {
+		$lectures_manquantes[] = 'room ' . $room_id . ' : la page n\'a pas été servie';
 	}
 
 	/* B) Pratique : l'eleve peut-il repondre a une question ?
@@ -217,49 +249,52 @@ if ( ! empty( $room ) ) {
 		   avec une invitation explicite (401 « not_logged_in ») ou avec
 		   la tache demandee (200). Un corps « 0 » signifie que l'action
 		   n'est pas enregistree : la, le controle echouerait. */
-		$pratique_anonyme = ( 200 === $code_api && '' !== $corps_api && 0 !== (int) $corps_api )
+		$ok_api = ( 200 === $code_api && '' !== $corps_api && 0 !== (int) $corps_api )
 			|| ( 401 === $code_api && false !== strpos( $corps_api, 'not_logged_in' ) );
 
-		$preuve_pratique = 'POST admin-ajax.php (action=secura_get_task, room_id=' . $room_id . ') sans session → HTTP '
-			. $code_api . ' — corps de la réponse : « '
-			. ( '' === $corps_api ? '(vide)' : substr( $corps_api, 0, 80 ) ) . ' »';
-	}
+		if ( $ok_api ) {
+			$pratique_anonyme = true;
 
-	/* C) Le message d'erreur prevu atteint-il l'eleve ?
-	   Le code contient un message prevu pour ce cas (« Connectez-vous
-	   pour continuer. ») : on verifie s'il est ATTEIGNABLE, c'est-a-dire
-	   si l'action est enregistree aussi pour les visiteurs non
-	   connectes (wp_ajax_nopriv_). */
-	$fichier_ajax = $plugin . '/includes/class-secura-ajax.php';
-
-	if ( file_exists( $fichier_ajax ) ) {
-		$contenu_ajax = file_get_contents( $fichier_ajax );
-
-		$message_connnexion = ( false !== strpos( $contenu_ajax, 'not_logged_in' ) );
-		/* L'action « nopriv » peut être déclarée explicitement OU
-		   enregistrée dans une boucle. On accepte les deux formes. */
-		$action_nopriv      = ( false !== strpos( $contenu_ajax, 'wp_ajax_nopriv_secura_get_task' )
-			|| false !== strpos( $contenu_ajax, "wp_ajax_nopriv_' . \$action" ) );
-
-		if ( $message_connnexion && $action_nopriv ) {
-			$message_atteint = true;
-			$preuve_message  = 'L\'action est enregistrée pour les visiteurs non connectés : le message '
-				. '« Connectez-vous pour continuer. » leur parvient.';
+			if ( '' === $preuve_pratique ) {
+				$preuve_pratique = 'POST admin-ajax.php (action=secura_get_task, room_id=' . $room_id . ') sans session → HTTP '
+					. $code_api . ' — corps de la réponse : « '
+					. ( '' === $corps_api ? '(vide)' : substr( $corps_api, 0, 80 ) ) . ' »';
+			}
 		} else {
-			$preuve_message = 'Le message « Connectez-vous pour continuer. » existe bien dans le code '
-				. '(class-secura-ajax.php, clé not_logged_in) mais l\'action n\'est enregistrée que pour les '
-				. 'visiteurs connectés (wp_ajax_ sans le pendant wp_ajax_nopriv_) : le message prévu ne peut donc '
-				. 'jamais atteindre un visiteur anonyme, qui reçoit à la place une réponse brute « 0 ».';
+			$pratiques_manquantes[] = 'room ' . $room_id . ' : POST admin-ajax.php → HTTP ' . $code_api
+				. ' — corps : « ' . ( '' === $corps_api ? '(vide)' : substr( $corps_api, 0, 80 ) ) . ' »';
 		}
+	} else {
+		$pratiques_manquantes[] = 'room ' . $room_id . ' : l\'appel AJAX n\'a pas abouti';
 	}
+}
+
+if ( empty( $lectures_manquantes ) && ! empty( $rooms ) ) {
+	$lecture_anonyme = true;
+} else {
+	$lecture_anonyme = false;
+}
+
+if ( ! empty( $lectures_manquantes ) ) {
+	$preuve_lecture = count( $lectures_manquantes ) . ' room(s) sur ' . $rooms_jouees . ' ne servent pas leur leçon : '
+		. implode( ' | ', array_slice( $lectures_manquantes, 0, 3 ) );
+}
+
+if ( ! empty( $pratiques_manquantes ) ) {
+	$pratique_anonyme = false;
+	$preuve_pratique = count( $pratiques_manquantes ) . ' room(s) sur ' . $rooms_jouees . ' ne répondent pas à l\'invitation : '
+		. implode( ' | ', array_slice( $pratiques_manquantes, 0, 3 ) );
 }
 
 audit_verifier(
 	'un visiteur non connecté peut lire le contenu (leçon, vidéo, licence)',
 	$lecture_anonyme,
-	$lecture_anonyme ? '' : 'Le contenu de la leçon n\'est pas servi au visiteur non connecté.',
+	$lecture_anonyme ? '' : 'Le contenu de la leçon n\'est pas servi au visiteur non connecté dans '
+		. count( $lectures_manquantes ) . ' room(s) sur ' . $rooms_jouees . '.',
 	'majeur',
-	$preuve_lecture
+	$lecture_anonyme
+		? $rooms_jouees . ' rooms jouées une par une, sans session : le début de la leçon de chacune est présent dans le HTML servi. Exemple : ' . $preuve_lecture
+		: $preuve_lecture
 );
 
 /* Le fait de demander un compte pour S'ENTRAINER n'est pas un défaut :
