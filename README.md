@@ -84,7 +84,7 @@ secura-academy/
 ├── .github/workflows/ci.yml                 # Lint PHP + tests + espaces fin de ligne
 ├── .github/workflows/deploy.yml             # Déploiement vers WordPress (rsync + sauvegarde)
 ├── scripts/deploy.sh                       # Script de déploiement appelé par le workflow
-├── tests/smoke-test.php                    # 243 assertions sur la logique serveur
+├── tests/smoke-test.php                    # 246 assertions sur la logique serveur
 ├── docs/
 │   ├── ROADMAP.md                          # CONSTITUTION du projet (source de vérité, revue à chaque session)
 │   ├── AUDIT-EXPERIENCE-APPRENANT.md      # Audit UX apprenant + comparaison THM + alignement MIT

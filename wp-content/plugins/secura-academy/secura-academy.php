@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.5.4
+ * Version:           0.5.5
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,10 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.5.5 — Correction : un déploiement réussi n'est plus déclaré en échec
+ *   (lecture du code de sortie fiable sur PHP 7.4 et 8), outillage de
+ *   fabrication versionné, espace de travail allégé.
  *
  * 0.5.4 — Les dix scénarios M3 : missions vérifiées sur une vraie machine
  *   (le serveur lit le drapeau dans le conteneur de l'apprenant, en root),
@@ -46,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.5.4' );
+define( 'SECURA_ACADEMY_VERSION', '0.5.5' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

@@ -1763,6 +1763,23 @@ $pos_reseau   = strpos( $journal, 'network create' );
 $pos_machine  = strpos( $journal, 'run -d' );
 
 check( ! empty( $start_lab['ok'] ), 'la machine se deploie quand Docker est disponible' );
+
+/* Regression : une commande qui se termine aussitot doit toujours renvoyer
+   son vrai code de sortie. Sur PHP 7.4, un processus arrete mais pas encore
+   ramasse peut etre annonce « en cours » : le code lu valait -1, donc un
+   deploiement reussi etait declare en echec (dans la CI, un test sur trois
+   echouait de facon aleatoire). */
+$codes_stables = 0;
+
+for ( $i_stable = 0; $i_stable < 40; $i_stable++ ) {
+	$run_stable = Secura_Lab::run( array( '/bin/true' ), 10 );
+
+	if ( 0 === (int) $run_stable['code'] ) {
+		$codes_stables++;
+	}
+}
+
+check( 40 === $codes_stables, 'une commande terminee renvoie toujours son vrai code de sortie' );
 check( false !== $pos_reseau && false !== $pos_machine && $pos_reseau < $pos_machine, 'le reseau dedie est cree AVANT la machine' );
 check( false !== strpos( $journal, 'network create --internal --driver bridge seca_lab_5_42' ), 'le reseau dedie est cree sans sortie Internet' );
 check( false !== strpos( $journal, 'run -d' ), 'la machine est lancee dans le conteneur dedie' );

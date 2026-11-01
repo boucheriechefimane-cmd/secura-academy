@@ -1134,15 +1134,46 @@ class Secura_Lab {
 		fclose( $pipes[1] );
 		fclose( $pipes[2] );
 
+		/* Le code de sortie : c'est ici que se jouait un bug redoutable.
+		   Un processus qui vient de s'arreter peut encore etre annonce
+		   comme « en cours d'execution » (il n'est pas encore ramassee) ;
+		   on leisait alors un code -1, c'est-a-dire un echec, alors que
+		   la commande avait reussi. Symptome : la machine de l'apprenant
+		   « echouait » au deploiement sur certains hebergements, sans
+		   que rien ne soit reellement casse.
+		   On attend donc la fin reelle du processus (une seconde au plus)
+		   avant de lire son code. */
+		$code    = -1;
+		$limite  = microtime( true ) + 1.0;
+
+		do {
+			$status = proc_get_status( $process );
+
+			if ( isset( $status['exitcode'] ) && -1 !== (int) $status['exitcode'] ) {
+				$code = (int) $status['exitcode'];
+			}
+
+			if ( empty( $status['running'] ) ) {
+				break;
+			}
+
+			usleep( 20000 );
+
+		} while ( microtime( true ) < $limite );
+
 		$status = proc_get_status( $process );
 
-		if ( $status['running'] ) {
+		if ( ! empty( $status['running'] ) ) {
+			/* Vraiment depasse : on tue et on le signale. */
 			proc_terminate( $process, 9 );
+			$code = 124;
 		}
 
-		proc_close( $process );
+		$close = proc_close( $process );
 
-		$code = (int) $status['exitcode'];
+		if ( -1 === $code && -1 !== (int) $close ) {
+			$code = (int) $close;
+		}
 
 		if ( 0 !== $code && -1 === $code && '' !== $output ) {
 			$code = 1;
