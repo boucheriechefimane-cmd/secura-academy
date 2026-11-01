@@ -13,14 +13,18 @@
 #   2. crée la base « seca_wp » et l'utilisateur « seca » ;
 #   3. télécharge WordPress en français (via WP-CLI) ;
 #   4. installe WordPress (site local, administrateur « admin ») ;
-#   5. relie le plugin et le thème du dépôt (symboliques) ;
+#   5. copie le plugin et le thème du dépôt dans WordPress ;
 #   6. active le plugin, qui installe lui-même les rooms et les parcours ;
 #   7. indique le chemin des machines (option « seca_labs_path ») ;
-#   8. crée deux apprenants de test (alice, bob) pour le test à deux.
+#   8. crée deux apprenants de test (alice, bob) pour le test à deux ;
+#   9. vérifie que tout est en place.
 #
 # Utilisation :
 #   bash scripts/wordpress-local.sh                 # installation complète
 #   bash scripts/wordpress-local.sh /tmp/wp-test    # ailleurs
+#
+# Après une modification du plugin ou du thème :
+#   bash scripts/sync-local.sh                      # recopie dans WordPress
 #
 # Aucun secret réel : le mot de passe est un mot de passe local de test.
 
@@ -36,7 +40,7 @@ DB_NAME="secura_wp"
 DB_USER="secura"
 DB_PASSWORD="seca_local_pw"
 LABS_PATH="${SECA_LABS_PATH:-/opt/secura-labs}"
-WP_CLI="/home/user/wp-cli.phar"
+WP_CLI="${SECA_WP_CLI:-/home/user/wp-cli.phar}"
 
 say() { printf '\n\033[1;34m== %s\033[0m\n' "$1"; }
 
@@ -86,17 +90,20 @@ if ! wp core is-installed >/dev/null 2>&1; then
 		--skip-email
 fi
 
-say "5. Branchement du plugin et du thème du dépôt"
+say "5. Copie du plugin et du thème du dépôt"
 
 mkdir -p "$WP_DIR/wp-content/plugins" "$WP_DIR/wp-content/themes"
-rm -f "$WP_DIR/wp-content/plugins/secura-academy" "$WP_DIR/wp-content/themes/secura-learning"
-ln -s "$REPO_DIR/wp-content/plugins/secura-academy" "$WP_DIR/wp-content/plugins/secura-academy"
-ln -s "$REPO_DIR/wp-content/themes/secura-learning" "$WP_DIR/wp-content/themes/secura-learning"
+rm -rf "$WP_DIR/wp-content/plugins/secura-academy" "$WP_DIR/wp-content/themes/secura-learning"
+cp -r "$REPO_DIR/wp-content/plugins/secura-academy" "$WP_DIR/wp-content/plugins/secura-academy"
+cp -r "$REPO_DIR/wp-content/themes/secura-learning" "$WP_DIR/wp-content/themes/secura-learning"
 
 say "6. Activation du plugin (il installe les rooms et les parcours)"
 
-wp plugin activate seca-academy
-wp option update seca_labs_path "$LABS_PATH"
+# On passe par l'option « active_plugins » : WP-CLI ne sait pas toujours
+# retrouver un plugin installé à la main dans un dossier ajouté après coup.
+wp option update active_plugins --format=json \
+	'["secura-academy/secura-academy.php","akismet/akismet.php"]' >/dev/null
+wp option update seca_labs_path "$LABS_PATH" >/dev/null
 wp rewrite structure '/%postname%/' --hard >/dev/null 2>&1 || true
 
 say "7. Apprenants de test"
@@ -112,12 +119,19 @@ for learner in alice bob; do
 	fi
 done
 
-say "8. Bilan"
+say "8. Vérification"
 
-echo "  WordPress  : $WP_DIR"
-echo "  Site       : $WP_URL"
-echo "  Admin      : $WP_ADMIN_USER / $WP_ADMIN_PASSWORD"
-echo "  Machines   : $LABS_PATH"
+ROOMS="$( wp eval 'echo count(get_posts(array("post_type"=>"secura_room","numberposts"=>-1,"fields"=>"ids")));' 2>/dev/null || echo 0 )"
+PATHS="$( wp eval 'echo count(get_posts(array("post_type"=>"secura_path","numberposts"=>-1,"fields"=>"ids")));' 2>/dev/null || echo 0 )"
+VERSION="$( wp plugin list --name=secura-academy --field=version 2>/dev/null || echo '?' )"
+
+echo "  Plugin      : seca-academy $VERSION"
+echo "  Rooms       : $ROOMS"
+echo "  Parcours    : $PATHS"
+echo "  Machines    : $LABS_PATH"
+echo "  WordPress   : $WP_DIR"
+echo "  Site        : $WP_URL"
+echo "  Admin       : $WP_ADMIN_USER / $WP_ADMIN_PASSWORD"
 echo
 echo "Pour démarrer le serveur local :"
 echo "  php -S 0.0.0.0:8080 -t $WP_DIR"
