@@ -558,6 +558,18 @@ LiteSpeed Cache, Elementor, Contact Form 7, WooCommerce) : voir
 
 ## Déploiement
 
+### Le comité d'audit externe
+
+Cinq auditeurs spécialisés (SEO, contenu, UX/UI, développement, sécurité)
+passent la plateforme au crible **dans un vrai WordPress**, sur les pages
+réellement rendues, et dans de vrais conteneurs Docker quand il faut juger
+l'isolation entre élèves. Le workflow `audit.yml` échoue si un constat
+bloquant apparaît ; il rejoue les audits à chaque push et chaque lundi.
+
+Premier passage : **93 contrôles, 8 constats réels, tous corrigés**.
+Le cadre est dans [`docs/AUDITS-CADRE.md`](docs/AUDITS-CADRE.md), le
+registre des constats dans [`docs/AUDITS-REGISTRE.md`](docs/AUDITS-REGISTRE.md).
+
 Le dépôt est versionné sur GitHub, en **repository privé**. Deux workflows
 GitHub Actions sont présents :
 

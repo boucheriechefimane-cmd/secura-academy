@@ -71,6 +71,13 @@ rm -rf "$TMP/recette/tools/contenu-universites/__pycache__"
 cp "$REPO_DIR/scripts/ci-wordpress.sh" "$TMP/recette/scripts/"
 cp "$REPO_DIR/scripts/build-archives.sh" "$TMP/recette/scripts/"
 
+# Le comite d'audit externe : les cinq auditeurs et leur lanceur.
+mkdir -p "$TMP/recette/scripts/audit"
+cp "$REPO_DIR/scripts/audit/"*.php "$REPO_DIR/scripts/audit/run-audits.sh" "$TMP/recette/scripts/audit/"
+
+cp "$REPO_DIR/docs/AUDITS-CADRE.md" "$TMP/recette/docs/"
+cp "$REPO_DIR/docs/AUDITS-REGISTRE.md" "$TMP/recette/docs/"
+
 python3 - "$TMP" "$DEST" <<'PY'
 import os
 import sys

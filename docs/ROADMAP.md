@@ -372,6 +372,41 @@ d'inscription et l'accueil.
 
 ---
 
+### BLOC Q — Le comité d'audit externe (5 auditeurs) — ✅ LIVRÉ (v0.6.0)
+
+**L'idée.** On ne fait pas demander à celui qui écrit le code si son code est
+bon. Cinq auditeurs spécialisés, avec une grille écrite d'avance, passent la
+plateforme au crible **dans un vrai WordPress** (MySQL, PHP 8.3, plugin et
+thème du dépôt), sur les pages **réellement rendues en HTTP**, et dans de
+**vrais conteneurs Docker** quand il faut juger l'isolation entre élèves.
+
+**Les cinq auditeurs et leur verdict au premier passage :**
+
+| Auditeur | Contrôles | Bloquant | Majeur | Mineur | Verdict |
+|---|---|---|---|---|---|
+| SEO | 20 | 0 | 0 | 0 | Conforme |
+| Contenu | 18 | 0 | 0 | 0 | Conforme |
+| UX / UI | 16 | 0 | 0 | 0 | Conforme |
+| Développement | 14 | 0 | 0 | 0 | Conforme |
+| Sécurité & infrastructure | 25 | 0 | 0 | 0 | Conforme |
+| **Total** | **93** | **0** | **0** | **0** | **Conforme** |
+
+**Ce que l'audit a trouvé (et qui a été corrigé dans la même version) :**
+pas de description de page (le moteur inventait le résumé) ; pas de carte de
+partage ; pas de `hreflang` (les versions arabe et anglaise pouvaient être
+prises pour des doublons) ; sélecteur de langue invisible sans JavaScript ;
+pas d'en-têtes de sécurité HTTP ; et une sauvegarde de déploiement qui ne
+contenait pas la base de données.
+
+**La barrière.** Le workflow `audit.yml` **échoue** si un constat bloquant
+apparaît. Il rejoue les cinq audits à chaque `push` sur `main`, chaque lundi
+à 6 h, et à la main. Les rapports sont archivés comme artefacts (90 jours)
+et repris dans le résumé du run.
+
+**La règle du jeu** est écrite dans `docs/AUDITS-CADRE.md` (qui audite, quoi,
+avec quelle méthode, l'échelle de gravité, ce que le comité ne fait pas) et
+le suivi des constats dans `docs/AUDITS-REGISTRE.md`.
+
 ## 7. Article 7 — Les décisions structurantes
 
 Elles ne se remettent pas en cause implicitement (R3).
@@ -422,6 +457,7 @@ Elles ne se remettent pas en cause implicitement (R3).
 
 | Date | Version | Revue |
 |---|---|---|
+| 01/11/2026 | **Comité d'audit externe (v0.6.0)** | **On ne fait pas demander à celui qui écrit le code si son code est bon : un comité de cinq auditeurs spécialisés passe la plateforme au crible, dans un vrai WordPress et avec un vrai moteur Docker, le tout sur GitHub.** **Les cinq auditeurs** : SEO (adressage, description, carte de partage, `hreflang`, plan du site), Contenu (squelette des 4 temps, questions avec explication et indice, traductions, attribution des vidéos, chemins de drapeaux, et la question qui compte : *la documentation dit-elle la vérité ?*), UX/UI (contrastes calculés selon WCAG AA, boutons nommés, RTL, cibles tactiles, sélecteur de langue), Développement (syntaxe, compatibilité PHP 7.4, échappement, injections SQL, nonces, tests) et Sécurité/infrastructure (secrets, isolation par élève, durcissement Docker, en-têtes HTTP, sauvegarde avec la base). **Premier passage : 93 contrôles, 8 constats réels, tous corrigés** — il manquait la description de page, la carte de partage, le `hreflang`, le sélecteur de langue lisible, les en-têtes de sécurité, et la sauvegarde de la base. **La barrière** : le workflow `audit.yml` échoue si un constat bloquant apparaît ; il rejoue les audits à chaque push et chaque lundi, et archive les rapports. Cadre : `docs/AUDITS-CADRE.md` ; registre : `docs/AUDITS-REGISTRE.md`. |
 | 01/11/2026 | **v0.6.0 (bloc U livré)** | **Le bloc universitaire est complet, et il tient ses promesses : la vidéo du cours est dans la room, et la preuve est lue dans la machine.** **Ce qui a été livré.** Les **36 rooms** du bloc (22 « Les universités » + 14 « Les labs avancés »), **255 questions**, **quatre parcours**, et **trois nouvelles machines**. **La façade vidéo** : dans chaque room de cours, la vidéo apparaît comme une image avec un bouton ▶ ; rien n'est chargé de YouTube avant le clic (le test vérifie qu'il n'y a **aucune balise iframe** dans la page), l'iframe `youtube-nocookie` apparaît au clic, le **lien vers la source** reste visible, et l'attribution (source, auteur, licence, durée) est traduite en français, arabe et anglais. **Les labs avancés** : l'application **OWASP Juice Shop** (l'image officielle, version épinglée, réseau fermé sans sortie Internet) ; un **dojo de vingt défis** en cinq ceintures (blanche, jaune, orange, verte, noire) ; **six vidéos de brief** qui expliquent comment s'y mettre ; et le **quiz Kahoot**, jouable en classe avec le code `SECURA1` ou seul dans la plateforme, **exportable en CSV et JSON** sans compte obligatoire. **La preuve reste la preuve** : le serveur lit le drapeau dans la machine de l'élève, en root, et compare. Pour Juice Shop, l'application calcule elle-même un code par défi résolu (HMAC-SHA1 avec la clé du lab) : le serveur recalcule le même code et compare — la valeur est donc vérifiable, pas secrète. **Vérifications :** 302 assertions au vert, et — dans la vraie CI GitHub, avec un vrai Docker — **52 rooms et 4 parcours** installés dans un WordPress réel, **22 contrôles de recette** au vert (façade, Kahoot, idempotence, XP), **67 contrôles des machines** au vert (dont le dojo et ses 27 drapeaux, et le lab Juice Shop : l'application répond, le drapeau du serveur est conforme à celui de l'application, les trois services tournent, le réseau n'a pas de sortie Internet). **Trois bugs trouvés et corrigés par cette CI** (invisibles en local) : les briefs du dojo étaient copiés au mauvais endroit, le service « flags » du lab Juice Shop s'arrêtait aussitôt (commande Compose mal écrite), et le workflow ne construisait pas les nouvelles images. **Reste ouvert :** le dojo **officiel** pwn.college est fourni (`labs/dojo-pwncollege`) mais pas construit en CI (image trop lourde) ; et les labs M7 sont volontairement difficiles. |
 | 01/11/2026 | **v0.6.0 (U1 → U3 livrés)** | **Le bloc universitaire commence à tourner pour de vrai.** **U1 — la façade vidéo** : dans chaque room, la vidéo du cours apparaît comme une **image avec un bouton ▶** ; rien n'est chargé de YouTube avant le clic (vérifié par le test : zéro balise `iframe` dans la page), l'iframe apparaît ensuite en `youtube-nocookie`, le **lien vers la source reste toujours visible**, et le bloc d'attribution (source, auteur, licence, durée) est traduit en français, arabe et anglais. **U2 — les 22 rooms** : MIT 6.858 (5), MIT 6.857 (4), pwn.college (4), CYBER.ORG (4), OWASP (3), Stanford (2). Chaque room suit le même patron (leçon → entraînement → mission → examen), **22 vidéos réelles** (aucun identifiant inventé : chacune est dans le catalogue vérifié), **155 questions** à quatre propositions avec la bonne réponse **répartie** sur les quatre positions (sinon l'élève apprend la place, pas la notion). Les 22 missions se valident par un **drapeau lu dans la machine** `univ-01` (22 livrables de cours, 22 drapeaux en `400 root:root` : l'élève ne lit jamais le drapeau, il le découvre dans les documents du cours). Nouveau parcours « Les universités » en 6 modules. **U3 — l'attribution** : chaque room porte sa source et sa licence, et le registre des sources gagne une section dédiée aux six universités/fondations. Vérifications : **276 assertions** au vert, et **38 rooms / 3 parcours** dans un WordPress réel (la recette de bout en bout passe avec la machine : 13/0). Reste : **U4** (Juice Shop, dojo à 20 défis, 6 vidéos de brief, Kahoot). |
 | 01/11/2026 | **v0.6.0 (bloc U en cours)** | **Le bloc universitaire est ouvert, en un seul lot.** Quatre étapes nommées **U1 à U4** (pour ne pas confondre avec les jalons M4-M8 de l'article 6) : **U1** la façade vidéo (rien n'est chargé avant le clic, iframe `youtube-nocookie` au clic, lien de secours, attribution source/auteur/licence) ; **U2** les **22 rooms** « Les universités » (MIT 6.858 : 5, MIT 6.857 : 4, pwn.college : 4, CYBER.ORG : 4, OWASP : 3, Stanford : 2) avec leurs **vidéos réelles** — chaque identifiant YouTube a été **contrôlé automatiquement** (`tools/videos/yt_lookup.py`, contrôle oEmbed) : **aucun identifiant n'est inventé**, et les vidéos non intégrables (Stanford Online/CS105, accès réservé) ont été **remplacées** par des équivalents publics (Stanford CS106A) ; **U3** l'attribution et la licence par room, avec le registre des sources complété ; **U4** les labs avancés (OWASP Juice Shop, dojo pwn.college à 20 défis), les 6 vidéos de brief et le Kahoot (M3 bis). Le principe qui change : **notre valeur ajoutée n'est plus le contenu de la leçon, c'est la machine, la preuve et le chemin** — la vidéo est le cours original de l'université, la room est notre pratique. |
