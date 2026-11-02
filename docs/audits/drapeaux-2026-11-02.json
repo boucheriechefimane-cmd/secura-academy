@@ -3,7 +3,7 @@
     "titre": "Les questions de machine : drapeaux et actions joues pour de vrai",
     "expert": "Expert en exploitation linux et en surveillance de drapeaux (Read The Docs)",
     "perimetre": "Verifie que les questions qui demandent la machine de l'eleve sont reellement jouables : le fichier de drapeau existe dans le bon lab, la valeur est unique et sure, la machine se deploie, et la reponse de l'eleve est acceptee par le serveur qui relit le fichier en root.",
-    "date": "2026-11-02T14:00:08+00:00",
+    "date": "2026-11-02T14:19:22+00:00",
     "ok": 3,
     "non_etaye": 0,
     "forces": [],

@@ -654,17 +654,24 @@ réussir. C'est désormais changé, et vérifié par la machine :
 
 | Ce que fait le moteur | Ce que ça change pour l'élève |
 |---|---|
-| **Réservoir du niveau** | L'examen tire ses questions dans la *section entière* du parcours (11 à 34 questions disponibles), pas seulement dans la room |
-| **Tirage sans remise** | Deux élèves n'ont pas les mêmes questions |
+| **Réservoir du niveau** | L'examen tire ses questions dans la *section entière* du parcours, pas seulement dans la room — et **chaque question n'y est comptée qu'une fois** (une question présente à la fois dans l'entraînement et dans l'examen n'est pas comptée deux fois) |
+| **Tirage sans remise** | Deux élèves n'ont pas les mêmes questions — et **c'est garanti, pas subi** : l'ensemble de questions est réservé par un compteur, donc deux élèves ne peuvent pas recevoir le même examen tant que le réservoir le permet |
 | **Propositions mélangées** | La bonne réponse change de place d'une copie à l'autre |
 | **Chiffres paramétriques** | Une question écrite « un buffer de `{taille}` octets » devient « 32 », « 64 » ou « 128 » octets selon la copie — et l'explication, qui utilise le même `{taille}`, reste vraie |
 | **Copie mémorisée** | Recharger la page ne change rien ; **recommencer** l'examen donne une autre copie |
 
-Mesuré par l'auditeur « moteur d'épreuves » : **10 élèves ⇒ 10 copies
-différentes**, **131 365 839 copies possibles** au total sur la plateforme.
-Un contrôle automatique vérifie qu'aucune question liée à une machine
-(drapeau, action dans le terminal) ne voyage dans une autre room — sinon
-l'élève chercherait un fichier qui n'existe pas chez lui.
+Mesuré par l'auditeur « moteur d'épreuves » : **20 élèves ⇒ 20 copies
+différentes** (et 20 **ensembles** de questions différents : l'ordre seul
+ne suffit pas, c'est ce qu'un élève verrait sur une photo d'écran), et
+**2 039 152 copies possibles** au total sur la plateforme.
+
+> Le chiffre de 131 millions qui figurait ici avant la v0.10.0 était un
+> **mirage** : le réservoir comptait deux fois la même question (celle de
+> l'entraînement et celle de l'examen d'une même room). Le vrai
+> réservoir, c'est **6 à 24 questions distinctes** par examen (médiane 17).
+> Un contrôle automatique vérifie qu'aucune question liée à une machine
+> (drapeau, action dans le terminal) ne voyage dans une autre room — sinon
+> l'élève chercherait un fichier qui n'existe pas chez lui.
 
 ### Les questions de machine : jouées, pas supposées jouables
 

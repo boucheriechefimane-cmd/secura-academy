@@ -34,9 +34,9 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | 4 | **Conforme** |
 | 15 | **DevOps & résilience** | 12 | 0 | 0 | 0 | 2 | **Conforme** |
 | 16 | **Panel des dix élèves** | 5 | 0 | 0 | 0 | 13 | **Conforme** |
-| 17 | **Moteur d'épreuves** | 10 | 0 | 0 | 1 | 5 | **Conforme (1 mineur de contenu)** |
+| 17 | **Moteur d'épreuves** | 12 | 0 | 0 | 1 | 5 | **Conforme (1 mineur de contenu)** |
 | 18 | **Drapeaux et actions joués pour de vrai** | 4 | 0 | 0 | 0 | 3 | **Conforme** |
-| | **Total** | **226** | **0** | **0** | **1** | **55** | **Conforme** |
+| | **Total** | **228** | **0** | **0** | **1** | **64** | **Conforme** |
 
 > Les 18 auditeurs produisent chacun **trois formats** de rapport dans
 > `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
