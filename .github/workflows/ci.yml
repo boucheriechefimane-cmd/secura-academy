@@ -30,6 +30,30 @@ jobs:
       - name: Vérifier la syntaxe des fichiers PHP
         run: find wp-content tests -name '*.php' -print0 | xargs -0 -n1 php -l
 
+      # Un fichier JavaScript qui ne compile pas casse TOUTE l'interface :
+      # plus aucune réponse n'est envoyée, plus aucun indice n'apparaît.
+      # Ce contrôle a été ajouté après la découverte d'une apostrophe
+      # non échappée dans une chaîne (02/11/2026) : le fichier entier
+      # était illisible par le navigateur et personne ne l'avait vu.
+      - name: Installer Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '20'
+
+      - name: Vérifier la syntaxe des fichiers JavaScript
+        run: |
+          set -e
+          trouve=0
+          for f in $(find wp-content -name '*.js'); do
+            echo "— $f"
+            node --check "$f"
+            trouve=1
+          done
+          if [ "$trouve" = "0" ]; then
+            echo "Aucun fichier JavaScript trouvé : le contrôle ne sert à rien."
+            exit 1
+          fi
+
       - name: Exécuter les tests de logique serveur
         run: php tests/smoke-test.php
 

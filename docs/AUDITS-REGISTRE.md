@@ -296,6 +296,25 @@ compter le score sur la mauvaise liste.
 utilisé par le serveur (validation, indice, fin de tâche, score) comme par
 les audits. On interroge **la copie servie**, jamais la liste d'origine.
 
+**Un défaut que le comité n'avait pas vu, trouvé par un contrôle manquant.**
+Le 02/11/2026, `node --check` a été installé dans l'environnement de travail
+(il manquait jusqu'alors) : il a déclaré `academy.js` **illisible**. Une
+apostrophe non échappée dans une chaîne française — « écris ta réponse avant
+d'afficher la correction » — fermait la chaîne au mauvais endroit. Conséquence
+réelle : **le navigateur ne pouvait plus exécuter le fichier**, donc plus
+aucune réponse n'était envoyée, plus aucun indice n'apparaissait.
+
+Pourquoi aucun audit ne l'avait vu : les dix-huit auditeurs interrogent le
+**serveur** ; ils n'exécutent pas le JavaScript du navigateur. Un contrôle
+qui ne teste pas ce qu'il prétend tester laisse passer un défaut de cette
+taille. Le contrôle a donc été ajouté à la CI **et** placé avant les
+auditeurs dans le workflow d'audit externe — ajouté parce qu'il manquait, pas
+parce qu'il aurait trouvé un défaut.
+
+*Morale :* « les tests passent » ne veut pas dire « tout fonctionne ». Il faut
+demander, pour chaque contrôle, ce qu'il regarde **vraiment** — et ajouter le
+contrôle qui regarde ce qui n'était pas regardé.
+
 **La preuve que le contrôle peut échouer** : le contrôle « toutes les
 questions de la copie servie sont acceptées par le serveur » a été rejoué
 avec l'ancien code — il produit alors un **majeur** qui nomme les rooms

@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.11.1
+ * Version:           0.11.2
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,16 @@
  *
  * @package Secura_Academy
  *
+ * 0.11.2 — Un fichier JavaScript illisible casse TOUTE l'interface : plus
+ *           aucune reponse n'est envoyee, plus aucun indice n'apparait. Une
+ *           apostrophe non echappee dans une chaine (le message « ecris ta
+ *           reponse avant d'afficher la correction ») rendait academy.js
+ *           illisible par le navigateur. Aucun audit ne l'avait vu : les
+ *           auditeurs interrogent le serveur, ils n'executent pas le
+ *           JavaScript. Desormais la syntaxe de chaque fichier .js est
+ *           verifiee (node --check) dans la CI ET avant les dix-huit
+ *           auditeurs — et le controle a ete ajoute parce qu'il manquait,
+ *           pas parce qu'il trouverait un defaut.
  * 0.11.1 — Le serveur valide enfin la COPIE servie a l'eleve. Il
  *           verifiait l'index de la reponse dans la liste d'origine,
  *           alors que l'eleve repond a la copie tiree (reservoir du
@@ -190,7 +200,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.11.1' );
+define( 'SECURA_ACADEMY_VERSION', '0.11.2' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

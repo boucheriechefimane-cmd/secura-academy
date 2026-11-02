@@ -98,6 +98,18 @@ jobs:
           extensions: mysqli
           tools: wp-cli
 
+      # Un fichier JavaScript illisible casse toute l'interface : plus
+      # aucune reponse n'est envoyee. On le verifie AVANT de lancer les
+      # auditeurs (02/11/2026 : une apostrophe non echappee dans une chaine
+      # rendait academy.js illisible, et aucun audit ne l'avait vu).
+      - name: Vérifier la syntaxe des fichiers JavaScript
+        run: |
+          set -e
+          for f in $(find wp-content -name '*.js'); do
+            echo "— $f"
+            node --check "$f"
+          done
+
       - name: Construire les machines
         run: |
           # Les questions de drapeau et d'action demandent la machine de

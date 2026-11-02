@@ -811,7 +811,7 @@
 				}
 
 				if ( 'solution' === mode && value.trim().length < 10 ) {
-					toast( t( 'answer_too_short', 'Ecris ta reponse (au moins quelques mots) avant d'afficher la correction.' ), true );
+					toast( t( 'answer_too_short', 'Ecris ta reponse (au moins quelques mots) avant d\'afficher la correction.' ), true );
 					return;
 				}
 			}
