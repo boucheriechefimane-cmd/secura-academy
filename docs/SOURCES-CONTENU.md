@@ -498,6 +498,16 @@ corrigés officiels ne sont pas publiés sous une forme lisible par machine
 (`cs50/problems` contient les énoncés, pas les solutions). On cite, on
 n'invente pas.
 
+**Un mot sur les symboles :** un examen de mathématiques réseau
+contient des lettres grecques (lambda, Gamma) qui font partie de
+l'énoncé. On ne réécrit pas un examen du MIT pour supprimer une
+lambda — ce serait modifier un contenu protégé. Le contrôle automatique
+qui interdit les caractères d'une écriture étrangère tolère donc **le
+grec dans les seuls fichiers de questions importées**, et **partout
+ailleurs** (cyrillique, han, japonais, coréen…). Des tests
+automatiques le vérifient dans les deux sens : si la règle est
+affaiblie ou retirée, la CI rougit.
+
 **MIT 6.1600 / 6.5660** (le cours actuel du professeur Nickolai
 Zeldovich) publient **34 quiz et 10 examens avec corrigés officiels** :
 c'est le plus gros gisement qui reste, et il est **sans licence** — d'où

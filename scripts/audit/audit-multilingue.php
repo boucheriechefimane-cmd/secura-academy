@@ -475,17 +475,9 @@ echo "\n5 bis. Les caractères d'une écriture étrangère\n";
    désignent les jeux de caractères étendus, et le point médian « · »
    (U+00B7) en fait partie — il serait donc signalé à tort. On prend
    des plages Unicode explicites, sans ambiguïté. */
-$ecritures = array(
-	'cyrillique' => '/[\x{0400}-\x{04FF}\x{0500}-\x{052F}]/u',
-	'grecque'    => '/[\x{0370}-\x{03FF}\x{1F00}-\x{1FFF}]/u',
-	'han'        => '/[\x{3400}-\x{4DBF}\x{4E00}-\x{9FFF}\x{F900}-\x{FAFF}]/u',
-	'hiragana'   => '/[\x{3040}-\x{309F}]/u',
-	'katakana'   => '/[\x{30A0}-\x{30FF}]/u',
-	'hangul'     => '/[\x{AC00}-\x{D7AF}\x{1100}-\x{11FF}\x{3130}-\x{318F}]/u',
-	'devanagari' => '/[\x{0900}-\x{097F}]/u',
-	'thaï'       => '/[\x{0E00}-\x{0E7F}]/u',
-	'hebreu'     => '/[\x{0590}-\x{05FF}]/u',
-);
+require_once __DIR__ . '/lib-ecritures.php';
+
+$ecritures = seca_ecritures_surveillees();
 
 $fichiers_a_scanner = array();
 
@@ -505,22 +497,25 @@ $intrus = array();
 
 foreach ( $fichiers_a_scanner as $fichier ) {
 	$contenu = file_get_contents( $fichier );
-	foreach ( $ecritures as $nom => $motif ) {
-		if ( preg_match_all( $motif, $contenu, $trouves, PREG_OFFSET_CAPTURE ) ) {
-			foreach ( $trouves[0] as $trouve ) {
-				$caractere     = $trouve[0];
-				$position      = $trouve[1];
-				$numero_ligne  = substr_count( substr( $contenu, 0, $position ), "\n" ) + 1;
-				$intrus[]      = sprintf(
-					'%s (ligne %d) : écriture %s, caractère « %s » (U+%04X)',
-					str_replace( $racine . '/', '', $fichier ),
-					$numero_ligne,
-					$nom,
-					$caractere,
-					mb_ord( $caractere, 'UTF-8' )
-				);
-			}
-		}
+
+	/* Un contenu IMPORTE est reproduit mot pour mot : un examen de
+	   mathématiques contient des symboles grecs (lambda, Gamma…), qui
+	   font partie de l'énoncé. On ne réécrit pas un examen du MIT pour
+	   supprimer une lambda : on autorise donc le grec dans ces seuls
+	   fichiers. Le reste (cyrillique, han,…) reste interdit partout.
+	   La règle vit dans lib-ecritures.php, et le test automatique
+	   (tests/smoke-test.php) la vérifie dans les deux sens. */
+	foreach ( seca_caracteres_etrangers( $contenu, $fichier ) as $intrusion ) {
+		$caractere    = $intrusion['caractere'];
+		$numero_ligne = substr_count( substr( $contenu, 0, $intrusion['position'] ), "\n" ) + 1;
+		$intrus[]     = sprintf(
+			'%s (ligne %d) : écriture %s, caractère « %s » (U+%04X)',
+			str_replace( $racine . '/', '', $fichier ),
+			$numero_ligne,
+			$intrusion['ecriture'],
+			$caractere,
+			mb_ord( $caractere, 'UTF-8' )
+		);
 	}
 }
 

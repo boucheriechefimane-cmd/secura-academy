@@ -2697,6 +2697,77 @@ if ( $kahoot_room ) {
 }
 
 /* ---------------------------------------------------------------------
+ * Les caractères d'une écriture étrangère
+ *
+ * L'audit « multilingue » interdit qu'un caractère ressemblant à une
+ * lettre latine (mais écrit dans une autre écriture) se glisse dans le
+ * contenu : le lecteur ne le voit pas, mais la recherche du site ne
+ * trouve plus le mot. Les questions IMPORTEES, en revanche, sont
+ * reproduites mot pour mot : un examen de mathématiques contient des
+ * symboles grecs (lambda, Gamma), qui font partie de l'énoncé.
+ *
+ * Ces tests prouvent que la règle tient toujours : le cyrillique et le
+ * han restent interdits partout, le grec est toléré dans un contenu
+ * importé et nowhere ailleurs.
+ * ------------------------------------------------------------------ */
+
+require_once __DIR__ . '/../scripts/audit/lib-ecritures.php';
+
+$fichier_import = 'includes/content-import-mit_ocw_14_15j_examens.php';
+$fichier_code   = 'includes/class-secura-rooms.php';
+
+$grec     = "\u{03BB}";  // lambda
+$cyrillic = "\u{0441}";  // s cyrillique, homoglyphe de « s » latin
+
+$contenu_grec_importe = "Le plus grand vecteur propre est designe comme {$grec} .";
+$contenu_grec_code    = "Le plus grand vecteur propre est designe comme {$grec} .";
+$contenu_cyrillique   = "Les secrets du mot sont dans {$cyrillic}ecrets .";
+
+/* Le grec mathématique : toléré dans un import, refusé partout ailleurs. */
+check(
+	0 === count( seca_caracteres_etrangers( $contenu_grec_importe, $fichier_import ) ),
+	'le grec mathématique n\'est pas signalé dans un contenu importé'
+);
+check(
+	1 === count( seca_caracteres_etrangers( $contenu_grec_code, $fichier_code ) ),
+	'le grec est signalé dans notre propre code (seul le contenu importé y a droit)'
+);
+check(
+	1 === count( seca_caracteres_etrangers( $contenu_grec_code, 'includes/mes-questions.php' ) ),
+	'le grec reste signalé dans un fichier qui n\'est pas un import officiel'
+);
+
+/* Le cyrillique : interdit partout, import compris. */
+check(
+	1 === count( seca_caracteres_etrangers( $contenu_cyrillique, $fichier_code ) ),
+	'un caractère cyrillique est signalé dans notre code'
+);
+check(
+	1 === count( seca_caracteres_etrangers( $contenu_cyrillique, $fichier_import ) ),
+	'un homoglyphe cyrillique reste signalé même dans un fichier importé'
+);
+check(
+	count( seca_caracteres_etrangers( "Des mots \u{4E2D}\u{6587} ici.", $fichier_import ) ) >= 1,
+	'le han reste signalé même dans un fichier importé'
+);
+
+/* Un texte français normal ne déclenche rien. */
+check(
+	0 === count( seca_caracteres_etrangers( 'Un texte tout a fait ordinaire, avec des accents : é è à ç ù.', $fichier_code ) ),
+	'un texte français ordinaire ne déclenche aucune alerte'
+);
+
+/* La reconnaissance du fichier importé. */
+check(
+	true === seca_est_contenu_importe( $fichier_import ),
+	'un fichier de questions importées est reconnu comme tel'
+);
+check(
+	false === seca_est_contenu_importe( $fichier_code ),
+	'un fichier de code ordinaire n\'est pas un import'
+);
+
+/* ---------------------------------------------------------------------
  * Bilan
  * ------------------------------------------------------------------ */
 
