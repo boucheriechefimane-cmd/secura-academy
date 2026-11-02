@@ -3126,7 +3126,7 @@ array(
 	'i18n' => array(
 		'ar' => array(
 			'title' => 'النظافة الرقمية: العامل الثاني',
-			'excerpt' =>  'رمز من ستة أرقام لا يحمي إلا إذا لم يستطع أحد تخمينه، ومن هنا تأتي قوائم الأكواد.',
+			'excerpt' => 'رمز من ستة أرقام لا يحمي إلا إذا لم يستطع أحد تخمينه، ومن هنا تأتي قوائم الأكواد.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — العوامل الثلاثة' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -3310,7 +3310,7 @@ array(
 	'i18n' => array(
 		'ar' => array(
 			'title' => 'أفضل 10 مخاطر من OWASP وسطح الهجوم',
-			'excerpt' =>  'القائمة التي يشير إليها الجميع، وما فائدتها الحقيقية: ترتيب المخاطر لا عدّ الثغرات.',
+			'excerpt' => 'القائمة التي يشير إليها الجميع، وما فائدتها الحقيقية: ترتيب المخاطر لا عدّ الثغرات.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — قائمة مخاطر لا كتالوج ثغرات' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -4090,6 +4090,7 @@ array(
 		'mode' => 'compose',
 		'image' => 'securalabs/univ-01:1.0',
 		'compose' => 'juice-shop/docker-compose.yml',
+		'service' => 'attacker',
 		'project' => 'seca_juice',
 		'flag_service' => 'flags',
 		'network' => 'seca_lab',
@@ -4259,6 +4260,7 @@ array(
 		'mode' => 'compose',
 		'image' => 'securalabs/univ-01:1.0',
 		'compose' => 'juice-shop/docker-compose.yml',
+		'service' => 'attacker',
 		'project' => 'seca_juice',
 		'flag_service' => 'flags',
 		'network' => 'seca_lab',
@@ -4585,8 +4587,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'الحزام الأبيض: اقرأ، ابحث، افهم',
-			'excerpt' =>  'أربعة تحديات لتتعلم النظر إلى ملف والعثور داخله على ما تبحث عنه.',
+			'title' => 'الحزام الأبيض: اقرأ، ابحث، افهم',
+			'excerpt' => 'أربعة تحديات لتتعلم النظر إلى ملف والعثور داخله على ما تبحث عنه.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — الحزام الأبيض' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -4595,8 +4597,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'White belt: read, search, understand',
-			'excerpt' =>  'Four challenges to learn how to read a file and find in it what you are looking for.',
+			'title' => 'White belt: read, search, understand',
+			'excerpt' => 'Four challenges to learn how to read a file and find in it what you are looking for.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - the white belt' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -4778,8 +4780,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'الحزام الأصفر: الأذونات، المالك، المحتوى',
-			'excerpt' =>  'عندما يقول لك النظام لا: من يملك الملف، وما هي أذوناته، وما يحتويه فعلا.',
+			'title' => 'الحزام الأصفر: الأذونات، المالك، المحتوى',
+			'excerpt' => 'عندما يقول لك النظام لا: من يملك الملف، وما هي أذوناته، وما يحتويه فعلا.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — الحزام الأصفر' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -4788,8 +4790,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'Yellow belt: permissions, owner, content',
-			'excerpt' =>  'When the system says no: who owns the file, what its permissions are, and what it really contains.',
+			'title' => 'Yellow belt: permissions, owner, content',
+			'excerpt' => 'When the system says no: who owns the file, what its permissions are, and what it really contains.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - the yellow belt' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -4971,8 +4973,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'الحزام البرتقالي: الشبكة، العمليات، الإعداد',
-			'excerpt' =>  'نترك الملفات: ما الذي يستمع، وما الذي يعمل، وما الذي نُسي في الإعداد.',
+			'title' => 'الحزام البرتقالي: الشبكة، العمليات، الإعداد',
+			'excerpt' => 'نترك الملفات: ما الذي يستمع، وما الذي يعمل، وما الذي نُسي في الإعداد.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — الحزام البرتقالي' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -4981,8 +4983,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'Orange belt: network, processes, configuration',
-			'excerpt' =>  'We leave the files behind: what is listening, what is running, and what was forgotten in the configuration.',
+			'title' => 'Orange belt: network, processes, configuration',
+			'excerpt' => 'We leave the files behind: what is listening, what is running, and what was forgotten in the configuration.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - the orange belt' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -5164,8 +5166,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'الحزام الأخضر: الملفات الثنائية، السلاسل، الذاكرة',
-			'excerpt' =>  'ننظر إلى برامج مترجمة: ماذا تحتوي، وماذا هي، وما بداخلها.',
+			'title' => 'الحزام الأخضر: الملفات الثنائية، السلاسل، الذاكرة',
+			'excerpt' => 'ننظر إلى برامج مترجمة: ماذا تحتوي، وماذا هي، وما بداخلها.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — الحزام الأخضر' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -5174,8 +5176,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'Green belt: binaries, strings, memory',
-			'excerpt' =>  'We look at compiled programs: what they contain, what they are, and what is inside them.',
+			'title' => 'Green belt: binaries, strings, memory',
+			'excerpt' => 'We look at compiled programs: what they contain, what they are, and what is inside them.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - the green belt' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -5357,8 +5359,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'الحزام الأسود: التشفير، المفاتيح، البصمات',
-			'excerpt' =>  'الحزام الأخير: قراءة بصمة، والتعرف على مفتاح، وقراءة شهادة.',
+			'title' => 'الحزام الأسود: التشفير، المفاتيح، البصمات',
+			'excerpt' => 'الحزام الأخير: قراءة بصمة، والتعرف على مفتاح، وقراءة شهادة.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — الحزام الأسود' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -5367,8 +5369,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'Black belt: cryptography, keys, fingerprints',
-			'excerpt' =>  'The last belt: reading a fingerprint, recognising a key, reading a certificate.',
+			'title' => 'Black belt: cryptography, keys, fingerprints',
+			'excerpt' => 'The last belt: reading a fingerprint, recognising a key, reading a certificate.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - the black belt' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -5509,8 +5511,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'موجز 1: الدوجو، كيف تتدرّب',
-			'excerpt' =>  'قبل التحديات: الطريقة. الدوجو ليس لعبة كسر، بل سُلّم.',
+			'title' => 'موجز 1: الدوجو، كيف تتدرّب',
+			'excerpt' => 'قبل التحديات: الطريقة. الدوجو ليس لعبة كسر، بل سُلّم.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — الدوجو، كيف تتدرّب' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -5519,8 +5521,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'Brief 1: the dojo, how you train',
-			'excerpt' =>  'Before the challenges: the method. The dojo is not a cracking game, it is a ladder.',
+			'title' => 'Brief 1: the dojo, how you train',
+			'excerpt' => 'Before the challenges: the method. The dojo is not a cracking game, it is a ladder.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - the dojo, how you train' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -5661,8 +5663,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'موجز 2: الويب، كيف يتحدث إلى خادم',
-			'excerpt' =>  'HTTP، بوضوح: طلب ثم رد. الويب ليس سحرا.',
+			'title' => 'موجز 2: الويب، كيف يتحدث إلى خادم',
+			'excerpt' => 'HTTP، بوضوح: طلب ثم رد. الويب ليس سحرا.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — الويب، كيف يتحدث إلى خادم' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -5671,8 +5673,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'Brief 2: the web, how you talk to a server',
-			'excerpt' =>  'HTTP, in plain words: a request, a response. The web is not magic.',
+			'title' => 'Brief 2: the web, how you talk to a server',
+			'excerpt' => 'HTTP, in plain words: a request, a response. The web is not magic.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - the web, how you talk to a server' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -5813,8 +5815,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'موجز 3: سيناريوهات الاستغلال',
-			'excerpt' =>  'الاستغلال ليس «الكسر»: إنك تجعل برنامجا يفعل شيئا لم يتوقعه.',
+			'title' => 'موجز 3: سيناريوهات الاستغلال',
+			'excerpt' => 'الاستغلال ليس «الكسر»: إنك تجعل برنامجا يفعل شيئا لم يتوقعه.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — سيناريوهات الاستغلال' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -5823,8 +5825,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'Brief 3: exploitation scenarios',
-			'excerpt' =>  'Exploiting is not "breaking": it is making a program do something it did not expect.',
+			'title' => 'Brief 3: exploitation scenarios',
+			'excerpt' => 'Exploiting is not "breaking": it is making a program do something it did not expect.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - exploitation scenarios' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -5869,7 +5871,7 @@ array(
 			'type' => 'lesson',
 			'format' => 'lecon',
 			'title' => 'Task 1 : Leçon — les registres, le carnet du processeur',
-			'content' => '<p>Un processeur ne lit pas les variables. Il lit des <strong>registres</strong> : des cases de mémoire Minuscules, très rapides, en nombre fixe (une dozenaine sur x86-64).</p><p>Les plus utiles à connaître :</p><ul><li><code>rax</code>, <code>rbx</code>, <code>rcx</code>, <code>rdx</code> — usage général ;</li><li><code>rdi</code>, <code>rsi</code>, <code>rdx</code> — les trois premiers arguments (convention d\'appel System V, celle de Linux sur x86-64) ;</li><li><code>rsp</code> — le pointeur de pile : il dit où est le sommet de la pile ;</li><li><code>rbp</code> — le pointeur de base, la frame de la fonction en cours.</li></ul><p>Pourquoi ça compte pour la sécurité : au moment d\'un appel de fonction, l\'<strong>adresse de retour</strong> est empilée. Si un débordement atteint cette adresse, le programme sautera ailleurs : c\'est le principe de l\'attaque « smashing the stack ».</p><p><strong>À retenir :</strong> pour comprendre une exploitation, il faut savoir où sont les données <em>en ce moment</em>. Les registres, c\'est la réponse.</p>',
+			'content' => '<p>Un processeur ne lit pas les variables. Il lit des <strong>registres</strong> : des cases de mémoire Minuscules, très rapides, en nombre fixe (une douzaine sur x86-64).</p><p>Les plus utiles à connaître :</p><ul><li><code>rax</code>, <code>rbx</code>, <code>rcx</code>, <code>rdx</code> — usage général ;</li><li><code>rdi</code>, <code>rsi</code>, <code>rdx</code> — les trois premiers arguments (convention d\'appel System V, celle de Linux sur x86-64) ;</li><li><code>rsp</code> — le pointeur de pile : il dit où est le sommet de la pile ;</li><li><code>rbp</code> — le pointeur de base, la frame de la fonction en cours.</li></ul><p>Pourquoi ça compte pour la sécurité : au moment d\'un appel de fonction, l\'<strong>adresse de retour</strong> est empilée. Si un débordement atteint cette adresse, le programme sautera ailleurs : c\'est le principe de l\'attaque « smashing the stack ».</p><p><strong>À retenir :</strong> pour comprendre une exploitation, il faut savoir où sont les données <em>en ce moment</em>. Les registres, c\'est la réponse.</p>',
 			'questions' => array(),
 		),
 		array(
@@ -5965,8 +5967,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'موجز 4: السجلات، دفتر المعالج',
-			'excerpt' =>  'المعالج لا يحتفظ في الذاكرة بشيء تقريبًا: يعمل في اثنتي عشرة خانة ينساها بسرعة.',
+			'title' => 'موجز 4: السجلات، دفتر المعالج',
+			'excerpt' => 'المعالج لا يحتفظ في الذاكرة بشيء تقريبًا: يعمل في اثنتي عشرة خانة ينساها بسرعة.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — السجلات، دفتر المعالج' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -5975,8 +5977,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'Brief 4: registers, the processor\'s notebook',
-			'excerpt' =>  'The processor keeps almost nothing in memory: it works in a dozen slots it forgets very quickly.',
+			'title' => 'Brief 4: registers, the processor\'s notebook',
+			'excerpt' => 'The processor keeps almost nothing in memory: it works in a dozen slots it forgets very quickly.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - registers, the processor\'s notebook' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -6117,8 +6119,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'موجز 5: لا تُخدع',
-			'excerpt' =>  'القاعدة الذهبية للنظافة الرقمية: ما يبدو جميلا جدا، أو عاجلا جدا، هو في الغالب تمثيل.',
+			'title' => 'موجز 5: لا تُخدع',
+			'excerpt' => 'القاعدة الذهبية للنظافة الرقمية: ما يبدو جميلا جدا، أو عاجلا جدا، هو في الغالب تمثيل.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — لا تُخدع' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -6127,8 +6129,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'Brief 5: do not get fooled',
-			'excerpt' =>  'The golden rule of digital hygiene: what looks too good, or too urgent, is almost always a set-up.',
+			'title' => 'Brief 5: do not get fooled',
+			'excerpt' => 'The golden rule of digital hygiene: what looks too good, or too urgent, is almost always a set-up.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - do not get fooled' ),
 				array( 'title' => 'Task 2: Practice' ),
@@ -6269,8 +6271,8 @@ array(
 	),
 	'i18n' => array(
 		'ar' => array(
-			'title' =>  'موجز 6: استكشاف تطبيق ويب',
-			'excerpt' =>  'قبل البحث عن ثغرة: انظر التطبيق ك مستخدم، ثم ك مهاجم.',
+			'title' => 'موجز 6: استكشاف تطبيق ويب',
+			'excerpt' => 'قبل البحث عن ثغرة: انظر التطبيق ك مستخدم، ثم ك مهاجم.',
 			'tasks' => array(
 				array( 'title' => 'المهمة 1: الدرس — استكشاف تطبيق ويب' ),
 				array( 'title' => 'المهمة 2: تدريب' ),
@@ -6279,8 +6281,8 @@ array(
 			),
 		),
 		'en' => array(
-			'title' =>  'Brief 6: exploring a web application',
-			'excerpt' =>  'Before looking for a flaw: look at the application as a user, then as an attacker.',
+			'title' => 'Brief 6: exploring a web application',
+			'excerpt' => 'Before looking for a flaw: look at the application as a user, then as an attacker.',
 			'tasks' => array(
 				array( 'title' => 'Task 1: Lesson - exploring a web application' ),
 				array( 'title' => 'Task 2: Practice' ),

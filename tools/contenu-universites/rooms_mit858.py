@@ -663,7 +663,7 @@ ROOMS = [
     },
     {
         'title': 'Le web et ses règles : SOP, CSRF et sessions',
-        'excerpt': 'Pourquoi le navigateur mélange sometimes les sites, et comment on empêche un site de jouer à ta place.',
+        'excerpt': 'Pourquoi le navigateur mélange parfois les sites, et comment on empêche un site de jouer à ta place.',
         'content': 'La leçon 9 de 6.858 : le modèle de sécurité du web, la même origine, et les attaques CSRF.',
         'difficulty': 'moyen',
         'duration': 35,

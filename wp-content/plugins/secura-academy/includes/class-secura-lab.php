@@ -722,7 +722,54 @@ class Secura_Lab {
 			return false;
 		}
 
-		return 0 === strcasecmp( $real, $answer );
+		return self::same_flag( $real, $answer );
+	}
+
+	/**
+	 * Deux drapeaux sont-ils le meme, meme si l'un est prefixe ?
+	 *
+	 * Sur les machines, le fichier de drapeau contient « FLAG=SECURA{x} »,
+	 * mais la consigne dit a l'eleve de « recopier la valeur entre
+	 * accolades », donc « SECURA{x} ». Comparer les chaines brutes rendait
+	 * la question impossible a reussir. On compare donc la valeur elle-
+	 * meme quand elle est encadree par des accolades.
+	 *
+	 * @param string $real   Contenu du fichier de la machine.
+	 * @param string $answer Reponse de l'apprenant.
+	 * @return bool
+	 */
+	public static function same_flag( $real, $answer ) {
+		$real   = trim( (string) $real );
+		$answer = trim( (string) $answer );
+
+		if ( 0 === strcasecmp( $real, $answer ) ) {
+			return true;
+		}
+
+		$valeur_real   = self::flag_value( $real );
+		$valeur_answer = self::flag_value( $answer );
+
+		if ( '' !== $valeur_real && $valeur_real === $valeur_answer ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * La valeur d'un drapeau : ce qu'il y a entre les accolades.
+	 *
+	 * @param string $texte Texte a analyser.
+	 * @return string Valeur en minuscules, ou '' si le texte n'en contient pas.
+	 */
+	public static function flag_value( $texte ) {
+		$texte = trim( (string) $texte );
+
+		if ( preg_match( '/SECURA\{[^}]+\}/i', $texte, $trouve ) ) {
+			return strtolower( $trouve[0] );
+		}
+
+		return '';
 	}
 
 	/**

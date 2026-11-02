@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Lance les dix-sept audits externes dans un WordPress réel.
+# Lance les dix-huit audits externes dans un WordPress réel.
 #
 # Chaque auditeur est un script PHP exécuté dans le site (comme le ferait
 # un visiteur : on lit les pages rendues, pas le code source).
@@ -26,14 +26,16 @@ WP_CLI="${WP_CLI:-wp}"   # peut contenir plusieurs mots ("php /chemin/wp-cli.pha
 # licences, DevOps) ; la dernière est le panel des dix élèves, qui joue
 # la plateforme comme un élève et vérifie notamment que deux élèves ne
 # passent pas la même copie d'examen ; la dernière encore est le moteur
-# d'épreuves, qui mesure les réservoirs et les variantes.
-AUDITS="seo contenu ux-ui dev securite pedagogie performance donnees-structurees accessibilite multilingue rgpd moteur onboarding licences devops panel-eleves epreuves"
+# d'épreuves, qui mesure les réservoirs et les variantes ; la toute
+# dernière est le contrôle des questions de machine, qui joue pour de
+# vrai les questions de drapeau et d'action sur les vraies machines.
+AUDITS="seo contenu ux-ui dev securite pedagogie performance donnees-structurees accessibilite multilingue rgpd moteur onboarding licences devops panel-eleves epreuves drapeaux"
 CONSTATS=0
 
 cd "$REPO_DIR"
 
 echo "============================================================"
-echo " Comité d'audit externe — 17 auditeurs spécialisés"
+echo " Comité d'audit externe — 18 auditeurs spécialisés"
 echo " WordPress : $WP_DIR"
 echo "============================================================"
 

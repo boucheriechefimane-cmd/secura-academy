@@ -1,0 +1,76 @@
+{
+  "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
+  "_version": "2026-11-02",
+  "sources": [
+    {
+      "id": "mit-ocw-6858",
+      "nom": "MIT OpenCourseWare — 6.858 Computer Systems Engineering",
+      "url": "https://ocw.mit.edu/courses/6-858-computer-systems-engineering-spring-2014/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.858 Computer Systems Engineering, Spring 2014",
+      "usage": "questions de comprehension issues des notes de cours et des labs",
+      "reutilisable": true
+    },
+    {
+      "id": "mit-ocw-6857",
+      "nom": "MIT OpenCourseWare — 6.857 Network and Computer Security",
+      "url": "https://ocw.mit.edu/courses/6-857-network-and-computer-security-spring-2014/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.857 Network and Computer Security, Spring 2014",
+      "usage": "questions de comprehension issues des notes de cours",
+      "reutilisable": true
+    },
+    {
+      "id": "stanford-see",
+      "nom": "StanfordSEE — Introduction to Network Security",
+      "url": "https://see.stanford.edu/UsingSEE",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "StanfordSEE, Introduction to Network Security, Stanford University",
+      "usage": "questions de comprehension issues des supports de cours",
+      "reutilisable": true
+    },
+    {
+      "id": "owasp-cheatsheets",
+      "nom": "OWASP Cheat Sheet Series",
+      "url": "https://cheatsheetseries.owasp.org/",
+      "licence": "CC BY-SA 4.0",
+      "attribution": "OWASP Cheat Sheet Series, OWASP Foundation",
+      "usage": "questions a choix multiples basees sur les fiches techniques",
+      "reutilisable": true
+    },
+    {
+      "id": "nist-publications",
+      "nom": "NIST — publications (SP 800-207, SP 800-41r1…)",
+      "url": "https://csrc.nist.gov/publications",
+      "licence": "Domaine public (gouvernement federal des Etats-Unis)",
+      "attribution": "National Institute of Standards and Technology (NIST)",
+      "usage": "questions sur les referentiels et les bonnes pratiques",
+      "reutilisable": true
+    },
+    {
+      "id": "cisa-cyber",
+      "nom": "CYBER.ORG — curriculums K-12",
+      "url": "https://www.cyber.org/",
+      "licence": "Non verifiee a ce jour",
+      "attribution": "CYBER.ORG / CyberPatriot / NSA",
+      "usage": "aucune reutilisation : lien seul",
+      "reutilisable": false
+    },
+    {
+      "id": "certification-examen",
+      "nom": "Examen de certification (Security+, OSCP, CEH, eJPT, BSCP…)",
+      "url": "",
+      "licence": "Copyright de l'editeur d'examen — reutilisation soumise a autorisation",
+      "attribution": "Examen de certification, editeur d'examen (nom de l'editeur a preciser)",
+      "usage": "uniquement si l'editeur autorise la reprise ; sinon : lien seul",
+      "reutilisable": false
+    }
+  ],
+  "regles": [
+    "Une source non listee ici est refusee : l'import s'arrete avec un message clair.",
+    "Une source 'reutilisable: false' est refusee elle aussi, quelle que soit la licence annoncee.",
+    "La licence annoncee dans le lot d'import doit correspondre a celle du catalogue.",
+    "L'attribution voyage avec la question et doit etre affichee dans la room.",
+    "Les questions d'examen payant restent protegees : sans autorisation ecrite de l'editeur, on ne les importe pas."
+  ]
+}

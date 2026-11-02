@@ -1,7 +1,11 @@
-name: Audit externe — comité de 17 auditeurs
+name: Audit externe — comité de 18 auditeurs
 
 # Un comité d'audit externe, comme dans une organisation qui veut savoir
 # ce que dira un regard neuf avant la mise en production.
+#
+# Le dix-huitième auditeur, « drapeaux », joue pour de vrai les questions
+# qui demandent la machine de l'élève : il déploie les vraies machines,
+# y cherche les valeurs, et fait valider les réponses par le serveur.
 #
 # Chaque auditeur a sa spécialité et sa grille de contrôle :
 #
@@ -47,9 +51,12 @@ concurrency:
 
 jobs:
   audit:
-    name: Audit externe (17 auditeurs, WordPress réel)
+    name: Audit externe (18 auditeurs, WordPress réel)
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # L'auditeur « drapeaux » joue 61 questions sur de vraies machines :
+    # c'est long (le terminal est bridé à 120 appels/minute). On laisse
+    # le temps, sinon le job serait tué en plein parcours.
+    timeout-minutes: 90
 
     env:
       # Le dossier du WordPress de recette : dans l'espace de travail
@@ -91,6 +98,19 @@ jobs:
           extensions: mysqli
           tools: wp-cli
 
+      - name: Construire les machines
+        run: |
+          # Les questions de drapeau et d'action demandent la machine de
+          # l'eleve : l'auditeur « drapeaux » les joue pour de vrai, donc
+          # il a besoin des images.
+          for machine in web-01 bin-01 multi-01 internal-01 univ-01 dojo-01; do
+            echo "Construction de $machine…"
+            docker build -q -t "securalabs/$machine:1.0" "labs/$machine"
+          done
+          echo "Construction du serveur de drapeaux (flags-01)…"
+          docker build -q -t securalabs/flags-01:1.0 labs/juice-shop/flags
+          docker images --format '{{.Repository}}:{{.Tag}}'
+
       - name: Installer WordPress et le plugin
         run: bash scripts/ci-wordpress.sh
 
@@ -105,7 +125,7 @@ jobs:
           echo "Le site ne répond pas" >&2
           exit 1
 
-      - name: Les dix-sept auditeurs passent au crible
+      - name: Les dix-huit auditeurs passent au crible
         run: bash scripts/audit/run-audits.sh
 
       - name: Lister les rapports produits
@@ -125,7 +145,7 @@ jobs:
       - name: Résumé de l'audit
         if: always()
         run: |
-          echo "## Comité d'audit externe — 17 auditeurs" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Comité d'audit externe — 18 auditeurs" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "| Auditeur | Réussis | Bloquant | Majeur | Mineur | Info |" >> "$GITHUB_STEP_SUMMARY"
           echo "|---|---|---|---|---|---|" >> "$GITHUB_STEP_SUMMARY"

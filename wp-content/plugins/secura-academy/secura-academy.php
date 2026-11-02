@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.9.0
+ * Version:           0.9.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,18 @@
  *
  * @package Secura_Academy
  *
+ * 0.9.1 — Les questions qui demandent la machine (drapeau, action) ne se
+ *           tirent plus au sort : elles font partie de la mission de la
+ *           room, donc elles restent TOUJOURS dans la copie de l'eleve.
+ *           Avant, le tirage pouvait les remplacer par d'autres questions
+ *           de la section : les 60 questions de drapeau et la question
+ *           d'action n'etaient donc jamais posees — la room etait
+ *           impossible a valider. Le reste du tirage (ordre des
+ *           propositions, chiffres) est unchanged.
+ *           Nouvelle : l'import de questions deja validees (universites,
+ *           OWASP, NIST, examens de certification autorises). Le
+ *           catalogue des sources et l'outil d'import refusent tout ce
+ *           qui n'y figure pas ; la room affiche un encart « Sources ».
  * 0.9.0 — Chaque eleve passe SA copie. Avant, tous les eleves avaient
  *           exactement le meme examen : memes questions, meme ordre,
  *           memes chiffres — une photo d'ecran suffisait a reussir.
@@ -137,7 +149,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.9.0' );
+define( 'SECURA_ACADEMY_VERSION', '0.9.1' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
@@ -177,6 +189,13 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-dashboard.php';
 require_once SECURA_ACADEMY_PATH . 'includes/default-content.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-m3.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-universites.php';
+
+/* Les questions importees depuis l'exterieur (universites, examens).
+   Chaque fichier est produit par tools/import-questions.py : il porte
+   sa licence et son attribution, et le plugin ne charge que ceux-la. */
+foreach ( (array) glob( SECURA_ACADEMY_PATH . 'includes/content-import-*.php' ) as $seca_import ) {
+	require_once $seca_import;
+}
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-video.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-kahoot.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-schema.php';

@@ -197,16 +197,40 @@ final class Secura_Exam {
 		$graine = crc32( $user_id . '|' . $cle . '|' . wp_json_encode( array( $room_id, $index, $tentative ) ) );
 		$etat  = self::etat( $graine );
 
-		$melange = self::melanger( $pool, $etat );
-
 		$nombre = isset( $task['questions'] ) ? count( $task['questions'] ) : 0;
 		$nombre = max( 1, (int) $nombre );
 
-		$choisis = array_slice( $melange, 0, min( $nombre, count( $melange ) ) );
+		/* Les questions qui demandent la machine (drapeau, action) ne
+		   se tirent pas : elles font partie de la mission de la room,
+		   donc elles sont TOUJOURS dans la copie. Sans cela, le tirage
+		   pouvait les remplacer par d'autres questions, et la room
+		   devenait impossible a valider. */
+		$obligatoires = self::questions_machine( $room_id, $index );
+
+		$melange = array();
+
+		foreach ( self::melanger( $pool, $etat ) as $entree ) {
+			if ( self::est_obligatoire( $entree, $obligatoires ) ) {
+				continue;
+			}
+
+			$melange[] = $entree;
+		}
+
+		$tirage = max( 0, $nombre - count( $obligatoires ) );
+
+		$choisis = array_slice( $melange, 0, min( $tirage, count( $melange ) ) );
 
 		$questions = array();
 
 		foreach ( $choisis as $entree ) {
+			$questions[] = self::variante(
+				$entree['question'],
+				$graine . '-' . $entree['room'] . '-' . $entree['task'] . '-' . $entree['q']
+			);
+		}
+
+		foreach ( $obligatoires as $entree ) {
 			$questions[] = self::variante(
 				$entree['question'],
 				$graine . '-' . $entree['room'] . '-' . $entree['task'] . '-' . $entree['q']
@@ -223,6 +247,64 @@ final class Secura_Exam {
 		update_user_meta( $user_id, self::META, $papers );
 
 		return $questions;
+	}
+
+	/**
+	 * Les questions d'une tâche qui demandent la machine de l'élève.
+	 *
+	 * Un drapeau ou une action ne se trouve que dans la machine de SA
+	 * room : ces questions font partie de la mission de la room, elles
+	 * ne se tirent donc pas au sort — elles restent toujours dans la
+	 * copie de l'élève.
+	 *
+	 * @param int $room_id Identifiant de la room.
+	 * @param int $index   Index de la tâche.
+	 * @return array Liste { room, task, q, question }.
+	 */
+	public static function questions_machine( $room_id, $index ) {
+		$taches = Secura_Rooms::get_tasks( $room_id );
+
+		if ( ! isset( $taches[ $index ] ) ) {
+			return array();
+		}
+
+		$obligatoires = array();
+
+		foreach ( (array) $taches[ $index ]['questions'] as $q_index => $question ) {
+			$mode = isset( $question['mode'] ) ? $question['mode'] : 'text';
+
+			if ( ! in_array( $mode, array( 'flag', 'action' ), true ) ) {
+				continue;
+			}
+
+			$obligatoires[] = array(
+				'room'     => (int) $room_id,
+				'task'     => (int) $index,
+				'q'        => $q_index,
+				'question' => $question,
+			);
+		}
+
+		return $obligatoires;
+	}
+
+	/**
+	 * Une entrée du réservoir est-elle déjà dans les questions obligatoires ?
+	 *
+	 * @param array $entree       Entrée du réservoir.
+	 * @param array $obligatoires Questions obligatoires.
+	 * @return bool
+	 */
+	private static function est_obligatoire( $entree, array $obligatoires ) {
+		foreach ( $obligatoires as $obligatoire ) {
+			if ( (int) $obligatoire['room'] === (int) $entree['room']
+				&& (int) $obligatoire['task'] === (int) $entree['task']
+				&& (int) $obligatoire['q'] === (int) $entree['q'] ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

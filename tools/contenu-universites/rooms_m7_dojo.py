@@ -67,8 +67,14 @@ CEINTURES = [
     {
         'numero': 1,
         'nom': 'blanche',
+        'ar_nom': 'الأبيض',
+        'en_nom': 'white',
         'titre': 'Ceinture blanche : lire, chercher, comprendre',
         'excerpt': "Quatre défis pour apprendre à regarder un fichier et à y trouver ce qu'on cherche.",
+        'ar_titre': 'الحزام الأبيض: اقرأ، ابحث، افهم',
+        'ar_excerpt': 'أربعة تحديات لتتعلم النظر إلى ملف والعثور داخله على ما تبحث عنه.',
+        'en_titre': 'White belt: read, search, understand',
+        'en_excerpt': 'Four challenges to learn how to read a file and find in it what you are looking for.',
         'resume': (
             "<p>La première ceinture est celle de l'observation. Pas de technique compliquée : "
             "juste apprendre à regarder un fichier, à le parcourir, et à y repérer une valeur.</p>"
@@ -137,8 +143,14 @@ CEINTURES = [
     {
         'numero': 2,
         'nom': 'jaune',
+        'ar_nom': 'الأصفر',
+        'en_nom': 'yellow',
         'titre': "Ceinture jaune : permissions, propriétaire, contenu",
         'excerpt': "Quand le système te dit non : qui possède le fichier, quelles sont ses permissions, et ce qu'il contient vraiment.",
+        'ar_titre': 'الحزام الأصفر: الأذونات، المالك، المحتوى',
+        'ar_excerpt': 'عندما يقول لك النظام لا: من يملك الملف، وما هي أذوناته، وما يحتويه فعلا.',
+        'en_titre': 'Yellow belt: permissions, owner, content',
+        'en_excerpt': 'When the system says no: who owns the file, what its permissions are, and what it really contains.',
         'resume': (
             "<p>La ceinture jaune, c'est le moment où l'outil simple ne suffit plus. "
             "Le fichier est là, mais quelque chose te bloque : des <strong>permissions</strong>, "
@@ -228,8 +240,14 @@ CEINTURES = [
     {
         'numero': 3,
         'nom': 'orange',
+        'ar_nom': 'البرتقالي',
+        'en_nom': 'orange',
         'titre': "Ceinture orange : réseau, processus, configuration",
         'excerpt': "On quitte les fichiers : ce qui écoute, ce qui tourne, et ce qui a été oublié dans la configuration.",
+        'ar_titre': 'الحزام البرتقالي: الشبكة، العمليات، الإعداد',
+        'ar_excerpt': 'نترك الملفات: ما الذي يستمع، وما الذي يعمل، وما الذي نُسي في الإعداد.',
+        'en_titre': 'Orange belt: network, processes, configuration',
+        'en_excerpt': 'We leave the files behind: what is listening, what is running, and what was forgotten in the configuration.',
         'resume': (
             "<p>La ceinture orange, on arrête de lire des fichiers pour regarder "
             "<strong>ce qui est vivant</strong> : les ports ouverts, les processus qui tournent, "
@@ -314,8 +332,14 @@ CEINTURES = [
     {
         'numero': 4,
         'nom': 'verte',
+        'ar_nom': 'الأخضر',
+        'en_nom': 'green',
         'titre': "Ceinture verte : binaires, chaînes, mémoire",
         'excerpt': "On regarde des programmes compilés : ce qu'ils contiennent, ce qu'ils sont, et ce qu'il y a dedans.",
+        'ar_titre': 'الحزام الأخضر: الملفات الثنائية، السلاسل، الذاكرة',
+        'ar_excerpt': 'ننظر إلى برامج مترجمة: ماذا تحتوي، وماذا هي، وما بداخلها.',
+        'en_titre': 'Green belt: binaries, strings, memory',
+        'en_excerpt': 'We look at compiled programs: what they contain, what they are, and what is inside them.',
         'resume': (
             "<p>La ceinture verte change de support : on ne lit plus des textes, on regarde des "
             "<strong>binaires</strong> — des programmes compilés.</p>"
@@ -405,8 +429,14 @@ CEINTURES = [
     {
         'numero': 5,
         'nom': 'noire',
+        'ar_nom': 'الأسود',
+        'en_nom': 'black',
         'titre': "Ceinture noire : cryptographie, clés, empreintes",
         'excerpt': "La dernière ceinture : lire une empreinte, reconnaître une clé, lire un certificat.",
+        'ar_titre': 'الحزام الأسود: التشفير، المفاتيح، البصمات',
+        'ar_excerpt': 'الحزام الأخير: قراءة بصمة، والتعرف على مفتاح، وقراءة شهادة.',
+        'en_titre': 'Black belt: cryptography, keys, fingerprints',
+        'en_excerpt': 'The last belt: reading a fingerprint, recognising a key, reading a certificate.',
         'resume': (
             "<p>La ceinture noire, c'est le monde des <strong>secrets qui ne sont pas en clair</strong> : "
             "des empreintes, des clés, des certificats. On ne les casse pas (on ne « craque » pas une "
@@ -555,20 +585,20 @@ def room_ceinture(ceinture):
         'exam': ceinture['exam'],
         'i18n': {
             'ar': {
-                'title': 'الحزام {0}: {1}'.format(ceinture['nom'], ceinture['titre'].split(':', 1)[-1].strip()),
-                'excerpt': ceinture['excerpt'],
+                'title': ceinture['ar_titre'],
+                'excerpt': ceinture['ar_excerpt'],
                 'tasks': [
-                    'المهمة 1: الدرس — الحزام {0}'.format(ceinture['nom']),
+                    'المهمة 1: الدرس — الحزام ' + ceinture['ar_nom'],
                     'المهمة 2: تدريب',
                     'المهمة 3: المهمة — تحديات الحزام الأربعة',
                     'المهمة 4: امتحان نهاية الغرفة',
                 ],
             },
             'en': {
-                'title': 'The {0} belt: {1}'.format(ceinture['nom'], ceinture['titre'].split(':', 1)[-1].strip()),
-                'excerpt': ceinture['excerpt'],
+                'title': ceinture['en_titre'],
+                'excerpt': ceinture['en_excerpt'],
                 'tasks': [
-                    'Task 1: Lesson - the {0} belt'.format(ceinture['nom']),
+                    'Task 1: Lesson - the ' + ceinture['en_nom'] + ' belt',
                     'Task 2: Practice',
                     'Task 3: Mission - the four challenges of the belt',
                     'Task 4: End-of-room exam',

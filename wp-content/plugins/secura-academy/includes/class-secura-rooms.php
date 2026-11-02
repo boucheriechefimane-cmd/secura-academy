@@ -354,6 +354,137 @@ final class Secura_Rooms {
 	 * @param int $room_id Identifiant de la room.
 	 * @return array
 	 */
+	/**
+	 * Les lots de questions importees, charges au demarrage du plugin.
+	 *
+	 * Chaque lot vient d'un fichier includes/content-import-*.php, donc
+	 * d'une source dont la licence a ete verifiee (voir
+	 * tools/sources-autorisees.json et docs/SOURCES-CONTENU.md).
+	 *
+	 * @return array Liste { source, rooms }.
+	 */
+	public static function imports() {
+		static $imports = null;
+
+		if ( null !== $imports ) {
+			return $imports;
+		}
+
+		$imports = array();
+
+		foreach ( (array) get_defined_functions()['user'] as $fonction ) {
+			if ( 0 !== strpos( $fonction, 'seca_import_' ) ) {
+				continue;
+			}
+
+			$lot = call_user_func( $fonction );
+
+			if ( is_array( $lot ) && isset( $lot['rooms'] ) ) {
+				$imports[] = $lot;
+			}
+		}
+
+		return $imports;
+	}
+
+	/**
+	 * Les sources citees dans les questions importees d'une room.
+	 *
+	 * @param int $room_id Identifiant de la room.
+	 * @return array Liste { nom, url, licence, attribution }.
+	 */
+	public static function sources_importees( $room_id ) {
+		$room = get_post( $room_id );
+
+		if ( ! $room ) {
+			return array();
+		}
+
+		$sources = array();
+
+		foreach ( self::imports() as $lot ) {
+			if ( empty( $lot['rooms'][ $room->post_name ] ) ) {
+				continue;
+			}
+
+			$source = isset( $lot['source'] ) ? $lot['source'] : array();
+
+			if ( empty( $source['attribution'] ) ) {
+				continue;
+			}
+
+			$cle = $source['attribution'];
+
+			if ( ! isset( $sources[ $cle ] ) ) {
+				$sources[ $cle ] = array(
+					'nom'         => isset( $source['nom'] ) ? $source['nom'] : '',
+					'url'         => isset( $source['url'] ) ? $source['url'] : '',
+					'licence'     => isset( $source['licence'] ) ? $source['licence'] : '',
+					'attribution' => $source['attribution'],
+				);
+			}
+		}
+
+		return array_values( $sources );
+	}
+
+	/**
+	 * Ajoute les questions importees aux taches d'une room.
+	 *
+	 * Les questions importees passent exactement par la meme
+	 * normalisation que les autres : memes regles, memes champs.
+	 *
+	 * @param int   $room_id Identifiant de la room.
+	 * @param array $taches  Taches brutes.
+	 * @return array
+	 */
+	private static function ajoute_questions_importees( $room_id, array $taches ) {
+		$room = get_post( $room_id );
+
+		if ( ! $room ) {
+			return $taches;
+		}
+
+		foreach ( self::imports() as $lot ) {
+			if ( empty( $lot['rooms'][ $room->post_name ]['tasks'] ) ) {
+				continue;
+			}
+
+			foreach ( (array) $lot['rooms'][ $room->post_name ]['tasks'] as $type => $questions ) {
+				if ( ! is_array( $questions ) || empty( $questions ) ) {
+					continue;
+				}
+
+				$index = null;
+
+				foreach ( $taches as $cle => $tache ) {
+					if ( isset( $tache['type'] ) && $tache['type'] === $type ) {
+						$index = $cle;
+						break;
+					}
+				}
+
+				if ( null === $index ) {
+					continue;
+				}
+
+				if ( ! isset( $taches[ $index ]['questions'] ) || ! is_array( $taches[ $index ]['questions'] ) ) {
+					$taches[ $index ]['questions'] = array();
+				}
+
+				foreach ( $questions as $question ) {
+					if ( ! is_array( $question ) ) {
+						continue;
+					}
+
+					$taches[ $index ]['questions'][] = $question;
+				}
+			}
+		}
+
+		return $taches;
+	}
+
 	public static function get_tasks( $room_id ) {
 		$room_id = absint( $room_id );
 
@@ -364,8 +495,10 @@ final class Secura_Rooms {
 		$raw = get_post_meta( $room_id, SECURA_META_TASKS, true );
 
 		if ( ! is_array( $raw ) ) {
-			return array();
+			$raw = array();
 		}
+
+		$raw = self::ajoute_questions_importees( $room_id, $raw );
 
 		$tasks = array();
 
@@ -491,6 +624,7 @@ final class Secura_Rooms {
 						'explanation'   => isset( $question['explanation'] ) ? (string) $question['explanation'] : '',
 						'weight'        => isset( $question['weight'] ) ? absint( $question['weight'] ) : 1,
 						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
+						'source'        => isset( $question['source'] ) ? (string) $question['source'] : '',
 					);
 				}
 			}
@@ -1220,6 +1354,7 @@ final class Secura_Rooms {
 						'explanation'   => isset( $question['explanation'] ) ? sanitize_textarea_field( $question['explanation'] ) : '',
 						'weight'        => isset( $question['weight'] ) ? absint( $question['weight'] ) : 1,
 						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
+						'source'        => isset( $question['source'] ) ? (string) $question['source'] : '',
 					);
 				}
 			}

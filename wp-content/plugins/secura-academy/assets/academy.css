@@ -963,6 +963,46 @@
 	color: var(--sa-text);
 }
 
+/* Les sources des questions importees : l'attribution doit rester
+   visible, lisible, et dans les trois langues (donc pas d'icone). */
+.seca-room-sources {
+	margin: 1.4rem 0 .6rem;
+	padding-top: .9rem;
+	border-top: 1px solid var(--sa-border);
+}
+
+.seca-room-sources-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	gap: .45rem;
+}
+
+.seca-room-sources-list li {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .5rem;
+	align-items: baseline;
+	font-size: .85rem;
+	color: var(--sa-muted);
+}
+
+.seca-room-source-name {
+	font-weight: 700;
+	color: var(--sa-text);
+}
+
+.seca-room-source-link {
+	color: var(--sa-accent);
+	word-break: break-all;
+}
+
+.seca-room-source-licence {
+	font-size: .78rem;
+	opacity: .85;
+}
+
 /* Version de la room sans JavaScript : les etapes restent lisibles. */
 .seca-noscript {
 	margin: 1rem 0;

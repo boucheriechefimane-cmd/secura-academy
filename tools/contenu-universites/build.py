@@ -139,6 +139,7 @@ def render_room(room, room_index=0):
 
     if lab.get('mode') == 'compose':
         lines.append("\t\t'compose' => " + php_str(lab.get('compose', '')) + ",")
+        lines.append("\t\t'service' => " + php_str(lab.get('service', 'attacker')) + ",")
         lines.append("\t\t'project' => " + php_str(lab.get('project', '')) + ",")
         lines.append("\t\t'flag_service' => " + php_str(lab.get('flag_service', '')) + ",")
 

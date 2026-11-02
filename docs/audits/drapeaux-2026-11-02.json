@@ -1,0 +1,38 @@
+{
+    "domaine": "drapeaux",
+    "titre": "Les questions de machine : drapeaux et actions joues pour de vrai",
+    "expert": "Expert en exploitation linux et en surveillance de drapeaux (Read The Docs)",
+    "perimetre": "Verifie que les questions qui demandent la machine de l'eleve sont reellement jouables : le fichier de drapeau existe dans le bon lab, la valeur est unique et sure, la machine se deploie, et la reponse de l'eleve est acceptee par le serveur qui relit le fichier en root.",
+    "date": "2026-11-02T01:40:54+00:00",
+    "ok": 4,
+    "non_etaye": 0,
+    "forces": [],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 3,
+    "constats": [
+        {
+            "libelle": "le périmètre à vérifier",
+            "detail": "60 questions de drapeau et 1 question d'action",
+            "gravite": "info",
+            "preuve": "chacune est rattachée à une room, donc à une machine",
+            "etaye": true
+        },
+        {
+            "libelle": "ce que le jeu réel a prouvé",
+            "detail": "61 question(s) acceptées par le serveur après lecture du fichier de drapeau en root",
+            "gravite": "info",
+            "preuve": "room 56 : valeur trouvée dans la machine (« grep -r \"SECURA\" /cours 2>/dev/null ») et acceptée par le serveur | room 57 : valeur trouvée dans la machine (« grep -r \"SECURA\" /cours 2>/dev/null ») et acceptée par le serveur | room 58 : valeur trouvée dans la machine (« grep -r \"SECURA\" /cours 2>/dev/null ») et acceptée par le serveur",
+            "etaye": true
+        },
+        {
+            "libelle": "le contrôle porte sur la plateforme, pas sur l'élève",
+            "detail": "la valeur est lue par le serveur dans le fichier de la machine, comme le ferait un élève qui a trouvé la bonne réponse ; l'apprenant, lui, doit trouver la valeur dans la machine",
+            "gravite": "info",
+            "preuve": "le serveur compare le fichier réel, il ne compare pas une liste de réponses",
+            "etaye": true
+        }
+    ]
+}

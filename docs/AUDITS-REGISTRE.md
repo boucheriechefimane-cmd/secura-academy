@@ -3,7 +3,7 @@
 > Le registre tenu par le comité d'audit externe : qui a audité, quand,
 > ce qu'il a trouvé, ce qui a été fait, et ce qui reste ouvert.
 
-État : 01/11/2026 (nuit, suite 6) · version v0.9.0
+État : 02/11/2026 · version v0.9.1
 
 ---
 
@@ -35,13 +35,42 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 15 | **DevOps & résilience** | 12 | 0 | 0 | 0 | **Conforme** |
 | 16 | **Panel des dix élèves** | 5 | 0 | 0 | 0 | **Conforme** |
 | 17 | **Moteur d'épreuves** | 10 | 0 | 0 | 1 | **Conforme (1 mineur de contenu)** |
-| | **Total** | **222** | **0** | **0** | **1** | **Conforme** |
+| 18 | **Drapeaux et actions joués pour de vrai** | 4 | 0 | 0 | 0 | **Conforme** |
+| | **Total** | **226** | **0** | **0** | **1** | **Conforme** |
 
-> Les 17 auditeurs produisent chacun **trois formats** de rapport dans
+> Les 18 auditeurs produisent chacun **trois formats** de rapport dans
 > `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
 > foi : verdict, périmètre, chiffres, scénarios joués, forces, constats avec
 > la preuve sous chaque ligne, et les limites explicites) et le JSON (pour
 > le tableau de bord de la CI).
+
+### 1 quater. Le 18ᵉ auditeur — les questions de machine jouées pour de vrai (02/11/2026)
+
+Il est né d'une demande du propriétaire : « les questions de drapeau et
+d'action demandent la machine de l'élève : elles ne sont pas jouées ici.
+Trouve une solution. » Un auditeur **ne se contente pas de regarder le
+code** : il **joue**.
+
+| Contrôle | Ce qu'il vérifie | Résultat |
+|---|---|---|
+| 1. Le périmètre | Combien de questions demandent la machine | 60 drapeaux + 1 action |
+| 2. Le contrôle statique | Chaque fichier de drapeau existe, a une valeur, elle est unique, le chemin est sûr, et la machine est déployable | 61 questions vérifiées, 0 anomalie |
+| 3. **Le jeu réel** | Un élève est créé, il se connecte, lit la leçon, répond, **déploie la machine**, **cherche la valeur dans la machine**, la soumet : le serveur la compare au fichier relu **en root** | 61 questions **jouées et acceptées** |
+| 4. Les limites | Ce que la mesure ne prouve pas | Dit dans le rapport |
+
+**Ce que le jeu réel a trouvé — et qui aurait été invisible sans lui :**
+
+| Défaut | Pourquoi c'était grave | Correction |
+|---|---|---|
+| Le moteur d'épreuves **remplaçait** les questions de drapeau par d'autres au tirage | Les 61 questions de machine **n'étaient jamais posées** : la room était impossible à valider | Les questions qui demandent la machine ne se tirent plus : elles restent toujours dans la copie de l'élève |
+| `absint( -1 )` valait `1` | La question d'action exigeait une étape de terminal qui n'existait pas : elle était refusée à tort | Le signe est préservé (`-1` = aucune vérification automatique) |
+| La machine était déployée **après** le parcours | Le terminal restait verrouillé : l'action ne pouvait pas être confirmée | On déploie d'abord, on joue ensuite |
+| Les motifs de terminal contenant un point étaient écartés | `cat config.txt` n'était jamais joué | On tape le motif en clair (et on essaie le texte d'une expression régulière) |
+| Les drapeaux du service « flags » n'étaient pas dans `/root/flags/` | Le serveur ne pouvait pas relire la valeur : les questions de la pile Compose étaient injouables | Le service « flags » est corrigé (et vérifié par la CI, en Docker réel) |
+
+Le garde-fou reste **lui-même** : le 18ᵉ auditeur est rejoué à chaque push,
+sur des **vrais conteneurs** dans la CI, et la CI rougit sur un constat
+majeur.
 
 ### 1 ter. Les deux auditeurs ajoutés le 01/11/2026 (nuit, suite 6)
 
@@ -651,6 +680,7 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 
 | Date | Version | Résultat |
 |---|---|---|
+| 02/11/2026 | v0.9.1 | **Le 18ᵉ auditeur : les questions de machine, jouées pour de vrai.** Le propriétaire a demandé que les 60 questions de drapeau et la question d'action soient **réellement** jouées. En cherchant pourquoi elles ne l'étaient pas, on a trouvé un défaut majeur : **le moteur d'épreuves pouvait remplacer les questions de machine par d'autres questions au tirage** — elles n'étaient donc jamais posées. Correction : une question qui demande la machine ne se tire plus au sort, elle reste toujours dans la copie de l'élève (le mélange des propositions et les chiffres qui changent sont intacts). L'auditeur joue ensuite **chaque** question : élève créé, connexion, leçon, réponses, **machine déployée**, **valeur cherchée dans la machine**, valeur soumise, **serveur qui la relit en root** — 61 questions jouées et acceptées. Quatre autres défauts trouvés au passage (le `absint(-1)`, l'ordre de déploiement, les motifs de terminal, l'emplacement des drapeaux Compose) : tous corrigés. **En parallèle, la stratégie de contenu change** : on n'écrit plus de questions, on **importe** des questions validées (universités, OWASP, NIST, examens de certification quand l'éditeur autorise), avec un catalogue de sources, un outil qui refuse tout ce qui n'y figure pas, et un encart « Sources » visible dans la room. Total : **226 contrôles, 0 bloquant, 0 majeur** |
 | 01/11/2026 | v0.6.0 | Premier passage du comité externe : 8 constats, tous corrigés, **93 contrôles au vert** |
 | 01/11/2026 | v0.6.0 | Audit de conformité au guide Google « réponses générées par l'IA » : 6 constats, tous corrigés (hreflang absolus, canonique par langue, données structurées, vidéo déclarée, titres de section, étapes en HTML), **108 contrôles au vert** |
 | 01/11/2026 (nuit) | v0.7.0 | Second passage : **10 constats réels** trouvés en refaisant les tests à la main — maillage interne (0 room atteignable), `robots.txt` sans robots d'IA nommés, titre des pages arabes resté en français, 37 chaînes de traduction dégradées, archive d'auteur ouverte, page d'accueil en texte de démonstration, absence d'image de partage. Tous corrigés : **118 contrôles au vert** |

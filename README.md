@@ -423,6 +423,19 @@ durée totale, bonus XP, certificat.
 Une question sans réponse acceptée est ignorée à l'enregistrement. Les réponses
 ne sont jamais stockées en clair dans le HTML public.
 
+**Ou bien on importe.** Pour remplir une room avec des questions déjà
+validées (un cours d'université, un examen de certification), on prépare un
+lot JSON et on lance l'outil d'import :
+
+```bash
+python3 tools/import-questions.py --verifier mon-lot.json   # verifie
+python3 tools/import-questions.py --importer mon-lot.json    # importe
+```
+
+L'outil refuse tout ce qui n'est pas dans `tools/sources-autorisees.json`,
+et la room affiche ensuite un encart « Sources » (licence + attribution).
+Le détail du format : `docs/IMPORTER-QUESTIONS.md`.
+
 ## Palette et personnalisation
 
 **Apparence → Personnaliser → Palette Secura** expose six couleurs :
@@ -606,6 +619,9 @@ bloquant ; et le comité rejoué deux fois donne **15/15 rapports
 identiques**) → **222 contrôles, 0 bloquant, 0 majeur**
 (v0.9.0 : le moteur d'épreuves — chaque élève passe **sa** copie — et le
 panel des dix élèves, qui joue la plateforme pour de vrai).
+→ **v0.9.1 : les questions de machine sont désormais jouées pour de vrai**,
+et la stratégie de contenu change (on n'écrit plus de questions : on importe
+des questions déjà validées).
 
 ### Le moteur d'épreuves : deux élèves, deux copies
 
@@ -626,6 +642,54 @@ différentes**, **131 365 839 copies possibles** au total sur la plateforme.
 Un contrôle automatique vérifie qu'aucune question liée à une machine
 (drapeau, action dans le terminal) ne voyage dans une autre room — sinon
 l'élève chercherait un fichier qui n'existe pas chez lui.
+
+### Les questions de machine : jouées, pas supposées jouables
+
+Une question de **drapeau** (relève la valeur d'un fichier dans la machine)
+ou d'**action** (exécute une commande, puis confirme) ne peut pas se
+contenter d'un QCM : elle se prouve **dans la machine de l'élève**. Le
+serveur lit le fichier **en root** (`docker exec -u 0`) et compare — le
+fichier est en `400 root:root`, donc l'élève ne peut pas le lire : il doit
+le **trouver**.
+
+| Ce que fait la plateforme | Ce que ça change pour l'élève |
+|---|---|
+| **La question reste dans sa room** | Le drapeau ne voyage jamais dans une autre room : l'élève ne cherche pas un fichier qui n'existe pas chez lui |
+| **La question n'est jamais écartée au tirage** | Elle est toujours dans la copie de l'élève : c'est la mission de la room |
+| **La valeur est relue par le serveur** | Cocher une case ne suffit pas : il faut vraiment l'avoir trouvée |
+| **Le serveur vérifie l'action** | La confirmation n'est acceptée que si l'étape de terminal demandée a été atteinte |
+
+C'est vérifié par un **18ᵉ auditeur** (`scripts/audit/audit-drapeaux.php`)
+qui **joue** : il crée un élève, se connecte, lit la leçon, répond, déploie
+la machine, **cherche la valeur dans la machine**, la soumet, et vérifie que
+le serveur l'accepte. Les **60 questions de drapeau et la question d'action**
+sont ainsi réellement jouées à chaque passage — pas « supposées jouables ».
+
+Ce que cette vérification a trouvé, et fait corriger : le moteur
+d'épreuves pouvait **remplacer** les questions de machine par d'autres
+questions au tirage (elles n'étaient donc **jamais posées**), un `absint(-1)`
+qui valait `1` (la question d'action était refusée à tort), la machine
+déployée **après** le parcours (le terminal restait verrouillé), les motifs
+de terminal contenant un point (jamais joués), et les drapeaux d'une pile
+Compose mal placés.
+
+### Importer des questions : on n'écrit plus, on importe
+
+La règle du propriétaire : **les questions viennent de sources déjà
+validées** — cours d'universités (MIT OCW, StanfordSEE), fiches OWASP,
+publications NIST, et les examens de certification **quand l'éditeur
+autorise la reprise**. Le plan « 4 000 questions à écrire » est annulé.
+
+| Outil | Rôle |
+|---|---|
+| `tools/sources-autorisees.json` | Le catalogue des sources, avec leur licence. Une source absente = import refusé. |
+| `tools/import-questions.py` | Vérifie le lot (licence, attribution, format, questions) puis écrit le fichier PHP que le plugin charge. |
+| `docs/IMPORTER-QUESTIONS.md` | La règle complète, les sources admises, le format d'un lot, et ce qui reste à trancher. |
+
+Les questions importées passent exactement la même normalisation que les
+autres, entrent dans le réservoir du niveau (donc dans les copies
+mélangées), et la room affiche un encart **« Sources »** — nom, lien,
+licence, attribution — visible par l'élève.
 
 Ce que les auditeurs ont trouvé — et fait corriger : les pages légales
 qui n'existaient pas, l'invitation à s'inscrire que le visiteur anonyme ne

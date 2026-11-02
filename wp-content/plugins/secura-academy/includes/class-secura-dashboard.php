@@ -514,6 +514,31 @@ final class Secura_Dashboard {
 					</div>
 				</aside>
 			</div>
+
+			<?php
+			/* Les sources des questions importees : l'attribution doit
+			   etre visible par l'apprenant (exigence de licence). */
+			$sources = Secura_Rooms::sources_importees( $room_id );
+
+			if ( ! empty( $sources ) ) :
+				?>
+				<section class="seca-room-sources">
+					<h2 class="seca-room-section-title"><?php echo esc_html( Secura_I18n::t( 'sources', $lang, 'Sources' ) ); ?></h2>
+					<ul class="seca-room-sources-list">
+						<?php foreach ( $sources as $source ) : ?>
+							<li>
+								<span class="seca-room-source-name"><?php echo esc_html( $source['nom'] ); ?></span>
+								<?php if ( ! empty( $source['url'] ) ) : ?>
+									<a class="seca-room-source-link" href="<?php echo esc_url( $source['url'] ); ?>" rel="noopener noreferrer" target="_blank"><?php echo esc_html( $source['url'] ); ?></a>
+								<?php endif; ?>
+								<span class="seca-room-source-licence"><?php echo esc_html( $source['licence'] ); ?></span>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</section>
+				<?php
+			endif;
+			?>
 		</div>
 		<?php
 		return ob_get_clean();

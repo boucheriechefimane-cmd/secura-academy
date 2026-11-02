@@ -21,6 +21,10 @@ BRIEFS = [
         'valeur': 'brief_presentation',
         'titre': "Brief 1 : le dojo, comment on s'entraîne",
         'excerpt': "Avant les défis : la méthode. Le dojo n'est pas un jeu de casse, c'est une échelle.",
+        'ar_titre': 'موجز 1: الدوجو، كيف تتدرّب',
+        'ar_excerpt': 'قبل التحديات: الطريقة. الدوجو ليس لعبة كسر، بل سُلّم.',
+        'en_titre': 'Brief 1: the dojo, how you train',
+        'en_excerpt': 'Before the challenges: the method. The dojo is not a cracking game, it is a ladder.',
         'contenu': "Brief 1 : le dojo de pwn.college et la méthode des ceintures.",
         'resume': (
             "<p>Un dojo, ce n'est pas une liste de failles à enfoncer : c'est une <strong>échelle</strong>. "
@@ -114,6 +118,10 @@ BRIEFS = [
         'valeur': 'brief_talking_web',
         'titre': "Brief 2 : le web, comment on parle à un serveur",
         'excerpt': "HTTP, en clair : une requête, une réponse. Le web n'est pas magique.",
+        'ar_titre': 'موجز 2: الويب، كيف يتحدث إلى خادم',
+        'ar_excerpt': 'HTTP، بوضوح: طلب ثم رد. الويب ليس سحرا.',
+        'en_titre': 'Brief 2: the web, how you talk to a server',
+        'en_excerpt': 'HTTP, in plain words: a request, a response. The web is not magic.',
         'contenu': "Brief 2 : comment un navigateur parle à un serveur (pwn.college, « Talking Web »).",
         'resume': (
             "<p>Un site web, c'est un programme qui reçoit des textes et répond par des textes. "
@@ -208,6 +216,10 @@ BRIEFS = [
         'valeur': 'brief_exploitation',
         'titre': "Brief 3 : les scénarios d'exploitation",
         'excerpt': "Exploiter, ce n'est pas « casser » : c'est faire faire à un programme quelque chose qu'il ne prévoyait pas.",
+        'ar_titre': 'موجز 3: سيناريوهات الاستغلال',
+        'ar_excerpt': 'الاستغلال ليس «الكسر»: إنك تجعل برنامجا يفعل شيئا لم يتوقعه.',
+        'en_titre': 'Brief 3: exploitation scenarios',
+        'en_excerpt': 'Exploiting is not "breaking": it is making a program do something it did not expect.',
         'contenu': "Brief 3 : ce qu'est une exploitation et pourquoi elle est toujours un scénario (pwn.college).",
         'resume': (
             "<p>Le mot « exploitation » fait peur, mais l'idée est simple : "
@@ -303,11 +315,15 @@ BRIEFS = [
         'fichier': '04-registres.txt',
         'valeur': 'brief_registres',
         'titre': "Brief 4 : les registres, le carnet du processeur",
-        'excerpt': "Le processeur ne garde presque rien en mémoire : il travaille dans une dozen de cases àDisposed très vite.",
+        'excerpt': "Le processeur ne garde presque rien en mémoire : il travaille dans une douzaine de cases qu'on oublie aussitôt.",
+        'ar_titre': 'موجز 4: السجلات، دفتر المعالج',
+        'ar_excerpt': 'المعالج لا يحتفظ في الذاكرة بشيء تقريبًا: يعمل في اثنتي عشرة خانة ينساها بسرعة.',
+        'en_titre': "Brief 4: registers, the processor's notebook",
+        'en_excerpt': 'The processor keeps almost nothing in memory: it works in a dozen slots it forgets very quickly.',
         'contenu': "Brief 4 : les registres du processeur (pwn.college, « Assembly Crash Course — Registers »).",
         'resume': (
             "<p>Un processeur ne lit pas les variables. Il lit des <strong>registres</strong> : "
-            "des cases de mémoire Minuscules, très rapides, en nombre fixe (une dozenaine sur x86-64).</p>"
+            "des cases de mémoire Minuscules, très rapides, en nombre fixe (une douzaine sur x86-64).</p>"
             "<p>Les plus utiles à connaître :</p>"
             "<ul>"
             "<li><code>rax</code>, <code>rbx</code>, <code>rcx</code>, <code>rdx</code> — usage général ;</li>"
@@ -396,6 +412,10 @@ BRIEFS = [
         'valeur': 'brief_pas_avor',
         'titre': "Brief 5 : ne pas se faire avoir",
         'excerpt': "La règle d'or de l'hygiène numérique : ce qui a l'air trop beau, ou trop urgent, est presque toujours une mise en scène.",
+        'ar_titre': 'موجز 5: لا تُخدع',
+        'ar_excerpt': 'القاعدة الذهبية للنظافة الرقمية: ما يبدو جميلا جدا، أو عاجلا جدا، هو في الغالب تمثيل.',
+        'en_titre': 'Brief 5: do not get fooled',
+        'en_excerpt': 'The golden rule of digital hygiene: what looks too good, or too urgent, is almost always a set-up.',
         'contenu': "Brief 5 : les pièges de l'hygiène numérique (CYBER.ORG, « Don't Get Tricked! »).",
         'resume': (
             "<p>La vidéo de CYBER.ORG s'adresse aux plus jeunes : c'est le niveau où les "
@@ -489,6 +509,10 @@ BRIEFS = [
         'valeur': 'brief_explorer',
         'titre': "Brief 6 : explorer une application web",
         'excerpt': "Avant de chercher une faille : regarde l'application comme un utilisateur, puis comme un attaquant.",
+        'ar_titre': 'موجز 6: استكشاف تطبيق ويب',
+        'ar_excerpt': 'قبل البحث عن ثغرة: انظر التطبيق ك مستخدم، ثم ك مهاجم.',
+        'en_titre': 'Brief 6: exploring a web application',
+        'en_excerpt': 'Before looking for a flaw: look at the application as a user, then as an attacker.',
         'contenu': "Brief 6 : explorer une application web avec OWASP Juice Shop (démonstration de Joe Ma).",
         'resume': (
             "<p>La démonstration de Joe Ma montre l'ordre qu'il faut respecter : "
@@ -615,20 +639,20 @@ def room_brief(brief):
         'exam': brief['exam'],
         'i18n': {
             'ar': {
-                'title': brief['titre'].replace('Brief', 'موجز'),
-                'excerpt': brief['excerpt'],
+                'title': brief['ar_titre'],
+                'excerpt': brief['ar_excerpt'],
                 'tasks': [
-                    'المهمة 1: الدرس — ' + brief['titre'].split(':', 1)[-1].strip(),
+                    'المهمة 1: الدرس — ' + brief['ar_titre'].split(':', 1)[-1].strip(),
                     'المهمة 2: تدريب',
                     'المهمة 3: المهمة — دليل الموجز',
                     'المهمة 4: امتحان نهاية الغرفة',
                 ],
             },
             'en': {
-                'title': brief['titre'].replace('Brief', 'Brief'),
-                'excerpt': brief['excerpt'],
+                'title': brief['en_titre'],
+                'excerpt': brief['en_excerpt'],
                 'tasks': [
-                    'Task 1: Lesson - ' + brief['titre'].split(':', 1)[-1].strip(),
+                    'Task 1: Lesson - ' + brief['en_titre'].split(':', 1)[-1].strip(),
                     'Task 2: Practice',
                     'Task 3: Mission - the proof of the brief',
                     'Task 4: End-of-room exam',

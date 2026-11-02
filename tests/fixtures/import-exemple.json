@@ -1,0 +1,31 @@
+{
+  "source": "mit-ocw-6858",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.858 Computer Systems Engineering, Spring 2014",
+  "url": "https://ocw.mit.edu/courses/6-858-computer-systems-engineering-spring-2014/",
+  "rooms": [
+    {
+      "room": "la-chaine-de-la-confiance",
+      "title": "La chaîne de la confiance",
+      "tasks": {
+        "test": [
+          {
+            "question": "Que vérifie une signature numérique ?",
+            "mode": "choice",
+            "choices": [
+              "Que le message n'a pas été modifié depuis l'envoi",
+              "Que l'expéditeur a lu le message",
+              "Que le message est chiffré de bout en bout"
+            ],
+            "correct": 0,
+            "xp": 20,
+            "hint": "Pense à ce que garantit la clé privée.",
+            "explanation": "La signature prouve l'intégrité du message et l'identité de sa clé : c'est elle qu'on ne peut pas fabriquer sans la clé privée.",
+            "source": "MIT OpenCourseWare, 6.858 Computer Systems Engineering, Spring 2014",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    }
+  ]
+}

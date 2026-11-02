@@ -804,13 +804,21 @@ final class Secura_Ajax {
 
 			Secura_Terminal::push_history( $user_id, $room_id, $index, $input, $lab['output'] );
 
+			/* Sur une vraie machine, la sortie affichee est celle de la
+			   machine — mais les etapes du scenario doivent malgre tout
+			   avancer, sinon les questions qui exigent une exploration
+			   (« termine l'exploration ») resteraient bloquees pour
+			   toujours. On fait donc calculer l'etat des etapes, et on
+			   garde la vraie sortie. */
+			$etapes = Secura_Terminal::run( $user_id, $room_id, $index, $task, $input );
+
 			return array(
 				'output'    => $lab['output'],
-				'matched'   => (bool) $lab['ok'],
-				'step'      => 0,
-				'total'     => 0,
-				'completed' => false,
-				'hint'      => '',
+				'matched'   => (bool) $etapes['matched'],
+				'step'      => (int) $etapes['step'],
+				'total'     => (int) $etapes['total'],
+				'completed' => (bool) $etapes['completed'],
+				'hint'      => isset( $etapes['hint'] ) ? $etapes['hint'] : '',
 				'live'      => true,
 				'message'   => $lab['message'],
 				'code'      => (int) $lab['code'],

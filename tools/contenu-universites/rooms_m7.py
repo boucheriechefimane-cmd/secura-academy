@@ -33,6 +33,7 @@ def q(question, choices, correct, hint, explain, xp=10):
 LAB_JUICE = {
     'mode': 'compose',
     'compose': 'juice-shop/docker-compose.yml',
+    'service': 'attacker',
     'project': 'seca_juice',
     'flag_service': 'flags',
     'network': 'seca_lab',

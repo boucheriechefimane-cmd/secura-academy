@@ -1093,15 +1093,18 @@ final class Secura_Progress {
 		}
 
 		/* Une etape de terminal a ete atteinte : l'action a ete faite. */
-		$step = isset( $question['requires_step'] ) ? absint( $question['requires_step'] ) : -1;
+		/* -1 signifie « aucune verification automatique » : on garde
+		   le signe (absint transformerait -1 en 1). */
+		$step = isset( $question['requires_step'] ) ? (int) $question['requires_step'] : -1;
 
 		if ( $step >= 0 ) {
 			$terminal = Secura_Terminal::get_state( $user_id, $room_id, $index );
 			$current  = isset( $terminal['step'] ) ? absint( $terminal['step'] ) : 0;
 
-			if ( $current > $step ) {
-				return true;
-			}
+			/* La question exige une exploration (le compteur d'etapes
+			   doit avoir atteint l'etape demandee). Sans cela, la
+			   question d'action se cochait toute seule. */
+			return $current >= $step;
 		}
 
 		/* Aucune verification automatique possible : l'apprenant coche. */
