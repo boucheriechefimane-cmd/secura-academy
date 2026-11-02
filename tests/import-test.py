@@ -198,6 +198,19 @@ def main():
                 "Usage commercial" in contenu,
                 "le fichier livré dit si la licence autorise un usage payant",
             )
+            # Un texte importe peut contenir des fins de ligne : le fichier
+            # genere ne doit pas laisser d'espace en fin de ligne (la CI le
+            # refuse, et un push a ete casse par cela le 02/11/2026).
+            lignes_suspectes = [
+                numero
+                for numero, ligne in enumerate(contenu.split("\n"), 1)
+                if ligne != ligne.rstrip()
+            ]
+            verifier(
+                not lignes_suspectes,
+                "le fichier genere n'a pas d'espace en fin de ligne",
+                "lignes : %s" % lignes_suspectes[:5],
+            )
             if shutil.which("php"):
                 controle = subprocess.run(
                     ["php", "-l", fichier], capture_output=True, text=True
@@ -214,15 +227,20 @@ def main():
     #    c'est le fichier qui alimente reellement les questions d'examen
     #    (17 questions, avec le corrige officiel du MIT). S'il etait
     #    abime, la plateforme perdrait des questions sans s'en apercevoir.
-    lot = os.path.join(RACINE, "tools", "lots", "mit-ocw-6858-examens.json")
-    verifier(os.path.exists(lot), "le lot MIT OCW livre est present")
-    if os.path.exists(lot):
-        resultat = lancer(["--verifier", lot])
-        verifier(
-            resultat.returncode == 0,
-            "le lot MIT OCW livre est valide",
-            resultat.stdout.strip()[-200:],
-        )
+    for nom, source in (
+        ("mit-ocw-6858-examens.json", "MIT OCW 6.858"),
+        ("mit-ocw-6-828-examens.json", "MIT OCW 6.828"),
+        ("mit-ocw-14-15j-examens.json", "MIT OCW 14.15J"),
+    ):
+        lot = os.path.join(RACINE, "tools", "lots", nom)
+        verifier(os.path.exists(lot), "le lot %s livre est present" % source)
+        if os.path.exists(lot):
+            resultat = lancer(["--verifier", lot])
+            verifier(
+                resultat.returncode == 0,
+                "le lot %s livre est valide" % source,
+                resultat.stdout.strip()[-200:],
+            )
 
     print("")
     if ECHECS:

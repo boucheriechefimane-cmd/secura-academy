@@ -16,7 +16,7 @@ if ( ! function_exists( 'seca_import_mit_ocw_14_15j_examens' ) ) {
 					'title' => 'chiffrement-et-https',
 					'tasks' => array(
 						'test' => array(
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Calculate the clustering coefficient C for the Erdos-Renyi random graph
  G2 (n, p) with p(n) = a log(n)/n. Compare your answer with part (b) in the
@@ -32,7 +32,7 @@ Calculate the clustering coefficient C for the Erdos-Renyi random graph
 					'title' => 'kahoot-la-revision-des-labs-avances',
 					'tasks' => array(
 						'test' => array(
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Calculate the clustering coefficient C in the limit of large n.
  Note: The clustering coefficient is defined as three times the number of triangles
@@ -52,7 +52,7 @@ Calculate the clustering coefficient C in the limit of large n.
  3 2
  Clustering Coefficient = p
  limn→∞ p = 0.', 'source' => 'MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0'),
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Show that all the nodes have equal ranking. (Hint: Show that the is
  xi = 1 for all i. This should be a straightforward conclusion and can be proved
@@ -76,7 +76,7 @@ ring is divided into two symmetric halves. We will examine the eigenvector centr
 of this new network. By symmetry, we only need to find the eigenvector centrality
  Figure 2:
 measures indexed by x0 , x1 , x2 , . . . . As before, we always normalize it so that x0 = 1.', 'source' => 'MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0'),
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Show that the largest eigenvalue λ must satisfy:
  2≤λ≤3
@@ -90,13 +90,13 @@ Show that the largest eigenvalue λ must satisfy:
  i=0 i=0
  Since x0 is the largest, we also have that
  λx0 = 2x1 + x0 ≤ 3x0', 'source' => 'MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0'),
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Characterize all solutions of the form θi (t) = ai t+bi to the set of dynamical
  equations, i.e., find ai , bi , i = 1, . . . , n.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.', 'explanation' => 'Corrige officiel du MIT : Characterize all solutions of the form θi (t) = ai t+bi to the set of dynamical
  equations, i.e., find ai , bi , i = 1, . . . , n.
  ai = ω, bi = b + 2ki π', 'source' => 'MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0'),
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Show that L = M T M where M is the incidence matrix, i.e., the rows
  correspond to the edges and columns correspond to the vertices. Therefore, for
@@ -110,7 +110,7 @@ Show that L = M T M where M is the incidence matrix, i.e., the rows
  Mev = 1 if v = j
  Mev = 0 otherwise
  The proof is here.', 'source' => 'MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0'),
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Argue that L is a symmetric matrix and that for any vector x we have that
  xT Lx ≥ 0. Conclude from this that all the eigenvalues of L are non-negative.
@@ -134,7 +134,7 @@ Argue that L is a symmetric matrix and that for any vector x we have that
 					'title' => 'les-fondamentaux-du-reseau',
 					'tasks' => array(
 						'test' => array(
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Now, consider a different construction for a random graph model. We
  take n vertices and go through each distinct trio of three vertices and with
@@ -171,7 +171,7 @@ Now, consider a different construction for a random graph model. We
  The ratio is roughly 3/(3a + 1) and points have been awarded to show
  that the clustering coefficient is a constant (does not decay to 0 as
  n → ∞).', 'source' => 'MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0'),
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Show that the eigenvector centrality must satisfy:
  x0 ≥ x1 ≥ x2 ≥ · · · ≥ 0
@@ -190,7 +190,7 @@ Show that the eigenvector centrality must satisfy:
  i+1 = xi−1 − xi + xi+1 − xi+2
  ≥0
  The last inequality follows from inductive hypothesis.', 'source' => 'MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0'),
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Consider a small perturbation away from the state θi = ωt + i and show
  that the vector  = (1 , 2 , . . . , ) satisfies
@@ -231,7 +231,7 @@ Consider a small perturbation away from the state θi = ωt + i and show
 					'title' => 'penser-comme-un-defenseur',
 					'tasks' => array(
 						'test' => array(
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Show that in the limit of large n, the expected number of triangles in the
  network is a constant.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.', 'explanation' => 'Corrige officiel du MIT : Show that in the limit of large n, the expected number of triangles in the
@@ -246,7 +246,7 @@ Show that in the limit of large n, the expected number of triangles in the
  = lim p
  n→∞ 3
  = a3 /6', 'source' => 'MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0'),
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 We have shown in Part (e) that xn is positive and decreasing in n. Please
  prove that limn→∞ xn = 0.
@@ -288,7 +288,7 @@ We have shown in Part (e) that xn is positive and decreasing in n. Please
 					'title' => 'securiser-une-application-web',
 					'tasks' => array(
 						'test' => array(
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 For what values of g (0) is the system stable to small perturbations around
  the origin?
@@ -315,7 +315,7 @@ For information about citing these materials or our Terms of Use, visit: https:/
 					'title' => 'traverser-le-mur',
 					'tasks' => array(
 						'test' => array(
-							array('question' => '[MIT 14.15J — question d’examen, en anglais] 
+							array('question' => '[MIT 14.15J — question d’examen, en anglais]
 
 Show that the xi \'s are computed by finding the largest λ for which there
  exists a set of xi for i = 0, 1, 2, . . . such that:

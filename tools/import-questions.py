@@ -252,7 +252,12 @@ def echapper_php(valeur):
         for cle, val in valeur.items():
             morceaux.append("%s => %s" % (echapper_php(cle), echapper_php(val)))
         return "array(" + ", ".join(morceaux) + ")"
-    texte = str(valeur).replace("\\", "\\\\").replace("'", "\\'")
+    texte = str(valeur)
+    # Un texte importe peut contenir des fins de ligne : on retire les
+    # espaces en fin de ligne (la CI les refuse) et on normalise les fins
+    # de ligne, sans toucher au contenu.
+    texte = "\n".join(ligne.rstrip() for ligne in texte.replace("\r\n", "\n").split("\n"))
+    texte = texte.replace("\\", "\\\\").replace("'", "\\'")
     return "'%s'" % texte
 
 

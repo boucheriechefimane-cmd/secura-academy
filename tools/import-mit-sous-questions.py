@@ -48,9 +48,9 @@ def _charger_extracteur_de_base():
     return module
 
 # Un en-tête de problème : « 1. Clustering » ou « 2. Centrality in Infinite Graphs. »
-RE_PROBLEME = re.compile(r"^\s*(\d+)\.\s+([A-Z][^\n]{2,90})\s*$")
+RE_PROBLEME = re.compile(r"^\s*(?:Problem\s+)?(\d+)[.:]?\s+([A-Z][^\n]{2,90})\s*$")
 # Une sous-question : « (a) (2pt) Show that … »
-RE_PARTIE = re.compile(r"^\s*\(([a-z])\)\s*\((\d+)\s*pt\)\s*(.+?)\s*$")
+RE_PARTIE = re.compile(r"^\s*\(([a-z])\)\s*\((\d+)\s*(?:pts?|points?)\)\s*(.+?)\s*$")
 # Une ligne de séparation de page (le PDF paginé colle des « 12 » seuls).
 RE_PAGINATION = re.compile(r"^\s*\d{1,3}\s*$")
 LIGATURES = {
