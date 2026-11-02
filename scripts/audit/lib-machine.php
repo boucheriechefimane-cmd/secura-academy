@@ -710,6 +710,26 @@ function audit_machine_joue( $room_id, $index, $q_index, $chemin, $cookie, $user
 	   reste ouverte et la suivante reste verrouillee. */
 	$acceptee = false;
 
+	/* Où se trouve la question de drapeau dans la COPIE servie à
+	   l'élève ? Le tirage melange les questions : l'index n'est pas le
+	   meme que dans la source. On la retrouve a son chemin de
+	   drapeau, qui est unique dans la room. */
+	$index_drapeau = -1;
+
+	if ( 'flag' === $mode ) {
+		$copie = Secura_Exam::paper( $user_id, $room_id, $index, $taches[ $index ] );
+
+		foreach ( (array) $copie as $index_copie => $question_copie ) {
+			$chemin_copie = isset( $question_copie['flag_path'] ) ? (string) $question_copie['flag_path'] : '';
+
+			if ( '' !== $chemin_copie && $chemin_copie === $chemin ) {
+				$index_drapeau = (int) $index_copie;
+
+				break;
+			}
+		}
+	}
+
 	foreach ( $taches as $i => $tache ) {
 		if ( $i > $index ) {
 			break;
@@ -762,7 +782,14 @@ function audit_machine_joue( $room_id, $index, $q_index, $chemin, $cookie, $user
 				$nonce
 			);
 
-			if ( $i === $index && $index_question === $q_index && ! empty( $reponse['data']['correct'] ) ) {
+			/* On ne declare la question reussie que si c'est BIEN
+			   elle qui a ete acceptee. L'index du drapeau dans la
+			   copie tiree n'est pas le meme que son index dans la
+			   source : le tirage melange les questions. On la
+			   reconnait donc a son chemin de drapeau. */
+			if ( $i === $index
+				&& $index_question === $index_drapeau
+				&& ! empty( $reponse['data']['correct'] ) ) {
 				$acceptee = true;
 			}
 		}
@@ -899,6 +926,17 @@ function audit_machine_reponses( $room_id, $index, array $tache, $user_id ) {
 			if ( $correct >= 0 && isset( $question['choices'][ $correct ] ) ) {
 				$reponses[ $q_index ] = (string) $question['choices'][ $correct ];
 			}
+
+			continue;
+		}
+
+		if ( 'solution' === $mode ) {
+			/* Un probleme d'examen universitaire : l'eleve redige sa
+			   reponse, et le serveur affiche la correction officielle
+			   de l'ecole. L'auditeur repond comme un eleve : une vraie
+			   phrase. Le serveur refuse une reponse trop courte, on
+			   ecrit donc quelque chose de reel. */
+			$reponses[ $q_index ] = 'Reponse de l\'audit : ' . wp_strip_all_tags( (string) ( $question['question'] ?? '' ) );
 
 			continue;
 		}
