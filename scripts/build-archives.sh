@@ -71,8 +71,20 @@ cp -r "$REPO_DIR/tools/videos" "$TMP/recette/tools/videos"
 # L'import de questions deja validees : le catalogue des sources et
 # l'outil qui refuse tout ce qui n'y figure pas.
 cp "$REPO_DIR/tools/import-questions.py" "$TMP/recette/tools/"
+cp "$REPO_DIR/tools/import-mit-ocw.py" "$TMP/recette/tools/"
 cp "$REPO_DIR/tools/sources-autorisees.json" "$TMP/recette/tools/"
 rm -rf "$TMP/recette/tools/contenu-universites/__pycache__"
+
+# Le lot d'examen livre (MIT OCW 6.858) : c'est lui qui alimente les
+# reserves d'examen, et il est verifiable a tout moment.
+mkdir -p "$TMP/recette/tools/lots"
+cp "$REPO_DIR/tools/lots/"*.json "$TMP/recette/tools/lots/"
+
+# La chaine d'import, avec ses tests : le refus de PortSwigger y est
+# prouve par un test automatique.
+mkdir -p "$TMP/recette/tests/fixtures"
+cp "$REPO_DIR/tests/import-test.py" "$TMP/recette/tests/"
+cp "$REPO_DIR/tests/fixtures/"*.json "$TMP/recette/tests/fixtures/"
 
 cp "$REPO_DIR/scripts/ci-wordpress.sh" "$TMP/recette/scripts/"
 cp "$REPO_DIR/scripts/build-archives.sh" "$TMP/recette/scripts/"

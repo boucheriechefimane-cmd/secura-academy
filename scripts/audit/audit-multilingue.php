@@ -252,6 +252,17 @@ foreach ( $langues as $langue ) {
 		$css  = '';
 		$code = 0;
 
+		/* On ne juge que NOS feuilles de style (le theme et le plugin).
+		   Le CSS de WordPress (wp-includes) appartient a WordPress :
+		   on ne peut pas le corriger, et le signaler serait un faux
+		   positif — c'est deja arrive le 1er/11/2026 avec la feuille
+		   arabe du theme, qui pointait vers une adresse fausse et
+		   faisait mesurer une page 404. */
+		if ( false === strpos( $href, '/wp-content/themes/secura-learning/' )
+			&& false === strpos( $href, '/wp-content/plugins/secura-academy/' ) ) {
+			continue;
+		}
+
 		if ( 0 === strpos( $href, 'http' ) ) {
 			$reponse_css = wp_remote_get( $href, array( 'timeout' => 15 ) );
 

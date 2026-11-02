@@ -13,6 +13,18 @@
  *
  * @package Secura_Academy
  *
+ * 0.10.0 — Le reservoir d'un examen ne compte plus deux fois la meme
+ *           question (la question d'entrainement et la question
+ *           d'examen d'une meme room) : la mesure etait gonflee de
+ *           moitie, et deux eleves pouvaient recevoir le meme ensemble
+ *           de questions. Le reservoir deduplique desormais, et
+ *           l'ENSEMBLE de questions est reserve par un compteur : deux
+ *           eleves ne peuvent pas avoir le meme examen tant que le
+ *           reservoir le permet. L'ordre et les chiffres restent tires
+ *           au sort, et la copie d'un eleve reste reproductible.
+ *           Premiere importation d'un examen reel : 17 questions du MIT
+ *           OpenCourseWare 6.858 (Fall 2014), avec le corrige officiel
+ *           du MIT (licence CC BY-NC-SA 4.0), dans le format d'origine.
  * 0.9.1 — Les questions qui demandent la machine (drapeau, action) ne se
  *           tirent plus au sort : elles font partie de la mission de la
  *           room, donc elles restent TOUJOURS dans la copie de l'eleve.
@@ -149,7 +161,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.9.1' );
+define( 'SECURA_ACADEMY_VERSION', '0.10.0' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

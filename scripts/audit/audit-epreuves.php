@@ -383,6 +383,7 @@ if ( ! empty( $examens ) ) {
 /* Deux eleves, deux copies : la mesure qui compte. */
 $preuves = array();
 $copies  = array();
+$ensembles = array();
 
 if ( ! empty( $examens ) ) {
 	$examen  = $examens[0];
@@ -406,13 +407,21 @@ if ( ! empty( $examens ) ) {
 
 		$copie = Secura_Exam::paper( $uid, $room_id, $index, $taches[ $index ] );
 		$texte = '';
+		$questions = array();
 
 		foreach ( $copie as $question ) {
 			$texte .= $question['question'] . '|' . implode( '/', (array) $question['choices'] ) . '##';
+			$questions[] = $question['question'];
 		}
 
-		$copies[] = md5( $texte );
-		$preuves[] = 'élève ' . $u . ' : ' . substr( md5( $texte ), 0, 12 );
+		/* L'ensemble, sans l'ordre : c'est ce qu'un eleve verrait sur une
+		   photo d'ecran. Deux copies qui ne different que par l'ordre sont
+		   la meme copie pour l'eleve. */
+		sort( $questions );
+
+		$copies[]    = md5( $texte );
+		$ensembles[] = md5( implode( '##', $questions ) );
+		$preuves[]    = 'élève ' . $u . ' : ' . substr( md5( $texte ), 0, 12 );
 
 		wp_delete_user( $uid );
 	}
@@ -424,6 +433,14 @@ audit_verifier(
 	count( array_unique( $copies ) ) . ' copie(s) distincte(s) pour ' . count( $copies ) . ' élève(s)',
 	'majeur',
 	implode( ' ; ', $preuves )
+);
+
+audit_verifier(
+	'dix élèves, dix ENSEMBLES de questions différents (l\'ordre seul ne suffit pas)',
+	count( array_unique( $ensembles ) ) === count( $ensembles ) && count( $ensembles ) > 1,
+	count( array_unique( $ensembles ) ) . ' ensemble(s) distinct(s) pour ' . count( $ensembles ) . ' élève(s)',
+	'majeur',
+	'deux eleves ne peuvent pas avoir le meme examen : le moteur reserve les ensembles, il ne les laisse pas au hasard'
 );
 
 /* ------------------------------------------------------------------ */
