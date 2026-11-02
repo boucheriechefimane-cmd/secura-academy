@@ -3,7 +3,7 @@
     "titre": "Moteur de lab et orchestration Docker",
     "expert": "Expert en orchestration de conteneurs et en cycle de vie de machines virtuelles pédagogiques",
     "perimetre": "Vérifie que le moteur fonctionne autant qu'il est durci : cycle de vie complet (déployer → jouer → indice → arrêter → nettoyer), durée de vie, nettoyage automatique, isolation de deux apprenants, reprise après incident, et cohérence entre le code et le contenu réel des machines. Ne juge pas la sécurité des conteneurs : c'est l'auditeur sécurité.",
-    "date": "2026-11-02T01:55:21+00:00",
+    "date": "2026-11-02T13:15:48+00:00",
     "ok": 6,
     "non_etaye": 0,
     "forces": [
@@ -16,13 +16,7 @@
             "preuve": "Préfixes calculés avec l'identifiant de l'élève : SECA_LAB_USER"
         }
     ],
-    "scenarios": [
-        {
-            "nom": "Docker répond et liste les images disponibles",
-            "resultat": "Docker opérationnel",
-            "sortie": "Docker version : 28.0.4\nImages :\nsecuralabs/flags-01:1.0\nsecuralabs/dojo-01:1.0\nsecuralabs/univ-01:1.0\nsecuralabs/internal-01:1.0\nsecuralabs/multi-01:1.0\nsecuralabs/bin-01:1.0\nsecuralabs/web-01:1.0\nghcr.io/github/gh-aw-firewall/agent:latest\nghcr.io/github/gh-aw-firewall/api-proxy:latest\nghcr.io/github/gh-aw-mcpg:latest\nghcr.io/github/github-mcp-server:latest\nghcr.io/github/gh-aw-firewall/squid:latest\nghcr.io/dependabot/dependabot-updater-core:latest\nmysql:8.0"
-        }
-    ],
+    "scenarios": [],
     "bloquant": 0,
     "majeur": 0,
     "mineur": 0,
@@ -36,8 +30,8 @@
             "etaye": false
         },
         {
-            "libelle": "Docker disponible",
-            "detail": "Version du moteur : 28.0.4",
+            "libelle": "Scénario de démarrage non joué (Docker indisponible ici)",
+            "detail": "Docker n'est pas disponible dans cet environnement : l'audit vérifie le code et les fichiers, mais n'a pas démarré de machine. La CI, elle, joue ce scénario sur des vrais conteneurs.",
             "gravite": "info",
             "preuve": "",
             "etaye": false

@@ -436,6 +436,24 @@ L'outil refuse tout ce qui n'est pas dans `tools/sources-autorisees.json`,
 et la room affiche ensuite un encart « Sources » (licence + attribution).
 Le détail du format : `docs/IMPORTER-QUESTIONS.md`.
 
+**Le premier import est fait : les quiz d'examen du MIT 6.858 (Fall 2014).**
+Le cours publie ses quiz *et* leurs corrigés officiels (licence
+CC BY-NC-SA 4.0). L'extracteur `tools/import-mit-ocw.py` lit les
+corrigés et n'accepte une question que si **la réponse et son
+explication y sont** : 59 items repérés, **17 questions retenues**, dans
+le format d'origine (2 ou 3 propositions, en anglais, jamais réécrites).
+
+```bash
+pdftotext -layout un-correctif.pdf -   # le texte du corrigé officiel
+python3 tools/import-mit-ocw.py --texte dossier/ --sortie tools/lots/mit.json
+python3 tools/import-questions.py --importer tools/lots/mit.json
+```
+
+Une source dont la licence interdit la copie n'est pas importée : la
+Web Security Academy de PortSwigger est **citée comme pratique liée**,
+et un test de CI (`tests/import-test.py`) vérifie qu'un lot PortSwigger
+est bien **refusé**.
+
 ## Palette et personnalisation
 
 **Apparence → Personnaliser → Palette Secura** expose six couleurs :
@@ -583,7 +601,7 @@ les audits à chaque push et chaque lundi.
 |---|---|
 | **Les cinq premiers** | SEO · Contenu · UX/UI · Développement · Sécurité & infra |
 | **Les dix nouveaux** | Pédagogie · Performance & Core Web Vitals · Données structurées · Accessibilité (WCAG 2.2 AA) · Multilingue · RGPD & mineurs · Moteur de lab & Docker · Onboarding · Licences & attribution · DevOps & résilience |
-| **Les deux derniers** | **Panel des dix élèves** (ils jouent la plateforme comme des élèves : créer un compte, commencer le parcours, gagner des points, obtenir une médaille, changer de niveau — et vérifier que deux élèves ne passent jamais la même copie) · **Moteur d'épreuves** (réservoirs, variantes, tirage, mémoire des copies) |
+| **Les deux derniers** | **Panel des vingt élèves** (ils jouent la plateforme comme des élèves : créer un compte, commencer le parcours, gagner des points, obtenir une médaille, changer de niveau — et vérifier que deux élèves ne passent jamais la même copie, ni le même ensemble de questions) · **Moteur d'épreuves** (réservoirs, variantes, tirage, mémoire des copies) |
 
 **La règle de méthode : pas de rapport sans preuve.** Un auditeur n'a le
 droit de conclure que s'il a **joué un scénario, lu une ligne de code ou
@@ -618,7 +636,12 @@ la CI **rougit** désormais sur un constat majeur, pas seulement
 bloquant ; et le comité rejoué deux fois donne **15/15 rapports
 identiques**) → **222 contrôles, 0 bloquant, 0 majeur**
 (v0.9.0 : le moteur d'épreuves — chaque élève passe **sa** copie — et le
-panel des dix élèves, qui joue la plateforme pour de vrai).
+panel des vingt élèves, qui joue la plateforme pour de vrai).
+→ **v0.10.0 : le panel passe à vingt élèves, le premier import d'examen
+arrive (MIT OCW 6.858), et le réservoir d'examen cesse de compter les
+questions en double** — deux élèves ne peuvent plus recevoir le même
+ensemble de questions, c'est désormais garanti par construction et non
+par chance ;
 → **v0.9.1 : les questions de machine sont désormais jouées pour de vrai**,
 et la stratégie de contenu change (on n'écrit plus de questions : on importe
 des questions déjà validées).

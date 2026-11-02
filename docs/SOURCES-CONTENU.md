@@ -42,6 +42,8 @@
 | Source | Type | Licence (vérifiée le) | Ce que nous en prenons | Décision |
 |---|---|---|---|---|
 | **MIT OCW 6.858 / 6.857** | Cours university (PDF, notes) | **CC BY-NC-SA 4.0** (31/10/2026, page « Privacy & Terms of Use ») | Plan de cours, ordre des notions, barème, bibliographie | **RÉUTILISABLE** (adaptation, attribution) |
+| **MIT OCW 6.858 — quiz d'examen et corrigés officiels** | 24 PDF (12 quiz + 12 corrigés, 2009→2014) | **CC BY-NC-SA 4.0** (02/11/2026, métadonnées `ld+json` du cours) | **17 questions d'examen**, avec l'explication du corrigé officiel du MIT | **RÉUTILISABLE** (import, attribution, ShareAlike) |
+| **PortSwigger Web Security Academy** | Labs et questions d'examen | Conditions d'utilisation PortSwigger (§ 7.4, 7.6, 7.7, 9.5 — lues le 02/11/2026) | **Rien n'est copié** : la plateforme **cite** la Web Security Academy comme pratique liée | **NON RÉUTILISABLE** (usage personnel seul) |
 | **OWASP Cheat Sheet Series** | 138 fiches techniques | **CC BY-SA 4.0** (31/10/2026, GitHub API `license.spdx_id`) | Fiches comme **référence de rédaction** + extraits courts pour la room « Web » | **RÉUTILISABLE** (attribution + ShareAlike) |
 | **pwn.college (ASU)** | Vidéos + slides + challenges | Vidéos/slides : « libres pour un usage non commercial, avec attribution » (31/10/2026) | **Scénarios techniques** (web, binaire, crypto) réécrits | **RÉUTILISABLE avec règles** (pas de writeup, attribution) |
 | **pwncollege/dojo** | Infrastructure (code) | **BSD-2-Clause** (31/10/2026, GitHub API) | Moteur d'import de challenges, modèle des ceintures | **RÉUTILISABLE** (code libre, attribution) |
@@ -80,6 +82,36 @@ ShareAlike, pas d'endorsement MIT.
 **Conséquence pratique** : nos adaptations sont sous **CC BY-NC-SA 4.0**.
 Le code de la plateforme reste **MIT**. Les deux cohabitent : on peut diffuser
 le plugin (MIT) et le contenu adapté (CC BY-NC-SA).
+
+### 2 bis. Le premier import : les quiz d'examen du MIT 6.858 (Fall 2014)
+
+**Ce qui a été récupéré :** la page « Exams » du cours
+(<https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/pages/exams/>)
+publie 12 quiz (2009 → 2014) et leurs **corrigés officiels** en PDF. La
+licence du cours est **CC BY-NC-SA 4.0** (vérifiée le 02/11/2026 dans les
+métadonnées `ld+json` de la page) : réutilisation **non commerciale**,
+avec **attribution** et **partage dans les mêmes conditions**.
+
+**Ce qui est importé :** uniquement des questions dont la réponse **et
+l'explication** figurent dans le corrigé officiel, et dont l'énoncé se
+comprend seul (le code listings est inclus quand il fait partie de
+l'énoncé). L'ordre des propositions est remélangé par la plateforme, mais
+**le texte et les propositions d'origine sont conservés** — une question
+d'examen n'est pas réécrite. Un préfixe signale à l'élève qu'il s'agit
+d'une « question d'examen MIT, en anglais ».
+
+**Ce qui n'est pas importé :** les items qui renvoient à une figure ou à
+un article (« Line 4 », « the figure above », « as described in the
+paper ») : hors du PDF, ils seraient incompréhensibles. Les quizzes de
+2009 et 2010, qui sont des questions ouvertes, ne donnent rien à
+importer tel quel.
+
+**Le refus de PortSwigger, et pourquoi il est écrit ici :** la Web
+Security Academy est gratuite et excellente, mais ses conditions
+d'utilisation réservent le contenu à l'usage personnel et interdisent la
+copie et la diffusion des éléments d'examen. Nous ne la copions donc
+**pas** : nous la **citons** (pratique liée, dans cinq leçons), et un
+test automatique vérifie qu'un lot d'import PortSwigger est refusé.
 
 ---
 

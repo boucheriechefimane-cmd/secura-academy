@@ -56,6 +56,144 @@ final class Secura_Exam {
 	 * @param array $types   Types de tâches retenues.
 	 * @return array Liste d'entrées { room, task, q, question }.
 	 */
+	/**
+	 * Le nombre de combinaisons de k elements parmi n.
+	 *
+	 * @param int $n Nombre d'elements.
+	 * @param int $k Nombre d'elements choisis.
+	 * @return int
+	 */
+	private static function binomial( $n, $k ) {
+		$n = (int) $n;
+		$k = (int) $k;
+
+		if ( $k < 0 || $k > $n ) {
+			return 0;
+		}
+
+		if ( 0 === $k || $k === $n ) {
+			return 1;
+		}
+
+		$k = min( $k, $n - $k );
+
+		$resultat = 1;
+
+		for ( $i = 1; $i <= $k; $i++ ) {
+			$resultat = (int) round( $resultat * ( $n - $k + $i ) / $i );
+		}
+
+		return $resultat;
+	}
+
+	/**
+	 * La combinaison de rang donne (ordre colex), en positions.
+	 *
+	 * @param int $n     Nombre d'elements.
+	 * @param int $k     Nombre d'elements choisis.
+	 * @param int $rang  Rang de la combinaison (0 = la premiere).
+	 * @return array Positions, dans l'ordre croissant.
+	 */
+	private static function combinaison( $n, $k, $rang ) {
+		$total = self::binomial( $n, $k );
+
+		if ( $total < 1 || $k < 1 ) {
+			return array();
+		}
+
+		$reste  = (int) $rang % $total;
+		$choix  = array();
+
+		for ( $j = $k; $j >= 1; $j-- ) {
+			$c = $j - 1;
+
+			while ( self::binomial( $c + 1, $j ) <= $reste ) {
+				$c++;
+			}
+
+			$reste -= self::binomial( $c, $j );
+			$choix[] = $c;
+		}
+
+		return array_reverse( $choix );
+	}
+
+	/**
+	 * Le compteur de copies servies pour une tache d'une room.
+	 *
+	 * Il compte les copies creees (pas les pages rechargees) : c'est lui
+	 * qui permet de donner a chaque eleve un ensemble different.
+	 *
+	 * @param int $room_id Identifiant de la room.
+	 * @param int $index   Index de la tache.
+	 * @return int
+	 */
+	private static function compteur( $room_id, $index ) {
+		$cle = 'seca_exam_compteur_' . (int) $room_id . '_' . (int) $index;
+
+		$valeur = (int) get_option( $cle, 0 );
+
+		update_option( $cle, $valeur + 1, false );
+
+		return $valeur;
+	}
+
+	/**
+	 * L'ensemble de questions reserve pour une copie.
+	 *
+	 * @param array $melange Reservoir melange (ordre deja tire au sort).
+	 * @param int   $tirage Nombre de questions a prendre.
+	 * @param int   $room_id Identifiant de la room.
+	 * @param int   $index   Index de la tache.
+	 * @return array
+	 */
+	private static function ensemble_reserve( array $melange, $tirage, $room_id, $index ) {
+		$n = count( $melange );
+
+		if ( $tirage < 1 || $n <= $tirage ) {
+			return $melange;
+		}
+
+		$positions = self::combinaison( $n, $tirage, self::compteur( $room_id, $index ) );
+
+		$ensemble = array();
+
+		foreach ( $positions as $position ) {
+			if ( isset( $melange[ $position ] ) ) {
+				$ensemble[] = $melange[ $position ];
+			}
+		}
+
+		return $ensemble;
+	}
+
+	/**
+	 * L'identite d'une question : son texte et ses propositions.
+	 *
+	 * Deux questions identiques (meme texte, memes propositions) sont la
+	 * meme question, meme si elles sont stockees dans deux taches
+	 * differentes.
+	 *
+	 * @param array $question Question.
+	 * @return string
+	 */
+	public static function cle_question( $question ) {
+		$texte = isset( $question['question'] ) ? (string) $question['question'] : '';
+
+		$choix = isset( $question['choices'] ) ? (array) $question['choices'] : array();
+
+		sort( $choix );
+
+		return md5( trim( $texte ) . '|' . implode( '/', $choix ) );
+	}
+
+	/**
+	 * Le reservoir de questions d'une room (et de son niveau).
+	 *
+	 * @param int   $room_id Identifiant de la room.
+	 * @param array $types   Types de taches concernees.
+	 * @return array
+	 */
 	public static function pool( $room_id, $types = array( 'exam', 'test' ) ) {
 		$room_id = absint( $room_id );
 
@@ -66,6 +204,14 @@ final class Secura_Exam {
 		$rooms = array_merge( array( $room_id ), self::section_rooms( $room_id ) );
 
 		$pool = array();
+
+		/* La meme question peut se trouver dans la tache d'entrainement ET
+		   dans la tache d'examen d'une room (c'est frequent : l'entrainement
+		   reprend l'examen). Compter ces doublons ferait croire a un
+		   reservoir deux fois plus grand qu'il n'est : deux eleves
+		   pourraient alors recevoir le meme ensemble de questions.
+		   On garde donc une seule occurrence de chaque question. */
+		$vus = array();
 
 		foreach ( $rooms as $rid ) {
 			$tasks = Secura_Rooms::get_tasks( $rid );
@@ -85,6 +231,14 @@ final class Secura_Exam {
 					if ( $rid !== $room_id && in_array( $mode, array( 'flag', 'action' ), true ) ) {
 						continue;
 					}
+
+					$cle = self::cle_question( $question );
+
+					if ( isset( $vus[ $cle ] ) ) {
+						continue;
+					}
+
+					$vus[ $cle ] = true;
 
 					$pool[] = array(
 						'room'     => $rid,
@@ -207,9 +361,12 @@ final class Secura_Exam {
 		   devenait impossible a valider. */
 		$obligatoires = self::questions_machine( $room_id, $index );
 
+		/* Le reservoir, dans son ordre canonique (c'est cet ordre qui
+		   sert de reference au choix de l'ensemble : le melange par
+		   eleve viendrait ensuite, sur le choix retenu). */
 		$melange = array();
 
-		foreach ( self::melanger( $pool, $etat ) as $entree ) {
+		foreach ( $pool as $entree ) {
 			if ( self::est_obligatoire( $entree, $obligatoires ) ) {
 				continue;
 			}
@@ -219,7 +376,20 @@ final class Secura_Exam {
 
 		$tirage = max( 0, $nombre - count( $obligatoires ) );
 
-		$choisis = array_slice( $melange, 0, min( $tirage, count( $melange ) ) );
+		/* L'ensemble des questions est choisi par un compteur, pas par
+		   le hasard : deux eleves ne peuvent pas recevoir le meme
+		   ensemble de questions tant que le reservoir le permet.
+
+		   Le hasard, lui, decide de l'ORDRE (et des variantes
+		   parametriques) : c'est la que le tirage reste reproductible
+		   pour un eleve donne.
+
+		   Sans cela, avec un reservoir de sept questions et une epreuve
+		   de trois, deux eleves sur vingt recevaient le meme examen :
+		   c'est mesure, ce n'est pas une impression. */
+		$choisis = self::ensemble_reserve( $melange, $tirage, $room_id, $index );
+
+		$choisis = self::melanger( $choisis, $etat );
 
 		$questions = array();
 

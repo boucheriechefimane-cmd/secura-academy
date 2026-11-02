@@ -40,12 +40,18 @@ avec un message clair).
 
 | Source | Licence | Verdict |
 |---|---|---|
-| MIT OpenCourseWare (6.858, 6.857) | CC BY-NC-SA 4.0 | **Réutilisable**, avec attribution |
+| MIT OpenCourseWare 6.858 (cours) | CC BY-NC-SA 4.0 | **Réutilisable**, avec attribution |
+| **MIT OCW 6.858 — quiz d'examen et corrigés** | CC BY-NC-SA 4.0 | **Réutilisable**, avec attribution — **premier import fait** |
+| MIT OpenCourseWare 6.857 (cours) | CC BY-NC-SA 4.0 | **Réutilisable**, avec attribution |
 | StanfordSEE | CC BY-NC-SA 4.0 | **Réutilisable**, avec attribution |
 | OWASP Cheat Sheet Series | CC BY-SA 4.0 | **Réutilisable**, avec attribution |
+| OWASP Web Security Testing Guide | CC BY-SA 4.0 | **Réutilisable**, avec attribution |
+| OpenLearn (The Open University) | CC BY-SA 4.0 | **Réutilisable**, avec attribution (mais voir § 8) |
 | NIST (SP 800-207, SP 800-41r1…) | Domaine public | **Réutilisable** |
-| CYBER.ORG | Non vérifiée | Lien seul |
+| **PortSwigger Web Security Academy** | Copyright PortSwigger | **NON réutilisable** (voir § 8) |
 | Examens de certification | Copyright de l'éditeur | **Cas par cas** (voir ci-dessous) |
+
+Le catalogue fait foi : `tools/sources-autorisees.json` (11 sources).
 
 ### Le cas des examens payants
 
@@ -167,17 +173,127 @@ nos défis pratiques restent nos défis.
 
 ---
 
-## 7. Ce qu'il reste à faire (décisions, pas technique)
+## 7. Le premier import réel : les quiz d'examen du MIT 6.858
 
-- **Quel volume importer en premier ?** Un lot d'une university's
-  (50 questions) ou une certification complète ?
-- **Quelle langue ?** Les sources sont en anglais : on importe l'anglais,
-  et la traduction se fait par la machine **avec relecture humaine** — ou on
-  garde l'anglais en attendant ?
-- **Quel public pour le panel d'élèves ?** Voir la question posée à
-  l'utilisateur : élargir le panel à d'autres profils (étudiants en
-  informatique, reconversions, professionnels) ou garder les 10 profils
-  actuels.
+Décision du 02/11/2026 : **remplir d'abord les réservoirs d'examen trop
+justes** (24 examens dont le réservoir était à peine cinq fois plus grand
+que l'épreuve) en important des questions déjà écrites et corrigées par le
+MIT.
+
+### Ce qui a été récupéré
+
+| Élément | Détail |
+|---|---|
+| Cours | MIT 6.858 *Computer Systems Security*, Fall 2014 |
+| Fichiers | 24 PDF : 12 quiz (2011→2014) + 12 corrigés officiels |
+| Licence | CC BY-NC-SA 4.0 — réutilisation non commerciale, partage dans les mêmes conditions |
+| Méthode | Le zip du cours (625 Mo) téléchargé en une requête, puis les 24 PDF extraits et convertis en texte (`pdftotext`) |
+
+### Ce qui a été retenu : 17 questions sur 59
+
+Le parseur (`tools/import-mit-ocw.py`) lit les items du corrigé et **refuse**
+ce qui ne serait pas honnête :
+
+| Filtre | Pourquoi |
+|---|---|
+| La réponse doit être dans le corrigé officiel | On ne devine pas la réponse |
+| Le corrigé doit **expliquer** la réponse (≥ 40 caractères) | Sans explication, l'élève devinerait — et la plateforme promet l'inverse |
+| L'item doit se comprendre seul | « Line 4 », « the figure above », « as described in the paper » sont refusés : sans la figure du PDF, la question est incompréhensible |
+| Énoncé de plus de 50 caractères | Un énoncé tronqué n'est pas une question |
+| Pas de doublon | Les mêmes quizzes sont repris d'année en année |
+
+Chaque item est rattaché à **son énoncé parent** (celui qui contient le
+listing de code) : sans cela, « An adversary can trick the program… » ne
+veut rien dire.
+
+### Le format d'origine est conservé
+
+Les examens du MIT ont **deux propositions** (vrai/faux) ou **trois** (QCM).
+On **n'ajoute pas** de fausse proposition pour atteindre quatre : ce serait
+inventer de la matière. L'auditeur de contenu a donc été adapté :
+
+- nos questions : quatre propositions (inchangé) ;
+- questions importées : deux ou trois propositions, **avec** source et
+  licence obligatoires.
+
+### Où sont allées les questions
+
+Les questions importées sont ajoutées à la tâche **d'entraînement** de la
+room, et non à la tâche d'examen. Raison : le réservoir d'un examen, c'est
+la section entière (le niveau), pas l'épreuve elle-même. Ajouter une
+question à l'épreuve.allongerait l'épreuve — et l'exigence « un réservoir
+au moins cinq fois plus grand »_mount proportionnellement. En les mettant
+dans l'entraînement :
+
+- le **réservoir** du niveau grandit (donc les copies sont plus variety) ;
+- l'**épreuve** reste à sa longueur ;
+- et comme le tirage pioche dans le réservoir, ces questions du MIT peuvent
+  tout de même apparaître dans une copie d'examen.
+
+### Le résultat mesuré
+
+| Avant import | Après import |
+|---|---|
+| 392 questions sur la plateforme | **409 questions** |
+| 24 examens au réservoir trop juste (mesure gonflée) | 36 examens (mesure honnête : le réservoir comptait les questions en double) |
+| 131 365 839 copies possibles (gonflé) | **2 039 152 copies** |
+
+Le reste du manque est mesuré, pas caché :
+`scripts/audit/probe-reservoirs.php` donne le réservoir réel (questions
+distinctes), l'épreuve et le manque de chaque examen ; et
+`scripts/audit/probe-copies.php` vérifie que vingt élèves reçoivent vingt
+copies **et** vingt ensembles de questions différents.
+
+---
+
+## 8. Les deux refus qui comptent (PortSwigger, OpenLearn)
+
+### PortSwigger Web Security Academy : **non réutilisable**
+
+C'était la première source choisie. La lecture des conditions
+d'utilisation (section 7.4 « personal use only », 7.7 usage commercial
+interdit, et § 9.5 qui interdit la copie et la diffusion des éléments
+d'examen) montre que **la copie verbatim des questions est interdite** :
+la Web Security Academy n'est pas sous licence libre.
+
+Décision : **rien n'est copié**. En revanche, la plateforme **cite** la
+Web Security Academy comme *pratique liée* dans cinq leçons (les élèves
+peuvent aller s'entraîner gratuitement sur PortSwigger) — c'est un lien,
+pas une rediffusion. Cette décision est **prouvée par un test automatique**
+(`tests/import-test.py`, exécuté dans la CI) : un lot qui prétend venir de
+PortSwigger est refusé, avec le motif.
+
+### OpenLearn (The Open University) : réutilisable, mais pas extractible
+
+Les quiz hebdomadaires sont bien publiés en **CC BY-SA 4.0**. Mais les
+questions ne sont pas dans le HTML de la page (elles sont derrière Moodle) et
+il n'y a pas d'export : l'extraction automatique est impossible aujourd'hui.
+
+---
+
+## 9. Ce qu'il reste à faire (décisions, pas technique)
+
+Les décisions prises le 02/11/2026 :
+
+- **Panel d'élèves élargi à 20 profils** (âges, langues, spécialités
+  cyber différents) — c'est fait, et c'est mesuré.
+- **Première source d'import : PortSwigger** — impossible à copier (§ 8),
+  donc cited comme pratique liée ; la première source réellement importable
+  est le MIT OCW (§ 7).
+- **Pas de langue supplémentaire** : arabe, français, anglais. Les
+  questions importées restent **en anglais**, signalées à l'élève
+  (« question d'examen MIT, en anglais ») et **jamais réécrites**.
+- **Import ciblé** sur les 24 examens au réservoir trop juste.
+
+Ce qui reste ouvert :
+
+- **Quelle source pour la suite ?** Le catalogue contient sept sources
+  réutilisables ; chacune doit être travaillée comme le MIT (chercher les
+  questions, vérifier la licence, écrire l'extracteur). C'est du temps de
+  machine, pas une décision.
+- **Le reste du manque** (85 questions sur 22 examens) ne se comble pas
+  avec le MIT seul : il faut d'autres sources, ou élargir le réservoir au-delà
+  de la section — décision qui appartient au propriétaire.
 
 ---
 

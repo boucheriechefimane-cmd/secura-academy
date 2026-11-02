@@ -110,7 +110,14 @@ JUICE_ROOMS = [
             '</ul>'
             '<p><strong>À retenir :</strong> on n\'attaque pas une application « pour le plaisir ». '
             'On teste une <em>idée</em> — « et si ce champ n\'était pas validé ? » — '
-            'et on note ce que la machine repond. C\'est exactement le travail d\'un testeur.</p>'
+            'et on note ce que la machine répond. C\'est exactement le travail d\'un testeur.</p>'
+            '<p><strong>Aller plus loin, gratuitement :</strong> la '
+            '<a href="https://portswigger.net/web-security" target="_blank" rel="noopener">'
+            'Web Security Academy de PortSwigger</a> propose plusieurs centaines de labs web sur '
+            'exactement ces failles (injection SQL, XSS, contournement des droits, requêtes forgées…). '
+            'Les labs sont gratuits et se pratiquent sur des applications volontairement vulnérables. '
+            'Nous n\'en reprenons pas le contenu : nous y renvoyons, en nommant la source et son adresse.'
+            '</p>'
         ),
         'practice_title': 'Task 2 : Entraînement',
         'practice_intro': '<p>Deux questions avant de toucher à la boutique.</p>',
@@ -259,6 +266,13 @@ JUICE_ROOMS = [
             '</ol>'
             '<p><strong>À retenir :</strong> un test ne s\'arrête pas à « je suis entré ». '
             'Il va jusqu\'à « voici ce que cet accès permet vraiment de faire ».</p>'
+            '<p><strong>Aller plus loin, gratuitement :</strong> la '
+            '<a href="https://portswigger.net/web-security" target="_blank" rel="noopener">'
+            'Web Security Academy de PortSwigger</a> propose plusieurs centaines de labs web sur '
+            'exactement ces failles (injection SQL, XSS, contournement des droits, requêtes forgées…). '
+            'Les labs sont gratuits et se pratiquent sur des applications volontairement vulnérables. '
+            'Nous n\'en reprenons pas le contenu : nous y renvoyons, en nommant la source et son adresse.'
+            '</p>'
         ),
         'practice_title': 'Task 2 : Entraînement',
         'practice_intro': '<p>Deux questions sur les comptes et les droits.</p>',

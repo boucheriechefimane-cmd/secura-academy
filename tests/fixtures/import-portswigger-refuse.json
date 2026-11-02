@@ -1,0 +1,32 @@
+{
+  "source": "portswigger-web-academy",
+  "licence": "Copyright PortSwigger — reutilisation non autorisee (conditions du site : extraits pour usage personnel uniquement, attribution obligatoire, usage commercial soumis a licence)",
+  "attribution": "PortSwigger Web Security Academy",
+  "url": "https://portswigger.net/web-security",
+  "rooms": [
+    {
+      "room": "valider-les-entrees",
+      "title": "Valider les entrées : le premier remède anti-injection",
+      "tasks": {
+        "test": [
+          {
+            "question": "Que faut-il faire en premier quand une requête SQL assemble une donnée reçue par l'utilisateur ?",
+            "mode": "choice",
+            "choices": [
+              "Utiliser des requêtes préparées",
+              "Échapper la donnée à la main",
+              "Filtrer les mots-clés du langage SQL",
+              "Vérifier la donnée dans le navigateur"
+            ],
+            "correct": 0,
+            "xp": 20,
+            "hint": "Une seule de ces quatre réponses résiste vraiment.",
+            "explanation": "La requête préparée sépare la commande de la donnée.",
+            "source": "PortSwigger Web Security Academy",
+            "licence": "Copyright PortSwigger — reutilisation non autorisee (conditions du site : extraits pour usage personnel uniquement, attribution obligatoire, usage commercial soumis a licence)"
+          }
+        ]
+      }
+    }
+  ]
+}

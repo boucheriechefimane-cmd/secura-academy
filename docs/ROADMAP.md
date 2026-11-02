@@ -769,6 +769,80 @@ Détail : `docs/IMPORTER-QUESTIONS.md`.
 terminal, les drapeaux) restent nos défis — une question de drapeau
 dépend de **notre** machine, elle ne peut pas venir d'un catalogue.
 
+### BLOC X — Le panel à vingt élèves, le premier import d'examen, et le réservoir honnête (02/11/2026) — ✅ LIVRÉ (v0.10.0)
+
+**1. Le panel passe de dix à vingt élèves** (décision du propriétaire).
+Dix profils (âge, langue, spécialité cyber, téléphone ou ordinateur) ne
+couvrent pas la diversité réelle : la platforme vise des élèves de 14 à 52
+ans, arabophones, francophones ou anglophones. Le panel compte donc
+**vingt profils** — Yasmine (16, ar), Lucas (19, fr), Amina (22, ar), Tomás
+(24, en), Sarah (17, fr), Karim (31, ar), Mei (15, en), Julien (45, fr),
+Nadia (28, fr), Sofia (34, en), Adam (14, fr), Hanane (26, ar), Diego (21,
+fr), Rashid (38, ar), Chloé (29, fr), Omar (16, ar), Priya (23, en),
+Youssef (52, fr), Nora (19, ar), Elena (44, en).
+**Mesuré :** 20/20 créent un compte en une étape, se connectent, jouent ;
+20/20 reçoivent des points (0 → 223-247 XP), 2 médailles d'or, et passent
+de « Observateur » à « Apprenti ». Le rapport est dans
+`docs/audits/panel-eleves-2026-11-02.html`.
+
+**2. Le premier import réel : les quiz d'examen du MIT 6.858.**
+Le propriétaire avait choisi PortSwigger comme première source. La lecture
+des conditions d'utilisation (usage personnel seul, usage commercial
+interdit, copie des éléments d'examen interdite) montre que **la copie
+verbatim est interdite** : la Web Security Academy est donc **citée comme
+pratique liée** dans cinq leçons, et **rien n'est copié**. Ce refus est
+**prouvé par un test automatique** (`tests/import-test.py`, dans la CI) :
+un lot qui prétend venir de PortSwigger est rejeté, avec le motif.
+
+La première source réellement importable est donc **MIT OpenCourseWare
+6.858 (Fall 2014)** : 24 PDF (12 quiz + 12 corrigés officiels), licence
+**CC BY-NC-SA 4.0**. L'extracteur (`tools/import-mit-ocw.py`) lit les
+corrigés et **refuse** ce qui ne serait pas honnête : pas de réponse dans
+le corrigé, pas d'explication du corrigé (un élève ne doit pas deviner),
+item qui renvoie à une figure ou à un article (« Line 4 », « the figure
+above »), énoncé tronqué, doublon. **59 items repérés, 17 retenus** —
+chacun avec l'**explication officielle du MIT**, en anglais, dans le
+format d'origine (2 ou 3 propositions : on n'invente pas de fausse
+proposition pour atteindre quatre). L'auditeur de contenu distingue
+donc les questions importées des nôtres.
+
+**3. Le réservoir était compté deux fois — et le « jamais le même examen » tenait au hasard.**
+En préparant l'import, une anomalie est apparue : une room affichait un
+réservoir de 12 questions, mais **six questions distinctes** — la même
+question se trouve dans la tâche d'entraînement *et* dans la tâche
+d'examen, et le réservoir les comptait deux fois. Deux conséquences :
+
+- la mesure était **gonflée** : le vrai réservoir est de 6 à 24 questions
+  distinctes (médiane 17), pas de 12 à 36 ;
+- et surtout, **deux élèves pouvaient recevoir le même ensemble de
+  questions**. Avec sept questions distinctes et une épreuve de trois, la
+  probabilité que vingt élèves aient tous des examens différents est de
+  **0,4 %** : le panel le.constate, et il a eu raison.
+
+**Corrections :**
+- le réservoir **ne compte plus deux fois** la même question (`Secura_Exam::pool()` déduplique sur le texte et les propositions) ; une copie ne peut donc plus contenir la même question deux fois ;
+- l'**ensemble** de questions n'est plus tiré au hasard mais par un **compteur** : deux élèves ne peuvent pas recevoir le même ensemble tant que le réservoir le permet (le hasard, lui, décide toujours de l'ordre et des chiffres, donc la copie reste reproductible pour un élève donné).
+
+**4. Ce que disent les mesures, après correction :**
+
+| Mesure | Avant | Après |
+|---|---|---|
+| Questions sur la plateforme | 392 | **409** (dont 17 d'examen MIT) |
+| Réservoir réel d'un examen | 12 à 36 (compté deux fois) | **6 à 24 distinctes** (médiane 17) |
+| Copies d'examen possibles | 131 365 839 (gonflé) | **2 039 152** (honnête) |
+| Copies distinctes pour 20 élèves | 20/20 **par hasard** | **20/20 par construction** |
+| Examens au réservoir trop juste (×5) | 24 (mesure gonflée) | **36** (mesure honnête) |
+| Questions manquantes pour tenir la règle du ×5 | 131 (mesure gonflée) | **275** (mesure honnête) |
+
+Le dernier chiffre est le **vrai chantier** : il ne se comble pas par du
+code, mais par du contenu importé. Il est mesuré, room par room, par
+`scripts/audit/probe-reservoirs.php` (275 questions à trouver pour tenir
+la règle du ×5 sur les 36 examens concerned), et
+`scripts/audit/probe-copies.php` vérifie qu'en attendant, vingt élèves
+reçoivent bien vingt copies et vingt ensembles différents.
+
+---
+
 ---
 
 ## 9. Article 9 — Journal des revues
@@ -777,6 +851,7 @@ dépend de **notre** machine, elle ne peut pas venir d'un catalogue.
 
 | Date | Version | Revue |
 |---|---|---|
+| 02/11/2026 | **v0.10.0** | **Le panel à vingt élèves, le premier import d'examen, et un réservoir qui ne se ment plus à lui-même.** Le propriétaire a demandé un panel de **vingt** profils (âge, langue, spécialité cyber) au lieu de dix : livré et mesuré — 20/20 élèves créent un compte en une étape, jouent, reçoivent des points (223 à 247 XP), deux médailles d'or, et passent de « Observateur » à « Apprenti ». **Premier import d'examen :** la source choisie (PortSwigger) **ne peut pas être copiée** — ses conditions d'utilisation l'interdisent — ; elle est donc citée comme pratique liée dans cinq leçons, et **le refus est prouvé par un test de CI**. La première source réellement réutilisable est **MIT OCW 6.858 (Fall 2014)**, 24 PDF de quiz et de corrigés officiels, licence CC BY-NC-SA 4.0 : l'extracteur en tire **17 questions** sur 59 items, en refusant tout item sans réponse officielle, sans explication du corrigé, ou qui renvoie à une figure ou à un article ; le format d'origine (2 ou 3 propositions) est conservé et l'auditeur de contenu distingue les questions importées des nôtres. **Le défaut le plus important du passage :** en cherchant pourquoi les copies se ressemblaient, on a trouvé que **le réservoir comptait la même question deux fois** (la question d'entraînement et la question d'examen d'une même room) : la mesure était gonflée de moitié, et surtout, **deux élèves pouvaient recevoir le même examen** — avec sept questions distinctes et une épreuve de trois, la probabilité que vingt élèves ait des examens tous différents est de 0,4 %. Le réservoir ne compte donc plus les doublons, et l'ensemble de questions n'est plus tiré au hasard mais par un **compteur** : deux élèves ne peuvent plus recevoir le même ensemble tant que le réservoir le permet, tandis que l'ordre et les chiffres restent tirés au sort et reproductibles. **Mesures après correction :** 409 questions (392 + 17), réservoir réel de 6 à 24 questions distinctes (médiane 17), **2 039 152** copies d'examen possibles (et non 131 millions : c'était un mirage), **20/20 copies distinctes par construction** — le panel le rejoue et le confirme. **Le reste est un chantier de contenu, pas de code :** 36 examens ont un réservoir plus petit que cinq fois leur épreuve ; c'est désormais mesuré room par room (`scripts/audit/probe-reservoirs.php`), et chaque import le réduit. |
 | 02/11/2026 | **v0.9.1** | **Les questions de machine sont enfin jouées pour de vrai.** Le propriétaire avait raison : les 60 questions de drapeau et la question d'action demandaient la machine de l'élève, et **le moteur d'épreuves pouvait les remplacer par d'autres questions** — donc, dans la pratique, **elles n'étaient jamais posées**. Correction : une question qui demande la machine ne se tire plus au sort, elle reste toujours dans la copie de l'élève (le mélange des propositions et les chiffres qui changent, eux, sont intacts). Un **18ᵉ auditeur** est ajouté : il ne regarde pas le code, il **joue** — il crée un élève, se connecte, lit la leçon, déploie la machine, cherche le drapeau **dans la machine**, le soumet, et vérifie que **le serveur l'accepte** en relisant le fichier **en root**. Quatre défauts trouvés au passage, tous corrigés : le signe de `requires_step` (`absint(-1)` valait 1, la question d'action était donc refusée), l'ordre de déploiement de la machine, les motifs de terminal contenant un point, et l'emplacement des drapeaux dans la pile Compose. **En parallèle, la stratégie de contenu change** : le propriétaire a tranché — **on ne rédige plus de questions** ; le plan « 4 000 questions » est annulé, remplacé par un **import** de questions validées par les universités ou issues d'examens de certification, avec un catalogue de sources, un outil qui refuse tout ce qui n'y figure pas, et un encart « Sources » visible dans la room. **Vérification finale :** le comité des 18 auditeurs a été rejoué **par GitHub** (passage `41374598365`, commit `a1b2954`), dans un WordPress installé de zéro et des **vrais conteneurs Docker** : **226 contrôles, 0 bloquant, 0 majeur, 1 mineur**, et les **61 questions de machine jouées et acceptées** dans cet environnement-là. Les rapports de ce passage sont conservés dans `docs/audits/`. |
 | 01/11/2026 (bloc T) | **Le comité des 15 experts (v0.8.0)** | **Cinq auditeurs regardaient le site à travers cinq lunettes ; le propriétaire en a demandé quinze, et surtout une méthode : pas de rapport sans preuve.** Un auditeur n'a le droit de conclure que s'il a **joué un scénario, lu une ligne de code ou mesuré une valeur** ; un constat sans preuve est rejeté, pas « signalé avec réserve ». La règle est appliquée par le harnais lui-même : `audit_verifier()` exige la preuve, et le rapport **HTML** la reproduit mot pour mot sous chaque constat. **Le comité compte maintenant quinze spécialités** — les cinq premières conservées (SEO, Contenu, UX/UI, Développement, Sécurité), et dix nouvelles : Pédagogie, Performance & Core Web Vitals, Données structurées, Accessibilité WCAG 2.2 AA, Multilingue, RGPD & mineurs, Moteur de lab & Docker, Onboarding, Licences & attribution, DevOps & résilience. **Résultat : 196 contrôles réussis, 0 constat.** Mais les constats trouvés **en chemin** valent mieux que le résultat : **la barrière bloquante ne bloquait pas.** Le code *avait l'air* correct — `audit_fin()` renvoyait le code de sortie par `return` — or `wp eval-file` **ignore la valeur de retour** : le workflow aurait donc laissé passer n'importe quel constat bloquant. Vérifié par l'expérience (`return 3` → sortie 0 ; `exit(7)` → sortie 7), corrigé à la racine dans la bibliothèque. **Ensuite, un bloquant** : la politique de confidentialité était **en brouillon** et les mentions légales n'existaient pas — inadmissible pour une plateforme qui accueille des mineurs. Les deux pages ont été **écrites à partir de ce que la plateforme fait réellement** (les données stockées, l'absence de traceur, la durée de conservation, les droits), **publiées**, et traduites en français, arabe et anglais. **Un majeur d'usage** : le visiteur anonyme lisait tout le contenu mais, en cliquant sur une tâche, recevait « Une erreur est survenue. » — parce que les actions AJAX n'étaient enregistrées que pour les connectés. Elles le sont désormais pour tous : l'invité reçoit « Connectez-vous pour continuer. » avec un **lien cliquable**. Et le bouton « Créer un compte gratuit » ne menait nulle part : l'inscription était désactivée. Elle est maintenant activée **par la CI**, donc vérifiée à chaque push. **Le reste :** chaque parcours est rattaché à une **certification nommée** avec son **coût d'examen** affiché à l'élève (Security+ 439 $, eJPT ~249 $, Google Cybersecurity, PortSwigger BSCP) ; le JSON-LD ne contient plus d'entités HTML illisibles pour un moteur ; `ci.yml` et `deploy.yml` ont une limite de temps ; les sauvegardes sont purgées ; la **procédure de restauration** est écrite ; les 13 actions GitHub sont épinglées par empreinte SHA ; et le sens de lecture arabe est porté par la balise `<html>` — une page de contenu en arabe s'affichait de gauche à droite. **Sur le contenu** : le catalogue mondial et les certifications sont livrés dans `docs/CERTIFICATIONS.md`, avec la distinction honnête entre certificat **gratuit** (Harvard CS50, Fortinet NSE 1-3, freeCodeCamp, PortSwigger Academy) et formation gratuite à examen **payant** (Security+ 439 $, OSCP ~1 500 $) — et le rappel que **l'ISC2 CC est fermé aux nouveaux candidats depuis le 20/05/2026**. |
 | 01/11/2026 (nuit, suite) | **Le correctif v0.8.1 — deux défauts trouvés en rejouant la recette à la main (v0.8.1)** | **Livrer un comité d'audit vert ne suffit pas : il faut ensuite rejouer le parcours de l'élève, à la main, comme un élève.** C'est ce que la recette des deux apprenants a fait — et elle a trouvé ce que les 196 contrôles n'avaient pas vu. **Défaut 1 — le site était cassé pour les élèves.** Les onze actions AJAX (le nom que le navigateur envoie au site) avaient été renommées de `secura_` en `seca_` **dans le plugin seulement** : le front `assets/academy.js` et la recette continuaient d'appeler `secura_lab_start`, `secura_terminal`, `secura_lab_status`, `secura_lab_stop`. WordPress ne dit pas « action inconnue » : il répond **`0`** avec un code 400. **Aucun journal, aucune erreur visible — le bouton « Déployer la machine » ne faisait rien.** Preuve : l'instrumentation de `has_filter()` a montré `wp_ajax_secura_get_room` **présent** et les quatre autres **absents** ; `git show d71a7e1` a montré que la version précédente enregistrait bien `wp_ajax_secura_*`. **Correction :** les onze actions sont revenues à leur contrat `secura_*` (et `wp_ajax_nopriv_` conservé, pour que l'invité reçoive une vraie invitation et non une erreur muette). **Garde-fou :** deux contrôles automatiques vérifient désormais **nom par nom** que le front, la recette et le plugin emploient les mêmes actions ; testés **dans les deux sens** (en rejouant la faute, ils produisent 2 constats bloquants qui nomment l'action fautive). **Défaut 2 — le mot « fonctionnalités » écrit en coréen.** Invisible à l'écran (les caractères coréens ont l'apparence d'un texte latin), **mais public via l'API REST**, qui publie le texte brut de la base : « la page marche » ne prouve pas que « le contenu est propre ». **Correction :** texte réécrit ; et les pages légales de la base sont désormais remises à jour **à chaque version du plugin**, par comparaison d'empreinte — **sans jamais écraser un texte que le propriétaire aurait retouché à la main** (le cas a été testé : le texte du propriétaire survit, le défaut disparaît quand même, parce que la page affichée sert le texte du plugin). **Garde-fou :** un contrôle de l'auditeur « Multilingue » cherche toute écriture étrangère (cyrillique, grec, han, hangul, devanagari, thaï, hébreu) **dans les fichiers livrés et dans les pages réellement servies, API REST comprise** ; testé **dans les deux sens**. **Un contre-exemple honnête :** la première version de ce contrôle lisait la base de données et signalait le texte brut — même lorsqu'un propriétaire y avait écrit son propre texte. C'était un **faux positif**, et il a été réécrit : *un audit qui produit de faux positifs perd la confiance de celui qui le lit.* Résultat final : **199 contrôles réussis, 0 constat**, recette **34/34**, scénario des deux apprenants **100 % réussi** (machines déployées, drapeaux lus dans le conteneur de chacun), **302 tests** au vert. |

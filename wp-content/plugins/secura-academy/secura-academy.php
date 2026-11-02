@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.9.1
+ * Version:           0.10.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy

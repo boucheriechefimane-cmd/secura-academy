@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-02",
+  "_version": "2026-11-02-bis",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -64,6 +64,45 @@
       "attribution": "Examen de certification, editeur d'examen (nom de l'editeur a preciser)",
       "usage": "uniquement si l'editeur autorise la reprise ; sinon : lien seul",
       "reutilisable": false
+    },
+    {
+      "id": "mit-ocw-6858-examens",
+      "nom": "MIT OpenCourseWare — 6.858 Computer Systems Security (Fall 2014) : quiz et corrigés officiels",
+      "url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.858 Computer Systems Security, Fall 2014 — quiz d'examen et corrigé officiel (MIT EECS)",
+      "usage": "questions d'examen authentiques de l'universite : QCM a quatre propositions et vrai/faux, avec la justification du corrige officiel",
+      "reutilisable": true,
+      "note": "Les reponses sont verifiees automatiquement contre le corrige officiel (texte extrait du PDF), jamais reprises de memoire."
+    },
+    {
+      "id": "owasp-wstg",
+      "nom": "OWASP Web Security Testing Guide (WSTG)",
+      "url": "https://owasp.org/www-project-web-security-testing-guide/",
+      "licence": "CC BY-SA 4.0",
+      "attribution": "OWASP Web Security Testing Guide, OWASP Foundation",
+      "usage": "contenu de reference pour les tests de securite web (les cas de test sont structures et reutilisables)",
+      "reutilisable": true
+    },
+    {
+      "id": "openlearn-open-university",
+      "nom": "OpenLearn — Open University (quizz de cybersecurite)",
+      "url": "https://www.open.edu/openlearn/digital-computing/introduction-cyber-security-stay-safe-online",
+      "licence": "CC BY-SA 4.0",
+      "attribution": "OpenLearn, The Open University",
+      "usage": "quizz d'universite (questions et choix) ; a ce jour l'acces automatise est bloque par la plateforme Moodle : import manuel uniquement",
+      "reutilisable": true,
+      "note": "Licence favorable, mais les questions ne sont pas servies en HTML : aucune importation automatique ne doit pretendre l'avoir fait."
+    },
+    {
+      "id": "portswigger-web-academy",
+      "nom": "PortSwigger Web Security Academy (labs gratuits)",
+      "url": "https://portswigger.net/web-security",
+      "licence": "Copyright PortSwigger — reutilisation non autorisee (conditions du site : extraits pour usage personnel uniquement, attribution obligatoire, usage commercial soumis a licence)",
+      "attribution": "PortSwigger Web Security Academy",
+      "usage": "lien seul : l'eleve pratique gratuitement sur les labs officiels ; aucune question n'est recopiee dans la plateforme",
+      "reutilisable": false,
+      "note": "Conditions verifiees le 02/11/2026 : § 7.4 (extraits pour usage personnel), § 7.6 (attribution obligatoire), § 7.7 (pas d'usage commercial sans licence), conditions de certification § 9.5 (interdiction de copier les elements d'examen). L'outil d'import doit refuser cette source."
     }
   ],
   "regles": [
@@ -71,6 +110,8 @@
     "Une source 'reutilisable: false' est refusee elle aussi, quelle que soit la licence annoncee.",
     "La licence annoncee dans le lot d'import doit correspondre a celle du catalogue.",
     "L'attribution voyage avec la question et doit etre affichee dans la room.",
-    "Les questions d'examen payant restent protegees : sans autorisation ecrite de l'editeur, on ne les importe pas."
+    "Les questions d'examen payant restent protegees : sans autorisation ecrite de l'editeur, on ne les importe pas.",
+    "Une source peut etre citee (lien, attribution) sans etre importee : c'est le cas de PortSwigger, dont les conditions d'utilisation interdisent la reprise du contenu dans une plateforme tierce.",
+    "Une source listee mais non extractible automatiquement reste marquee comme telle : aucune importation ne doit pretendre l'avoir fait."
   ]
 }

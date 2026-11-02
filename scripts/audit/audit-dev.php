@@ -238,8 +238,21 @@ $entete_plugin = file_get_contents( $plugin . '/secura-academy.php' );
 $includes_manquants = array();
 
 foreach ( glob( $plugin . '/includes/*.php' ) as $inclus ) {
-	if ( false === strpos( $entete_plugin, basename( $inclus ) ) ) {
-		$includes_manquants[] = basename( $inclus );
+	$nom = basename( $inclus );
+
+	/* Les questions importees sont chargees par un motif (glob), pas par
+	   un require un par un : le motif doit etre present dans le fichier
+	   principal, et le fichier doit respecter ce motif. */
+	if ( 0 === strpos( $nom, 'content-import-' ) ) {
+		if ( false === strpos( $entete_plugin, 'content-import-*.php' ) ) {
+			$includes_manquants[] = $nom;
+		}
+
+		continue;
+	}
+
+	if ( false === strpos( $entete_plugin, $nom ) ) {
+		$includes_manquants[] = $nom;
 	}
 }
 

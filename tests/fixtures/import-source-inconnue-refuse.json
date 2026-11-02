@@ -1,0 +1,32 @@
+{
+  "source": "source-qui-n-existe-pas",
+  "licence": "CC BY-SA 4.0",
+  "attribution": "Une source inconnue",
+  "url": "https://exemple.test/",
+  "rooms": [
+    {
+      "room": "la-chaine-de-la-confiance",
+      "title": "La chaîne de la confiance",
+      "tasks": {
+        "test": [
+          {
+            "question": "Question de controle : cette source n'est pas au catalogue, l'import doit être refusé.",
+            "mode": "choice",
+            "choices": [
+              "Première proposition",
+              "Deuxième proposition",
+              "Troisième proposition",
+              "Quatrième proposition"
+            ],
+            "correct": 0,
+            "xp": 20,
+            "hint": "Un indice.",
+            "explanation": "Une explication.",
+            "source": "Une source inconnue",
+            "licence": "CC BY-SA 4.0"
+          }
+        ]
+      }
+    }
+  ]
+}

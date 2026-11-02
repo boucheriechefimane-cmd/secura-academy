@@ -45,12 +45,16 @@ $sans_explica   = array();
 $sans_indice    = array();
 $questions_tot  = 0;
 $choix_mauvais  = 0;
+$questions_importees = 0;
+$sans_licence   = array();
 $positions      = array( 0 => 0, 1 => 0, 2 => 0, 3 => 0 );
 $sans_attribution = array();
 $sans_traduction  = array();
 
 foreach ( $rooms as $room ) {
-	$taches = get_post_meta( $room->ID, '_secura_tasks', true );
+	/* get_tasks() et non le meta brut : on audit aussi les questions
+	   importees (elles sont ajoutees a la tache au moment de la lecture). */
+	$taches = Secura_Rooms::get_tasks( $room->ID );
 	$types  = array();
 
 	foreach ( (array) $taches as $tache ) {
@@ -65,7 +69,26 @@ foreach ( $rooms as $room ) {
 				$choix = isset( $question['choices'] ) ? (array) $question['choices'] : array();
 				$correct = isset( $question['correct'] ) ? (int) $question['correct'] : -1;
 
-				if ( 4 !== count( $choix ) || $correct < 0 || $correct > 3 ) {
+				/* Une question importee garde le format de son examen
+				   d'origine : deux propositions (vrai/faux) ou trois.
+				   On n'invente pas de fausse proposition, et on n'exige
+				   pas quatre choix quand la source n'en a que deux.
+				   Elle doit en revanche porter sa source et sa licence. */
+				$importee = ! empty( $question['source'] );
+
+				if ( $importee ) {
+					$questions_importees++;
+
+					if ( count( $choix ) < 2 || count( $choix ) > 3 || $correct < 0 || $correct >= count( $choix ) ) {
+						$choix_mauvais++;
+					} else {
+						$positions[ $correct ]++;
+					}
+
+					if ( empty( $question['licence'] ) ) {
+						$sans_licence[] = $room->post_title;
+					}
+				} elseif ( 4 !== count( $choix ) || $correct < 0 || $correct > 3 ) {
 					$choix_mauvais++;
 				} else {
 					$positions[ $correct ]++;
@@ -117,10 +140,23 @@ audit_verifier(
 );
 
 audit_verifier(
-	'les questions à choix ont toutes quatre propositions et une seule bonne réponse',
+	'les questions à choix ont quatre propositions (ou le format d\'origine quand elles sont importées) et une seule bonne réponse',
 	0 === $choix_mauvais,
 	$choix_mauvais . ' question(s) malformée(s)',
 	'bloquant'
+);
+
+audit_verifier(
+	'les questions importées portent leur licence',
+	empty( $sans_licence ),
+	count( $sans_licence ) . ' question(s) importée(s) sans licence',
+	'majeur'
+);
+
+audit_info(
+	'questions importées auditées',
+	$questions_importees . ' question(s) d\'un examen universitaire ou d\'une fondation',
+	'format d\'origine conservé : 2 propositions (vrai/faux) ou 3 (QCM), source et licence exigées'
 );
 
 audit_verifier(

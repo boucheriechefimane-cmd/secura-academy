@@ -1,8 +1,8 @@
 <?php
 /**
- * Auditeur 16e sur 17 — Le panel des dix élèves.
+ * Auditeur 16e sur 18 — Le panel des vingt élèves.
  *
- * Dix élèves fictifs — chacun avec son âge, sa langue et sa spécialité
+ * Vingt élèves fictifs — chacun avec son âge, sa langue et sa spécialité
  * en cybersécurité — jouent la plateforme comme un vrai élève : ils
  * créent un compte, ouvrent le parcours, lisent la leçon, répondent aux
  * questions, passent l'examen.
@@ -27,7 +27,7 @@ require_once dirname( __FILE__ ) . '/audit-lib.php';
 require_once dirname( __FILE__ ) . '/lib-http.php';
 require_once dirname( __FILE__ ) . '/lib-machine.php';
 
-audit_titre( 'panel-eleves', 'Audit externe — Le panel des dix élèves (âge, langue, spécialité)' );
+audit_titre( 'panel-eleves', 'Audit externe — Le panel des vingt élèves (âge, langue, spécialité)' );
 
 if ( ! isset( $_SERVER['SERVER_NAME'] ) ) {
 	$_SERVER['SERVER_NAME'] = 'localhost';
@@ -52,11 +52,25 @@ $personas = array(
 	array( 'nom' => 'Julien', 'age' => 45, 'langue' => 'fr', 'metier' => 'responsable sécurité (RSSI)', 'appareil' => 'ordinateur' ),
 	array( 'nom' => 'Nadia', 'age' => 28, 'langue' => 'fr', 'metier' => 'testeuse d\'intrusion, débutante', 'appareil' => 'mobile' ),
 	array( 'nom' => 'Sofia', 'age' => 34, 'langue' => 'en', 'metier' => 'ingénieure DevSecOps', 'appareil' => 'ordinateur' ),
+
+	/* --- Les dix profils ajoutés le 02/11/2026 : le panel passe à
+	   vingt élèves. Lepropriétaire a demandé d'élargir : plus d'âges,
+	   plus de situations de départ, plus de rapport au travail. --- */
+	array( 'nom' => 'Adam', 'age' => 14, 'langue' => 'fr', 'metier' => 'collège, première fois devant un terminal', 'appareil' => 'mobile' ),
+	array( 'nom' => 'Hanane', 'age' => 26, 'langue' => 'ar', 'metier' => 'comptable, se met à la cybersécurité pour protéger son entreprise', 'appareil' => 'ordinateur' ),
+	array( 'nom' => 'Diego', 'age' => 21, 'langue' => 'fr', 'metier' => 'étudiant en BTS, découvre le réseau', 'appareil' => 'mobile' ),
+	array( 'nom' => 'Rashid', 'age' => 38, 'langue' => 'ar', 'metier' => 'technicien de maintenance, reconversion', 'appareil' => 'ordinateur' ),
+	array( 'nom' => 'Chloé', 'age' => 29, 'langue' => 'fr', 'metier' => 'cheffe de projet, veut comprendre les failles qu\'on lui raconte', 'appareil' => 'ordinateur' ),
+	array( 'nom' => 'Omar', 'age' => 16, 'langue' => 'ar', 'metier' => 'lycéen, apprenant sur son téléphone', 'appareil' => 'mobile' ),
+	array( 'nom' => 'Priya', 'age' => 23, 'langue' => 'en', 'metier' => 'développeuse junior, première mission en production', 'appareil' => 'ordinateur' ),
+	array( 'nom' => 'Youssef', 'age' => 52, 'langue' => 'fr', 'metier' => 'formateur en centre de formation, cherche un support de cours', 'appareil' => 'ordinateur' ),
+	array( 'nom' => 'Nora', 'age' => 19, 'langue' => 'ar', 'metier' => 'étudiante en droit, s\'intéresse à la vie privée', 'appareil' => 'mobile' ),
+	array( 'nom' => 'Elena', 'age' => 44, 'langue' => 'en', 'metier' => 'directrice des risques, prépare une certification', 'appareil' => 'ordinateur' ),
 );
 
 audit_info(
 	'Le panel',
-	'10 élèves : ' . implode( ' ; ', array_map(
+	'20 élèves : ' . implode( ' ; ', array_map(
 		function ( $p ) {
 			return $p['nom'] . ' (' . $p['age'] . ' ans, ' . $p['langue'] . ', ' . $p['appareil'] . ')';
 		},
@@ -393,7 +407,7 @@ foreach ( $personas as $persona ) {
 		'rooms'    => $rooms_jouees,
 	);
 
-	/* On nettoie : le panel ne laisse pas dix comptes dans la base. */
+	/* On nettoie : le panel ne laisse pas de comptes dans la base. */
 	wp_delete_user( $user_id );
 	@unlink( $cookie );
 }

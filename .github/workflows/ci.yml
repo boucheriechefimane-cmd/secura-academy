@@ -33,6 +33,9 @@ jobs:
       - name: Exécuter les tests de logique serveur
         run: php tests/smoke-test.php
 
+      - name: Tester la chaîne d'import des questions
+        run: python3 tests/import-test.py
+
       - name: Vérifier les espaces en fin de ligne
         run: |
           if grep -RIn '[[:blank:]]$' --include='*.php' --include='*.js' --include='*.css' wp-content; then

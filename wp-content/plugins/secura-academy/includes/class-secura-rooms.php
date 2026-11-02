@@ -625,6 +625,7 @@ final class Secura_Rooms {
 						'weight'        => isset( $question['weight'] ) ? absint( $question['weight'] ) : 1,
 						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
 						'source'        => isset( $question['source'] ) ? (string) $question['source'] : '',
+						'licence'       => isset( $question['licence'] ) ? (string) $question['licence'] : '',
 					);
 				}
 			}
@@ -1355,6 +1356,7 @@ final class Secura_Rooms {
 						'weight'        => isset( $question['weight'] ) ? absint( $question['weight'] ) : 1,
 						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
 						'source'        => isset( $question['source'] ) ? (string) $question['source'] : '',
+						'licence'       => isset( $question['licence'] ) ? (string) $question['licence'] : '',
 					);
 				}
 			}

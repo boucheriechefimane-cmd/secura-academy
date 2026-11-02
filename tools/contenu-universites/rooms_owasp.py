@@ -25,7 +25,7 @@ ROOMS = [
         'lesson_title': 'Task 1 : Leçon — une liste de risques, pas un catalogue',
         'lesson': (
             '<p>Le <strong>Top 10 OWASP</strong> est la liste des dix risques les plus présents dans les applications web. '
-            'Elle estrevisionnée tous les ans, parce que le web change : les failles de navigateur ont reculé, '
+            'Elle est révisée tous les ans, parce que le web change : les failles de navigateur ont reculé, '
             'les failles de logique et de configuration sont remontées.</p>'
             '<p>Deux idées à retenir de la vidéo de la fondation :</p>'
             '<ul>'
@@ -48,6 +48,13 @@ ROOMS = [
             'journalisation et surveillance insuffisantes, et gestion d\'erreurs excessive.</p>'
             '<p><strong>À retenir :</strong> la liste ne sert pas à dire « on est protégé parce qu\'on a lu le Top 10 ». '
             'Elle sert à dire « voici par où commencer, et voici les questions à se poser ».</p>'
+            '<p><strong>Aller plus loin, gratuitement :</strong> la '
+            '<a href="https://portswigger.net/web-security" target="_blank" rel="noopener">'
+            'Web Security Academy de PortSwigger</a> propose plusieurs centaines de labs web sur '
+            'exactement ces failles (injection SQL, XSS, contournement des droits, requêtes forgées…). '
+            'Les labs sont gratuits et se pratiquent sur des applications volontairement vulnérables. '
+            'Nous n\'en reprenons pas le contenu : nous y renvoyons, en nommant la source et son adresse.'
+            '</p>'
         ),
         'practice_title': 'Task 2 : Entraînement',
         'practice_intro': '<p>Deux questions sur l\'usage de la liste et la surface d\'attaque.</p>',
@@ -214,8 +221,15 @@ ROOMS = [
             '<p>Et la même logique s\'applique au-delà du SQL : '
             'une commande shell construite par concaténation est une injection de commande ; '
             'un lien construit avec une donnée non échappée est une injection XSS.</p>'
-            '<p><strong>À retenir :</strong> la validation, c\'est le bouclier ; l\'échappement, c\'est la Knee ; '
+            '<p><strong>À retenir :</strong> la validation, c\'est le bouclier ; l\'échappement, c\'est l\'encre ; '
             'la requête préparée, c\'est le blindage. On utilise les trois.</p>'
+            '<p><strong>Aller plus loin, gratuitement :</strong> la '
+            '<a href="https://portswigger.net/web-security" target="_blank" rel="noopener">'
+            'Web Security Academy de PortSwigger</a> propose plusieurs centaines de labs web sur '
+            'exactement ces failles (injection SQL, XSS, contournement des droits, requêtes forgées…). '
+            'Les labs sont gratuits et se pratiquent sur des applications volontairement vulnérables. '
+            'Nous n\'en reprenons pas le contenu : nous y renvoyons, en nommant la source et son adresse.'
+            '</p>'
         ),
         'practice_title': 'Task 2 : Entraînement',
         'practice_intro': '<p>Deux questions : la bonne parade, et le faux remède.</p>',
@@ -386,7 +400,14 @@ ROOMS = [
             'Une règle simple : un journal doit déclencher une alerte quand il contient un motif rare et grave '
             '(rafale d\'échecs, changement de permissions, export massif).</p>'
             '<p><strong>À retenir :</strong> le journal n\'est pas une trace technique, c\'est une pièce d\'enquête. '
-            'Il doit êtrehorodaté, protégé, et lu.</p>'
+            'Il doit être horodaté, protégé, et lu.</p>'
+            '<p><strong>Aller plus loin, gratuitement :</strong> la '
+            '<a href="https://portswigger.net/web-security" target="_blank" rel="noopener">'
+            'Web Security Academy de PortSwigger</a> propose plusieurs centaines de labs web sur '
+            'exactement ces failles (injection SQL, XSS, contournement des droits, requêtes forgées…). '
+            'Les labs sont gratuits et se pratiquent sur des applications volontairement vulnérables. '
+            'Nous n\'en reprenons pas le contenu : nous y renvoyons, en nommant la source et son adresse.'
+            '</p>'
         ),
         'practice_title': 'Task 2 : Entraînement',
         'practice_intro': '<p>Deux questions : quoi logger, quoi ne pas logger.</p>',
