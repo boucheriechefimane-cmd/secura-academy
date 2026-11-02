@@ -847,7 +847,20 @@ et garde ses 15 problèmes d'examen par conception. Les **examens, eux, ne
 changent pas** : réservoirs de 9 à 39 (médiane 24), 636 150 892 copies
 possibles.
 
-**5. Ce qui reste :** 22 examens ont encore un réservoir plus petit que
+**5. La décision du propriétaire (02/11/2026) :** le site reste **gratuit**
+pour l'élève, et la voie retenue pour combler les 80 questions manquantes est
+une **demande d'autorisation écrite au MIT** (dossier complet prêt à envoyer :
+`docs/DEMANDE-AUTORISATION-MIT.md`). Ce que nous demanderons : la réutilisation
+des **34 quiz avec corrigés officiels** de 6.5660/6.858 (2009-2026), des
+**10 examens avec corrigés** de 6.1600, des feuilles de révision de quiz et
+de la banque de questions par cours — soit environ **300 a 400 questions de
+qualite universitaire**. La chaine d'extraction a deja ete testee sur ce
+materiel : 16 items extraits, 13 questions retenues sur un quiz 6.5660, avec le
+corrige officiel du MIT en explication. Tant que l'autorisation n'est pas
+ecrite, la source reste refusee a l'import (refus par defaut, verifie par un
+test automatique).
+
+**6. Ce qui reste :** 22 examens ont encore un réservoir plus petit que
 cinq fois leur épreuve. Il manque **80 questions**. Les sources libres
 sont comptées : MIT OCW est presque épuisé (les 12 quiz de 6.858 sont
 tous utilisés ; les autres cours MIT trouvés — 6.006, 6.034, 6.042J —
