@@ -73,6 +73,7 @@ cp -r "$REPO_DIR/tools/videos" "$TMP/recette/tools/videos"
 cp "$REPO_DIR/tools/import-questions.py" "$TMP/recette/tools/"
 cp "$REPO_DIR/tools/import-mit-ocw.py" "$TMP/recette/tools/"
 cp "$REPO_DIR/tools/sources-autorisees.json" "$TMP/recette/tools/"
+cp "$REPO_DIR/tools/plugins-tiers.json" "$TMP/recette/tools/"
 rm -rf "$TMP/recette/tools/contenu-universites/__pycache__"
 
 # Le lot d'examen livre (MIT OCW 6.858) : c'est lui qui alimente les
