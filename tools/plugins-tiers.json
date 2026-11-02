@@ -1,0 +1,24 @@
+{
+  "_commentaire": [
+    "Plugins tiers testes avec Secura Academy dans la CI (compatibilite).",
+    "Les versions sont figee et leur empreinte SHA-256 est enregistree ici.",
+    "Pourquoi : le telechargement 'a la derniere version' n'est pas reproductible,",
+    "et le controle d'empreinte de WP-CLI compare le fichier telecharge a une",
+    "metadonnee de l'API WordPress.org qui peut etre perimee : le paquet peut",
+    "avoir ete reconstruit par WordPress.org, et la CI echoue alors sur un",
+    "detail qui n'a rien a voir avec notre plugin.",
+    "Regle de ce fichier : on telecharge la version exacte, on verifie son",
+    "empreinte, et si l'empreinte a change (paquet reconstruit en amont) on",
+    "accepte seulement si le nom et la version lus DANS le paquet sont bien",
+    "ceux qu'on attend. Une version qui ne correspond plus du tout fait",
+    "echouer la CI : la, c'est un vrai probleme."
+  ],
+  "polylang": {
+    "version": "3.9.1",
+    "sha256": "b09aa8b3d92a882b1d5e24ca2c729981e8ac07d4403f78d4a6853899b20f9266"
+  },
+  "litespeed-cache": {
+    "version": "7.9.2",
+    "sha256": "b2fceff4b335a51bf27a974faea74233467d66ea1eb180b8b21eeead8bb4f40c"
+  }
+}

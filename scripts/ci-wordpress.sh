@@ -155,17 +155,119 @@ wp language core install ar >/dev/null 2>&1 || echo "  (le pack arabe n'a pas pu
 
 say "4. Plugins tiers"
 
+# Versions figee des plugins tiers : le fichier dit quelle version on
+# teste et quelle empreinte (SHA-256) on attend. On ne suit pas « la
+# derniere version du jour » : la CI doit tester la meme chose demain
+# qu'aujourd'hui, et elle doit pouvoir dire si le paquet recu est bien
+# celui qu'on attendait.
+TABLE_PLUGINS="$REPO_DIR/tools/plugins-tiers.json"
+
+plugin_version_attendue() {
+	# $1 = slug. Affiche la version epinglee, ou rien si le slug n'est pas epingle.
+	[ -f "$TABLE_PLUGINS" ] || return 0
+	python3 - "$TABLE_PLUGINS" "$1" <<'PY' 2>/dev/null || true
+import json,sys
+try:
+    table = json.load(open(sys.argv[1], encoding='utf-8'))
+except Exception:
+    sys.exit(0)
+entree = table.get(sys.argv[2])
+if isinstance(entree, dict):
+    print(entree.get('version',''))
+PY
+}
+
+plugin_empreinte_attendue() {
+	# $1 = slug. Affiche l'empreinte SHA-256 attendue, ou rien.
+	[ -f "$TABLE_PLUGINS" ] || return 0
+	python3 - "$TABLE_PLUGINS" "$1" <<'PY' 2>/dev/null || true
+import json,sys
+try:
+    table = json.load(open(sys.argv[1], encoding='utf-8'))
+except Exception:
+    sys.exit(0)
+entree = table.get(sys.argv[2])
+if isinstance(entree, dict):
+    print(entree.get('sha256',''))
+PY
+}
+
+installer_plugin_epingle() {
+	# $1 = slug, $2 = version. Telecharge le paquet exact, verifie son
+	# empreinte, l'installe et l'active. Renvoie 0 en cas de succes.
+	local slug="$1" version="$2"
+	local zip="$WP_DIR/$slug-$version.zip"
+	local attendu tmp hote lu
+
+	attendu="$(plugin_empreinte_attendue "$slug")"
+	[ -n "$attendu" ] || return 1
+
+	echo "    version épinglée : $version"
+	if ! curl -fsSL --retry 3 --retry-delay 2 \
+		"https://downloads.wordpress.org/plugin/$slug.$version.zip" -o "$zip"; then
+		echo "    téléchargement impossible : $slug.$version" >&2
+		return 1
+	fi
+
+	tmp="$(sha256sum "$zip" | cut -d' ' -f1)"
+	if [ "$tmp" != "$attendu" ]; then
+		echo "    ATTENTION : l'empreinte enregistrée pour $slug $version a changé" >&2
+		echo "    (WordPress.org a reconstruit le paquet). On vérifie le contenu." >&2
+		lu="$(unzip -p "$zip" "$slug/$slug.php" 2>/dev/null | grep -iE '^[[:space:]]*\*?[[:space:]]*Version:' | head -1 | tr -d '\r' || true)"
+		if ! printf '%s' "$lu" | grep -qi "$version"; then
+			echo "    ERREUR : le paquet ne contient pas $slug $version (« $lu »)" >&2
+			return 1
+		fi
+		echo "    contenu conforme ($lu) : on continue." >&2
+	else
+		echo "    empreinte conforme"
+	fi
+
+	rm -rf "$WP_DIR/wp-content/plugins/$slug"
+	unzip -q -o "$zip" -d "$WP_DIR/wp-content/plugins/" || return 1
+	rm -f "$zip"
+
+	if wp plugin activate "$slug" >/dev/null 2>&1; then
+		echo "    $slug $version installé et activé"
+		return 0
+	fi
+	echo "    ATTENTION : $slug n'a pas pu être activé" >&2
+	return 1
+}
+
 if [ ${#PLUGINS_TIERS[@]} -eq 0 ]; then
 	echo "  (aucun)"
 else
 	for slug in "${PLUGINS_TIERS[@]}"; do
 		[ -z "$slug" ] && continue
 		echo "  installation de $slug…"
-		if wp plugin install "$slug" --activate --force >/dev/null 2>&1; then
+
+		version="$(plugin_version_attendue "$slug")"
+		if [ -n "$version" ]; then
+			if installer_plugin_epingle "$slug" "$version"; then
+				continue
+			fi
+			echo "    l'installation épinglée a échoué : on retente par WP-CLI." >&2
+		fi
+
+		# Sans version épinglée (plugin inconnu de la table), ou si
+		# l'installation épinglée a échoué : on passe par WP-CLI, avec
+		# deux tentatives, car le répertoire de WordPress.org tombe
+		# parfois en panne au premier essai.
+		install_ok=0
+		for essai in 1 2 3; do
+			if wp plugin install "$slug" --activate --force >/dev/null 2>&1; then
+				install_ok=1
+				break
+			fi
+			sleep 5
+		done
+		if [ "$install_ok" = "1" ]; then
 			echo "    $slug installé et activé"
 		else
-			echo "    ATTENTION : $slug n'a pas pu être activé" >&2
-			wp plugin install "$slug" --force 2>&1 | tail -3
+			echo "    ERREUR : $slug n'a pas pu être installé" >&2
+			wp plugin install "$slug" --force 2>&1 | tail -5 >&2 || true
+			echo "  (le test de compatibilité avec $slug ne pourra pas être concluant)" >&2
 		fi
 	done
 fi
