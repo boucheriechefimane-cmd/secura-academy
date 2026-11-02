@@ -3,7 +3,7 @@
     "titre": "Audit externe — Contenu pédagogique",
     "expert": "",
     "perimetre": "",
-    "date": "2026-11-02T19:37:04+00:00",
+    "date": "2026-11-02T22:56:02+00:00",
     "ok": 20,
     "non_etaye": 0,
     "forces": [],
@@ -22,7 +22,7 @@
         },
         {
             "libelle": "problèmes d'examen importés (type « solution »)",
-            "detail": "115 question(s) : l'élève rédige sa réponse, la correction officielle de l'université s'affiche ensuite",
+            "detail": "160 question(s) : l'élève rédige sa réponse, la correction officielle de l'université s'affiche ensuite",
             "gravite": "info",
             "preuve": "ni propositions, ni note automatique : la correction vient de l'école, mot pour mot",
             "etaye": true

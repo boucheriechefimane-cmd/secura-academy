@@ -3,7 +3,7 @@
     "titre": "Le moteur d'épreuves : deux élèves, deux copies",
     "expert": "Expert en évaluation secure et en generation d'epreuves aleatoires reproductibles",
     "perimetre": "Vérifie que chaque apprenant reçoit sa propre copie d'examen : un reservoir suffisant au niveau, un tirage sans remise, des propositions melangees, des chiffres varies, une copie memorisee (recharger ne change rien) et repoussee a chaque nouvelle tentative. Mesure les reservoir et les variantes, et signale les trous de contenu plutot que de les cacher.",
-    "date": "2026-11-02T19:37:42+00:00",
+    "date": "2026-11-02T22:56:02+00:00",
     "ok": 13,
     "non_etaye": 0,
     "forces": [],
@@ -15,7 +15,7 @@
     "constats": [
         {
             "libelle": "toutes les questions de la plateforme",
-            "detail": "524 questions réparties dans 52 rooms",
+            "detail": "569 questions réparties dans 52 rooms",
             "gravite": "info",
             "preuve": "comptage fait sur les tâches normalisées de chaque room",
             "etaye": true
@@ -29,14 +29,14 @@
         },
         {
             "libelle": "réservoir de questions par examen",
-            "detail": "de 9 à 39 questions (médiane 24)",
+            "detail": "de 9 à 50 questions (médiane 25)",
             "gravite": "info",
             "preuve": "mesuré sur les 52 examens de la plateforme",
             "etaye": true
         },
         {
             "libelle": "combinaisons possibles d'épreuves",
-            "detail": "636150892 copies différentes, au total, sur les examens de la plateforme",
+            "detail": "10272877677 copies différentes, au total, sur les examens de la plateforme",
             "gravite": "info",
             "preuve": "produit des combinaisons (réservoir × taille d'épreuve) calculé sur chaque examen",
             "etaye": true
@@ -50,9 +50,9 @@
         },
         {
             "libelle": "chaque examen dispose d'un réservoir au moins cinq fois plus grand que son épreuve",
-            "detail": "22 examen(s) avec un réservoir trop juste",
+            "detail": "10 examen(s) avec un réservoir trop juste",
             "gravite": "mineur",
-            "preuve": "room 59 : 39 questions pour une épreuve de 10 ; room 8 : 11 questions pour une épreuve de 3 ; room 9 : 11 questions pour une épreuve de 3 ; room 10 : 9 questions pour une épreuve de 3 ; room 11 : 9 questions pour une épreuve de 3",
+            "preuve": "room 10 : 11 questions pour une épreuve de 3 ; room 11 : 10 questions pour une épreuve de 3 ; room 12 : 9 questions pour une épreuve de 3 ; room 13 : 11 questions pour une épreuve de 3 ; room 16 : 21 questions pour une épreuve de 5",
             "etaye": true
         }
     ]

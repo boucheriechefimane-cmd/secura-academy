@@ -703,7 +703,12 @@ ne suffit pas, c'est ce qu'un élève verrait sur une photo d'écran), et
 > l'entraînement et celle de l'examen d'une même room). Après la
 > correction, puis après l'import des 132 questions d'examen du MIT
 > 6.858 (v0.11.0), le réservoir réel est de **9 à 39 questions distinctes**
-> par examen (médiane 24), et la plateforme compte **524 questions**.
+> par examen (médiane 24). Après l'import des 132 questions du MIT 6.858
+> (v0.11.0), puis de 45 questions de plus tirées des examens du MIT 6.828
+> (Operating System Engineering) et 14.15J (Networks) — chacune vérifiée
+> contre le corrigé officiel du MIT —, la plateforme compte **569
+> questions**, et le manque de réservoir des examens est tombé de **80 à
+> 31**.
 > Un contrôle automatique vérifie qu'aucune question liée à une machine
 > (drapeau, action dans le terminal) ne voyage dans une autre room — sinon
 > l'élève chercherait un fichier qui n'existe pas chez lui.

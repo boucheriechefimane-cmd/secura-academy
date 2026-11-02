@@ -1,0 +1,182 @@
+{
+  "source": "mit-ocw-14-15j-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/14-15j-networks-spring-2018/pages/exams/",
+  "rooms": [
+    {
+      "room": "chiffrement-et-https",
+      "title": "chiffrement-et-https",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nCalculate the clustering coefficient C for the Erdos-Renyi random graph\n G2 (n, p) with p(n) = a log(n)/n. Compare your answer with part (b) in the\n limit of large n.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Calculate the clustering coefficient C for the Erdos-Renyi random graph\n G2 (n, p) with p(n) = a log(n)/n. Compare your answer with part (b) in the\n limit of large n.\n As shown before, it is just p, and still 0. But since p is larger in the\n latter case, there is a higher chance that a triple is actually a triangle.",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    },
+    {
+      "room": "kahoot-la-revision-des-labs-avances",
+      "title": "kahoot-la-revision-des-labs-avances",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nCalculate the clustering coefficient C in the limit of large n.\n Note: The clustering coefficient is defined as three times the number of triangles\n divided by the number of connected triplets. A \"connected triplet\" means three\n vertices uvw with edges (u, v) and (v, w). The edge (u, w) can be present or\n not.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Calculate the clustering coefficient C in the limit of large n.\n Note: The clustering coefficient is defined as three times the number of triangles\n divided by the number of connected triplets. A \"connected triplet\" means three\n vertices uvw with edges (u, v) and (v, w). The edge (u, w) can be present or\n not.\n Call Γi,j,k as the indicator random variable that denotes a triple be-\n tween i, j, k.\n \u0012 \u0013\u0012 \u0013\n X n 3 2\n E[ Γi,j,k ] = p\n i<j<k\n 3 2\n Clustering Coefficient = p\n limn→∞ p = 0.",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nShow that all the nodes have equal ranking. (Hint: Show that the is\n xi = 1 for all i. This should be a straightforward conclusion and can be proved\n by inspection.).\n\fPart II\nNext, as shown in Figure 2, we add an edge between two nodes so that the infinite\nring is divided into two symmetric halves. We will examine the eigenvector centrality\nof this new network. By symmetry, we only need to find the eigenvector centrality\n Figure 2:\nmeasures indexed by x0 , x1 , x2 , . . . . As before, we always normalize it so that x0 = 1.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Show that all the nodes have equal ranking. (Hint: Show that the is\n xi = 1 for all i. This should be a straightforward conclusion and can be proved\n by inspection.).\n One can argue by symmetry or show that λ = 2. If λ = 2 all xi = 1\n is a solution and hence the eigenvector. λ cannot be larger than 2. If\n so, and xt was the largest then\n λxt = xt−1 + xt+1 ≤ 2xt\n λ ≤ 2 indeed.\n\fPart II\nNext, as shown in Figure 2, we add an edge between two nodes so that the infinite\nring is divided into two symmetric halves. We will examine the eigenvector centrality\nof this new network. By symmetry, we only need to find the eigenvector centrality\n Figure 2:\nmeasures indexed by x0 , x1 , x2 , . . . . As before, we always normalize it so that x0 = 1.",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nShow that the largest eigenvalue λ must satisfy:\n 2≤λ≤3\n (Hint: observe the system of equations you wrote down for (c).)",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Show that the largest eigenvalue λ must satisfy:\n 2≤λ≤3\n (Hint: observe the system of equations you wrote down for (c).) λ ≥ 2\n because if we sum up the equation in (c) we get\n n\n X Xn\n λ( xi ) = x1 + 2( xi )\n i=0 i=0\n Since x0 is the largest, we also have that\n λx0 = 2x1 + x0 ≤ 3x0",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nCharacterize all solutions of the form θi (t) = ai t+bi to the set of dynamical\n equations, i.e., find ai , bi , i = 1, . . . , n.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Characterize all solutions of the form θi (t) = ai t+bi to the set of dynamical\n equations, i.e., find ai , bi , i = 1, . . . , n.\n ai = ω, bi = b + 2ki π",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nShow that L = M T M where M is the incidence matrix, i.e., the rows\n correspond to the edges and columns correspond to the vertices. Therefore, for\n every edge e = (i, j) between i, j where i < j we have that\n Mev = −1 if v = i\n Mev = 1 if v = j\n Mev = 0 otherwise",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Show that L = M T M where M is the incidence matrix, i.e., the rows\n correspond to the edges and columns correspond to the vertices. Therefore, for\n every edge e = (i, j) between i, j where i < j we have that\n Mev = −1 if v = i\n Mev = 1 if v = j\n Mev = 0 otherwise\n The proof is here.",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nArgue that L is a symmetric matrix and that for any vector x we have that\n xT Lx ≥ 0. Conclude from this that all the eigenvalues of L are non-negative.\n (Hint: Use the fact that all eigenvalues, λ, of a symmetric matrix, P , are of the\n form\n vT P v\n =λ\n vT v\n where v is the corresponding eigenvector.)",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Argue that L is a symmetric matrix and that for any vector x we have that\n xT Lx ≥ 0. Conclude from this that all the eigenvalues of L are non-negative.\n (Hint: Use the fact that all eigenvalues, λ, of a symmetric matrix, P , are of the\n form\n vT P v\n =λ\n vT v\n where v is the corresponding eigenvector.)",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    },
+    {
+      "room": "les-fondamentaux-du-reseau",
+      "title": "les-fondamentaux-du-reseau",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nNow, consider a different construction for a random graph model. We\n take n vertices and go through each distinct trio of three vertices and with\n a\n independent probability p = connect the trio using three edges\n (n − 1)(n − 2)\n to form a triangle. Compute the mean vertex degree and clustering coefficient for\n this network model.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Now, consider a different construction for a random graph model. We\n take n vertices and go through each distinct trio of three vertices and with\n a\n independent probability p = connect the trio using three edges\n (n − 1)(n − 2)\n to form a triangle. Compute the mean vertex degree and clustering coefficient\n for this network model.\n Pick an arbitrary vertex i, let Δij be the indicator random variable\n denoting a link between i, j. Then\n E[Δij ] = 1 − (1 − p)n−2\n = 1 − e(−p(n−2))\n = 1 − e(−a/(n−1))\n = a/(n − 1)\n Then the average degree is E[Δij ](n − 1) = a. Observe that in this case\n the number of triangles grow linearly as the number of nodes\n \u0012 \u0013\n n\n Number of Triangle = p∼\n = na/6\n Also, the number of triples of uvw occurs when either uvw is a triangle\n or there are triangles uvj and vwk and no triangle uvw where j, k = 6\n u, v, w. Call the event of no triangle in uvw but there exists a triple\n between them as Γ(uvw)\n P(Γ(uvw)) = 3(1 − (1 − p)n−3 )2 (1 − p)\n ∼\n = 3a2 /n2\n The ratio is roughly 3/(3a + 1) and points have been awarded to show\n that the clustering coefficient is a constant (does not decay to 0 as\n n → ∞).",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nShow that the eigenvector centrality must satisfy:\n x0 ≥ x1 ≥ x2 ≥ · · · ≥ 0\n (Hint: start with an initial guess xi = 1 for all i, and try to iteratively compute\n the eigenvector. You can prove the inequalities by induction.)",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Show that the eigenvector centrality must satisfy:\n x0 ≥ x1 ≥ x2 ≥ · · · ≥ 0\n (Hint: start with an initial guess xi = 1 for all i, and try to iteratively compute\n the eigenvector. You can prove the inequalities by induction.) Take initial\n guess as xti = 1, where\n λxt+1\n i = xti−1 + xti+1\n Clearly for t = 0 this is true (after many iterations this will converge\n to the true centrality). Assume this for t = k. Now observe for\n λxk+1\n i − λxk+1 k k k k\n i+1 = xi−1 − xi + xi+1 − xi+2\n ≥0\n The last inequality follows from inductive hypothesis.",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nConsider a small perturbation away from the state θi = ωt + \u000fi and show\n that the vector \u000f = (\u000f1 , \u000f2 , . . . , ) satisfies\n d\u000f 0\n = g (0)L\u000f\n dt\n Your solution should specify L in terms of [Aij ], the adjacency matrix of an\n undirected graph. (Hint: Using the Taylor series approximation of g(·) around\n 0 2 00\n x0 , i.e., g(x) = g(x0 ) + (x − x0 )g (x0 ) + (x−2x0 ) g (x0 ) + . . .. maybe helpful)",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Consider a small perturbation away from the state θi = ωt + \u000fi and show\n that the vector \u000f = (\u000f1 , \u000f2 , . . . , ) satisfies\n d\u000f 0\n = g (0)L\u000f\n dt\n Your solution should specify L in terms of [Aij ], the adjacency matrix of an\n undirected graph. (Hint: Using the Taylor series approximation of g(·) around\n 0 2 00\n x0 , i.e., g(x) = g(x0 ) + (x − x0 )g (x0 ) + (x−2x0 ) g (x0 ) + . . .. maybe helpful)\n Substitute θi = ωt + \u000fi . Then the Taylor approximation around 0 can\n be written as\n d\u000fi X 0\n = g (0)Aij (\u000fi − \u000fj )\n dt j\n X\n = g (0)di \u000fi − Aij \u000fj\n j\n Now stacking the \u000fi we get\n d\u000f 0\n = g (0)(D − A)\u000f\n dt\n (D − A) = L.\n L is also called the graph Laplacian. We will prove that L has only non-negative\n eigenvalues.",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    },
+    {
+      "room": "penser-comme-un-defenseur",
+      "title": "penser-comme-un-defenseur",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nShow that in the limit of large n, the expected number of triangles in the\n network is a constant.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Show that in the limit of large n, the expected number of triangles in the\n network is a constant. Call Δi,j,k as the indicator random variable that\n denotes a triangle between i, j, k. Then\n \u0012 \u0013\n X n\n E[ Δi,j,k ] = P (Δi,j,k = 1)\n i<j<k\n \u0012 \u0013\n n 3\n = lim p\n n→∞ 3\n = a3 /6",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nWe have shown in Part (e) that xn is positive and decreasing in n. Please\n prove that limn→∞ xn = 0.\n (Hint: consider writing the system of equations in Q2 into the form of a linear\n dynamical system with state y[n] given by:\n \u0014 \u0015\n xn+1\n y[n] = ,\n xn\n write down the recursive equation y[n + 1] = Ay[n] that describes the evolu-\n tion of the linear dynamics, and think about the equilibrium.) Now you have\n demonstrated that by adding a single edge one can change the relative centrality\n measure xxn0 drastically.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : We have shown in Part (e) that xn is positive and decreasing in n. Please\n prove that limn→∞ xn = 0.\n (Hint: consider writing the system of equations in Q2 into the form of a linear\n dynamical system with state y[n] given by:\n \u0014 \u0015\n xn+1\n y[n] = ,\n xn\n write down the recursive equation y[n + 1] = Ay[n] that describes the evolu-\n tion of the linear dynamics, and think about the equilibrium.) Now you have\n demonstrated that by adding a single edge one can change the relative centrality\n measure xxn0 drastically.\n Observe that \u0015 \u0014\n λ −1\n y[n + 1] = y[n]\n 1 0\n for all n ≥ 1. Then since xn ≤ xn−1 we only need to show that there is\n an eigenvalue of A that is < 1. As it turns out that eigenvalue is\n √\n λ − λ2 − 4\n λA =\n It can be shown that λA < 1 whenever λ > 2. This implies that xn → 0.",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    },
+    {
+      "room": "securiser-une-application-web",
+      "title": "securiser-une-application-web",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nFor what values of g (0) is the system stable to small perturbations around\n the origin?\n (Hint: You can use a Lyapunov argument with quadratic Lyapunov function\n V (x) = xT x to examine stability of the linearized system in part (b)).\n\fMIT OpenCourseWare\nhttps://ocw.mit.edu\n14.15J/6.207J Networks\nSpring 2018\nFor information about citing these materials or our Terms of Use, visit: https://ocw.mit.edu/terms",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : For what values of g (0) is the system stable to small perturbations around\n the origin?\n (Hint: You can use a Lyapunov argument with quadratic Lyapunov function\n V (x) = xT x to examine stability of the linearized system in part (b)).\n g (0) < 0 ensures system is stable.\n\fMIT OpenCourseWare\nhttps://ocw.mit.edu\n14.15J/6.207J Networks\nSpring 2018\nFor information about citing these materials or our Terms of Use, visit: https://ocw.mit.edu/terms",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    },
+    {
+      "room": "traverser-le-mur",
+      "title": "traverser-le-mur",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 14.15J — question d’examen, en anglais] \n\nShow that the xi 's are computed by finding the largest λ for which there\n exists a set of xi for i = 0, 1, 2, . . . such that:\n λxi = xi−1 + xi+1 , ∀i = 1, 2, . . .\n Note that we can always normalize the eigenvector centrality by dividing xi by\n x0 for all i, so that x0 = 1.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : la justification du corrigé officiel est affichée juste après ta réponse.",
+            "explanation": "Corrige officiel du MIT : Show that the xi 's are computed by finding the largest λ for which there\n exists a set of xi for i = 0, 1, 2, . . . such that:\n λxi = xi−1 + xi+1 , ∀i = 1, 2, . . .\n Note that we can always normalize the eigenvector centrality by dividing xi by\n x0 for all i, so that x0 = 1.\n This follows by representing the ring network as Ax = λx where λ is\n the largest eigenvalue and A is the adjacency matrix.",
+            "source": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    }
+  ]
+}

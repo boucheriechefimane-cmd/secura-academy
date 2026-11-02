@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.11.2
+ * Version:           0.11.3
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,17 @@
  *
  * @package Secura_Academy
  *
+ * 0.11.3 — Deux nouveaux cours d'examen du MIT sont importes avec leurs
+ *           corriges officiels : 6.828 Operating System Engineering
+ *           (Fall 2012, 4 examens) et 14.15J Networks (Spring 2018).
+ *           45 questions de plus, chacune verifiee contre le corrige du
+ *           MIT — la justification affichee a l'eleve est la reponse
+ *           officielle, mot pour mot. La banque passe de 524 a 569
+ *           questions, et le manque de reservoir des examens tombe de
+ *           80 a 31. L'extracteur devient parametrable (cours, licence,
+ *           attribution, prefixe) : le meme outil sert pour 6.858, 6.828,
+ *           14.15J et les suivants ; un second extracteur prend en charge
+ *           le format « probleme + sous-questions » (14.15J).
  * 0.11.2 — Un fichier JavaScript illisible casse TOUTE l'interface : plus
  *           aucune reponse n'est envoyee, plus aucun indice n'apparait. Une
  *           apostrophe non echappee dans une chaine (le message « ecris ta
@@ -200,7 +211,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.11.2' );
+define( 'SECURA_ACADEMY_VERSION', '0.11.3' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

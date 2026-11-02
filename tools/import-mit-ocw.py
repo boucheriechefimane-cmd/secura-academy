@@ -386,42 +386,42 @@ def extraire_items(chemin):
 # Secura_Exam::pool_size), avec le nombre de questions qui manquent.
 # La sonde reproductible est run/probe-pool.php.
 CIBLES = [
-    ("penser-comme-un-defenseur", 8, "tous"),
-    ("les-fondamentaux-du-reseau", 7, "reseau"),
-    ("securiser-une-application-web", 8, "web"),
-    ("memoire-et-defenses", 8, "memoire"),
-    ("authentification", 9, "auth"),
-    ("chiffrement-et-https", 9, "crypto"),
-    ("le-service-qui-ne-repond-plus", 12, "tous"),
-    ("le-mot-de-passe-oublie", 13, "auth"),
-    ("la-page-qui-se-trahit", 12, "web"),
-    ("la-requete-qui-ne-se-fie-a-personne", 12, "web"),
-    ("le-fichier-quon-naurait-pas-du-laisser", 9, "os"),
-    ("qui-a-force-la-porte", 9, "os"),
-    ("le-reseau-qui-parle-trop", 8, "reseau"),
-    ("traverser-le-mur", 13, "reseau"),
-    ("le-binaire-qui-obeit-trop", 12, "memoire"),
-    ("le-certificat-qui-ne-prouve-rien", 12, "crypto"),
-    ("segmenter-isoler-pivoter-la-securite-reseau", 3, "reseau"),
-    ("tls-et-https-le-chiffrement-qui-tient-la-route", 3, "crypto"),
-    ("sauthentifier-mot-de-passe-session-second-facteur", 3, "auth"),
-    ("cryptographie-cle-chiffrement-signature", 3, "crypto"),
-    ("x86-et-memoire-comprendre-la-pile", 3, "memoire"),
-    ("deborder-la-pile-le-canari-et-loffset", 3, "memoire"),
-    ("rop-construire-une-attaque-sans-shellcode", 3, "memoire"),
-    ("vulnerabilite-de-format-string-printf-qui-parle-trop", 3, "memoire"),
-    ("mots-de-passe-la-longueur-bat-la-complexite", 3, "auth"),
-    ("hameconnage-lire-un-message-avant-de-cliquer", 3, "web"),
-    ("publier-en-ligne-ce-que-les-autres-voient-de-toi", 3, "web"),
-    ("hygiene-numerique-le-deuxieme-facteur", 3, "auth"),
-    ("le-top-10-owasp-et-la-surface-dattaque", 6, "web"),
-    ("valider-les-entrees-le-premier-remede-anti-injection", 6, "web"),
-    ("journaux-et-audit-la-trace-qui-vaut-de-lor", 6, "os"),
-    ("comment-marche-un-ordinateur-de-la-donnee-au-programme", 10, "memoire"),
-    ("donnees-et-systemes-organiser-linformation", 10, "os"),
-    ("la-boutique-en-ligne-se-connecter-en-administrateur", 7, "web"),
-    ("la-zone-administrateur-ce-quun-administrateur-voit", 7, "os"),
-    ("kahoot-la-revision-des-labs-avances", 26, "tous"),
+    ("penser-comme-un-defenseur", 2, "tous"),
+    ("les-fondamentaux-du-reseau", 3, "reseau"),
+    ("securiser-une-application-web", 5, "web"),
+    ("memoire-et-defenses", 5, "memoire"),
+    ("authentification", 6, "auth"),
+    ("chiffrement-et-https", 5, "crypto"),
+    ("le-service-qui-ne-repond-plus", 0, "tous"),
+    ("le-mot-de-passe-oublie", 0, "auth"),
+    ("la-page-qui-se-trahit", 4, "web"),
+    ("la-requete-qui-ne-se-fie-a-personne", 4, "web"),
+    ("le-fichier-quon-naurait-pas-du-laisser", 0, "os"),
+    ("qui-a-force-la-porte", 0, "os"),
+    ("le-reseau-qui-parle-trop", 0, "reseau"),
+    ("traverser-le-mur", 1, "reseau"),
+    ("le-binaire-qui-obeit-trop", 1, "memoire"),
+    ("le-certificat-qui-ne-prouve-rien", 1, "crypto"),
+    ("segmenter-isoler-pivoter-la-securite-reseau", 0, "reseau"),
+    ("tls-et-https-le-chiffrement-qui-tient-la-route", 0, "crypto"),
+    ("sauthentifier-mot-de-passe-session-second-facteur", 0, "auth"),
+    ("cryptographie-cle-chiffrement-signature", 0, "crypto"),
+    ("x86-et-memoire-comprendre-la-pile", 0, "memoire"),
+    ("deborder-la-pile-le-canari-et-loffset", 0, "memoire"),
+    ("rop-construire-une-attaque-sans-shellcode", 0, "memoire"),
+    ("vulnerabilite-de-format-string-printf-qui-parle-trop", 0, "memoire"),
+    ("mots-de-passe-la-longueur-bat-la-complexite", 0, "auth"),
+    ("hameconnage-lire-un-message-avant-de-cliquer", 0, "web"),
+    ("publier-en-ligne-ce-que-les-autres-voient-de-toi", 0, "web"),
+    ("hygiene-numerique-le-deuxieme-facteur", 0, "auth"),
+    ("le-top-10-owasp-et-la-surface-dattaque", 0, "web"),
+    ("valider-les-entrees-le-premier-remede-anti-injection", 0, "web"),
+    ("journaux-et-audit-la-trace-qui-vaut-de-lor", 0, "os"),
+    ("comment-marche-un-ordinateur-de-la-donnee-au-programme", 0, "memoire"),
+    ("donnees-et-systemes-organiser-linformation", 0, "os"),
+    ("la-boutique-en-ligne-se-connecter-en-administrateur", 1, "web"),
+    ("la-zone-administrateur-ce-quun-administrateur-voit", 1, "os"),
+    ("kahoot-la-revision-des-labs-avances", 6, "tous"),
 ]
 
 MOTS_THEMES = {
@@ -596,11 +596,34 @@ def construire_questions(items):
 
 
 def main(argv=None):
+    # Les constantes du module deviennent des reglages : le meme
+    # extracteur sert pour 6.858, 6.828, 6.5660... (declaration globale
+    # avant tout usage).
+    global ATTRIBUTION, LICENCE, PREFIXE, PREFIXE_SOLUTION
+
     analyseur = argparse.ArgumentParser(description=__doc__)
     analyseur.add_argument("--texte", required=True,
                             help="dossier contenant les fichiers .txt (pdftotext)")
     analyseur.add_argument("--sortie", required=True, help="lot JSON a ecrire")
+    analyseur.add_argument("--source", default="mit-ocw-6858-examens",
+                            help="identifiant de la source dans tools/sources-autorisees.json")
+    analyseur.add_argument("--url", default="https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/pages/exams/",
+                            help="page du cours sur MIT OpenCourseWare")
+    analyseur.add_argument("--attribution", default=ATTRIBUTION,
+                            help="mention affichee a l'eleve")
+    analyseur.add_argument("--licence", default=LICENCE, help="licence annoncee")
+    analyseur.add_argument("--prefixe", default=PREFIXE,
+                            help="prefixe devant l'enonce (indique le cours et la langue)")
+    analyseur.add_argument("--prefixe-solution", default=PREFIXE_SOLUTION,
+                            help="prefixe devant un probleme redige")
+    analyseur.add_argument("--tache", default="test",
+                            help="tache de la room qui recoit les questions (test ou exam)")
     args = analyseur.parse_args(argv)
+
+    ATTRIBUTION = args.attribution
+    LICENCE = args.licence
+    PREFIXE = args.prefixe
+    PREFIXE_SOLUTION = args.prefixe_solution
 
     fichiers = sorted(f for f in os.listdir(args.texte) if f.endswith("_sol.txt"))
     if not fichiers:
@@ -621,10 +644,10 @@ def main(argv=None):
     par_room = repartir(questions)
 
     lot = {
-        "source": "mit-ocw-6858-examens",
+        "source": args.source,
         "licence": LICENCE,
         "attribution": ATTRIBUTION,
-        "url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/pages/exams/",
+        "url": args.url,
         "rooms": [
             {
                 "room": slug,
@@ -632,7 +655,7 @@ def main(argv=None):
                 # « test » et non « exam » : les questions importees
                 # grossissent le reservoir de la section (c'est ce qui rend
                 # les copies distinctes) sans allonger l'epreuve elle-meme.
-                "tasks": {"test": questions_room},
+                "tasks": {args.tache: questions_room},
             }
             for slug, questions_room in sorted(par_room.items())
         ],

@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-02-ter",
+  "_version": "2026-11-02-quatre",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -137,6 +137,42 @@
       "note": "Verifie le 02/11/2026 : les quiz 1 et 2 (« Quiz Review ») sont publies avec leurs corriges officiels, mais le site du cours ne porte aucune licence Creative Commons. Sans licence explicite, la regle de la maison s'applique : on cite, on n'importe pas. A reviser si MIT publie la version sous licence CC.",
       "commercial": false,
       "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "mit-ocw-6-828-examens",
+      "nom": "MIT OpenCourseWare — 6.828 Operating System Engineering (Fall 2012) : examens et corrigés officiels",
+      "url": "https://ocw.mit.edu/courses/6-828-operating-system-engineering-fall-2012/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.828 Operating System Engineering, Fall 2012 — examen et corrigé officiel (MIT EECS)",
+      "usage": "questions d'examen (QCM, vrai/faux) et problèmes d'examen rédigés sur les systèmes d'exploitation, avec la correction officielle du MIT",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "31 questions extraites des examens Q08 à Q11 (4 examens avec corrigés officiels). Le site est gratuit : la clause non commerciale est respectée."
+    },
+    {
+      "id": "mit-ocw-14-15j-examens",
+      "nom": "MIT OpenCourseWare — 14.15J Networks (Spring 2018) : examen, pratique et corrigés officiels",
+      "url": "https://ocw.mit.edu/courses/14-15j-networks-spring-2018/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 14.15J Networks, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+      "usage": "questions d'examen (QCM, vrai/faux) et problèmes rédigés sur les réseaux, avec la correction officielle du MIT",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "En cours d'import : le format des énoncés (problème + sous-questions (a)(b)(c)) demande un parseur dédié."
+    },
+    {
+      "id": "harvard-cs50",
+      "nom": "Harvard CS50 — Introduction to Computer Science (et CS50 Cybersecurity) : supports et exercices",
+      "url": "https://cs50.harvard.edu/x/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "Harvard CS50, Introduction to Computer Science / Introduction to Cybersecurity (Harvard University)",
+      "usage": "énoncés d'exercices avec corrigés officiels ; le code des labs est réutilisable sous la même licence",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence vérifiée le 02/11/2026 sur https://cs50.harvard.edu/x/license/ : CC BY-NC-SA 4.0. En attente d'import : les exercices sont des programmes à écrire, leur intégration comme « questions » demande un travail de mise en forme."
     }
   ],
   "regles": [
@@ -149,5 +185,6 @@
     "Une source listee mais non extractible automatiquement reste marquee comme telle : aucune importation ne doit pretendre l'avoir fait.",
     "Une source qui n'annonce aucune licence explicite (meme si elle est universitaire et gratuite) est citee, pas importee : c'est le cas de MIT 6.1600, dont les quiz d'entrainement et leurs corriges sont publics mais sans licence Creative Commons."
   ],
-  "_commercial": "Chaque source dit si sa licence autorise un usage COMMERCIAL (service payant). Les licences « NC » (non commerciales) ne l'autorisent pas : elles interdisent de vendre ou de facturer l'acces au contenu. Le site actuel est gratuit pour les eleves ; le jour ou il devient payant, ces sources doivent sortir (ou une autorisation explicite etre obtenue)."
+  "_commercial": "Chaque source dit si sa licence autorise un usage COMMERCIAL (service payant). Les licences « NC » (non commerciales) ne l'autorisent pas : elles interdisent de vendre ou de facturer l'acces au contenu. Le site actuel est gratuit pour les eleves ; le jour ou il devient payant, ces sources doivent sortir (ou une autorisation explicite etre obtenue).",
+  "_decision": "02/11/2026 : le site reste GRATUIT pour toujours (décision du propriétaire). Les licences « NC » sont donc utilisables : l'ordre de grandeur du catalogue change. Ce qui reste interdit n'a pas changé : une source sans licence explicite (PortSwigger, MIT 6.1600) ne peut pas être importée, même en réordonnant les questions."
 }
