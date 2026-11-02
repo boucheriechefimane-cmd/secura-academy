@@ -603,7 +603,7 @@ faut ? » a été posée — et six des quinze auditeurs ne regardaient
 qu'une room sur 52. Tous regardent désormais **toute la collection** ;
 la CI **rougit** désormais sur un constat majeur, pas seulement
 bloquant ; et le comité rejoué deux fois donne **15/15 rapports
-identiques**) → **221 contrôles, 0 bloquant, 0 majeur**
+identiques**) → **222 contrôles, 0 bloquant, 0 majeur**
 (v0.9.0 : le moteur d'épreuves — chaque élève passe **sa** copie — et le
 panel des dix élèves, qui joue la plateforme pour de vrai).
 
