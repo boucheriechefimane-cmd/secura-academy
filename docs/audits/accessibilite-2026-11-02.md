@@ -1,6 +1,6 @@
 # Accessibilité — WCAG 2.2 niveau AA
 
-- **Date** : 02/11/2026 13:15 UTC
+- **Date** : 02/11/2026 13:59 UTC
 - **Auditeur** : accessibilite
 - **Contrôles réussis** : 10
 - **Constats** : 0 bloquant(s), 0 majeur(s), 0 mineur(s), 2 info(s)

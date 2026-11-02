@@ -427,6 +427,58 @@ audit_verifier(
 );
 
 /* ------------------------------------------------------------------ */
+echo "\n4 bis. Deux élèves peuvent-ils recevoir le même ensemble de questions ?\n";
+
+/* On tire vingt copies d'un meme examen, comme vingt eleves le
+   feraient, et on compare les ENSEMBLES de questions (pas seulement
+   l'ordre) : c'est la regle du proprietaire — jamais les memes
+   questions pour le meme niveau. */
+
+$copies   = array();
+$ensembles = array();
+$epreuve_elue = 0;
+
+if ( ! empty( $examens ) ) {
+	$epreuve_elue = $examens[0]['room'];
+	$taches       = Secura_Rooms::get_tasks( $epreuve_elue );
+	$index        = $examens[0]['index'];
+
+	foreach ( array_slice( $taches, $index, 1 ) as $tache ) {
+		for ( $u = 1; $u <= 20; $u++ ) {
+			/* Un identifiant d'eleve factice : on veut le TIRAGE, pas
+			   une copie deja enregistree. */
+			$copie = Secura_Exam::paper( 900000 + $u, $epreuve_elue, $index, $tache );
+
+			$texte = '';
+
+			foreach ( $copie as $question ) {
+				$texte .= $question['question'] . '##';
+			}
+
+			$copies[] = md5( $texte );
+
+			$ensemble = array();
+
+			foreach ( $copie as $question ) {
+				$ensemble[] = $question['question'];
+			}
+
+			sort( $ensemble );
+
+			$ensembles[] = md5( implode( '##', $ensemble ) );
+		}
+	}
+}
+
+audit_verifier(
+	'vingt copies d\'un même examen donnent vingt ensembles de questions différents',
+	count( array_unique( $ensembles ) ) === count( $ensembles ) && count( $ensembles ) > 1,
+	count( array_unique( $ensembles ) ) . ' ensemble(s) distinct(s) pour ' . count( $ensembles ) . ' tirage(s)',
+	'majeur',
+	'le tirage se fait par un compteur atomique (incrémentation en base) : deux élèves ne peuvent pas hériter du même ensemble'
+);
+
+/* ------------------------------------------------------------------ */
 echo "\n5. Les questions liées à une machine restent dans leur room\n";
 
 $transposees = array();

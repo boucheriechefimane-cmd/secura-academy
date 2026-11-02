@@ -119,23 +119,52 @@ final class Secura_Exam {
 	}
 
 	/**
-	 * Le compteur de copies servies pour une tache d'une room.
+	 * Le prochain rang de combinaison, attribue de facon atomique.
 	 *
-	 * Il compte les copies creees (pas les pages rechargees) : c'est lui
-	 * qui permet de donner a chaque eleve un ensemble different.
+	 * Chaque copie creee prend un numero unique. L'increment se fait en
+	 * base (et non en PHP) parce que deux eleves peuvent demander leur
+	 * copie au meme instant : avec un compteur en PHP, les deux
+	 * requetes lisaient la meme valeur et recevaient le meme ensemble
+	 * de questions. C'est exactement le defaut qu'on cherche a eviter.
 	 *
 	 * @param int $room_id Identifiant de la room.
 	 * @param int $index   Index de la tache.
 	 * @return int
 	 */
-	private static function compteur( $room_id, $index ) {
+	private static function prochain_rang( $room_id, $index ) {
+		global $wpdb;
+
 		$cle = 'seca_exam_compteur_' . (int) $room_id . '_' . (int) $index;
 
-		$valeur = (int) get_option( $cle, 0 );
+		$wpdb->query(
+			$wpdb->prepare(
+				"INSERT IGNORE INTO {$wpdb->options} ( option_name, option_value, autoload ) VALUES ( %s, '0', 'no' )",
+				$cle
+			)
+		);
 
-		update_option( $cle, $valeur + 1, false );
+		/* LAST_INSERT_ID() renvoie la valeur que CETTE requete a posee :
+		   meme si une autre requete incremente entre-temps, chaque
+		   copie creee obtient un numero a elle. */
+		$wpdb->query(
+			$wpdb->prepare(
+				"UPDATE {$wpdb->options} SET option_value = LAST_INSERT_ID( CAST( option_value AS UNSIGNED ) + 1 ) WHERE option_name = %s",
+				$cle
+			)
+		);
 
-		return $valeur;
+		$valeur = (int) $wpdb->get_var( 'SELECT LAST_INSERT_ID()' );
+
+		if ( $valeur < 1 ) {
+			/* Secours : si la base refuse l'operation, on repart d'un
+			   compteur simple (moins robuste, mais le site reste
+			   utilisable). */
+			$valeur = (int) get_option( $cle, 0 ) + 1;
+
+			update_option( $cle, $valeur, false );
+		}
+
+		return $valeur - 1;
 	}
 
 	/**
@@ -154,7 +183,11 @@ final class Secura_Exam {
 			return $melange;
 		}
 
-		$positions = self::combinaison( $n, $tirage, self::compteur( $room_id, $index ) );
+		$total = self::binomial( $n, $tirage );
+
+		$rang = self::prochain_rang( $room_id, $index );
+
+		$positions = self::combinaison( $n, $tirage, $rang );
 
 		$ensemble = array();
 
