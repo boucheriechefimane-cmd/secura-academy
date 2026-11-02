@@ -71,9 +71,9 @@
       "url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/pages/exams/",
       "licence": "CC BY-NC-SA 4.0",
       "attribution": "MIT OpenCourseWare, 6.858 Computer Systems Security, Fall 2014 — quiz d'examen et corrigé officiel (MIT EECS)",
-      "usage": "questions d'examen authentiques de l'universite : QCM a quatre propositions et vrai/faux, avec la justification du corrige officiel",
+      "usage": "quiz d'examen (2009-2014) et corriges officiels du MIT : questions a choix (QCM, vrai/faux) ET problemes d'examen rediges, avec la correction officielle de l'ecole",
       "reutilisable": true,
-      "note": "Les reponses sont verifiees automatiquement contre le corrige officiel (texte extrait du PDF), jamais reprises de memoire."
+      "note": "132 questions extraites des 12 quiz (2009-2014) : 17 a choix, 115 problemes d'examen (type « solution » : l'eleve redige, la correction officielle du MIT s'affiche). Licence CC BY-NC-SA 4.0 : utilisation non commerciale, attribution et partage dans les memes conditions ; le site reste gratuit pour les eleves."
     },
     {
       "id": "owasp-wstg",
@@ -103,6 +103,16 @@
       "usage": "lien seul : l'eleve pratique gratuitement sur les labs officiels ; aucune question n'est recopiee dans la plateforme",
       "reutilisable": false,
       "note": "Conditions verifiees le 02/11/2026 : § 7.4 (extraits pour usage personnel), § 7.6 (attribution obligatoire), § 7.7 (pas d'usage commercial sans licence), conditions de certification § 9.5 (interdiction de copier les elements d'examen). L'outil d'import doit refuser cette source."
+    },
+    {
+      "id": "mit-61600-foundations",
+      "nom": "MIT 6.1600 Foundations of Computer Security (cours et quiz d'entrainement avec corriges)",
+      "url": "https://61600.csail.mit.edu/2026/",
+      "licence": "Copyright MIT — aucune licenceCreative Commons explicite sur le site du cours",
+      "attribution": "MIT 6.1600 Foundations of Computer Security",
+      "usage": "lien seul : l'eleve peut telecharger les quiz d'entrainement et leurs corriges sur le site du cours ; aucune question n'est recopiee dans la plateforme",
+      "reutilisable": false,
+      "note": "Verifie le 02/11/2026 : les quiz 1 et 2 (« Quiz Review ») sont publies avec leurs corriges officiels, mais le site du cours ne porte aucune licence Creative Commons. Sans licence explicite, la regle de la maison s'applique : on cite, on n'importe pas. A reviser si MIT publie la version sous licence CC."
     }
   ],
   "regles": [
@@ -112,6 +122,7 @@
     "L'attribution voyage avec la question et doit etre affichee dans la room.",
     "Les questions d'examen payant restent protegees : sans autorisation ecrite de l'editeur, on ne les importe pas.",
     "Une source peut etre citee (lien, attribution) sans etre importee : c'est le cas de PortSwigger, dont les conditions d'utilisation interdisent la reprise du contenu dans une plateforme tierce.",
-    "Une source listee mais non extractible automatiquement reste marquee comme telle : aucune importation ne doit pretendre l'avoir fait."
+    "Une source listee mais non extractible automatiquement reste marquee comme telle : aucune importation ne doit pretendre l'avoir fait.",
+    "Une source qui n'annonce aucune licence explicite (meme si elle est universitaire et gratuite) est citee, pas importee : c'est le cas de MIT 6.1600, dont les quiz d'entrainement et leurs corriges sont publics mais sans licence Creative Commons."
   ]
 }

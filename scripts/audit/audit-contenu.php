@@ -46,6 +46,8 @@ $sans_indice    = array();
 $questions_tot  = 0;
 $choix_mauvais  = 0;
 $questions_importees = 0;
+$questions_solution = 0;
+$solution_mauvaises = 0;
 $sans_licence   = array();
 $positions      = array( 0 => 0, 1 => 0, 2 => 0, 3 => 0 );
 $sans_attribution = array();
@@ -96,6 +98,32 @@ foreach ( $rooms as $room ) {
 
 				if ( empty( $question['explanation'] ) ) {
 					$sans_explica[] = $room->post_title;
+				}
+
+				if ( empty( $question['hint'] ) ) {
+					$sans_indice[] = $room->post_title;
+				}
+			}
+
+			/* Une question « solution » est un probleme d'examen
+			   universitaire : l'eleve redige sa reponse, puis la
+			   correction officielle lui est montree. Elle doit donc
+			   porter cette correction (sinon l'eleve n'apprend rien),
+			   sa source et sa licence — et aucune proposition : ce
+			   n'est pas un QCM. */
+			if ( 'solution' === ( isset( $question['mode'] ) ? $question['mode'] : '' ) ) {
+				$questions_solution++;
+
+				$explication = isset( $question['explanation'] ) ? trim( (string) $question['explanation'] ) : '';
+				$choix       = isset( $question['choices'] ) ? (array) $question['choices'] : array();
+
+				if ( strlen( $explication ) < 80 || ! empty( $choix )
+					|| empty( $question['source'] ) || empty( $question['licence'] ) ) {
+					$solution_mauvaises++;
+				}
+
+				if ( empty( $question['licence'] ) ) {
+					$sans_licence[] = $room->post_title;
 				}
 
 				if ( empty( $question['hint'] ) ) {
@@ -157,6 +185,19 @@ audit_info(
 	'questions importées auditées',
 	$questions_importees . ' question(s) d\'un examen universitaire ou d\'une fondation',
 	'format d\'origine conservé : 2 propositions (vrai/faux) ou 3 (QCM), source et licence exigées'
+);
+
+audit_verifier(
+	'les problèmes d\'examen importés portent leur correction officielle',
+	0 === $solution_mauvaises,
+	$solution_mauvaises . ' question(s) « solution » sans correction officielle complète, sans source ou sans licence',
+	'bloquant'
+);
+
+audit_info(
+	'problèmes d\'examen importés (type « solution »)',
+	$questions_solution . ' question(s) : l\'élève rédige sa réponse, la correction officielle de l\'université s\'affiche ensuite',
+	'ni propositions, ni note automatique : la correction vient de l\'école, mot pour mot'
 );
 
 audit_verifier(

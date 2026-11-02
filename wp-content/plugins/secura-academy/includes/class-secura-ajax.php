@@ -417,6 +417,13 @@ final class Secura_Ajax {
 		} elseif ( 'choice' === $mode ) {
 			$expected = isset( $question['choices'][ (int) $question['correct'] ] ) ? $question['choices'][ (int) $question['correct'] ] : '';
 			$correct  = ( '' !== $expected ) && Secura_Progress::answer_matches( $answer, array( $expected ) );
+		} elseif ( 'solution' === $mode ) {
+			/* Un probleme d'examen universitaire : la redaction n'est pas
+			   corrigee automatiquement (ce serait pretendre qu'une machine
+			   comprend une reponse en prose). L'eleve doit avoir tente
+			   (au moins quelques mots), puis la correction officielle de
+			   l'ecole lui est montree : c'est elle qui fait la leçon. */
+			$correct = ( strlen( trim( (string) $answer ) ) >= 10 );
 		} else {
 			$correct = Secura_Progress::answer_matches( $answer, $question['answers'] );
 		}
@@ -491,7 +498,9 @@ final class Secura_Ajax {
 				'already'       => (bool) $already,
 				'message'       => $already
 					? Secura_I18n::t( 'solved', '', 'Validée' )
-					: sprintf( /* translators: %d : points gagnés. */ Secura_I18n::t( 'correct_xp', '', 'Bonne réponse ! +%d XP' ), $points ),
+					: ( 'solution' === $mode
+						? sprintf( /* translators: %d : points gagnés. */ Secura_I18n::t( 'solution_xp', '', 'Correction officielle affichée. +%d XP' ), $points )
+						: sprintf( /* translators: %d : points gagnés. */ Secura_I18n::t( 'correct_xp', '', 'Bonne réponse ! +%d XP' ), $points ) ),
 				'points'        => $points,
 				'rank'          => $rank,
 				'hint_used'     => $hint_used,

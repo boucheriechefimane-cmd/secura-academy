@@ -1,6 +1,6 @@
 # Pédagogie et science de l'apprentissage
 
-- **Date** : 02/11/2026 14:18 UTC
+- **Date** : 02/11/2026 17:06 UTC
 - **Auditeur** : pedagogie
 - **Contrôles réussis** : 12
 - **Constats** : 0 bloquant(s), 0 majeur(s), 0 mineur(s), 2 info(s)

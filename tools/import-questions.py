@@ -35,7 +35,7 @@ SORTIE_PAR_DEFAUT = os.path.join(
     RACINE, "wp-content", "plugins", "secura-academy", "includes"
 )
 
-MODES_VALIDES = ("choice", "text", "flag", "action")
+MODES_VALIDES = ("choice", "text", "flag", "action", "solution")
 
 
 class ErreurImport(Exception):
@@ -175,6 +175,20 @@ def verifier_questions(questions, slug, type_tache, source):
 
         if mode == "flag" and not (question.get("flag_path") or "").strip():
             problemes.append("%s : une question de drapeau doit indiquer le fichier du drapeau." % prefixe)
+
+        if mode == "solution":
+            # Un probleme d'examen universitaire : l'eleve redige sa
+            # reponse, et la correction officielle de l'ecole lui est
+            # montree. Il faut donc une correction officielle — et
+            # surtout pas de propositions a deviner.
+            if question.get("choices"):
+                problemes.append(
+                    "%s : une question « solution » ne propose pas de propositions : c'est une redaction." % prefixe
+                )
+            if len((question.get("explanation") or "").strip()) < 80:
+                problemes.append(
+                    "%s : la correction officielle d'une question « solution » doit etre complete (80 caracteres minimum)." % prefixe
+                )
 
         if not (question.get("explanation") or "").strip():
             problemes.append(

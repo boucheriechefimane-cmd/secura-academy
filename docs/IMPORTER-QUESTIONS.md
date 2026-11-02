@@ -189,7 +189,35 @@ MIT.
 | Licence | CC BY-NC-SA 4.0 — réutilisation non commerciale, partage dans les mêmes conditions |
 | Méthode | Le zip du cours (625 Mo) téléchargé en une requête, puis les 24 PDF extraits et convertis en texte (`pdftotext`) |
 
-### Ce qui a été retenu : 17 questions sur 59
+### Ce qui a été retenu : 132 questions sur 223 items (v0.11.0, 02/11/2026)
+
+Le premier import (v0.10.0) n'avait retenu que **17 questions** : le
+parseur ne savait lire que les items à choix. Les corrigés du MIT
+contiennent aussi — et surtout — des **problèmes d'examen rédigés**, dont
+la réponse officielle est une explication en prose. C'est le gros du
+matériel : **115 problèmes sur 132**.
+
+| Type d'item dans le corrigé du MIT | Nombre | Comment la plateforme le rend |
+|---|---|---|
+| QCM (3 propositions) et vrai/faux | 17 | Une question à choix, propositions d'origine, ordre mélangé |
+| **Problème d'examen rédigé** | **115** | Nouveau type `solution` : l'élève rédige sa réponse, puis la **correction officielle du MIT** s'affiche mot pour mot |
+
+Le type `solution` a été ajouté au moteur (v0.11.0) :
+
+- la question n'a **ni propositions ni note automatique** — une rédaction
+  ne se note pas par une machine, et inventer une note serait mentir ;
+- l'élève doit écrire au moins quelques mots (sinon le bouton refuse) ;
+- la correction officielle de l'école est affichée **après** sa réponse ;
+- l'auditeur de contenu exige que cette correction soit présente (80
+  caractères minimum), avec source et licence — sinon la question est
+  rejetée.
+
+**Ce qui a été refusé, et pourquoi.** Le parseur refuse tout énoncé qui
+ne se comprend pas seul (« Line 4 », « the figure above », « as described
+in the paper »), toute correction trop courte, et tout doublon (les mêmes
+quizs sont repris d'année en année).
+
+### Ce qui avait été retenu : 17 questions sur 59 (v0.10.0)
 
 Le parseur (`tools/import-mit-ocw.py`) lit les items du corrigé et **refuse**
 ce qui ne serait pas honnête :
@@ -232,11 +260,12 @@ dans l'entraînement :
 
 ### Le résultat mesuré
 
-| Avant import | Après import |
-|---|---|
-| 392 questions sur la plateforme | **409 questions** |
-| 24 examens au réservoir trop juste (mesure gonflée) | 36 examens (mesure honnête : le réservoir comptait les questions en double) |
-| 131 365 839 copies possibles (gonflé) | **2 039 152 copies** |
+| Avant import (v0.9.1) | Après le premier import (v0.10.0) | Après l'import complet (v0.11.0) |
+|---|---|---|
+| 392 questions sur la plateforme | 409 questions | **524 questions** |
+| 24 examens au réservoir trop juste (mesure gonflée) | 36 examens (mesure honnête : le réservoir comptait les questions en double) | **22 examens** |
+| 131 365 839 copies possibles (gonflé) | 2 039 152 copies | **636 150 892 copies** |
+| Réservoir par examen : 6 à 24 (médiane 17) | 6 à 24 (médiane 17) | **9 à 39 (médiane 24)** |
 
 Le reste du manque est mesuré, pas caché :
 `scripts/audit/probe-reservoirs.php` donne le réservoir réel (questions
@@ -246,7 +275,7 @@ copies **et** vingt ensembles de questions différents.
 
 ---
 
-## 8. Les deux refus qui comptent (PortSwigger, OpenLearn)
+## 8. Les trois refus qui comptent (PortSwigger, MIT 6.1600, OpenLearn)
 
 ### PortSwigger Web Security Academy : **non réutilisable**
 
@@ -262,6 +291,27 @@ peuvent aller s'entraîner gratuitement sur PortSwigger) — c'est un lien,
 pas une rediffusion. Cette décision est **prouvée par un test automatique**
 (`tests/import-test.py`, exécuté dans la CI) : un lot qui prétend venir de
 PortSwigger est refusé, avec le motif.
+
+### MIT 6.1600 Foundations of Computer Security : **non réutilisable (pas de licence)**
+
+Trouvé le 02/11/2026 : le cours du MIT 6.1600 (sécurité informatique,
+MIT EECS) publie sur son site des **quiz d'entraînement avec leurs
+corrigés officiels** — du matériel de très grande qualité, exactement le
+type de contenu qu'on veut. Mais le site du cours **ne porte aucune licence
+Creative Commons** : le droit d'auteur reste aux enseignants.
+
+Décision : **rien n'est copié**. La plateforme cite le cours (l'élève peut
+télécharger les quiz et les corrigés sur le site du MIT). Cette décision
+est **prouvée par un test automatique** (`tests/import-test.py`, exécuté
+dans la CI) : un lot qui prétend venir de MIT 6.1600 est refusé, avec le
+motif. Si MIT publie un jour cette version sous licence CC, la source
+passera dans le catalogue et l'import sera possible.
+
+> **À retenir pour l'avenir** : une source gratuite et universitaire n'est
+> pas automatiquement réutilisable. Ce qui compte, c'est la licence
+> explicite. C'est pourquoi le catalogue `tools/sources-autorisees.json`
+> porte, pour chaque source, la licence **et** la décision, avec la
+> date de la vérification.
 
 ### OpenLearn (The Open University) : réutilisable, mais pas extractible
 

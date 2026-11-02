@@ -1,13 +1,28 @@
 #!/usr/bin/env python3
-"""Extrait les questions d'examen de MIT 6.858 (Fall 2014) et les verifie
+"""Extrait les questions d'examen de MIT 6.858 (2009-2014) et les verifie
 contre le corrige officiel.
 
 Le principe : rien n'est invente ici. Le script lit les PDF des quiz et de
 leurs corriges (texte extrait avec pdftotext), en tire les items repondus
-par choix ou vrai/faux, et n'accepte un item que si la reponse est
-litteralement dans le corrige officiel du MIT. La justification du corrige
-devient l'explication de l'eleve : c'est la meilleure pedagogie qu'on
-puisse offrir, et elle est ecrite par les enseignants du MIT.
+par choix ou vrai/faux, ET les problemes d'examen dont la reponse est
+redigee, et n'accepte un item que si la reponse est litteralement dans le
+corrige officiel du MIT. La justification du corrige devient
+l'explication de l'eleve : c'est la meilleure pedagogie qu'on puisse offrir,
+et elle est ecrite par les enseignants du MIT.
+
+Deux formes de question en sortent :
+
+- les items a choix (QCM a trois propositions, vrai/faux) : ils sont
+  rendus tels quels, propositions d'origine, ordre melange ;
+- les problemes d'examen rediges (« expliquez comment un attaquant peut
+  encore exploiter un debordement de tampon ») : ils sont rendus avec le
+  type « solution » — l'eleve redige sa reponse, puis la correction
+  officielle du MIT s'affiche. Aucune note automatique n'est inventee :
+  une redaction ne se note pas par une machine.
+
+Les PDF se recuperent avec `tools/ocw-recupere.py` (le site de OCW
+renvoie des erreurs 503 quand on lui demande trop de choses d'un coup :
+le telechargement se fait donc en serie).
 
 Chaque item est rattache a son enonce parent (celui qui contient le listing
 de code ou la question de reference) : sans cela, « An adversary can trick
@@ -70,6 +85,16 @@ RE_INCOMPLET = re.compile(
 
 JUSTIFICATION_MIN = 40   # caracteres : en dessous, MIT n'a pas explique
 ENONCE_MIN = 50           # caracteres : en dessous, l'item est tronque
+
+# Pour les items a reponse redigee (problemes d'examen) : il faut un
+# enonce complet et une correction officielle developpee, sinon l'eleve
+# n'a rien a apprendre.
+ENONCE_SOLUTION_MIN = 60
+JUSTIFICATION_SOLUTION_MIN = 120
+
+PREFIXE_SOLUTION = "[MIT 6.858 — problème d’examen, en anglais] "
+INDICE_SOLUTION = ("Problème d’examen du MIT : rédige ta réponse, puis la "
+                   "correction officielle du MIT s’affiche.")
 
 
 def nettoyer(texte):
@@ -234,6 +259,52 @@ def lire_choix(lignes, i, cadre):
     }, i
 
 
+def lire_solution(lignes, corps, entete, contexte):
+    """Lit un item dont la reponse est redigee (un vrai probleme d'examen).
+
+    Dans les corriges du MIT, ces items se presentent ainsi :
+
+        2. [5 points]: What are the verification states needed at (2)?
+        Answer:
+           - valid[EAX-0, EAX+256), from above.
+           - valid[ECX-0, ECX+4), to satisfy the subsequent write ...
+
+    L'enonce est la question du MIT ; la correction est la reponse
+    officielle, ecrite par les enseignants. On ne reformule rien : la
+    plateforme montre le probleme, l'eleve redige, puis la correction
+    officielle s'affiche.
+    """
+    index = None
+
+    for i, ligne in enumerate(corps):
+        if RE_REPONSE.match(ligne):
+            index = i
+            break
+
+    if index is None:
+        return None
+
+    reponse = RE_REPONSE.match(corps[index]).group(1).strip()
+    justification = [reponse] if reponse else []
+    justification.extend(l.strip() for l in corps[index + 1:] if l.strip())
+
+    # L'enonce : la ligne d'en-tete du MIT, puis la suite du probleme
+    # (le texte qui precede le « Answer: »), puis le contexte de la
+    # section si l'en-tete seul ne suffit pas a comprendre.
+    enonce = " ".join([entete.strip()] + [l.strip() for l in corps[:index] if l.strip()])
+
+    if contexte:
+        enonce = contexte + " — " + enonce
+
+    return {
+        "type": "solution",
+        "enonce": enonce,
+        "choix": [],
+        "reponse": "",
+        "justification": nettoyer(" ".join(justification)),
+    }
+
+
 def extraire_items(chemin):
     """Extrait les items (vrai/faux et choix multiples) d'un corrige officiel."""
     lignes = lignes_utiles(chemin)
@@ -277,6 +348,15 @@ def extraire_items(chemin):
                         items.append(item)
                 continue
 
+            # Item a reponse redigee : le corrige officiel suit l'enonce
+            # dans le meme bloc (ligne « Answer: » puis la correction).
+            if any(RE_REPONSE.match(ligne) for ligne in corps):
+                cadre = contexte_avant(lignes, index_entete)
+                item = lire_solution(lignes, corps, entete, cadre)
+                if item:
+                    items.append(item)
+                continue
+
             # Item a choix multiples : le cadre vient de la section.
             cadre = contexte_avant(lignes, index_entete)
             if cadre:
@@ -306,30 +386,42 @@ def extraire_items(chemin):
 # Secura_Exam::pool_size), avec le nombre de questions qui manquent.
 # La sonde reproductible est run/probe-pool.php.
 CIBLES = [
-    ("kahoot-la-revision-des-labs-avances", 16, "tous"),
-    ("traverser-le-mur", 9, "reseau"),
-    ("le-mot-de-passe-oublie", 8, "auth"),
-    ("la-page-qui-se-trahit", 8, "web"),
-    ("la-requete-qui-ne-se-fie-a-personne", 8, "web"),
-    ("le-binaire-qui-obeit-trop", 8, "memoire"),
-    ("le-certificat-qui-ne-prouve-rien", 8, "crypto"),
-    ("le-service-qui-ne-repond-plus", 7, "tous"),
-    ("le-fichier-quon-naurait-pas-du-laisser", 6, "os"),
-    ("qui-a-force-la-porte", 6, "os"),
-    ("comment-marche-un-ordinateur-de-la-donnee-au-programme", 6, "memoire"),
-    ("donnees-et-systemes-organiser-linformation", 6, "os"),
-    ("le-reseau-qui-parle-trop", 5, "reseau"),
-    ("la-boutique-en-ligne-se-connecter-en-administrateur", 4, "web"),
-    ("la-zone-administrateur-ce-quun-administrateur-voit", 4, "os"),
-    ("penser-comme-un-defenseur", 3, "tous"),
-    ("securiser-une-application-web", 3, "web"),
-    ("memoire-et-defenses", 3, "memoire"),
-    ("authentification", 3, "auth"),
-    ("chiffrement-et-https", 3, "crypto"),
-    ("le-top-10-owasp-et-la-surface-dattaque", 2, "web"),
-    ("valider-les-entrees-le-premier-remede-anti-injection", 2, "web"),
-    ("journaux-et-audit-la-trace-qui-vaut-de-lor", 2, "os"),
-    ("les-fondamentaux-du-reseau", 1, "reseau"),
+    ("penser-comme-un-defenseur", 8, "tous"),
+    ("les-fondamentaux-du-reseau", 7, "reseau"),
+    ("securiser-une-application-web", 8, "web"),
+    ("memoire-et-defenses", 8, "memoire"),
+    ("authentification", 9, "auth"),
+    ("chiffrement-et-https", 9, "crypto"),
+    ("le-service-qui-ne-repond-plus", 12, "tous"),
+    ("le-mot-de-passe-oublie", 13, "auth"),
+    ("la-page-qui-se-trahit", 12, "web"),
+    ("la-requete-qui-ne-se-fie-a-personne", 12, "web"),
+    ("le-fichier-quon-naurait-pas-du-laisser", 9, "os"),
+    ("qui-a-force-la-porte", 9, "os"),
+    ("le-reseau-qui-parle-trop", 8, "reseau"),
+    ("traverser-le-mur", 13, "reseau"),
+    ("le-binaire-qui-obeit-trop", 12, "memoire"),
+    ("le-certificat-qui-ne-prouve-rien", 12, "crypto"),
+    ("segmenter-isoler-pivoter-la-securite-reseau", 3, "reseau"),
+    ("tls-et-https-le-chiffrement-qui-tient-la-route", 3, "crypto"),
+    ("sauthentifier-mot-de-passe-session-second-facteur", 3, "auth"),
+    ("cryptographie-cle-chiffrement-signature", 3, "crypto"),
+    ("x86-et-memoire-comprendre-la-pile", 3, "memoire"),
+    ("deborder-la-pile-le-canari-et-loffset", 3, "memoire"),
+    ("rop-construire-une-attaque-sans-shellcode", 3, "memoire"),
+    ("vulnerabilite-de-format-string-printf-qui-parle-trop", 3, "memoire"),
+    ("mots-de-passe-la-longueur-bat-la-complexite", 3, "auth"),
+    ("hameconnage-lire-un-message-avant-de-cliquer", 3, "web"),
+    ("publier-en-ligne-ce-que-les-autres-voient-de-toi", 3, "web"),
+    ("hygiene-numerique-le-deuxieme-facteur", 3, "auth"),
+    ("le-top-10-owasp-et-la-surface-dattaque", 6, "web"),
+    ("valider-les-entrees-le-premier-remede-anti-injection", 6, "web"),
+    ("journaux-et-audit-la-trace-qui-vaut-de-lor", 6, "os"),
+    ("comment-marche-un-ordinateur-de-la-donnee-au-programme", 10, "memoire"),
+    ("donnees-et-systemes-organiser-linformation", 10, "os"),
+    ("la-boutique-en-ligne-se-connecter-en-administrateur", 7, "web"),
+    ("la-zone-administrateur-ce-quun-administrateur-voit", 7, "os"),
+    ("kahoot-la-revision-des-labs-avances", 26, "tous"),
 ]
 
 MOTS_THEMES = {
@@ -371,6 +463,10 @@ def repartir(questions):
     memoire, une question web dans une room web. Quand aucune room du
     theme ne manque plus de questions, la question va dans la room qui
     manque le plus.
+
+    Une room ne recoit jamais plus de questions qu'il n'en manque : sinon
+    on comble une room deja large pendant qu'une autre reste juste, et la
+    mesure « reservoir de l'examen » ne progresse pas.
     """
     capacite = {slug: manque for slug, manque, _ in CIBLES}
     themes_cibles = {slug: theme for slug, _, theme in CIBLES}
@@ -392,8 +488,11 @@ def repartir(questions):
         if not eligibles:
             eligibles = list(CIBLES)
 
-        # On remplit d'abord les rooms les moins remplies (proportionnellement),
-        # pour ne pas laisser un reservoir de cote.
+        # On remplit d'abord les rooms les moins remplies (proportionnellement
+        # a leur manque) : le reservoir d'un examen tire dans toute sa
+        # section, donc une question posee dans une room aide aussi les
+        # examens voisins. Concentrer tout sur la room la plus juste
+        # laisserait les autres au meme niveau.
         choisi = min(eligibles, key=lambda c: len(par_room.get(c[0], [])) / c[1])
         capacite[choisi[0]] -= 1
         par_room.setdefault(choisi[0], []).append(question)
@@ -439,6 +538,25 @@ def construire_questions(items):
         if cle in vus:
             continue
         vus.add(cle)
+
+        if item["type"] == "solution":
+            # Un probleme d'examen universitaire : l'eleve redige sa
+            # reponse, la correction officielle lui est ensuite montree.
+            if len(enonce) < ENONCE_SOLUTION_MIN:
+                continue
+            if len(justification) < JUSTIFICATION_SOLUTION_MIN:
+                continue
+            questions.append({
+                "question": PREFIXE_SOLUTION + enonce,
+                "mode": "solution",
+                "xp": 20,
+                "hint": INDICE_SOLUTION,
+                "explanation": "Corrige officiel du MIT : " + justification,
+                "source": ATTRIBUTION,
+                "licence": LICENCE,
+            })
+            position += 1
+            continue
 
         choix = list(item["choix"])
 

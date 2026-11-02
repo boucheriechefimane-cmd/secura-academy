@@ -1,6 +1,6 @@
 # Onboarding et première expérience
 
-- **Date** : 02/11/2026 14:18 UTC
+- **Date** : 02/11/2026 17:03 UTC
 - **Auditeur** : onboarding
 - **Contrôles réussis** : 9
 - **Constats** : 0 bloquant(s), 0 majeur(s), 0 mineur(s), 2 info(s)

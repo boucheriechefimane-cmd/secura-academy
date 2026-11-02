@@ -525,7 +525,7 @@ final class Secura_Rooms {
 
 					$mode = isset( $question['mode'] ) ? sanitize_key( $question['mode'] ) : 'text';
 
-					if ( ! in_array( $mode, array( 'text', 'choice', 'action', 'flag' ), true ) ) {
+					if ( ! in_array( $mode, array( 'text', 'choice', 'action', 'flag', 'solution' ), true ) ) {
 						$mode = 'text';
 					}
 
@@ -572,7 +572,19 @@ final class Secura_Rooms {
 						$flag_path = isset( $question['flag_path'] ) ? Secura_Lab::safe_machine_path( $question['flag_path'] ) : '';
 					}
 
-					if ( 'action' !== $mode && 'flag' !== $mode && empty( $answers ) && empty( $choices ) ) {
+					/* Une question « solution » est un vrai probleme d'examen
+					  universitaire : l'eleve redige sa reponse, puis la
+					   correction officielle de l'ecole lui est Montree. Elle
+					   n'a donc ni propositions ni reponse attendue, mais elle
+					  doit porter sa correction officielle — sinon elle
+					  n'apprend rien. */
+					$explication = isset( $question['explanation'] ) ? trim( (string) $question['explanation'] ) : '';
+
+					if ( 'solution' === $mode && '' === $explication ) {
+						continue;
+					}
+
+					if ( 'action' !== $mode && 'flag' !== $mode && 'solution' !== $mode && empty( $answers ) && empty( $choices ) ) {
 						continue;
 					}
 
@@ -621,7 +633,7 @@ final class Secura_Rooms {
 						'correct'       => $correct,
 						'xp'            => isset( $question['xp'] ) ? absint( $question['xp'] ) : 0,
 						'hint'          => isset( $question['hint'] ) ? (string) $question['hint'] : '',
-						'explanation'   => isset( $question['explanation'] ) ? (string) $question['explanation'] : '',
+						'explanation'   => $explication,
 						'weight'        => isset( $question['weight'] ) ? absint( $question['weight'] ) : 1,
 						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
 						'source'        => isset( $question['source'] ) ? (string) $question['source'] : '',

@@ -1367,6 +1367,16 @@
 	outline-offset: 1px;
 }
 
+/* La redaction d'un probleme d'examen universitaire : une vraie zone
+   de texte, lisible, avec une largeur confortable. */
+.seca-answer-textarea {
+	flex: 1 1 100%;
+	width: 100%;
+	min-height: 8rem;
+	line-height: 1.5;
+	resize: vertical;
+}
+
 .seca-choices {
 	display: flex;
 	flex-direction: column;

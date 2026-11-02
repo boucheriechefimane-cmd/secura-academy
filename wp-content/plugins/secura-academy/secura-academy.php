@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.10.0
+ * Version:           0.11.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,20 @@
  *
  * @package Secura_Academy
  *
+ * 0.11.0 — L'import d'un examen reel passe a l'echelle : les 12 quiz
+ *           du MIT OpenCourseWare 6.858 (2009-2014) et leurs corriges
+ *           officiels donnent 132 questions (17 a choix, 115 problemes
+ *           d'examen rediges). Un nouveau type de question, « solution »,
+ *           fait apparaitre un VRAI probleme d'examen universitaire :
+ *           l'eleve redige sa reponse, puis la correction officielle de
+ *           l'ecole s'affiche mot pour mot. Aucune note automatique
+ *           n'est inventee (une redaction ne se note pas par machine).
+ *           Le reservoir d'un examen passe de 6-24 a 9-39 questions
+ *           distinctes, et les examens au reservoir trop juste sont
+ *           passes de 36 a 22. Le catalogue des sources gagne une
+ *           entree refusee : MIT 6.1600 (quiz et corriges publics, mais
+ *           sans licence Creative Commons -> on cite, on n'importe pas),
+ *           avec un test automatique qui le prouve.
  * 0.10.0 — Le reservoir d'un examen ne compte plus deux fois la meme
  *           question (la question d'entrainement et la question
  *           d'examen d'une meme room) : la mesure etait gonflee de
@@ -161,7 +175,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.10.0' );
+define( 'SECURA_ACADEMY_VERSION', '0.11.0' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

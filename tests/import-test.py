@@ -8,6 +8,9 @@ Trois choses doivent être vraies, et le test le prouve à chaque push :
      qui n'autorisent pas la reprise du contenu) est REFUSÉ, avec un message
      qui explique pourquoi ;
   3. un lot d'une source inconnue est refusé aussi ;
+  3 bis. un lot d'une source universitaire sans licence explicite
+     (MIT 6.1600) est refusé aussi : le materiel est public et gratuit,
+     mais sans licence, on cite — on n'importe pas ;
   4. le lot MIT OCW réellement livré avec la plateforme (les questions
      d'examen du MIT 6.858) est lui-même valide : c'est lui qui alimente
      les rooms, donc il est vérifié à chaque push.
@@ -94,7 +97,20 @@ def main():
         resultat.stdout.strip()[-200:],
     )
 
-    # 4. Un import réel produit un fichier PHP valide, attribué et sourcé.
+    # 4. Une source universitaire SANS licence explicite est refusee aussi
+    #    (MIT 6.1600 : quiz d'entrainement et corriges publics, mais aucune
+    #    licence Creative Commons sur le site du cours -> on cite, on
+    #    n'importe pas).
+    sans_licence = os.path.join(FIXTURES, "import-mit-61600-refuse.json")
+    resultat = lancer(["--verifier", sans_licence])
+    verifier(resultat.returncode != 0, "une source sans licence explicite est refusee")
+    verifier(
+        any(mot in resultat.stdout.lower() for mot in ("reutilisation", "reutilisable", "reutiliser")),
+        "le refus dit pourquoi (source non reutilisable)",
+        resultat.stdout.strip()[-200:],
+    )
+
+    # 5. Un import réel produit un fichier PHP valide, attribué et sourcé.
     dossier = tempfile.mkdtemp(prefix="secura-import-")
     try:
         resultat = lancer(["--importer", exemple, "--sortie", dossier])
@@ -127,7 +143,7 @@ def main():
     finally:
         shutil.rmtree(dossier, ignore_errors=True)
 
-    # 5. Le lot MIT OCW livre avec la plateforme est valide lui-meme :
+    # 6. Le lot MIT OCW livre avec la plateforme est valide lui-meme :
     #    c'est le fichier qui alimente reellement les questions d'examen
     #    (17 questions, avec le corrige officiel du MIT). S'il etait
     #    abime, la plateforme perdrait des questions sans s'en apercevoir.

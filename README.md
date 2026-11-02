@@ -440,8 +440,20 @@ Le détail du format : `docs/IMPORTER-QUESTIONS.md`.
 Le cours publie ses quiz *et* leurs corrigés officiels (licence
 CC BY-NC-SA 4.0). L'extracteur `tools/import-mit-ocw.py` lit les
 corrigés et n'accepte une question que si **la réponse et son
-explication y sont** : 59 items repérés, **17 questions retenues**, dans
-le format d'origine (2 ou 3 propositions, en anglais, jamais réécrites).
+explication y sont** : 223 items repérés dans les 12 quiz (2009-2014),
+**132 questions retenues**, jamais réécrites.
+
+| Type de question importée | Combien | Ce que l'élève voit |
+|---|---|---|
+| **QCM / vrai-faux** | 17 | Les propositions d'origine, dans l'ordre d'origine |
+| **Problème d'examen** (`solution`) | 115 | Le vrai problème du MIT ; l'élève **rédige sa réponse**, puis la **correction officielle du MIT** s'affiche |
+
+Le type `solution` est une nouveauté de la v0.11.0 : ce sont des
+vrais problèmes d'examen d'université (débordement de tampon, sandbox,
+TLS, etc.), avec la correction **mot pour mot** des enseignants du MIT.
+Aucune note automatique n'est inventée : une rédaction ne peut pas être
+notée par une machine, donc l'élève compare sa réponse à la correction
+officielle.
 
 ```bash
 pdftotext -layout un-correctif.pdf -   # le texte du corrigé officiel
@@ -449,10 +461,22 @@ python3 tools/import-mit-ocw.py --texte dossier/ --sortie tools/lots/mit.json
 python3 tools/import-questions.py --importer tools/lots/mit.json
 ```
 
-Une source dont la licence interdit la copie n'est pas importée : la
-Web Security Academy de PortSwigger est **citée comme pratique liée**,
-et un test de CI (`tests/import-test.py`) vérifie qu'un lot PortSwigger
-est bien **refusé**.
+**Ce qui n'est pas importé, et pourquoi.** Une source dont la licence
+interdit la copie n'est jamais recopiée, même « en changeant l'ordre
+et les chiffres » : ce serait encore une copie d'un document protégé,
+et la plateforme serait responsable de ce qu'elle publie. Les
+deux sources refusées sont **citées comme pratique liée** (l'élève
+s'entraîne gratuitement sur le site officiel) :
+
+| Source | Ce qu'on en fait | Preuve |
+|---|---|---|
+| **PortSwigger Web Security Academy** | Cité, jamais recopié (conditions d'utilisation : usage personnel, pas de rediffusion des éléments d'examen) | Un test de CI vérifie qu'un lot PortSwigger est **refusé** |
+| **MIT 6.1600 Foundations of Computer Security** | Cité, jamais recopié (le site publie des quiz d'entraînement *avec* les corrigés, mais **sans licence Creative Commons**) | Un test de CI vérifie qu'un lot MIT 6.1600 est **refusé** |
+
+> Ce que la plateforme a de meilleur ne vient donc pas de PortSwigger :
+> elle vient des sources **librement réutilisables** (MIT OpenCourseWare,
+> OWASP, OpenLearn), où l'on peut reprendre le contenu en indiquant
+> l'auteur, la licence et l'origine.
 
 ## Palette et personnalisation
 
@@ -663,12 +687,14 @@ réussir. C'est désormais changé, et vérifié par la machine :
 Mesuré par l'auditeur « moteur d'épreuves » : **20 élèves ⇒ 20 copies
 différentes** (et 20 **ensembles** de questions différents : l'ordre seul
 ne suffit pas, c'est ce qu'un élève verrait sur une photo d'écran), et
-**2 039 152 copies possibles** au total sur la plateforme.
+**636 150 892 copies possibles** au total sur la plateforme.
 
 > Le chiffre de 131 millions qui figurait ici avant la v0.10.0 était un
 > **mirage** : le réservoir comptait deux fois la même question (celle de
-> l'entraînement et celle de l'examen d'une même room). Le vrai
-> réservoir, c'est **6 à 24 questions distinctes** par examen (médiane 17).
+> l'entraînement et celle de l'examen d'une même room). Après la
+> correction, puis après l'import des 132 questions d'examen du MIT
+> 6.858 (v0.11.0), le réservoir réel est de **9 à 39 questions distinctes**
+> par examen (médiane 24), et la plateforme compte **524 questions**.
 > Un contrôle automatique vérifie qu'aucune question liée à une machine
 > (drapeau, action dans le terminal) ne voyage dans une autre room — sinon
 > l'élève chercherait un fichier qui n'existe pas chez lui.

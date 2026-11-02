@@ -3,7 +3,7 @@
     "titre": "Données structurées et entités",
     "expert": "Expert en données structurées (schema.org) et en référencement sémantique",
     "perimetre": "Vérifie le JSON-LD réellement servi par le site : présence, validité JSON, complétude des types, cohérence avec le contenu visible (ce qui est déclaré doit exister à l'écran), et cohérence entre les versions linguistiques. Ces données sont le langage que parlent les moteurs de recherche et les systèmes génératifs.",
-    "date": "2026-11-02T14:18:43+00:00",
+    "date": "2026-11-02T17:03:01+00:00",
     "ok": 7,
     "non_etaye": 0,
     "forces": [

@@ -3,7 +3,7 @@
     "titre": "Accessibilité — WCAG 2.2 niveau AA",
     "expert": "Expert en accessibilité numérique (RGAA et WCAG 2.2 AA)",
     "perimetre": "Applique la grille WCAG 2.2 AA critère par critère aux pages servies : texte alternatif, nom accessible des commandes, étiquetage des champs, structure des titres, contraste, navigation clavier, lien d'évitement, langue déclarée, sens de lecture, zoom, cibles tactiles et animations. Un audit automatique ne remplace pas un test avec un lecteur d'écran : ce qui n'est pas automatisable est dit explicitement.",
-    "date": "2026-11-02T14:18:46+00:00",
+    "date": "2026-11-02T17:03:04+00:00",
     "ok": 10,
     "non_etaye": 0,
     "forces": [

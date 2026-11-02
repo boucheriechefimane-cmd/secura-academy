@@ -19,7 +19,7 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | # | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Info | Verdict |
 |---|---|---|---|---|---|---|---|
 | 1 | SEO | 48 | 0 | 0 | 0 | 0 | **Conforme** |
-| 2 | Contenu | 19 | 0 | 0 | 0 | 2 | **Conforme** |
+| 2 | Contenu | 20 | 0 | 0 | 0 | 3 | **Conforme** |
 | 3 | UX / UI | 16 | 0 | 0 | 0 | 2 | **Conforme** |
 | 4 | Développement | 18 | 0 | 0 | 0 | 3 | **Conforme** |
 | 5 | Sécurité & infra | 25 | 0 | 0 | 0 | 0 | **Conforme** |
@@ -36,7 +36,7 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 16 | **Panel des vingt élèves** | 5 | 0 | 0 | 0 | 23 | **Conforme** |
 | 17 | **Moteur d'épreuves** | 12 | 0 | 0 | 1 | 5 | **Conforme (1 mineur de contenu)** |
 | 18 | **Drapeaux et actions joués pour de vrai** | 3 (+1 en CI) | 0 | 0 | 0 | 3 | **Conforme** |
-| | **Total** | **228** (229 en CI) | **0** | **0** | **1** | **64** | **Conforme** |
+| | **Total** | **229** (230 en CI) | **0** | **0** | **1** | **64** | **Conforme** |
 
 > **Un contrôle de plus en CI qu'en local** : le 18ᵉ auditeur (drapeaux et
 > actions joués pour de vrai) vérifie une question supplémentaire quand les
@@ -213,6 +213,47 @@ laissé visible, plutôt que masqué.
 Environnement de l'audit : WordPress 7.1.4 réel (MySQL 11.8), PHP 8.3,
 plugin et thème du dépôt, pages récupérées en HTTP, machines Docker
 réelles pour l'isolation.
+
+### 1 octies. Le nouveau type « solution » : un vrai problème d'examen universitaire (02/11/2026, v0.11.0)
+
+**Ce que l'import a apporté.** Les 12 quiz du MIT 6.858 (2009-2014) ne
+contiennent pas que des QCM : ils contiennent surtout des **problèmes
+d'examen rédigés** (« Expliquez comment un attaquant peut encore
+exploiter un débordement de tampon sur une pile non exécutable »), dont la
+réponse officielle est une **explication en prose**. L'extracteur ne
+savait pas les lire : il en retenait 17 sur 223 items.
+
+**La question posée à l'auditeur :** peut-on publier une question à
+laquelle une machine ne sait pas répondre ? Réponse retenue : **oui, mais
+jamais en inventant une note.** Une rédaction ne se corrige pas
+automatiquement ; pretendre le contraire serait mentir à l'élève. Le type
+`solution` a donc été ajouté au moteur :
+
+| Élément | Règle appliquée |
+|---|---|
+| Affichage | Un vrai champ de réécriture (6 lignes), pas une case à cocher |
+| Validation | L'élève doit écrire au moins quelques mots : le bouton « Voir la correction officielle » refuse une réponse vide |
+| Retour | La **correction officielle de l'école**, mot pour mot, s'affiche après la réponse |
+| Note | **Aucune** : pas de « bonne » ou « mauvaise » réponse, pas de score automatique |
+| Contrôle automatique | L'auditeur de contenu **rejette** une question `solution` sans correction officielle complète (80 caractères minimum), sans source ou sans licence |
+
+**Preuve par la mesure :** 115 problèmes d'examen du MIT sont désormais
+dans la plateforme, avec la correction officielle du MIT. Le panel
+d'élèves a été adapté pour savoir y répondre, et le comité est repassé au
+vert : **229 contrôles, 0 bloquant, 0 majeur, 1 mineur**.
+
+**Ce que le comité a refusé, et pourquoi (02/11/2026).** Deux sources ont
+été trouvées et **écartées**, chacune avec une preuve automatique :
+
+| Source | Matériel disponible | Décision | Preuve |
+|---|---|---|---|
+| PortSwigger Web Security Academy | Labs gratuits, questions d'examen | **Cité, jamais recopié** (§ 7.4, 7.7, 9.5 des conditions d'utilisation) | `tests/import-test.py` refuse un lot PortSwigger |
+| MIT 6.1600 Foundations of Computer Security | Quiz d'entraînement **avec les corrigés officiels** | **Cité, jamais recopié** : le site du cours ne porte aucune licence Creative Commons | `tests/import-test.py` refuse un lot MIT 6.1600 |
+
+> Changer l'ordre des propositions et les chiffres d'une question
+> protégée ne la rend pas libre : cela reste une copie d'un document
+> protégé. C'est la règle de la maison depuis le début, et elle a été
+> appliquée ici par deux tests automatiques, pas par une déclaration.
 
 ### 1 septies. La CI rouge pour une raison extérieure au plugin (02/11/2026, v0.10.0)
 
@@ -761,6 +802,7 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 
 | Date | Version | Résultat |
 |---|---|---|
+| 02/11/2026 (v0.11.0) | v0.11.0 | **L'import d'un examen réel passe à l'échelle : 132 questions du MIT 6.858 (dont 115 problèmes d'examen rédigés avec la correction officielle), nouveau type de question « solution », deux sources trouvées et refusées avec preuve automatique (PortSwigger, MIT 6.1600). Mesures : 524 questions, réservoirs de 9 à 39 (médiane 24), 636 150 892 copies possibles, examens au réservoir trop juste passés de 36 à 22. Comité : **229 contrôles, 0 bloquant, 0 majeur, 1 mineur**. |
 | 02/11/2026 (v0.10.0, CI après fusion) | v0.10.0 | **Les cinq travaux GitHub sont verts** sur le code fusionné : CI, recette et compatibilité (dont Polylang, désormais épinglé), machines en vrais conteneurs (45 contrôles), audit externe des 18 auditeurs (**229 contrôles en CI**, 0 bloquant, 0 majeur, 1 mineur) et déploiement. |
 | 02/11/2026 (v0.10.0, après fusion des deux travaux parallèles) | v0.10.0 | **Le travail distant et le travail local ont été fusionnés** (le distant avait une meilleure atomicité du tirage : `prochain_rang()` en base avec `LAST_INSERT_ID`, conservée). Le comité rejoué sur le code fusionné : **228 contrôles, 0 bloquant, 0 majeur, 1 mineur**. Un test de compatibilité CI a échoué pour une raison extérieure (empreinte de paquet Polylang périmée côté WordPress.org) : les plugins tiers sont désormais **épinglés** (version + SHA-256), ce qui rend la CI reproductible. |
 | 02/11/2026 (v0.10.0, local + CI) | v0.10.0 | **Le panel passe à vingt élèves, le premier import d'examen arrive, et le réservoir cesse de compter les questions en double.** Trois faits mesurés. **(1) Panel à 20 profils** (décision du propriétaire) : 20/20 élèves créent un compte en une étape, se connectent et jouent ; 20/20 reçoivent des points (223 → 247 XP), deux médailles d'or, et passent de « Observateur » à « Apprenti » ; **20/20 copies d'examen distinctes, et 20/20 ensembles de questions distincts**. **(2) Premier import d'examen** : les quiz d'examen du MIT 6.858 (Fall 2014) et leurs corrigés officiels (licence CC BY-NC-SA 4.0) sont récupérés (24 PDF) ; l'extracteur en retient **17 questions sur 59 items**, avec l'explication officielle du MIT, dans le format d'origine (2 ou 3 propositions, en anglais). La source choisie en premier (PortSwigger) **ne peut pas être copiée** : elle est citée comme pratique liée, et **le refus est prouvé par un test de CI**. **(3) Le défaut trouvé en préparant l'import** : le réservoir d'un examen **comptait la même question deux fois** (la question d'entraînement et la question d'examen d'une même room) — la mesure était gonflée de moitié, et surtout **deux élèves pouvaient recevoir le même examen** (avec 7 questions distinctes et une épreuve de 3, la probabilité que 20 élèves ait des examens tous différents est de 0,4 %). Correction : le réservoir **déduplique**, et l'ensemble de questions est désormais tiré par un **compteur** (deux élèves ne peuvent pas recevoir le même ensemble tant que le réservoir le permet ; l'ordre et les chiffres restent tirés au sort, donc reproductibles). **Mesures après correction :** 409 questions (392 + 17), réservoir réel de 6 à 24 questions distinctes (médiane 17), **2 039 152** copies possibles (et non 131 millions : c'était un mirage), et **36 examens** au réservoir plus petit que cinq fois leur épreuve — le seul constat mineur du comité, mesuré room par room (`scripts/audit/probe-reservoirs.php`). Bilan du comité (18 auditeurs) : **226 contrôles, 0 bloquant, 0 majeur, 1 mineur**. |

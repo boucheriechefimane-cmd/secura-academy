@@ -1,0 +1,30 @@
+{
+ "source": "mit-61600-foundations",
+ "licence": "Copyright MIT — aucune licence Creative Commons explicite sur le site du cours",
+ "attribution": "MIT 6.1600 Foundations of Computer Security",
+ "url": "https://61600.csail.mit.edu/2026/",
+ "rooms": [
+  {
+   "room": "authentification",
+   "title": "Authentification",
+   "tasks": {
+    "test": [
+     {
+      "question": "T/F Every one-way function is collision resistant.",
+      "mode": "choice",
+      "choices": [
+       "True",
+       "False"
+      ],
+      "correct": 1,
+      "xp": 20,
+      "hint": "Quiz d'entraînement du MIT 6.1600.",
+      "explanation": "Solution: False",
+      "source": "MIT 6.1600 Foundations of Computer Security",
+      "licence": "Copyright MIT — aucune licence Creative Commons explicite sur le site du cours"
+     }
+    ]
+   }
+  }
+ ]
+}

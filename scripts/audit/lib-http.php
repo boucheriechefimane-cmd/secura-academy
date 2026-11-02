@@ -116,6 +116,14 @@ function panel_reponses( $user_id, $room_id, $index, array $task ) {
 			$reponses[ $q_index ] = (string) $question['answers'][0];
 		}
 
+		/* Un probleme d'examen universitaire (type « solution ») : le
+		   panel ne redacte pas une these, il montre qu'il tente sa
+		   reponse — le serveur affiche ensuite la correction
+		   officielle de l'ecole. */
+		if ( 'solution' === $mode ) {
+			$reponses[ $q_index ] = 'Reponse redigee par le panel ; la correction officielle est ensuite affichee.';
+		}
+
 		/* Les questions de drapeau ou d'action demandent la machine :
 		   le panel les laisse au test d'intrusion, qui a, lui, une vraie
 		   machine à piloter. */

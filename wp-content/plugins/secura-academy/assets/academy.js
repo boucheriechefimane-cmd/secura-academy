@@ -715,6 +715,19 @@
 			box.appendChild( list );
 		} else if ( 'action' === mode ) {
 			box.appendChild( el( 'p', 'seca-action-note', t( 'action_note', "Realise l'action dans le terminal, puis confirme." ) ) );
+		} else if ( 'solution' === mode ) {
+			/* Probleme d'examen universitaire : l'eleve redige sa
+			   reponse, et la correction officielle de l'ecole lui sera
+			   montree juste apres. */
+			input = document.createElement( 'textarea' );
+
+			input.className = 'seca-answer-input seca-answer-textarea';
+			input.rows = 6;
+			input.autocomplete = 'off';
+			input.setAttribute( 'aria-label', question.question );
+
+			box.appendChild( el( 'p', 'seca-action-note', t( 'solution_note', "Redige ta reponse, puis affiche la correction officielle." ) ) );
+			box.appendChild( input );
 		} else {
 			box.appendChild( input );
 		}
@@ -732,7 +745,9 @@
 
 		var actions = el( 'div', 'seca-question-actions' );
 
-		var submit = el( 'button', 'seca-btn seca-btn--primary', t( 'validate', 'Valider' ) );
+		var submit = el( 'button', 'seca-btn seca-btn--primary', 'solution' === mode
+			? t( 'see_solution', 'Voir la correction officielle' )
+			: t( 'validate', 'Valider' ) );
 
 		submit.type = 'button';
 
@@ -792,6 +807,11 @@
 
 				if ( ! value.trim() ) {
 					input.focus();
+					return;
+				}
+
+				if ( 'solution' === mode && value.trim().length < 10 ) {
+					toast( t( 'answer_too_short', 'Ecris ta reponse (au moins quelques mots) avant d'afficher la correction.' ), true );
 					return;
 				}
 			}
