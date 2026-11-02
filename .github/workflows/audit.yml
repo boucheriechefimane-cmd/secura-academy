@@ -110,6 +110,16 @@ jobs:
             node --check "$f"
           done
 
+      # Veille : OpenLearn (The Open University) est la seule banque de
+      # questions trouvée sous une licence QUI AUTORISE UN USAGE COMMERCIAL
+      # (CC BY-SA 4.0). Depuis l'environnement de travail, le site répond
+      # 403 (protection anti-robot) : on tente depuis le runner GitHub, dont
+      # l'adresse IP est différente. Un échec n'arrête rien — c'est une
+      # veille, pas un contrôle.
+      - name: Veille OpenLearn (banque de questions CC BY-SA)
+        continue-on-error: true
+        run: bash tools/probe-openlearn.sh /tmp/openlearn-sonde.txt || true
+
       - name: Construire les machines
         run: |
           # Les questions de drapeau et d'action demandent la machine de

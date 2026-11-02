@@ -31,12 +31,12 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 11 | **RGPD & mineurs** | 8 | 0 | 0 | 0 | 3 | **Conforme** |
 | 12 | **Moteur de lab & Docker** | 6 | 0 | 0 | 0 | 3 | **Conforme** |
 | 13 | **Onboarding** | 9 | 0 | 0 | 0 | 2 | **Conforme** |
-| 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | 4 | **Conforme** |
+| 14 | **Licences & attribution** | 6 | 0 | 0 | 0 | 4 | **Conforme** |
 | 15 | **DevOps & résilience** | 12 | 0 | 0 | 0 | 2 | **Conforme** |
 | 16 | **Panel des vingt élèves** | 5 | 0 | 0 | 0 | 23 | **Conforme** |
 | 17 | **Moteur d'épreuves** | 13 | 0 | 0 | 1 | 5 | **Conforme (1 mineur de contenu)** |
 | 18 | **Drapeaux et actions joués pour de vrai** | 3 (+1 en CI) | 0 | 0 | 0 | 3 | **Conforme** |
-| | **Total** | **231** (231 en CI, vrais conteneurs Docker) | **0** | **0** | **1** | **64** | **Conforme** |
+| | **Total** | **233** (233 en CI, vrais conteneurs Docker) | **0** | **0** | **1** | **64** | **Conforme** |
 
 > **Un contrôle de plus en CI qu'en local** : le 18ᵉ auditeur (drapeaux et
 > actions joués pour de vrai) vérifie une question supplémentaire quand les
