@@ -58,6 +58,7 @@ cp "$REPO_DIR/docs/LABS-AVANCES.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/ROADMAP.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/COMPATIBILITE-PLUGINS.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/CONTENU-MIT.md" "$TMP/recette/docs/"
+cp "$REPO_DIR/docs/IMPORTER-QUESTIONS.md" "$TMP/recette/docs/"
 
 # Les outils : le generateur de contenu (avec le controle qualite),
 # l'outil de verification des drapeaux Juice Shop et le catalogue video.
@@ -66,6 +67,11 @@ cp -r "$REPO_DIR/tools/contenu-universites" "$TMP/recette/tools/contenu-universi
 cp -r "$REPO_DIR/tools/contenu-m3" "$TMP/recette/tools/contenu-m3"
 cp -r "$REPO_DIR/tools/juice-shop" "$TMP/recette/tools/juice-shop"
 cp -r "$REPO_DIR/tools/videos" "$TMP/recette/tools/videos"
+
+# L'import de questions deja validees : le catalogue des sources et
+# l'outil qui refuse tout ce qui n'y figure pas.
+cp "$REPO_DIR/tools/import-questions.py" "$TMP/recette/tools/"
+cp "$REPO_DIR/tools/sources-autorisees.json" "$TMP/recette/tools/"
 rm -rf "$TMP/recette/tools/contenu-universites/__pycache__"
 
 cp "$REPO_DIR/scripts/ci-wordpress.sh" "$TMP/recette/scripts/"
