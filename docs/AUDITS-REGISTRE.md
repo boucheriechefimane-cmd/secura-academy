@@ -19,7 +19,7 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | # | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Info | Verdict |
 |---|---|---|---|---|---|---|---|
 | 1 | SEO | 48 | 0 | 0 | 0 | 0 | **Conforme** |
-| 2 | Contenu | 18 | 0 | 0 | 0 | 1 | **Conforme** |
+| 2 | Contenu | 19 | 0 | 0 | 0 | 2 | **Conforme** |
 | 3 | UX / UI | 16 | 0 | 0 | 0 | 2 | **Conforme** |
 | 4 | Développement | 18 | 0 | 0 | 0 | 3 | **Conforme** |
 | 5 | Sécurité & infra | 25 | 0 | 0 | 0 | 0 | **Conforme** |
@@ -33,10 +33,16 @@ de formuler le moindre constat. Un audit sans preuve ne compte pas.
 | 13 | **Onboarding** | 9 | 0 | 0 | 0 | 2 | **Conforme** |
 | 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | 4 | **Conforme** |
 | 15 | **DevOps & résilience** | 12 | 0 | 0 | 0 | 2 | **Conforme** |
-| 16 | **Panel des dix élèves** | 5 | 0 | 0 | 0 | 13 | **Conforme** |
+| 16 | **Panel des vingt élèves** | 5 | 0 | 0 | 0 | 23 | **Conforme** |
 | 17 | **Moteur d'épreuves** | 12 | 0 | 0 | 1 | 5 | **Conforme (1 mineur de contenu)** |
-| 18 | **Drapeaux et actions joués pour de vrai** | 4 | 0 | 0 | 0 | 3 | **Conforme** |
-| | **Total** | **228** | **0** | **0** | **1** | **64** | **Conforme** |
+| 18 | **Drapeaux et actions joués pour de vrai** | 3 (+1 en CI) | 0 | 0 | 0 | 3 | **Conforme** |
+| | **Total** | **228** (229 en CI) | **0** | **0** | **1** | **64** | **Conforme** |
+
+> **Un contrôle de plus en CI qu'en local** : le 18ᵉ auditeur (drapeaux et
+> actions joués pour de vrai) vérifie une question supplémentaire quand les
+> vraies machines Docker sont disponibles — en local, l'émulateur ne peut
+> pas jouer ce contrôle-là. D'où **228 contrôles en local, 229 en CI**,
+> pour le même code.
 
 > Les 18 auditeurs produisent chacun **trois formats** de rapport dans
 > `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
@@ -207,6 +213,50 @@ laissé visible, plutôt que masqué.
 Environnement de l'audit : WordPress 7.1.4 réel (MySQL 11.8), PHP 8.3,
 plugin et thème du dépôt, pages récupérées en HTTP, machines Docker
 réelles pour l'isolation.
+
+### 1 septies. La CI rouge pour une raison extérieure au plugin (02/11/2026, v0.10.0)
+
+**Constat.** Après la fusion des deux travaux parallèles du 02/11/2026, le
+travail « WordPress — recette et compatibilité » de la CI a **échoué** sur
+seul le cas « Polylang ». Le message :
+
+```
+Error: md5 hash for download (a074a706…) is different than the release hash (00e24bf7…)
+```
+
+**Ce que c'est.** WP-CLI compare le paquet téléchargé à l'empreinte
+`md5` que l'API de WordPress.org annonce pour ce plugin. WordPress.org
+reconstruit parfois un paquet **sans changer son numéro de version** :
+l'empreinte annoncée n'est plus celle du fichier servi. La CI compare
+donc deux fichiers différents et conclude à une corruption — alors que
+la **recette complète (le job important : 45 contrôles de machines,
+scénario des deux apprenants) était verte**.
+
+**Pourquoi ce n'est pas un faux positif.** Le test de compatibilité avec
+Polylang existe pour une bonne raison : notre plugin crée des contenu
+avec des langues, et un plugin de multilingue peut le casser. Il ne
+fallait pas supprimer le test — il fallait le rendre indépendant de
+l'humeur du répertoire de WordPress.org.
+
+**Traitement.** Les plugins tiers testés sont désormais **épinglés**
+(version + empreinte SHA-256 dans `tools/plugins-tiers.json`) :
+
+| Plugin | Version testée | Ce qui est vérifié |
+|---|---|---|
+| Polylang | 3.9.1 | SHA-256 du paquet, puis activation |
+| LiteSpeed Cache | 7.9.2 | SHA-256 du paquet, puis activation |
+
+- le paquet est téléchargé depuis l'adresse officielle de WordPress.org ;
+- son empreinte est comparée à celle enregistrée dans le dépôt ;
+- si l'empreinte a changé (paquet reconstruit en amont), on **n'accepte
+  que si le nom et la version lus dans le paquet** sont bien ceux
+  qu'on attendait ; sinon la CI échoue ;
+- en dernier recours seulement, la voie WP-CLI (avec trois tentatives).
+
+**Vérifié en local avant d'envoyer** : Polylang 3.9.1 et LiteSpeed
+Cache 7.9.2 s'installent et s'activent par le chemin épinglé, sans
+passer par WP-CLI. La CI rejoue ensuite les 45 contrôles de machines et
+le scénario des deux apprenants.
 
 ---
 
@@ -711,6 +761,8 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 
 | Date | Version | Résultat |
 |---|---|---|
+| 02/11/2026 (v0.10.0, CI après fusion) | v0.10.0 | **Les cinq travaux GitHub sont verts** sur le code fusionné : CI, recette et compatibilité (dont Polylang, désormais épinglé), machines en vrais conteneurs (45 contrôles), audit externe des 18 auditeurs (**229 contrôles en CI**, 0 bloquant, 0 majeur, 1 mineur) et déploiement. |
+| 02/11/2026 (v0.10.0, après fusion des deux travaux parallèles) | v0.10.0 | **Le travail distant et le travail local ont été fusionnés** (le distant avait une meilleure atomicité du tirage : `prochain_rang()` en base avec `LAST_INSERT_ID`, conservée). Le comité rejoué sur le code fusionné : **228 contrôles, 0 bloquant, 0 majeur, 1 mineur**. Un test de compatibilité CI a échoué pour une raison extérieure (empreinte de paquet Polylang périmée côté WordPress.org) : les plugins tiers sont désormais **épinglés** (version + SHA-256), ce qui rend la CI reproductible. |
 | 02/11/2026 (v0.10.0, local + CI) | v0.10.0 | **Le panel passe à vingt élèves, le premier import d'examen arrive, et le réservoir cesse de compter les questions en double.** Trois faits mesurés. **(1) Panel à 20 profils** (décision du propriétaire) : 20/20 élèves créent un compte en une étape, se connectent et jouent ; 20/20 reçoivent des points (223 → 247 XP), deux médailles d'or, et passent de « Observateur » à « Apprenti » ; **20/20 copies d'examen distinctes, et 20/20 ensembles de questions distincts**. **(2) Premier import d'examen** : les quiz d'examen du MIT 6.858 (Fall 2014) et leurs corrigés officiels (licence CC BY-NC-SA 4.0) sont récupérés (24 PDF) ; l'extracteur en retient **17 questions sur 59 items**, avec l'explication officielle du MIT, dans le format d'origine (2 ou 3 propositions, en anglais). La source choisie en premier (PortSwigger) **ne peut pas être copiée** : elle est citée comme pratique liée, et **le refus est prouvé par un test de CI**. **(3) Le défaut trouvé en préparant l'import** : le réservoir d'un examen **comptait la même question deux fois** (la question d'entraînement et la question d'examen d'une même room) — la mesure était gonflée de moitié, et surtout **deux élèves pouvaient recevoir le même examen** (avec 7 questions distinctes et une épreuve de 3, la probabilité que 20 élèves ait des examens tous différents est de 0,4 %). Correction : le réservoir **déduplique**, et l'ensemble de questions est désormais tiré par un **compteur** (deux élèves ne peuvent pas recevoir le même ensemble tant que le réservoir le permet ; l'ordre et les chiffres restent tirés au sort, donc reproductibles). **Mesures après correction :** 409 questions (392 + 17), réservoir réel de 6 à 24 questions distinctes (médiane 17), **2 039 152** copies possibles (et non 131 millions : c'était un mirage), et **36 examens** au réservoir plus petit que cinq fois leur épreuve — le seul constat mineur du comité, mesuré room par room (`scripts/audit/probe-reservoirs.php`). Bilan du comité (18 auditeurs) : **226 contrôles, 0 bloquant, 0 majeur, 1 mineur**. |
 | 02/11/2026 (v0.9.1, passage CI) | v0.9.1 | **Le même comité rejoué par GitHub, en vrais conteneurs** (passage `41374598365`, commit `a1b2954`) : WordPress installé de zéro, 6 images de machines construites, les 18 auditeurs passés au crible en 13 min 46 s. Bilan : **226 contrôles, 0 bloquant, 0 majeur, 1 mineur, 55 info**. Les 61 questions de machine y ont été **jouées et acceptées** par un serveur qui relit le fichier en root. Les rapports de ce passage (18 × 3 formats) sont conservés dans `docs/audits/` et archivés par la CI. |
 | 02/11/2026 | v0.9.1 | **Le 18ᵉ auditeur : les questions de machine, jouées pour de vrai.** Le propriétaire a demandé que les 60 questions de drapeau et la question d'action soient **réellement** jouées. En cherchant pourquoi elles ne l'étaient pas, on a trouvé un défaut majeur : **le moteur d'épreuves pouvait remplacer les questions de machine par d'autres questions au tirage** — elles n'étaient donc jamais posées. Correction : une question qui demande la machine ne se tire plus au sort, elle reste toujours dans la copie de l'élève (le mélange des propositions et les chiffres qui changent sont intacts). L'auditeur joue ensuite **chaque** question : élève créé, connexion, leçon, réponses, **machine déployée**, **valeur cherchée dans la machine**, valeur soumise, **serveur qui la relit en root** — 61 questions jouées et acceptées. Quatre autres défauts trouvés au passage (le `absint(-1)`, l'ordre de déploiement, les motifs de terminal, l'emplacement des drapeaux Compose) : tous corrigés. **En parallèle, la stratégie de contenu change** : on n'écrit plus de questions, on **importe** des questions validées (universités, OWASP, NIST, examens de certification quand l'éditeur autorise), avec un catalogue de sources, un outil qui refuse tout ce qui n'y figure pas, et un encart « Sources » visible dans la room. Total : **226 contrôles, 0 bloquant, 0 majeur** |
