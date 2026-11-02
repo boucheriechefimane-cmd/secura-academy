@@ -7,7 +7,10 @@ Trois choses doivent être vraies, et le test le prouve à chaque push :
   2. un lot d'une source interdite (PortSwigger : conditions d'utilisation
      qui n'autorisent pas la reprise du contenu) est REFUSÉ, avec un message
      qui explique pourquoi ;
-  3. un lot d'une source inconnue est refusé aussi.
+  3. un lot d'une source inconnue est refusé aussi ;
+  4. le lot MIT OCW réellement livré avec la plateforme (les questions
+     d'examen du MIT 6.858) est lui-même valide : c'est lui qui alimente
+     les rooms, donc il est vérifié à chaque push.
 
 Le test joue ensuite un import réel dans un dossier temporaire et vérifie
 le fichier PHP produit : la syntaxe est valide, l'attribution et la licence
@@ -55,7 +58,7 @@ def lancer(args):
 
 
 def main():
-    print("Chaîne d'import des questions — trois contrôles")
+    print("Chaîne d'import des questions — le lot livré, les deux refus, et le fichier produit")
 
     # 1. Une source autorisée passe.
     exemple = os.path.join(FIXTURES, "import-exemple.json")
@@ -123,6 +126,20 @@ def main():
                 )
     finally:
         shutil.rmtree(dossier, ignore_errors=True)
+
+    # 5. Le lot MIT OCW livre avec la plateforme est valide lui-meme :
+    #    c'est le fichier qui alimente reellement les questions d'examen
+    #    (17 questions, avec le corrige officiel du MIT). S'il etait
+    #    abime, la plateforme perdrait des questions sans s'en apercevoir.
+    lot = os.path.join(RACINE, "tools", "lots", "mit-ocw-6858-examens.json")
+    verifier(os.path.exists(lot), "le lot MIT OCW livre est present")
+    if os.path.exists(lot):
+        resultat = lancer(["--verifier", lot])
+        verifier(
+            resultat.returncode == 0,
+            "le lot MIT OCW livre est valide",
+            resultat.stdout.strip()[-200:],
+        )
 
     print("")
     if ECHECS:
