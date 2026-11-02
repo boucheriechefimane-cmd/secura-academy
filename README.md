@@ -627,7 +627,7 @@ Un contrôle automatique vérifie qu'aucune question liée à une machine
 (drapeau, action dans le terminal) ne voyage dans une autre room — sinon
 l'élève chercherait un fichier qui n'existe pas chez lui.
 
-Ce que les quinze auditeurs ont trouvé — et fait corriger : les pages légales
+Ce que les auditeurs ont trouvé — et fait corriger : les pages légales
 qui n'existaient pas, l'invitation à s'inscrire que le visiteur anonyme ne
 recevait pas, la création de compte bloquée, les parcours sans certification,
 les entités HTML illisibles dans le JSON-LD, les workflows sans limite de

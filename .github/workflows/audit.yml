@@ -1,4 +1,4 @@
-name: Audit externe — comité de 15 auditeurs
+name: Audit externe — comité de 17 auditeurs
 
 # Un comité d'audit externe, comme dans une organisation qui veut savoir
 # ce que dira un regard neuf avant la mise en production.
@@ -47,7 +47,7 @@ concurrency:
 
 jobs:
   audit:
-    name: Audit externe (15 auditeurs, WordPress réel)
+    name: Audit externe (17 auditeurs, WordPress réel)
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
@@ -105,7 +105,7 @@ jobs:
           echo "Le site ne répond pas" >&2
           exit 1
 
-      - name: Les quinze auditeurs passent au crible
+      - name: Les dix-sept auditeurs passent au crible
         run: bash scripts/audit/run-audits.sh
 
       - name: Lister les rapports produits
@@ -125,7 +125,7 @@ jobs:
       - name: Résumé de l'audit
         if: always()
         run: |
-          echo "## Comité d'audit externe — 15 auditeurs" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Comité d'audit externe — 17 auditeurs" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "| Auditeur | Réussis | Bloquant | Majeur | Mineur | Info |" >> "$GITHUB_STEP_SUMMARY"
           echo "|---|---|---|---|---|---|" >> "$GITHUB_STEP_SUMMARY"

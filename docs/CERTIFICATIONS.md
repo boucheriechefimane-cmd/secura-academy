@@ -180,5 +180,5 @@ Trois phrases que la plateforme ne doit **jamais** écrire :
 
 - [`docs/SOURCES-CONTENU.md`](SOURCES-CONTENU.md) — le registre des sources et des licences
 - [`docs/CONTENU-MIT.md`](CONTENU-MIT.md) — le palier 3 universitaire, en détail
-- [`docs/AUDITS-REGISTRE.md`](AUDITS-REGISTRE.md) — les rapports des 15 auditeurs
+- [`docs/AUDITS-REGISTRE.md`](AUDITS-REGISTRE.md) — les rapports des 17 auditeurs
 - [`docs/ROADMAP.md`](ROADMAP.md) — la feuille de route (bloc T : les 15 agents)

@@ -1,6 +1,6 @@
 <?php
 /**
- * Auditeur 16 — Le panel des dix élèves.
+ * Auditeur 16e sur 17 — Le panel des dix élèves.
  *
  * Dix élèves fictifs — chacun avec son âge, sa langue et sa spécialité
  * en cybersécurité — jouent la plateforme comme un vrai élève : ils

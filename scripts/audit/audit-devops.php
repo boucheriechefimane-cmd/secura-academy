@@ -1,6 +1,6 @@
 <?php
 /**
- * Auditeur 15/15 — DevOps, deploiement et resilience.
+ * Auditeur 15e sur 17 — DevOps, deploiement et resilience.
  *
  * PERIMETRE
  * Ce qui se passe quand tout va mal : la pipeline peut-elle rester bloquee
@@ -378,7 +378,7 @@ audit_verifier(
 $script_barriere = file_get_contents( $racine . '/scripts/audit/run-audits.sh' );
 
 audit_verifier(
-	'le script qui lance les quinze auditeurs remonte leur code de sortie (la barrière atteint le workflow)',
+	'le script qui lance les dix-sept auditeurs remonte leur code de sortie (la barrière atteint le workflow)',
 	false !== strpos( $script_barriere, 'exit "$CONSTATS"' ) || false !== strpos( $script_barriere, 'exit "${CONSTATS' ),
 	'Le script de barrière ne transmet pas le code de sortie des auditeurs au workflow.',
 	'majeur',

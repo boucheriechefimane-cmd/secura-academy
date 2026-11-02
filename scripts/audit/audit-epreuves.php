@@ -1,6 +1,6 @@
 <?php
 /**
- * Auditeur 17/17 — Le moteur d'épreuves : deux élèves ne passent jamais
+ * Auditeur 17e sur 17 — Le moteur d'épreuves : deux élèves ne passent jamais
  * la même copie.
  *
  * PERIMETRE
