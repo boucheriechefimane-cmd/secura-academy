@@ -1,6 +1,6 @@
 # Performance et Core Web Vitals
 
-- **Date** : 02/11/2026 17:02 UTC
+- **Date** : 02/11/2026 19:37 UTC
 - **Auditeur** : performance
 - **Contrôles réussis** : 6
 - **Constats** : 0 bloquant(s), 0 majeur(s), 0 mineur(s), 1 info(s)

@@ -3,7 +3,7 @@
     "titre": "Moteur de lab et orchestration Docker",
     "expert": "Expert en orchestration de conteneurs et en cycle de vie de machines virtuelles pédagogiques",
     "perimetre": "Vérifie que le moteur fonctionne autant qu'il est durci : cycle de vie complet (déployer → jouer → indice → arrêter → nettoyer), durée de vie, nettoyage automatique, isolation de deux apprenants, reprise après incident, et cohérence entre le code et le contenu réel des machines. Ne juge pas la sécurité des conteneurs : c'est l'auditeur sécurité.",
-    "date": "2026-11-02T17:03:11+00:00",
+    "date": "2026-11-02T19:37:17+00:00",
     "ok": 6,
     "non_etaye": 0,
     "forces": [
@@ -16,7 +16,13 @@
             "preuve": "Préfixes calculés avec l'identifiant de l'élève : SECA_LAB_USER"
         }
     ],
-    "scenarios": [],
+    "scenarios": [
+        {
+            "nom": "Docker répond et liste les images disponibles",
+            "resultat": "Docker opérationnel",
+            "sortie": "Docker version : Docker version 27.3.1-sim, build simulation\nImages :\n"
+        }
+    ],
     "bloquant": 0,
     "majeur": 0,
     "mineur": 0,
@@ -30,8 +36,8 @@
             "etaye": false
         },
         {
-            "libelle": "Scénario de démarrage non joué (Docker indisponible ici)",
-            "detail": "Docker n'est pas disponible dans cet environnement : l'audit vérifie le code et les fichiers, mais n'a pas démarré de machine. La CI, elle, joue ce scénario sur des vrais conteneurs.",
+            "libelle": "Docker disponible",
+            "detail": "Version du moteur : Docker version 27.3.1-sim, build simulation",
             "gravite": "info",
             "preuve": "",
             "etaye": false

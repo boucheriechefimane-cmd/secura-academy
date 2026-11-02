@@ -3,7 +3,7 @@
     "titre": "Audit externe — Le panel des vingt élèves (âge, langue, spécialité)",
     "expert": "",
     "perimetre": "",
-    "date": "2026-11-02T17:05:56+00:00",
+    "date": "2026-11-02T19:37:20+00:00",
     "ok": 5,
     "non_etaye": 0,
     "forces": [],
@@ -36,21 +36,21 @@
         },
         {
             "libelle": "Parcours de Lucas (19 ans, fr, développeur web, première confrontation au web)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=310 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 310 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=322 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 322 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
         },
         {
             "libelle": "Parcours de Amina (22 ans, ar, technicienne d'exploitation (centre opérationnel))",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=310 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 310 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=327 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 327 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
         },
         {
             "libelle": "Parcours de Tomás (24 ans, en, passionné de rétro-ingénierie)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=315 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 315 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=317 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 317 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
@@ -64,7 +64,7 @@
         },
         {
             "libelle": "Parcours de Karim (31 ans, ar, administrateur Linux)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=317 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 317 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=315 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 315 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
@@ -78,14 +78,14 @@
         },
         {
             "libelle": "Parcours de Julien (45 ans, fr, responsable sécurité (RSSI))",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=315 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 315 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=327 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 327 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
         },
         {
             "libelle": "Parcours de Nadia (28 ans, fr, testeuse d'intrusion, débutante)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=310 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 310 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=322 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 322 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
@@ -99,35 +99,35 @@
         },
         {
             "libelle": "Parcours de Adam (14 ans, fr, collège, première fois devant un terminal)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=317 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 317 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=327 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 327 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
         },
         {
             "libelle": "Parcours de Hanane (26 ans, ar, comptable, se met à la cybersécurité pour protéger son entreprise)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=315 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 315 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=320 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 320 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
         },
         {
             "libelle": "Parcours de Diego (21 ans, fr, étudiant en BTS, découvre le réseau)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=315 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 315 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=320 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 320 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
         },
         {
             "libelle": "Parcours de Rashid (38 ans, ar, technicien de maintenance, reconversion)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=315 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 315 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=310 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 310 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
         },
         {
             "libelle": "Parcours de Chloé (29 ans, fr, cheffe de projet, veut comprendre les failles qu'on lui raconte)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=327 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 327 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=317 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 317 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
@@ -141,21 +141,21 @@
         },
         {
             "libelle": "Parcours de Priya (23 ans, en, développeuse junior, première mission en production)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=317 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 317 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=322 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 322 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
         },
         {
             "libelle": "Parcours de Youssef (52 ans, fr, formateur en centre de formation, cherche un support de cours)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=303 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 303 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=322 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 322 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false
         },
         {
             "libelle": "Parcours de Nora (19 ans, ar, étudiante en droit, s'intéresse à la vie privée)",
-            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=308 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 308 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
+            "detail": "compte créé en une étape (formulaire d'inscription) ; connexion réussie (HTTP 200, cookie de session reçu) ; parcours ouvert (HTTP 200) ; leçon lue dans la page servie (le contenu est bien dans le HTML) ; room 8 : XP=317 (Analyste), médailles=2 ; 15 questions traitées, 15 validées par le serveur ; 1 leçon(s) lue(s) et validée(s) d'un clic ; points : 0 → 317 ; niveau : Observateur → Analyste ; médailles : 2 (gold 100%, gold 100%)",
             "gravite": "info",
             "preuve": "",
             "etaye": false

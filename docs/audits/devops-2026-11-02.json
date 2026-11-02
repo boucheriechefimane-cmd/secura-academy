@@ -3,7 +3,7 @@
     "titre": "DevOps, déploiement et résilience",
     "expert": "Expert en intégration continue et en exploitation (SRE) de WordPress",
     "perimetre": "Vérifie que la chaîne de livraison est bornée dans le temps, que les permissions sont minimales, que le déploiement sauvegarde avant d'écrire et vérifie après, qu'une procédure de retour en arrière existe et est écrite, et que les sauvegardes ne saturent pas le disque. Ne juge pas la qualité du code : c'est l'auditeur développement.",
-    "date": "2026-11-02T17:03:14+00:00",
+    "date": "2026-11-02T19:37:20+00:00",
     "ok": 12,
     "non_etaye": 0,
     "forces": [
