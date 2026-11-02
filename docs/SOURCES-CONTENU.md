@@ -459,3 +459,46 @@ Trois portes s'ouvrent pour un service payant, par ordre de simplicité :
 Tant que cet accord n'existe pas, l'outil d'import **refuse** tout lot
 destiné à un usage payant dès que la source porte « NC » : le garde-fou
 est dans le code, pas seulement dans une intention.
+
+---
+
+## 16. La récolte du 02/11/2026 : ce que MIT OCW donne réellement
+
+Le site restant **gratuit pour toujours**, les licences « NC » sont
+utilisables : le gisement change d'échelle. Pour ne pas chercher à la
+main, la récolte est **systématique** : `tools/ocw-recensement-examens.py`
+parcourt le sitemap de MIT OpenCourseWare (2 587 cours), ne garde que les
+cours techniques (systèmes, réseaux, crypto, sécurité), lit la page de
+chacun et note les types de ressources annoncés.
+
+**Résultat : 26 cours techniques, dont 6 publient des examens ou des
+énoncés avec corrigés.** Sur ces 6 :
+
+| Cours | Matériel | Importé ? | Pourquoi |
+|---|---|---|---|
+| **6.858 Computer Systems Security** (Fall 2014) | 12 quiz + corrigés officiels | **Oui — 132 questions** | déjà en place (v0.11.0) |
+| **6.828 Operating System Engineering** (Fall 2012) | 4 examens (Q08→Q11) + corrigés | **Oui — 31 questions** | chaque question vérifiée contre le corrigé |
+| **14.15J Networks** (Spring 2018) | examen + corrigé | **Oui — 14 questions** | format « problème + sous-questions » : un second extracteur |
+| 14.15 Networks (Spring 2022) | midterm + corrigé | **Non** | le corrigé est rédigé en prose (format différent) : l'appariement ne peut pas être vérifié, donc on ne garde rien |
+| 6.824 Distributed Systems (Spring 2006) | examens | **Non** | **pas de corrigé** : on ne devine pas la réponse |
+| 6.875 Cryptography & Cryptanalysis | 1 seul corrigé pour 5 devoirs | **Non** | idem |
+| 6.829 Computer Networks | ps1 + corrigés | **Non** | le PDF est en PostScript à encodage cassé : le texte extrait est illisible |
+| 6.5630 Advanced Topics in Cryptography | un devoir, sans corrigé | **Non** | pas de corrigé |
+
+**La règle qui tient tout :** une question n'est importée que si **le
+corrigé officiel du MIT contient la réponse**, et l'appariement
+énoncé ↔ corrigé est vérifié (comparaison des premiers mots, en
+ignorant la ponctuation). Sans cette vérification, on inventerait des
+réponses — ce que la règle du projet interdit.
+
+**Harvard CS50** (licence **CC BY-NC-SA 4.0**, vérifiée le 02/11/2026 sur
+`cs50.harvard.edu/x/license/`) entre au catalogue, mais **rien n'en est
+importé** : les énoncés sont des exercices de programmation dont les
+corrigés officiels ne sont pas publiés sous une forme lisible par machine
+(`cs50/problems` contient les énoncés, pas les solutions). On cite, on
+n'invente pas.
+
+**MIT 6.1600 / 6.5660** (le cours actuel du professeur Nickolai
+Zeldovich) publient **34 quiz et 10 examens avec corrigés officiels** :
+c'est le plus gros gisement qui reste, et il est **sans licence** — d'où
+la demande d'autorisation (`docs/DEMANDE-AUTORISATION-MIT.md`).

@@ -296,6 +296,30 @@ compter le score sur la mauvaise liste.
 utilisé par le serveur (validation, indice, fin de tâche, score) comme par
 les audits. On interroge **la copie servie**, jamais la liste d'origine.
 
+**La récolte du 02/11/2026, et ce qu'elle a Honestement refusé.** Le site
+reste **gratuit pour toujours** (décision du propriétaire) : les licences
+« NC » sont utilisables, et le gisement change d'échelle. La récolte n'est
+pas faite à la main : un script parcourt le sitemap de MIT OpenCourseWare
+(2 587 cours), ne retient que les cours techniques et note ceux qui
+publient des examens ou des énoncés **avec corrigés** (6 cours sur 26).
+Trois sont importés (6.828 : 31 questions, 14.15J : 14, 6.858 déjà en place
+: 132), soit **45 questions de plus**, et le manque de réservoir des examens
+tombe de **80 à 31**.
+
+Le plus important n'est pas le gain, c'est ce que la récolte a **refusé** :
+
+| Source | Matériel | Traitement |
+|---|---|---|
+| 14.15 Networks (2022) | midterm + corrigé | **Refusé** : le corrigé est en prose, l'appariement énoncé ↔ corrigé ne peut pas être vérifié |
+| 6.824, 6.875, 6.5630 | examens / devoirs | **Refusé** : pas de corrigé officiel — on ne devine pas la réponse |
+| 6.829 Computer Networks | ps1 + corrigés | **Refusé** : PDF en PostScript à encodage cassé, texte illisible |
+| Harvard CS50 | énoncés d'exercices | **Cité, pas importé** : les corrigés officiels ne sont pas publiés sous une forme lisible par machine |
+| MIT 6.1600 / 6.5660 | 34 quiz + 10 examens avec corrigés | **En attente d'autorisation** : le gisement le plus gros qui reste, sans licence |
+
+La règle qui tient tout : une question n'est importée que si **le corrigé
+officiel contient la réponse**, et l'appariement est vérifié. Un contrôle
+qui laisse passer une question sans réponse vérifiable ne prouve rien.
+
 **Un défaut que le comité n'avait pas vu, trouvé par un contrôle manquant.**
 Le 02/11/2026, `node --check` a été installé dans l'environnement de travail
 (il manquait jusqu'alors) : il a déclaré `academy.js` **illisible**. Une
