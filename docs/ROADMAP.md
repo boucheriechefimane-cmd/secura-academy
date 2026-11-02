@@ -806,7 +806,48 @@ machine).
 | Copies d'examen possibles | 2 039 152 | **636 150 892** |
 | Examens au réservoir trop juste | 36 | **22** |
 
-**3. Ce qui reste :** 22 examens ont encore un réservoir plus petit que
+**3. Le bug que la mesure honnête a débusqué.** La copie tirée que
+l'élève voit n'était pas celle que le serveur validait : le serveur
+vérifiait l'index de la réponse dans la **liste d'origine**, alors que
+l'élève répond à la **copie** (réservoir du niveau, propositions
+mélangées). Quand la copie est plus longue que la liste d'origine — ce
+qui arrive dès qu'une room a un test court et une section riche — le
+serveur refusait les questions par « Question invalide ». La question de
+drapeau, toujours en fin de copie, devenait donc **impossible à
+répondre** : la room ne pouvait plus être finie. Le même décalage
+donnait à l'élève l'indice d'une autre question, et faisait compter le
+score sur la mauvaise liste.
+
+*Pourquoi ce bug a pu dormir :* l'auditeur de drapeaux déclarait sa
+réussite en comparant l'index de la question servie à l'index de la
+question source — deux index sans rapport, puisque le tirage mélange
+les questions. Une copie dont la première question était un QCM passait
+donc au vert, **sans que le drapeau ait jamais été accepté**. La
+mesure mentait ; c'est en la corrigeant qu'on a trouvé le vrai bug.
+
+**Correctif** : un point de passage unique, `Secura_Exam::question_copie()`,
+interrogé par le serveur (validation, indice, fin de tâche, score) comme
+par les audits — on interroge toujours **la copie servie**. Un contrôle
+d'audit vérifie désormais, room par room, que la dernière question de
+chaque copie est acceptée par le serveur ; rejoué avec l'ancien code, ce
+contrôle produit un **majeur** qui nomme les rooms concernées. Un
+contrôle qui ne peut pas échouer ne prouve rien.
+
+**4. La règle de taille, trouvée en même temps.** Le `test` (point de
+contrôle) et l'`exam` (épreuve) ne se ressemblaient pas : quand la tâche
+d'entraînement d'une room ne contenait qu'une question de machine, le
+tirage renvoyait **tout le réservoir de la section** — jusqu'à **39
+questions** pour un simple point de contrôle, dont 16 problèmes
+d'examen rédigés. La taille du test variait donc de 2 à 39 questions
+selon la room. Règle adoptée : **le test a la taille de l'examen de sa
+room** (2 à 5), et le tirage ne renvoie jamais plus que ce qu'on demande.
+Mesuré après correction : le test fait **2 à 17 questions (médiane 4)** —
+le maximum restant appartient à la room « kahoot », qui est une révision
+et garde ses 15 problèmes d'examen par conception. Les **examens, eux, ne
+changent pas** : réservoirs de 9 à 39 (médiane 24), 636 150 892 copies
+possibles.
+
+**5. Ce qui reste :** 22 examens ont encore un réservoir plus petit que
 cinq fois leur épreuve. Il manque **80 questions**. Les sources libres
 sont comptées : MIT OCW est presque épuisé (les 12 quiz de 6.858 sont
 tous utilisés ; les autres cours MIT trouvés — 6.006, 6.034, 6.042J —

@@ -715,18 +715,26 @@ function audit_machine_joue( $room_id, $index, $q_index, $chemin, $cookie, $user
 	   meme que dans la source. On la retrouve a son chemin de
 	   drapeau, qui est unique dans la room. */
 	$index_drapeau = -1;
+	$valeur_lue   = '';
+	$copie        = array();
 
-	if ( 'flag' === $mode ) {
-		$copie = Secura_Exam::paper( $user_id, $room_id, $index, $taches[ $index ] );
+	/* Où se trouve la question de machine dans la COPIE servie à
+	   l'élève ? Le tirage melange les questions : l'index n'est pas le
+	   meme que dans la source. On la reconnait a son texte (unique
+	   dans la room) — un drapeau a aussi un chemin qui lui est propre. */
+	$copie = Secura_Exam::paper( $user_id, $room_id, $index, $taches[ $index ] );
 
-		foreach ( (array) $copie as $index_copie => $question_copie ) {
-			$chemin_copie = isset( $question_copie['flag_path'] ) ? (string) $question_copie['flag_path'] : '';
+	$texte_source = isset( $taches[ $index ]['questions'][ $q_index ]['question'] )
+		? (string) $taches[ $index ]['questions'][ $q_index ]['question']
+		: '';
 
-			if ( '' !== $chemin_copie && $chemin_copie === $chemin ) {
-				$index_drapeau = (int) $index_copie;
+	foreach ( (array) $copie as $index_copie => $question_copie ) {
+		$texte_copie = isset( $question_copie['question'] ) ? (string) $question_copie['question'] : '';
 
-				break;
-			}
+		if ( '' !== $texte_source && $texte_source === $texte_copie ) {
+			$index_drapeau = (int) $index_copie;
+
+			break;
 		}
 	}
 
@@ -787,10 +795,12 @@ function audit_machine_joue( $room_id, $index, $q_index, $chemin, $cookie, $user
 			   copie tiree n'est pas le meme que son index dans la
 			   source : le tirage melange les questions. On la
 			   reconnait donc a son chemin de drapeau. */
-			if ( $i === $index
-				&& $index_question === $index_drapeau
-				&& ! empty( $reponse['data']['correct'] ) ) {
-				$acceptee = true;
+			if ( $i === $index && $index_question === $index_drapeau ) {
+				$reponse_flag = $reponse;
+
+				if ( ! empty( $reponse['data']['correct'] ) ) {
+					$acceptee = true;
+				}
 			}
 		}
 	}
@@ -803,6 +813,8 @@ function audit_machine_joue( $room_id, $index, $q_index, $chemin, $cookie, $user
 	   qui fait foi (c'est lui que le serveur relit ensuite). */
 	$attendu = audit_machine_valeur_fichier( $room_id, $chemin, $user_id );
 	$cherche  = audit_machine_cherche( $room_id, $cookie, $nonce, $attendu );
+
+	$valeur_lue = (string) $attendu;
 	$niveau   = 'joue';
 	$valeur   = '';
 
@@ -858,10 +870,22 @@ function audit_machine_joue( $room_id, $index, $q_index, $chemin, $cookie, $user
 	);
 
 	if ( ! $acceptee ) {
+		/* On explique pourquoi : un constat sans preuve ne vaut rien. */
+		$explication = 'copie de ' . count( (array) $copie ) . ' question(s), question de machine en position ' . $index_drapeau
+			. ', valeur lue ' . strlen( (string) $valeur_lue ) . ' caractere(s)';
+
+		if ( isset( $reponse_flag ) && ! empty( $reponse_flag['data']['message'] ) ) {
+			$explication .= ', serveur : ' . $reponse_flag['data']['message'];
+		}
+
+		if ( isset( $reponse_flag['data']['code'] ) ) {
+			$explication .= ' (' . $reponse_flag['data']['code'] . ')';
+		}
+
 		return array(
 			'joue'   => false,
 			'niveau' => $niveau,
-			'detail' => 'le serveur a refusé la valeur trouvée',
+			'detail' => 'le serveur a refusé la valeur trouvée — ' . $explication,
 			'valeur' => $cherche['valeur'],
 		);
 	}

@@ -111,6 +111,34 @@ final class Secura_Ajax {
 	}
 
 	/**
+	 * La copie servie à l'apprenant : le tirage.
+	 *
+	 * Chaque élève reçoit SA copie d'une épreuve : les questions tirées
+	 * au sort (réservoir du niveau), les propositions mélangées, les
+	 * chiffres variés. C'est cette copie qu'il répond : les index
+	 * qu'il renvoie sont ceux de la copie affichée, pas ceux de la
+	 * liste d'origine.
+	 *
+	 * Toute action qui touche aux questions doit donc travailler sur la
+	 * copie. Sinon l'élève ne peut pas répondre à certaines questions
+	 * (« Question invalide »), l'indice affiché est celui d'une autre
+	 * question, et le score est calculé sur la mauvaise liste.
+	 *
+	 * @param int   $user_id Apprenant.
+	 * @param int   $room_id Room.
+	 * @param array $view    Vue de la room.
+	 * @param int   $index   Index de la tâche.
+	 * @return array La tâche, avec la copie servie.
+	 */
+	private static function copie_tache( $user_id, $room_id, array $view, $index ) {
+		$task = $view['tasks'][ $index ];
+
+		$task['questions'] = Secura_Exam::paper( $user_id, $room_id, $index, $task );
+
+		return $task;
+	}
+
+	/**
 	 * Récupère une room et ses tâches (jamais les réponses).
 	 */
 	public static function get_room() {
@@ -131,6 +159,11 @@ final class Secura_Ajax {
 			$tstate      = isset( $state['tasks'][ (string) $index ] ) ? $state['tasks'][ (string) $index ] : array();
 			$exam        = Secura_Progress::exam_state( $user_id, $room_id, $index );
 			$unlocked    = Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state );
+
+			/* On compte sur la COPIE servie à l'élève : c'est elle
+			   qu'il doit répondre, et c'est elle qui décide si la
+			   tâche est finie. */
+			$task        = self::copie_tache( $user_id, $room_id, $view, $index );
 			$solved      = isset( $tstate['solved'] ) ? count( $tstate['solved'] ) : 0;
 			$total       = count( $task['questions'] );
 			$time_left   = 0;
@@ -216,6 +249,12 @@ final class Secura_Ajax {
 		}
 
 		$tstate  = isset( $state['tasks'][ (string) $index ] ) ? $state['tasks'][ (string) $index ] : array();
+
+		/* La copie servie : c'est elle que l'élève voit, donc c'est
+		   elle qui compte pour la fin de la tâche et pour le score. */
+		$task    = self::copie_tache( $user_id, $room_id, $view, $index );
+		$view['tasks'][ $index ] = $task;
+
 		$done    = Secura_Progress::is_task_done( $task, $tstate );
 		$is_exam = 'exam' === $task['type'];
 		$exam    = Secura_Progress::exam_state( $user_id, $room_id, $index );
@@ -235,15 +274,6 @@ final class Secura_Ajax {
 				403
 			);
 		}
-
-		/* Chaque eleve recoit SA copie de l'epreuve : les questions
-		   tirees au sort (reservoir du niveau, propositions melangees,
-		   chiffres varies) remplacent la liste d'origine. C'est aussi
-		   ce qui rend l'examen impossible a repeter par capture
-		   d'ecran. */
-		$task['questions'] = Secura_Exam::paper( $user_id, $room_id, $index, $task );
-
-		$view['tasks'][ $index ] = $task;
 
 		$questions = array();
 
@@ -332,21 +362,23 @@ final class Secura_Ajax {
 			wp_send_json_error( array( 'message' => Secura_I18n::t( 'task_not_found', '', 'Tâche introuvable.' ) ), 404 );
 		}
 
-		if ( $q_index < 0 || ! isset( $view['tasks'][ $index ]['questions'][ $q_index ] ) ) {
-			wp_send_json_error( array( 'message' => Secura_I18n::t( 'question_invalid', '', 'Question invalide.' ) ), 400 );
-		}
-
 		$user_id = get_current_user_id();
-		$task    = $view['tasks'][ $index ];
 
 		/* On note la copie TIREE, celle que l'eleve a reellement vue :
 		   si l'ordre des propositions a change, c'est la nouvelle
-		   position de la bonne reponse qui fait foi. */
-		$task['questions'] = Secura_Exam::paper( $user_id, $room_id, $index, $task );
+		   position de la bonne reponse qui fait foi. Et c'est sur cette
+		   copie que l'index envoye par le navigateur est verifie : les
+		   index qu'il renvoie sont ceux de la copie affichee. */
+		$task = self::copie_tache( $user_id, $room_id, $view, $index );
+
+		$question = Secura_Exam::question_copie( $user_id, $room_id, $index, $q_index );
+
+		if ( null === $question ) {
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'question_invalid', '', 'Question invalide.' ) ), 400 );
+		}
 
 		$view['tasks'][ $index ] = $task;
 
-		$question = $view['tasks'][ $index ]['questions'][ $q_index ];
 		$state   = Secura_Progress::get_room_state( $user_id, $room_id );
 
 		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
@@ -718,11 +750,18 @@ final class Secura_Ajax {
 
 		$view = Secura_Rooms::get_room_view( $room_id );
 
-		if ( ! $view || ! isset( $view['tasks'][ $index ]['questions'][ $q_index ] ) ) {
+		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
 			wp_send_json_error( array( 'message' => Secura_I18n::t( 'question_not_found', '', 'Question introuvable.' ) ), 404 );
 		}
 
-		$task = $view['tasks'][ $index ];
+		$task = self::copie_tache( get_current_user_id(), $room_id, $view, $index );
+
+		/* L'indice vient de la copie affichee : on cherche l'indice
+		   dans cette copie, sinon l'indice affiche serait celui d'une
+		   autre question. */
+		if ( ! isset( $task['questions'][ $q_index ] ) ) {
+			wp_send_json_error( array( 'message' => Secura_I18n::t( 'question_not_found', '', 'Question introuvable.' ) ), 404 );
+		}
 
 		if ( 'exam' === $task['type'] ) {
 			wp_send_json_error(
@@ -738,7 +777,7 @@ final class Secura_Ajax {
 
 		wp_send_json_success(
 			array(
-				'hint' => $view['tasks'][ $index ]['questions'][ $q_index ]['hint'],
+				'hint' => $task['questions'][ $q_index ]['hint'],
 			)
 		);
 	}

@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.11.0
+ * Version:           0.11.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,21 @@
  *
  * @package Secura_Academy
  *
+ * 0.11.1 — Le serveur valide enfin la COPIE servie a l'eleve. Il
+ *           verifiait l'index de la reponse dans la liste d'origine,
+ *           alors que l'eleve repond a la copie tiree (reservoir du
+ *           niveau, propositions melangees) : quand la copie est plus
+ *           longue que la liste d'origine, le serveur refusait des
+ *           questions que l'eleve voyait (« Question invalide »), et
+ *           la question de drapeau, toujours en fin de copie, ne
+ *           pouvait plus etre repondue — la room ne pouvait plus etre
+ *           finie. Le meme decalage donnait l'indice d'une autre
+ *           question et faisait compter le score sur la mauvaise
+ *           liste. Point de passage unique : Secura_Exam::question_copie(),
+ *           utilise par le serveur et par les audits. En passant, le
+ *           tirage ne renvoie plus jamais tout le reservoir : le test
+ *           (point de controle) a la taille de l'examen de sa room,
+ *           soit 2 a 5 questions au lieu de 2 a 39.
  * 0.11.0 — L'import d'un examen reel passe a l'echelle : les 12 quiz
  *           du MIT OpenCourseWare 6.858 (2009-2014) et leurs corriges
  *           officiels donnent 132 questions (17 a choix, 115 problemes
@@ -175,7 +190,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.11.0' );
+define( 'SECURA_ACADEMY_VERSION', '0.11.1' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

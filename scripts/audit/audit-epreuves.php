@@ -22,6 +22,7 @@
  */
 
 require_once __DIR__ . '/audit-lib.php';
+require_once __DIR__ . '/lib-http.php';
 
 audit_titre( 'epreuves', 'Le moteur d\'épreuves : deux élèves, deux copies' );
 
@@ -523,6 +524,178 @@ audit_verifier(
 	'majeur',
 	implode( ' ; ', array_slice( $transposees, 0, 5 ) )
 );
+
+/* ------------------------------------------------------------------ */
+/* 6. La copie servie est-elle entierement repondable ?                  */
+/* ------------------------------------------------------------------ */
+
+echo "\n6. La copie servie à l'élève est-elle entièrement répondable ?\n";
+
+$url_site = defined( 'SECA_WP_URL' ) ? (string) SECA_WP_URL : '';
+
+if ( '' === $url_site ) {
+	$env_url = getenv( 'SECA_WP_URL' );
+
+	$url_site = is_string( $env_url ) && '' !== $env_url ? $env_url : (string) home_url( '/' );
+}
+
+$url_site = rtrim( $url_site, '/' );
+
+/* On joue le rôle d'un élève : on demande la tâche (c'est la copie
+   servie que le navigateur recoit), puis on tente de repondre a sa
+   DERNIERE question. Si le serveur refuse l'index (« Question
+   invalide »), l'eleve ne peut pas finir sa room : la question existe
+   a l'ecran mais pas pour le serveur. C'est exactement le piege que
+   l'import de masse a rendu visible : la copie tiree peut etre plus
+   longue que la liste d'origine, et c'est la copie qu'il faut
+   interroger. */
+$eleves = array();
+
+for ( $n = 0; $n < 4; $n++ ) {
+	$login  = 'audit-copie-' . $n . '-' . substr( md5( microtime() . $n ), 0, 6 );
+	$motif  = wp_generate_password( 18 );
+	$cookie = '/tmp/audit-copie-' . $n . '-' . getmypid() . '.txt';
+
+	$user_id = wp_insert_user(
+		array(
+			'user_login' => $login,
+			'user_pass'  => $motif,
+			'user_email' => $login . '@exemple.test',
+			'role'       => 'subscriber',
+		)
+	);
+
+	if ( is_wp_error( $user_id ) ) {
+		continue;
+	}
+
+	panel_connecter( $url_site, $cookie, $login, $motif );
+
+	/* Le jeton de session est livre dans la page : on le recupere
+	   comme le ferait un navigateur. */
+	$nonce = '';
+
+	$page = panel_appel( get_permalink( $rooms[0]->ID ), $cookie );
+
+	if ( preg_match( '/"nonce":"([a-f0-9]+)"/', $page['corps'], $m_nonce ) ) {
+		$nonce = $m_nonce[1];
+	}
+
+	$eleves[] = array(
+		'id'     => $user_id,
+		'login'  => $login,
+		'cookie' => $cookie,
+		'nonce'  => $nonce,
+	);
+}
+
+$refuses   = array();
+$verifiees = 0;
+
+foreach ( $rooms as $index_room => $room ) {
+	if ( empty( $eleves ) ) {
+		break;
+	}
+
+	$eleve = $eleves[ $index_room % count( $eleves ) ];
+
+	$taches = Secura_Rooms::get_tasks( $room->ID );
+
+	foreach ( $taches as $index_tache => $tache ) {
+		if ( 'test' !== ( $tache['type'] ?? '' ) && 'exam' !== ( $tache['type'] ?? '' ) ) {
+			continue;
+		}
+
+		/* On deverrouille les taches precedentes, comme un eleve
+		   qui les aurait faites : sinon le serveur refuse la copie
+		   pour la bonne raison qu'elle est verrouillee — et le
+		   controle ne testerait rien. */
+		for ( $i = 0; $i < $index_tache; $i++ ) {
+			audit_deverrouille_tache( $eleve['id'], $room->ID, $taches[ $i ], $i );
+		}
+
+		$tache_servie = panel_appel(
+			admin_url( 'admin-ajax.php' ),
+			$eleve['cookie'],
+			array(
+				'action'  => 'secura_get_task',
+				'room_id' => $room->ID,
+				'task'    => $index_tache,
+				'nonce'   => $eleve['nonce'],
+			)
+		);
+
+		$donnees = json_decode( $tache_servie['corps'], true );
+
+		if ( ! is_array( $donnees ) || empty( $donnees['data']['task']['questions'] ) ) {
+			continue;
+		}
+
+		$questions = (array) $donnees['data']['task']['questions'];
+		$dernier   = count( $questions ) - 1;
+
+		$reponse = panel_appel(
+			admin_url( 'admin-ajax.php' ),
+			$eleve['cookie'],
+			array(
+				'action'   => 'secura_validate_answer',
+				'room_id'  => $room->ID,
+				'task'     => $index_tache,
+				'question' => $dernier,
+				'answer'   => 'reponse de controle de audit',
+				'nonce'    => $eleve['nonce'],
+			)
+		);
+
+		$verifiees++;
+
+		if ( 400 === (int) $reponse['code'] && false !== stripos( $reponse['corps'], 'invalide' ) ) {
+			$refuses[] = 'room ' . $room->ID . ' (tache ' . $index_tache . ') : question ' . $dernier . ' refusee';
+		}
+	}
+}
+
+audit_verifier(
+	'toutes les questions de la copie servie sont acceptees par le serveur',
+	empty( $refuses ),
+	implode( ' ; ', array_slice( $refuses, 0, 6 ) ),
+	'majeur',
+	$verifiees . ' copie(s) verifiee(s) : on a tente de repondre a la derniere question de chaque copie servie, et le serveur ne l\'a jamais refusee'
+);
+
+
+/**
+ * Marque une tache comme faite, pour un eleve de controle : on
+ * deverrouille la suite sans passer par le navigateur.
+ *
+ * @param int   $user_id Eleve.
+ * @param int   $room_id Room.
+ * @param array $tache   La tache a marquer.
+ * @param int   $index   Index de la tache.
+ */
+function audit_deverrouille_tache( $user_id, $room_id, array $tache, $index ) {
+	$state = Secura_Progress::get_room_state( $user_id, $room_id );
+	$key   = (string) (int) $index;
+
+	if ( ! isset( $state['tasks'][ $key ] ) || ! is_array( $state['tasks'][ $key ] ) ) {
+		$state['tasks'][ $key ] = array(
+			'solved' => array(),
+			'hints'  => array(),
+			'done'   => false,
+		);
+	}
+
+	if ( empty( $tache['questions'] ) ) {
+		/* Une lecon : le clic « j'ai lu » suffit. */
+		$state['tasks'][ $key ]['done'] = true;
+	} else {
+		foreach ( array_keys( (array) $tache['questions'] ) as $question ) {
+			$state['tasks'][ $key ]['solved'][ (string) $question ] = true;
+		}
+	}
+
+	Secura_Progress::save_room_state( $user_id, $room_id, $state );
+}
 
 /* ------------------------------------------------------------------ */
 exit( audit_fin() );

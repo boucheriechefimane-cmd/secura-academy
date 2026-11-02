@@ -179,7 +179,18 @@ final class Secura_Exam {
 	private static function ensemble_reserve( array $melange, $tirage, $room_id, $index ) {
 		$n = count( $melange );
 
-		if ( $tirage < 1 || $n <= $tirage ) {
+		/* On ne tire jamais plus qu'on ne demande. Le cas « tirage
+		   nul » (la tache ne contient que des questions de machine)
+		   doit donc donner une copie VIDE de questions au hasard : on
+		   y ajoute ensuite les questions obligatoires. L'ancien
+		   code renvoyait tout le reservoir dans ce cas : l'eleve
+		   recevait alors la section entiere — jusqu'a 39 questions
+		   pour un simple point de controle. */
+		if ( $tirage < 1 ) {
+			return array();
+		}
+
+		if ( $n <= $tirage ) {
 			return $melange;
 		}
 
@@ -387,6 +398,24 @@ final class Secura_Exam {
 		$nombre = isset( $task['questions'] ) ? count( $task['questions'] ) : 0;
 		$nombre = max( 1, (int) $nombre );
 
+		/* Le TEST est le point de controle de la room : il a la
+		   taille de l'EXAMEN de cette room, jamais plus. Sans cette
+		   regle, une room dont la tache d'entrainement ne contient
+		   qu'une question de machine donnait a l'eleve tout le
+		   reservoir de la section : la taille du test variait de 2 a
+		   39 questions selon la room. */
+		if ( 'test' === $type ) {
+			$taches = Secura_Rooms::get_tasks( $room_id );
+
+			foreach ( $taches as $tache ) {
+				if ( 'exam' === ( $tache['type'] ?? '' ) ) {
+					$nombre = max( $nombre, count( (array) $tache['questions'] ) );
+
+					break;
+				}
+			}
+		}
+
 		/* Les questions qui demandent la machine (drapeau, action) ne
 		   se tirent pas : elles font partie de la mission de la room,
 		   donc elles sont TOUJOURS dans la copie. Sans cela, le tirage
@@ -450,6 +479,33 @@ final class Secura_Exam {
 		update_user_meta( $user_id, self::META, $papers );
 
 		return $questions;
+	}
+
+	/**
+	 * Une question de la COPIE servie à l'élève.
+	 *
+	 * Point de passage unique pour le serveur et pour les audits :
+	 * l'index que renvoie le navigateur est celui de la copie servie,
+	 * donc c'est la copie qu'il faut interroger. Interroger la liste
+	 * d'origine, c'est refuser des questions que l'élève voit — et
+	 * lui bloquer la fin de sa room.
+	 *
+	 * @param int $user_id Apprenant.
+	 * @param int $room_id Room.
+	 * @param int $index   Index de la tâche.
+	 * @param int $q_index Index de la question dans la copie.
+	 * @return array|null La question, ou null si l'index n'existe pas.
+	 */
+	public static function question_copie( $user_id, $room_id, $index, $q_index ) {
+		$taches = Secura_Rooms::get_tasks( $room_id );
+
+		if ( ! isset( $taches[ $index ] ) ) {
+			return null;
+		}
+
+		$copie = self::paper( $user_id, $room_id, $index, $taches[ $index ] );
+
+		return isset( $copie[ $q_index ] ) ? $copie[ $q_index ] : null;
 	}
 
 	/**

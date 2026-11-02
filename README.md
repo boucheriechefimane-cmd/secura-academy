@@ -207,6 +207,15 @@ Chaque room suit le même patron, calqué sur la progression pédagogique d'un j
 | 3 | `test` | `mixte` | Mise en situation : questions **et** terminal | × 1,0 |
 | 4 | `exam` | `qcm` | Examen chronométré, sans indice, avec seuil | × 1,5 |
 
+**La taille d'une copie.** L'`exam` fait le nombre de questions de l'examen de la
+room (2 à 5). Le `test` fait **au moins** ce nombre-là : c'est le point de
+contrôle, il doit ressembler à l'examen. Les questions tirées au hasard
+viennent du **réservoir de la section** (le niveau évalué), jamais du même
+tirage : chaque élève reçoit un ensemble différent, dans un ordre différent,
+avec des chiffres qui changent quand la question le permet. Les questions qui
+demandent la machine (drapeau, action) ne se tirent pas : elles font partie de
+la mission, elles restent toujours dans la copie.
+
 Chaque question porte : un énoncé, des réponses acceptées, un XP, un indice, une
 **explication pédagogique** et un poids de calcul du score.
 

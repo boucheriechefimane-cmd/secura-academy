@@ -255,6 +255,68 @@ vert : **229 contrôles, 0 bloquant, 0 majeur, 1 mineur**.
 > protégé. C'est la règle de la maison depuis le début, et elle a été
 > appliquée ici par deux tests automatiques, pas par une déclaration.
 
+### 1 nonies. Quand la CI refuse le passage — et que le coupable est la mesure, pas la plateforme (02/11/2026, v0.11.0)
+
+**Le fait.** La CI a refusé le passage v0.11.0 : le comité des 18
+auditeurs a trouvé **un constat de fond** — 35 questions de machine sur
+81 jouées étaient déclarées « refusées par le serveur », alors que la
+version précédente passait.
+
+**La cause, en deux défauts de l'outil de mesure** (pas de la
+plateforme) :
+
+| Défaut | Effet |
+|---|---|
+| L'auditeur ne connaissait pas le type `solution` (le problème d'examen rédigé) | Il n'envoyait **aucune réponse** à ces questions. Comme il déclarait la réussite d'après l'index de la question servie, une copie dont la première question était un problème d'examen comptait pour un échec. |
+| Il déclarait la réussite en comparant l'index de la question **servie** à l'index de la question **source** | Or le tirage mélange les questions : les deux index n'ont aucun rapport. Une copie dont la première question était un QCM suffisait à faire passer l'audit **sans que le drapeau ait jamais été accepté** — la mesure pouvait donc passer au vert sur une question de machine qui ne jouait pas. |
+
+**Les corrections.** L'auditeur répond maintenant comme un élève (une
+vraie phrase, que le serveur accepte) et il ne déclare la réussite que
+si **la question de drapeau elle-même** a été acceptée — reconnue à son
+chemin de drapeau, qui est unique dans la room.
+
+**Et là, la mesure honnête a révélé un vrai bug de la plateforme.**
+Une fois l'auditeur corrigé, les questions de machine que le serveur
+refusait n'étaient plus un artefact de mesure : **le serveur refusait
+réellement** certaines questions. La cause :
+
+| Ce que l'élève voit | Ce que le serveur acceptait |
+|---|---|
+| sa **copie tirée** (réservoir du niveau, propositions mélangées) | la **liste d'origine** de la room |
+
+Quand la copie est plus longue que la liste d'origine — et elle l'est
+dès qu'une room a un test court et une section riche — l'élève voit des
+questions que le serveur refuse (`« Question invalide »`). La question de
+drapeau, qui est **en fin de copie**, devenait donc impossible à
+répondre : **la room ne pouvait plus être finie**. Le même décalage
+donnerait à l'élève **l'indice d'une autre question**, et ferait
+compter le score sur la mauvaise liste.
+
+**Le correctif** : un point de passage unique, `Secura_Exam::question_copie()`,
+utilisé par le serveur (validation, indice, fin de tâche, score) comme par
+les audits. On interroge **la copie servie**, jamais la liste d'origine.
+
+**La preuve que le contrôle peut échouer** : le contrôle « toutes les
+questions de la copie servie sont acceptées par le serveur » a été rejoué
+avec l'ancien code — il produit alors un **majeur** qui nomme les rooms
+concernées ; avec le correctif, il est vert. Un contrôle qui ne peut pas
+échouer ne prouve rien.
+
+**La cascade qu'on a supprimée en même temps** : quand la tâche d'entraînement
+d'une room ne contenait qu'une question de machine, le tirage renvoyait
+**tout le réservoir de la section** — jusqu'à 39 questions pour un simple
+point de contrôle, dont 16 problèmes d'examen rédigés. La taille du test
+variait de 2 à 39 questions selon la room. Règle adoptée : **le test a la
+taille de l'examen de sa room** (2 à 5), et le tirage ne renvoie jamais
+plus que ce qu'on demande. Les examens, eux, ne changent pas (réservoirs
+de 9 à 39, 636 150 892 copies possibles).
+
+> **La leçon, qu'on garde** : une mesure qui vérifie un *index* au lieu
+> de vérifier *la chose* est une mesure qui peut mentir. C'est
+> exactement ce que la plateforme reproche aux examens « captés et
+> refaits » : on ne prouve rien en rejouant la même case. La preuve, ici,
+> c'est le **chemin du fichier lu en root dans la machine de l'élève**.
+
 ### 1 septies. La CI rouge pour une raison extérieure au plugin (02/11/2026, v0.10.0)
 
 **Constat.** Après la fusion des deux travaux parallèles du 02/11/2026, le
@@ -802,6 +864,7 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 
 | Date | Version | Résultat |
 |---|---|---|
+| 02/11/2026 (v0.11.0, après refus de la CI) | v0.11.0 | **La première version de v0.11.0 a été refusée par la CI** : le 18ᵉ auditeur a trouvé un constat de fond (35 questions de machine sur 81 jouées « refusées »). La cause n'était pas la plateforme mais **l'outil de mesure** : il ne savait pas répondre au nouveau type de question, et il déclarait la réussite en comparant un index de copie à un index de source — deux index sans rapport, puisque le tirage mélange les questions. Une mesure pouvait donc passer au vert **sans que le drapeau ait jamais été accepté**. Les deux défauts sont corrigés : l'auditeur répond comme un élève, et il ne déclare la réussite que si la question de drapeau elle-même a été acceptée (reconnue à son chemin, unique dans la room). |
 | 02/11/2026 (v0.11.0) | v0.11.0 | **L'import d'un examen réel passe à l'échelle : 132 questions du MIT 6.858 (dont 115 problèmes d'examen rédigés avec la correction officielle), nouveau type de question « solution », deux sources trouvées et refusées avec preuve automatique (PortSwigger, MIT 6.1600). Mesures : 524 questions, réservoirs de 9 à 39 (médiane 24), 636 150 892 copies possibles, examens au réservoir trop juste passés de 36 à 22. Comité : **229 contrôles, 0 bloquant, 0 majeur, 1 mineur**. |
 | 02/11/2026 (v0.10.0, CI après fusion) | v0.10.0 | **Les cinq travaux GitHub sont verts** sur le code fusionné : CI, recette et compatibilité (dont Polylang, désormais épinglé), machines en vrais conteneurs (45 contrôles), audit externe des 18 auditeurs (**229 contrôles en CI**, 0 bloquant, 0 majeur, 1 mineur) et déploiement. |
 | 02/11/2026 (v0.10.0, après fusion des deux travaux parallèles) | v0.10.0 | **Le travail distant et le travail local ont été fusionnés** (le distant avait une meilleure atomicité du tirage : `prochain_rang()` en base avec `LAST_INSERT_ID`, conservée). Le comité rejoué sur le code fusionné : **228 contrôles, 0 bloquant, 0 majeur, 1 mineur**. Un test de compatibilité CI a échoué pour une raison extérieure (empreinte de paquet Polylang périmée côté WordPress.org) : les plugins tiers sont désormais **épinglés** (version + SHA-256), ce qui rend la CI reproductible. |
