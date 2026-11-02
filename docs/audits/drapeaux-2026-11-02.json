@@ -3,7 +3,7 @@
     "titre": "Les questions de machine : drapeaux et actions joues pour de vrai",
     "expert": "Expert en exploitation linux et en surveillance de drapeaux (Read The Docs)",
     "perimetre": "Verifie que les questions qui demandent la machine de l'eleve sont reellement jouables : le fichier de drapeau existe dans le bon lab, la valeur est unique et sure, la machine se deploie, et la reponse de l'eleve est acceptee par le serveur qui relit le fichier en root.",
-    "date": "2026-11-02T01:40:54+00:00",
+    "date": "2026-11-02T01:56:01+00:00",
     "ok": 4,
     "non_etaye": 0,
     "forces": [],
@@ -24,7 +24,7 @@
             "libelle": "ce que le jeu réel a prouvé",
             "detail": "61 question(s) acceptées par le serveur après lecture du fichier de drapeau en root",
             "gravite": "info",
-            "preuve": "room 56 : valeur trouvée dans la machine (« grep -r \"SECURA\" /cours 2>/dev/null ») et acceptée par le serveur | room 57 : valeur trouvée dans la machine (« grep -r \"SECURA\" /cours 2>/dev/null ») et acceptée par le serveur | room 58 : valeur trouvée dans la machine (« grep -r \"SECURA\" /cours 2>/dev/null ») et acceptée par le serveur",
+            "preuve": "room 59 : valeur trouvée dans la machine (« grep -r \"SECURA\" /srv 2>/dev/null ») et acceptée par le serveur | room 58 : valeur trouvée dans la machine (« grep -r \"SECURA\" /srv 2>/dev/null ») et acceptée par le serveur | room 57 : valeur trouvée dans la machine (« grep -r \"SECURA\" /srv 2>/dev/null ») et acceptée par le serveur",
             "etaye": true
         },
         {

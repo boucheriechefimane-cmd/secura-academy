@@ -1,0 +1,37 @@
+{
+    "domaine": "performance",
+    "titre": "Performance et Core Web Vitals",
+    "expert": "Expert en performance web et en Core Web Vitals",
+    "perimetre": "Mesure le poids de ce que le serveur envoie réellement (pages servies), le nombre et le coût des requêtes SQL, le nombre d'assets chargés, le poids des images, la présence de cache et d'optimisation, et les indicateurs que Google mesure (LCP, CLS, INP). Ne juge pas la qualité du contenu, ni la conception.",
+    "date": "2026-11-02T01:54:19+00:00",
+    "ok": 6,
+    "non_etaye": 0,
+    "forces": [
+        {
+            "libelle": "Le HTML servi est compact — la page d'accueil ne pèse pas lourd",
+            "preuve": "54 pages mesurees ; la plus lourde : Accueil (88 249 octets) ; la plus legere : 66 604 octets ; moyenne : 70 153 octets"
+        },
+        {
+            "libelle": "Aucune iframe n'est chargée avant le clic — l'élève n'attend pas YouTube pour lire une leçon",
+            "preuve": "Relevé sur 54 pages servies : 0 iframe"
+        },
+        {
+            "libelle": "Les images livrées sont légères (image de partage 46 Ko, icône 3 Ko)",
+            "preuve": "og-default.png : 46 726 octets ; site-icon.png : 3 495 octets"
+        }
+    ],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 1,
+    "constats": [
+        {
+            "libelle": "Les Core Web Vitals ne se mesurent pas depuis le serveur",
+            "detail": "LCP, CLS et INP se mesurent dans le navigateur du visiteur, sur sa connexion. Ce qui est vérifié ici, ce sont les causes racines les plus fréquentes (police distante, script bloquant, image trop lourde, iframe avant clic). La mesure réelle se fera avec PageSpeed Insights sur l'hébergement, une fois le site en ligne.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

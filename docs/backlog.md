@@ -119,7 +119,7 @@ produit un état incohérent.
 
 | # | Chantier | Description |
 |---|---|---|
-| 2.1 | **Rédaction du contenu** | ≈ 46 rooms pour couvrir les 2 parcours (≈ 178 h). Priorité : parcours 1, par vagues de 7-8 rooms |
+| 2.1 | **Contenu** | **On ne rédige plus les questions** (décision du 01/11/2026) : elles viennent d'un **import** de sources validées (MIT OCW, StanfordSEE, OWASP, NIST, examens de certification quand l'éditeur autorise). Le catalogue des sources et l'outil d'import refusent tout ce qui n'y figure pas ; la room affiche l'attribution. Voir `docs/IMPORTER-QUESTIONS.md`. **Nos** défis pratiques (machines, terminal, drapeaux) restent nos défis : une question de drapeau dépend de notre machine, elle ne peut pas venir d'un catalogue |
 | 2.2 | **Room témoin** | 6 rooms complètes livrées (leçon + entraînement + test + examen + terminal) servent de référence de rédaction |
 | 2.3 | **Vrais labs** | Conteneur Docker éphémère, isolation réseau, quotas, nettoyage automatique |
 | 2.4 | **Terminal honnête** | Badge « simulé » affiché dans le terminal (**livré**) |
@@ -133,7 +133,8 @@ produit un état incohérent.
 ## Qualité continue
 
 - [ ] `phpcs` WordPress Coding Standards dans la CI.
-- [x] Suite de tests sans WordPress complet : `tests/smoke-test.php` (189 assertions).
+- [x] Suite de tests sans WordPress complet : `tests/smoke-test.php` (316 assertions).
+- [x] Auditeur « drapeaux » : les 61 questions qui demandent la machine sont **jouées** (élève créé, connexion, machine déployée, valeur cherchée dans la machine, réponse acceptée par le serveur qui relit le fichier en root).
 - [ ] Suite PHPUnit avec WordPress complet.
 - [ ] Tests end-to-end du parcours inscription → validation → médaille.
 - [ ] Audit de contraste sur **chaque** paire de la palette personnalisable.

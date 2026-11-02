@@ -9,34 +9,34 @@
 
 ## 1. Le tableau de bord
 
-### 1 bis. Le comité des 15 auditeurs (bloc T, 01/11/2026)
+### 1 bis. Le comité des 18 auditeurs (bloc T, 01/11/2026 — complété le 02/11)
 
 Le comité est passé de 5 à 15 spécialités : dix nouveaux experts ont été
 recrutés, chacun avec son domaine, sa grille de contrôle et l'obligation
 de **produire une preuve** (un scénario joué, un code lu, une mesure) avant
 de formuler le moindre constat. Un audit sans preuve ne compte pas.
 
-| # | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Verdict |
-|---|---|---|---|---|---|---|
-| 1 | SEO | 48 | 0 | 0 | 0 | **Conforme** |
-| 2 | Contenu | 18 | 0 | 0 | 0 | **Conforme** |
-| 3 | UX / UI | 16 | 0 | 0 | 0 | **Conforme** |
-| 4 | Développement | 18 | 0 | 0 | 0 | **Conforme** |
-| 5 | Sécurité & infra | 25 | 0 | 0 | 0 | **Conforme** |
-| 6 | **Pédagogie** | 12 | 0 | 0 | 0 | **Conforme** |
-| 7 | **Performance & Core Web Vitals** | 6 | 0 | 0 | 0 | **Conforme** |
-| 8 | **Données structurées** | 7 | 0 | 0 | 0 | **Conforme** |
-| 9 | **Accessibilité (WCAG 2.2 AA)** | 10 | 0 | 0 | 0 | **Conforme** |
-| 10 | **Multilingue & i18n** | 8 | 0 | 0 | 0 | **Conforme** |
-| 11 | **RGPD & mineurs** | 8 | 0 | 0 | 0 | **Conforme** |
-| 12 | **Moteur de lab & Docker** | 6 | 0 | 0 | 0 | **Conforme** |
-| 13 | **Onboarding** | 9 | 0 | 0 | 0 | **Conforme** |
-| 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | **Conforme** |
-| 15 | **DevOps & résilience** | 12 | 0 | 0 | 0 | **Conforme** |
-| 16 | **Panel des dix élèves** | 5 | 0 | 0 | 0 | **Conforme** |
-| 17 | **Moteur d'épreuves** | 10 | 0 | 0 | 1 | **Conforme (1 mineur de contenu)** |
-| 18 | **Drapeaux et actions joués pour de vrai** | 4 | 0 | 0 | 0 | **Conforme** |
-| | **Total** | **226** | **0** | **0** | **1** | **Conforme** |
+| # | Auditeur | Contrôles | Bloquant | Majeur | Mineur | Info | Verdict |
+|---|---|---|---|---|---|---|---|
+| 1 | SEO | 48 | 0 | 0 | 0 | 0 | **Conforme** |
+| 2 | Contenu | 18 | 0 | 0 | 0 | 1 | **Conforme** |
+| 3 | UX / UI | 16 | 0 | 0 | 0 | 2 | **Conforme** |
+| 4 | Développement | 18 | 0 | 0 | 0 | 3 | **Conforme** |
+| 5 | Sécurité & infra | 25 | 0 | 0 | 0 | 0 | **Conforme** |
+| 6 | **Pédagogie** | 12 | 0 | 0 | 0 | 2 | **Conforme** |
+| 7 | **Performance & Core Web Vitals** | 6 | 0 | 0 | 0 | 1 | **Conforme** |
+| 8 | **Données structurées** | 7 | 0 | 0 | 0 | 7 | **Conforme** |
+| 9 | **Accessibilité (WCAG 2.2 AA)** | 10 | 0 | 0 | 0 | 2 | **Conforme** |
+| 10 | **Multilingue & i18n** | 8 | 0 | 0 | 0 | 2 | **Conforme** |
+| 11 | **RGPD & mineurs** | 8 | 0 | 0 | 0 | 3 | **Conforme** |
+| 12 | **Moteur de lab & Docker** | 6 | 0 | 0 | 0 | 3 | **Conforme** |
+| 13 | **Onboarding** | 9 | 0 | 0 | 0 | 2 | **Conforme** |
+| 14 | **Licences & attribution** | 4 | 0 | 0 | 0 | 4 | **Conforme** |
+| 15 | **DevOps & résilience** | 12 | 0 | 0 | 0 | 2 | **Conforme** |
+| 16 | **Panel des dix élèves** | 5 | 0 | 0 | 0 | 13 | **Conforme** |
+| 17 | **Moteur d'épreuves** | 10 | 0 | 0 | 1 | 5 | **Conforme (1 mineur de contenu)** |
+| 18 | **Drapeaux et actions joués pour de vrai** | 4 | 0 | 0 | 0 | 3 | **Conforme** |
+| | **Total** | **226** | **0** | **0** | **1** | **55** | **Conforme** |
 
 > Les 18 auditeurs produisent chacun **trois formats** de rapport dans
 > `docs/audits/` : le Markdown (lisible), le **HTML** (le document qui fait
@@ -71,6 +71,30 @@ code** : il **joue**.
 Le garde-fou reste **lui-même** : le 18ᵉ auditeur est rejoué à chaque push,
 sur des **vrais conteneurs** dans la CI, et la CI rougit sur un constat
 majeur.
+
+### 1 quinquies. L'audit externe passé en CI réelle (02/11/2026, v0.9.1)
+
+Les chiffres ci-dessus viennent d'une exécution locale. Pour ne pas
+« croire sa propre cuisine », le même comité a été rejoué **par GitHub**,
+dans un WordPress installé de zéro, avec les **vraies machines Docker** :
+c'est le seul endroit où l'on peut garantir que les 60 questions de
+drapeau sont acceptées par un serveur qui relit le fichier **en root**.
+
+| Ce que la CI a fait | Résultat |
+|---|---|
+| WordPress + plugin installés de zéro, site servi | ✔ 8 étapes vertes |
+| 6 images de machines construites, réseau isolé | ✔ |
+| **Les 18 auditeurs** passés au crible | ✔ étape verte en 13 min 46 s |
+| Rapports produits | ✔ 18 × 3 formats (Markdown, HTML, JSON) |
+| **Bilan** | **226 contrôles · 0 bloquant · 0 majeur · 1 mineur · 55 info** |
+
+Identifiant du passage : `41374598365` (branche `main`, commit `a1b2954`).
+Les rapports de ce passage sont **ceux qui font foi** : ils sont dans
+`docs/audits/` (fichiers datés du 02/11/2026) et dans l'artefact
+`rapports-audit-externe` du passage.
+
+Le verdict est **conforme**. Aucun constat bloquant ni majeur, ni en local,
+ni en CI.
 
 ### 1 ter. Les deux auditeurs ajoutés le 01/11/2026 (nuit, suite 6)
 
@@ -644,6 +668,13 @@ push** désormais, et ne peuvent plus se dégrader.
   processus), réseaux sans sortie Internet, drapeaux en `400 root:root`,
   permissions limitées sur tous les workflows, secrets jamais dans le
   code.
+- **Le comité, rejoué en CI réelle** : le passage du 02/11/2026
+  (`41374598365`) a rejoué les 18 auditeurs dans un WordPress neuf et des
+  conteneurs Docker réels : **226 contrôles, 0 bloquant, 0 majeur, 1 mineur**.
+  Les 61 questions qui demandent la machine y ont été **jouées et
+  acceptées**, machine déployée et fichier relu en root. C'est la preuve la
+  plus forte obtenue à ce jour : elle ne dépend ni du poste de travail ni
+  de l'émulateur local.
 
 ---
 
@@ -680,6 +711,7 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 
 | Date | Version | Résultat |
 |---|---|---|
+| 02/11/2026 (v0.9.1, passage CI) | v0.9.1 | **Le même comité rejoué par GitHub, en vrais conteneurs** (passage `41374598365`, commit `a1b2954`) : WordPress installé de zéro, 6 images de machines construites, les 18 auditeurs passés au crible en 13 min 46 s. Bilan : **226 contrôles, 0 bloquant, 0 majeur, 1 mineur, 55 info**. Les 61 questions de machine y ont été **jouées et acceptées** par un serveur qui relit le fichier en root. Les rapports de ce passage (18 × 3 formats) sont conservés dans `docs/audits/` et archivés par la CI. |
 | 02/11/2026 | v0.9.1 | **Le 18ᵉ auditeur : les questions de machine, jouées pour de vrai.** Le propriétaire a demandé que les 60 questions de drapeau et la question d'action soient **réellement** jouées. En cherchant pourquoi elles ne l'étaient pas, on a trouvé un défaut majeur : **le moteur d'épreuves pouvait remplacer les questions de machine par d'autres questions au tirage** — elles n'étaient donc jamais posées. Correction : une question qui demande la machine ne se tire plus au sort, elle reste toujours dans la copie de l'élève (le mélange des propositions et les chiffres qui changent sont intacts). L'auditeur joue ensuite **chaque** question : élève créé, connexion, leçon, réponses, **machine déployée**, **valeur cherchée dans la machine**, valeur soumise, **serveur qui la relit en root** — 61 questions jouées et acceptées. Quatre autres défauts trouvés au passage (le `absint(-1)`, l'ordre de déploiement, les motifs de terminal, l'emplacement des drapeaux Compose) : tous corrigés. **En parallèle, la stratégie de contenu change** : on n'écrit plus de questions, on **importe** des questions validées (universités, OWASP, NIST, examens de certification quand l'éditeur autorise), avec un catalogue de sources, un outil qui refuse tout ce qui n'y figure pas, et un encart « Sources » visible dans la room. Total : **226 contrôles, 0 bloquant, 0 majeur** |
 | 01/11/2026 | v0.6.0 | Premier passage du comité externe : 8 constats, tous corrigés, **93 contrôles au vert** |
 | 01/11/2026 | v0.6.0 | Audit de conformité au guide Google « réponses générées par l'IA » : 6 constats, tous corrigés (hreflang absolus, canonique par langue, données structurées, vidéo déclarée, titres de section, étapes en HTML), **108 contrôles au vert** |
