@@ -13,7 +13,15 @@ Trois choses doivent être vraies, et le test le prouve à chaque push :
      mais sans licence, on cite — on n'importe pas ;
   4. le lot MIT OCW réellement livré avec la plateforme (les questions
      d'examen du MIT 6.858) est lui-même valide : c'est lui qui alimente
-     les rooms, donc il est vérifié à chaque push.
+     les rooms, donc il est vérifié à chaque push ;
+  5. RÉORDONNER ou RENUMÉROTER un contenu protégé ne donne pas une
+     licence : le même lot PortSwigger, remis dans l'autre ordre et
+     renuméroté, est refusé lui aussi, et le message du refus le dit ;
+  6. un contenu sous licence « NC » (non commerciale) ne peut pas
+     alimenter un service payant : le lot MIT OCW, accepté pour un site
+     gratuit, est refusé quand l'import est destiné à un usage payant ;
+  7. le catalogue dit, source par source, si la licence autorise un usage
+     commercial — et la réponse est cohérente avec la licence.
 
 Le test joue ensuite un import réel dans un dossier temporaire et vérifie
 le fichier PHP produit : la syntaxe est valide, l'attribution et la licence
@@ -23,6 +31,7 @@ y figurent, et la question n'est pas écrite en clair côté serveur
 Exécution : python3 tests/import-test.py
 """
 
+import json
 import os
 import shutil
 import subprocess
@@ -110,7 +119,61 @@ def main():
         resultat.stdout.strip()[-200:],
     )
 
-    # 5. Un import réel produit un fichier PHP valide, attribué et sourcé.
+    # 5. Reordonner ou renumeroter un contenu protege ne donne pas de
+    #    licence : le lot PortSwigger remis dans l'autre ordre et
+    #    renumerote est refuse lui aussi, et le refus le dit.
+    reordonne = os.path.join(FIXTURES, "import-portswigger-reordonne-refuse.json")
+    resultat = lancer(["--verifier", reordonne])
+    verifier(resultat.returncode != 0, "PortSwigger reordonne et renumerote est refuse")
+    verifier(
+        "reordonner" in resultat.stdout.lower() or "renumeroter" in resultat.stdout.lower(),
+        "le refus explique qu'reordonner ou renumeroter ne change rien a la licence",
+        resultat.stdout.strip()[-250:],
+    )
+
+    # 6. Une licence « NC » ne peut pas alimenter un service payant.
+    lot_mit = os.path.join(RACINE, "tools", "lots", "mit-ocw-6858-examens.json")
+    resultat = lancer(["--verifier", lot_mit, "--commercial"])
+    verifier(resultat.returncode != 0, "le lot MIT OCW (licence NC) est refuse pour un usage payant")
+    verifier(
+        "commercial" in resultat.stdout.lower(),
+        "le refus parle d'usage commercial",
+        resultat.stdout.strip()[-250:],
+    )
+    resultat = lancer(["--verifier", lot_mit])
+    verifier(
+        resultat.returncode == 0,
+        "le meme lot MIT OCW reste accepte pour un site gratuit",
+        resultat.stdout.strip()[-250:],
+    )
+
+    # 7. Le catalogue est coherent : chaque source dit si sa licence
+    #    autorise un usage commercial, et la licence dit la meme chose.
+    catalogue = json.load(
+        open(os.path.join(RACINE, "tools", "sources-autorisees.json"), encoding="utf-8")
+    )
+    incoherences = []
+    for source in catalogue.get("sources", []):
+        if "commercial" not in source:
+            incoherences.append("%s : champ « commercial » absent" % source.get("id"))
+            continue
+        licence = (source.get("licence") or "").upper()
+        non_commerciale = "NC" in licence.replace("NON COMMERCIAL", "").replace("NON-COMMERCIAL", "")
+        if not source.get("reutilisable", False):
+            non_commerciale = True
+        attendu = not non_commerciale
+        if bool(source["commercial"]) != attendu:
+            incoherences.append(
+                "%s : commercial=%s, licence « %s »"
+                % (source.get("id"), source["commercial"], source.get("licence"))
+            )
+    verifier(
+        not incoherences,
+        "le catalogue est coherent sur l'usage commercial (licence NC = non commercial)",
+        " | ".join(incoherences),
+    )
+
+    # 8. Un import réel produit un fichier PHP valide, attribué et sourcé.
     dossier = tempfile.mkdtemp(prefix="secura-import-")
     try:
         resultat = lancer(["--importer", exemple, "--sortie", dossier])
@@ -130,6 +193,10 @@ def main():
             verifier(
                 "'source'" in contenu,
                 "chaque question garde le champ « source »",
+            )
+            verifier(
+                "Usage commercial" in contenu,
+                "le fichier livré dit si la licence autorise un usage payant",
             )
             if shutil.which("php"):
                 controle = subprocess.run(

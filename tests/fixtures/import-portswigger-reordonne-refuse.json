@@ -1,0 +1,68 @@
+{
+  "_intention": "Fixture d'essai : le meme contenu PortSwigger, mais REMORDONNE et RENUMEROTE. Le but est de verifier que l'outil refuse malgre tout : reordonner, renumeroter ou reformuler ne change rien a la licence d'origine.",
+  "source": "portswigger-web-academy",
+  "licence": "Copyright PortSwigger — reutilisation non autorisee (conditions du site : extraits pour usage personnel uniquement, attribution obligatoire, usage commercial soumis a licence)",
+  "attribution": "PortSwigger Web Security Academy",
+  "url": "https://portswigger.net/web-security",
+  "rooms": [
+    {
+      "room": "valider-les-entrees",
+      "title": "Valider les entrées : le premier remède anti-injection",
+      "tasks": {
+        "test": [
+          {
+            "numero": 900,
+            "question": "Quelle est la différence entre un échappement maison et des requêtes préparées ?",
+            "mode": "choice",
+            "choices": [
+              "Les requêtes préparées séparent la commande de la donnée, l'échappement maison non",
+              "Les deux font exactement la même chose",
+              "L'échappement maison est plus sûr",
+              "Aucune différence, c'est une question de goût"
+            ],
+            "correct": 0,
+            "xp": 20,
+            "hint": "L'une des deux approaches fait confiance au moteur de la base.",
+            "explanation": "Les requêtes préparées sont interpretées par le serveur de base de donnees.",
+            "source": "PortSwigger Web Security Academy",
+            "licence": "Copyright PortSwigger — reutilisation non autorisee (conditions du site : extraits pour usage personnel uniquement, attribution obligatoire, usage commercial soumis a licence)"
+          },
+          {
+            "numero": 901,
+            "question": "Que faut-il faire en premier quand une requête SQL assemble une donnée reçue par l'utilisateur ?",
+            "mode": "choice",
+            "choices": [
+              "Utiliser des requêtes préparées",
+              "Échapper la donnée à la main",
+              "Filtrer les mots-clés du langage SQL",
+              "Vérifier la donnée dans le navigateur"
+            ],
+            "correct": 0,
+            "xp": 20,
+            "hint": "Une seule de ces quatre réponses résiste vraiment.",
+            "explanation": "La requête préparée sépare la commande de la donnée.",
+            "source": "PortSwigger Web Security Academy",
+            "licence": "Copyright PortSwigger — reutilisation non autorisee (conditions du site : extraits pour usage personnel uniquement, attribution obligatoire, usage commercial soumis a licence)"
+          },
+          {
+            "numero": 902,
+            "question": "Un filtre de mots-clés suffit-il à protéger une requête SQL ?",
+            "mode": "choice",
+            "choices": [
+              "Non, il se contourne facilement",
+              "Oui, si la liste est complète",
+              "Oui, avec des expressions régulières",
+              "Oui, si la requête est en minuscules"
+            ],
+            "correct": 0,
+            "xp": 20,
+            "hint": "Pensez aux variantes d'écriture.",
+            "explanation": "Un filtre sur liste noire se contourne par une autre écriture.",
+            "source": "PortSwigger Web Security Academy",
+            "licence": "Copyright PortSwigger — reutilisation non autorisee (conditions du site : extraits pour usage personnel uniquement, attribution obligatoire, usage commercial soumis a licence)"
+          }
+        ]
+      }
+    }
+  ]
+}

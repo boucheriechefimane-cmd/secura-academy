@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-02-bis",
+  "_version": "2026-11-02-ter",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -9,7 +9,9 @@
       "licence": "CC BY-NC-SA 4.0",
       "attribution": "MIT OpenCourseWare, 6.858 Computer Systems Engineering, Spring 2014",
       "usage": "questions de comprehension issues des notes de cours et des labs",
-      "reutilisable": true
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
     },
     {
       "id": "mit-ocw-6857",
@@ -18,7 +20,9 @@
       "licence": "CC BY-NC-SA 4.0",
       "attribution": "MIT OpenCourseWare, 6.857 Network and Computer Security, Spring 2014",
       "usage": "questions de comprehension issues des notes de cours",
-      "reutilisable": true
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
     },
     {
       "id": "stanford-see",
@@ -27,7 +31,9 @@
       "licence": "CC BY-NC-SA 4.0",
       "attribution": "StanfordSEE, Introduction to Network Security, Stanford University",
       "usage": "questions de comprehension issues des supports de cours",
-      "reutilisable": true
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
     },
     {
       "id": "owasp-cheatsheets",
@@ -36,7 +42,9 @@
       "licence": "CC BY-SA 4.0",
       "attribution": "OWASP Cheat Sheet Series, OWASP Foundation",
       "usage": "questions a choix multiples basees sur les fiches techniques",
-      "reutilisable": true
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "utilisable dans un service payant"
     },
     {
       "id": "nist-publications",
@@ -45,7 +53,9 @@
       "licence": "Domaine public (gouvernement federal des Etats-Unis)",
       "attribution": "National Institute of Standards and Technology (NIST)",
       "usage": "questions sur les referentiels et les bonnes pratiques",
-      "reutilisable": true
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "utilisable dans un service payant"
     },
     {
       "id": "cisa-cyber",
@@ -54,7 +64,9 @@
       "licence": "Non verifiee a ce jour",
       "attribution": "CYBER.ORG / CyberPatriot / NSA",
       "usage": "aucune reutilisation : lien seul",
-      "reutilisable": false
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
     },
     {
       "id": "certification-examen",
@@ -63,7 +75,9 @@
       "licence": "Copyright de l'editeur d'examen — reutilisation soumise a autorisation",
       "attribution": "Examen de certification, editeur d'examen (nom de l'editeur a preciser)",
       "usage": "uniquement si l'editeur autorise la reprise ; sinon : lien seul",
-      "reutilisable": false
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
     },
     {
       "id": "mit-ocw-6858-examens",
@@ -73,7 +87,9 @@
       "attribution": "MIT OpenCourseWare, 6.858 Computer Systems Security, Fall 2014 — quiz d'examen et corrigé officiel (MIT EECS)",
       "usage": "quiz d'examen (2009-2014) et corriges officiels du MIT : questions a choix (QCM, vrai/faux) ET problemes d'examen rediges, avec la correction officielle de l'ecole",
       "reutilisable": true,
-      "note": "132 questions extraites des 12 quiz (2009-2014) : 17 a choix, 115 problemes d'examen (type « solution » : l'eleve redige, la correction officielle du MIT s'affiche). Licence CC BY-NC-SA 4.0 : utilisation non commerciale, attribution et partage dans les memes conditions ; le site reste gratuit pour les eleves."
+      "note": "132 questions extraites des 12 quiz (2009-2014) : 17 a choix, 115 problemes d'examen (type « solution » : l'eleve redige, la correction officielle du MIT s'affiche). Licence CC BY-NC-SA 4.0 : utilisation non commerciale, attribution et partage dans les memes conditions ; le site reste gratuit pour les eleves.",
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
     },
     {
       "id": "owasp-wstg",
@@ -82,7 +98,9 @@
       "licence": "CC BY-SA 4.0",
       "attribution": "OWASP Web Security Testing Guide, OWASP Foundation",
       "usage": "contenu de reference pour les tests de securite web (les cas de test sont structures et reutilisables)",
-      "reutilisable": true
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "utilisable dans un service payant"
     },
     {
       "id": "openlearn-open-university",
@@ -92,7 +110,9 @@
       "attribution": "OpenLearn, The Open University",
       "usage": "quizz d'universite (questions et choix) ; a ce jour l'acces automatise est bloque par la plateforme Moodle : import manuel uniquement",
       "reutilisable": true,
-      "note": "Licence favorable, mais les questions ne sont pas servies en HTML : aucune importation automatique ne doit pretendre l'avoir fait."
+      "note": "Licence favorable, mais les questions ne sont pas servies en HTML : aucune importation automatique ne doit pretendre l'avoir fait.",
+      "commercial": true,
+      "commercial_note": "utilisable dans un service payant"
     },
     {
       "id": "portswigger-web-academy",
@@ -102,7 +122,9 @@
       "attribution": "PortSwigger Web Security Academy",
       "usage": "lien seul : l'eleve pratique gratuitement sur les labs officiels ; aucune question n'est recopiee dans la plateforme",
       "reutilisable": false,
-      "note": "Conditions verifiees le 02/11/2026 : § 7.4 (extraits pour usage personnel), § 7.6 (attribution obligatoire), § 7.7 (pas d'usage commercial sans licence), conditions de certification § 9.5 (interdiction de copier les elements d'examen). L'outil d'import doit refuser cette source."
+      "note": "Conditions verifiees le 02/11/2026 : § 7.4 (extraits pour usage personnel), § 7.6 (attribution obligatoire), § 7.7 (pas d'usage commercial sans licence), conditions de certification § 9.5 (interdiction de copier les elements d'examen). L'outil d'import doit refuser cette source.",
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
     },
     {
       "id": "mit-61600-foundations",
@@ -112,7 +134,9 @@
       "attribution": "MIT 6.1600 Foundations of Computer Security",
       "usage": "lien seul : l'eleve peut telecharger les quiz d'entrainement et leurs corriges sur le site du cours ; aucune question n'est recopiee dans la plateforme",
       "reutilisable": false,
-      "note": "Verifie le 02/11/2026 : les quiz 1 et 2 (« Quiz Review ») sont publies avec leurs corriges officiels, mais le site du cours ne porte aucune licence Creative Commons. Sans licence explicite, la regle de la maison s'applique : on cite, on n'importe pas. A reviser si MIT publie la version sous licence CC."
+      "note": "Verifie le 02/11/2026 : les quiz 1 et 2 (« Quiz Review ») sont publies avec leurs corriges officiels, mais le site du cours ne porte aucune licence Creative Commons. Sans licence explicite, la regle de la maison s'applique : on cite, on n'importe pas. A reviser si MIT publie la version sous licence CC.",
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
     }
   ],
   "regles": [
@@ -124,5 +148,6 @@
     "Une source peut etre citee (lien, attribution) sans etre importee : c'est le cas de PortSwigger, dont les conditions d'utilisation interdisent la reprise du contenu dans une plateforme tierce.",
     "Une source listee mais non extractible automatiquement reste marquee comme telle : aucune importation ne doit pretendre l'avoir fait.",
     "Une source qui n'annonce aucune licence explicite (meme si elle est universitaire et gratuite) est citee, pas importee : c'est le cas de MIT 6.1600, dont les quiz d'entrainement et leurs corriges sont publics mais sans licence Creative Commons."
-  ]
+  ],
+  "_commercial": "Chaque source dit si sa licence autorise un usage COMMERCIAL (service payant). Les licences « NC » (non commerciales) ne l'autorisent pas : elles interdisent de vendre ou de facturer l'acces au contenu. Le site actuel est gratuit pour les eleves ; le jour ou il devient payant, ces sources doivent sortir (ou une autorisation explicite etre obtenue)."
 }

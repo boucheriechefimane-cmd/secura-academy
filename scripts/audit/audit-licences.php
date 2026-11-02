@@ -284,7 +284,97 @@ audit_verifier(
 );
 
 /* ------------------------------------------------------------------ */
-echo "\n6. La limite de cet audit\n";
+echo "\n6. L'usage commercial : le site peut-il devenir payant ?\n";
+
+/* Question posee par le proprietaire : « si la source n'a pas de licence
+   de diffusion gratuite, peut-on la prendre quand meme en changeant
+   l'ordre ou les chiffres ? » Non : une transformation d'un contenu
+   protege reste un contenu protege. Et surtout : les sources currently
+   importees sont sous licence « NC » (non commerciale) — le site peut
+   donc rester gratuit, mais pas devenir payant avec ce contenu. */
+
+$catalogue_fichier = $racine . '/tools/sources-autorisees.json';
+$incoherences = array();
+$n_commercial = 0;
+$n_non_commercial = 0;
+$detail_licences = array();
+
+if ( file_exists( $catalogue_fichier ) ) {
+	$catalogue = json_decode( file_get_contents( $catalogue_fichier ), true );
+
+	foreach ( (array) ( $catalogue['sources'] ?? array() ) as $source ) {
+		$licence = (string) ( $source['licence'] ?? '' );
+		$est_nc = ( false !== strpos( strtoupper( $licence ), 'NC' ) );
+		$reutilisable = ! empty( $source['reutilisable'] );
+
+		if ( ! array_key_exists( 'commercial', $source ) ) {
+			$incoherences[] = ( $source['id'] ?? '?' ) . ' : le catalogue ne dit pas si la licence autorise un usage commercial';
+			continue;
+		}
+
+		$attendu = $reutilisable && ! $est_nc;
+
+		if ( (bool) $source['commercial'] !== $attendu ) {
+			$incoherences[] = ( $source['id'] ?? '?' ) . ' : commercial=' . ( $source['commercial'] ? 'oui' : 'non' )
+				. ' alors que la licence est « ' . $licence . ' »';
+		}
+
+		if ( $source['commercial'] ) {
+			$n_commercial++;
+		} else {
+			$n_non_commercial++;
+		}
+
+		$detail_licences[] = ( $source['id'] ?? '?' ) . ' — ' . $licence
+			. ' — ' . ( $source['commercial'] ? 'utilisable dans un service payant' : 'usage non commercial' );
+	}
+}
+
+audit_verifier(
+	'le catalogue des sources dit, pour chacune, si sa licence autorise un usage commercial',
+	empty( $incoherences ),
+	$incoherences ? implode( ' | ', $incoherences ) : '',
+	'mineur',
+	$detail_licences ? implode( ' ; ', $detail_licences ) : ''
+);
+
+$fichiers_import = glob( $plugin . '/includes/content-import-*.php' );
+$sans_mention = array();
+
+foreach ( (array) $fichiers_import as $fichier ) {
+	$contenu = (string) file_get_contents( $fichier );
+
+	if ( false === strpos( $contenu, 'Usage commercial' ) ) {
+		$sans_mention[] = basename( $fichier );
+	}
+}
+
+audit_verifier(
+	'chaque fichier de questions importé dit si sa licence autorise un usage payant',
+	empty( $sans_mention ),
+	$sans_mention ? implode( ', ', $sans_mention ) : '',
+	'mineur',
+	sprintf(
+		'%d fichier(s) importé(s) contrôlé(s) ; %d source(s) utilisables dans un service payant, %d en usage non commercial uniquement.',
+		count( (array) $fichiers_import ),
+		$n_commercial,
+		$n_non_commercial
+	)
+);
+
+audit_info(
+	'Ce que dit la règle : réordonner ne donne pas une licence',
+	'Réordonner les questions, les renuméroter ou les reformuler ne rend pas un contenu '
+		. 'protégé réutilisable : la licence d\'origine continue de s\'appliquer, et les '
+		. 'conditions du site d\'origine aussi. C\'est vérifié par un test automatique '
+		. '(tests/import-test.py) : le même lot réordonné et renuméroté est refusé. '
+		. 'Pour un service payant, deux portes s\'ouvrent : obtenir une autorisation écrite '
+		. 'de l\'éditeur, ou n\'utiliser que des sources libres compatibles avec un usage '
+		. 'commercial (licences sans « NC », ou domaine public).'
+);
+
+/* ------------------------------------------------------------------ */
+echo "\n7. La limite de cet audit\n";
 
 audit_info(
 	'Un audit ne remplace pas la lecture des licences',

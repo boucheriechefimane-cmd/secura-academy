@@ -4,6 +4,7 @@
  *
  * Genere par tools/import-questions.py : ne pas editer a la main.
  * Licence : CC BY-NC-SA 4.0
+ * Usage commercial : NON autorise (licence NC ou contenu non reutilisable) — le site reste gratuit pour les eleves
  * Attribution : MIT OpenCourseWare, 6.858 Computer Systems Security, Fall 2014 — quiz d'examen et corrigé officiel (MIT EECS)
  */
 if ( ! function_exists( 'seca_import_mit_ocw_6858_examens' ) ) {

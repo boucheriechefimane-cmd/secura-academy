@@ -25,6 +25,11 @@
    compatible **à condition** de ne pas monétiser le contenu plus tard.
    Une monétisation future impose de réécrire ou d'obtenir une autorisation
    écrite (cf. `docs/CONTENU-MIT.md` § 0, décision D6).
+   Cette limite est désormais **machine-vérifiable** : chaque source du
+   catalogue porte un champ `commercial` (vrai/faux), l'outil d'import
+   refuse une source NC dès qu'on lui demande un contenu destiné à un
+   service payant (`--commercial`), et l'auditeur « licences » vérifie la
+   cohérence source par source à chaque push.
 5. **Attribution visible.** Pour toute source réutilisée : auteur, titre,
    source, licence, lien, et mention des modifications — dans la room (encart
    « Sources ») et dans `docs/SOURCES-CONTENU.md`.
@@ -392,3 +397,65 @@ Et en pied de page du contenu CC :
 Contenu adapted de sources ouvertes, sous licence CC BY-NC-SA 4.0.
 Partage dans les mêmes conditions. Pas d'endorsement.
 ```
+
+---
+
+## 14. « S'il n'y a pas de licence, peut-on la prendre en changeant l'ordre ou les chiffres ? »
+
+**Non.** Et ce n'est pas une question de subtilité juridique : c'est une
+règle d'import, testée automatiquement à chaque push.
+
+| Ce qu'on fait | Ce que ça change | Verdict |
+|---|---|---|
+| Réordonner les questions | L'ordre ne fait pas partie de ce qui est protégé… mais le contenu, si | **Aucune licence** — la licence s'applique au contenu, pas à sa mise en forme |
+| Renuméroter, reformuler, traduire | Un contenu transformé reste un **contenu dérivé** : il reste soumis à la licence d'origine | **Aucune licence** — le droit d'adaptation se négocie, il ne se crée pas |
+| Mélanger les questions de plusieurs sources | On change la provenance de chaque question | **Aucune licence** — chaque question porte la licence de sa source |
+| Demander une autorisation à l'éditeur | C'est la voie normale | **Oui** — et c'est ce qu'on fera si un accord avec MIT ou un autre éditeur est possible |
+
+La preuve est un test : `tests/import-test.py` contient un lot PortSwigger
+**remis dans l'autre ordre et renuméroté** (`tests/fixtures/import-portswigger-reordonne-refuse.json`).
+L'import est **refusé**, et le message de refus dit pourquoi : *« une
+transformation d'un contenu protégé reste un contenu protégé »*.
+
+À noter : notre besoin pédagogique — *« jamais le même examen pour le même
+niveau »* — **n'a rien à voir** avec cette question. Les variantes d'un
+examen sont tirées dans le réservoir de la room (mélange des questions,
+ordre des propositions, chiffres paramétriques) : nous n'avons jamais besoin
+de réécrire le contenu d'autrui pour obtenir des copies différentes. C'est
+prouvé par la mesure : **636 150 892 copies** possibles, sans écrire une
+seule question.
+
+---
+
+## 15. Le site peut-il devenir payant ?
+
+C'est la vraie question derrière « site premium de cours ». Réponse courte :
+**avec le contenu actuel, non — et il faut le savoir avant de le promettre.**
+
+| Ce qui est importé aujourd'hui | Licence | Peut aller dans un service payant ? |
+|---|---|---|
+| MIT OCW 6.858 — 132 questions (17 QCM + 115 problèmes d'examen + corrigés officiels) | CC BY-NC-SA 4.0 | **Non** (« NC » = non commercial) |
+| MIT OCW 6.857 / 6.858 (supports) | CC BY-NC-SA 4.0 | **Non** |
+| StanfordSEE — Introduction to Network Security | CC BY-NC-SA 4.0 | **Non** |
+| OWASP Cheat Sheets, OWASP WSTG | CC BY-SA 4.0 | **Oui** |
+| OpenLearn (The Open University) — quiz | CC BY-SA 4.0 | **Oui** |
+| NIST (SP 800-x) | Domaine public (gouvernement US) | **Oui** |
+
+Trois portes s'ouvrent pour un service payant, par ordre de simplicité :
+
+1. **Rester gratuit** (l'état actuel) : tout le catalogue est utilisable, et
+   le produit se finance autrement (partenariats, sponsoring, entreprises).
+2. **N'utiliser en service payant que des sources compatibles** : OWASP
+   (CC BY-SA), OpenLearn (CC BY-SA), NIST (domaine public) — et compléter avec
+   des questions d'examen **achetées** à un éditeur, qui vend explicitement
+   le droit de rediffusion.
+3. **Obtenir une autorisation écrite** de l'éditeur — en particulier du MIT
+   (6.858, 6.1600). C'est la piste la plus rentable en volume et en
+   crédibilité : le MIT publie déjà les corrigés officiels ; il ne manque
+   qu'un accord de réutilisation commerciale. Un message à MIT Learn /
+   OpenCourseWare et aux responsables du 6.858 suffit pour ouvrir la
+   discussion.
+
+Tant que cet accord n'existe pas, l'outil d'import **refuse** tout lot
+destiné à un usage payant dès que la source porte « NC » : le garde-fou
+est dans le code, pas seulement dans une intention.

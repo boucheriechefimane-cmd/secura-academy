@@ -8,7 +8,12 @@ validees, en verifiant :
 1. que la source est dans le catalogue `tools/sources-autorisees.json` ;
 2. que la licence annoncee est bien celle du catalogue ;
 3. que l'attribution et le lien sont presents ;
-4. que chaque question respecte le format de la plateforme.
+4. que chaque question respecte le format de la plateforme ;
+5. que l'usage est compatible avec la licence : si l'import est destine a un
+   service payant (`--commercial`), une licence « NC » (non commerciale)
+   est refusee — et une source non reutilisable l'est aussi, meme si on a
+   reordonne les questions ou change leurs numeros : une transformation ne
+   redonne pas une licence.
 
 Le resultat est un fichier PHP (`includes/content-import-<id>.php`) que le
 plugin charge au demarrage. Les questions importees sont ajoutees a la
@@ -19,6 +24,12 @@ Usage :
     python3 tools/import-questions.py --verifier <lot.json>
     python3 tools/import-questions.py --importer <lot.json> [--sortie <dossier>]
     python3 tools/import-questions.py --importer-dossier <dossier> [--sortie <dossier>]
+
+Option :
+    --commercial  l'import est destine a un service payant (abonnement,
+                 cours premium). Les licences non commerciales sont alors
+                 refusees : le site actuel est gratuit pour les eleves,
+                 il ne peut pas le devenir avec ce contenu.
 """
 
 from __future__ import annotations
@@ -60,7 +71,7 @@ def catalogue():
     return sources
 
 
-def verifier_lot(lot, sources):
+def verifier_lot(lot, sources, commercial=False):
     """Renvoie la liste des problemes rencontres (vide si tout va bien)."""
     problemes = []
 
@@ -78,7 +89,20 @@ def verifier_lot(lot, sources):
     if not source.get("reutilisable", False):
         return [
             "Source '%s' : la licence verifiee ne permet pas de reutiliser le contenu "
-            "-> import refuse." % identifiant
+            "-> import refuse. Reordonner les questions, les renumeroter ou les "
+            "reformuler ne change rien : une transformation d'un contenu protege "
+            "reste un contenu protege, et la licence d'origine s'applique toujours."
+            % identifiant
+        ]
+
+    if commercial and not source.get("commercial", False):
+        return [
+            "Source '%s' : la licence %s n'autorise PAS un usage commercial "
+            "(pas de service payant, pas d'abonnement, pas de cours vendu). "
+            "L'import est refuse pour un usage payant ; il reste autorise pour un "
+            "site gratuit. Alternatives : obtenir une autorisation ecrite de "
+            "l'editeur, ou choisir une source libre compatible avec un usage "
+            "commercial." % (identifiant, source.get("licence", ""))
         ]
 
     licence = (lot.get("licence") or "").strip()
@@ -241,6 +265,10 @@ def generer_php(lot, source):
     lignes.append(" *")
     lignes.append(" * Genere par tools/import-questions.py : ne pas editer a la main.")
     lignes.append(" * Licence : %s" % source["licence"])
+    lignes.append(
+        " * Usage commercial : %s"
+        % ("autorise" if source.get("commercial", False) else "NON autorise (licence NC ou contenu non reutilisable) — le site reste gratuit pour les eleves")
+    )
     lignes.append(" * Attribution : %s" % source["attribution"])
     lignes.append(" */")
     lignes.append("if ( ! function_exists( 'seca_import_%s' ) ) {" % identifiant)
@@ -280,8 +308,8 @@ def generer_php(lot, source):
     return "\n".join(lignes)
 
 
-def importer(lot, sources, dossier_sortie, verifier_seulement=False):
-    problemes = verifier_lot(lot, sources)
+def importer(lot, sources, dossier_sortie, verifier_seulement=False, commercial=False):
+    problemes = verifier_lot(lot, sources, commercial=commercial)
 
     if problemes:
         print("IMPORT REFUSE — %d probleme(s) :" % len(problemes))
@@ -308,6 +336,10 @@ def importer(lot, sources, dossier_sortie, verifier_seulement=False):
 
     print("Import '%s' : %d question(s) ecrites dans %s" % (identifiant, nb, fichier))
     print("  Licence      : %s" % source["licence"])
+    print(
+        "  Usage payant : %s"
+        % ("autorise par la licence" if source.get("commercial", False) else "NON autorise par la licence (usage non commercial)")
+    )
     print("  Attribution  : %s" % source["attribution"])
     print("  Le plugin recharge ces questions au demarrage (reactivation du plugin).")
     return 0
@@ -322,15 +354,25 @@ def main(argv=None):
         "--importer-dossier", help="verifier puis ecrire tous les lots d'un dossier"
     )
     analyseur.add_argument("--sortie", default=SORTIE_PAR_DEFAUT, help="dossier de sortie")
+    analyseur.add_argument(
+        "--commercial",
+        action="store_true",
+        help="l'import est destine a un service payant : les licences non commerciales sont refusees",
+    )
     args = analyseur.parse_args(argv)
 
     sources = catalogue()
     code = 0
 
     if args.verifier:
-        code = importer(charger_json(args.verifier), sources, args.sortie, verifier_seulement=True)
+        code = importer(
+            charger_json(args.verifier), sources, args.sortie,
+            verifier_seulement=True, commercial=args.commercial,
+        )
     elif args.importer:
-        code = importer(charger_json(args.importer), sources, args.sortie)
+        code = importer(
+            charger_json(args.importer), sources, args.sortie, commercial=args.commercial
+        )
     else:
         dossiers = sorted(
             os.path.join(args.importer_dossier, nom)
@@ -342,7 +384,13 @@ def main(argv=None):
             return 1
         for chemin in dossiers:
             print("---- %s ----" % os.path.basename(chemin))
-            code = max(code, importer(charger_json(chemin), sources, args.sortie))
+            code = max(
+                code,
+                importer(
+                    charger_json(chemin), sources, args.sortie,
+                    commercial=args.commercial,
+                ),
+            )
 
     return code
 

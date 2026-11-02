@@ -3,8 +3,8 @@
     "titre": "Licences, attribution et réutilisation",
     "expert": "Expert en licences de contenu, en droits de réutilisation et en attribution",
     "perimetre": "Vérifie que chaque contenu emprunté porte une licence identifiée et datée, que l'attribution est visible par l'élève, que les conditions (usage non commercial, partage dans les mêmes conditions) sont respectées et énoncées, et que le registre des sources est tenu à jour. Ne tranche pas les cas litigieux : cela se décide au cas par cas.",
-    "date": "2026-11-02T19:37:19+00:00",
-    "ok": 4,
+    "date": "2026-11-02T21:38:54+00:00",
+    "ok": 6,
     "non_etaye": 0,
     "forces": [
         {
@@ -20,7 +20,7 @@
     "bloquant": 0,
     "majeur": 0,
     "mineur": 0,
-    "info": 4,
+    "info": 5,
     "constats": [
         {
             "libelle": "Licences déclarées sur les vidéos",
@@ -39,6 +39,13 @@
         {
             "libelle": "Rooms citant une source externe dans leur texte",
             "detail": "21 sur 52 — sans citation : Brief 4 : les registres, le carnet du processeur | Kahoot : la révision des labs avancés | Penser comme un défenseur | Les fondamentaux du réseau | Sécuriser une application web | Mémoire et défenses",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Ce que dit la règle : réordonner ne donne pas une licence",
+            "detail": "Réordonner les questions, les renuméroter ou les reformuler ne rend pas un contenu protégé réutilisable : la licence d'origine continue de s'appliquer, et les conditions du site d'origine aussi. C'est vérifié par un test automatique (tests/import-test.py) : le même lot réordonné et renuméroté est refusé. Pour un service payant, deux portes s'ouvrent : obtenir une autorisation écrite de l'éditeur, ou n'utiliser que des sources libres compatibles avec un usage commercial (licences sans « NC », ou domaine public).",
             "gravite": "info",
             "preuve": "",
             "etaye": false

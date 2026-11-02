@@ -1020,3 +1020,25 @@ Le registre complet des sources réutilisables (licence vérifiée le jour de la
 réutilisation, mention type, périmètre autorisé) est dans
 [`docs/SOURCES-CONTENU.md`](docs/SOURCES-CONTENU.md) ; la justification
 juridique est dans [`docs/CONTENU-MIT.md`](docs/CONTENU-MIT.md) § 0.
+
+### Deux questions réglées par le code, pas par une intention
+
+**« S'il n'y a pas de licence de diffusion, peut-on reprendre le contenu en
+changeant l'ordre ou les chiffres ? »** Non. Réordonner, renuméroter,
+reformuler ou traduire ne donne pas une licence : le contenu transformé
+reste un contenu dérivé, soumis à la licence d'origine. Ce n'est pas une
+opinion : c'est un **test automatique** (`tests/import-test.py`, 23 contrôles),
+qui fait passer un lot PortSwigger *remis dans l'autre ordre et renuméroté* —
+le résultat est **« IMPORT REFUSÉ »**, avec la raison.
+
+**« Peut-on vendre le site (cours premium, abonnement) ? »** Pas avec le
+contenu actuel, et il vaut mieux le savoir maintenant : les 132 questions
+importées du MIT 6.858 sont sous **CC BY-NC-SA 4.0**, c'est-à-dire
+**non commerciales**. Le catalogue `tools/sources-autorisees.json` porte
+maintenant, source par source, un champ `commercial` ; l'outil d'import
+refuse toute source NC dès qu'on lui demande un contenu destiné à un
+service payant (`--commercial`) ; l'auditeur « licences » (contrôle n° 6)
+vérifie la cohérence à chaque push. Les sources compatibles avec un usage
+payant sont **OWASP** (CC BY-SA), **OpenLearn** (CC BY-SA) et le **NIST**
+(domaine public). Voir
+[`docs/SOURCES-CONTENU.md`](docs/SOURCES-CONTENU.md) § 14 et § 15.
