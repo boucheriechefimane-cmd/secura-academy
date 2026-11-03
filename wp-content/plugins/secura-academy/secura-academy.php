@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.11.4
+ * Version:           0.11.5
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,7 +13,20 @@
  *
  * @package Secura_Academy
  *
- * 0.11.4 — Les examens d'universite quittent les taches : le point de
+ * 0.11.5 — La recolte continue : le format « blanc a remplir » est enfin
+ *           couvert. Les quiz du MIT 6.004 (Computation Structures,
+ *           Spring 2009, licence CC BY-NC-SA 4.0) se presentent sous la
+ *           forme de blancs ou l'eleve ecrit sa reponse ; le corrige
+ *           officiel imprime la bonne reponse juste au-dessus. Un
+ *           quatrieme extracteur verifie l'appariement (le libelle du
+ *           blanc doit etre le meme dans l'enonce et dans le corrige) et
+ *           n'accepte que les reponses imprimees dans la colonne de
+ *           droite : 5 questions retenues, 60 refusees. Les options
+ *           cerclees (le corrige les met en gras, ce que pdftotext ne
+ *           voit pas) et les questions qui dependent d'un schema sont
+ *           refusees : on ne devine jamais une reponse. Le meme
+ *           extracteur passe sur le MIT 6.035 : 0 question retenue, donc
+ *           rien n'est importe. La banque passe de 712 a 717 questions.
  *           controle retrouve la taille de l'epreuve. Une question
  *           reprise d'un examen universitaire (elle porte sa source et
  *           sa licence) etait versee dans la tache « test » de la room :
@@ -231,7 +244,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.11.4' );
+define( 'SECURA_ACADEMY_VERSION', '0.11.5' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

@@ -543,3 +543,23 @@ Et si un jour la règle change — si l'on veut un jour servir les questions
 d'université **dans** une tâche — il faudra le faire pour une raison
 pédagogique explicite, pas par défaut d'architecture. Les garde-fous
 existants (trois contrôles automatiques) le diront.
+
+**La suite de la récolte (03/11/2026).** Deux cours du MIT ont été
+vus après la vague 2 :
+
+- **6.004 Computation Structures (Spring 2009)** — licence **CC BY-NC-SA
+  4.0** vérifiée sur la page du cours, quatre quiz (1, 2, 3 et 5)
+  publiés avec leur corrigé officiel. Le format est nouveau : l'élève
+  doit **écrire sa réponse dans un blanc**, et le corrigé officiel
+  imprime la bonne réponse juste au-dessus. Un quatrième extracteur a
+  été écrit pour ce cas : il vérifie que le libellé du blanc est le
+  même dans l'énoncé et dans le corrigé, et il n'accepte que les
+  réponses **imprimées dans la colonne de droite**. **5 questions
+  retenues, 60 refusées** — les options circulées (le corrigé les met
+  en gras, ce que `pdftotext` ne voit pas) et les questions qui
+  dépendent d'un schéma sont refusées : on ne devine jamais une
+  réponse.
+- **6.035 Computation Structures (Spring 2010)** — même format, un
+  seul quiz : **0 question retenue**, donc rien n'est importé. Le
+  corrigé y répond par une étiquette qui ne se laisse pas apparier à
+  l'énoncé sans risque d'erreur.
