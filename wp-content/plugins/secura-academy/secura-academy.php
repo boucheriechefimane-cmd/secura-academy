@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.11.6
+ * Version:           0.11.7
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,7 +13,21 @@
  *
  * @package Secura_Academy
  *
- * 0.11.6 — La recolte continue : le format « enonce repete » est couvert.
+ * 0.11.7 — La recolte continue : le format « titre + items numerotes »
+ *           est couvert. Les quiz du MIT 6.006 (Introduction to
+ *           Algorithms, Spring 2008, licence CC BY-NC-SA 4.0) presentent
+ *           chaque probleme par un titre, un preambule, puis des items
+ *           numerotes ; le corrige officiel pose un repere « Solution: »
+ *           apres chacun. Un sixieme extracteur apparie les problemes
+ *           puis les items — par ordre, mais toujours VERIFIES : meme
+ *           titre, memes premiers mots, et le meme nombre d'items des
+ *           deux cotes (le corrige du 6.046J SMA-5503, lui, en omet un :
+ *           l'appariement est alors abandonne). 15 questions retenues,
+ *           20 refusees (reponses deformees par l'extraction, items qui
+ *           dependent d'un schema, appariements qui ne correspondent
+ *           pas). Les items vrai/faux gardent les deux propositions du
+ *           corrige (True / False), et la justification du MIT devient
+ *           l'explication. La banque passe de 720 a 735 questions.
  *           Les mini-quiz du MIT 6.189 (Multicore Programming Primer,
  *           janvier 2007, licence CC BY-NC-SA 4.0) sont corriges par le
  *           MIT en repetant l'enoncE avant de repondre. Un cinquieme
@@ -255,7 +269,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.11.6' );
+define( 'SECURA_ACADEMY_VERSION', '0.11.7' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

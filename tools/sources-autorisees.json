@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-03-sept",
+  "_version": "2026-11-03-huit",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -185,6 +185,18 @@
       "commercial": false,
       "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
       "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Les quiz 1, 2 et l’examen final sont importes avec leur corrige officiel."
+    },
+    {
+      "id": "mit-ocw-6-006-2008-examens",
+      "nom": "MIT OpenCourseWare — 6.006 Introduction to Algorithms (Spring 2008)",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2008/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+      "usage": "quiz d’examen et corrigé officiel (notation asymptotique, hashing, graphes, avec la correction du MIT)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Deux quiz et un examen final avec corriges officiels. Les items vrai/faux gardent les deux propositions du corrige (True / False) et la justification devient l’explication."
     },
     {
       "id": "mit-ocw-6-004-examens",

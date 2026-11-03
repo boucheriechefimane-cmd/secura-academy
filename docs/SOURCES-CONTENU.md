@@ -572,3 +572,16 @@ vus après la vague 2 :
   verrouillage mortel, conditions de concurrence, mur de mémoire. Les
   trois autres sont refusées : l'une repose sur du code, l'autre sur
   des schémas, la troisième répète l'énoncé avec un mot différent.
+- **6.006 Introduction to Algorithms (Spring 2008)** — licence
+  **CC BY-NC-SA 4.0**. Deux quiz et un examen final, avec leurs
+  corrigés officiels. Chaque problème est présenté par un titre, un
+  préambule, puis des items numérotés ; le corrigé pose un repère
+  « Solution: » après chacun. Un sixième extracteur apparie les
+  problèmes puis les items — par ordre, mais **vérifiés** : même titre,
+  mêmes premiers mots, **même nombre d'items des deux côtés**. C'est
+  cette dernière vérification qui désamorce le piège du MIT 6.046J
+  SMA-5503, dont le corrigé omet une sous-question. **15 questions
+  retenues**, 20 refusées (réponses déformées par l'extraction, items
+  qui dépendent d'un schéma, appariements qui ne correspondent pas).
+  Les items vrai/faux gardent les deux propositions du corrigé
+  (**True / False**).

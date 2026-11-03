@@ -36,7 +36,7 @@ endroit sans tout redécouvrir.
 | `5-08j-biological-chemistry-ii-spring-2016` | `mit5_08js16exam1_soln`, `mit5_08js16exam2_soln`, `mit5_08js16exam3_soln`, `mit5_08js16finalexam_soln` | **Hors theme cyber** : le sujet n'entre pas dans les parcours de la plateforme. |
 | `6-004-computation-structures-spring-2009` | `mit6_004s09_quiz01_sol`, `mit6_004s09_quiz02_sol`, `mit6_004s09_quiz03_sol`, `mit6_004s09_quiz04_sol`, `mit6_004s09_quiz05_sol` | Deja importe (5 questions, format « blanc a remplir »). |
 | `6-006-introduction-to-algorithms-fall-2011` | `mit6_006f11_final_sol`, `mit6_006f11_quiz1_sol`, `mit6_006f11_quiz2_sol` | **PDF scannes** (pas de couche texte) : refus, sauf OCR. |
-| `6-006-introduction-to-algorithms-spring-2008` | `final_soln`, `solutions1`, `solutions2` | **Format couvert en principe** : les items portent « Solution: » et l'enonce est en « N. Titre » + sous-items. A tryer avec `--format problem-parties`. |
+| `6-006-introduction-to-algorithms-spring-2008` | `final_soln`, `solutions1`, `solutions2` | **Deja importe (15 questions)** — le sixieme extracteur, « titre + items numerotes », apparie les problemes puis les items, par ordre mais toujours verifies. |
 | `6-006-introduction-to-algorithms-spring-2020` | `mit6_006s20_final_sol`, `mit6_006s20_q1_sol`, `mit6_006s20_q2_sol`, `mit6_006s20_q3_sol_pdf`, `mit6_006s20_review1_sol`, `mit6_006s20_review2_sol` … (7) | Deja importe (57 questions). |
 | `6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011` | `mit6_01scs11_final_f09_sol`, `mit6_01scs11_final_f10_sol`, `mit6_01scs11_final_s09_sol`, `mit6_01scs11_final_s10_sol`, `mit6_01scs11_final_s11_sol`, `mit6_01scs11_mid01_f09_sol` … (13) | **PDF scannes** : refus, sauf OCR. |
 | `6-034-artificial-intelligence-spring-2005` | `q1_soln`, `q2_soln`, `quiz1_review_sol`, `quiz2_review_sol` | **Partiellement couvert** : les questions qui dependent d'un arbre dessine (« the tree shown below ») sont refusees par la regle existante — c'est voulu. |
@@ -76,9 +76,8 @@ Trois refuses motives, tous rencontres :
    (`tools/import-mit-enonce-repete.py`), le MIT 6.189 est importe (3
    questions), et il peut servir sur d'autres cours qui repètent
    l'enonce.
-2. **Tenter le MIT 6.006 Spring 2008** avec `--format problem-parties` : le
-   format « N. Titre » + sous-items + « Solution: » est proche de celui du
-   MIT 6.006 Spring 2020, deja importe.
+2. ~~**Tenter le MIT 6.006 Spring 2008**~~ — **fait** : un sixieme
+   extracteur lui est dedie ; 15 questions importees.
 3. **Continuer au-dela du MIT** : Harvard (CS50 est sans solutions → refuse ;
    d'autres cours Harvard restent a verifier), puis Stanford, Berkeley, CMU,
    et les certifications gratuites (Fortinet NSE, Cisco Networking Basics,

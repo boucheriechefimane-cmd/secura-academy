@@ -1,0 +1,219 @@
+{
+  "source": "mit-ocw-6-006-2008-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2008/pages/exams/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] True/False\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nAny Dynamic Programming algorithm with n subproblems will run in O(n) time. True False Explain:",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : The subproblems may take longer than constant time to compute, as was the case with with longest increasing subsequence.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] True/False\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nNewton’s Method for computing 2 essentially squares the number of correct digits at each iteration. True False Explain: 4 Numerics √ Suppose we are trying to compute 3 9 (the cube root of 9). Explain carefully how one iteration of Newton’s Method works for this problem, starting with an initial guess of x0 = 2. (Hint: the function to use is f (x) = x3 − 9. ) Be sure to derive carefully the value of x1 .",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : Newton’s method for computing 2 has quadratic convergence, which means the number of correct digits doubles after each iteration. 4 Numerics √ Suppose we are trying to compute 3 9 (the cube root of 9). Explain carefully how one iteration of Newton’s Method works for this problem, starting with an initial guess of x0 = 2. (Hint: the function to use is f (x) = x3 − 9. ) Be sure to derive carefully the value of x1 .",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] Asymptotic Notation\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nIf f (n) = O(g(n)) and g(n) = O(h(n)), then h(n) = Ω(f (n))",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : O is transitive, and h(n) = Ω(f (n)) is the same as f (n) = O(h(n))",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] Asymptotic Notation\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nf (n) = Θ(n2 ), where f (n) is deﬁned to be the running time of the program A(n): def A(n): atuple = tuple(range(0, n)) # a tuple is an immutable version of a # list, so we can hash it S = set() for i in range(0, n): for j in range(i+1, n): S.add(atuple[i:j]) # add tuple (i,...,j-1) to set S",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : : Inside the two for loops, both slicing and hashing take linear time.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] Hashing\n\nGiven a hash table with more slots than keys, and collision resolution by chaining, the worst case running time of a lookup is constant time. True False Explain:",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : In the worst case we get unlucky and all the keys hash to the same slot, for Θ(n) time.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] True/False\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nHeapsort can be used as the auxiliary sorting routine in radix sort, because it operates in place. True False Explain:",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : The auxiliary sorting routine in radix sort needs to be stable, meaning that numbers with the same value appear in the output array in the same order as they do appear in the input array. Heapsort is not stable. It does operate in place, meaning that only a constant number of elements of the input array are ever stored outside the array.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] True/False\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nIf an in-place sorting algorithm is given a sorted array, it will always output an unchanged array. True False Explain: 6. [5 points] Dijkstra’s algorithm works on any graph without negative weight cycles. True False Explain: 7. [5 points] The Relax function never increases any shortest path estimate d[v]. True False Explain:",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : In-place just means that it only uses a constant amount of extra memory. Stable would mean it would leave the array unchanged. 6. [5 points] Dijkstra’s algorithm works on any graph without negative weight cycles. True False Explain:",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] Shortest Paths\nCarrie Careful has hired Lazy Lazarus to help her compute single-source shortest paths on a large graph. Lazy writes a subroutine that, given G = (V, E), a source vertex s, and a non-negative edge-weight function w : E → R, outputs a mapping d : V → R such that d[v] is supposed to be the weight δ(s, v) of the shortest-weight path from s to v (or ∞ if no such s → v path exists) and also a function π : V → (V ∪ {N IL}) such that π[v] is the penultimate vertex on one such shortest path (or NIL if v = s or v is unreachable from s). Carrie doesn’t trust Lazarus very much, and wants to write a “checker” routine that checks the output of Lazarus’s code (in some way that is more efﬁcient than just recomputing the answer herself). Carrie writes a “checker” routine that checks the following conditions. (No need for her to check that w(u, v) is always non-negative, since she creates this herself to pass to Lazarus.) (i) d[s] = 0 (ii) π[s] = N IL (iii) for all edges (u, v) : d[v] ≤ d[u] + w(u, v) � N IL, then d[v] = d[π[v]] + w(π[v], v) (iv) for all vertices v : if π[v] = � s : if d[v] < ∞, then π[v] = (v) for all vertices v = � N IL (equivalently: π[v] = N IL =⇒ d[v] = ∞)\nYou are given a weighted directed graph G = (V, E, w) and the shortest path distances δ(s, u) from a source vertex s to every other vertex in G. However, you are not given π(u) (the predecessor pointers). With this information, give an algorithm to ﬁnd a shortest path from s to a given vertex t in O(V + E) time.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Start at u. Of the edges that point to u, at least one of them will come from a vertex v that satisﬁs δ(s, v)+w(v, u) = δ(s, u). Such a v is on the shortest path. Recursively ﬁnd the shortest path from s to v. This algorithm hits every vertex and edge at most once, for a running time of O(V + E).",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] True/False\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nKaratsuba’s method is based on the use of continued fractions. True False Explain: √",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : Karatsuba has nothing to do with continued fractions. √",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] Asymptotic Notation\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nIf f (n) = Θ(g(n)) and g(n) = Θ(h(n)), then h(n) = Θ(f (n))",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : Θ is transitive.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] Asymptotic Notation\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nIf f (n) = O(g(n)) and g(n) = O(f (n)) then f (n) = g(n) n",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : : f (n) = n and g(n) = n + 1. n",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] Heaps\n\nSuppose that instead of using Build-Heap to build a max-heap in place, the Insert operation is used n times. Starting with an empty heap, for each element, use Insert to insert it into the heap. After each insertion, the heap still has the max-heap property, so after n Insert operations, it is a max-heap on the n elements. (i) Argue that this heap construction runs in O(n log n) time. (ii) Argue that in the worst case, this heap construction runs in Ω(n log n) time.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Insert takes O(log n) time per operation, and gets called O(n) times. (ii) Argue that in the worst case, this heap construction runs in Ω(n log n) time.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] True/False\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nThere exists a comparison sort of 5 numbers that uses at most 6 comparisons in the worst case. True False Explain:",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : The number of leaves of a decision tree which sorts 5 numbers is 5! and the height of the tree is at least lg(5!). Since 5! = 120, 26 = 64, and 27 = 128, we have 6 < lg(5!) < 7. Thus at least 7 comparisons are required.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] True/False\nDecide whether these statements are True or False. You must brieﬂy justify all your answers to receive full credit.\nIf the DFS ﬁnishing time f [u] > f [v] for two vertices u and v in a directed graph G, and u and v are in the same DFS tree in the DFS forest, then u is an ancestor of v in the depth ﬁrst tree. True False Explain:",
+            "mode": "choice",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : vrai ou faux ? La correction officielle du MIT s’affiche après ta réponse.",
+            "explanation": "Corrigé officiel du MIT : In a graph with three nodes, r u and v, with edges (r, u) and (r, v), and r is the starting point for the DFS, u and v are siblings in the DFS tree, neither as the ancestor of the other.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] Short Answer\n\nWhat property of the Rubik’s cube graph made 2-way BFS more efﬁcient than ordinary BFS?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The number of nodes at most 7 away from any source was signiﬁcantly less than the number of nodes at most 14 away from that source.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2008 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    }
+  ]
+}
