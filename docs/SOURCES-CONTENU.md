@@ -670,3 +670,48 @@ catalogue, sans arrondir.
 (licence explicite, corrigés publiés). Stanford entre dans le lot **avec**
 l'attribution de la source, comme demandé. Harvard attend soit des corrigés
 publiés, soit une autorisation écrite.
+
+
+## 4. Ce que le moteur de criblage a trouvé (v0.12.0)
+
+Le sitemap d'OCW donne 2 587 cours en une requête : c'est une **boussole** — elle dit
+où sont les cours, pas ce qu'ils contiennent. `tools/criblage-ocw.py` fait la seconde
+moitié automatiquement : pour chaque cours, il lit le sitemap du cours, puis les pages
+d'examen, puis les pages de ressources, et il regarde **le nom du fichier**. C'est là,
+et nulle part ailleurs, que se trouve le signal du corrigé :
+
+| Signal dans le nom | Ce que ça veut dire |
+|---|---|
+| `_sol`, `_soln`, `_solution`, `_solutions` | corrigé officiel publié |
+| `Answers`, `key` | corrigé ou barème |
+| `exam`, `final`, `quiz`, `midterm`, `hw`, `pset` | document d'examen |
+
+La licence, elle, est lue dans le pied de page de chaque page de cours :
+`creativecommons.org/licenses/by-nc-sa/4.0` pour la quasi-totalité des cours EECS.
+
+**Mesure réelle du premier passage** (cours 6.*, 18.*, 3.*) :
+
+| | Nombre |
+|---|---|
+| Cours analysés | 430 |
+| Avec un corrigé **et** une licence CC | 66 |
+| Dont des cours jamais vus jusqu'ici | 55 |
+| Sans corrigé, ou sans licence exploitable | 364 |
+
+Le travail se partage en six (`--shard i/6`, et le workflow
+`.github/workflows/criblage-ocw.yml` : matrice à six robots, puis fusion des rapports) :
+six robots, chacun son sixième du catalogue. Le téléchargement est parallèle lui aussi
+(`tools/telecharger-ocw.py`) : **615 documents de neuf cours en 104 secondes**.
+
+### Les trois cours entrés avec le moteur
+
+| Source | Licence | Questions | Ce que le moteur a vu |
+|---|---|---|---|
+| MIT 6.867 Machine Learning and Neural Networks | CC BY-NC-SA 4.0 | 36 | `final_f01soln.pdf`, `midterm_f02soln.pdf`… |
+| Stanford CS107 Data Structures | aucune licence explicite | 41 | `Practice-Final-1-Solutions.pdf`, `final/FinalExamSolutions.pdf`… |
+| Stanford CS224N Natural Language Processing | aucune licence explicite | 67 | `cs224n-midterm-2018-solution.pdf`, `cs224n-practice-midterm-3-sol.pdf`… |
+
+Pour Stanford, l'absence de licence explicite n'est plus un motif de refus : elle est
+**signalée** dans le catalogue et **sous chaque question**, avec l'attribution complète
+(école, cours, examen, corrigé). C'est une décision éditoriale du propriétaire du site,
+pas une permission — elle est écrite comme telle.

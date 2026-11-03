@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.11.9
+ * Version:           0.12.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,34 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.12.0 — Le moteur de recolte, les six robots, et trois nouveaux cours
+ *           (Stanford CS107, Stanford CS224N, MIT 6.867) : 144 questions
+ *           de plus.
+ *
+ *           - Le moteur (tools/criblage-ocw.py) : le sitemap d'OCW donne
+ *             2 587 cours en une requete, mais ne dit pas ce qu'ils
+ *             contiennent. Le moteur lit chaque cours, regarde le NOM des
+ *             fichiers (un fichier « ..._sol.pdf » annonce un corrige) et
+ *             la licence de la page. Premier passage : 430 cours analyses,
+ *             66 avec un corrige ET une licence Creative Commons, dont 55
+ *             jamais vus.
+ *           - Le partage en six (tools/criblage-ocw.py --shard i/6 et le
+ *             workflow .github/workflows/criblage-ocw.yml) : six robots,
+ *             chacun son sixieme du catalogue, puis fusion des rapports.
+ *           - Le telechargement en parallele (tools/telecharger-ocw.py) :
+ *             615 documents de neuf cours en 104 secondes, six en meme
+ *             temps.
+ *           - Dixieme extracteur (tools/import-stanford-problemes.py) : le
+ *             format Stanford « Problem N (Titre) (X points) » avec les
+ *             parties (a), (b)... et le corrige officiel separe.
+ *             Stanford CS107 : 41 questions.
+ *           - Onzieme extracteur (tools/import-stanford-cs224n.py) : les
+ *             QCM a coches (© / √) et les QCM a lettres avec « Solution: ».
+ *             Stanford CS224N : 67 questions.
+ *           - Douzieme extracteur (tools/import-mit-vrai-faux.py) : les QCM
+ *             « T/F » du MIT, dont la reponse officielle est imprimee en
+ *             marge a droite. MIT 6.867 : 36 questions.
  *
  * 0.11.9 — Deux nouveaux extracteurs, 47 questions de plus, et une
  *           correction du bac a sable qui durait depuis des semaines.
@@ -302,7 +330,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.11.9' );
+define( 'SECURA_ACADEMY_VERSION', '0.12.0' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

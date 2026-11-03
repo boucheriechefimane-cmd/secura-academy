@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-03-douze",
+  "_version": "2026-11-03-quinze",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -341,6 +341,42 @@
       "commercial": false,
       "commercial_note": "usage pedagogique et non commercial, avec attribution complete de la source",
       "note": "ATTENTION : contrairement au MIT OpenCourseWare, les pages de Stanford ne portent pas de licence explicite. L'import a ete fait sur decision du proprietaire du site, avec attribution complete de la source sous chaque question (ecole, cours, examen, corrige). Les questions et les corrections sont reprises mot pour mot : rien n'est reecrit. Si Stanford publie une licence, la source seramise a jour."
+    },
+    {
+      "id": "stanford-cs107-examens",
+      "nom": "Stanford CS107 Data Structures — practice final exams (1, 2, 3) et corrigés officiels",
+      "url": "https://web.stanford.edu/class/archive/cs/cs107/cs107.1194/exams/",
+      "licence": "Aucune licence explicite publiee sur ces pages",
+      "attribution": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+      "usage": "questions d’examen de structures de données (C, génériques, flottants, assembleur, allocation mémoire) avec les corrigés officiels publiés par Stanford",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "usage pédagogique et non commercial, avec attribution complète de la source",
+      "note": "ATTENTION : Stanford ne publie pas de licence explicite sur ces pages. Import fait sur décision du propriétaire du site, avec attribution complète (école, cours, examen, corrigé) sous chaque question. Les questions et les corrections sont reprises mot pour mot. Documents récupérés via un lecteur web extérieur : le domaine stanford.edu est inaccessible depuis le bac à sable et depuis les runners GitHub."
+    },
+    {
+      "id": "stanford-cs224n-examens",
+      "nom": "Stanford CS224N Natural Language Processing — midterm Winter 2018 et partiels d'entraînement, avec les corrigés officiels",
+      "url": "https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1184/midterm/",
+      "licence": "Aucune licence explicite publiee sur ces pages",
+      "attribution": "Stanford University, CS224N Natural Language Processing — Winter 2018 midterm exam and practice midterms, with the official solutions (Stanford)",
+      "usage": "questions d'examen de traitement du langage (QCM et réponses rédigées) avec les corrigés officiels publiés par Stanford",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "usage pédagogique et non commercial, avec attribution complète de la source",
+      "note": "ATTENTION : Stanford ne publie pas de licence explicite sur ces pages. Import fait sur décision du propriétaire du site, avec attribution complète (école, cours, examen, corrigé) sous chaque question. Questions et corrections reprises mot pour mot. Documents récupérés via un lecteur web extérieur : stanford.edu est inaccessible en direct depuis le bac à sable et depuis les runners GitHub."
+    },
+    {
+      "id": "mit-ocw-6-867-examens",
+      "nom": "MIT 6.867 Machine Learning and Neural Networks — examens et corrigés officiels",
+      "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+      "usage": "questions d’examen d’apprentissage automatique (QCM Vrai/Faux) avec les réponses officielles imprimées par le MIT dans ses corrigés",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "licence CC BY-NC-SA 4.0 : réutilisation libre y compris pour un site gratuit, à condition de garder l’attribution et de ne pas faire d’usage commercial",
+      "note": "Trouvé automatiquement par le moteur de criblage (tools/criblage-ocw.py) : le nom du fichier de corrigé contient « soln », ce qui annonce un corrigé officiel."
     }
   ],
   "regles": [

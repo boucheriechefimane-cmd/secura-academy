@@ -1,0 +1,520 @@
+{
+  "source": "mit-ocw-6-867-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+  "url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT — question d’examen, en anglais] Leave-one-out cross-validation error is always small for support vector machines. The claim is roughly the same as saying that the SVM always has a low generalization error – which is false. The question is admittedly a little ambiguous since you could have been thinking about a diﬀerent notion of “small”. Note that the number of support vectors is only partially related to the cross-validation error. We know that cross-validation error has to be smaller than the relative number of support vectors. However, we can have a large number of support vectors and yet very small cross-validation error. This happens when many of the support vectors are not “essential”.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The maximum margin decision boundaries that support vector machines construct have the lowest generalization error among all linear classiﬁers The maximum margin hyperplane is often a reasonable choice but it is by no means optimal in all cases.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] Any decision boundary that we get from a generative model with class-conditional Gaussian distributions could in principle be reproduced with an SVM and a polynomial kernel of degree less than or equal to three A polynomial kernel of degree two suﬃces to represent any quadratic decision bound­ ary such as the one from the generative model in question.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The decision boundary implied by a generative model (with parameterized class-conditional densities) can be optimal only if the class-conditional densities are correct for the problem at hand The decision boundary may not depend on all aspects of the class-conditional den­ sities. For example, in the trivial case where the class-conditional densities are the same for the two classes, the optimal decision boundary is based only on the prior class frequencies. We can easily reproduce this with any identical class-conditional densities. Problem 4 Consider the following set of 3-dimensional points, sampled from two classes: x1 x2 x3 x1 x2 x3 1, 1, −1 1, 1, 2 labeled ’1’: 0, 2, −2 labeled ’0’: 0, 2, 1 0, −1, 1 1, −1, −1 0, −2, 2 1, −2, −2 We have included 2-dimensional plots of pairs of features in the “Additional set of ﬁgures” section (ﬁgure 3). 1. (4 points) Explain brieﬂy why features with higher mutual information with the label are likely to be more useful for classiﬁcation task (in general, not necessarily in the given example).",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] From the point of view of classiﬁcation it is always beneﬁcial to remove features that have very high variance in the data",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] A feature which has zero mutual information with the class label might be selected by a greedy selection method, if it happens to improve classiﬁer’s performance on the training set The mutual information of a single feature and the label measures how good the feature is alone. Greedy selection picks features that are useful in conjunction with those already selected. It is possible that a feature which would be useless alone proves to be useful when combined with another. Problem 5 − − − − + − + h1 + + + Figure 2: h1 is chosen at the ﬁrst iteration of boosting; what is the weight α1 assigned to it?",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] AdaBoost will eventually reach zero training error, regardless of the type of weak classiﬁer it uses, provided enough weak classiﬁers have been combined. Not if the data in the training set cannot be separated by a linear com­ bination of the speciﬁc type of weak classiﬁers we are using.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The votes αi assigned to the weak classiﬁers in boosting generally go down as the algorithm proceeds, because the weighted training error of the weak classiﬁers tends to go up In the course of boosting iterations the weak classiﬁers are forced to try to classify more diﬃcult examples. The weights will increase for exam­ ples that are repeatedly misclassiﬁed by the weak component classiﬁers. The weighted training error of the components therefore tends to go up and, as a result, their votes go down.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The votes α assigned to the classiﬁers assembled by AdaBoost are always non-negative As deﬁned in class, AdaBoost will choose classiﬁers with training error above 1/2. This will ensure that log2 (1 − �/�), and therefore the vote, is positive. Note that if the classiﬁer does worse than 1/2 we can always “ﬂip” the sign of its predictions and therefore get a classiﬁer that does slightly better than 1/2. The vote assigned to the “ﬂipped” classiﬁer would be non-negative.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The sequence of output symbols sampled from a hidden Markov model satisﬁes the ﬁrst order Markov property",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] Increasing the number of values for the the hid­ den states in an HMM has much greater eﬀect on the computational cost of forward-backward algorithm than increasing the length of the observation sequence.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] In HMMs, if there are at least two distinct most likely hidden state sequences and the two state sequences cross in the middle (share a single state at an intermediate time point), then there are at least four most likely state sequences.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] One advantage of Boosting is that it does not overﬁt.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] Support vector machines are resistant to outliers, i.e., very noisy examples drawn from a diﬀerent distribution.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] Active learning can substantially reduce the number of training examples that we need. Problem 2 Consider two classiﬁers: 1) an SVM with a quadratic (second order polynomial) kernel function and 2) an unconstrained mixture of two Gaussians model, one Gaussian per class label. These classiﬁers try to map examples in R2 to binary labels. We assume that the problem is separable, no slack penalties are added to the SVM classiﬁer, and that we have suﬃciently many training examples to estimate the covariance matrices of the two Gaussian components.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The two classiﬁers have the same VC-dimension. 2. (4 points) Suppose we evaluated the structural risk minimization score for the two classiﬁers. The score is the bound on the expected loss of the classiﬁer, when the classiﬁer is estimated on the basis of n training examples. Which of the two classiﬁers might yield the better (lower) score? Provide a brief justiﬁcation. The SVM would probably get a better score. Both classiﬁers have the same com­ plexity penalty but SVM would better optimize the training error resulting in a lower (or equal) overall score.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] Regularization in the above sense would improve the structural risk minimization score for the mixture of two Gaussians.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The resulting ﬁrst order Markov model is ergodic 3. (4 points) To improve the Markov model a bit we would like to deﬁne a graphical model that predicts the value of st on the basis of the previous observed values st−1 , st−2 , . . . (looking as far back as needed). The model parameters/structure are assumed to remain the same if we shift the model one step. In other words, it is the same graphical model that predicts st on the basis of st−1 , st−2 , . . . as the model that predicts st−1 on the basis of st−2 , st−3 , . . .. In the graph below, draw the minimum number of arrows that are needed to predict the ﬁrst observed sequence perfectly (disregarding the ﬁrst few symbols in the sequence). Since we slide the model along the sequence, you can draw the arrows only for st . ... ... s s s s s t−4 t−3 t−2 t−1 t",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] We can in general achieve independence with less information, i.e., we don’t have to fully instantiate the selected context variables but provide some evidence about their values",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] Any word that appears in all the N documents would eﬀectively provide a bias term for the logistic regression model.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] Any word that appears only in the available n la- beled documents used for initially training the logistic regression model, would serve equally well as a bias term.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The criterion we have used here for active learning guarantees that the measure of uncertainty about the labels of the unlabeled points will decrease monotonically for each point after each query. Roughly speaking, when we ”tilt” the boundary to incorporate each new labeled example some unlabeled points may end up closer to the bound­ ary which tends to increase the uncertainty in those points.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The approximation error of a polynomial regression model depends on the number of training points.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The structural error of a polynomial regression model depends on the number of training points.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The values of the margins obtained by two diﬀerent kernels K(x, x� ) and K̃(x, x� ) on the same training set do not tells us which classiﬁer will perform better on the test set. We need to normalize the margin for it to be meaningful. For example, a simple scaling of the feature vectors would lead to a larger margin. Such a scaling does not change the decision boundary, however, and so the larger margin cannot directly inform us about generalization.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] In training a logistic regression model by maximizing the likelihood of the labels given the inputs we have multiple locally optimal solutions. The log-probability of labels given examples implied by the logistic re­ gression model is a concave (convex down) function with respect to the weights. The (only) locally optimal solution is also globally optimal (if there are only a few examples, there might be a “ﬂat” region with many equally optimal solutions, as in, e.g., question 3.4).",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] A stochastic gradient algorithm for training logistic regression models with a ﬁxed learning rate will ﬁnd the optimal setting of the weights exactly. A ﬁxed learning rate means that we are always taking a ﬁnite step to­ wards improving the log-probability of any single training example in the update equation. Unless the examples are somehow “aligned”, we will continue jumping from side to side of the optimal solution, and will not be able to get arbitrarily close to it. The learning rate has to approach to zero in the course of the updates for the weights to converge.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The average log-probability of training labels as in Figure 2 can never increase as we increase C. Stronger regularization means more constraints on the solution and thus the (average) log-probability of the training examples can only get worse. 4. (4 points) Explain why in Figure 2 the test log-probability of labels decreases for large values of C. As C increases, we give more weight to constraining the predictor, and thus give less ﬂexibility to ﬁtting the training set. The increased regularization guarantees that the test performance gets closer to the training performance, but as we over-constrain our allowed predictors, we are not able to ﬁt the training set at all, and although the test performance is now very close to the training performance, both are low.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The log-probability of labels in the test set would decrease for large values of C even if we had a large number of training examples.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] Adding a quadratic regularization penalty for the parameters when estimating a logistic regression model ensures that some of the parameters (weights associated with the components of the input vectors) vanish. A regularization penalty for feature selection must have non-zero deriva­ tive at zero. Otherwise, the regularization has no eﬀect at zero, and weight will tend to be slightly non-zero, even when this does not im­ prove the log-probabilities by much. Problem 3 Consider a training set consisting of the following eight examples: Examples labeled “0” Examples labeled “1” 3,3,0 2,2,0 3,3,1 1,1,1 3,3,0 1,1,0 2,2,1 1,1,1 The questions below pertain to various feature selection methods that we could use with the logistic regression model. 1. (2 points) What is the mutual information between the third feature 0 and the target label based on the training set? The third feature has the same distribution conditioned on both labels, hence it is statistically independent of the target label and the mutual information between them is zero. 2. (2 points) Which feature(s) would a ﬁlter feature selection method 1,2 choose? You can assume here that the mutual information criterion is evaluated between a single feature and the label. Both of these features have high, and equal, mutual information with the target label. 1,3 3. (2 points) Which two feature(s) would a greedy wrapper process or 2,3 choose?",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The votes that AdaBoost algorithm assigns to the component classiﬁers are optimal in the sense that they ensure larger “margins” in the training set (higher majority predictions) than any other setting of the votes. The votes in the boosting algorithm are optimized sequentially and never “reoptimized” after all the hypotheses have been generated. These votes cannot therefore be optimal in the sense of achieving the largest majority predictions for the training examples.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] In the boosting iterations, the training error of each new decision stump and the training error of the combined classiﬁer vary roughly in concert While the training error of the combined classiﬁer typically decreases as a function of boosting iterations, the error of the individual decision stumps typically increases since the example weights become concen­ trated at the most diﬃcult examples.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] We would expect the support vectors to remain the same in general as we move from a linear kernel to higher order polynomial kernels. There are no guarantees that the support vectors remain the same. The feature vectors corresponding to polynomial kernels are non-linear func­ tions of the original input vectors and thus the support points for max­ imum margin separation in the feature space can be quite diﬀerent.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] Structural risk minimization is guaranteed to ﬁnd the model (among those considered) with the lowest expected loss We are guaranteed to ﬁnd only the model with the lowest upper bound on the expected loss. 4. (6 points) What is the VC-dimension of a mixture of two Gaussians model in the plane with equal covariance matrices? Why?",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] In general for small training sets, we are likely to reduce the approximation error by adding a regularization penalty |w1 |2 /2 to the log-likelihood criterion. Regularization prevents over-ﬁtting by constraining the input to the lo­ gistic function to be a smooth function of input. Such functions can be estimated with fewer samples. Put another way, you are reducing the variance of the estimator in favor of introducing some bias. Variance dominates when we have only few training samples.",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 0,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « T » (vrai).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT — question d’examen, en anglais] The Markov chain in Figure 3 is ergodic",
+            "mode": "choice",
+            "choices": [
+              "True (vrai)",
+              "False (faux)"
+            ],
+            "correct": 1,
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : la réponse est « F » (faux).",
+            "source": "MIT OpenCourseWare, 6.867 Machine Learning and Neural Networks — exams and official solutions (MIT)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,385 @@
+{
+  "source": "stanford-cs107-examens",
+  "licence": "Aucune licence explicite publiee sur ces pages",
+  "attribution": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+  "url": "https://web.stanford.edu/class/archive/cs/cs107/cs107.1194/exams/",
+  "rooms": [
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 1 (Void * generics) — partie (a)\nWrite the generic\nremove_duplicates function:\nint remove_duplicates(void *arr, size_t nelems, int width, int (*cmp)(void *, void *));",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : int remove_duplicates(void *arr, size_t nelems, int width, int (*cmp)(void *, void *)) {int i = 0; while (i < nelems - 1) {void *ith = (char *)arr + i * width; void *ithplus1 = (char *)arr + (i+1) * width; if (cmp(ith,ithplus1) == 0) {// remove memmove(ithplus1,(char *)ithplus1+width, (nelems-i-2)*width); nelems--; } else {i++; }}return nelems; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 1 (Void * generics) — partie (b)\nWrite a comparison function on\nlong s that will work for remove_duplicates :\nint cmp_long(void *p, void *q);",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : int cmp_long(void *p, void *q) {if (*(long *)p > *(long *)q) return 1; else if (*(long *)p < *(long *)q) return -1; return 0; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 1 (Void * generics) — partie (c)\nFill in the four blanks in\nmain that will produce the following output when run from the command line:\n$ ./remove_dup 1 1 1 2 2 3 3 3 4 7 8 81,1,1,2,2,3,3,3,4,7,8,8 1,2,3,4,7,8 2\n// function declaration for function written in 1b. int cmp_long(void *p, void *q); int main(int argc, char **argv) {int nelems = argc-1; long arr[nelems]; for (int i=0; i < nelems; i++) {arr[i] = atol(argv[i+1]); printf(\"%ld\",arr[i]); printf(\"%s\",i == nelems-1 ? \"\\n\" : \",\"); }int newsz = remove_duplicates(__BLANK 1__ , __BLANK 2__ ,__BLANK 3__ , __BLANK 4__); for (int i=0; i < newsz; i++) {printf(\"%ld\",arr[i]); printf(\"%s\",i == newsz-1 ? \"\\n\" : \",\"); }\nreturn 0; }3",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : int newsz = remove_duplicates(arr, nelems, sizeof(long), cmp_long); 2",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 2 (Floats) — partie (a)\nTwo's complement integers and IEEE floating point numbers each have their own\ndesign, with different tradeoffs. Name one benefit and one drawback of the IEEE floating point standard vs. two's complement integers. For each, include the specific design aspect of IEEE floating point that results in that benefit or drawback.",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : Instead of storing one bit for each binary digits place, as two’s complement does,\nIEEE floating point stores numbers in the form x * 2^y, and stores x and y in binary representations. The benefit of this is that floats can store a much wider range of numbers because two’s complement can only store 64 binary digits. The drawback of this is that not all numbers are representable, because some numbers cannot be represented in this scientific notation form.\nOther possible mentions: float arithmetic more difficult, dedicated float sign bit means 2 zeros, float encodes infinity and other exceptional values, but increases complexity in comparison.",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 2 (Floats) — partie (b)\nGiven the following 32-bit float binary, what is the corresponding (simplified)\ndecimal number that it represents?\n0 01111110 10000000000000000000000",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : 0.75 (c) A float is normalized if the exponent is not all 1s and not all 0s. A float is\ndenormalized if the exponent is all 0s. A float is exceptional if the exponent is all 1s. (d)\ntrue true false true false 3",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 3 (Assembly) — partie (a)\nGiven the following assembly code, re-construct the C code that produced it.\n0x400566 <+0>: test %rsi,%rsi 0x400569 <+3>: je 0x400599 <mystery+51> 0x40056b <+5>: push %rbp 0x40056c <+6>: push %rbx 0x40056d <+7>: sub $0x8,%rsp 0x400571 <+11>: mov %rsi,%rbx 0x400574 <+14>: mov %rdi,%rbp 0x400577 <+17>: shr %rsi 0x40057a <+20>: callq 0x400566 <mystery> 0x40057f <+25>: mov -0x8(%rbp,%rbx,8),%rsi 0x400584 <+30>: mov $0x400694,%edi 0x400589 <+35>: mov $0x0,%eax 0x40058e <+40>: callq 0x400430 <printf@plt> 0x400593 <+45>: add $0x8,%rsp 0x400597 <+49>: pop %rbx 0x400598 <+50>: pop %rbp 0x400599 <+51>: repz retq void mystery(long *arr, size_t count) {if (___________________________) { // line 1______________________________; // line 2printf(\"%lu\\n\", _____________); // line 3}}5",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : void mystery(long *arr, size_t count) {if (count > 0) { // line 1\nmystery(arr, count / 2) ; // line 2printf(\"%lu\\n\", arr[count-1] ); // line 3}}",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 3 (Assembly) — partie (b)\nGiven the following assembly code, re-construct the C code that produced it.\n# Tip: the assembly looks long, but all of the pushing and popping are necessary due to the nature of the function; make sure you note where all of the arguments are moved to at the beginning of the assembly function.\n0x40052f <+0>: push %r15 0x400531 <+2>: push %r14 0x400533 <+4>: push %r13 0x400535 <+6>: push %r12 0x400537 <+8>: push %rbp 0x400538 <+9>: push %rbx 0x400539 <+10>: sub $0x18,%rsp 0x40053d <+14>: mov %rdi,%r13 0x400540 <+17>: mov %rsi,%r14 0x400543 <+20>: mov %edx,0xc(%rsp) 0x400547 <+24>: mov %rcx,%r15 0x40054a <+27>: mov %rdi,%r12 0x40054d <+30>: mov $0x1,%ebp 0x400552 <+35>: jmp 0x400574 <mystery+69> 0x400554 <+37>: movslq 0xc(%rsp),%rbx 0x400559 <+42>: imul %rbp,%rbx 0x40055d <+46>: add %r13,%rbx 0x400560 <+49>: mov %rbx,%rsi 0x400563 <+52>: mov %r12,%rdi 0x400566 <+55>: callq *%r15 0x400569 <+58>: test %eax,%eax 0x40056b <+60>: jns 0x400570 <mystery+65> 0x40056d <+62>: mov %rbx,%r12 0x400570 <+65>: add $0x1,%rbp 0x400574 <+69>: cmp %r14,%rbp 0x400577 <+72>: jb 0x400554 <mystery+37> 0x400579 <+74>: mov %r12,%rax 0x40057c <+77>: add $0x18,%rsp 0x400580 <+81>: pop %rbx 0x400581 <+82>: pop %rbp 0x400582 <+83>: pop %r12 0x400584 <+85>: pop %r13 0x400586 <+87>: pop %r14 0x400588 <+89>: pop %r15 0x40058a <+91>: retq 6\nvoid *mystery(void *arr, size_t nelems, int width, int(*cmp)(void *, void *)) {void *x = _________________; // line 1for (____________________) { // line 2void *y = _____________; // line 3if (_________________) { // line 4___________________; // line 5}}return ____________________; // line 6}7",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : void *mystery(void *arr, size_t nelems, int width, int(*cmp)(void *, void *)) {void *x = arr ; // line 1for (size_t i = 1; i < nelems; i++ ) { // line 2void *y = (char *)arr + i * width ; // line 3if (cmp(x, y) < 0) { // line 4\nx = y; // line 5}}return x; // line 6}4",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 4 (Runtime Stack) — partie (c)\nGive a 1-line fix (or modification) that will make the CIA program more secure. 10",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : There are a number of different answers. One would be:\nAfter the strncpy(userpwcopy,userpw,16) ; line, add: userpwcopy[15] = 0;There are other alternatives — one is to not bother using a copy of the user’s password and simply to print out the original:\nprintf(\"Your password, %s, is incorrect.\\n\",userpw); 5",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 (Heap Allocator) — partie (a)\n(4pts) Write a helper function that, given a pointer to a header or footer, reads and returns the actual payload size of that block, in bytes (i.e., returns the size with the two least significant bits zeroed out).\nint get_size(void *curr);",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : int get_size(void *curr) {int mask = -1 << 2; return (*((int*)curr)) & mask; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 (Heap Allocator) — partie (b)\n(4pts) Write a helper function to identify when a block is allocated. Given a pointer to a header or footer, return true if the block is allocated, otherwise return false.\nbool is_allocated(void *curr);",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : bool is_allocated(void *curr) {int mask = 0x1; return (*((int*)curr)) & mask; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 (Heap Allocator) — partie (c)\n(4pts) Write a helper function to identify when a block has been reallocated since the time of its malloc. Given a pointer to a header or footer, return true if the block has been reallocated, otherwise return false.\nbool is_reallocated(void *curr);",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : bool is_reallocated(void *curr) {int mask = 0x2; return (*((int*)curr)) & mask; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 (Heap Allocator) — partie (d)\n(4pts) Write a helper function that, given a pointer to the header of a block, returns the address of the header of the block to its right in memory. If there is none (i.e., at the boundary of the heap), return NULL.\nheaderT *right_block(headerT *curr); 12",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : headerT *right_block(headerT *curr) {headerT *next = (headerT *)(((char*)curr + get_size(curr)) + sizeof(headerT) + sizeof(int)); if ((char *)next >= (char*)heapStart + heapSize) {return NULL; }return next; }6",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 (Heap Allocator) — partie (e)\n(10pts) Write a simple implementation of\nmyfree given this design. Your myfree\nshould do the following:\n> •\nIf ptr is outside the range of addresses of the heap, return without doing anything. Otherwise assume ptr points to a valid payload.\n> •\nCheck that the block is currently allocated (if not, return without doing anything).\n> •\nMark the header and footer values appropriately for a free block (don’t forget to set the realloc bit!)\n> •\nInsert the block at the front of the free list.\n> •\n# This simple version does not attempt to do coalesce or other advanced features.\nvoid myfree(void *ptr);",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : void myfree(void *ptr) { if (ptr == NULL) return; headerT *header = (headerT *)ptr - 1; // past end or before beginning – include offset padding if ((char *)header >= ((char*)heapStart + heapSize)) return; if ((char *)header < ((char*)heapStart + 4)) return; if (!is_allocated(header)) return; int mask = -1 << 2; header->payloadsz &= mask; // clear out alloc/realloc bits // clear footer int *footer = (int *)((char *)header + get_size(header) + sizeof(headerT)); *footer = header->payloadsz; // update free list header->next = free_list; header->prev = NULL; if (free_list != NULL) free_list->prev = header; free_list = header; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 (Heap Allocator) — partie (f)\n(10pts) Write a simple implementation of myrealloc given this design. Your myrealloc\nshould do the following:\n> •\nAssume ptr points to a valid, allocated block’s payload. If the realloc size is less than or equal to the current payload size, do nothing and return ptr . (you do not need to change the value of the reallocated bit in this case)\n> •\nIf the block has previously been reallocated, proceed as if the request is for double the actual request size, in anticipation that there may be future myrealloc calls that will now be very fast so long as they fit within this preemptive doubling.\n> •\nPerform the realloc by calling myfree and mymalloc (do not manually do any of the work for this). Be sure to copy the caller’s data for them. Even though you are the heap allocator, order these operations in a way that respects the usual convention that one does not access freed memory.\n> •\nBe sure that the allocated and reallocated flag bits are set appropriately to show this was reallocated.\n> •\n# This simple version does not attempt to look for free blocks to the right to expand into, nor does coalesce or other advanced features.\nvoid *myrealloc(void *ptr, size_t size); 13",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : void *myrealloc(void *ptr, size_t size) { headerT *header = (headerT *)ptr - 1; int cursz = get_size(header); if (size <= cursz) return ptr; if (is_reallocated(header)) size *= 2; void *block = mymalloc(size); if (!block) return NULL; memcpy(block, ptr, cursz); myfree(ptr); int mask = 0x2; // rewind to header, mark realloc header = (headerT *)block - 1; header->payloadsz |= mask; // mark footer realloc and make new header int *footer = (int *)((char *)header + sizeof(headerT) + get_size(header)); *footer |= mask; return block; }7",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 6 (gcc / make) — partie (a)\nName one type of optimization done by GCC, and what that optimization is.",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : Constant folding is one optimization where GCC will embed constant values directly\ninto the assembly instructions, instead of outputting assembly instructions to calculate it when the program is run.\nOther possibilities : constant sub-expression elimination (calculates repeated expression once in assembly instructions and saves the result to avoid recomputation), strength reduction (changes more expensive instructions such as multiply and divide to less expensive operations such as shifts, mod, etc.), more GCC optimizations besides this!",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 6 (gcc / make) — partie (b)\nWhen you compile a program using optimizations, oftentimes it becomes difficult to step through and debug using GDB. Why is this?",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : Optimizations can cause the assembly to not map well to the C code anymore,\nbecause many C lines may be converted to few instructions, variables may be optimized out, etc.",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 6 (gcc / make) — partie (c)\nIn the (seemingly nonsensical) code below, we use both strlen and sizeof , yet neither of them appear anywhere in the assembly. Why is this? What appears instead?\nchar *str = \"Hello, world!\"; int offset = sizeof(char *); char buf[strlen(str) + 1]; strcpy(buf, str + offset, strlen(str) - offset);",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : This is an example of constant folding – GCC can figure out the value of the strlen\nand sizeof expressions at compile time in this code. Sizeof is always a compile-time operation, so it will never appear in assembly instructions. The strlen expression here is on a string constant, which means its length is known at compile-time. For this reason embeds the values directly in the assembly instructions instead of making a call to strlen.",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 1 () — partie (b)\nYou change the prototype of substring to take the input string by reference. Implement the body of the function so that it works correctly and is compatible with the new prototype.\n> void substring(char **p_input, size_t pos, size_t len) {",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : void substring(char **p_input, size_t pos, size_t len) {(*p_input) += pos; (*p_input)[len] = '\\0'; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 1 () — partie (c)\nComplete the program started below to test the substring function. Compute the substring of name starting at position 3 of length 2 and print it.\n> int main(int argc, char *argv[]) {\n> char name[16]; strcpy(name, \"Tessier-Lavigne\");\n2",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : int main(int argc, char *argv[]) {\nchar name[16]; strcpy(name, \"Tessier-Lavigne\"); char *ptr = name; substring(&ptr, 3, 2); printf(\"%s\\n\", ptr); }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 2 () — partie (b)\nComplete the shortest function to remove the shortest string from an array of words and return it. If two strings tie for shortest, either choice is fine. You must fill in the blank line in\n> shortest\nwith a single call to extract_min and can assume the function works correctly. You will also need to write the comparison function.\n> int cmp_len(const void *p, const void *q) {\n> __________________________________________________________________; }\n> char *shortest(char *words[], size_t *p_nwords) {\n> char *min; __________________________________________________________________; return min;\n> }\n3",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : > int cmp_len(const void *p, const void *q) {\n> return strlen(*(const char **)p) – strlen(*(const char **)q); }\n> char *shortest(char *words[], size_t *p_nwords) {\n> char *min; extract_min(&min, words, p_nwords, sizeof(char *), cmp_len); return min;\n> }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 4 () — partie (a)\nFill in the blanks in the C code below to match the assembly above. There should be no typecasts . Note this is nonsense code, not intended to do anything at all meaningful.\nint pinky(char *param1, int *param2) {\nchar *str = NULL; int local = ____________________________________________________; if ( ________________________________________________________ ) {\n__________________________________________________________;\n}\n__________________________________________________________; }",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : > int pinky(char *param1, int *param2) {\n> char *str = NULL; int local = strtol(param1, &str, 16); if (local – 7 > 12) {\n> local += param2[3];\n> }\n> return local/4; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 4 () — partie (b)\nWhat is a strength reduction optimization and how is it applied here? 5",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : A strength reduction optimization is when GCC replaces expensive types of assembly instructions with cheaper ones. In this case, GCC substitutes an expensive div instruction in the return statement for a less-expensive shift. It can do this because the divisor is 2 N, and so division can be calculated as a bit shift right N positions (with fixup to round negative numbers 3\ntoward zero). Even though this trades four instructions for one, it still comes out ahead because\n> div\nis so expensive.",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 4 () — partie (c)\nFor many operations, the same assembly instruction, e.g. add , can be used for either signed or unsigned values, but this is not true for all operations. The declaration of local is changed to\n> unsigned int\nand pinky is recompiled. Consider the five lines of C in the pinky function. Three of the lines generate the exact same sequence of assembly instructions as before; two do not. Identify which two lines generate different assembly and describe how the assembly changed. 6",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : Line 3: An unsigned comparison is put in place of a signed comparison ( jle -> jbe ). Line 5: Unsigned divide does not require negative fixup, since it’s now just a logical bit shift right N positions. Thus, the first four instructions at .L1 are replaced with shr $0x2. (Note: there is an additional move instruction to get values in the right registers with the new shift instruction, but it’s fine to not worry about this).",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 () — partie (b)\nSeeing the array is too small, the implementer enlarges the size of the buffer declared within concat to:\nchar buffer[4096];\nAfter this change, running ./program LelandStanfordJunior University now prints\nLelandStanfordJuniorUniversity . Explain why the program appears to work correctly despite the fact that concat returns the address of a stack-allocated array. 7",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : When a stack frame is deallocated, the memory remains accessible and contents remain as-is until a subsequent stack frame overwrites it. The stack frame for printf is overwriting what was the stack frame for concat , but since concat had a very large frame and printf has a much smaller one, it is overwriting the tail end of the stack array (which is unused), and never reaches down to the used part where the characters are stored. For this reason, it is still able to print out the correct result.",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 () — partie (c)\nNot wanting to squander memory, they then change the declaration of buffer to the proper size:\n> char buffer[strlen(s) + strlen(t) + 1];\nAfter this change, ./program LelandStanfordJunior University now prints garbage. Explain how the change in sizing the array leads to this change in behavior.",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : Now that the concat frame is tightly-sized to exactly the string length, the printf frame is writing on the used contents of the stack array, garbling the string contents.",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 () — partie (d)\nThey decide to add the compiler flag -fstack-protector to see if that will change anything. This flag tells GCC to add instructions at the start of each function to write something called a\ncanary value on the stack. This is an arbitrary constant value written directly below the saved registers and above any local variables. GCC also adds instructions at the end of each function to check the integrity of this canary value, and if it has changed, terminate the program with the error message “stack smashing detected”, as it knows that some previous instructions improperly wrote to that memory area. Thus, they recompile the three program versions (too-small array, too-large array, right-sized array) with the -fstack-protector flag and execute each as ./program LelandStanfordJunior University. Only one of the versions has any noticeable change when executing. Explain which version behaves differently and why. 8",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : The too-small version halts with error \"stack smashing detected\", because an overflow there will overwrite the canary value as it overwrites the saved registers. The too-large version does not exhibit overflow here because the input is not long enough, and the correct-sized version cannot exhibit overflow, so neither of those interfere with the canary value and thus execute unchanged.",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 6 () — partie (a)\nThe USED and NWORDS bitmasks isolate the most significant bit from the lower bits. A code reviewer is displeased with defining these as fixed constants and instead recommends building the masks by construction. Your first attempt to follow their recommendation is shown below.\n> #define USED (1U << (HDRSIZE*8 - 1)) #define NWORDS -(USED)\nYour approach is correct but the details are a little off. You examine the mask values in GDB and see that both are zero -- oops! Rewrite the two mask definitions below, correcting where they have gone astray. Only one character needs to be edited in each definition.",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : > #define USED (1UL << (HDRSIZE*8 - 1)) #define NWORDS ~(USED)\nThe constant value 1 on the first line must be a long to avoid over-shifting. On the second line, we want to invert the binary representation, not the sign. 4",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 6 () — partie (b)\nThe is_used function is given a pointer to a block’s header and returns true if the block is in- use, false otherwise. Complete the function by filling the blank with the correct expression.\n> bool is_used(Header *hdr) {\n> return ________________________________________________; }",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : > bool is_used(Header *hdr) {\n> return (*hdr) & USED; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 6 () — partie (c)\nImplement get_neighbor . Given a pointer to a block’s header, it returns a pointer to the header of the neighbor to the right, i.e., at the next higher address in the heap. If hdr has no right neighbor (i.e., it is the rightmost block in the heap segment), the function returns NULL .\n> Header *get_neighbor(Header *hdr) {\nThe function remove_from_freelist is given a pointer to a free payload . It searches the free list for that entry and removes it from the list. An implementation is started below. The two blanks in the code will be completed when answering parts d-g.\n> void remove_from_freelist(void *to_remove) {\n> void **prev = NULL; for (prev = __________; prev != NULL; memcpy(&prev, prev, sizeof(prev))) {\n> if (*prev == to_remove) break; }\n> ________________________________________; }\n10",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : > Header *get_neighbor(Header *hdr) {/* Note: we are adding multiples of 8-byte words here! * we also use void * here to avoid warnings when comparing * with segment_end. */ void *neighbor = hdr + ((*hdr) & NWORDS) + 1; if (neighbor >= segment_end) return NULL; return neighbor; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 6 () — partie (e)\nThe function should only be called with a pointer that is on the free list. Given this constraint, the loop test prev != NULL can be removed entirely. Approximately how many fewer instructions are executed during a call to remove_from_freelist as a result of this change? Express your answer in Big-O notation in terms of the length of the freelist, N (e.g. O(logN) would mean the reduction in instructions executed is proportional to logN).",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : O(N). Removing the check means approximately 2 instructions fewer are executed per iteration of the loop (potentially a test/compare and a jump), which means the total number of instruction executions saved is proportional to N.",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 6 () — partie (h)\nThe expression ( *neighbor + 1) < nbytes is supposed to reject the neighbor if it is too small for the requested increase, but the test condition does not work as intended. Identify the problem and describe the observed consequence when testing the flawed code. 11",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : There is a mismatch in units – nbytes is being compared to a number of words. This will erroneously reject blocks that could be used because it believes they are too small.",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 6 () — partie (i)\nAssume the issue above is resolved. Now complete the implementation of expand_right by writing the code to add into the boxed area so that the function works correctly. You should call\n> remove_from_freelist\nand can assume it works correctly.",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : > *cur += *neighbor + 1; // can mask but don't need to, neighbor not in-use remove_from_freelist(neighbor + 1); // note: arg is pointer to payload!",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 6 () — partie (j)\nYou consider adding expand_left to absorb the left neighbor but decide against it. Explain why expanding left cannot be efficiently implemented in the current design and furthermore why expanding left will not provide the same benefit to myrealloc as expand right.",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : There is no way to directly access the block header of a left neighbor, because we don’t know how large the left neighbor is. Walking the block headers from segment_start (i.e. traverse implicit list) could find it, but in the worst-case requires a complete linear traversal of the entire heap! And even if this is done, expanding to the left for myrealloc still has to copy the payload data to the new start address, which is the expensive operation resize-in-place tries to avoid. Resize in place is only possible if the starting address stays the same, as in expanding right.",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 3 () — partie (a)\n(5pts) Complete the mixup1 function to create this before and after result.\nBefore: After:\nptr1 ptr2 ptr1 ptr2\n'A' 'F' 'A' 'F' 'B' 'G' 'G' 'B' 'C' 'H' 'H' 'C' 'D' 'I' 'I' 'D' 'E' 'J' 'J' 'E'\nvoid mixup1(char *ptr1, char *ptr2) { swap( ,,sizeof( )); }4\nNow consider the following before and after diagram, where ptr1 and ptr2 are int *s:\nBefore: After:\nptr1 ptr2 ptr1 ptr2\n-1 0 -1 0-1 0 -256 0-1 0 -1 255 -1 0 -1 0-1 0 -1 0\nTo help you think about how to solve this one, lets first look at the hexadecimal versions of the two new numbers that appear in the “after.” (b) (1pt) Write -256 in hexadecimal (32-bit): (c) (1pt) Write 255 in hexadecimal (32-bit): (d) (5pts) With those values in mind, now complete the mixup2 function to create this before and after result. (Note: you do not need to be concerned with “endian-ness”, or byte order – any endianness will be accepted).\nvoid mixup2(int *ptr1, int *ptr2) { swap( ,,sizeof( )); }5",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : void mixup1(char *ptr1, char *ptr2) { swap(ptr1 + 1, ptr2 + 1, sizeof(int)); }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 4 () — partie (a)\n(17pts) Fill in the C code below so that it is consistent with the above x86-64 code. Your C code should fit the blanks as shown, so do not try to squeeze in additional lines or otherwise circumvent this (this may mean slightly adjusting the syntax or style of your initial decoding guess to an equivalent version that fits). All constants of type signed/unsigned int must be written in decimal . Your C code should not include any casting. The signatures for two functions called in the code are provided for your reference.\nvoid explode_bomb(); void pass_final_level(unsigned int x); char *vp(unsigned int aaron, char *burr) {// see part (c) unsigned int leslie = strlen(burr) * ;if ( ) { while (leslie > ) { //see part (c) /= ;}if (aaron >= 256) { ;} else { ;}} else { explode_bomb(); }return ;}7",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : Intended solution:\nchar *vp(unsigned int aaron, char *burr) {unsigned int leslie = strlen(burr) * 3; if (aaron < -16) { // or <= -17 (equivalent for unsigned) while (leslie > 6) { leslie /= 4; }if (aaron >= 256) { pass_final_level(leslie); } else { explode_bomb(); }} else { explode_bomb(); }return burr + 3; }3",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 4 () — partie (b)\n(2pts) The assembly code includes several “push” and “pop” instructions. What kind of registers are being pushed (and popped), and why is gcc required to push and pop them, given how those registers are used in the body of the function? (c) (2pts) The C code includes a multiply and a divide (marked with comments “ see part (c) ”), but there is no multiply ( imul ) or divide instruction in the assembly code. Which instructions are used instead (name both), and why would gcc generate the assembly code this way?",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : Caller-owned registers must be saved before we use them as local/temporary storage, then restored before the function returns. (c) The lea is faster than imul , and achieves * 3 by multiplying the value by 2 and then adding the product to itself. Shifting left by 2 with shr is the same as multiplying by 4 in binary arithmetic, and shr is faster than divide. (d) It may look like it is not possible, because aaron must be both less than -16 and greater than 256. However, the comparison with -16 is unsigned, because when signed and unsigned are compared the unsigned equivalents of both values are used. So we just need a value for aaron\nthat satisfies 256 <= aaron < 0xFFFFFFF0 (which is -16U ). Some common solutions that would work: 256, 257, 300, -17, 0xFFFFFF00 , or “max int .” Some common solutions that don’t work: 255, -1 (or 0xFFFFFFFF or “max unsigned int ”), 0xFFFFFFF0 .",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 () — partie (a)\n(4pts) Implement get_neighbor . Given a pointer to a block’s header , it returns a pointer to the header of the neighbor to the right, i.e., at the next higher address in the heap. If hdr has no right neighbor (i.e., it is the rightmost block in the heap segment), the function returns NULL .\nstruct Header *get_neighbor(struct Header *hdr) {}",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : struct Header *get_neighbor(struct Header *hdr) {struct Header *next = (struct Header *)((char*)hdr + hdr->nwords * 8 + HDRSIZE); return next >= (struct Header *)segment_end ? NULL : next; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 () — partie (b)\n(2pts) You consider implementing a corresponding get_left_neighbor (given a pointer to a block’s header, it would return a pointer to the header of the neighbor to the left), but soon realize that it while it would be possible, it would be much slower than getting the right neighbor. Briefly describe how is it possible (what actions would the function have to take), and why it would be slower in terms of Big-O cost. 10",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : Without a footer to inform us of how many bytes are in the block to the left in O(1) time (the way the header informs us of how many bytes are in the block to the right in O(1) time), we would need to traverse either the free list or the entire heap, looking for the block whose header tells us it is to our left. That looping is O(N). (c)\nstruct Header *pay_to_hdr(struct Node *payload)\n{// Possible solution 1 return (struct Header *)payload – 1; // Possible solution 2 return (struct Header *)((char *)payload – HDRSIZE); }4",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 () — partie (e)\n(3pts) Now write a function that traverses the explicit free list and counts the number of free blocks it finds. Again, for full credit, you should use other functions in this problem as helper functions if/when appropriate.\nsize_t count_free_list() {\nsize_t nfree = 0; for (struct Node *curr = ;;) { if (. == 0) // check if free - see part (f) nfree++; }return nfree; }",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : size_t count_free_list() {\nsize_t nfree = 0; // needs NULL check in pay_to_hdr() for (struct Node *curr = free_list; curr != NULL; curr = curr->next) { if (pay_to_hdr(curr)->used == 0) // not needed because all are free nfree++; }return nfree; }",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 () — partie (f)\n(2pts) Your coworker looks at your count_free_list and count_free_inorder functions above, and says that only one of them needs the “if” test (see the line marked “ see part (f) ”in each function; note that they both do need the line “ nfree++; ”). In other words, you could just cross out one of the lines marked “ see part (f) ” and the functionality would not change. From which function could you safely remove the “if” test? (Check box for one .)\n⎕ count_free_inorder\n⎕ count_free_list\nExplain why that function does NOT need the “if” test. 12",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : You may remove the check from count_free_list (part (e)), for the reasons explained in the comments for (d) and (e), which is that the free_list contains only free blocks, so there is no need to check the free flag. (g)\nvoid update_header(struct Header *left) {// remember to divide by 8, because stored as number of 8-byte words\nleft->nwords += get_neighbor(left)->nwords + HDRSIZE / 8; }5",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais]  Problem 5 () — partie (h)\n(4pts) In operations such as malloc and coalesce, you need to remove a block from the\nfree_list and repair the doubly-linked list structure so it reconnects around the removed link node. Write a helper function that performs this task. It takes a pointer to the payload of the block to be removed from the free_list . We have divided the work into four cases. You may not need to write code for each case. If nothing needs to be done for a particular case, just write a semicolon in the box for that case.\nvoid remove_node(struct Node *remove) {\nif (remove->prev == NULL) { } else { }if (remove->next == NULL) { } else { }}",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : void remove_node(struct Node *remove) {\nif (remove->prev == NULL) { free_list = remove->next; } else { remove->prev->next = remove->next; }if (remove->next == NULL) { // Empty because no later node needs its prev set. ;} else { remove->next->prev = remove->prev; }}",
+            "source": "Stanford University, CS107 Data Structures — practice final exams 1, 2 and 3, with the official solutions (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          }
+        ]
+      }
+    }
+  ]
+}

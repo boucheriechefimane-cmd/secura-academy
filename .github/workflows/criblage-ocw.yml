@@ -1,0 +1,79 @@
+name: Criblage OCW (6 robots)
+
+# Le moteur de recolte : on ne « navigue » plus a la main sur ocw.mit.edu.
+#
+# 1. le sitemap donne les 2 587 cours en une requete (une boussole) ;
+# 2. le criblage automatique garde les cours dont les documents d'examen
+#    portent un corrigé (le nom du fichier contient « sol », « soln »,
+#    « solution ») et dont la page indique une licence Creative Commons ;
+# 3. le travail est partage en 6 tranches : 6 robots, chacun son
+#    sixieme du catalogue, chacun son rapport.
+#
+# Le rapport de chaque robot est une archive ; la fusion donne la liste
+# des cours a importer.
+
+on:
+  workflow_dispatch:
+    inputs:
+      prefixes:
+        description: 'Prefixes de numeros de cours (ex : 6- 18- 3-)'
+        required: false
+        default: '6- 18- 3-'
+      limite:
+        description: 'Nombre maximum de cours par robot (0 = tous)'
+        required: false
+        default: '0'
+
+jobs:
+  criblage:
+    name: Robot ${{ matrix.robot }} sur 6
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        robot: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cribler (tranche ${{ matrix.robot }}/6)
+        run: |
+          python3 tools/criblage-ocw.py \
+            --sortie rapport-${{ matrix.robot }}.json \
+            --prefixes ${{ inputs.prefixes }} \
+            --shard ${{ matrix.robot }}/6 \
+            --limite ${{ inputs.limite }} \
+            --travailleurs 2
+
+      - name: Publier le rapport du robot
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapport-robot-${{ matrix.robot }}
+          path: rapport-${{ matrix.robot }}.json
+          retention-days: 30
+
+  fusion:
+    name: Fusion des six rapports
+    needs: criblage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          path: rapports
+      - name: Fusionner
+        run: |
+          python3 tools/criblage-ocw.py --fusionner rapports/rapport-*.json --sortie criblage-ocw.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: criblage-ocw
+          path: criblage-ocw.json
+          retention-days: 30
