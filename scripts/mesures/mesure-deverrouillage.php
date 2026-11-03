@@ -13,7 +13,7 @@ $seca_wp = getenv( 'SECA_WP_DIR' ) ? getenv( 'SECA_WP_DIR' ) : '/home/user/wp';
 require_once $seca_wp . '/wp-load.php';
 
 $user    = get_users( array( 'number' => 1, 'fields' => array( 'ID' ) ) );
-$user_id = $user ? (int) $user[0] : 0;
+$user_id = $user ? (int) $user[0]->ID : 0;
 
 $rooms = get_posts( array( 'post_type' => 'secura_room', 'numberposts' => -1, 'orderby' => 'menu_order', 'order' => 'ASC' ) );
 
