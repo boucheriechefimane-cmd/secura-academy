@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.11.5
+ * Version:           0.11.6
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,7 +13,18 @@
  *
  * @package Secura_Academy
  *
- * 0.11.5 — La recolte continue : le format « blanc a remplir » est enfin
+ * 0.11.6 — La recolte continue : le format « enonce repete » est couvert.
+ *           Les mini-quiz du MIT 6.189 (Multicore Programming Primer,
+ *           janvier 2007, licence CC BY-NC-SA 4.0) sont corriges par le
+ *           MIT en repetant l'enoncE avant de repondre. Un cinquieme
+ *           extracteur retrouve l'enoncE dans le corrige mot pour mot,
+ *           et ne retient que le texte qui suit : l'appariement est
+ *           donc verifie, jamais suppose. 3 questions retenues sur 6
+ *           (verrouillage mortel, conditions de concurrence, mur de
+ *           memoire) ; les 3 autres sont refusees : une repose sur du
+ *           code, une sur des schemas, une repete l'enoncE avec un mot
+ *           different. La banque passe de 717 a 720 questions et le
+ *           manque de reservoir des examens tombe de 25 a 22.
  *           couvert. Les quiz du MIT 6.004 (Computation Structures,
  *           Spring 2009, licence CC BY-NC-SA 4.0) se presentent sous la
  *           forme de blancs ou l'eleve ecrit sa reponse ; le corrige
@@ -244,7 +255,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.11.5' );
+define( 'SECURA_ACADEMY_VERSION', '0.11.6' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

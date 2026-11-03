@@ -1,0 +1,59 @@
+{
+  "source": "mit-ocw-6-189-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.189 Multicore Programming Primer, January (IAP) 2007 — quiz d’examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/6-189-multicore-programming-primer-january-iap-2007/pages/quizzes/",
+  "rooms": [
+    {
+      "room": "authentification",
+      "title": "authentification",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.189 — question d’examen, en anglais] You've been hired by a new startup company to custom build them a new multicore processor for their killer application. You have a team of architects and engineers at your disposal who can design the processor if they only knew how many cores are needed. There's a limited budget and you need to keep costs down. You determine that 60% of the tasks in the application can run in parallel, and that the work can be uniformly divided among them. If your design team can put a maximum of 1000 cores on a chip, how much of a speedup can you expect? What other factors might you consider in determining how to build your processor?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : We assume that each core does not implement functionality that cannot be practically implemented. Each core is 2-4 issue processor, with a reasonable pipeline depth, cache or local store, and bandwidth. From Amdahl’s Law, we can determine that the maximum potential speedup is 1 speedup ≤ p (1 − p) + n where p = 0.60, the parallel fraction of the work; and n = 1000, the number of processors available for computation. We approximate the second term to be negligible, and hence the speedup is less than or equal to (1 / 1 – 0.60) or 2.50x. Notice that for n = 10, the speedup is already 2.17x, and the additional 13% gains in performance from an order of magnitude increase in cores appears far from justified. With fewer cores, more time can be spent on optimizing the performance of each core to better match the target application. For example each core can implement specialized datapaths for exploit bit-level parallelism, or custom instructions to provide an application-specific instruction set. This leads to a heterogeneous multicore architecture that potentially affords a greater speedup by leveraging the same concepts used for ASICs (application specific integrated circuits).",
+            "source": "MIT OpenCourseWare, 6.189 Multicore Programming Primer, January (IAP) 2007 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    },
+    {
+      "room": "memoire-et-defenses",
+      "title": "memoire-et-defenses",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.189 — question d’examen, en anglais] It is not far fetched to imagine the “print” approach is the most widely used debugging utility. Novice and expert programmers alike use this approach to print out information as their buggy code executes in order to reveal clues about their code defects. This approach works reasonably well in sequential programs with a single thread of execution, but is not likely to be as useful for debugging parallel programs because of the multiple threads of execution. What complicates the debugging process for parallel codes, and if you were to build a debugging tool, what features might you provide to help programmers track down their bugs productively?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The non-deterministic nature of parallel execution with multiple threads makes it difficult to diagnose problems because execution behavior may not be repeatable. Hence symptoms such as race conditions or deadlock may disappear from one run to another, or the addition of debugging code (e.g., print statement) affect timing in such a way that race conditions or deadlocks seemingly disappear. Debugging tools for parallel programming have to provide functionality to diagnose behavior that may arise from non-deterministic execution. For example, address-value traces may be useful in diagnosing race conditions, and tracking communication patterns between threads can help to identify deadlock issues. Additionally checkpointing and replay features may also be useful, as are visualization facilities although scaling the visual debuggers to hundreds or thousands of threads may prove difficult.",
+            "source": "MIT OpenCourseWare, 6.189 Multicore Programming Primer, January (IAP) 2007 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    },
+    {
+      "room": "securiser-une-application-web",
+      "title": "securiser-une-application-web",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.189 — question d’examen, en anglais] One trend that is helping the shift from superscalars to multicores is the “Memory Wall”, i.e. the increasing gap between processor and DRAM performance. How can multicores circumvent the memory wall issue better than superscalars?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Multicores architectures decentralize resources, including memory, and thus reduce contention on a shared global memory. The availability of local storage on each core serves to reduce contention on a globally shared main memory, and if data is distributed adequately among the cores, then there is an effective increase in overall concurrency. Superscalars try to hide memory access latency with increased speculation and prediction (e.g., value and address prediction) which can be wasteful with respect to power. If a superscalar processor cannot completely hide the long access to memory, then it cannot make any progress. In multicores, a single core may idle until its data is fetched but that will not prevent other cores from continuing to compute.",
+            "source": "MIT OpenCourseWare, 6.189 Multicore Programming Primer, January (IAP) 2007 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    }
+  ]
+}

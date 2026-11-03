@@ -563,3 +563,12 @@ vus après la vague 2 :
   seul quiz : **0 question retenue**, donc rien n'est importé. Le
   corrigé y répond par une étiquette qui ne se laisse pas apparier à
   l'énoncé sans risque d'erreur.
+- **6.189 Multicore Programming Primer (January IAP 2007)** — licence
+  **CC BY-NC-SA 4.0** (page du cours et mention dans le PDF). Six
+  mini-quiz, corrigés par le MIT **en répétant l'énoncé** avant de
+  répondre. Un cinquième extracteur retrouve l'énoncé dans le corrigé
+  **mot pour mot** et ne retient que le texte qui suit : l'appariement
+  est vérifié, jamais supposé. **3 questions retenues sur 6** —
+  verrouillage mortel, conditions de concurrence, mur de mémoire. Les
+  trois autres sont refusées : l'une repose sur du code, l'autre sur
+  des schémas, la troisième répète l'énoncé avec un mot différent.

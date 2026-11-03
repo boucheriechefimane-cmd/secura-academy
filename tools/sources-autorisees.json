@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-03-six",
+  "_version": "2026-11-03-sept",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -197,6 +197,18 @@
       "commercial": false,
       "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
       "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Quatre quiz (1, 2, 3 et 5) publies avec leur corrige officiel. Seules les questions dont la reponse est imprimEE dans le blanc sont importables : les options cerclees (le corrige les met en gras, ce que pdftotext ne voit pas) et les questions qui dependent d'un schema sont refusees."
+    },
+    {
+      "id": "mit-ocw-6-189-examens",
+      "nom": "MIT OpenCourseWare — 6.189 Multicore Programming Primer (January IAP 2007)",
+      "url": "https://ocw.mit.edu/courses/6-189-multicore-programming-primer-january-iap-2007/pages/quizzes/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.189 Multicore Programming Primer, January (IAP) 2007 — quiz d’examen et corrigé officiel (MIT EECS)",
+      "usage": "quiz d’examen et corrigé officiel (parallélisme, verrous, conditions de concurrence, avec la correction du MIT)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 : CC BY-NC-SA 4.0 (le PDF porte la mention « Creative Commons Attribution-Noncommercial-Share Alike »). Six quiz publies avec leur corrige officiel ; seules les questions dont le corrige REPETE l’enonce sont importables (3 retenues sur 6) : l’appariement est donc verifiable, mot pour mot."
     },
     {
       "id": "mit-ocw-6-046j-examens",
