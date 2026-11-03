@@ -38,9 +38,9 @@ endroit sans tout redécouvrir.
 | `6-006-introduction-to-algorithms-fall-2011` | `mit6_006f11_final_sol`, `mit6_006f11_quiz1_sol`, `mit6_006f11_quiz2_sol` | **PDF scannes** (pas de couche texte) : refus, sauf OCR. |
 | `6-006-introduction-to-algorithms-spring-2008` | `final_soln`, `solutions1`, `solutions2` | **Deja importe (15 questions)** — le sixieme extracteur, « titre + items numerotes », apparie les problemes puis les items, par ordre mais toujours verifies. |
 | `6-006-introduction-to-algorithms-spring-2020` | `mit6_006s20_final_sol`, `mit6_006s20_q1_sol`, `mit6_006s20_q2_sol`, `mit6_006s20_q3_sol_pdf`, `mit6_006s20_review1_sol`, `mit6_006s20_review2_sol` … (7) | Deja importe (57 questions). |
-| `6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011` | `mit6_01scs11_final_f09_sol`, `mit6_01scs11_final_f10_sol`, `mit6_01scs11_final_s09_sol`, `mit6_01scs11_final_s10_sol`, `mit6_01scs11_final_s11_sol`, `mit6_01scs11_mid01_f09_sol` … (13) | **PDF scannes** : refus, sauf OCR. |
+| `6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011` | `mit6_01scs11_final_f09_sol`, `mit6_01scs11_final_f10_sol`, `mit6_01scs11_final_s09_sol`, `mit6_01scs11_final_s10_sol`, `mit6_01scs11_final_s11_sol`, `mit6_01scs11_mid01_f09_sol` … (13) | **Texte lisible (faux negatif corrige le 03/11/2026) — 22 corriges : la plus grosse cible restante.** Le format reste a analyser. |
 | `6-034-artificial-intelligence-spring-2005` | `q1_soln`, `q2_soln`, `quiz1_review_sol`, `quiz2_review_sol` | **Partiellement couvert** : les questions qui dependent d'un arbre dessine (« the tree shown below ») sont refusees par la regle existante — c'est voulu. |
-| `6-046j-design-and-analysis-of-algorithms-spring-2012` | `mit6_046js12_final_prac2011_sol`, `mit6_046js12_final_prac_sol`, `mit6_046js12_final_sol`, `mit6_046js12_quiz1_sol`, `mit6_046js12_quiz2_sol`, `mit6_046js12_quiz2prac_sol` | **PDF scannes** : refus, sauf OCR. |
+| `6-046j-design-and-analysis-of-algorithms-spring-2012` | `mit6_046js12_final_prac2011_sol`, `mit6_046js12_final_prac_sol`, `mit6_046js12_final_sol`, `mit6_046js12_quiz1_sol`, `mit6_046js12_quiz2_sol`, `mit6_046js12_quiz2prac_sol` | **Texte lisible (faux negatif corrige le 03/11/2026)** : cible a analyser. |
 | `6-046j-design-and-analysis-of-algorithms-spring-2015` | `mit6_046js15_quiz1sols`, `mit6_046js15_quiz2sols`, `solutions-to-final-exam` | Deja importe (31 questions). |
 | `6-046j-introduction-to-algorithms-sma-5503-fall-2005` | `final-exam-solutions`, `practice-final-exam-solutions`, `practice-quiz-1-solutions`, `quiz-1-solutions`, `quiz-2-solutions` | **Format non couvert** : le corrige ne reprend pas l'enonce avec un repere « Solution: » → il faut un extracteur de plus. |
 | `6-090-building-programming-experience-a-lead-in-to-6-001-january-iap-2005` | `quizsolns` | **Refuse** : les reponses sont de l'art ASCII (« I refuse to draw more ascii art »). |
@@ -61,9 +61,11 @@ pas dans ce tableau : rien n'y est importable, et c'est consigne.
 
 Trois refuses motives, tous rencontres :
 
-- **PDF sans couche texte** (6.01SC, 6.046J Spring 2012, 6.006 Fall 2011) :
-  l'enonce et la reponse sont dans l'image. Sans OCR, on ne peut pas les lire
-  — donc on ne les invente pas.
+- **PDF sans couche texte** (6.006 Fall 2011) : l'enonce et la reponse
+  sont dans l'image. Sans OCR, on ne peut pas les lire — donc on ne les
+  invente pas. *(Faux negatif corrige le 03/11/2026 : le diagnostic
+  mesurait la longueur du texte **apres** l'en-tete du PDF, ce qui le
+  vidait artificiellement.)*
 - **Reponses en art ASCII ou en schemas** (6.090, 6.034 « the tree shown
   below ») : le corrige est un dessin, la reponse n'est pas du texte.
 - **Formules abimees par l'extraction** (6.824) : la reponse officielle
@@ -159,19 +161,28 @@ ont au moins un fichier de corrige identifiable.
 | `6-884-complex-digital-systems-spring-2005` | `q1_solns` | A verifier. |
 | `6-896-theory-of-parallel-hardware-sma-5511-spring-2004` | `fsol` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
 
-**Les trois cours cyber testes dans cette vague sont refuses, et c'est
-conforme a la regle** :
+**Un faux negatif a ete corrige le 03/11/2026.** Trois cours avaient ete
+declares « PDF scannes » : le diagnostic mesurait la longueur du texte
+**apres** l'en-tete du PDF — et comme l'en-tete du MIT se trouve a la fin
+du fichier, il ne restait que deux caracteres a compter. Le texte, lui,
+est la. Ce qui change :
 
+- **6.01SC Introduction to EECS I (Spring 2011)** — **22 fichiers de
+  corrige** (11 midterms + 11 finals, de 2009 a 2011). Le texte est
+  lisible : c'est **la plus grosse cible restante**.
 - **6.005 Software Construction (Spring 2016)** — deux quiz avec leurs
-  corriges, sur la revue de code et les tests : le sujetideal pour les
-  salles « code sur ». Mais les PDF sont **scannes** (pas de couche
-  texte) : sans OCR, on ne peut ni lire l'enonce ni lire le corrige.
-- **18.404J Theory of Computation (Fall 2020)** — idem, PDF scannes.
-- **6.001 Structure and Interpretation of Computer Programs (Spring 2005)**
-  — le PDF a une couche texte, mais l'encodage de la police est casse : le
-  texte restitue est illisible.
+  corriges, sur la revue de code et les tests : le sujet ideal pour les
+  salles « code sur ». Le texte est lisible ; c'est le format qu'il
+  reste a analyser.
+- **18.404J Theory of Computation (Fall 2020)** — examen final et
+  corriges. Le texte est lisible.
+- **6.046J Design and Analysis of Algorithms (Spring 2012)** — quiz et
+  corriges. Le texte est lisible.
+- **6.001 SICP (Spring 2005)** — le refus, lui, reste justifie, mais
+  pour la **bonne** raison : l'encodage de la police du PDF est casse, le
+  texte restitue est illisible. Ce n'est pas une question de scan.
 
-Ces trois cours-la sont donc **recenses comme cibles** : ils redeviendront
-importables le jour ou l'on dispose d'un OCR (ou d'une version textuelle
-officielle). En attendant, on ne les invente pas.
+La lecon : **un diagnostic se verifie contre une seconde mesure**. Ici, la
+mesure etait le calcul, pas la lecture — et des fichiers de plusieurs
+megabytes dont le texte faisait 2 caracteres ont traite l'alarme a tort.
 
