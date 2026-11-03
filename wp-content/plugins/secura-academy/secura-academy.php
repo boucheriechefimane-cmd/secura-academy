@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.11.7
+ * Version:           0.11.8
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,7 +13,20 @@
  *
  * @package Secura_Academy
  *
- * 0.11.7 — La recolte continue : le format « titre + items numerotes »
+ * 0.11.8 — La recolte continue, et un faux negatif de diagnostic corrige.
+ *           Quatre cours que l'on croyait illisibles (le diagnostic
+ *           comptait les caracteres APRES l'en-tete OCW, qui est en fin de
+ *           fichier) sont en fait parfaitement lisibles : le MIT 6.046J
+ *           Spring 2012 (56 questions), le MIT 6.006 Fall 2011 (57), le
+ *           MIT 6.005 Software Construction, et le MIT 6.01SC. Un
+ *           septieme extracteur couvre le format « choix multiples » du
+ *           6.005 : « Problem N » + parties (a) + options A./B./C. et un
+ *           repere « Solution. » ; les options d'origine sont conservees,
+ *           et une question dont le corrige nomme PLUSIEURS bonnes
+ *           reponses est refusee — la plateforme n'a qu'une seule bonne
+ *           reponse, en garder une parmi plusieurs en inventerait une.
+ *           La banque passe de 735 a 850 questions et le manque de
+ *           reservoir tombe de 22 a 20.
  *           est couvert. Les quiz du MIT 6.006 (Introduction to
  *           Algorithms, Spring 2008, licence CC BY-NC-SA 4.0) presentent
  *           chaque probleme par un titre, un preambule, puis des items
@@ -269,7 +282,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.11.7' );
+define( 'SECURA_ACADEMY_VERSION', '0.11.8' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

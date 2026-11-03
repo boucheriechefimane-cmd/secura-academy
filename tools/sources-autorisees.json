@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-03-huit",
+  "_version": "2026-11-03-neuf",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -269,6 +269,42 @@
       "commercial": false,
       "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
       "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Les questions portent sur du code C++ : elles gardent leur code dans l’enonce."
+    },
+    {
+      "id": "mit-ocw-6-046j-2012-examens",
+      "nom": "MIT OpenCourseWare — 6.046J Design and Analysis of Algorithms (Spring 2012)",
+      "url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2012/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+      "usage": "quiz d’examen et corrigé officiel (algorithmes, réseaux de flux, NP-complétude, avec la correction du MIT)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Le corrige officiel est public, avec les questions."
+    },
+    {
+      "id": "mit-ocw-6-006-f11-examens",
+      "nom": "MIT OpenCourseWare — 6.006 Introduction to Algorithms (Fall 2011)",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+      "usage": "quiz d’examen et corrigé officiel (notation asymptotique, arbres de couverture, avec la correction du MIT)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Le corrige officiel est public, avec les questions."
+    },
+    {
+      "id": "mit-ocw-6-005-examens",
+      "nom": "MIT OpenCourseWare — 6.005 Software Construction (Spring 2016)",
+      "url": "https://ocw.mit.edu/courses/6-005-software-construction-spring-2016/pages/quizzes/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.005 Software Construction, Spring 2016 — quiz d’examen et corrigé officiel (MIT EECS)",
+      "usage": "quiz d’examen et corrigé officiel (spécifications, tests, revue de code, avec la correction du MIT)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Le corrige officiel est public, avec les questions."
     }
   ],
   "regles": [

@@ -1,0 +1,42 @@
+{
+  "source": "mit-ocw-6-005-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.005 Software Construction, Spring 2016 — quiz d’examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/6-005-software-construction-spring-2016/pages/quizzes/",
+  "rooms": [
+    {
+      "room": "authentification",
+      "title": "authentification",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.005 — question d’examen, en anglais] (AFs & RIs) (20 points).\nHere is an implementation of the Tetromino ADT. /** A rotatable tetromino. */ public class Tetromino { // ... static method isValidShape ... private final char shape; private int rotation; // Abstraction function // TODO // Representation invariant // TODO // Safety from rep exposure // TODO /** * Make a new Tetromino with the given shape and rotation. * @param shapeLetter uppercase tetromino shape letter * @param rotationDegrees clockwise rotation in degrees, * must be 0, 90, 180, or 270 */ public Tetromino(char shapeLetter, int rotationDegrees) { this.shape = shapeLetter; this.rotation = rotationDegrees / 90; } /** * TODO */ public void rotateClockwise() { rotation = (rotation + 1) % 4; } /** * @return shape of this tetromino: ’I’ ’O’ ’T’ ’J’ ’L’ ’S’ or ’Z’ */ public char shape() { return shape; } @Override public String toString() { return shape + \"-shape@\" + rotation * 90 + \"deg\"; } } Quiz 1 (March 14, 2016) Your name: 7\nFor each of the statements below, say whether it should be included in the internal documentation of Tetromino by writing: AF if the statement belongs in the abstraction function RI ... the rep invariant EXP ... the argument that type has no rep exposure NONE if it should not be included in any of those You should include in the AF, RI, or EXP all good statements that are compatible with the code and specs on the previous page. Do not include statements that are not compatible with the code and specs. shape is private and an immutable value rotation is private and an immutable value this Tetromino is never returned to clients shape is an uppercase tetromino shape letter shapeLetter is an uppercase tetromino shape letter the tetromino has the shape given by shape rotation = 0 the tetromino is rotated clockwise by rotation the tetromino is rotated clockwise rotation times 90 degrees 0 <= rotation < 4 0 <= rotation < 360 rotation is one of { 0, 90, 180, 270 } 8 Your name: Quiz 1 (March 14, 2016) Consider these different specifications for the rotateClockwise method: public void rotateClockwise() For each possible specification below, write a one-sentence code review comment that identifies the most serious problem with the spec.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : EXP EXP NONE (doesn’t make sense) RI NONE (part of the precondition of the constructor) AF NONE NONE AF (see e.g. toString) RI (established by constructor, maintained by rotateClockwise) NONE NONE \u0004 Consider these different specifications for the rotateClockwise method: public void rotateClockwise() For each possible specification below, write a one-sentence code review comment that identifies the most serious problem with the spec.",
+            "source": "MIT OpenCourseWare, 6.005 Software Construction, Spring 2016 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    },
+    {
+      "room": "memoire-et-defenses",
+      "title": "memoire-et-defenses",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.005 — question d’examen, en anglais] (Specifications) (20 points).\nA tetromino is a shape made out of four adjacent squares. These shapes are most famous from the game Tetris where the player must rotate and translate falling tetrominoes in order to fit them together. There are seven possible tetrominoes that lie on the 2D plane, and each is identified by a letter it looks like: I O T J L S Z Define a tetromino shape letter as one of the seven letters I O T J L S Z, either upper- or lowercase. Tetrominoes may be rotated by 0, 90, 180, or 270 degrees. A diagram of all seven tetrominoes in all four orientations is on the last page of this quiz. Let’s define an abstract data type to represent tetrominoes: public class Tetromino { // determine if a character is a valid tetromino shape letter public static boolean isValidShape(char shape) { ... } // make a new tetromino public Tetromino(char shapeLetter, int rotationDegrees) { ... } // rotate this tetromino public void rotateClockwise() { ... } // get the shape of this tetromino public char shape() { ... } }\nConsider these different specifications for the isValidShape function: public static boolean isValidShape(char shape) /** Spec A * @param shape any character * @return true iff shape is a lowercase tetromino shape letter */ /** Spec B * @param shape an English alphabetic character * @return true iff shape is a lowercase tetromino shape letter */ /** Spec C * @param shape a lowercase tetromino shape letter * @return true */ Compare these specifications. For each pair below, circle one correct option and write write a brief explanation to complete the sentence. A vs. B: equivalent to weaker than Spec A is spec B because stronger than incomparable to B vs. C: equivalent to weaker than Spec B is spec C because stronger than incomparable to 6 Your name: Quiz 1 (March 14, 2016)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Spec A is stronger than spec B because its precondition is weaker and its postcondition is the same. \u0004 B vs. C: equivalent to weaker than Spec B is spec C because stronger than incomparable to Solution. Spec B is stronger than spec C because it has a weaker precondition, and it satisfies C’s postcon- dition for any input that satisfies C’s precondition. \u0004",
+            "source": "MIT OpenCourseWare, 6.005 Software Construction, Spring 2016 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    }
+  ]
+}

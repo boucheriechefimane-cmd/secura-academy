@@ -1,0 +1,528 @@
+{
+  "source": "mit-ocw-6-046j-2012-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2012/pages/exams/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nIf a problem has a randomized algorithm that runs in time t and returns the correct\nanswer with probability at least 2/3, then the problem also has a deterministic\nalgorithm that runs in time t and always returns the correct answer.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Sublinear time algorithms are counterexamples, as a determin-\nistic algorithm would not be able to read all of the input in the time it would take\nfor the sublinear time algorithm to return an answer.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nIf Φ is a potential function associated with a data structure S, then 2Φ is also a\npotential function that can be associated with S. Moreover, the amortized running\ntime of each operation with respect to 2Φ is at most twice the amortized running\ntime of the operation with respect to Φ.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. By definition, the amortized cost cˆi = ci + Φ(Di ) - Φ(Di-1 ).\nIf we use the potential function 2Φ, then because the actual cost is positive (and\nthe same), the new amortized cost is bounded by 2 times the original.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nThere is an NP-hard problem with a known polynomial time randomized algo-\nrithm that returns the correct answer with probability 2/3 on all inputs.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. We currently don't know whether there are NP-hard problems\nthat can be solved by polynomial time randomized algorithms, and conjecture\nthat these do not exist.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nProblem 2. Short Answer [20 points] (4 parts)\nRecall the forest-of-trees solution to the disjoint-set problem. Suppose that the only\nheuristic we use is a variant of the union-by-rank heuristic: when merging two roots\nu and v, we compare the number of descendants (rather than the rank), and make u a\nchild of v if and only if u has fewer descendants. Is this asymptotically worse than the\noriginal union-by-rank heuristic? Explain why or why not.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : No, it is not asymptotically worse. The way that heuristics affect the\nruntime is by affecting the height of the trees in the data structure. Consider some\nitem x in the data structure. When will the path from x to the root increase in length?\nWell, it can only increase in length when the root of x changes. Let u be the old root\nof x, and let v be the new root of x. Let dold (·) be the number of descendants before\nthe merge, and let dnew (·) be the number of descendants after the merge.\nBecause of the union-by-descendants heuristic, the root could only change from u to\nv if dold (u) ≤ dold (v). This means that dnew (v) = dold (v) + dold (u) ≥ 2dold (u). So\nevery time the path from x to the root increases by 1, the number of descendants of the\nroot at least doubles. This means that the depth of x is at most O(lg n), just as with\nthe union-by-rank heuristic.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nIn lecture, we saw min-radius clustering, in which the goal was to pick a subset of k\npoints such that each point formed the center of a cluster of radius r. Suppose instead\nthat the center of the cluster can be a point not in the original set.\nGive an example set of points where it is possible to find k clusters of radius r centered\naround arbitrary points, but impossible to find k clusters of radius r centered around\npoints in the set.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Given arbitrary values of k and r, we can set up a counterexample in\nR2 as follows. For each i ∈ {1, . . . , k}, create two points: pi,1 = (4ri, 0.9r) and\npi,2 = (4ri, -0.9r). For any pair pi,1 and pi,2 the distance is equal to 1.8r, so any\ncluster centered on one of the points cannot contain the other. For all other pairs of\npoints, their x-coordinates must differ by at least 4r, and so they cannot belong to the\nsame cluster. So there's no way to create k clusters centered on k points in the set.\nHowever, there is a way to create k clusters centered on k arbitrary points: for each\ni ∈ {1, . . . , k}, the point (4ri, 0) has distance ≤ r to both pi,1 and pi,2 .",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nRather than using shortest paths, you think that perhaps you can formulate this as a\nflow problem. Find an algorithm to find k paths ai ❀ bj that start and end at different\nvertices and that share no edges, and briefly justify the correctness and running time\nof your algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The algorithm is as follows:\n1. Create a flow network G′ containing all vertices in V , all directed edges in E\nwith capacity 1, and additionally a source vertex s and a sink vertex t. Connect\nthe source to each starting location with a directed edge (s, ai ) and each ending\nlocation to the sink with a directed edge (bi , t), all with capacity 1.\n2. Run Ford-Fulkerson on this network to get a maximum flow f on this network. If\n|f | = k, then there is a solution; if |f | < k, then there is no solution, so we return\nFALSE. We will later show that it is always the case that |f | ≤ k.\n3. To extract the paths from ai to bj (as well as which starting location ultimately\nconnects to which ending location), run a depth-first search on the returned max\nflow f starting from s, tracing a path to t. Remove these edges and repeat k times\nuntil we have the k disjoint paths.\nThe running time for this algorithm is O(k|E|): in the modified graph G′ , we have\n|E| + 2k = O(|E|) edges, and the maximum possible flow value is k; therefore,\nrunning Ford-Fulkerson takes O(k|E|) time. Extracting paths takes at most O(|E|)\ntime, as we traverse each edge at most once. In total, then, the algorithm takes O(k|E|)\ntime.\nSome students used Edmonds-Karp, which runs in O(V E 2 ) time. In this case, because\nk = O(|V |), Ford-Fulkerson provides a better bound.\nTo show correctness, we must show that there is a flow of size k if and only if there\nare k disjoint paths.\n(→) Claim. An integral flow of size f in a network with unit capacities can be de-\ncomposed into a unit flow over a simple path p : s ❀ t and a flow of size f - 1 which\ndoes not use p.\nProof. Pick any simple path p : s ❀ t over edges with non-zero flow. One must exist\n(otherwise, we would have a cut with no flow). In the residual graph, that path has\ncapacity 1; send an augmenting flow of -1 over that path. We then have a resulting\nflow of size f - 1, and the flow on each of the edges of p is 0.\n(←)If there is a set of k disjoint paths [...]",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nShow that Zelda's algorithm gives a 2-approximation for the number of credit cards.\nHINT: Let OP T be the optimal number of credit cards. In order for the algorithm to\nadd a new credit card j > OP T , it must reach xi such that xi + ′ min L[j ′ ] > ℓ.\nj ∈{1,...,OP T }\nIt will then set L[j] = xi .",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : First, we show that the following loop invariant holds. At no point are there two\ndistinct cards i and j, where i < j such that the balance on each card L[j] ≤ 2l and\nL[i] ≤ 2l . Suppose to the contrary that there are two such cards. Then the remaining\ncredit on card i was sufficient to transfer all of the purchases xi from the new credit\ncard to the old credit card j, instead of opening up a new credit card.\nWe prove that Zelda's algorithm gives a 2-approximation by contradiction. Namely,\nwe assume that there is a case where at least 2OP T + 1 cards are needed. By the loop\ninvariant we know that no 2 credit cards have less than 2l as a balance. So, assuming\nthat there are no zero purchase charges, the total amount of purchases must be more\nthan 2OP T · 2l , which is the maximum amount that the OP T cards in the optimal\nsolution can hold. This is a contradiction. So, we can always find at most 2OP T\ncards to pay for all of the purchases.\nThis problem part was worth 10 points.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nGiven a particular cluster Ci , if you sample t points uniformly at random (with re-\nplacement), give an upper bound in terms of ǫ for the probability that none of these\npoints are in Ci .",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Solution The number of points in Ci is at least ǫn, so the probability that a point\nsampled u.a.r. lies within Ci is at least ǫn/n = ǫ. Therefore the probability that a\npoint sampled u.a.r. doesn't lie within Ci is at most 1 - ǫ. Since the points are chosen\nindependently, the probability that t points sampled u.a.r. don't lie within Ci is at most\n(1 - ǫ)t .\nGrading comments This problem was relatively straightforward; the full 8 marks\nwere given for the correct answer. An alternative (slightly weaker) bound using Cher-\nnoff was also given full credit as long as it was computed correctly. When the answer\nwas incorrect, part marks were allotted for similarity to the solution and evidence of\nwork.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nGive a set of microscopes and an algorithm to find the bacterium with total cost\nO(n lg lg n).\nSCRATCH PAPER\nSCRATCH PAPER",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Executive Summary We borrow our idea from the vEB data structure. We will\ni\npurchase microscopes of resolutions n1/2 ,n1/4 ,n1/8 , ..., n1/2 = 2. Clearly, i = lg lg n.\nSo we spend n lg lg n for buying microscopes. We do a linear search at each level, and\nwe will show that the total cost of electricity is also n lg lg n.\nAlgorithm We perform √ a search for the bacterium as follow√s. First we use the mi-\ncroscope with resolution√ n to locate which region of size n the bacterium is in.\nThis will take at most n √ applications of this microscope. We can then narrow our\nsearch in the region of size n and use microscopes of resolution n1/4 to continue this\nprocess, eventually we can narrow down the location of the bacterium to a region of\nsize 2. From there, it takes one simple application of a microscope of resolution 1 to\nfind the bacterium.\nCorrectness This collection of microscopes allows us to search every region ex-\nhaustsively, thus we can always find the bacterium.\nCost analysis The total purchase of lg lg n microscopes √ will cost √ us n lg lg n dol-\nlars. At stage 1, we use the microscope of resolution n a total of n times. Each\nuse of this microscope costs √nn dollars, for a total of n dollars. In fact, at every sub-\n√ √\nsequent step, we always apply the microscope of resolution r a total of r times to\ncompletely scan a region of size r. The total cost of this is always n. Thus, the total\nelectricity cost associated with using each type of microscope is at most n. Therefore,\nthe total electricity cost os also n lg lg n. Our combined total cost is thus O(n lg lg n).\nGrading comments The maximum points for this part is 20. 2 points are given\nfor some very vague mentioning of vEB, demonstrating some level of understanding.\n5 points are given for the correct choice of microscope resolutions (but not how to\nuse them to search for the bacterium). 10 points are given if the algorithm is correct\n(correct choice of resolutions as well as a description of how to use them [...]",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nLet H : {0, 1}n → {1, 2, . . . , k} be a universal family of hash functions, and let\nS ⊆ {0, 1}n be a set of |S| = k elements. For h chosen at random from H, let E\nbe the event that for all y ∈ {1, 2, . . . , k}, the number of elements in S hashed to\ny is at most 100, that is, |h-1 (y) ∩ S| ≤ 100. Then we have Pr {E} ≥ 3/4.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. |h-1 (y) ∩ S| is likely to be Θ(log k/ log log k) for some y. Only\nits expectation is O(1).",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nThere exists a minimization problem such that (i) assuming P 6= NP , there is\nno polynomial-time 1-approximation algorithm for the problem; and (ii) for any\nconstant ǫ > 0, there is a polynomial-time (1 + ǫ)-approximation algorithm for\nthe problem.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. There are NP-hard optimization problems with a PTAS, such as\nPARTITION, as we saw in class.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nSuppose that a maximum flow for G has been computed using Ford-Fulkerson, and a\nnew edge with unit capacity is added to E. Describe how the maximum flow can be\nefficiently updated. (Note: It is not the value of the flow that must be updated, but the\nflow itself.) Analyze your algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Simply run one more BFS to find one augmenting path in the residual flow\nnetwork. This costs O(E) time. One path suffices because all edges have capacity 1\nso any augmenting path will have capacity 1 as well.\nWe could also precompute in O(E) time for each vertex in the graph an edge on a path\neither to sink or from source in the residual flow network. (Can't have both if the flow\nis maximum!) Then, given the new edge we can update the flow in O(V ) time.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nArgue on the basis of part (b) that Eleanor's decision problem is NP-complete.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The witness is the path which can be checked in time linear in the number\nof its edges, which is less than |V |. Since the decision problem belongs to NP and is\nNP-hard, it is NP-complete.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nLet G = (V, E) be a flow network, i.e., a weighted directed graph\nwith a distinguished source vertex s, a sink vertex t, and non-negative capacity\nc(u, v) for every edge (u, v) in E. Suppose you find an s-t cut C which has edges\ne1 , e2 , . . . , ek and a capacity f . Suppose the value of the maximum s-t flow in G\nis f .\nNow let H be the flow network obtained by adding 1 to the capacity of each edge\nin C. Then the value of the maximum s-t flow in H is f + k.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. There could be multiple min-cuts. Consider the graph s-v-t\nwhere the edges have capacity 1; either edge in itself is a min-cut, but adding\ncapacity to that edge alone does not increase the max flow.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nThere exists a polynomial-time 2-approximation algorithm for the\ngeneral Traveling Salesman Problem.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False, assuming P 6= NP. There is an approximation algorithm in the\nspecial case where the graph obeys the triangle inequality, but we don't know of\none in general.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nA randomized algorithm for a decision problem with one-sided-error\nand correctness probability 1/3 (that is, if the answer is YES, it will always output\nYES, while if the answer is NO, it will output NO with probability 1/3) can always\nbe amplified to a correctness probability of 99%.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. Since the error is one-sided, it in fact suffices for the correctness\nprobability to be any constant > 0. We can then repeat it, say, k times, and output\nNO if we ever see a NO, and YES otherwise. Then, if the correct answer is YES,\nall k repetitions of our algorithm will output YES, so our final answer is also\nYES, and if the correct answer is NO, each of our k repetitions has a 1/3 chance\nof returning NO, in which case our final answer is, correctly, NO, with probability\n1 - (2/3)k , so k = log3/2 100 repetitions suffice.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nWe can evaluate a polynomial of degree-bound n at any set of n points\nin O(n lg n) time.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Evaluating a polynomial of degree-bound n at any (arbitrary)\nset of n points takes O(n lg2 n) time. For details, one may refer to problem 2 of\npset 8.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nWhat is the expected number of edges in the cut?",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Use an indicator variable for every edge with probability of success(being\nin the cut) being 1/2. Since, the variables are identical and independent, each exper-\niment is a Bernouli experiement. The expected number of successes among the |E|\nBernouli trails is |E|/2. Thus, the expected number of edges in the cut is |E|/2.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nIf G has a cycle and there is unique edge e which has the minimum weight on this\ncycle, then e must be part of every MST.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Consider the graph of a tetrahedron where the three edges of the base\ntriangle have weights 2, 3, 4 and the three edges connecting the peak to the base all\nhave weight 1. Then the MST is composed of those latter three edges and does not\ninclude the edge with weight 2 in the bottom cycle.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nSuppose the edge weights are nonnegative. Then the shortest path between two ver-\ntices must be part of some MST.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Consider a simple triangle with sides 1, 1, 1.5. The MST is composed\nof the two lighter edges while the longer edge is the shortest path between two vertices.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nProve that TSP ∈ NP.\nA hamiltonian cycle in a graph is a cycle that visits every vertex exactly once. Define the language\nH AM -C YCLE = {< G >: there is a hamiltonian cycle in G}.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : An instance < n, c, k > can be verified to be in TSP given a tour (a\npermutation of indices) as the certificate. The tour can be easily checked in poly-time\nto traverse every node exactly once and have a satisfying total cost.\nA hamiltonian cycle in a graph is a cycle that visits every vertex exactly once. Define the language\nH AM -C YCLE = {< G >: there is a hamiltonian cycle in G}.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nThe solution to the recurrence T (n) = T (n/6) + T (7n/9) + O(n) is O(n).\n(Assume T (n) = 1 for n smaller than some constant c).",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. Using the substitution method:\nT (n) ≤ cn/6 + 7cn/9 + an\n≤ 17cn/18 + an\n≤ cn - (cn/18 - an)\nThis holds if c/18 - a ≥ 0, so it holds for any constant c such that c ≥ 18a.\nFull credit was also given for solutions that uses a recursion tree, noting that the\ntotal work at level i is (17/18)i n, which onverges to O(n).",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nThe weighted task scheduling problem with weights in the set {1, 2} can be\nsolved optimally by the same greedy algorithm used for the unweighted case.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. The algorithm will fail given the set of tasks (given\nin the form ((si , fi ), wi ):\n{((0, 1), 1), ((0, 2), 2)}.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nSuppose we are given an array A of n distinct elements, and we want to find n/2\nelements in the array whose median is also the median of A. Any algorithm that\ndoes this must take Ω(n log n) time.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. It's possible to do this in linear time using S ELECT :\nfirst find the median of A in Θ(n) time, and then partition A around its median.\nThen we can take n/4 elements from either side to get a total of n/2 elements in\nA whose median is also the median of A.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nProblem 2. Translation [25 points] (5 parts)\nYou have been hired to manage the translation process for some documentation. Unfortunately,\ndifferent sections of the documentation were written in different languages: n languages in total.\nYour boss wants the entire documentation to be available in all n languages.\nThere are m different translators for hire. Some of those translators are volunteers that do not\nget any money for their services. Each translator knows exactly two different languages and can\ntranslate back and forth between them. Each translator has a non-negative hiring cost (some may\nwork for free). Unfortunately, your budget is too small to hire one translator for each pair of\nlanguages. Instead, you must rely on chains of translators: an English-Spanish translator and\na Spanish-French translator, working together, can translate between English and French. Your\ngoal is to find a minimum-cost set of translators that will let you translate between every pair of\nlanguages.\nWe may formulate this problem as a connected undirected graph G = (V, E) with non-negative\n(i.e., zero or positive) edge weights w. The vertices V are the languages for which you wish to\ngenerate translations. The edges E are the translators. The edge weight w(e) for a translator e\ngives the cost for hiring the translator w(e). A subset S ⊆ E of translators can be used to translate\nbetween a, b ∈ V if and only if the subgraph GS = (V, S) contains a path between a and b. The set\nS ⊆ E is a translation network if and only if S can be used to translate between all pairs a, b ∈ V .\nProve that each minimum spanning tree of G is also a minimum-cost translation net-\nwork.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Let T be some minimum spanning tree of G. Because T is\na spanning tree, there is a path in T between any pair of vertices. Hence, T is a\ntranslation network.\nFor the sake of contradiction, suppose that T is not a minimum-cost translation net-\nwork. Then there must be some translation network S with total cost strictly smaller\nthan T . Because S connects every pair of vertices, it must have some spanning tree T ∗\nas a subgraph. Because all edge weights are nonnegative, we have w(T ∗) ≤ w(S) <\nw(T ). Hence, T is not the minimum spanning tree. This contradiction means that all\nspanning trees are also minimum-cost translation networks.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nGive an efficient algorithm that takes G as input, and outputs a minimum-cost trans-\nlation network of G. State the runtime of your algorithm in terms of the number of\nlanguages n and the number of potential translators m.\nYour bosses have decided that the previous approach to translation doesn't work. When attempting\nto translate between Spanish and Portuguese - two relatively similar languages - it degrades the\ntranslation quality to translate from Spanish to Tagalog to Mandarin to Portuguese. There are\ncertain clusters of languages that are more closely related than others. When translating between\ntwo languages that lie within the same cluster, such as Spanish and Portuguese, the translation\nis of high quality when the sequence of languages used to translate between them is completely\ncontained within the cluster.\nMore formally, the language set V can be divided into disjoint clusters C1 , . . . , Ck . Each cluster\nCi contains languages that are fairly similar; each language is contained in exactly one cluster.\nYour bosses have decided that a translation between a, b ∈ Ci is high-quality if and only if all of\nthe languages used on the path from a to b are also in Ci . The translator set S is a high-quality\ntranslation network if and only if it is a translation network, and for any language cluster Ci and\nany languages a, b ∈ Ci , S can be used for a high-quality translation between a and b.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : We saw in part (a) that every minimum spanning tree is a\nminimum-cost translation network of G. Hence, to find a minimum-cost translation\nnetwork, it is sufficient to find a minimum spanning tree of G. We may do so using\nKruskal's algorithm, for a runtime of Θ(m log n), or using Prim's algorithm, for a\nruntime of Θ(m + n log n).\nYour bosses have decided that the previous approach to translation doesn't work. When attempting\nto translate between Spanish and Portuguese - two relatively similar languages - it degrades the\ntranslation quality to translate from Spanish to Tagalog to Mandarin to Portuguese. There are\ncertain clusters of languages that are more closely related than others. When translating between\ntwo languages that lie within the same cluster, such as Spanish and Portuguese, the translation\nis of high quality when the sequence of languages used to translate between them is completely\ncontained within the cluster.\nMore formally, the language set V can be divided into disjoint clusters C1 , . . . , Ck . Each cluster\nCi contains languages that are fairly similar; each language is contained in exactly one cluster.\nYour bosses have decided that a translation between a, b ∈ Ci is high-quality if and only if all of\nthe languages used on the path from a to b are also in Ci . The translator set S is a high-quality\ntranslation network if and only if it is a translation network, and for any language cluster Ci and\nany languages a, b ∈ Ci , S can be used for a high-quality translation between a and b.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nGive an efficient algorithm for computing a minimum-cost high-quality translation\nnetwork. Analyze the runtime of your algorithm in terms of the number of languages\nn and the number of translators m.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The idea behind this algorithm is to first compute one MST for\neach individual cluster, and then to compute a global MST using the remaining edges.\nMore specifically, we do the following:\n1. For each edge (u, v), if there is some cluster Ci such that u, v ∈ Ci , then add\n(u, v) to the set Ei . Otherwise, add (u, v) to the set Eglobal .\n2. For each cluster Ci , run Kruskal's algorithm on the graph (Ci , Ei ) to get a minimum-\ncost translation network Ti for the cluster. Take the union of these minimum to\nget a forest T .\n3. Construct an empty graph Gglobal on nodes {1, . . . , k}. For each edge (u, v) in\nEglobal , where u ∈ Ci and v ∈ Cj , check whether the edge (i, j) is in the graph\nGglobal . If so, set w(i, j) = min{w(i, j), w(u, v)}. Otherwise, add the edge (i, j)\nto the graph Gglobal . In either case, keep a mapping source(i, j) = (u∗ , v ∗) such\nthat w(i, j) = w(u∗ , v ∗).\n4. Run Kruskal's algorithm on the graph Gglobal to get Tglobal .\n5. For each edge (i, j) ∈ Tglobal add the edge source(i, j) to T .\nWe begin by examining the runtime of this algorithm. The first step requires us to\nbe able to efficiently discover the cluster Ci that contains each vertex, which can be\nprecomputed in time Θ(m) and stored with the vertices for efficient lookup. So this\nfiltering step requires Θ(1) lookup per edge, for a total of Θ(m) time.\nThe second step is more complex. We run Kruskal's algorithm on each individual\ncluster. So for the cluster Ci , the runtime is Θ(|Ei | lg |Ci !). The total runtime here is:\nk\nX k\nX k\nX\na · |Ei | lg |Ci | ≤ a · |Ei | lg n = (a lg n) |Ei | ≤ am lg n\ni=1 i=1 i=1\nHence, the total runtime for this step is Θ(m lg n).\nThe third step also requires care. We can store the graph to allow us to efficiently\nlookup w(·, ·) and to tell whether an edge (i, j) has been added to the graph. We can\nalso store source(·, ·) to allow for Θ(1) lookups. So the runtime here is bounded by\nΘ(m). The fourth step is Kruskal's again, only once, on a graph with ≤ [...]",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nProblem 4. Social Networking [25 points]\nMITbook+ is a new social networking site created by MIT students. Much like other social net-\nworking sites, MITbook+ allows you to establish \"friendship\" with other users. Each user has a\nunique MITbook+ ID number, and a list of all MITbook+ ID numbers is available to the general\npublic. Furthermore, for any pair of user IDs, there is a publically-accessible webpage that can be\nused to check whether the pair are friends. However, in the interests of preserving user privacy, all\nother information associated with MITbook+ IDs is available to members only.\nCurrently, you are not a user of MITbook+, but you want to learn more about a specific person\n(known to you by his ID as 60461337). Specifically, you want to determine whether he went to\nschool at MIT. Fortunately, the founders of MITbook+ have posted some statistics on their blog\nthat may help you. Currently, MITbook+ has N users (a very large number). Exactly 2N/3 users\nattended MIT; the other N/3 did not. Interestingly, because MIT is a very tight-knit community,\nevery current or former MIT student on MITbook+ is friends with every other current or former\nMIT student on MITbook+.\nIn the blog post with the statistics, the MITbook+ founders originally claimed that\nevery user on MITbook+ who did not attend MIT was friends with at most N/4 users\nwho did attend MIT. Create an efficient algorithm that uses this fact to determine\nwhether user 60461337 attended MIT.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Executive Summary. We use a randomized algorithm that samples O(1) users to approximate\nthe number of friends the student has. If 60461337 has sufficiently many friends, he must have\nattended MIT; otherwise, he could not have attended MIT. This results in an algorithm with runtime\nO(1) and probability of correctness at least 23 .\nAlgorithm. Create a variable ℓ which is initialized to 0. Repeat the following operation k = 2304\ntimes: pick a random user ID x and increment ℓ by 1 if x is friends with 60461337. After this\nprocess, if ℓ ≥ 15\n· k, return \"60461337 is an MIT student.\" Otherwise, return \"60461337 is not an\nMIT student.\"\nCorrectness. For simplicity of notation, let z = 60461337. Let U be the set of all user IDs, let\nM be the set of all MIT students, and let A = U - M be the set of all other students. Let f (x, y)\nbe a boolean relation that is true if and only if x and y are friends. Then we can use the following\nnotation to count the number of friends that a given user x has in a particular set S:\ngS (x) = |{y ∈ S | f (x, y) = T RUE }|\nThis notation lets us rewrite the facts that we are given as follows:\n1. The number of users is |U| = N.\n2. The number of users who attended MIT is |M| = 2N/3. The number of users who did not\nattend MIT is |A| = N/3.\n3. Every pair of MIT students is friends: ∀x =\n6 y ∈ M : f (x, y) = T RUE . This further\nmeans that for any MIT student x ∈ M, the number of friends gM (x) that he has at MIT is\n|M| - 1 = 2N/3 - 1 (every MIT user but himself).\n4. Every user x ∈ A who did not attend MIT is friends with at most N/4 MIT students: gM (x) ≤\nN/4.\nWe consider two cases:\n• Case 1: The student z did not attend MIT. Then he can have at most N/3 - 1 non-MIT\nfriends, and at most N/4 MIT friends. More formally:\nN N 7\ngU (z) = gM (z) + gA (z) ≤ + -1= ·N -1\n4 3 12\nIn this case, the algorithm will return the incorrect answer if ℓ ≥ 15\n·k. What is the probability\nof that occurring? To compute this, we resort to the Chernoff bound.\nLet Xi be an [...]",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nA perfect hash table that is already built requires 2 hash functions, one for the\nfirst level hash, and another for the second level hash.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. In the implementation of perfect hashing which we discussed in\nrecitation, the second level hash table requires a different hash function for every\nbucket. Note that if we relax the requirement for taking only O(n) space and\nallow the hash table to instead take O(n2 ) space, then we can use just one hash\nfunction.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nIf we use van Emde Boas (vEB) to sort n elements, it is possible to achieve\nO(n lg lg n) running time. Thus, whenever we need to use traditional O(n lg n)\nsorting, we can replace it with vEB sort and achieve a better asymptotic running\ntime (ignore setup time).",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. In order to use van Emde Boas, we must have a restriction on\nthe input (it is within a universe of integers size 1 through n).",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nEvery special case of an NP-hard problem is also NP-hard.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Consider the MST problem, which is a special case of the\nSteiner Tree problem.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nSuppose we apply Huffman coding to an alphabet of size 4, and the resulting tree is\na perfectly balanced binary tree (one root with two children, each of which has two\nchildren of its own). Find the maximum frequency of any letter.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The maximum frequency of any letter is 2/5. To see why, we must prove\nthat this is both feasible, and as large as possible.\n1. Suppose that we have four characters a, b, c, d with frequencies fa = 2/5 and fb =\nfc = fd = 1/5. Without loss of generality, suppose that Huffman's algorithm\nmerges c and d. Then fcd = fc + fd = 2/5. This introduces a tie1 , which we may\nbreak by assuming that Huffman's algorithm chooses to merge b with a. This\nyields a perfectly balanced tree.\n2. To see that any frequency greater than 2/5 is impossible, let fa ≥ fb ≥ fc ≥\nfd be the frequencies in decreasing order. We define these frequencies so that\nfa + fb + fc + fd = 1. For the sake of contradiction, suppose that fa > 2/5.\nThis means that fb + fc + fd < 3/5. Because fb > fc , fd , we can conclude that\nfc + fd < 2/5. But this means that when c and d are merged, their combined\nfrequency will be strictly less than fa , so we will not get a perfectly balanced\ntree.\nTo avoid a tie, we must use 2/5 - ǫ as the maximum frequency instead.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nProblem 3. Estate Showing. [30 points] (3 parts)\nTrip Trillionaire is planning to give potential buyers private showings of his estate, which can\nbe modeled as a weighted, directed graph G containing locations V connected by one-way roads\nE. To save time, he decides to do k of these showings at the same time, but because they were\nsupposed to be private, he doesn't want any of his clients to see each other as they are being driven\nthrough the estate.\nTrip has k grand entrances to his estate, A = {a1 , a2 , . . . , ak } ⊂ V . He wants to take each of\nhis buyers on a path through G from their starting location ai to some ending location in B =\n{b1 , b2 , . . . , bk } ⊂ V , where there are spectacular views of his private mountain range.\nBecause of your prowess with algorithms, he hires you to help him plan his buyers' visits. His goal\nis to find a path for each buyer i from the entrance they take, ai , to any ending location bj such that\nno two paths share any edges, and no two buyers end in the same location bj .\nTrip tells you his idea: find all-pairs shortest paths on G, and then try to select k of\nthose shortest paths ai ❀ bj such that all k paths start and end at different vertices and\nno two paths share any edges.\nGive a graph where there exists a set of paths satisfying the requirements, but where\nTrip's strategy won't find it.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Consider this graph:\na1\nb1\n1 1\n1 1\nb2\na2\nThe all-pairs shortest paths algorithm would find all shortest paths from ai to bj (a1 ❀\nb1 , a1 ❀ b2 , a2 ❀ b1 , and a2 ❀ b2 ), which all go through the same edge. Trip's\nalgorithm, which considers only those paths, would find no solution. There are two\ncompletely disjoint paths using the shortest path a2 ❀ b2 and the direct edge (a1 , b1 ),\nbut Trip's algorithm would not find this combination because one of them is not a\nshortest path.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nTrip, after trying out the paths found by your algorithm, realizes that making sure the k\npaths don't share edges isn't enough: it's possible that some paths will share vertices,\nand his buyers might run into each other where their paths intersect.\na1 b1 a1 b1\na2 a2\nb2 b2\na1 b1 and a2 b2 share a vertex a1 b1 and a2 b2 share neither vertices nor edges\nModify your algorithm to find k paths ai ❀ bj that start and end in different locations,\nand that share neither vertices nor edges.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Duplicate each vertex v into two vertices vin and vout , with a directed edge\nbetween them. All edges (u, v) now become (u, vin ); all edges (v, w) now become\n(vout , w). Assign the edge (vin , vout ) capacity 1.\nWith this transformation, we now have a graph in which there is a single edge cor-\nresponding to each vertex, and thus any paths that formerly shared vertices would be\nforced to share this edge.\nNow, we can use the same algorithm as in part (b) on the modified graph to find k\ndisjoint paths sharing neither edges nor vertices, if they exist.\nThe transformation of the graph takes O(|E|) time, as we are adding that many new\nvertices and edges to the graph. The new graph has O(|E| + |V | + 2k) = O(|E|)\nedges, and therefore the running time is unchanged.\nMany students excluded the starting and ending locations ai and bi from the vertices\nduplicated. This approach, however, would overlook any paths that might have gone\nthrough some ai or bi before reaching their final destinations. (There was nothing in\nthe previous problem statement preventing this from occurring.)\nAs in part (b), some students also tried to modify the operation of Ford-Fulkerson by\nremoving all edges incident to vertices in the augmenting paths found, thus not allow-\ning any other augmenting paths to go through those vertices. Again, this approach\ndoesn't work because it is too greedy: the augmenting paths found by Ford-Fulkerson\nare not necessarily the final paths along which there are units of flow, and therefore\nthis approach may miss valid solutions.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nShow that minimizing the number of credit cards used is NP-hard.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : We prove that minimizing the number of credit cards is NP-hard by reducing SET-\nPARTITION to the Zelda's problem in polynomial time.\nFirst, we recast Zelda's optimization problem as a decision problem. Let the decision\nproblem be formulated as follows: For a given target number of cards k, we are able\nto come up with an assignment of purchases x1 . . . xn to k credit cards, where the\ncumulative balance on each credit card can not exceed the limit l.\nRecall that we defined SET-PARTITION as follows:\nGiven set SP= {s1 , P\n. . . sn } we can partition them into 2 disjoint subsets A and B such\nthat max{ i∈A si , j∈B sj } is minimized.\nThe decision version of the SET-PARTITION problem can be reformulated as the\nquestion\nP whether Pthe numbers can be partitioned into two sets A and B = S - A such\nthat i∈A si = j∈B sj .\nGiven an input set S = {s1 , . . . sn } to the SET-PARTITION problem, we can use the\nelements in the set as the purchasesP in Zelda's problem, set the number of cards to be\n2 and the credit card limit l = 2 i∈S si . Clearly, if the answer to the Zelda's decision\nproblem is in the affirmative, then each credit card will have balance of exactly 2l , and\nwe can take the disjoint subsets of purchases on each card to be the two sets A and B\nthat would satisfy SET-PARTITION. The reduction can be executed in linear time.\nWe also accepted the reduction from SUBSET-SUM to Zelda.\nWe gave 5 points for correctly identifying an NP-hard problem from which one could\nreduce to Zelda's problem to prove that the problem is NP-hard (the direction of the\nreduction needed to be correct to receive all the points). 10 points was given for a\ncorrect reduction and analysis.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nGive a sublinear-time algorithm that takes as input r and ǫ, and outputs a number of\nclusters k that is correct with probability at least 2/3.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Executive Summary Use the algorithm from part (a) on a subset of the points cho-\nsen u.a.r. The size of the subset is chosen so that the algorithm is correct with the\ndesired probability.\nAlgorithm Initialize S ′ to be a subset of S of size t (to be determined below), where\nthe points are chosen uniformly at random. Run the same algorithm as in part (a) on\nthis subset.\nCorrectness From part (b), the probability that t points sampled u.a.r. don't lie in\na given cluster is (1 - ǫ)t . Hence, by the union bound, the probability that t points\nsampled u.a.r. don't lie in any cluster is at most k(1 - ǫ)t ; since k ≤ 1/ǫ, this can be\nupper bounded by 1ǫ (1 - ǫ)t . The algorithm is incorrect iff the t sampled points miss\nany cluster, so we want this probability to be at most one third:\n1 1\n(1 - ǫ)t ≤\nǫ 3\nt ǫ\n(1 - ǫ) ≤\nǫ\nt log(1 - ǫ) ≤ log\nlog 3ǫ\nt≥\nlog(1 - ǫ)\n(the sign is reversed in the last inequality since log(1 - ǫ) is negative). The rest of\njustification of correctness follows from part (a).\nRuntime analysis The runtime of this algorithm is O(tk) or O(t/ǫ); the analysis\nis similar to that for part (a). Since neither t nor ǫ depend on n, this algorithm is\nsublinear.\nGrading comments This part was worth 10 marks total, with 6 marks for achieving\nthe correct approach to the sublinear algorithm and 4 marks for computing the size of\nthe subset correctly.\nSome students failed to realize that part (b) gives the probability of missing a fixed\ncluster, whereas this part requires the probability of missing any cluster; this resulted\nin a deduction of 2 marks. Others erroneously assumed that the events of missing each\ncluster were independent; this resulted in a deduction of 1 mark. Incorrect algorithms\nwere given partial credit depending on their similarity with the correct solution.\nSeveral students noted that this was a variant of the sublinear Connected Components\nalgorithm as discussed in class; again, while true, this was not necessary and a correct\ncalculation of the [...]",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nIf there is a randomized algorithm that solves a decision problem in time t and\noutputs the correct answer with probability 0.5, then there is a randomized algo-\nrithm for the problem that runs in time Θ(t) and outputs the correct answer with\nprobability at least 0.99.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Every decision problem has an algorithm that produces the cor-\nrect answer with probability 0.5 just by flipping a coin to determine the answer.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nIf an iteration of the Ford-Fulkerson algorithm on a network places flow 1 through\nan edge (u, v), then in every later iteration, the flow through (u, v) is at least 1.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False: A later augmenting path may pass through (v, u), causing the\nflow on (u, v) to be decreased.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nProblem 3. Updating a Flow Network [25 points] (3 parts)\nLet G = (V, E) be a flow network with source s and sink t, and suppose that each edge e ∈ E has\ncapacity c(e) = 1. Assume also, for convenience, that |E| = Ω(V ).\nSuppose that we implement the Ford-Fulkerson maximum-flow algorithm by using\ndepth-first search to find augmenting paths in the residual graph. What is the worst-\ncase running time of this algorithm on G?",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Since the capacity out of the source is |V | - 1, a mincut has value at most\n|V | - 1. Thus the running time is O(V E).",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nSuppose that a maximum flow for G has been computed using Ford-Fulkerson, but\nan edge is now removed from E. Describe how the maximum flow can be efficiently\nupdated. Analyze your algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : In the residual flow network, find a path from sink to source via the edge\nto be removed. To do so, find a path from sink to the starting endpoint of the directed\nedge in the residual flow network and similarly the second segment of the path. Then\ndiminish the flow by one unit along the path. Since all edges have capacity 1, this\nremoves the flow from the edge to be removed. After removing the edge, search for\naugmenting path in the residual flow network. This is needed in case the edge was not\nin the minimum cut hence the flow can be redirected. The total cost is O(E).",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nThe solutions to the take-home quiz showed that there is an efficient O(xE +xV lg V )\nalgorithm for Eleanor's optimization problem. Why doesn't this fact contradict the\nNP-completeness of Eleanor's decision problem?\nSCRATCH PAPER\nSCRATCH PAPER",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : An algorithm with runtime O(xE + xV lg V ) has runtime polynomial\nin the value of x. In other words, the runtime is actually pseudo-polynomial, rather\nthan truly polynomial. We showed that Eleanor's optimization problem was hard by a\nreduction from Partition, which is weakly NP-hard. As a result, we have only shown\nthat Eleanor's Optimization Problem is weakly NP-hard, and so it's not a contradiction\nto have a pseudo-polynomial algorithm.\nSCRATCH PAPER\nSCRATCH PAPER",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nLet A and B be optimization problems where it is known that A\nreduces to B in polynomial time. Additionally, it is known that there exists a\npolynomial-time 2-approximation for B. Then there must exist a polynomial-\ntime 2-approximation for A.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. approximation factor is not (necessarily) carried over in poly-\ntime reduction. See e.g. set cover vs. vertex cover.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nIf we use a max-queue instead of a min-queue in Kruskal's MST algo-\nrithm, it will return the spanning tree of maximum total cost (instead of returning\nthe spanning tree of minimum total cost). (Assume the input is a weighted con-\nnected undirected graph.)",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. The proof is essentially the same as for the usual Kruskal's\nalgorithm. Alternatively, this is equivalent to negating all the edge weights and\nrunning Kruskal's algorithm.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nSuppose that a randomized algorithm A has expected running time\nΘ(n2 ) on any input of size n. Then it is possible for some execution of A to take\nΩ(3n ) time.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. Imagine a scenario where the runtime of A is Θ(3n ) with proba-\nbility n2 3-n , and Θ(n2 ) otherwise. It is apparent that the expected run time of A\nis Θ(n2 ). But, with non-zero probability some execution may take Ω(3n ) time .",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nSuppose that you have two deterministic online algorithms, A1 and\nA2 , with a competitive ratios c1 and c2 respectively. Consider the randomized\nalgorithm A∗ that flips a fair coin once at the beginning; if the coin comes up\nheads, it runs A1 from then on; if the coin comes up tails, it runs A2 from then\non. Then the expected competitive ratio of A∗ is at least min{c1 , c2 }.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Suppose the problem is to guess which of two cups holds the\nbean. Algorithm A1 checks left cup then right cup and has competitive ratio\nc1 = 2. Algorithm A2 checks right cup then left cup and has competitive ratio\nc2 = 2. The randomized algorithm has competitive ratio c = 0.5 · 2 + 0.5 · 1 =\n1.5 < min{c1 , c2 }",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nAny edge e with weight wmin , must be part of some MST.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. In some ordering of the edges by increasing weight, e will be the first,\nthus included in the tree constructed by the Kruskal's algorithm. Any tree constructed\nby the Kruskal's algorithm is an MST.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nIf the edge e is not part of any MST of G, then it must be the maximum weight edge\non some cycle in G.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. Take any MST T . Since e is not part of it, e must complete some\ncycle in T . e must be the heaviest edge on that cycle. Otherwise a smaller weight\ntree could be constructed by swapping the heavier edge on the cycle with e and thus\nT cannot be MST.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nProblem 4. Traveling with the salesman. [20 points] In the traveling-salesman problem, a\nsalesman must visit n cities. Modeling the problem as a complete graph on n vertices, we can say\nthat the salesman wishes to make a tour or a hamiltonian cycle, visiting each city exactly only\nonce and finishing at the city he starts from. The salesman incurs a nonnegative integer cost c(i, j)\nto travel from city i to city j, and the salesman wishes to make a tour whose total cost is minimum,\nwhere the total cost is the sum of the individual costs along the edges of the tour.\nFormulate the traveling salesman problem as a language.\nTSP =",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : \u001a \u001b\nA complete graph of n vertices with non-negative edge\nTSP = < n, c, k >\nweights c has a hamiltonian cycle of cost at most k.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nAssuming that H AM -C YCLE is complete for the class NP, prove that TSP is NP-\nComplete.\nSCRATCH PAPER",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : To prove that TSP is NP-Hard, we show the reduction H AM -C YCLE ≤p\nTSP. Given a graph G = (V, E) we define edge costs (in the complete graph)\nc(u, v) = 0 if (u, v) ∈ E and c(u, v) = 1 otherwise. If G has a hamiltonian cy-\ncle, then that cycle is also a tour of cost 0 in the complete graph with costs c, so\n< n, c, 0 >∈ TSP. For the converse, if there is a tour in the complete graph with cost\n0, then it must traverse edges that are present in G, so this tour is also a hamiltonian\ncycle in G.\nTSP is NP-Complete because it is both in NP and NP-Hard.\nSCRATCH PAPER",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nIn a simple, undirected, connected, weighted graph with at least three vertices and\nunique edge weights, the heaviest edge in the graph is in no minimum spanning\ntree.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. If the heaviest edge in the graph is the only edge\nconnecting some vertex to the rest of the graph, then it must be in every minimum\nspanning tree.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nTwo polynomials p, q of degree at most n - 1 are given by their coefficients, and\na number x is given. Then one can compute the multiplication p(x) · q(x) in time\nO(log n).",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. We need at least Θ(n) time to evaluate each poly-\nnomial on x and to multiply the results. Some students argued incorrectly that\nit must take O(n log n) using FFT, but FFT overkills because it computes all\ncoefficients, not just one.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nThere is a density 0 < ρ < 1 such that the asymptotic running time of the Floyd-\nWarshall algorithm on graphs G = (V, E) where |E| = ρ |V |2 is better than that\nof Johnson's algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. The asymptotic running time of Floyd-Warshall is\nO(V 3 ), which is at best the same asymptotic running time of Johnson's (which\nruns in O(V E + V log V ) time), since E = O(V 2 )",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nGive an example of a minimum-cost translation network that is not a minimum span-\nning tree of G.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : If the graph of translators contains a cycle of translators all\nwilling to work for $0, then it is possible to hire all of the translators in the cycle\nwithout increasing the overall cost of the translation network. The smallest example\nof this is the following:\nA\n$0 $0\n$0\nAll three MSTs of the graph have total cost $0, so any translation network of cost $0\nhas minimum cost. Hence, we can take all translators in the cycle to get a minimum-\ncost translation network that is not an MST.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nSuppose that S is a minimum-cost high-quality translation network. Let Si = S ∩\n(Ci × Ci ) be the part of the network S that lies within the cluster Ci . Show that Si is\na minimum-cost translation network for the cluster Ci .",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Let Si∗ be a minimum-cost translation network for Ci . Because\nS is a high-quality translation network, Si must contain a path between every pair\nof nodes in Ci , so Si is a translation network for Ci . For the sake of contradiction,\nassume that Si is not minimum-cost. Then w(Si ) > w(Si∗).\nConsider the translation network S ∗ = (S - Si ) ∪ Si∗ . Then w(S ∗) = w(S) - w(Si ) +\nw(Si∗ ) < w(S). Because Si∗ is a translation network of Ci , replacing Si with Si∗ will\nnot disconnect any pair of vertices in the graph. Furthermore, any pair of vertices\nconnected by a path in S that lay inside a particular cluster will be connected by a\npath in S ∗ that lies within the same cluster. Hence, S ∗ is a high-quality translation\nnetwork with cost strictly less than S. This contradicts the definition of S, so Si must\nbe a minimum-cost translation network.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\n(k-1) (k-1) (k-1)\n7 dij = min(dij , dik + dkj )\n8 return D (n)",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : In order to find shortest paths going through only blue edges, it\nsuffices to ignore the red edges and run Floyd-Warshall on only the blue edges of the\ngraph. We make the following changes:\n• Replace each occurrence of W with Wb in lines 1 and 2.",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.046J — question d’examen, en anglais] \n\nNot long after the original blog post, the founders updated their numbers. Apparently,\nthe original claim spurred a large number of non-MIT users to friend more MIT stu-\ndents. Now, after this friending spree, every user on MITbook+ who did not attend\nMIT is friends with at most 2N/5 users who did attend MIT. This also had the effect\nof raising the average number of friends per user to exactly 2N/3. Given this updated\ninformation, devise an efficient algorithm that checks whether user 60461337 went to\nschool at MIT.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Executive Summary. We sample four users at random until we find four who are all friends.\nThey are more likely than not to all be MIT students, so we check whether they are friends with\n60461337 to determine whether 60461337 is also an MIT student. This algorithm has runtime O(1)\nand correctness probability at least 0.51.\nAlgorithm. Repeat the following k = 25 times:\n1. Pick four users a, b, c, d uniformly at random.\n2. Check whether all four are friends. If not, continue to the next repetition of the loop.\n3. Otherwise, check whether all four are friends with 60461337. If so, return \"60461337 is an\nMIT student.\" If not, return \"60461337 is not an MIT student.\"\nIf we finish k iterations without finding four friends, return \"FAILED.\"\nCorrectness. For simplicity, we define a number of events:\n1. Let Fab be the event that a and b are friends.\n2. Let Fcd be the event that c and d are friends.\n3. Let Fall be the event that all four random users are all friends.\n4. Let Mab be the event that both a and b attended MIT.\n5. Let Mcd be the event that both c and d attended MIT.\n6. Let Mall be the event that all four random users attended MIT.\nIn order to correctly analyze the probability of correctness, we need to do some calculations. The\naverage number of friends per user is 2N/3. Therefore, the total number of friendships is N ·\n(2N/3)/2 = N 2 /3. The number of friendships involving only MIT students is (2N/3) · (2N/3 -\n1)/2 = 2N 2 /9 - N/3. This means that the number of friendships involving at least one user not\nfrom MIT is N 2 /3 - (2N 2 /9 - N/3) = N 2 /9 + N/3. In order for a and b to be friends when they\nare not both from MIT, they must be part of just such a friendship. Hence:\nN 2 /9 + N/3 2 2\nPr[Fab ∧ ¬Mab ] = 2 · = +\nN 2 9 3N\nBy symmetry, Pr[Fcd ∧ ¬Mcd ] = Pr[Fab ∧ ¬Mab ]. We can use this information to analyze cases as\nfollows:\n• Case 1: We want to figure out Pr[Fall ∧ Mab ∧ Mcd ]. This is equal to the probability that a,\nb, c, and d are all unique MIT students. [...]",
+            "source": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2012 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -585,3 +585,15 @@ vus après la vague 2 :
   qui dépendent d'un schéma, appariements qui ne correspondent pas).
   Les items vrai/faux gardent les deux propositions du corrigé
   (**True / False**).
+- **6.046J Design and Analysis of Algorithms (Spring 2012)** — licence
+  **CC BY-NC-SA 4.0**. Deux quiz, l'examen final et deux examens
+  pratiques, avec leurs corrigés officiels. **56 questions** retenues.
+- **6.006 Introduction to Algorithms (Fall 2011)** — licence
+  **CC BY-NC-SA 4.0**. Deux quiz et l'examen final, avec leurs corrigés
+  officiels. **57 questions** retenues.
+- **6.005 Software Construction (Spring 2016)** — licence **CC BY-NC-SA
+  4.0**. Deux quiz avec leurs corrigés, sur les spécifications, les
+  tests et la revue de code. Format « choix multiples » : les options
+  d'origine sont conservées **avec leur lettre**, et une question dont le
+  corrigé nomme plusieurs bonnes réponses est refusée.
+

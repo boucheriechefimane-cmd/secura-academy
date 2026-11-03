@@ -707,9 +707,10 @@ ne suffit pas, c'est ce qu'un élève verrait sur une photo d'écran), et
 > de 143 questions de cinq autres cours du MIT (6.006, 6.046J, 6.172,
 > 6.830, 1.124J — chacune vérifiée contre le corrigé officiel du MIT) —,
 > puis de 5 questions du MIT 6.004 (Computation Structures), 3 du
-> MIT 6.189 (Multicore Programming Primer) et 15 du MIT 6.006 Spring 2008,
-> la plateforme compte **735 questions**, et le manque de réservoir des
-> examens est tombé de **80 à 22**.
+> MIT 6.189 (Multicore Programming Primer), 15 du MIT 6.006 Spring 2008 et
+> 115 du MIT 6.006 Fall 2011, 6.046J Spring 2012 et 6.005 Software
+> Construction, la plateforme compte **850 questions**, et le manque de
+> réservoir des examens est tombé de **80 à 20**.
 >
 > **Les examens d'université sont en réserve.** Une question reprise d'un
 > examen universitaire porte sa source et sa licence : elle n'entre jamais

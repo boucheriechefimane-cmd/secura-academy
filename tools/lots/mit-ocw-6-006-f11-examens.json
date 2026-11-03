@@ -1,0 +1,537 @@
+{
+  "source": "mit-ocw-6-006-f11-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/pages/exams/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGiven an array A[1 . . n] of integers, the running time of Counting Sort\nis polynomial in the input size n.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Counting Sort's running time depends on the size of the num-\nbers in the input, so it is pseudo-polynomial.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIf we augment an n-node AVL tree to store the size of every rooted\nsubtree, then in O(log n) we can solve a range query: given two keys x and y,\nhow many keys are in the interval [x, y]?",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. The question describes range trees, as implemented in Problem\nSet 3.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGiven a connected graph G = (V, E), if a vertex v ∈ V is visited\nduring level k of a breadth-first search from source vertex s ∈ V , then every path\nfrom s to v has length at most k.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. The level of a vertex only provides the length of the shortest\npath from s.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGiven an adjacency-list representation of a directed graph G = (V, E),\nit takes O(V ) time to compute the in-degree of every vertex.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. The adjacency list structure needs to be traversed to find the\nincoming edges for each vertex. This structure has total size Θ(V + E), so this\ntakes Θ(V + E) time to compute.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nThe running time of a dynamic programming algorithm is always\nΘ(P ) where P is the number of subproblems.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. The running time of a dynamic program is the number of\nsubproblems times the time per subproblem. This would only be true if the time\nper subproblem is O(1).",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nFor every dynamic program, we can assign weights to edges in the\ndirected acyclic graph of dependences among subproblems, such that finding a\nshortest path in this DAG is equivalent to solving the dynamic program.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. We saw a counter-example where we couldn't do this in the\nmatrix parenthesization problem.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIf P equals NP, then NP equals NP-complete.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. A problem X is NP-hard iff any problem in NP can be reduced\nin polynomial time to X. If P equals NP, then we can reduce any problem in NP\nto any other problem by just solving the original problem.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGive an algorithm that implements C OUNT(l, h) in O(log N ) time.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The C OUNT method in range trees returns the desired answer. The num-\nber of tree nodes between l and h is exactly the number of unoccupied rooms in the\n[l, h] interval.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGive an algorithm that implements C HECKO UT(x) in O(log N ) time.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : When a guest checks out of a room, the room becomes unoccupied, so its\nnumber must be inserted into the range tree.\nC HECKO UT(x)\n1 I NSERT(x)",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nProblem 6. The Wedding Planner [20 points] (2 parts)\nYou are planning the seating arrangement for a wedding given a list of guests, V .\nSuppose you are also given a lookup table T where T [u] for u ∈ V is\na list of guests that u knows. If u knows v, then v knows u. You are required to\narrange the seating such that any guest at a table knows every other guest sitting at the\nsame table either directly or through some other guests sitting at the same table. For\nexample, if x knows y, and y knows z, then x, y, z can sit at the same table. Describe\nan efficient algorithm that, given V and T , returns the minimum number of tables\nneeded to achieve this requirement. Analyze the running time of your algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : We can construct an undirected graph G = (V, E) with guests as vertices,\nand an edge between two vertices means the two guests know each other. Table T\nrepresents the adjacency lists for the vertices. Two guests can sit at the same table if\nthere is a path between them. If we start from one vertex s and search the graph using\nbreadth-first search (BFS) or depth-first search (DFS), all the guests that are reachable\nfrom s can sit at the same table, and additional tables are needed for vertices that are\nunreachable from s.\nHence, to find the minimum number of tables, we can iterate through s ∈ V . If\ns is not visited, increment the number of tables needed and call DFS-V ISIT(s, T )\nor BFS(s, T ), marking vertices as visited during the traversal. Return the number\nof tables needed after iterating through all the vertices. This problem is equivalent to\nfinding the number of connected components in the graph. The running time is Θ(V +\nE) because every vertex or edge is visted exactly once. Below is the pseudocode.\nN UM -TABLES(V, T )\n1 visited = {}\n2 n =0\n3 for s ∈ V\n4 if s ∈\n/ visited\n5 n = n +1\n6 add s to visited\n7 DFS-V ISIT(s, T, visitied )\n8 return n\nDFS-V ISIT(u, T, visitied )\n1 for v ∈ T [u]\n2 if v ∈\n/ visited\n3 add v to visited\n4 DFS-V ISIT(v, T, visited )",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGive a recurrence relation to compute DP (i, b).",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The following formula computes DP (i, b) as defined in the problem:\nDP (i, T RUE) = 1 + max DP (j, FALSE)\n1≤j<i and xi >xj\nDP (i, FALSE) = 1 + max DP (j, T RUE)\n1≤j<i and xi <xj\nThe most common mistake for this problem involved confusion over the definition of\nDP (i, b). Many people gave or attempted to give the following recurrence:\n\u001a\nDP (i - 1, T RUE)\nDP (i, T RUE) = max\nDP (i - 1, FALSE) + 1 if xi > xi-1\n\u001a\nDP (i - 1, FALSE)\nDP (i, FALSE) = max\nDP (i - 1, T RUE) + 1 if xi < xi-1\nUnfortunately, this recurrence does not compute the value that we asked for. The value\nDP (i, b) is specifically defined as \"the length of the longest alternating subsequence\nthat ends with xi , and ends in an ascending pair if and only if b is T RUE.\" The above\nrecurrence relation instead computes the length of the longest alternating subsequence\nof x1 , . . . , xi , not necessarily ending on xi , that ends in an ascending pair if and only\nif b is T RUE.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGive a valid ordering of subproblems for a bottom-up computation.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The correct order is to iterate through the values of i in increasing order,\nand compute DP (i, T RUE) and DP (i, FALSE) for each i. The recurrence relation has\nDP (i, b) dependent only on values DP (j, b) for j < i, so increasing order will give us\nwhat we want.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGive an algorithm that uses O(N ) calls to M EDIAN to find the heaviest\nand lightest balls of fluff, without identifying which is the heaviest and which is the\nlightest.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The pseudo-code below starts out by weighing the first 3 balls, and repeat-\nedly replaces the median with a new ball, until the balls runs out. The two remaining\nballs must be the extremes, because an extreme will never be a median, and therefore\nwill never be eliminated.\nE XTREMES(b, N )\n1 x, y = b1 , b2\n2 for i ∈ 3 . . . N\n3 z = bi\n4 m = M EDIAN(x, y, z)\n// Set x and y to non-median balls\n5 if x == m\n6 x, y = y, z\n7 if y == m\n8 y=z\n9 return (x, y)\nIt is not sufficient to call M EDIAN on all 3 groups of adjacent balls and hope that it\nwill rule out all the balls except for the two extremes. Example: given 4 balls with\nweights 3471, M EDIAN would point at the 2nd ball twice.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nArgue that you need at least Ω(N log N ) calls to M EDIAN to sort the N\nfluff balls.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The argument below closely follows the proof of the Ω(N log N ) lower\nbound for comparison-based sorting.\nA call to M EDIAN has 3 possible outcomes, so a decision tree based on M EDIAN\ncalls would have a branching factor of 3. There are N ! possible ball permutations,\nso the decision tree needs Ω(log3 N !) = Ω(log N !) = Ω(N log N ) levels to cover all\npossible N ! permutations.\nL OWEST only provides useful information if it is called once, and it reduces the pos-\nsible permutations to N2 ! . This doesn't change the result above, because the constant\nfactor gets absorbed by the asymptotic notation.\nThe lower bound obtained from comparison-based sorting cannot be used without ar-\ngument, because it is not obvious that this problem is harder than comparison-based\nsorting. To use this bound correctly, a solution would have to prove that comparison-\nbased sorting can be reduced to this problem, by implementing M EDIAN and L IGHTEST\nwith O(1) comparisons each.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nProblem 3. True/False [18 points] (9 parts)\nCircle (T)rue or (F)alse. You don't need to justify your choice.\nBinary insertion sorting (insertion sort that uses binary search to find\neach insertion point) requires O(n log n) total operations.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. While binary insertion sorting improves the time it takes to\nfind the right position for the next element being inserted, it may still take O(n)\ntime to perform the swaps necessary to shift it into place. This results in an O(n2 )\nrunning time, the same as that of insertion sort.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIn a BST, we can find the next smallest element to a given element in\nO(1) time.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Finding the next smallest element, the predecessor, may re-\nquire traveling down the height of the tree, making the running time O(h).",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nCounting sort is a stable, in-place sorting algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Counting sort is stable. It is not in-place, however, since we\nmust make additional space to store the counts of the various elements. This\nspace requirement grows as the size of the input increases. Additionally, we have\nto make a separate output array to produce the answer using counting sort.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nThe multiplication method satisfies the simple uniform hashing as-\nsumption.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. We don't really know of hash functions that satisfy the simple\nuniform hashing assumption.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nPython generators can be used to iterate over potentially infinite count-\nable sets with O(1) memory.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. Python generators do not require the whole set to reside in\nmemory to iterate over it, making this assertion true.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nProblem 5. Who Let The Zombies Out? [20 points] (2 parts)\nIn an attempt to take over Earth, evil aliens have contaminated certain water supplies with a virus\nthat transforms humans into flesh-craving zombies. To track down the aliens, the Center for Dis-\nease Control needs to determine the epicenters of the outbreak-which water supplies have been\ncontaminated. There are n potentially infected cities C = {c1 , c2 , . . . , cn }, but the FBI is certain\nthat only k cities have contaminated water supplies.\nUnfortunately, the only known test to determine the contamination of a city's water supply is to\nserve some of that water to a human and see whether they turn ravenous. Several brave volunteers\nhave offered to undergo such an experiment, but they are only willing to try their luck once. Each\nvolunteer is willing to drink a single glass of water that mixes together samples of water from any\nsubset C 0 ⊆ C of the n cities, which reveals whether at least one city in C 0 had contaminated\nwater.\nYour goal is to use the fewest possible experiments (volunteers) in order to determine, for each city\nci , whether its water was contaminated, under the assumption that exactly k cities have contami-\nnated water. You can design each experiment based on the results of all preceding experiments.\nYou observe that, as in the comparison model, any algorithm can be\nviewed as a decision tree where a node corresponds to an experiment with two out-\ncomes (contaminated or not) and thus two children. Prove a lower bound of Ω(k lg nk )\non the number of experiments that must be done to save the world. Assume that\nlg x! ∼ x lg x and that lg(n - k) ∼ lg n (which is reasonable when k < 0.99n).",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : \u0005n\u0006 The number of possible outcomes-which\u0005n\u0006 cities are contaminated-is\nk\n. Thus any decision tree must have at least k leaves. Because a decision tree\nis binary, it must therefore have height at least\n\u0002 \u0003\nn n!\nlg = lg ,\nk k!(n - k)!\nwhich by the first assumption is\n∼ n lg n - k lg k - (n - k) lg(n - k) = n[lg n - lg(n - k)] + k[lg(n - k) - lg k],\nwhich by the second assumption is\nn\n∼ k[lg n - lg k] = k lg ,\nk\nwhich is our desired lower bound.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nWrite pseudo-code for a function P WN -C ONTEST(N, S, K, P ) that deter-\nmines whether K of the itemsPhave prices summing to S, and if so, returns K indices\nb1 , b2 , . . . , bK such that S = K\ni=1 P [bi ]. Unlike part (a), P WN -C ONTEST should run\nin O(K · N ) and use O(K · N K/2 ) space.\nK/2",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : P WN -C ONTEST(N, S, K, p)\n1 h ← empty hash table\n2 for c ← S UBSETS(K/2, {1 . . . N })\nK/2\n3 do s ← i=1 P ci\n4 h[s] ← c\n5 for c ← S UBSETS(K/2, {1 . . . N })\n6 do s ← S - K/2 i=1 Pci\n7 if s ∈ h\n8 then return c + h[s]\n9 return N IL",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nProblem 2. True/False [28 points] (14 parts)\nCircle (T)rue or (F)alse. You don't need to justify your choice.\n√\nComputing b ac for an n-bit positive integer a can be done in O(lg n)\niterations of Newton's method.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. This is the bound obtained by Newton's Method's quadratic\nconvergence.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nKaratsuba's integer multiplication algorithm always runs faster than\nthe grade-school integer multiplication algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Problem Set 5 has shown that the O(N 2 ) algorithm runs faster\nfor small numbers.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIn a weighted undirected tree G = (V, E, w), breadth-first search\nfrom a vertex s finds single-source shortest paths from s (via parent pointers) in\nO(V + E) time.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. In a tree, there is only one path between two vertices, and\nbreadth-first search finds it.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIf a graph represents tasks and their interdependencies (i.e., an edge\n(u, v) indicates that u must happen before v happens), then the breadth-first\nsearch order of vertices is a valid order in which to tackle the tasks.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : No, you'd prefer depth-first search, which can easily be used to pro-\nduce a topological sort of the graph, which would correspond to a valid task\norder. BFS can produce incorrect results.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGiven a weighted directed graph G = (V, E, w) and a source s ∈ V ,\nif G has a negative-weight cycle somewhere, then the Bellman-Ford algorithm\nwill necessarily compute an incorrect result for some δ(s, v).",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. The negative-weight cycle has to be reachable from s.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nThe bidirectional Dijkstra algorithm runs asymptotically faster than\nthe Dijkstra algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. The constant factor behind bidirectional Dijkstra is better, but\nthe worst-case running time is the same.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIf you use depth-first search to find a path from A to H, write down the\nresulting path as a sequence of vertices.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : A, B, C, D, E, G, F, H if you use recursion, or A, C, D, F, H if you use\nstack-based implemention. Essentially, the recursion-based implementation will visit\nthe neighbors in alphabetical order, while the stack-based implementation will visit\nthe neighbors in reverse alphabetical order.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nMal clearly needs a way to check her answer for bA3/4 c, using only integers.\nGiven a pair of positive integers A and C, explain how to check whether C ≤ A3/4\nusing O(1) additions, subtractions, multiplications, and comparisons.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The equation C ≤ A3/4 is equivalent to the equation C 4 ≤ A3 , which is\nequivalent to C · C · C · C ≤ A · A · A.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nAny n-node unbalanced tree can be balanced using O(log n) rotations.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. The worst-case unbalanced tree is a list, and balancing it re-\nquires Ω(n) rotations.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nAVL trees can be used to implement an optimal comparison-based\nsorting algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. AVL trees can be used to sort N numbers in O(N log N ) time,\nby inserting all the numbers in the tree, and iteratively calling N EXT-L ARGEST\nN times.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nDepth-first search will take Θ(V 2 ) time on a graph G = (V, E) repre-\nsented as an adjacency matrix.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. In this case, finding the neighbors of a vertex takes O(V ) time,\nwhich makes the total running time Θ(V 2 ).",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nFor a dynamic programming algorithm, computing all values in a\nbottom-up fashion is asymptotically faster than using recursion and memoization.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. A bottom-up implementation must go through all of the sub-\nproblems and spend the time per subproblem for each. Using recursion and mem-\noization only spends time on the subproblems that it needs. In fact, the reverse\nmay be true: using recursion and memoization may be asymptotically faster than\na bottom-up implementation.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nWhen a recurrence relation has a cyclic dependency, it is impossible\nto use that recurrence relation (unmodified) in a correct dynamic program.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. We need to first perform a modification like the one seen in the\nrecitation notes.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIf a problem X can be reduced to a known NP-hard problem, then X\nmust be NP-hard.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. The reverse, however, is true: if a known NP-hard problem\ncan be reduced to X then X must be NP-hard.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGive an algorithm that implements I NIT(N ). The running time should be\npolynomial in N .",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : All the rooms are initially empty, so all their numbers (1 . . . N ) must be\ninserted into the range tree.\nI NIT(N )\n1 for i ∈ 1 . . . N\n2 I NSERT(i)",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGive an algorithm that implements C HECK I N(l, h) in O(log N ) time.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Finding the first available room with number ≤ l is equivalent to finding\nthe successor of l - 1 in the BST. The\nC HECK I N(l, h)\n1 r = N EXT-L ARGEST(l - 1)\n2 if r.key > h\n3 return N IL\n4 D ELETE(r.key)\n5 return r.key",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGive a formula for p(0) in terms of m and n.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : p(0) is essentially the probability that no keys collide. The probability\nthat the first element doesn't collide with any previous keys is 1. The probability that\nthe second element doesn't collide with any previous keys is 1 - 1/m. In general, the\nprobability that the ith element doesn't collide with any previous keys, conditioned\non the assumption that previous keys did not collide and thus occupy i - 1 slots, is\n1 - (i - 1)/m. Therefore the overall probability is the product\nn \u0012 \u0013\nY i-1 m! 1\n1- = · n.\ni=1\nm (m - n)! m",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nDP (i, X) = max\nfor every subset S ⊆ {x0 , x1 , . . . , xn-1 }\n1. Exponential\n2. Polynomial\n3. Pseudo-polynomial\n4. Infinite",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Exponential\nSolution: pseudopolynomial\ninfinite\npseudopolynomial\npolynomial\nexponential",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGive the base cases of your recurrence relation.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The base cases matching the recurrence relation above are:\nDP (i, T RUE) = 1 if xi = min{x1 , . . . , xi }\nDP (i, FALSE) = 1 if xi = max{x1 , . . . , xi }",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIf you were given the values of DP (i, b) for all 1 ≤ i ≤ n and all b ∈\n{T RUE, FALSE}, how could you use those values to compute the length of the longest\nalternating subsequence of x1 , x2 , . . . , xn ?",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : There were multiple acceptable answers here. It's sufficient to either take\nthe maximum of DP (n, T RUE) and DP (n, FALSE), or to take the maximum over all\nvalues in the table.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nExplain how the previous parts should be put together to sort the N balls\nof fluff using O(N log N ) calls to M EDIAN and O(1) calls to L IGHTEST.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Call E XTREMES (the answer to part c) to obtain the lightest and heaviest\nballs, then call L IGHTEST to obtain the lightest ball. Last, use L IGHTER (the answer\nto part b) as the comparison operator in a fast (O(N log N ) time) comparison-based\nsorting algorithm.\nOut of the algorithms taught in 6.006, insertion sort with binary search makes the\nfewest comparisons. Other acceptable answers are merge-sort and heap-sort, as they\nall use O(N log N ) comparisons.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nFind a solution to the recurrence T (n) = T ( n3 ) + T ( 2n\n) + Θ(n).",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Draw recursion tree. At each level, do Θ(n) work. Number of levels is\nlog3/2 n = Θ(lg n), so guess T (n) = Θ(n lg n) and use the substitution method to\nverify guess.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIn the merge-sort execution tree, roughly the same amount of work is\ndone at each level of the tree.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. At the top level, roughly n work is done to merge all n ele-\nments. At the next level, there are two branches, each doing roughly n/2 work to\nmerge n/2 elements. In total, roughly n work is done on that level. This pattern\ncontinues on through to the leaves, where a constant amount of work is done on\nn leaves, resulting in roughly n work being done on the leaf level, as well.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIn an AVL tree, during the insert operation there are at most two\nrotations needed.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. The AVL property is restored on every operation. Therefore,\ninserting another item will require at most two rotations to restore the balance.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIn a min-heap, the next largest element of any element can be found\nin O(log n) time.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. A min-heap cannot provide the next largest element in O(log n)\ntime. To find the next largest element, we need to do a linear, O(n), search\nthrough the heap's array.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nDouble hashing satisfies the uniform hashing assumption.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. The notes state that double hashing 'comes close.' Double\nhashing only provides n2 permutations, not n!.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nDoes Alyssa's algorithm return a peak in all cases? If so, give a short\nproof of correctness. Otherwise, provide a counterexample for the algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The following is an example of a matrix where the algorithm will return\nthe wrong value:\n0 0 0 0 0\n4 5 0 0 0\n0 0 1 2 0\n0 0 0 0 0\n0 0 0 7 0",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nSave the world by designing an algorithm to determine which k of the n\ncities have contaminated water supplies using O(k lg n) experiments. Describe and\nanalyze your algorithm.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The algorithm is based on divide and conquer: divide the n cities into two\ngroups of size n/2; test each group for contamination (using two experiments); and\nrecurse into each contaminated group. The recursion tree has exactly k leaves, and the\nheight of the tree is at most lg n, so the number of internal nodes leading to the leaves\nis at most k lg n. Each internal node costs 2, for a total cost of O(k lg n).\nIn fact, it is possible to prove an O(k lg nk ) bound on the same algorithm. To minimize\nthe number of shared nodes among the k paths from root to leaves, the worst case is\nwhen the recursion tree branches for the first lg k levels (to get enough leaves), and\nthen has k straight paths for the number of levels: lg n - lg k = lg nk . There are O(k)\nnodes in the top branching, and O(k lg nk ) nodes in the bottom paths.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nAnalyze the running time of your pseudo-code for the previous part.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The following table shows a line-by-line analysis of our pseudo-code.\nLine Time Number of iterations Total time\n1 O(1) 1 O(1)\nK/2\n2 K ·N 1 K · N K/2\n3 O(K) N K/2 K · N K/2\nK/2\n4 O(K) N K · N K/2\n5 K · N K/2 1 K · N K/2\n6 O(K) N K/2 K · N K/2\nK/2\n7 O(1) N N K/2\n8 O(K) 1 O(K)\n9 O(1) 1 O(1)\nThe total running time is the maximum in the \"Total time\" column, which is K ·N K/2 ,\nas requested.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nSuppose we want to solve a polynomial equation f (x) = 0. While\nour choice of initial approximation x0 will affect how quickly Newton's method\nconverges, it will always converge eventually.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Take e.g. f (x) = x3 - 2x + 2 and x0 = 0. Then x2i+1 = 1 and\nx2i = 0 for all i (that is, the approximations alternate between 0 and 1 without\never converging).",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIf we convert an n-digit base-256 number into base 2, the resulting\nnumber of digits is Θ(n2 ).",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. log256 n = log = log82 n . By converting a base-256 number\n2 256\nto base 2, the number of digits is multiplied by 8. For all b1 , b2 6= 1, converting\na base-b1 number to base-b2 results in a linear increase or decrease in the number\nof digits.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIn a weighted undirected tree G = (V, E, w), depth-first search from\na vertex s finds single-source shortest paths from s (via parent pointers) in O(V +\nE) time.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. In a tree, there is only one path between two vertices, and\ndepth-first search finds it.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nDijkstra's shortest-path algorithm may relax an edge more than once\nin a graph with a cycle.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Dijkstra's algorithm always visits each node at most once; this\nis why it produces an incorrect result in the presence of negative-weight edges.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nIn a weighted directed graph G = (V, E, w) containing a negative-\nweight cycle, running the Bellman-Ford algorithm from s will find a shortest\nacyclic path from s to a given destination vertex t.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : False. Bellman-Ford will terminate, and can detect the presence of\nthat negative-weight cycle, but it can't \"route around it.\" (You could always\nremove an edge to break the cycle and try again, though.)",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nGiven a weighted directed graph G = (V, E, w) and a shortest path p\nfrom s to t, if we doubled the weight of every edge to produce G0 = (V, E, w0 ),\nthen p is also a shortest path in G0 .",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : True. Multiplying edge weights by any positive constant factor pre-\nserves their relative order, as well as the relative order of any linear combination\nof the weights. All path weights are linear combinations of edge weights, so the\nrelative order of path weights is preserved. This means that a shortest path in G\nwill still be a shortest path in G0 .",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          },
+          {
+            "question": "[MIT 6.006 — question d’examen, en anglais] \n\nMal decides to use the technique from part (a) to compute the value B =\nbA1/4 c. She then plans to compute bA3/4 c by calculating the value C = B 3 = B·B·B.\nProvide an explanation of why this technique does not work.\nHint: Define α to be the fractional part of A1/4 , so that B = A1/4 - α. What happens\nwhen you compute C = B 3 ?",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : When you expand out the formula for C, you get\nC = B 3 = (A1/4 - α)3 = A3/4 - 3A2/4 α + 3A1/4 α2 - α3 .\nIf A is large, then γ = 3A2/4 α - 3A1/4 α2 + α3 will be significantly greater than 1,\nand so we'll have C = A3/4 - γ with γ > 1. Hence, C will not be bA3/4 c.",
+            "source": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Fall 2011 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0"
+          }
+        ]
+      }
+    }
+  ]
+}
