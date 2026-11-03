@@ -1,49 +1,43 @@
 # -*- coding: utf-8 -*-
-"""Extrait les questions d'un examen MIT OCW a choix multiples.
+"""Extrait les questions d'un examen MIT OCW presente en « choix multiples ».
 
 Pourquoi un septieme extracteur : le MIT 6.005 « Software Construction »
 (Spring 2016) presente ses quiz ainsi :
 
     Problem 1 (Multiple Choice) (20 points).
-
      (a) Which of the following must be true of an underdetermined
          function specification? (choose all that apply)
+         A. An underdetermined spec means the implementation is unwritten.
+         B. An underdetermined spec means the implementation is nondeterministic.
+     Solution. C. None of the other options must be true.
 
-        A. An underdetermined spec means the implementation is unwritten.
-        B. An underdetermined spec means the implementation is nondeterministic.
-        C. An underdetermined spec allows multiple valid outputs for some input.
-        D. An underdetermined spec allows multiple valid inputs that give
-           some output.
+Chaque probleme a des sous-questions (a), (b)... ; les sous-questions a
+choix portent leurs propositions lettrees (A., B., C....) ; le corrige
+officiel pose un repere « Solution. » suivi de la ou des bonnes
+reponses, puis de la justification des enseignants du MIT.
 
-Et son corrige officiel reprend l'enonce, options comprises, puis ajoute :
-
-    Solution. C. None of the other options must be true.
+Les autres problemes du meme quiz sont des questions redigees, et leur
+corrige donne la reponse complete du MIT.
 
 LE PRINCIPE, et ce qui garantit qu'aucune reponse n'est inventee :
 
-1. l'enonce est decoupe en problemes (« Problem N ... ») puis en parties
-   (« (a) ... ») ; chaque partie porte ses options (« A. ... », « B. ... »)
-   ;
-2. le corrige est decoupe de la meme maniere ; chaque partie y porte un
-   repere « Solution. » ;
-3. les problemes sont apparies **par ordre**, avec une **verification** :
-   meme titre, et surtout **le meme nombre de parties** des deux cotes ;
-4. les parties sont apparies **par ordre dans le probleme**, avec une
-   **verification** : les premiers mots de la partie doivent etre les
-   memes dans l'enonce et dans le corrige ;
-5. la reponse est **exactement** ce qui suit le repere « Solution. ».
+1. l'enonce et le corrige sont decoupes de la meme facon : en problemes
+   (« Problem N »), puis en sous-questions (« (a) ») ;
+2. les problemes sont apparies **par ordre**, avec verification du
+   titre ; les sous-questions sont apparies **par ordre dans le
+   probleme**, avec verification des **premiers mots** de l'enonce ;
+3. la reponse est **exactement** ce qui suit le repere « Solution. » ;
+4. quand la sous-question a des propositions, les propositions viennent
+   de l'enonce, et les bonnes lettres de la reponse officielle. Une
+   sous-question a plusieurs bonnes reponses (« choose all that
+   apply ») devient une question redigee : la plateforme ne note pas
+   une reponse multiple, et on ne transforme pas une question en
+   autre chose.
 
-Trois sorties possibles :
-
-- la partie a des options et le corrige nomme **une seule** lettre : la
-  question devient une question a choix, avec **les options d'origine**
-  (lettre et texte), et la justification du MIT devient l'explication ;
-- la partie n'a pas d'option (une question redigee) : la question reste
-  une redaction, et la correction officielle du MIT est l'explication ;
-- la partie a des options mais le corrige en nomme **plusieurs**
-  (« Solution. A, C, D. ») : la question est **refusee**. La plateforme
-  n'a qu'une seule bonne reponse par question ; en garder une
-  parmi plusieurs serait en inventer une.
+Ce qui n'est pas extractible est refuse : une reponse vide, une
+reponse deformee par l'extraction, une question qui depend d'un schema
+absent (« on the next page »), une sous-question dont les propositions
+ne sont pas les memes dans l'enonce et dans le corrige.
 
 Usage :
     python3 tools/import-mit-choix-multiples.py --texte dossier/ \
@@ -69,19 +63,20 @@ def charger_module(nom, fichier):
     return module
 
 
-# Un probleme : « Problem 1 (Multiple Choice) (20 points). »
-RE_PROBLEME = re.compile(r"^\s*Problem\s+(\d+)\s*[.:]?\s*(.*)$")
+# « Problem 1 (Multiple Choice) (20 points). »
+RE_PROBLEME = re.compile(r"^\s*Problem\s+(\d+)\s*(.*)$")
 
-# Une partie : « (a) enonce »
-RE_PARTIE = re.compile(r"^\s*\(([a-z])\)\s+(\S.*)$")
+# Une sous-question : « (a) texte »
+RE_PARTIE = re.compile(r"^\s*\(([a-z])\)\s+(.*)$")
 
-# Une option : « A. texte »
-RE_OPTION = re.compile(r"^\s*([A-Z])\.\s+(\S.*)$")
+# Une proposition : « A. texte »
+RE_OPTION = re.compile(r"^\s*([A-Z])\.\s+(.*)$")
 
 # Le repere du corrige : « Solution. C. None of the other options... »
-RE_SOLUTION = re.compile(r"^\s*Solution\s*\.\s*(.*)$", re.I)
+RE_SOLUTION = re.compile(r"^\s*Solution\.\s*(.*)$")
 
-# Un enonce qui depend d'un support absent (schema, tableau, dessin).
+# Une question qui depend d'un support absent (schema, tableau, dessin,
+# page suivante du document).
 RE_INCOMPLET = re.compile(
     r"\bthe figure\b"
     r"|\bthe diagram\b"
@@ -89,24 +84,25 @@ RE_INCOMPLET = re.compile(
     r"|\bthe graph\b"
     r"|\bthe following\b"
     r"|\bthe table\b"
+    r"|\bthe next page\b"
     r"|\bthe code below\b"
-    r"|\bthe next page\b",
+    r"|\bon the next\b",
     re.I,
 )
 
 # Le caractere de remplacement : le PDF a perdu un symbole.
 RE_DEFORME = re.compile("[�]")
 
-# La longueur minimale de la reponse redigee (mode « solution »).
+# La longueur minimale d'une reponse redigee (mode « solution »).
 REPONSE_MIN = 80
 
 # Les pieds de page et les en-tetes de ces PDF.
 RE_PIED = re.compile(
-    r"^\s*Solutions? to Quiz \d+.*$"
-    r"|^\s*6\.005\s+Software Construction.*$"
-    r"|^\s*Quiz \d+\s*$"
-    r"|^\s*Name\s*:\s*_*\s*$"
-    r"|^\s*\d{1,2}\s*$",
+    r"^\s*\d{0,3}\s+MIT\s+6\.005"
+    r"|^\s*MIT\s+6\.005"
+    r"|^\s*\d{0,3}\s+Software Construction"
+    r"|^\s*6\.005\s+Software Construction"
+    r"|^\s*Quiz\s+\d+",
     re.I,
 )
 
@@ -118,101 +114,122 @@ def charger(chemin):
     with io.open(chemin, encoding="utf-8", errors="replace") as f:
         texte = f.read()
     lignes = texte.split("\n")
-    # L'en-tete OCW (la citation) est en fin de fichier : on le coupe
-    # partout ou il apparait.
     for i, ligne in enumerate(lignes):
         if RE_ENTETE.search(ligne):
             lignes = lignes[:i]
             break
-    return [l.rstrip() for l in lignes if l.strip() and not RE_PIED.match(l)]
+    nettoyees = []
+    for ligne in lignes:
+        ligne = ligne.rstrip()
+        # Un pied de page peut etre colle en fin de ligne
+        # (« … voteCounts[0] MIT OpenCourseWare https://ocw.mit.edu Spring 2016 »).
+        for motif in ("MIT OpenCourseWare", "Solutions to Quiz", "Quiz 1 of 2", "Quiz 2 of 2"):
+            coupe = ligne.find(motif)
+            if coupe > 0:
+                ligne = ligne[:coupe].rstrip()
+        if ligne.strip() and not RE_PIED.match(ligne):
+            nettoyees.append(ligne)
+    return nettoyees
 
 
 def normaliser(texte):
+    """Ramene un texte a une seule ligne, sans espaces multiples."""
     return re.sub(r"\s+", " ", texte).strip()
 
 
 def decouper(chemin):
-    """Decoupe le fichier en problemes, puis en parties.
+    """Decoupe le fichier en problemes, puis en sous-questions.
 
-    Renvoie [{titre, contexte, parties: [{cle, lignes}]}].
+    Renvoie une liste de dictionnaires :
+    {numero, titre, parties: [{cle, lignes}]}.
     """
     lignes = charger(chemin)
     problemes = []
-    courant = None
+    probleme = None
     partie = None
 
     def fermer_partie():
         nonlocal partie
-        if partie is not None and courant is not None:
-            courant["parties"].append(partie)
+        if partie is not None and probleme is not None:
+            probleme["parties"].append(partie)
         partie = None
 
     def fermer_probleme():
-        nonlocal courant
+        nonlocal probleme
         fermer_partie()
-        if courant is not None:
-            problemes.append(courant)
-        courant = None
+        if probleme is not None:
+            problemes.append(probleme)
+        probleme = None
 
     for ligne in lignes:
         m = RE_PROBLEME.match(ligne)
-        if m and not ligne.startswith(" "):
+        if m:
             fermer_probleme()
-            courant = {"titre": m.group(2).strip(), "contexte": [], "parties": []}
+            probleme = {"numero": m.group(1), "titre": m.group(2).strip(), "parties": []}
             continue
 
         m = RE_PARTIE.match(ligne)
-        if m and courant is not None:
+        if m and probleme is not None:
             fermer_partie()
             partie = {"cle": m.group(1), "lignes": [m.group(2).strip()]}
             continue
 
         if partie is not None:
             partie["lignes"].append(ligne.strip())
-        elif courant is not None:
-            courant["contexte"].append(ligne.strip())
+        elif probleme is not None:
+            # Le texte qui precede la premiere sous-question (le
+            # consigne du probleme) fait partie du probleme.
+            probleme.setdefault("preambule", []).append(ligne.strip())
 
     fermer_probleme()
     return problemes
 
 
-def options_de(lignes):
-    """Separe l'enonce d'une partie et ses options.
+def separating_options(lignes):
+    """Separe le texte de la question de ses propositions.
 
-    Renvoie (lignes_enonce, [(lettre, texte), ...]).
+    Renvoie (texte, propositions) ou (None, None) si la ligne contient
+    une proposition : le texte est alors les lignes d'avant, les
+    propositions sont les lignes qui commencent par « A. », « B. »...
     """
+    texte = []
     options = []
     for ligne in lignes:
-        m = RE_OPTION.match(ligne)
-        if m:
-            options.append((m.group(1), m.group(2).strip()))
-        elif not options:
-            continue
+        if RE_SOLUTION.match(ligne):
+            # Le repere du corrige n'est pas la suite d'une proposition :
+            # il commence la reponse.
+            break
+        if RE_OPTION.match(ligne):
+            options.append(ligne)
+        elif options:
+            # La suite d'une proposition (une ligne qui ne commence pas
+            # par une lettre) prolonge la proposition precedente.
+            options[-1] = options[-1] + " " + ligne.strip()
         else:
-            # Une ligne qui n'est pas une option, apres le debut des
-            # options : on l'ajoute a la derniere option (une option peut
-            # tenir sur plusieurs lignes).
-            if options:
-                options[-1] = (options[-1][0], options[-1][1] + " " + ligne.strip())
-    return options
+            texte.append(ligne)
+    return texte, options
 
 
-def separe_reponse(lignes):
-    """Separe la partie du corrige en (avant, reponse, apres).
-
-    Le repere « Solution. » coupe la partie : ce qui precede est
-    l'enonce et ses options, ce qui suit est la justification. Sans
-    cette separation, la ligne « Solution. » serait avalee par la
-    derniere option — et la reponse deviendrait introuvable.
-    """
+def reponse_officielle(lignes):
+    """Renvoie (lettres, justification) lues apres le repere « Solution. »."""
     for i, ligne in enumerate(lignes):
         m = RE_SOLUTION.match(ligne)
-        if m:
-            morceaux = [m.group(1).strip()]
-            for suite in lignes[i + 1:]:
-                morceaux.append(suite.strip())
-            return lignes[:i], normaliser(" ".join(morceaux))
-    return lignes, None
+        if not m:
+            continue
+        brut = m.group(1).strip()
+        suite = []
+        for suivante in lignes[i + 1:]:
+            if RE_SOLUTION.match(suivante) or RE_OPTION.match(suivante):
+                break
+            suite.append(suivante.strip())
+        texte = normaliser(" ".join([brut] + suite))
+        # Les bonnes reponses sont les lettres en debut : « C. », « A, D. »
+        m2 = re.match(r"^([A-Z](?:\s*,\s*[A-Z])*)\.\s*(.*)$", texte)
+        if not m2:
+            return [], texte
+        lettres = [l.strip() for l in m2.group(1).split(",") if l.strip()]
+        return lettres, normaliser(m2.group(2))
+    return None, None
 
 
 def premiers_mots(texte, n=12):
@@ -220,7 +237,7 @@ def premiers_mots(texte, n=12):
 
 
 def construire(chemin_examen, chemin_corrige, prefixe, attribution, licence, xp=20):
-    """Apparie les parties de l'enonce aux reponses du corrige officiel."""
+    """Apparie les sous-questions de l'enonce aux reponses du corrige."""
     problemes_examen = decouper(chemin_examen)
     problemes_corrige = decouper(chemin_corrige)
 
@@ -231,113 +248,142 @@ def construire(chemin_examen, chemin_corrige, prefixe, attribution, licence, xp=
             break
         corrige = problemes_corrige[index]
 
-        if premiers_mots(probleme["titre"], 3) != premiers_mots(corrige["titre"], 3):
+        # Verification 1 : meme numero de probleme, meme titre.
+        if probleme["numero"] != corrige["numero"]:
             continue
+        if normaliser(probleme["titre"])[:40] != normaliser(corrige["titre"])[:40]:
+            continue
+
+        # Verification 2 : le corrige doit avoir autant de sous-questions.
         if len(probleme["parties"]) != len(corrige["parties"]):
-            print("    probleme %d : %d partie(s) dans l'enonce, %d dans le corrige — abandonne"
-                  % (index + 1, len(probleme["parties"]), len(corrige["parties"])), file=sys.stderr)
+            print("    probleme %s : le corrige a %d sous-question(s) contre %d — abandonne"
+                  % (probleme["numero"], len(corrige["parties"]), len(probleme["parties"])),
+                  file=sys.stderr)
             continue
 
         for position, partie_examen in enumerate(probleme["parties"]):
             partie_corrige = corrige["parties"][position]
 
-            enonce_examen = normaliser(" ".join(partie_examen["lignes"]))
-            enonce_corrige = normaliser(" ".join(partie_corrige["lignes"]))
+            texte_examen, options_examen = separating_options(partie_examen["lignes"])
+            texte_corrige, options_corrige = separating_options(partie_corrige["lignes"])
 
-            if premiers_mots(enonce_examen) != premiers_mots(enonce_corrige):
-                print("    partie %s : l'enonce ne correspond pas — refusee" % partie_examen["cle"],
-                      file=sys.stderr)
+            enonce = normaliser(" ".join(texte_examen))
+            enonce_corrige = normaliser(" ".join(texte_corrige))
+
+            # Verification 3 : les premiers mots doivent etre les memes.
+            if premiers_mots(enonce) != premiers_mots(enonce_corrige):
+                print("    sous-question %s : l'enonce ne correspond pas — refusee"
+                      % partie_examen["cle"], file=sys.stderr)
                 continue
 
-            lignes_corrige, reponse = separe_reponse(partie_corrige["lignes"])
-            if reponse is None:
-                print("    partie %s : pas de repere « Solution. » — refusee" % partie_examen["cle"],
-                      file=sys.stderr)
+            # Verification 4 : les propositions doivent etre les memes.
+            if len(options_examen) != len(options_corrige):
+                print("    sous-question %s : les propositions ne correspondent pas — refusee"
+                      % partie_examen["cle"], file=sys.stderr)
                 continue
-
-            if RE_DEFORME.search(enonce_examen) or RE_DEFORME.search(reponse):
-                print("    partie %s : enonce ou reponse deforme(e) — refusee" % partie_examen["cle"],
-                      file=sys.stderr)
-                continue
-            if RE_INCOMPLET.search(enonce_examen) or RE_INCOMPLET.search(reponse):
-                print("    partie %s : depend d'un schema absent — refusee" % partie_examen["cle"],
-                      file=sys.stderr)
-                continue
-
-            # L'enonce de la partie, sans les options.
-            lignes_sans_options = []
-            for ligne in partie_examen["lignes"]:
-                if RE_OPTION.match(ligne):
+            options_ok = True
+            for o_examen, o_corrige in zip(options_examen, options_corrige):
+                if premiers_mots(o_examen, 6) != premiers_mots(o_corrige, 6):
+                    options_ok = False
                     break
-                lignes_sans_options.append(ligne)
-            enonce = normaliser(" ".join(lignes_sans_options))
+            if not options_ok:
+                print("    sous-question %s : une proposition ne correspond pas — refusee"
+                      % partie_examen["cle"], file=sys.stderr)
+                continue
 
-            options_examen = options_de(partie_examen["lignes"])
-            options_corrige = options_de(lignes_corrige)
+            lettres, justification = reponse_officielle(partie_corrige["lignes"])
+            if lettres is None:
+                print("    sous-question %s : pas de repere « Solution. » — refusee"
+                      % partie_examen["cle"], file=sys.stderr)
+                continue
+            if not justification:
+                print("    sous-question %s : reponse vide — refusee" % partie_examen["cle"],
+                      file=sys.stderr)
+                continue
+            if RE_DEFORME.search(enonce) or RE_DEFORME.search(justification):
+                print("    sous-question %s : enonce ou reponse deforme(e) — refusee"
+                      % partie_examen["cle"], file=sys.stderr)
+                continue
+            if RE_INCOMPLET.search(enonce) or RE_INCOMPLET.search(justification):
+                print("    sous-question %s : depend d'un schema absent — refusee"
+                      % partie_examen["cle"], file=sys.stderr)
+                continue
 
-            contexte = normaliser(" ".join(probleme["contexte"]))
-            texte_question = prefixe + (probleme["titre"] + "\n" if probleme["titre"] else "")
-            if contexte:
-                texte_question += contexte + "\n"
-            texte_question += enonce
+            libelle_probleme = "Problem %s%s" % (
+                probleme["numero"],
+                (" " + probleme["titre"]) if probleme["titre"] else "")
 
-            if len(options_examen) >= 2:
-                # Les options d'origine, avec leur lettre : la correction
-                # officielle parle de la lettre (« Solution. C. »), donc
-                # la lettre doit rester visible.
-                lettres = [lettre for lettre, _ in options_examen]
-                if lettres != [chr(ord("A") + i) for i in range(len(lettres))]:
-                    print("    partie %s : options numerotees a trous — refusee" % partie_examen["cle"],
-                          file=sys.stderr)
-                    continue
-                if [l for l, _ in options_corrige] != lettres:
-                    print("    partie %s : les options du corrige ne correspondent pas — refusee"
+            if options_examen:
+                propositions = []
+                for ligne in options_examen:
+                    m = RE_OPTION.match(ligne)
+                    # On garde la lettre : c'est elle que le corrige cite.
+                    propositions.append(normaliser(m.group(0)))
+                index_justes = []
+                for lettre in lettres:
+                    trouve = False
+                    for i, proposition in enumerate(propositions):
+                        if proposition.startswith(lettre + "."):
+                            if i not in index_justes:
+                                index_justes.append(i)
+                            trouve = True
+                            break
+                    if not trouve:
+                        break
+                if len(index_justes) != len(lettres):
+                    print("    sous-question %s : les bonnes reponses ne correspondent pas — refusee"
                           % partie_examen["cle"], file=sys.stderr)
                     continue
-
-                m = re.match(r"^([A-Z])(\s*[,;]\s*[A-Z])*\.", reponse)
-                if not m:
-                    print("    partie %s : la reponse ne nomme pas une option — refusee"
+                if len(index_justes) == 1:
+                    # Une seule bonne reponse : la plateforme la note.
+                    question = {
+                        "question": prefixe + libelle_probleme + "\n" + enonce
+                                    + "\n" + "\n".join(propositions),
+                        "mode": "choice",
+                        "choices": propositions,
+                        "correct": index_justes[0],
+                        "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
+                        "explanation": "Corrigé officiel du MIT : " + justification,
+                        "source": attribution,
+                        "licence": licence,
+                        "xp": xp,
+                    }
+                else:
+                    # Plusieurs bonnes reponses : la plateforme ne note pas
+                    # une reponse multiple. L'eleve redige, le corrige du
+                    # MIT s'affiche — on ne change pas la question.
+                    if len("Corrigé officiel du MIT : " + ", ".join(lettres)
+                           + ". " + justification) < REPONSE_MIN:
+                        print("    sous-question %s : reponse trop courte — refusee"
+                              % partie_examen["cle"], file=sys.stderr)
+                        continue
+                    question = {
+                        "question": prefixe + libelle_probleme + "\n" + enonce
+                                    + "\n" + "\n".join(propositions)
+                                    + "\nRéponds par les lettres des propositions justes (A, D par exemple).",
+                        "mode": "solution",
+                        "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+                        "explanation": "Corrigé officiel du MIT : " + ", ".join(lettres)
+                                    + ". " + justification,
+                        "source": attribution,
+                        "licence": licence,
+                        "xp": xp,
+                    }
+            else:
+                if len(justification) < REPONSE_MIN:
+                    print("    sous-question %s : reponse trop courte — refusee"
                           % partie_examen["cle"], file=sys.stderr)
                     continue
-                trouvees = re.findall(r"\b([A-Z])\b", reponse.split(".")[0])
-                if len(trouvees) != 1:
-                    print("    partie %s : la reponse en nomme %d — une seule est admise, refusee"
-                          % (partie_examen["cle"], len(trouvees)), file=sys.stderr)
-                    continue
-                lettre = trouvees[0]
-                if lettre not in lettres:
-                    print("    partie %s : la reponse (%s) n'est pas une option — refusee"
-                          % (partie_examen["cle"], lettre), file=sys.stderr)
-                    continue
-                justification = reponse.split(".", 1)[1].strip() if "." in reponse else ""
-                if not justification:
-                    justification = "Reponse officielle du MIT : " + lettre + "."
-                questions.append({
-                    "question": texte_question,
-                    "mode": "choice",
-                    "choices": ["%s. %s" % (l, t) for l, t in options_examen],
-                    "correct": lettres.index(lettre),
-                    "hint": "Question d’examen du MIT : choisis la bonne proposition ; la correction officielle du MIT s’affiche après ta réponse.",
+                question = {
+                    "question": prefixe + libelle_probleme + "\n" + enonce,
+                    "mode": "solution",
+                    "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
                     "explanation": "Corrigé officiel du MIT : " + justification,
                     "source": attribution,
                     "licence": licence,
                     "xp": xp,
-                })
-            else:
-                if len(reponse) < REPONSE_MIN:
-                    print("    partie %s : reponse trop courte — refusee" % partie_examen["cle"],
-                          file=sys.stderr)
-                    continue
-                questions.append({
-                    "question": texte_question,
-                    "mode": "solution",
-                    "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
-                    "explanation": "Corrigé officiel du MIT : " + reponse,
-                    "source": attribution,
-                    "licence": licence,
-                    "xp": xp,
-                })
+                }
+            questions.append(question)
 
     return questions
 

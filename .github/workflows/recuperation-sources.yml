@@ -1,0 +1,91 @@
+name: Recuperation des sources (manuel)
+
+# Le bac a sable de developpement n'atteint pas tous les sites (stanford.edu
+# est bloque par le proxy). Le runner GitHub, lui, a internet. Ce workflow
+# telecharge les documents d'examens la ou ils sont publies et les garde
+# comme artefact : on peut ensuite les extraire localement, avec la meme
+# chaine d'outils (pdftotext) que pour le MIT.
+#
+# Il ne modifie rien : il ne fait que telecharger. C'est une action
+# manuelle (workflow_dispatch), pas un triggered par chaque push.
+
+on:
+  workflow_dispatch:
+    inputs:
+      quoi:
+        description: "Ce qu'on telecharge (stanford, harvard, ou les deux)"
+        required: false
+        default: "les deux"
+
+jobs:
+  telecharge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preparer le dossier
+        run: mkdir -p sources && cd sources
+
+      - name: Stanford CS107 — la page des examens et ses PDF
+        if: ${{ inputs.quoi == 'les deux' || inputs.quoi == 'stanford' }}
+        run: |
+          set -x
+          curl -sL --max-time 60 -o cs107-exams.html \
+            "https://web.stanford.edu/class/archive/cs/cs107/cs107.1194/exams/final.html" || true
+          curl -sL --max-time 60 -o cs107-exams-2.html \
+            "https://web.stanford.edu/class/archive/cs/cs107/cs107.1194/exams/" || true
+          grep -oE 'href="[^"]+\.pdf"' cs107-exams.html cs107-exams-2.html 2>/dev/null \
+            | sed 's/.*href="//; s/"$//' | sort -u > cs107-liens.txt || true
+          while read -r lien; do
+            [ -z "$lien" ] && continue
+            case "$lien" in
+              http*) url="$lien" ;;
+              /*)   url="https://web.stanford.edu$lien" ;;
+              *)    url="https://web.stanford.edu/class/archive/cs/cs107/cs107.1194/exams/$lien" ;;
+            esac
+            nom=$(basename "$lien")
+            curl -sL --max-time 120 -o "cs107-$nom" "$url" || true
+          done < cs107-liens.txt
+          ls -la
+
+      - name: Stanford CS230 — partiels et corriges
+        if: ${{ inputs.quoi == 'les deux' || inputs.quoi == 'stanford' }}
+        run: |
+          set -x
+          for f in cs230exam_win21.pdf cs230exam_win21_soln.pdf \
+                   cs230exam_fall20.pdf cs230exam_fall20_soln.pdf \
+                   cs230exam_spring19.pdf cs230exam_spring19_soln.pdf; do
+            curl -sL --max-time 120 -o "$f" "https://cs230.stanford.edu/files/$f" || true
+          done
+          ls -la
+
+      - name: Stanford CS224N — partiels et corriges
+        if: ${{ inputs.quoi == 'les deux' || inputs.quoi == 'stanford' }}
+        run: |
+          set -x
+          mkdir -p cs224n && cd cs224n
+          for f in midterm_2018.pdf midterm_2018_solution.pdf \
+                   midterm_2019.pdf midterm_2019_solution.pdf \
+                   final_2018.pdf final_2018_solution.pdf; do
+            curl -sL --max-time 120 -o "$f" \
+              "https://web.stanford.edu/class/cs224n/archives/notes/$f" || true
+          done
+          cd ..
+          ls -la cs224n
+
+      - name: Harvard CS50 — les problemes et leurs corriges
+        if: ${{ inputs.quoi == 'les deux' || inputs.quoi == 'harvard' }}
+        run: |
+          set -x
+          mkdir -p cs50 && cd cs50
+          for n in 1 2 3 4 5 6 7 8 9 10; do
+            curl -sL --max-time 60 -o "pset$n.html" "https://cs50.harvard.edu/x/2024/psets/$n/" || true
+            curl -sL --max-time 60 -o "pset$n-solutions.html" "https://cs50.harvard.edu/x/2024/psets/$n/solutions/" || true
+          done
+          cd ..
+          ls -la cs50
+
+      - name: Deposer les documents telecharges
+        uses: actions/upload-artifact@v4
+        with:
+          name: sources
+          path: sources/
+          if-no-files-found: warn
