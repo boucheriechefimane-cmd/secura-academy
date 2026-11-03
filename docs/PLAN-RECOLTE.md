@@ -70,7 +70,7 @@ Trois refuses motives, tous rencontres :
   contient des fractions que `pdftotext` restitue de travers. Une reponse
   deformee est pire qu'une question absente.
 
-## 4. La suite
+## 5. La suite
 
 1. ~~**Ecrire l'extracteur « enonce repete »**~~ — **fait** : il est ecrit
    (`tools/import-mit-enonce-repete.py`), le MIT 6.189 est importe (3
@@ -87,4 +87,92 @@ Trois refuses motives, tous rencontres :
 Chaque vague suit la meme regle : **rien n'est reecrit, rien n'est devine,
 chaque reponse vient du corrige officiel de l'universite**, avec l'attribution
 et la licence dans le catalogue (`tools/sources-autorisees.json`).
+
+## 4. L'elargissement : tous les cours EECS, sans filtre de titre
+
+Le premier inventaire ne gardait que les cours dont le **titre** contenait
+un mot-cle technique. C'etait une source de trous : un cours peut etre
+tres technique sans que son titre ne le dise. Les **292 cours** du MIT
+EECS (les `6.xxx`, plus `12-010`, `15-09x`, `16-36`, `18-0xx`, `18-4xx`,
+`18-6xx`, `24-2xx`) ont donc ete examines un par un : page du cours,
+pages d'examen, puis **nom des fichiers** — le nom est dans l'URL de la
+ressource (`/resources/mit6_005s16_quiz1_soln/`), donc on sait de memoire
+quels fichiers sont des corriges.
+
+→ **98 nouveaux cours** ont une page d'examen avec des fichiers ; **55**
+ont au moins un fichier de corrige identifiable.
+
+| Cours | Fichiers de corrige | Verdict |
+|---|---|---|
+| `15-093j-optimization-methods-fall-2009` | `mit15_093j_f09_fin_03_sol`, `mit15_093j_f09_md_09_sol` | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-01-single-variable-calculus-fall-2005` | `ocw01f05exam1sol`, `ocw01f05exam2sol`, `ocw01f05exam3sol`, `ocw01f05exam4sol`, `ocw01f05exam5sol` … (6) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-01-single-variable-calculus-fall-2006` | `exam1sol`, `exam2sol`, `exam3sol`, `exam4sol`, `prexam1asolv1` … (14) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-014-calculus-with-theory-fall-2010` | `mit18_014f10_ex1_sols`, `mit18_014f10_ex2_sols`, `mit18_014f10_ex3_sols`, `mit18_014f10_pr_ex1_sols`, `mit18_014f10_pr_ex2_sols` … (6) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-01sc-single-variable-calculus-fall-2010` | `mit18_01scf10_finalsol` | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-02-multivariable-calculus-fall-2007` | `prac1asol`, `prac1bsol`, `prac2asol`, `prac2bsol`, `prac3asol` … (8) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-02-multivariable-calculus-spring-2006` | `prac1asol`, `prac1bsol`, `prac2asol`, `prac2bsol`, `prac3asol` … (10) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-024-multivariable-calculus-with-theory-spring-2011` | `mit18_024s11_exam1solutns`, `mit18_024s11_exam2solutns`, `mit18_024s11_pracexam1sol`, `mit18_024s11_pracexam2sol` | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-034-honors-differential-equations-spring-2004` | `034examsoln1`, `034examsoln2`, `034examsoln3`, `034fsoln`, `034pexamsoln2` … (7) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-04-complex-variables-with-applications-spring-2018` | `mit18_04_s18_pset01_sol_pdf`, `mit18_04_s18_pset02_sol_pdf`, `mit18_04_s18_pset03_sol_pdf`, `mit18_04_s18_pset04_sol_pdf`, `mit18_04_s18_pset05_sol_pdf` … (9) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-05-introduction-to-probability-and-statistics-spring-2022` | `mit18_05_s22_exam01_sol_pdf`, `mit18_05_s22_exam02_sol_pdf`, `mit18_05_s22_exam1_rev_pset_sol_pdf`, `mit18_05_s22_exam2_rev_pset_sol_pdf`, `mit18_05_s22_exam_final_sol_pdf` … (24) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-06-linear-algebra-spring-2010` | `mit18_06s10_exam1_s10_sol`, `mit18_06s10_exam2_s10_soln`, `mit18_06s10_exam3_s10_soln`, `mit18_06s10_final_answers` | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-075-advanced-calculus-for-engineers-fall-2004` | `erat_sol_pr3_ex3`, `sol_class_ex1`, `sol_class_ex2`, `sol_class_pra1`, `sol_pra1_ex3` … (12) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-085-computational-science-and-engineering-i-fall-2008` | `f02q1sol`, `f02q2sol`, `f02q3sol`, `fall08qz2sol12`, `q118085f03sol` … (20) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-085-computational-science-and-engineering-i-summer-2020` | `mit18_085summer20_final_sol`, `mit18_085summer20_mid_sol` | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-404j-theory-of-computation-fall-2020` | `sample-final-exam-solutions` | **PDF scannes** : refus, sauf OCR. |
+| `18-435j-quantum-computation-fall-2003` | `quiz1_sol` | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-440-probability-and-random-variables-spring-2014` | `mit18_440s14_final2011_sol`, `mit18_440s14_final2012_sol`, `mit18_440s14_final2014_sol`, `mit18_440s14_mid1_2011_sol`, `mit18_440s14_mid1_2014_sol` … (8) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-443-statistics-for-applications-spring-2015` | `mit18_443s15_exam1_sol`, `mit18_443s15_exam2_sol`, `mit18_443s15_exam3_sol` | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `18-600-probability-and-random-variables-fall-2019` | `mit18_600f19_final_2011_soln`, `mit18_600f19_final_2012_soln`, `mit18_600f19_final_2014_soln`, `mit18_600f19_final_2016_soln`, `mit18_600f19_final_2017_soln` … (26) | Hors theme cyber (mathematiques, physique, signal) : le sujet n'entre pas dans les parcours. |
+| `6-001-structure-and-interpretation-of-computer-programs-spring-2005` | `q1_sp05_solnspdf`, `q2_solns_postpdf` | **Texte illisible** (encodage de police casse) : refus. |
+| `6-003-signals-and-systems-fall-2011` | `final-exam-solutions-fall-2009`, `final-exam-solutions-fall-2011`, `final-exam-solutions-spring-2010`, `quiz-1-solutions-fall-2009`, `quiz-1-solutions-fall-2011` … (11) | A verifier. |
+| `6-005-software-construction-spring-2016` | `mit6_005s16_quiz1_soln`, `mit6_005s16_quiz2_soln` | **PDF scannes** : refus, sauf OCR. |
+| `6-011-introduction-to-communication-control-and-signal-processing-spring-2010` | `mit6_011s10_final_ans`, `mit6_011s10_final_sol`, `mit6_011s10_quiz01_ans`, `mit6_011s10_quiz01_sol`, `mit6_011s10_quiz02_ans` … (6) | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-012-microelectronic-devices-and-circuits-fall-2005` | `final_soln`, `q1_soln`, `q2_soln` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-012-microelectronic-devices-and-circuits-fall-2009` | `mit6_012f09_exam1_s06_sol`, `mit6_012f09_exam1_s08_sol`, `mit6_012f09_exam1_sol`, `mit6_012f09_exam2_s06_sol`, `mit6_012f09_exam2_s08_sol` … (6) | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-013-electromagnetics-and-applications-fall-2005` | `q1_solution`, `q2_solution` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-013-electromagnetics-and-applications-spring-2009` | `mit6_013s09_sol_exam`, `mit6_013s09_sol_quiz01`, `mit6_013s09_sol_quiz02` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-035-computer-language-engineering-spring-2010` | `mit6_035s10_quiz02_sol` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010` | `mit6_041f10_final_f09_sol`, `mit6_041f10_final_s09_sol`, `mit6_041f10_final_sol`, `mit6_041f10_quiz01_f09_sol`, `mit6_041f10_quiz01_s09_sol` … (9) | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-041-probabilistic-systems-analysis-and-applied-probability-spring-2006` | `final_sol`, `quiz1_sol`, `quiz2_sol` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-041sc-probabilistic-systems-analysis-and-applied-probability-fall-2013` | `mit6_041scf13_fin_f09_sol`, `mit6_041scf13_final_sol`, `mit6_041scf13_finl_s09_sol` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-042j-mathematics-for-computer-science-fall-2005` | `finalsol`, `q1sol`, `q2sol`, `spring02_q1sol` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-042j-mathematics-for-computer-science-fall-2010` | `mit6_042jf10_fnl_2004_sol`, `mit6_042jf10_fnl_2006_sol`, `mit6_042jf10_fnl_2008_sol`, `mit6_042jf10_mid_pctce_sol`, `mit6_042jf10_midterm_sol` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-061-introduction-to-electric-power-systems-spring-2011` | `mit6_061s11_quiz01_sol`, `mit6_061s11_quiz02_sol` | A verifier. |
+| `6-111-introductory-digital-systems-laboratory-fall-2002` | `quiz1sols`, `quiz2sols` | A verifier. |
+| `6-152j-micro-nano-processing-technology-fall-2005` | `quiz1soln`, `quiz2_f04_soln` | A verifier. |
+| `6-172-performance-engineering-of-software-systems-fall-2018` | `practice-quiz-1-solutions`, `practice-quiz-2-solutions`, `practice-quiz-4-solutions`, `recitation-3-solutions`, `recitation-4-solutions` … (8) | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-241j-dynamic-systems-and-control-spring-2011` | `mit6_241js11_midterm_sol` | A verifier. |
+| `6-243j-dynamics-of-nonlinear-systems-fall-2003` | `t1sol_6243_2003`, `t2sol_6243_2003` | A verifier. |
+| `6-253-convex-analysis-and-optimization-spring-2012` | `mit6_253s12_mid_s10_sol`, `mit6_253s12_midterm_sol` | A verifier. |
+| `6-262-discrete-stochastic-processes-spring-2011` | `mit6_262s11_final09_sol`, `mit6_262s11_final11_sol`, `mit6_262s11_mid09_sol`, `mit6_262s11_mid10_sol`, `mit6_262s11_mid11_sol` | A verifier. |
+| `6-341-discrete-time-signal-processing-fall-2005` | `backexam_f04_sol`, `backexam_soln`, `final_f05_soln`, `final_fall04_sol`, `midexam_f04_soln` … (6) | A verifier. |
+| `6-450-principles-of-digital-communications-i-fall-2006` | `quiz1_01_soln`, `quiz1_03_soln`, `quiz1_04_soln`, `quiz1_06_soln`, `quiz2_06_soln` | A verifier. |
+| `6-451-principles-of-digital-communication-ii-spring-2005` | `final02solns2`, `final03solns`, `final05solns`, `midterm03solns`, `midterm05solns` … (6) | A verifier. |
+| `6-453-quantum-optical-communication-fall-2016` | `mit6_453f16_midtermsoln` | A verifier. |
+| `6-641-electromagnetic-fields-forces-and-motion-spring-2005` | `03_q01_sol`, `03_q02_sol`, `04_final_sol`, `04_q01_sol`, `04_q02_sol` … (8) | A verifier. |
+| `6-641-electromagnetic-fields-forces-and-motion-spring-2009` | `mit6_641s09_sol_exam2006`, `mit6_641s09_sol_exam2008`, `mit6_641s09_sol_exam2009`, `mit6_641s09_sol_quiz2006_1`, `mit6_641s09_sol_quiz2006_2` … (7) | A verifier. |
+| `6-642-continuum-electromechanics-fall-2008` | `finalexam_sol`, `midterm_sol` | A verifier. |
+| `6-7220j-nonlinear-optimization-spring-2025` | `mit6_7220_s25_midterm24_sol_pdf` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+| `6-780-semiconductor-manufacturing-spring-2003` | `quiz1solutions`, `quiz2solutions` | A verifier. |
+| `6-801-machine-vision-fall-2004` | `2004_qz1_sol`, `2004_qz2_sol` | A verifier. |
+| `6-830-database-systems-fall-2010` | `mit6_830f10_quiz01_sol`, `mit6_830f10_quiz02_sol` | A verifier. |
+| `6-884-complex-digital-systems-spring-2005` | `q1_solns` | A verifier. |
+| `6-896-theory-of-parallel-hardware-sma-5511-spring-2004` | `fsol` | **A verifier** — le cours est technique et a des corriges : c'est la prochaine cible. |
+
+**Les trois cours cyber testes dans cette vague sont refuses, et c'est
+conforme a la regle** :
+
+- **6.005 Software Construction (Spring 2016)** — deux quiz avec leurs
+  corriges, sur la revue de code et les tests : le sujetideal pour les
+  salles « code sur ». Mais les PDF sont **scannes** (pas de couche
+  texte) : sans OCR, on ne peut ni lire l'enonce ni lire le corrige.
+- **18.404J Theory of Computation (Fall 2020)** — idem, PDF scannes.
+- **6.001 Structure and Interpretation of Computer Programs (Spring 2005)**
+  — le PDF a une couche texte, mais l'encodage de la police est casse : le
+  texte restitue est illisible.
+
+Ces trois cours-la sont donc **recenses comme cibles** : ils redeviendront
+importables le jour ou l'on dispose d'un OCR (ou d'une version textuelle
+officielle). En attendant, on ne les invente pas.
 
