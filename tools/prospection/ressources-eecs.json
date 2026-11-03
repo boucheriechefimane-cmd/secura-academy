@@ -1,0 +1,1480 @@
+[
+ {
+  "slug": "15-093j-optimization-methods-fall-2009",
+  "page": "exams",
+  "ressources": [
+   "mit15_093j_f09_fin_03_sol",
+   "mit15_093j_f09_fin_review",
+   "mit15_093j_f09_final_2003",
+   "mit15_093j_f09_final_2006",
+   "mit15_093j_f09_md_09_sol",
+   "mit15_093j_f09_mid_2008"
+  ]
+ },
+ {
+  "slug": "18-014-calculus-with-theory-fall-2010",
+  "page": "exams",
+  "ressources": [
+   "mit18_014f10_ex1",
+   "mit18_014f10_ex1_sols",
+   "mit18_014f10_ex2",
+   "mit18_014f10_ex2_sols",
+   "mit18_014f10_ex3",
+   "mit18_014f10_ex3_sols",
+   "mit18_014f10_final_pr_ex",
+   "mit18_014f10_pr_ex1",
+   "mit18_014f10_pr_ex1_sols",
+   "mit18_014f10_pr_ex2",
+   "mit18_014f10_pr_ex2_sols",
+   "mit18_014f10_pr_ex3",
+   "mit18_014f10_pr_ex3_sols"
+  ]
+ },
+ {
+  "slug": "18-01sc-single-variable-calculus-fall-2010",
+  "page": "final-exam",
+  "ressources": [
+   "mit18_01scf10_final",
+   "mit18_01scf10_finalsol"
+  ]
+ },
+ {
+  "slug": "18-01-single-variable-calculus-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "exam4c",
+   "ocw01exam1",
+   "ocw01exam2",
+   "ocw01exam3",
+   "ocw01exam4",
+   "ocw01exam5",
+   "ocw01f05exam1",
+   "ocw01f05exam1sol",
+   "ocw01f05exam2",
+   "ocw01f05exam2sol",
+   "ocw01f05exam3",
+   "ocw01f05exam3sol",
+   "ocw01f05exam4",
+   "ocw01f05exam4sol",
+   "ocw01f05exam5",
+   "ocw01f05exam5pra",
+   "ocw01f05exam5sol",
+   "ocw01f05final-1-1",
+   "ocw01f05finalpra",
+   "ocwpracsolns",
+   "ocwpractfinal",
+   "pfa",
+   "pfb",
+   "pfc"
+  ]
+ },
+ {
+  "slug": "18-01-single-variable-calculus-fall-2006",
+  "page": "exams",
+  "ressources": [
+   "endoftermf06",
+   "exam1",
+   "exam1sol",
+   "exam2",
+   "exam2sol",
+   "exam3",
+   "exam3review",
+   "exam3sol",
+   "exam4",
+   "exam4review",
+   "exam4sol",
+   "exm4formulasheet",
+   "prexam1a",
+   "prexam1asolv1",
+   "prexam1asolv2",
+   "prexam1b",
+   "prexam1bsol",
+   "prexam2a",
+   "prexam2asol",
+   "prexam2b",
+   "prexam2bsol",
+   "prexam3a",
+   "prexam3asol",
+   "prexam3b",
+   "prexam3bsol",
+   "prexam4a",
+   "prexam4asol",
+   "prexam4b",
+   "prexam4bsol",
+   "prfinal",
+   "prfinalsol",
+   "ps1",
+   "ps2a",
+   "ps2b",
+   "ps3",
+   "ps4",
+   "ps5",
+   "ps6",
+   "ps7",
+   "ps8a",
+   "ps8b",
+   "unit1_review",
+   "unit2_review"
+  ]
+ },
+ {
+  "slug": "18-022-calculus-of-several-variables-fall-2010",
+  "page": "exams",
+  "ressources": [
+   "mit18_022f10_exam_1",
+   "mit18_022f10_exam_2",
+   "mit18_022f10_exam_3",
+   "mit18_022f10_fin_exam",
+   "mit18_022f10_fin_model",
+   "mit18_022f10_mid_1_model",
+   "mit18_022f10_mid_2_model",
+   "mit18_022f10_mid_3_model",
+   "mit18_022f10_pra_1_model",
+   "mit18_022f10_pra_1t",
+   "mit18_022f10_pra_2_model",
+   "mit18_022f10_pra_2t",
+   "mit18_022f10_pra_3_model",
+   "mit18_022f10_pra_3t",
+   "mit18_022f10_prf_model",
+   "mit18_022f10_prft"
+  ]
+ },
+ {
+  "slug": "18-024-multivariable-calculus-with-theory-spring-2011",
+  "page": "exams",
+  "ressources": [
+   "mit18_024s11_exam1",
+   "mit18_024s11_exam1solutns",
+   "mit18_024s11_exam2",
+   "mit18_024s11_exam2solutns",
+   "mit18_024s11_fnlexmprepmat",
+   "mit18_024s11_pracexam1sol",
+   "mit18_024s11_pracexam2sol",
+   "mit18_024s11_practiceexam1",
+   "mit18_024s11_practiceexam2"
+  ]
+ },
+ {
+  "slug": "18-02-multivariable-calculus-fall-2007",
+  "page": "exams",
+  "ressources": [
+   "prac1a",
+   "prac1asol",
+   "prac1b",
+   "prac1bsol",
+   "prac2a",
+   "prac2asol",
+   "prac2b",
+   "prac2bsol",
+   "prac3a",
+   "prac3asol",
+   "prac3b",
+   "prac3bsol",
+   "prac4a",
+   "prac4asol",
+   "prac4b",
+   "prac4bsol"
+  ]
+ },
+ {
+  "slug": "18-02-multivariable-calculus-spring-2006",
+  "page": "exams",
+  "ressources": [
+   "exam1",
+   "exam2",
+   "exam3",
+   "exam4",
+   "prac1a",
+   "prac1asol",
+   "prac1b",
+   "prac1bsol",
+   "prac2a",
+   "prac2asol",
+   "prac2b",
+   "prac2bsol",
+   "prac3a",
+   "prac3asol",
+   "prac3b",
+   "prac3bsol",
+   "prac4a",
+   "prac4asol",
+   "prac4b",
+   "prac4bsol",
+   "pracfinala",
+   "pracfinalasol",
+   "pracfinalb",
+   "pracfinalbsol"
+  ]
+ },
+ {
+  "slug": "18-034-honors-differential-equations-spring-2004",
+  "page": "exams",
+  "ressources": [
+   "034exam1",
+   "034exam2",
+   "034exam3",
+   "034examsoln1",
+   "034examsoln2",
+   "034examsoln3",
+   "034final",
+   "034fsoln",
+   "034pexam1",
+   "034pexam2",
+   "034pexam3",
+   "034pexamsoln2",
+   "034pexamsoln3",
+   "034pfinal",
+   "034pfsoln",
+   "034review1"
+  ]
+ },
+ {
+  "slug": "18-034-honors-differential-equations-spring-2009",
+  "page": "exams",
+  "ressources": [
+   "mit18_034s09_exam01_midterm01",
+   "mit18_034s09_exam02_midterm02",
+   "mit18_034s09_exam03_midterm03",
+   "mit18_034s09_exam04_pfinal",
+   "mit18_034s09_rec05_pmidterm01",
+   "mit18_034s09_rec11_pmidterm02",
+   "mit18_034s09_rec17_pmidterm03"
+  ]
+ },
+ {
+  "slug": "18-03-differential-equations-spring-2010",
+  "page": "exams",
+  "ressources": [
+   "mit18_03s10_ex1",
+   "mit18_03s10_ex1spdf",
+   "mit18_03s10_ex2",
+   "mit18_03s10_ex2spdf",
+   "mit18_03s10_ex3",
+   "mit18_03s10_ex3spdf",
+   "mit18_03s10_final",
+   "mit18_03s10_prex1",
+   "mit18_03s10_prex_02_guidepdf",
+   "mit18_03s10_prex_03_guidepdf",
+   "mit18_03s10_prfinal",
+   "mit18_03s10_prfinals"
+  ]
+ },
+ {
+  "slug": "18-03sc-differential-equations-fall-2011",
+  "page": "final-exam",
+  "ressources": [
+   "mit18_03scf11_final",
+   "mit18_03scf11_finals",
+   "mit18_03scf11_prfinal",
+   "mit18_03scf11_prfinals"
+  ]
+ },
+ {
+  "slug": "18-04-complex-variables-with-applications-fall-1999",
+  "page": "exams",
+  "ressources": [
+   "exam_1",
+   "exam_2",
+   "exam_3"
+  ]
+ },
+ {
+  "slug": "18-04-complex-variables-with-applications-spring-2018",
+  "page": "exams",
+  "ressources": [
+   "mit18_04s18_pex1",
+   "mit18_04s18_pex1-qa",
+   "mit18_04s18_pex2",
+   "mit18_04s18_pex2-qa",
+   "mit18_04s18_practice-final",
+   "mit18_04s18_practice-final-qa"
+  ]
+ },
+ {
+  "slug": "18-04-complex-variables-with-applications-spring-2018",
+  "page": "problem-sets-and-solutions",
+  "ressources": [
+   "mit18_04_s18_pset01_pdf",
+   "mit18_04_s18_pset01_sol_pdf",
+   "mit18_04_s18_pset02_pdf",
+   "mit18_04_s18_pset02_sol_pdf",
+   "mit18_04_s18_pset03_pdf",
+   "mit18_04_s18_pset03_sol_pdf",
+   "mit18_04_s18_pset04_pdf",
+   "mit18_04_s18_pset04_sol_pdf",
+   "mit18_04_s18_pset05_pdf",
+   "mit18_04_s18_pset05_sol_pdf",
+   "mit18_04_s18_pset06_pdf",
+   "mit18_04_s18_pset06_sol_pdf",
+   "mit18_04_s18_pset07_pdf",
+   "mit18_04_s18_pset07_sol_pdf",
+   "mit18_04_s18_pset08_pdf",
+   "mit18_04_s18_pset08_sol_pdf",
+   "mit18_04_s18_pset09_pdf",
+   "mit18_04_s18_pset09_sol_pdf"
+  ]
+ },
+ {
+  "slug": "18-06-linear-algebra-spring-2010",
+  "page": "exams",
+  "ressources": [
+   "mit18_06s10_exam1_s10",
+   "mit18_06s10_exam1_s10_sol",
+   "mit18_06s10_exam2_s10",
+   "mit18_06s10_exam2_s10_soln",
+   "mit18_06s10_exam3_s10",
+   "mit18_06s10_exam3_s10_soln",
+   "mit18_06s10_final_answers",
+   "mit18_06s10_final_exam"
+  ]
+ },
+ {
+  "slug": "18-06sc-linear-algebra-fall-2011",
+  "page": "final-exam",
+  "ressources": [
+   "mit18_06scf11_final_ex",
+   "mit18_06scf11_final_exs"
+  ]
+ },
+ {
+  "slug": "18-075-advanced-calculus-for-engineers-fall-2004",
+  "page": "exams",
+  "ressources": [
+   "erat_sol_pr3_ex3",
+   "pract_1_inclass",
+   "sol_class_ex1",
+   "sol_class_ex2",
+   "sol_class_pra1",
+   "sol_pra1_ex3",
+   "sol_pra1_exam2",
+   "sol_pra1_quiz1",
+   "sol_pra2_exa3",
+   "sol_pra2_exam2",
+   "sol_pra3_ex3",
+   "sol_pra4_exam3",
+   "sol_quiz3",
+   "test1_f04",
+   "test1_f04_pra1",
+   "test2_f04",
+   "test2_f04_pra1",
+   "test2_f04_pra2",
+   "test3_f04",
+   "test3_f04_pra1",
+   "test3_f04_pra2",
+   "test3_f04_pra3",
+   "test3_f04_pra4"
+  ]
+ },
+ {
+  "slug": "18-085-computational-science-and-engineering-i-fall-2008",
+  "page": "exams",
+  "ressources": [
+   "f02q1sol",
+   "f02q2sol",
+   "f02q3sol",
+   "fall08qz2sol12",
+   "q118085f02",
+   "q118085f03",
+   "q118085f03sol",
+   "q118085f04",
+   "q118085f05",
+   "q1_sol_18085_f06",
+   "q1sols18085f04",
+   "q1sols18085f05",
+   "q218085f03",
+   "q218085f03sol",
+   "q2_sol_18085_f06",
+   "q2sols18085f04",
+   "q2sols18085f05",
+   "q318085f02",
+   "q318085f03",
+   "q318085f03sol",
+   "q3_sol_18085_f06",
+   "q3sols18085f04",
+   "q3sols18085f05",
+   "quiz1_18085_f06",
+   "quiz1_18085f07",
+   "quiz1_sols_18085",
+   "quiz1sol_f08",
+   "quiz218085f04",
+   "quiz218085f05",
+   "quiz2_18085_f06",
+   "quiz2_18085f02",
+   "quiz2f07",
+   "quiz2solutions",
+   "quiz2supp",
+   "quiz3",
+   "quiz318085f04",
+   "quiz318085f05",
+   "quiz3_18085_f06",
+   "quiz3f07",
+   "quiz3solutions"
+  ]
+ },
+ {
+  "slug": "18-085-computational-science-and-engineering-i-summer-2020",
+  "page": "exams",
+  "ressources": [
+   "mit18_085summer20_final",
+   "mit18_085summer20_final_sol",
+   "mit18_085summer20_mid_sol",
+   "mit18_085summer20_midterm"
+  ]
+ },
+ {
+  "slug": "18-404j-theory-of-computation-fall-2020",
+  "page": "exams",
+  "ressources": [
+   "mit18_404f20_mid01",
+   "sample-final-exam",
+   "sample-final-exam-solutions",
+   "sample-midterm-exam"
+  ]
+ },
+ {
+  "slug": "18-435j-quantum-computation-fall-2003",
+  "page": "exams",
+  "ressources": [
+   "quiz1",
+   "quiz1_sol",
+   "test2"
+  ]
+ },
+ {
+  "slug": "18-440-probability-and-random-variables-spring-2014",
+  "page": "exams",
+  "ressources": [
+   "mit18_440s14_final2011_sol",
+   "mit18_440s14_final2012_sol",
+   "mit18_440s14_final2014_sol",
+   "mit18_440s14_final_2011",
+   "mit18_440s14_final_2012",
+   "mit18_440s14_final_2014",
+   "mit18_440s14_mid1_2009",
+   "mit18_440s14_mid1_2011",
+   "mit18_440s14_mid1_2011_sol",
+   "mit18_440s14_mid1_2014",
+   "mit18_440s14_mid1_2014_sol",
+   "mit18_440s14_mid2_2009",
+   "mit18_440s14_mid2_2009_sol",
+   "mit18_440s14_mid2_2012",
+   "mit18_440s14_mid2_2012_sol",
+   "mit18_440s14_mid2_2014",
+   "mit18_440s14_mid2_2014_sol",
+   "mit18_440s14_mid2_f2011",
+   "mit18_440s14_mid2_s2011",
+   "mit18_440s14_mid2_s2011_sl",
+   "mit18_440s14_prctcfinal",
+   "mit18_440s14_prctcfinalsl",
+   "mit18_440s14_prctcmdtm1sl",
+   "mit18_440s14_prctcmdtrm2",
+   "mit18_440s14_prctcmdtrm2sl",
+   "mit18_440s14_prctcmidtrm1"
+  ]
+ },
+ {
+  "slug": "18-443-statistics-for-applications-fall-2006",
+  "page": "exams",
+  "ressources": [
+   "practice1",
+   "ptest2_443"
+  ]
+ },
+ {
+  "slug": "18-443-statistics-for-applications-spring-2015",
+  "page": "exams",
+  "ressources": [
+   "mit18_443s15_exam1",
+   "mit18_443s15_exam1_sol",
+   "mit18_443s15_exam2",
+   "mit18_443s15_exam2_sol",
+   "mit18_443s15_exam3",
+   "mit18_443s15_exam3_sol",
+   "mit18_443s15_exam3table"
+  ]
+ },
+ {
+  "slug": "18-600-probability-and-random-variables-fall-2019",
+  "page": "exams",
+  "ressources": [
+   "mit18_600f19_final_2011",
+   "mit18_600f19_final_2011_soln",
+   "mit18_600f19_final_2012",
+   "mit18_600f19_final_2012_soln",
+   "mit18_600f19_final_2014",
+   "mit18_600f19_final_2014_soln",
+   "mit18_600f19_final_2016",
+   "mit18_600f19_final_2016_soln",
+   "mit18_600f19_final_2017",
+   "mit18_600f19_final_2017_soln",
+   "mit18_600f19_final_2018",
+   "mit18_600f19_final_2018_soln",
+   "mit18_600f19_final_2019",
+   "mit18_600f19_final_2019_soln",
+   "mit18_600f19_final_f2019",
+   "mit18_600f19_final_f2019_soln",
+   "mit18_600f19_mid1_2012",
+   "mit18_600f19_mid1_2012_soln",
+   "mit18_600f19_mid1_2014",
+   "mit18_600f19_mid1_2014_soln",
+   "mit18_600f19_mid1_2016",
+   "mit18_600f19_mid1_2016_soln",
+   "mit18_600f19_mid1_2017",
+   "mit18_600f19_mid1_2017_soln",
+   "mit18_600f19_mid1_2018",
+   "mit18_600f19_mid1_2018_soln",
+   "mit18_600f19_mid1_2019",
+   "mit18_600f19_mid1_2019_soln",
+   "mit18_600f19_mid1_f2011",
+   "mit18_600f19_mid1_f2011_soln",
+   "mit18_600f19_mid1_s2011",
+   "mit18_600f19_mid1_s2011_soln",
+   "mit18_600f19_mid2_2012",
+   "mit18_600f19_mid2_2012_soln",
+   "mit18_600f19_mid2_2014",
+   "mit18_600f19_mid2_2014_soln",
+   "mit18_600f19_mid2_2016",
+   "mit18_600f19_mid2_2016_soln",
+   "mit18_600f19_mid2_2017",
+   "mit18_600f19_mid2_2017_soln",
+   "mit18_600f19_mid2_2018",
+   "mit18_600f19_mid2_2018_soln",
+   "mit18_600f19_mid2_2019",
+   "mit18_600f19_mid2_2019_soln",
+   "mit18_600f19_mid2_f2011",
+   "mit18_600f19_mid2_s2011",
+   "mit18_600f19_mid2_s2011_soln",
+   "mit18_600f19_midterm1",
+   "mit18_600f19_midterm1_soln",
+   "mit18_600f19_midterm2",
+   "mit18_600f19_midterm2_soln",
+   "mit18_600f19_prc_final",
+   "mit18_600f19_prc_final_soln",
+   "mit18_600f19_storysheet"
+  ]
+ },
+ {
+  "slug": "18-655-mathematical-statistics-spring-2016",
+  "page": "exams",
+  "ressources": [
+   "mit18_655s16_midterm1",
+   "mit18_655s16_midterm2"
+  ]
+ },
+ {
+  "slug": "24-222-decisions-games-and-rational-choice-spring-2008",
+  "page": "exams",
+  "ressources": [
+   "final_exam",
+   "sample_questions"
+  ]
+ },
+ {
+  "slug": "6-001-structure-and-interpretation-of-computer-programs-spring-2005",
+  "page": "exams",
+  "ressources": [
+   "q1_sp05",
+   "q1_sp05_solnspdf",
+   "q2_solns_postpdf",
+   "q2_sp05"
+  ]
+ },
+ {
+  "slug": "6-002-circuits-and-electronics-spring-2007",
+  "page": "exams",
+  "ressources": [
+   "final_f00",
+   "final_s07",
+   "quiz1_f03",
+   "quiz1_f06",
+   "quiz1_s04",
+   "quiz1_s07",
+   "quiz2_f04",
+   "quiz2_s04",
+   "quiz2_s07"
+  ]
+ },
+ {
+  "slug": "6-003-signals-and-systems-fall-2011",
+  "page": "exams",
+  "ressources": [
+   "final-exam-fall-2009",
+   "final-exam-fall-2011",
+   "final-exam-solutions-fall-2009",
+   "final-exam-solutions-fall-2011",
+   "final-exam-solutions-spring-2010",
+   "final-exam-spring-2010",
+   "quiz-1-fall-2009",
+   "quiz-1-fall-2011",
+   "quiz-1-solutions-fall-2009",
+   "quiz-1-solutions-fall-2011",
+   "quiz-1-solutions-spring-2010",
+   "quiz-1-spring-2010",
+   "quiz-2-fall-2009",
+   "quiz-2-fall-2011",
+   "quiz-2-solutions-fall-2009",
+   "quiz-2-solutions-fall-2011",
+   "quiz-2-solutions-spring-2010",
+   "quiz-2-spring-2010",
+   "quiz-3-fall-2009",
+   "quiz-3-fall-2011",
+   "quiz-3-solutions-fall-2009",
+   "quiz-3-solutions-fall-2011"
+  ]
+ },
+ {
+  "slug": "6-005-software-construction-spring-2016",
+  "page": "quizzes",
+  "ressources": [
+   "mit6_005s16_quiz1",
+   "mit6_005s16_quiz1_soln",
+   "mit6_005s16_quiz2",
+   "mit6_005s16_quiz2_soln"
+  ]
+ },
+ {
+  "slug": "6-011-introduction-to-communication-control-and-signal-processing-spring-2010",
+  "page": "exams",
+  "ressources": [
+   "mit6_011s10_final",
+   "mit6_011s10_final_ans",
+   "mit6_011s10_final_sol",
+   "mit6_011s10_notes_pdf",
+   "mit6_011s10_quiz01",
+   "mit6_011s10_quiz01_ans",
+   "mit6_011s10_quiz01_sol",
+   "mit6_011s10_quiz02",
+   "mit6_011s10_quiz02_ans",
+   "mit6_011s10_quiz02_sol"
+  ]
+ },
+ {
+  "slug": "6-011-signals-systems-and-inference-spring-2018",
+  "page": "exams",
+  "ressources": [
+   "mit6_011s18final",
+   "mit6_011s18quiz1",
+   "mit6_011s18quiz2"
+  ]
+ },
+ {
+  "slug": "6-012-microelectronic-devices-and-circuits-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "final",
+   "final_soln",
+   "q1_fall05",
+   "q1_soln",
+   "q2_fall05",
+   "q2_soln"
+  ]
+ },
+ {
+  "slug": "6-012-microelectronic-devices-and-circuits-fall-2009",
+  "page": "exams",
+  "ressources": [
+   "mit6_012f09_exam1",
+   "mit6_012f09_exam1_formula",
+   "mit6_012f09_exam1_s06",
+   "mit6_012f09_exam1_s06_sol",
+   "mit6_012f09_exam1_s08",
+   "mit6_012f09_exam1_s08_sol",
+   "mit6_012f09_exam1_sol",
+   "mit6_012f09_exam2",
+   "mit6_012f09_exam2_formula",
+   "mit6_012f09_exam2_s06",
+   "mit6_012f09_exam2_s06_sol",
+   "mit6_012f09_exam2_s08",
+   "mit6_012f09_exam2_s08_sol",
+   "mit6_012f09_exam2_sol",
+   "mit6_012f09_final",
+   "mit6_012f09_final_formula",
+   "mit6_012f09_final_s06",
+   "mit6_012f09_final_s08"
+  ]
+ },
+ {
+  "slug": "6-012-microelectronic-devices-and-circuits-spring-2009",
+  "page": "exams",
+  "ressources": [
+   "mit6_012s09_ex01_quiz01_05",
+   "mit6_012s09_ex01_quiz01_07",
+   "mit6_012s09_ex02_quiz02_05",
+   "mit6_012s09_ex02_quiz02_07",
+   "mit6_012s09_ex03_final_05",
+   "mit6_012s09_ex03_final_07"
+  ]
+ },
+ {
+  "slug": "6-013-electromagnetics-and-applications-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "q1",
+   "q1_solution",
+   "q2",
+   "q2_solution"
+  ]
+ },
+ {
+  "slug": "6-013-electromagnetics-and-applications-spring-2009",
+  "page": "exams",
+  "ressources": [
+   "mit6_013_s09_coursetextbook_pdf",
+   "mit6_013s09_eqn_exam",
+   "mit6_013s09_eqn_quiz1",
+   "mit6_013s09_eqn_quiz2",
+   "mit6_013s09_exam",
+   "mit6_013s09_quiz01",
+   "mit6_013s09_quiz02",
+   "mit6_013s09_sol_exam",
+   "mit6_013s09_sol_quiz01",
+   "mit6_013s09_sol_quiz02"
+  ]
+ },
+ {
+  "slug": "6-02-introduction-to-eecs-ii-digital-communication-systems-fall-2012",
+  "page": "exams",
+  "ressources": [
+   "6_02_f12_coursetextbook_pdf",
+   "mit6_02f12_quiz1",
+   "mit6_02f12_quiz2",
+   "mit6_02f12_quiz3"
+  ]
+ },
+ {
+  "slug": "6-035-computer-language-engineering-sma-5502-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "practice_quiz1",
+   "practice_quiz2",
+   "practice_quiz3"
+  ]
+ },
+ {
+  "slug": "6-035-computer-language-engineering-spring-2010",
+  "page": "exams",
+  "ressources": [
+   "mit6_035s10_quiz01",
+   "mit6_035s10_quiz02",
+   "mit6_035s10_quiz02_2006",
+   "mit6_035s10_quiz02_sol",
+   "mit6_035s10_quiz03_2009"
+  ]
+ },
+ {
+  "slug": "6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010",
+  "page": "exams",
+  "ressources": [
+   "mit6_041f10_final",
+   "mit6_041f10_final_f09",
+   "mit6_041f10_final_f09_sol",
+   "mit6_041f10_final_info",
+   "mit6_041f10_final_s09",
+   "mit6_041f10_final_s09_sol",
+   "mit6_041f10_final_sol",
+   "mit6_041f10_quiz01",
+   "mit6_041f10_quiz01_f09",
+   "mit6_041f10_quiz01_f09_sol",
+   "mit6_041f10_quiz01_info",
+   "mit6_041f10_quiz01_review",
+   "mit6_041f10_quiz01_s09",
+   "mit6_041f10_quiz01_s09_sol",
+   "mit6_041f10_quiz01_sol",
+   "mit6_041f10_quiz02",
+   "mit6_041f10_quiz02_f09",
+   "mit6_041f10_quiz02_f09_sol",
+   "mit6_041f10_quiz02_info",
+   "mit6_041f10_quiz02_review",
+   "mit6_041f10_quiz02_s08",
+   "mit6_041f10_quiz02_s08_sol",
+   "mit6_041f10_quiz02_sol"
+  ]
+ },
+ {
+  "slug": "6-041-probabilistic-systems-analysis-and-applied-probability-spring-2006",
+  "page": "exams",
+  "ressources": [
+   "final",
+   "final_sol",
+   "quiz1",
+   "quiz1_sol",
+   "quiz2",
+   "quiz2_sol"
+  ]
+ },
+ {
+  "slug": "6-041sc-probabilistic-systems-analysis-and-applied-probability-fall-2013",
+  "page": "final-exam",
+  "ressources": [
+   "mit6_041scf13_fin_f09_sol",
+   "mit6_041scf13_final",
+   "mit6_041scf13_final_f09",
+   "mit6_041scf13_final_s09",
+   "mit6_041scf13_final_sol",
+   "mit6_041scf13_finl_s09_sol"
+  ]
+ },
+ {
+  "slug": "6-042j-mathematics-for-computer-science-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "final",
+   "finalsol",
+   "q1",
+   "q1sol",
+   "q2",
+   "q2sol",
+   "spring02_q1",
+   "spring02_q1sol"
+  ]
+ },
+ {
+  "slug": "6-042j-mathematics-for-computer-science-fall-2010",
+  "page": "exams",
+  "ressources": [
+   "mit6_042jf10_final",
+   "mit6_042jf10_final_2004",
+   "mit6_042jf10_final_2006",
+   "mit6_042jf10_final_2008",
+   "mit6_042jf10_fnl_2004_sol",
+   "mit6_042jf10_fnl_2006_sol",
+   "mit6_042jf10_fnl_2008_sol",
+   "mit6_042jf10_mid_pctce_sol",
+   "mit6_042jf10_mid_practice",
+   "mit6_042jf10_midterm",
+   "mit6_042jf10_midterm_sol"
+  ]
+ },
+ {
+  "slug": "6-061-introduction-to-electric-power-systems-spring-2011",
+  "page": "quizzes",
+  "ressources": [
+   "6_061_s11_textbook_pdf",
+   "mit6_061s11_quiz01",
+   "mit6_061s11_quiz01_sol",
+   "mit6_061s11_quiz02",
+   "mit6_061s11_quiz02_sol"
+  ]
+ },
+ {
+  "slug": "6-071j-introduction-to-electronics-signals-and-measurement-spring-2006",
+  "page": "exams",
+  "ressources": [
+   "final06",
+   "quiz1",
+   "quiz2",
+   "quiz3"
+  ]
+ },
+ {
+  "slug": "6-079-introduction-to-convex-optimization-fall-2009",
+  "page": "exams",
+  "ressources": [
+   "blkdiag",
+   "fba_data",
+   "gen_dispatch_data",
+   "inertia_dens_data",
+   "mit6_079f09_final",
+   "mit6_079f09_midterm",
+   "plot_2d_filt",
+   "rob_min_vol_ellips_data",
+   "trans_ship_data",
+   "treatment_planning_data",
+   "vfield_fit_data"
+  ]
+ },
+ {
+  "slug": "6-101-introductory-analog-electronics-laboratory-spring-2007",
+  "page": "exams",
+  "ressources": [
+   "quiz1",
+   "quiz2",
+   "quiz2_review"
+  ]
+ },
+ {
+  "slug": "6-111-introductory-digital-systems-laboratory-fall-2002",
+  "page": "exams",
+  "ressources": [
+   "quiz1",
+   "quiz1sols",
+   "quiz2",
+   "quiz2sols"
+  ]
+ },
+ {
+  "slug": "6-111-introductory-digital-systems-laboratory-spring-2006",
+  "page": "exams",
+  "ressources": [
+   "q1",
+   "q2",
+   "quiz",
+   "quiz_06"
+  ]
+ },
+ {
+  "slug": "6-152j-micro-nano-processing-technology-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "ps7_s05",
+   "quiz1soln",
+   "quiz2_f04_soln",
+   "quiz2_s05",
+   "quiz_figs",
+   "takehome"
+  ]
+ },
+ {
+  "slug": "6-163-strobe-project-laboratory-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "quiz1",
+   "quiz1ans",
+   "quiz2",
+   "quiz2ans"
+  ]
+ },
+ {
+  "slug": "6-172-performance-engineering-of-software-systems-fall-2018",
+  "page": "quizzes",
+  "ressources": [
+   "practice-quiz-1",
+   "practice-quiz-1-solutions",
+   "practice-quiz-2",
+   "practice-quiz-2-solutions",
+   "practice-quiz-3",
+   "practice-quiz-4",
+   "practice-quiz-4-solutions"
+  ]
+ },
+ {
+  "slug": "6-172-performance-engineering-of-software-systems-fall-2018",
+  "page": "recitation-problems",
+  "ressources": [
+   "recitation-3",
+   "recitation-3-solutions",
+   "recitation-4",
+   "recitation-4-solutions",
+   "recitation-6",
+   "recitation-6-solutions",
+   "recitation-8",
+   "recitation-8-solutions",
+   "recitation-9",
+   "recitation-9-solutions"
+  ]
+ },
+ {
+  "slug": "6-241j-dynamic-systems-and-control-spring-2011",
+  "page": "exams",
+  "ressources": [
+   "mit6_241js11_final",
+   "mit6_241js11_midterm",
+   "mit6_241js11_midterm_sol",
+   "mit6_24js11_coursetextbook_pdf"
+  ]
+ },
+ {
+  "slug": "6-243j-dynamics-of-nonlinear-systems-fall-2003",
+  "page": "exams",
+  "ressources": [
+   "t1_6243_2003",
+   "t1sol_6243_2003",
+   "t2_6243_2003",
+   "t2sol_6243_2003"
+  ]
+ },
+ {
+  "slug": "6-253-convex-analysis-and-optimization-spring-2012",
+  "page": "exams",
+  "ressources": [
+   "mit6_253s12_mid_s10_sol",
+   "mit6_253s12_midterm_sol"
+  ]
+ },
+ {
+  "slug": "6-254-game-theory-with-engineering-applications-spring-2010",
+  "page": "exam",
+  "ressources": [
+   "mit6_254s10_midterm_2004",
+   "mit6_254s10_midterm_2006",
+   "mit6_254s10_midterm_2008",
+   "mit6_254s10_midterm_2010"
+  ]
+ },
+ {
+  "slug": "6-262-discrete-stochastic-processes-spring-2011",
+  "page": "exams",
+  "ressources": [
+   "6_262_s_11_coursetextbookpdf_pdf",
+   "mit6_262s11_final09",
+   "mit6_262s11_final09_sol",
+   "mit6_262s11_final11",
+   "mit6_262s11_final11_sol",
+   "mit6_262s11_mid09",
+   "mit6_262s11_mid09_sol",
+   "mit6_262s11_mid10",
+   "mit6_262s11_mid10_sol",
+   "mit6_262s11_mid11",
+   "mit6_262s11_mid11_sol"
+  ]
+ },
+ {
+  "slug": "6-301-solid-state-circuits-fall-2010",
+  "page": "exams",
+  "ressources": [
+   "mit6_301f10_final_2006",
+   "mit6_301f10_final_2008",
+   "mit6_301f10_mid_2006",
+   "mit6_301f10_mid_2007",
+   "mit6_301f10_mid_2008",
+   "mit6_301f10_mid_formula"
+  ]
+ },
+ {
+  "slug": "6-302-feedback-systems-spring-2007",
+  "page": "exams",
+  "ressources": [
+   "final03",
+   "final04",
+   "final05",
+   "final07",
+   "quiz03"
+  ]
+ },
+ {
+  "slug": "6-341-discrete-time-signal-processing-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "backexam",
+   "backexam_f04_sol",
+   "backexam_fall04",
+   "backexam_soln",
+   "final_f05_soln",
+   "final_fall04",
+   "final_fall04_sol",
+   "final_fall05",
+   "midexam",
+   "midexam_f04_soln",
+   "midexam_fall04",
+   "midexam_soln"
+  ]
+ },
+ {
+  "slug": "6-374-analysis-and-design-of-digital-integrated-circuits-fall-2003",
+  "page": "exams",
+  "ressources": [
+   "quiz03_1",
+   "quiz03_2"
+  ]
+ },
+ {
+  "slug": "6-436j-fundamentals-of-probability-fall-2018",
+  "page": "exams",
+  "ressources": [
+   "mit6_436jf18_final",
+   "mit6_436jf18_midterm"
+  ]
+ },
+ {
+  "slug": "6-450-principles-of-digital-communication-i-fall-2009",
+  "page": "exams",
+  "ressources": [
+   "mit6_450f09_final",
+   "mit6_450f09_quiz"
+  ]
+ },
+ {
+  "slug": "6-450-principles-of-digital-communications-i-fall-2006",
+  "page": "exams",
+  "ressources": [
+   "quiz1_01",
+   "quiz1_01_soln",
+   "quiz1_03",
+   "quiz1_03_soln",
+   "quiz1_04",
+   "quiz1_04_soln",
+   "quiz1_06",
+   "quiz1_06_soln",
+   "quiz2_06",
+   "quiz2_06_soln"
+  ]
+ },
+ {
+  "slug": "6-451-principles-of-digital-communication-ii-spring-2005",
+  "page": "exams",
+  "ressources": [
+   "final02",
+   "final02solns2",
+   "final03",
+   "final03solns",
+   "final05",
+   "final05solns",
+   "midterm005-1",
+   "midterm02",
+   "midterm03",
+   "midterm03solns",
+   "midterm05solns",
+   "midtermsol02"
+  ]
+ },
+ {
+  "slug": "6-453-quantum-optical-communication-fall-2016",
+  "page": "exams",
+  "ressources": [
+   "mit6_453f16_midterm",
+   "mit6_453f16_midtermsoln"
+  ]
+ },
+ {
+  "slug": "6-551j-acoustics-of-speech-and-hearing-fall-2004",
+  "page": "exams",
+  "ressources": [
+   "quiz2_q1_5",
+   "quiz_1"
+  ]
+ },
+ {
+  "slug": "6-630-electromagnetics-fall-2006",
+  "page": "exams",
+  "ressources": [
+   "quiz1",
+   "quiz2"
+  ]
+ },
+ {
+  "slug": "6-632-electromagnetic-wave-theory-spring-2003",
+  "page": "exams",
+  "ressources": [
+   "q1",
+   "q2"
+  ]
+ },
+ {
+  "slug": "6-641-electromagnetic-fields-forces-and-motion-spring-2005",
+  "page": "exams",
+  "ressources": [
+   "03_q01_sol",
+   "03_q02_sol",
+   "04_final_sol",
+   "04_q01_sol",
+   "04_q02_sol",
+   "final1-1",
+   "final2",
+   "final_exam_sol",
+   "final_review_pac",
+   "finalsp05",
+   "formulasheet",
+   "q1sp05",
+   "q1sp05sol",
+   "q2sp05",
+   "quiz1",
+   "quiz1_so4",
+   "quiz2",
+   "quiz2_so4",
+   "quiz2_solution"
+  ]
+ },
+ {
+  "slug": "6-641-electromagnetic-fields-forces-and-motion-spring-2009",
+  "page": "exams",
+  "ressources": [
+   "mit6_641s09_exam2006",
+   "mit6_641s09_exam2008",
+   "mit6_641s09_exam2009",
+   "mit6_641s09_exam_review",
+   "mit6_641s09_quiz2006_1",
+   "mit6_641s09_quiz2006_2",
+   "mit6_641s09_quiz2008",
+   "mit6_641s09_quiz2009",
+   "mit6_641s09_sol_exam2006",
+   "mit6_641s09_sol_exam2008",
+   "mit6_641s09_sol_exam2009",
+   "mit6_641s09_sol_quiz2006_1",
+   "mit6_641s09_sol_quiz2006_2",
+   "mit6_641s09_sol_quiz2008",
+   "mit6_641s09_sol_quiz2009",
+   "mit6_641s09_study01",
+   "mit6_641s09_study02",
+   "mit6_641s09_study03"
+  ]
+ },
+ {
+  "slug": "6-642-continuum-electromechanics-fall-2008",
+  "page": "exams",
+  "ressources": [
+   "final_exam",
+   "finalexam_sol",
+   "midterm",
+   "midterm_sol"
+  ]
+ },
+ {
+  "slug": "6-685-electric-machines-fall-2013",
+  "page": "exams",
+  "ressources": [
+   "mit6_685f13_quiz01",
+   "mit6_685f13_quiz01ans",
+   "mit6_685f13_quiz02",
+   "mit6_685f13_quiz02ans"
+  ]
+ },
+ {
+  "slug": "6-701-introduction-to-nanoelectronics-spring-2010",
+  "page": "exams",
+  "ressources": [
+   "mit6_701_s10_coursetextbook_pdf",
+   "mit6_701s10_final",
+   "mit6_701s10_final11",
+   "mit6_701s10_midterm"
+  ]
+ },
+ {
+  "slug": "6-720j-integrated-microelectronic-devices-spring-2007",
+  "page": "exams",
+  "ressources": [
+   "final_f02",
+   "quiz1_f02",
+   "quiz2_f02"
+  ]
+ },
+ {
+  "slug": "6-728-applied-quantum-and-statistical-physics-fall-2006",
+  "page": "exams",
+  "ressources": [
+   "final_topics",
+   "quiz1",
+   "quiz1_topics",
+   "quiz2",
+   "quiz2_topics"
+  ]
+ },
+ {
+  "slug": "6-776-high-speed-communication-circuits-spring-2005",
+  "page": "exams",
+  "ressources": [
+   "midterm"
+  ]
+ },
+ {
+  "slug": "6-780-semiconductor-manufacturing-spring-2003",
+  "page": "exams",
+  "ressources": [
+   "quiz1solutions",
+   "quiz2solutions"
+  ]
+ },
+ {
+  "slug": "6-801-machine-vision-fall-2004",
+  "page": "exams",
+  "ressources": [
+   "2004_qz1_sol",
+   "2004_qz2_sol",
+   "quiz_one_04",
+   "quiz_two_04"
+  ]
+ },
+ {
+  "slug": "6-801-machine-vision-fall-2020",
+  "page": "quizzes",
+  "ressources": [
+   "mit6_801f20_q1",
+   "mit6_801f20_q2",
+   "mit6_801f20_review1",
+   "mit6_801f20_review2"
+  ]
+ },
+ {
+  "slug": "6-805-ethics-and-the-law-on-the-electronic-frontier-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "sample_midterm"
+  ]
+ },
+ {
+  "slug": "6-823-computer-system-architecture-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "quiz1",
+   "quiz2",
+   "quiz3",
+   "quiz4",
+   "quiz5"
+  ]
+ },
+ {
+  "slug": "6-830-database-systems-fall-2010",
+  "page": "exams",
+  "ressources": [
+   "mit6_830f10_quiz01",
+   "mit6_830f10_quiz01_sol",
+   "mit6_830f10_quiz02",
+   "mit6_830f10_quiz02_sol"
+  ]
+ },
+ {
+  "slug": "6-832-underactuated-robotics-spring-2009",
+  "page": "exams",
+  "ressources": [
+   "mit6_832s09_exam01_practice",
+   "mit6_832s09_exam02"
+  ]
+ },
+ {
+  "slug": "6-837-computer-graphics-fall-2012",
+  "page": "old-exams",
+  "ressources": [
+   "mit6_837f12_2003_qz_1",
+   "mit6_837f12_2003_qz_2",
+   "mit6_837f12_2003qz1_ray_tr",
+   "mit6_837f12_2006_qz_1",
+   "mit6_837f12_2009_final",
+   "mit6_837f12_2010_final",
+   "mit6_837f12_2010_qz_1",
+   "mit6_837f12_2011_final",
+   "mit6_837f12_2011_qz1"
+  ]
+ },
+ {
+  "slug": "6-883-pervasive-human-centric-computing-sma-5508-spring-2006",
+  "page": "exams",
+  "ressources": [
+   "quiz_questions"
+  ]
+ },
+ {
+  "slug": "6-884-complex-digital-systems-spring-2005",
+  "page": "exams",
+  "ressources": [
+   "q1",
+   "q1_solns",
+   "quiz_studyguide"
+  ]
+ },
+ {
+  "slug": "6-896-theory-of-parallel-hardware-sma-5511-spring-2004",
+  "page": "exams",
+  "ressources": [
+   "fsol"
+  ]
+ },
+ {
+  "slug": "6-973-communication-system-design-spring-2006",
+  "page": "exams",
+  "ressources": [
+   "channel_model",
+   "exam1",
+   "exam1-1",
+   "lc_ra",
+   "waterfill"
+  ]
+ },
+ {
+  "slug": "6-974-fundamentals-of-photonics-quantum-electronics-spring-2006",
+  "page": "exams",
+  "ressources": [
+   "final_exam",
+   "quiz1",
+   "quiz2"
+  ]
+ },
+ {
+  "slug": "6-976-high-speed-communication-circuits-and-systems-spring-2003",
+  "page": "exams",
+  "ressources": [
+   "quiz"
+  ]
+ },
+ {
+  "slug": "18-05-introduction-to-probability-and-statistics-spring-2022",
+  "page": "exams",
+  "ressources": [
+   "mit18_05_s22_exam01_pdf",
+   "mit18_05_s22_exam01_sol_pdf",
+   "mit18_05_s22_exam02_pdf",
+   "mit18_05_s22_exam02_sol_pdf",
+   "mit18_05_s22_exam1_rev_list_pdf",
+   "mit18_05_s22_exam1_rev_pset_pdf",
+   "mit18_05_s22_exam1_rev_pset_sol_pdf",
+   "mit18_05_s22_exam1_sn_table_pdf",
+   "mit18_05_s22_exam2_nhst_pdf",
+   "mit18_05_s22_exam2_rev_pset_pdf",
+   "mit18_05_s22_exam2_rev_pset_sol_pdf",
+   "mit18_05_s22_exam2_table_pdf",
+   "mit18_05_s22_exam_final_pdf",
+   "mit18_05_s22_exam_final_sol_pdf",
+   "mit18_05_s22_examf_rev_pset_pdf",
+   "mit18_05_s22_examf_rev_pset_sol_pdf",
+   "mit18_05_s22_lec08_pdf",
+   "mit18_05_s22_lec21_pdf",
+   "mit18_05_s22_prac_exam01_all_pdf",
+   "mit18_05_s22_prac_exam01_all_sol_pdf",
+   "mit18_05_s22_prac_exam01a_pdf",
+   "mit18_05_s22_prac_exam01b_pdf",
+   "mit18_05_s22_prac_exam01b_sol_pdf",
+   "mit18_05_s22_prac_exam02_post_pdf",
+   "mit18_05_s22_prac_exam02_post_sol_pdf",
+   "mit18_05_s22_prac_exam02a_pdf",
+   "mit18_05_s22_prac_exam02a_sol_pdf",
+   "mit18_05_s22_prac_exam02b_pdf",
+   "mit18_05_s22_prac_exam02b_sol_pdf",
+   "mit18_05_s22_prac_exam_final_pdf",
+   "mit18_05_s22_prac_exam_final_probability_pdf",
+   "mit18_05_s22_prac_exam_final_probability_sol_pdf",
+   "mit18_05_s22_prac_exam_final_sol_pdf",
+   "mit18_05s22_practice-ex1-qa_pdf"
+  ]
+ },
+ {
+  "slug": "18-05-introduction-to-probability-and-statistics-spring-2022",
+  "page": "problem-sets",
+  "ressources": [
+   "mit18_05_s22_pset01_pdf",
+   "mit18_05_s22_pset01_sol_pdf",
+   "mit18_05_s22_pset02_pdf",
+   "mit18_05_s22_pset02_sol_pdf",
+   "mit18_05_s22_pset03_pdf",
+   "mit18_05_s22_pset03_sol_pdf",
+   "mit18_05_s22_pset04_pdf",
+   "mit18_05_s22_pset04_sol_pdf",
+   "mit18_05_s22_pset05_pdf",
+   "mit18_05_s22_pset05_sol_pdf",
+   "mit18_05_s22_pset06_pdf",
+   "mit18_05_s22_pset06_sol_pdf",
+   "mit18_05_s22_pset07_pdf",
+   "mit18_05_s22_pset07_sol_pdf",
+   "mit18_05_s22_pset08_pdf",
+   "mit18_05_s22_pset08_sol_pdf",
+   "mit18_05_s22_pset09_pdf",
+   "mit18_05_s22_pset09_sol_pdf",
+   "mit18_05_s22_pset10_pdf",
+   "mit18_05_s22_pset10_sol_pdf",
+   "mit18_05_s22_pset11_pdf",
+   "mit18_05_s22_pset11_sol_pdf"
+  ]
+ },
+ {
+  "slug": "6-7220j-nonlinear-optimization-spring-2025",
+  "page": "exams",
+  "ressources": [
+   "mit6_7220_s25_final_review_pdf",
+   "mit6_7220_s25_midterm24_pdf",
+   "mit6_7220_s25_midterm24_sol_pdf",
+   "mit6_7220_s25_midterm_analysis_pdf",
+   "mit6_7220_s25_midterm_review_pdf"
+  ]
+ },
+ {
+  "slug": "18-642-topics-in-mathematics-with-applications-in-finance-fall-2024",
+  "page": "problem-sets",
+  "ressources": [
+   "mit18_642_f24_pset1_pdf",
+   "mit18_642_f24_pset2_pdf",
+   "mit18_642_f24_pset3_pdf",
+   "mit18_642_f24_pset4_pdf",
+   "mit18_642_f24_pset5_pdf",
+   "mit18_642_f24_pset_analysis_pdf",
+   "mit18_642_f24_pset_rcode_pdf",
+   "mit18_642_f24_rstudio_pset5_zip"
+  ]
+ }
+]

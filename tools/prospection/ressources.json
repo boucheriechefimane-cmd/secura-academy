@@ -1,0 +1,536 @@
+[
+ {
+  "slug": "10-37-chemical-and-biological-reaction-engineering-spring-2007",
+  "page": "exams",
+  "ressources": [
+   "ex1_rev_03212007",
+   "final_exam",
+   "midterm1",
+   "midterm1_key",
+   "midterm2",
+   "midterm2_key",
+   "rev_exam2",
+   "rev_exam2_soln"
+  ]
+ },
+ {
+  "slug": "1-204-computer-algorithms-in-systems-engineering-spring-2010",
+  "page": "exams",
+  "ressources": [
+   "mit1_204s10_quiz01",
+   "mit1_204s10_quiz01_2008",
+   "mit1_204s10_quiz01_2009"
+  ]
+ },
+ {
+  "slug": "15-083j-integer-programming-and-combinatorial-optimization-fall-2009",
+  "page": "exams",
+  "ressources": [
+   "mit15_083jf09_final",
+   "mit15_083jf09_midterm"
+  ]
+ },
+ {
+  "slug": "15-084j-nonlinear-programming-spring-2004",
+  "page": "exams",
+  "ressources": [
+   "midterm_1998"
+  ]
+ },
+ {
+  "slug": "16-36-communication-systems-engineering-spring-2009",
+  "page": "exams",
+  "ressources": [
+   "mit16_36s09_quiz01",
+   "mit16_36s09_quiz02",
+   "mit16_36s09_quiz03"
+  ]
+ },
+ {
+  "slug": "20-180-biological-engineering-programming-spring-2006",
+  "page": "exams",
+  "ressources": [
+   "exam1",
+   "exam2_key",
+   "exam2review_ques"
+  ]
+ },
+ {
+  "slug": "20-181-computation-for-biological-engineers-fall-2006",
+  "page": "exams",
+  "ressources": [
+   "exam3_wsoln"
+  ]
+ },
+ {
+  "slug": "20-442-molecular-structure-of-biological-materials-be-442-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "midterm2004",
+   "midterm2005",
+   "midterm_lacey"
+  ]
+ },
+ {
+  "slug": "24-241-logic-i-fall-2009",
+  "page": "exams",
+  "ressources": [
+   "mit24_241f09_final",
+   "mit24_241f09_final_study_guide",
+   "mit24_241f09_quiz1",
+   "mit24_241f09_quiz2",
+   "mit24_241f09_quiz3",
+   "mit24_241f09_quiz4",
+   "mit24_241f09_quiz5",
+   "mit24_241f09_quiz6"
+  ]
+ },
+ {
+  "slug": "5-08j-biological-chemistry-ii-spring-2016",
+  "page": "exams",
+  "ressources": [
+   "mit5_08js16exam1",
+   "mit5_08js16exam1_soln",
+   "mit5_08js16exam2",
+   "mit5_08js16exam2_soln",
+   "mit5_08js16exam3",
+   "mit5_08js16exam3_soln",
+   "mit5_08js16finalexam",
+   "mit5_08js16finalexam_soln"
+  ]
+ },
+ {
+  "slug": "6-004-computation-structures-spring-2009",
+  "page": "exams",
+  "ressources": [
+   "mit6_004s09_quiz01",
+   "mit6_004s09_quiz01_sol",
+   "mit6_004s09_quiz02",
+   "mit6_004s09_quiz02_sol",
+   "mit6_004s09_quiz03",
+   "mit6_004s09_quiz03_sol",
+   "mit6_004s09_quiz04_sol",
+   "mit6_004s09_quiz05",
+   "mit6_004s09_quiz05_sol"
+  ]
+ },
+ {
+  "slug": "6-006-introduction-to-algorithms-fall-2011",
+  "page": "exams",
+  "ressources": [
+   "mit6_006f11_final",
+   "mit6_006f11_final_sol",
+   "mit6_006f11_quiz1",
+   "mit6_006f11_quiz1_sol",
+   "mit6_006f11_quiz2",
+   "mit6_006f11_quiz2_sol"
+  ]
+ },
+ {
+  "slug": "6-006-introduction-to-algorithms-spring-2008",
+  "page": "exams",
+  "ressources": [
+   "final",
+   "final_soln",
+   "quiz1",
+   "quiz2",
+   "solutions1",
+   "solutions2"
+  ]
+ },
+ {
+  "slug": "6-006-introduction-to-algorithms-spring-2020",
+  "page": "quizzes",
+  "ressources": [
+   "mit6_006s20_final",
+   "mit6_006s20_final_sol",
+   "mit6_006s20_q1",
+   "mit6_006s20_q1_sol",
+   "mit6_006s20_q2",
+   "mit6_006s20_q2_sol",
+   "mit6_006s20_q3_pdf",
+   "mit6_006s20_q3_sol_pdf",
+   "mit6_006s20_review1",
+   "mit6_006s20_review1_sol",
+   "mit6_006s20_review2",
+   "mit6_006s20_review2_sol",
+   "mit6_006s20_review3",
+   "mit6_006s20_review3_sol"
+  ]
+ },
+ {
+  "slug": "6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011",
+  "page": "final-exam",
+  "ressources": [
+   "mit6_01scs11_final_f09",
+   "mit6_01scs11_final_f09_sol",
+   "mit6_01scs11_final_f10",
+   "mit6_01scs11_final_f10_sol",
+   "mit6_01scs11_final_s09",
+   "mit6_01scs11_final_s09_sol",
+   "mit6_01scs11_final_s10",
+   "mit6_01scs11_final_s10_sol",
+   "mit6_01scs11_final_s11",
+   "mit6_01scs11_final_s11_sol",
+   "mit6_01scs11_textbook_pdf"
+  ]
+ },
+ {
+  "slug": "6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011",
+  "page": "midterm-exam-1",
+  "ressources": [
+   "mit6_01scs11_mid01_f09",
+   "mit6_01scs11_mid01_f09_sol",
+   "mit6_01scs11_mid01_f10",
+   "mit6_01scs11_mid01_f10_sol",
+   "mit6_01scs11_mid01_s10",
+   "mit6_01scs11_mid01_s10_sol",
+   "mit6_01scs11_mid01_s11",
+   "mit6_01scs11_mid01_s11_sol",
+   "mit6_01scs11_textbook_pdf"
+  ]
+ },
+ {
+  "slug": "6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011",
+  "page": "midterm-exam-2",
+  "ressources": [
+   "mit6_01scs11_mid02_f10",
+   "mit6_01scs11_mid02_f10_sol",
+   "mit6_01scs11_mid02_rev_sol",
+   "mit6_01scs11_mid02_review",
+   "mit6_01scs11_mid02_s10",
+   "mit6_01scs11_mid02_s10_sol",
+   "mit6_01scs11_mid02_s11",
+   "mit6_01scs11_mid02_s11_sol",
+   "mit6_01scs11_textbook_pdf"
+  ]
+ },
+ {
+  "slug": "6-034-artificial-intelligence-fall-2010",
+  "page": "exams",
+  "ressources": [
+   "mit6_034f10_final_2007",
+   "mit6_034f10_final_2008",
+   "mit6_034f10_final_2009",
+   "mit6_034f10_final_2010",
+   "mit6_034f10_quiz1_2007",
+   "mit6_034f10_quiz1_2008",
+   "mit6_034f10_quiz1_2009",
+   "mit6_034f10_quiz1_2010",
+   "mit6_034f10_quiz2_2007",
+   "mit6_034f10_quiz2_2008",
+   "mit6_034f10_quiz2_2009",
+   "mit6_034f10_quiz2_2010",
+   "mit6_034f10_quiz3_2007",
+   "mit6_034f10_quiz3_2008",
+   "mit6_034f10_quiz3_2009",
+   "mit6_034f10_quiz3_2010",
+   "mit6_034f10_quiz4_2007",
+   "mit6_034f10_quiz4_2008",
+   "mit6_034f10_quiz4_2009",
+   "mit6_034f10_quiz4_2010"
+  ]
+ },
+ {
+  "slug": "6-034-artificial-intelligence-spring-2005",
+  "page": "exams",
+  "ressources": [
+   "q1_soln",
+   "q2_soln",
+   "quiz1_review",
+   "quiz1_review_sol",
+   "quiz2_review",
+   "quiz2_review_sol"
+  ]
+ },
+ {
+  "slug": "6-046j-design-and-analysis-of-algorithms-spring-2012",
+  "page": "exams",
+  "ressources": [
+   "mit6_046js12_final",
+   "mit6_046js12_final_prac",
+   "mit6_046js12_final_prac2011",
+   "mit6_046js12_final_prac2011_sol",
+   "mit6_046js12_final_prac_sol",
+   "mit6_046js12_final_sol",
+   "mit6_046js12_prac_adv",
+   "mit6_046js12_quiz1",
+   "mit6_046js12_quiz1_sol",
+   "mit6_046js12_quiz2",
+   "mit6_046js12_quiz2_info",
+   "mit6_046js12_quiz2_prac",
+   "mit6_046js12_quiz2_sol",
+   "mit6_046js12_quiz2_template",
+   "mit6_046js12_quiz2prac_sol"
+  ]
+ },
+ {
+  "slug": "6-046j-design-and-analysis-of-algorithms-spring-2015",
+  "page": "exams",
+  "ressources": [
+   "final-exam",
+   "mit6_046js15_quiz1sols",
+   "mit6_046js15_quiz2sols",
+   "quiz-1",
+   "quiz-2",
+   "solutions-to-final-exam"
+  ]
+ },
+ {
+  "slug": "6-046j-introduction-to-algorithms-sma-5503-fall-2005",
+  "page": "exams",
+  "ressources": [
+   "final-exam",
+   "final-exam-solutions",
+   "practice-final",
+   "practice-final-exam-solutions",
+   "practice-quiz-1",
+   "practice-quiz-1-solutions",
+   "practice-quiz-2",
+   "quiz-1",
+   "quiz-1-solutions",
+   "quiz-2",
+   "quiz-2-solutions"
+  ]
+ },
+ {
+  "slug": "6-090-building-programming-experience-a-lead-in-to-6-001-january-iap-2005",
+  "page": "exams",
+  "ressources": [
+   "quiz",
+   "quiz-1",
+   "quizanssheet",
+   "quizanssheet2",
+   "quizpractice",
+   "quizpracticeans",
+   "quizsolns"
+  ]
+ },
+ {
+  "slug": "6-189-a-gentle-introduction-to-programming-using-python-january-iap-2011",
+  "page": "exams",
+  "ressources": [
+   "exam_solpy",
+   "mit6_189iap11_exam"
+  ]
+ },
+ {
+  "slug": "6-189-multicore-programming-primer-january-iap-2007",
+  "page": "quizzes",
+  "ressources": [
+   "quiz1",
+   "quiz1_soln",
+   "quiz2",
+   "quiz2_soln",
+   "quiz3",
+   "quiz3_soln",
+   "quiz4",
+   "quiz4_soln",
+   "quiz5",
+   "quiz5_soln",
+   "quiz6",
+   "quiz6_soln"
+  ]
+ },
+ {
+  "slug": "6-231-dynamic-programming-and-stochastic-control-fall-2015",
+  "page": "exams",
+  "ressources": [
+   "mit6_231f15_mid_2008_sol",
+   "mit6_231f15_mid_2009",
+   "mit6_231f15_mid_2009_sol",
+   "mit6_231f15_mid_2011_sol",
+   "mit6_231f15_mid_2015",
+   "mit6_231f15_mid_2015_sol"
+  ]
+ },
+ {
+  "slug": "6-438-algorithms-for-inference-fall-2014",
+  "page": "exams",
+  "ressources": [
+   "mit6_438f14_q11_1",
+   "mit6_438f14_q11_2",
+   "mit6_438f14_q13_2",
+   "mit6_438f14_q14_1",
+   "mit6_438f14_q14_2"
+  ]
+ },
+ {
+  "slug": "6-441-information-theory-spring-2016",
+  "page": "exams",
+  "ressources": [
+   "mit6_441s16_final",
+   "mit6_441s16_midterm"
+  ]
+ },
+ {
+  "slug": "6-821-programming-languages-fall-2002",
+  "page": "exams",
+  "ressources": [
+   "16",
+   "17",
+   "18",
+   "20",
+   "21",
+   "32",
+   "33",
+   "34",
+   "35",
+   "36",
+   "37",
+   "38"
+  ]
+ },
+ {
+  "slug": "6-824-distributed-computer-systems-engineering-spring-2006",
+  "page": "exams",
+  "ressources": [
+   "quiz1_05_ans",
+   "quiz2_05_ans"
+  ]
+ },
+ {
+  "slug": "6-825-techniques-in-artificial-intelligence-sma-5504-fall-2002",
+  "page": "exams",
+  "ressources": [
+   "fall01final",
+   "fall01solutions",
+   "midterm",
+   "s2001final",
+   "s2001final_sol",
+   "samp_sol",
+   "samples",
+   "solutions-1"
+  ]
+ },
+ {
+  "slug": "6-827-multithreaded-parallelism-languages-and-compilers-fall-2002",
+  "page": "exams",
+  "ressources": [
+   "quiz",
+   "quiztopics"
+  ]
+ },
+ {
+  "slug": "6-828-operating-system-engineering-fall-2012",
+  "page": "exams",
+  "ressources": [
+   "mit6_828f12_q02_1_sol",
+   "mit6_828f12_q02_2_sol",
+   "mit6_828f12_q03_1_sol",
+   "mit6_828f12_q03_2_sol",
+   "mit6_828f12_q04_1_sol",
+   "mit6_828f12_q04_2_sol",
+   "mit6_828f12_q05_1_sol",
+   "mit6_828f12_q05_2_sol",
+   "mit6_828f12_q06_1_sol",
+   "mit6_828f12_q06_2_sol",
+   "mit6_828f12_q07_1_sol",
+   "mit6_828f12_q07_2_sol",
+   "mit6_828f12_q08_1",
+   "mit6_828f12_q08_1_sol",
+   "mit6_828f12_q08_2",
+   "mit6_828f12_q08_2_sol",
+   "mit6_828f12_q09_1",
+   "mit6_828f12_q09_1_sol",
+   "mit6_828f12_q09_2",
+   "mit6_828f12_q09_2_sol",
+   "mit6_828f12_q10_1",
+   "mit6_828f12_q10_1_sol",
+   "mit6_828f12_q10_2",
+   "mit6_828f12_q10_2_sol",
+   "mit6_828f12_q11_1",
+   "mit6_828f12_q11_1_sol",
+   "mit6_828f12_q11_2",
+   "mit6_828f12_q11_2_sol",
+   "mit6_828f12_q12",
+   "mit6_828f12_q12_sol"
+  ]
+ },
+ {
+  "slug": "6-858-computer-systems-security-fall-2014",
+  "page": "exams",
+  "ressources": [
+   "mit6_858f14_q09-1_sol",
+   "mit6_858f14_q09-2_sol",
+   "mit6_858f14_q09_1",
+   "mit6_858f14_q09_2",
+   "mit6_858f14_q10-1_sol",
+   "mit6_858f14_q10-2_sol",
+   "mit6_858f14_q10_1",
+   "mit6_858f14_q10_2",
+   "mit6_858f14_q11-1_sol",
+   "mit6_858f14_q11-2_sol",
+   "mit6_858f14_q11_1",
+   "mit6_858f14_q11_2",
+   "mit6_858f14_q12-1_sol",
+   "mit6_858f14_q12-2_sol",
+   "mit6_858f14_q12_1",
+   "mit6_858f14_q12_2",
+   "mit6_858f14_q13_1",
+   "mit6_858f14_q13_1_sol",
+   "mit6_858f14_q13_2",
+   "mit6_858f14_q13_2_sol",
+   "mit6_858f14_q14_1",
+   "mit6_858f14_q14_1_review",
+   "mit6_858f14_q14_1_sol",
+   "mit6_858f14_q14_2",
+   "mit6_858f14_q14_2_review1",
+   "mit6_858f14_q14_2_review2",
+   "mit6_858f14_q14_2_sol",
+   "q14-1_review",
+   "q14-2_review3"
+  ]
+ },
+ {
+  "slug": "6-867-machine-learning-fall-2006",
+  "page": "exams",
+  "ressources": [
+   "final_f01",
+   "final_f01soln",
+   "final_f02",
+   "final_f02soln",
+   "final_f03",
+   "final_f03soln",
+   "final_f04",
+   "final_f04soln",
+   "midterm_f01",
+   "midterm_f01soln",
+   "midterm_f02",
+   "midterm_f02soln",
+   "midterm_f03",
+   "midterm_f03soln",
+   "midterm_f04",
+   "midterm_f04soln",
+   "midterm_f06soln"
+  ]
+ },
+ {
+  "slug": "esd-04j-frameworks-and-models-in-engineering-systems-engineering-system-design-spring-2007",
+  "page": "exams",
+  "ressources": [
+   "midterm06",
+   "midterm07"
+  ]
+ },
+ {
+  "slug": "esd-33-systems-engineering-summer-2004",
+  "page": "exams",
+  "ressources": [
+   "exam1_frmwrk_v6",
+   "exam2_tools_v9"
+  ]
+ },
+ {
+  "slug": "hst-947-medical-artificial-intelligence-spring-2005",
+  "page": "exams",
+  "ressources": [
+   "q1_soln",
+   "q2_soln",
+   "quiz1_review",
+   "quiz1_review_sol",
+   "quiz2_review",
+   "quiz2_review_sol"
+  ]
+ }
+]
