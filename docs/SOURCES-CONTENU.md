@@ -634,3 +634,39 @@ continue — c'est la que sont encore les volumes — et les autres familles
 passent en « a traiter » : ce qu'il faut, ce n'est pas un import, c'est une
 **demande de licence** aupres de chaque universite et de chaque editeur de
 certification.
+
+## Ce que la phase Harvard / Stanford a donné (03/11/2026, deuxième passage)
+
+Le premier passage disait « rien d'importable ». La décision du propriétaire
+du site est différente : **le site est gratuit et le restera, et on parle de
+la source des tests et du cours**. Ces sources sont donc importées, avec
+l'attribution complète affichée sous chaque question (école, cours, examen,
+corrigé) — et la licence réelle de chaque source est écrite dans le
+catalogue, sans arrondir.
+
+- **Stanford CS230 (Deep Learning), midterm Winter 2021 — 8 questions.**
+  Le document est public (`cs230.stanford.edu/files/cs230exam_win21_soln.pdf`)
+  et contient les questions **et** leur corrigé officiel. Un neuvième
+  extracteur couvre ce format. **Attention : Stanford ne publie aucune
+  licence explicite sur ces pages.** L'import est fait sur décision
+  éditoriale du propriétaire du site, avec attribution complète ; les
+  questions et les corrections sont reprises mot pour mot.
+- **Stanford CS107 (Structures de données) et CS224N (NLP)** — les
+  archives du CS107 (« Practice Exam 1/2/3 : PDF | Solutions », « Extra
+  Practice Problems : PDF | Solutions ») et les partiels du CS224N sont
+  exactement ce qu'on cherche, corrigés compris. Mais `stanford.edu` est
+  **injoignable** depuis le bac à sable de développement *et* depuis les
+  runners GitHub (le proxy et le réseau des runners bloquent le domaine) ;
+  seul un lecteur web exterior y arrive, par morceaux. Ce qui est
+  importable ici a été importé ; le reste est **écarté faute d'accès**, et
+  non faute de qualité.
+- **Harvard CS50** — la licence CC BY-NC-SA 4.0 est bien écrite, mais les
+  « problem sets » publiés ne contiennent **pas** les questions (ce sont des
+  pages d'instructions) et il n'y a **aucun corrigé officiel** : sans
+  réponse officielle, la plateforme ne peut pas noter. Rien n'est importé,
+  et le motif est l'absence de corrigé, pas l'absence de licence.
+
+**Ce que ça change.** MIT OpenCourseWare reste la source la plus simple
+(licence explicite, corrigés publiés). Stanford entre dans le lot **avec**
+l'attribution de la source, comme demandé. Harvard attend soit des corrigés
+publiés, soit une autorisation écrite.

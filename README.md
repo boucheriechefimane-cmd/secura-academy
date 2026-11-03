@@ -709,8 +709,10 @@ ne suffit pas, c'est ce qu'un élève verrait sur une photo d'écran), et
 > puis de 5 questions du MIT 6.004 (Computation Structures), 3 du
 > MIT 6.189 (Multicore Programming Primer), 15 du MIT 6.006 Spring 2008 et
 > 115 du MIT 6.006 Fall 2011, 6.046J Spring 2012 et 6.005 Software
-> Construction, la plateforme compte **850 questions**, et le manque de
-> réservoir des examens est tombé de **80 à 20**.
+> Construction, puis de 47 questions de plus (MIT 6.851, MIT 18.404J et le
+> midterm du Stanford CS230), la plateforme compte **897 questions** (392
+> maison + 505 en réserve), et le manque de réservoir des examens reste de
+> l'ordre de **20 questions**.
 >
 > **Les examens d'université sont en réserve.** Une question reprise d'un
 > examen universitaire porte sa source et sa licence : elle n'entre jamais

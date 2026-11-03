@@ -5,8 +5,8 @@
   "url": "https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/pages/exams/",
   "rooms": [
     {
-      "room": "theorie-du-calcul",
-      "title": "theorie-du-calcul",
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
       "tasks": {
         "test": [
           {

@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.11.8
+ * Version:           0.11.9
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,26 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.11.9 — Deux nouveaux extracteurs, 47 questions de plus, et une
+ *           correction du bac a sable qui durait depuis des semaines.
+ *
+ *           - Huitieme extracteur (tools/import-mit-parts-reponses.py) :
+ *             les parties numerotees avec les reponses en ligne (MIT
+ *             18.404J) et les enonces numerotes avec leur corrige (MIT
+ *             6.851). 32 questions.
+ *           - Neuvieme extracteur (tools/import-stanford-cs230.py) : le
+ *             format Stanford (« (a) (2 points) ... » puis « Solution: »).
+ *             8 questions du midterm du CS230.
+ *           - Le MIT 6.005 repasse de 2 a 9 questions : une question a
+ *             plusieurs bonnes reponses devient une REDACTION (l'enonce
+ *             et les propositions restent mot pour mot ; seule la maniere
+ *             de repondre change, parce que la plateforme n'a qu'une
+ *             seule bonne reponse).
+ *           - La correction officielle d'une question redigee peut
+ *             desormais faire 30 caracteres au lieu de 80 : la reponse
+ *             d'un QCM est complete meme quand elle est courte
+ *             (« Solution : (i), (iv). »).
  *
  * 0.11.8 — La recolte continue, et un faux negatif de diagnostic corrige.
  *           Quatre cours que l'on croyait illisibles (le diagnostic
@@ -282,7 +302,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.11.8' );
+define( 'SECURA_ACADEMY_VERSION', '0.11.9' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

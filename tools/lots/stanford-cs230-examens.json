@@ -1,0 +1,88 @@
+{
+  "source": "stanford-cs230-examens",
+  "licence": "Aucune licence explicite publiee sur ces pages",
+  "attribution": "Stanford University, CS230 Deep Learning, Winter Quarter 2021 — midterm et corrigé officiel (Stanford)",
+  "url": "https://cs230.stanford.edu/files/cs230exam_win21_soln.pdf",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[Stanford — question d’examen, en anglais] Your model for classifying different dog species is getting a high training set error. Which of the followings are promising things to try to improve your classifier?\n(i) Use a bigger neural network\n(ii) Get more training data\n(iii) Increase the regularization parameter lambda\n(iv) Increase the parameter keep prob in dropout layer (assume the classifier has dropout layers)",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : (i), (iv).",
+            "source": "Stanford University, CS230 Deep Learning, Winter Quarter 2021 — midterm et corrigé officiel (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais] Which of the followings are true about Batch Normalization?\n(i) Batch Norm layers are skipped at test time because a single test example cannot be normalized.\n(ii) Its learnable parameters can only be learned using gradient descent or mini-batch gradient descent, but not other optimization algorithms.\n(iii) It helps speed up learning in the network.\n(iv) It introduces noise to a hidden layer's activation, because the mean and the standard deviation are estimated with a mini-batch of data.",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : (iii), (iv).",
+            "source": "Stanford University, CS230 Deep Learning, Winter Quarter 2021 — midterm et corrigé officiel (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais] If your input image is 64x64x16, how many parameters are there in a single 1x1 convolution filter, including bias?\n(i) 2\n(ii) 17\n(iii) 4097\n(iv) 1",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : (ii). The filter contains 16 parameters in the weight and 1 in the bias.",
+            "source": "Stanford University, CS230 Deep Learning, Winter Quarter 2021 — midterm et corrigé officiel (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais] Which one of the following statements on initialization is false?\n(i) The variances of layer outputs remain unchanged during training when Xavier initialization is used.\n(ii) Initializing all weights to a positive constant value isn't sufficient to break learning symmetry during training.\n(iii) Different activation functions may benefit from different types of initializations.\n(iv) It's possible to break symmetry by initializing weights to be sampled uniformly from the set {-1,1}.",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : (i) Xavier initialization guarantees the variances are standardized at the start, but this can change over the course of training",
+            "source": "Stanford University, CS230 Deep Learning, Winter Quarter 2021 — midterm et corrigé officiel (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais] The shape of your input image is (nh,nw,nc); the convolution layer uses a 1-by-1 filter with stride = 1 and padding = 0. Which of the following statements are correct?\n(i) You can reduce nc by using 1x1 convolution. However, you cannot change nh, nw. How large is the support (the set of image pixels which activate) of a neuron in the 4th non-image layer of this network?\n(ii) You can use a standard maxpooling to reduce nh, nw, but not nc.\n(iii) You can use a 1x1 convolution to reduce nh, nw, nc.\n(iv) You can use maxpooling to reduce nh, nw, nc.",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : (i), (ii). Maxpooling operates on the height and width dimensions of an image. Convolution reduces the input channels.",
+            "source": "Stanford University, CS230 Deep Learning, Winter Quarter 2021 — midterm et corrigé officiel (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais] Which of the following statements on regularization are true?\n(i) Using L-2 regularization enforces a Laplacian prior on your network weights.\n(ii) Batch normalization can have an implicit regularizing effect, especially with smaller minibatches.\n(iii) Layernorm's regularization effect increases with larger batch sizes.\n(iv) Your choice of regularization factor can cause your model to underfit.",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : (ii), (iv). (i): L-2 regularization enforces a Gaussian prior on weights (ii) Smaller minibatches result in noisier estimates of the minibatch mean and variance - this has been emprically shown to improve generation in some cases (iii) Layer normalization doesn't depend on minibatch size and hasn't been shown to theoretically or empirically aid generalization (iv) Setting an extremely large factor pushes learned weights close to zero",
+            "source": "Stanford University, CS230 Deep Learning, Winter Quarter 2021 — midterm et corrigé officiel (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais] What is the benefit of using Momentum optimization?\n(i) Simple update rule with minimal hyperparameters\n(ii) Helps get weights out of local minima\n(iii) Effectively scales the learning rate to act the same amount across all dimensions\n(iv) Combines the benefits of multiple optimization methods",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : (ii). The choices describe SGD, Momentum, RMSProp, and Adam, respectively.",
+            "source": "Stanford University, CS230 Deep Learning, Winter Quarter 2021 — midterm et corrigé officiel (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          },
+          {
+            "question": "[Stanford — question d’examen, en anglais] Which of the below can you implement to solve the exploding gradient problem?\n(i) Use SGD optimization\n(ii) Oversample minority classes\n(iii) Increase the batch size\n(iv) Impose gradient clipping",
+            "mode": "solution",
+            "hint": "Question d’examen de Stanford : rédige ta réponse, puis la correction officielle de Stanford s’affiche.",
+            "explanation": "Corrigé officiel de Stanford : (iv). Gradient clipping is an easy way to keep gradient values well-behaved. The other options do not help the problem at all.",
+            "source": "Stanford University, CS230 Deep Learning, Winter Quarter 2021 — midterm et corrigé officiel (Stanford)",
+            "licence": "Aucune licence explicite publiee sur ces pages",
+            "xp": 20
+          }
+        ]
+      }
+    }
+  ]
+}

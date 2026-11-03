@@ -215,3 +215,37 @@ publie, Stanford n'a pas de licence explicite, les certifications
 gratuites ont des questions proprietaires. Ces familles passent en « a
 traiter par une demande de licence », comme le MIT l'a ete avant la
 lettre.
+
+## 9. Ce que le huitieme et le neuvieme extracteur ont debloque (03/11/2026)
+
+| Cours | Etat avant | Etat maintenant |
+|---|---|---|
+| `18-404j-theory-of-computation-fall-2020` | lisible, format non couvert | **Importe : 20 questions.** Partie (a) « P <= TIME(n^5) ? » avec la reponse « False, hierarchy theorem. » |
+| `6-851-advanced-data-structures-spring-2012` | lisible, format non couvert | **Importe : 12 questions.** Les enonces numerotes et leurs « Sample solution » |
+| `6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011` | lisible, format non couvert | **Refuse, et pour une vraie raison :** ce sont des exercices de programmation dont la correction est un **programme complet** ecrit a la main dans un formulaire. Ce n'est pas une question, c'est un programme : la plateforme ne peut pas le noter. |
+| `6-036-introduction-to-machine-learning-fall-2020` | aucun PDF d'examen accessible | **A revoir** : les pages « exams » et « quizzes » ne mènent a aucun document |
+| `6-034-artificial-intelligence-fall-2010` | quiz sans corrige | **Refuse** : aucun corrige publie |
+| `6-047-computational-biology-fall-2015` | problem sets sans corrige | **Refuse** : aucun corrige publie |
+| `cs230.stanford.edu` (CS230) | hors MIT | **Importe : 8 questions** (decision editoriale du proprietaire du site, avec attribution de la source) |
+
+## 10. Le sitemap d'OCW : une bonne chose, mais une boussole et pas un moteur
+
+`https://ocw.mit.edu/sitemap.xml` donne en **une seule requete** la liste
+des **2 587 cours**. C'est une **bonne chose**, a une condition : ce n'est
+pas un importateur automatique. Le sitemap dit ou sont les cours, pas ce
+qu'ils contiennent.
+
+La regle reste la meme pour chaque cible trouvee :
+
+1. le cours a-t-il une licence explicite ?
+2. a-t-il un corrige officiel ?
+3. le format est-il couvert par un extracteur ?
+
+C'est ce tri qui a produit, en un passage, **6.034 refuse** (pas de
+corrige), **6.047 refuse** (pas de corrige), **6.036 ecarte** (pas de
+document), **6.851 et 18.404J importes** (format couvert apres ecriture
+du huitieme extracteur) et **6.01SC refuse** (les corrections sont des
+programmes).
+
+Le piege a eviter : balayer 2 587 cours ne dit pas qu'il faut tout
+importer. Un sitemap sert a **choisir** vite, pas a importer vite.

@@ -134,7 +134,7 @@ foreach ( $rooms as $room ) {
 			$explication = isset( $question['explanation'] ) ? trim( (string) $question['explanation'] ) : '';
 			$choix       = isset( $question['choices'] ) ? (array) $question['choices'] : array();
 
-			if ( strlen( $explication ) < 80 || ! empty( $choix )
+			if ( strlen( $explanation ) < 30 || ! empty( $choix )
 				|| empty( $question['source'] ) || empty( $question['licence'] ) ) {
 				$solution_mauvaises++;
 			}

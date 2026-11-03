@@ -5,8 +5,8 @@
   "url": "https://ocw.mit.edu/courses/6-851-advanced-data-structures-spring-2012/pages/assignments/",
   "rooms": [
     {
-      "room": "algorithmes",
-      "title": "algorithmes",
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
       "tasks": {
         "test": [
           {

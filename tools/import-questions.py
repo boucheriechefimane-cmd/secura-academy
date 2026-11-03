@@ -209,9 +209,9 @@ def verifier_questions(questions, slug, type_tache, source):
                 problemes.append(
                     "%s : une question « solution » ne propose pas de propositions : c'est une redaction." % prefixe
                 )
-            if len((question.get("explanation") or "").strip()) < 80:
+            if len((question.get("explanation") or "").strip()) < 30:
                 problemes.append(
-                    "%s : la correction officielle d'une question « solution » doit etre complete (80 caracteres minimum)." % prefixe
+                    "%s : la correction officielle d'une question « solution » doit etre complete (30 caracteres minimum : une reponse de QCM officielle peut etre courte, « Solution : (i), (iv). »)." % prefixe
                 )
 
         if not (question.get("explanation") or "").strip():

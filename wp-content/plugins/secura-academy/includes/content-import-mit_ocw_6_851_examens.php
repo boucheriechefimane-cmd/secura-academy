@@ -12,8 +12,8 @@ if ( ! function_exists( 'seca_import_mit_ocw_6_851_examens' ) ) {
 		return array(
 			'source' => array('id' => 'mit-ocw-6-851-examens', 'nom' => 'MIT OpenCourseWare — 6.851 Advanced Data Structures (Spring 2012)', 'url' => 'https://ocw.mit.edu/courses/6-851-advanced-data-structures-spring-2012/pages/assignments/', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)'),
 			'rooms' => array(
-				'algorithmes' => array(
-					'title' => 'algorithmes',
+				'comment-marche-un-ordinateur-de-la-donnee-au-programme' => array(
+					'title' => 'comment-marche-un-ordinateur-de-la-donnee-au-programme',
 					'tasks' => array(
 						'test' => array(
 							array('question' => '[MIT — question d’examen, en anglais] Creationist successor. Given an ordered universe U of keys, develop and analyze a fully retroac­ tive data structure that maintains S ⊆ U and supports the following operations: • insert(k) :    Insert k ∈ U into S • delete(k) :    Remove k ∈ U from S • successor(k) :     Return min{k \' ∈ S | k \' ≥ k} under the constraint that all insert operations must occur at time −∞. All operations should run in time O(log m), where m is the total number of updates performed in the structure (retroactive or not). Observe that such a structure is suﬃcient to answer the “rightward ray shot” queries needed for the nonoblivious retroactive priority queue. A simple reference to the logarithmic time data

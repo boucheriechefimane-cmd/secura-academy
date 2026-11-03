@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-03-onze",
+  "_version": "2026-11-03-douze",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -329,6 +329,18 @@
       "commercial": false,
       "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
       "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Pour le 6.851, ce sont les enonces et les « Sample solution » publies par le MIT. Pour le 18.404J, l’examen final et son corrige officiel."
+    },
+    {
+      "id": "stanford-cs230-examens",
+      "nom": "Stanford CS230 Deep Learning — midterm (Winter Quarter 2021)",
+      "url": "https://cs230.stanford.edu/files/cs230exam_win21_soln.pdf",
+      "licence": "Aucune licence explicite publiee sur ces pages",
+      "attribution": "Stanford University, CS230 Deep Learning, Winter Quarter 2021 — midterm et corrigé officiel (Stanford)",
+      "usage": "questions à choix multiples du midterm et corrigé officiel (réseau de neurones, régularisation, batch normalization)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "usage pedagogique et non commercial, avec attribution complete de la source",
+      "note": "ATTENTION : contrairement au MIT OpenCourseWare, les pages de Stanford ne portent pas de licence explicite. L'import a ete fait sur decision du proprietaire du site, avec attribution complete de la source sous chaque question (ecole, cours, examen, corrige). Les questions et les corrections sont reprises mot pour mot : rien n'est reecrit. Si Stanford publie une licence, la source seramise a jour."
     }
   ],
   "regles": [

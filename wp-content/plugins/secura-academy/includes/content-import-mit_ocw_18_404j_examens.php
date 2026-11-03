@@ -12,8 +12,8 @@ if ( ! function_exists( 'seca_import_mit_ocw_18_404j_examens' ) ) {
 		return array(
 			'source' => array('id' => 'mit-ocw-18-404j-examens', 'nom' => 'MIT OpenCourseWare — 18.404J Theory of Computation (Fall 2020)', 'url' => 'https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/pages/exams/', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)'),
 			'rooms' => array(
-				'theorie-du-calcul' => array(
-					'title' => 'theorie-du-calcul',
+				'comment-marche-un-ordinateur-de-la-donnee-au-programme' => array(
+					'title' => 'comment-marche-un-ordinateur-de-la-donnee-au-programme',
 					'tasks' => array(
 						'test' => array(
 							array('question' => '[MIT — question d’examen, en anglais] P ≤ TIME(n5 ) ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : False, hierarchy theorem.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 1),
