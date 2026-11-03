@@ -597,3 +597,40 @@ vus après la vague 2 :
   d'origine sont conservées **avec leur lettre**, et une question dont le
   corrigé nomme plusieurs bonnes réponses est refusée.
 
+## Harvard, Stanford, les certifications gratuites : le bilan honnete
+
+La regle reste la meme qu'ailleurs : **licence explicite**, **corrige officiel**,
+**jamais de reecriture**. On a cherche dans les trois familles. Le resultat est
+le meme partout : **rien n'est importable en l'etat**.
+
+**Harvard.** La licence CC BY-NC-SA 4.0 est bien laite — elle est ecrite sur
+la page de licence de CS50 (`cs50.harvard.edu/x/2024/license/`). Mais CS50 ne
+publie **aucun corrige officiel** : les quiz sont evalues par le site lui-meme,
+et les « problem sets » n'ont pas de corrigé publie. Sans reponse officielle,
+la plateforme ne peut pas noter la question — et.import une question sans
+reponse, ce serait l'inventer. **Refuse** (manque de corrige, pas de licence).
+
+**Stanford.** Le materiel existe et il est de qualite : les archives du CS107
+(« Practice Exam 1/2/3 : PDF | Solutions », « Extra Practice Problems :
+PDF | Solutions »), les partiels et les solutions du CS230, les partiels du
+CS224N — tous publies par Stanford, avec les corriges. Mais **aucune licence
+explicite** n'est associee a ces pages : la regle « pas d'import sans
+licence » s'applique donc, et le dossier Stanford rejoint la lettre envoyee
+au MIT. (Les solutions du CS224N qu'on trouve sur Studocu sont des
+televersements tiers, sans licence : refusees elles aussi.)
+
+**Les certifications gratuites.** L'examen **Fortinet NSE 1 a 3** est bien
+gratuit (0 USD) et l'IBM SkillsBuild et le Cisco Networking Basics aussi. Mais
+les questions officielles vivent dans des formations proprietaires
+(rien n'est publie sous une licence qui autorise la reprise), et les banques
+de questions qu'on trouve sur Internet (examjungle, docsity, etc.) sont
+ni officielles ni libres de droits : elles sont refusees. Le cout
+d'examen reste, lui, rapporte tel quel : Security+ 439 $, OSCP ~1 500 $,
+CEH ~1 000 $, eJPT ~249 $.
+
+**Consequence.** Sous la regle actuelle, la seule famille encore exploitable est
+**MIT OpenCourseWare** (CC BY-NC-SA 4.0, corriges publies). La recolte y
+continue — c'est la que sont encore les volumes — et les autres familles
+passent en « a traiter » : ce qu'il faut, ce n'est pas un import, c'est une
+**demande de licence** aupres de chaque universite et de chaque editeur de
+certification.

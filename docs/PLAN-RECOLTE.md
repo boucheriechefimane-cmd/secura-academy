@@ -186,3 +186,32 @@ La lecon : **un diagnostic se verifie contre une seconde mesure**. Ici, la
 mesure etait le calcul, pas la lecture — et des fichiers de plusieurs
 megabytes dont le texte faisait 2 caracteres ont traite l'alarme a tort.
 
+## 7. Nouvelles cibles releveees (03/11/2026, apres le correctif du diagnostic)
+
+Le sitemap d'OCW (`https://ocw.mit.edu/sitemap.xml`) donne en une seule
+requete les 2 587 cours ; on peut donc balayer les cibles sans deviner les
+adresses. Voila ce que donne une premiere passe sur des cours EECS :
+
+| Cours | Ce qu'on y trouve | Etat |
+|---|---|---|
+| `6-034-introduction-to-artificial-intelligence-fall-2010` | 10 quiz (2007-2010), texte lisible | **Refuse** : aucun corrige publie |
+| `6-851-advanced-data-structures-spring-2012` | 10 problem sets **avec « Sample solution »** | **Format non couvert** : il faut un huitieme extracteur |
+| `6-047-computational-biology-fall-2015` | 5 problem sets | **Refuse** : pas de corrige |
+| `6-036-introduction-to-machine-learning-fall-2020` | — | Les pages « exams » / « quizzes » ne menent a aucun PDF : format a revoir |
+| `18-404j-theory-of-computation-fall-2020` | final + `final_soln` | Lisible, mais format non couvert (huitieme extracteur) |
+| `6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011` | 29 fichiers d'examens | Lisible, mais format non couvert (formulaire a cases,Examens S09/S10/F09) |
+
+Le « huitieme extracteur » traiterait deux formats a la fois :
+« Problem N » suivi de parties numerotees avec un corrige en prose
+(18.404J, 6.851) — c'est le format `problem-parties` deja ecrit, mais avec
+un corrige en **liste numerotee** plutot qu'en `Solution:`. C'est le
+prochain chantier.
+
+## 8. Harvard, Stanford, certifications : ce qu'on a verifie
+
+Voir `docs/SOURCES-CONTENU.md` pour le detail. En resume : **aucune source
+importable** dans ces trois familles aujourd'hui — Harvard n'a pas de corrige
+publie, Stanford n'a pas de licence explicite, les certifications
+gratuites ont des questions proprietaires. Ces familles passent en « a
+traiter par une demande de licence », comme le MIT l'a ete avant la
+lettre.
