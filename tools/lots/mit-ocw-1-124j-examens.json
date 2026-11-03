@@ -1,0 +1,104 @@
+{
+  "source": "mit-ocw-1-124j-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000 — quiz d’examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/1-124j-foundations-of-software-engineering-fall-2000/resources/exams/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 1.124J — question d’examen, en anglais] \n\nShow how you would initialize the member pi in class Ball.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Use an initialization list in the constructor:\nBall(int r=1) : pi(3.14159f) {\nradius = r;\n}",
+            "source": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000"
+          },
+          {
+            "question": "[MIT 1.124J — question d’examen, en anglais] \n\nWhat is a protected member? Give examples of how such a member can\nand cannot be used.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : A protected member of a class is a member variable or function, which can only\nbe accessed within the definition of the class and the definitions of derived\nclasses. e.g.\nclass Base {\nprotected:\nint a;\n};\nclass Derived : public Base {\npublic:\nvoid set(int i) {\na = i; // Example of valid usage.\n}\n};\nvoid main() {\nDerived x;\nx.a = 7; // Illegal.\n}",
+            "source": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000"
+          },
+          {
+            "question": "[MIT 1.124J — question d’examen, en anglais] \n\nHow you would you change the background color of the panel when the mouse moves\nover the application's window?\nMouse out Mouse over\nimport java.awt.*;\nimport java.awt.event.*;\nimport javax.swing.*;\nclass Main {\npublic static void main(String args[]) {\nJFrame f = new JFrame();\nfinal JPanel p = new JPanel();",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : final Color c = p.getBackground();\np.addMouseListener(new MouseAdapter() {\npublic void mouseEntered(MouseEvent e) {\np.setBackground(Color.gray);\n}\npublic void mouseExited(MouseEvent e) {\np.setBackground(c);\n}\n});\nf.setContentPane(p);\nf.setSize(250,250);\nf.setVisible(true);\n}\n}",
+            "source": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000"
+          },
+          {
+            "question": "[MIT 1.124J — question d’examen, en anglais] \n\nShow how you would extract the number 1.124 from the string \"Hello 1.124 World!\" and\nthen store it in a float variable.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : import java.util.*;\nclass Main {\npublic static void main(String args[]) {\nString str = \"Hello 1.124 World!\";\nStringTokenizer t = new StringTokenizer(str);\nString s = t.nextToken();\ns = t.nextToken();\nfloat f = Float.parseFloat(s);\n}\n}",
+            "source": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 1.124J — question d’examen, en anglais] \n\nWrite the copy constructor for class Ball.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Within the public part of the Ball class declaration:\nBall(const Ball& b) : pi(b.pi) {\nradius = b.radius;\n}",
+            "source": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000"
+          },
+          {
+            "question": "[MIT 1.124J — question d’examen, en anglais] \n\nGive the definitions of the destructors for the Ball and BuckyBall classes.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : In the public part of the declaration for class Ball:\nvirtual ~Ball() {}\nIn the public part for the declaration for class BuckyBall:\n~BuckyBall() {}",
+            "source": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000"
+          },
+          {
+            "question": "[MIT 1.124J — question d’examen, en anglais] \n\nWhat is double buffering and why is it important in animation? How do the Swing\nclasses differ from the AWT classes in this respect?",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Double buffering is important because it helps to produce a smooth looking\nanimation that does not flicker. Without double buffering, noticeable\nflicker will usually result due to the clearing of the background before an\nanimation frame is drawn. Double buffering is implemented by performing\nall drawing operations for an animation frame (including clearing the\nbackground) in an off-screen image buffer. Once the complete animation\nframe has been assembled off-screen, the contents of the image buffer are\ncopied on to the screen.\nThe Swing package provides automatic double buffering capabilities by\nway of the JComponent class. With the AWT classes, double buffering is\nthe responsibility of the programmer.",
+            "source": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000"
+          },
+          {
+            "question": "[MIT 1.124J — question d’examen, en anglais] \n\nFill in the body of the member function, set_coords, so that it properly sets\nthe private member data in class Point.",
+            "mode": "solution",
+            "xp": 20,
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : void Point::set_coords(int x, int y) {\nthis->x = x; // or Point::x = x;\nthis->y = y; // or Point::y = y;\n}",
+            "source": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000 — quiz d’examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000"
+          }
+        ]
+      }
+    }
+  ]
+}

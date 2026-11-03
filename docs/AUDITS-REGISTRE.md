@@ -406,6 +406,73 @@ le scénario des deux apprenants.
 
 ---
 
+### 1 decies. Les examens d'université quittent les tâches : le point de contrôle retrouve la taille de l'épreuve (03/11/2026, v0.11.4)
+
+**Le défaut, mesuré.** En préparant la vague 2 de l'import (143 questions
+de cinq cours du MIT), la mesure a montré que **36 des 52 rooms** avaient un
+point de contrôle (« test ») plus gros que la règle du moteur ne l'autorise.
+Les deux rooms Stanford affichaient **80 et 77 questions** à rendre, là où la
+règle écrit : « le `test` fait au moins la taille de l'`exam`, jamais plus ».
+La cause n'était pas les slugs : c'était l'**import** lui-même. Les questions
+reprises d'un examen universitaire étaient versées dans la tâche `test` de la
+room, et une tâche de 80 questions donne une copie de 80 questions — le point
+de contrôle devenait un examen entier, et il fallait écrire 68 corrigés
+d'algorithmes pour ouvrir la porte de l'examen suivant.
+
+**Les trois voies possibles, et pourquoi celle retenue.**
+
+| Voie | Ce qu'elle change | Pourquoi elle est écartée |
+|---|---|---|
+| A. Des rooms dédiées pour les 5 cours non-cyber | 5 à 9 rooms à créer (contenu, machine, drapeaux, traductions ar/en) | Elle n'écaille pas le défaut : les 143 questions restent dans une tâche `test`, le point de contrôle reste gros. Elle ne passe pas à l'échelle (Harvard, puis les autres), et elle demande d'écrire du contenu — alors que la règle est de ne rien rédiger. |
+| B. Un plafond dans le moteur | Le moteur refuse de servir plus de N questions | `is_task_unlocked()`, `room_is_complete()` et `compute_score()` comparent la **tâche brute** aux réponses indexées sur la **copie servie**. Plafonner sans aligner les deux casse le déblocage et les médailles ; l'alignement « brute ↔ copie » a été **abandonné** (le panel des élèves ne peut pas répondre aux questions de drapeau : plus aucun examen ne s'ouvrirait et la CI rougirait). |
+| C. Séparer l'import du point de contrôle (**retenue**) | Les questions importées quittent les tâches et forment une **réserve** | Le réservoir des épreuves garde **toutes** les questions : les copies d'examen restent aussi variées, et le point de contrôle retrouve la taille de l'épreuve. C'est la lecture littérale de la règle déjà écrite dans le README. |
+
+**La correction.** `Secura_Rooms::get_tasks()` rend désormais les tâches
+**maison** ; `Secura_Rooms::reserve()` rend les questions importées de la
+room, normalisées par **exactement le même code** (aucune divergence de
+sémantique possible) ; `Secura_Exam::pool()` tire dans les deux : la réserve
+alimente le **réservoir** de la section. Le moteur de progression
+(`class-secura-progress.php`), le déblocage (`class-secura-ajax.php`) et le
+tirage ne sont **pas** touchés, et aucune fonction publique n'a changé de
+signature.
+
+**Les mesures, avant et après.**
+
+| Mesure | Avant | Après |
+|---|---|---|
+| Questions importées dans une **tâche** | 320 | **0** |
+| Copie servie du `test` (médiane / max) | 4 / **80** | 4 / **10** |
+| Réservoir de la section Stanford | 164 | **164** (inchangé) |
+| Questions de la plateforme | 712 | **712** (inchangé) |
+| Manque de réservoir, par section | 25 | **25** |
+| Examens déverrouillés après réponse à tout ce qui est répondable sans machine | 26 / 52 | **46 / 52** |
+
+L'empreinte du réservoir a été prise avant la correction
+(`run/reservoir-avant.tsv`) et comparée après : **les tailles sont
+identiques** ; seul l'ordre des questions dans le réservoir change (la
+réserve vient après les questions maison). Les copies d'examen changent donc,
+mais restent **distinctes pour chaque élève** (20 copies → 20 ensembles
+différents, contrôle de l'auditeur « épreuves »).
+
+**Les garde-fous, vérifiés par mutation.** Trois contrôles automatiques ont
+été ajoutés à l'auditeur « épreuves » : (1) aucune question importée dans
+une tâche ; (2) la copie servie du point de contrôle ne dépasse jamais la
+taille de l'épreuve ; (3) la réserve alimente bien le réservoir — sans quoi
+les questions importées disparaîtraient de la plateforme. Ils **échouent
+quand la règle est affaiblie** : la mutation a été faite exprès (l'ancien
+comportement de fusion a été remis), et les contrôles sont bien passés au
+rouge. Six tests de non-régression ont été ajoutés à `tests/smoke-test.php`
+(**331 tests, 0 échec**) : avec la même mutation, trois tests tombent.
+
+**Ce que le comité local dit — et ce qu'il ne dit pas.** Le comité d'audit
+local trouve 5 constats majeurs : ce sont des **constats d'environnement**
+(RTL `ar`/`en`, archive auteur, inscription libre-service, drapeaux absents
+des machines en local), pas des constats de contenu. Pour le panel des
+élèves, un test A/B a été fait : **avec l'ancien moteur et avec le nouveau,
+le panel local donne exactement le même résultat** (0 question traitée) — la
+cause est l'environnement local, pas la séparation. L'arbitre reste
+**GitHub**, en vrais conteneurs.
+
 ## 2. Les constats du premier passage, et leur traitement
 
 | # | Constat | Auditeur | Gravité | Traitement | État |
@@ -907,7 +974,8 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 
 | Date | Version | Résultat |
 |---|---|---|
-| 02/11/2026 (v0.11.3, récolte et faux positif du grec) | v0.11.3 | **Deux nouveaux cours du MIT importés, et un faux positif de l'audit corrigé.** (1) La récolte continue : **6.828 Operating System Engineering** (31 questions) et **14.15J Introduction to Computer Networks** (14 questions) sont entrés dans la banque avec leurs **corrigés officiels**, sous licence **CC BY-NC-SA 4.0** — 45 questions de plus, le déficit de réservoir passant de **80 à 31**. Un second extracteur a été écrit pour le format « problème + sous-questions » : il apparie **chaque question à son corrigé officiel par l'ordre du document**, et **abandonne** la question si la correspondance ne se vérifie pas — aucune réponse n'est inventée. (2) Le même jour, l'audit externe a signalé un **constat majeur** : 51 caractères grecs (Γ, λ) dans le fichier importé. C'était **un faux positif** : l'audit cherche « un caractère à l'apparence latine mais d'une autre écriture », or λ et Γ ne ressemblent à rien de latin — ce sont des **symboles mathématiques** qui font partie de l'énoncé d'un examen de maths réseau. On ne réécrit pas un examen du MIT pour effacer une lambda. **Correction** : le grec est désormais toléré **dans les seuls fichiers de questions importées** (jamais dans le code du site ni dans le contenu rédigé) ; le cyrillique, le han et les autres écritures restent interdits partout, import compris. **Preuve que la détection reste vivante** : sept tests automatiques dans `tests/smoke-test.php` vérifient qu'un caractère cyrillique ou han est toujours refusé, y compris dans un fichier importé, et que le grec reste refusé hors import. Le contrôle multilingue repasse au vert (8 contrôles, 0 constat). |
+| 02/11/2026 (v0.11.3, récolte et faux positif du grec) | v0.11.3 | **Deux nouveaux cours du MIT importés, et un faux positif de l'audit corrigé.** (1) La récolte continue : **6.828 Operating System Engineering** (31 questions) et **14.15J Introduction to Computer Networks** (14 questions) sont entrés dans la banque avec leurs **corrigés officiels**, sous licence **CC BY-NC-SA 4.0** — 45 questions de plus, le déficit de réservoir passant de **80 à 31**. Un second extracteur a été écrit pour le format « problème + sous-questions » : il apparie **chaque question à son corrigé officiel par l'ordre du document**, et **abandonne** la question si la correspondance ne se vérifie pas — aucune réponse n'est inventée. (2) Le même jour, l'audit externe a signalé un **constat majeur** : 51 caractères grecs (Γ, λ) dans le fichier importé. C'était **un faux positif** : l'audit cherche « un caractère à l'apparence latine mais d'une autre écriture », or λ et Γ ne ressemblent à rien de latin — ce sont des **symboles mathématiques** qui font partie de l'énoncé d'un examen de maths réseau. On ne réécrit pas un examen du MIT pour effacer une lambda. **Correction** : le grec est désormais toléré **dans les seuls fichiers de questions importées** (jamais dans le code du site ni dans le contenu rédigé) ; le cyrillique, le han et les autres écritures restent interdits partout, import compris. **Preuve que la détection reste vivante** : neuf tests automatiques dans `tests/smoke-test.php` vérifient qu'un caractère cyrillique ou han est toujours refusé, y compris dans un fichier importé, et que le grec reste refusé hors import. Le contrôle multilingue repasse au vert (8 contrôles, 0 constat). |
+| 03/11/2026 (v0.11.4, les examens d'université en réserve) | v0.11.4 | **Le point de contrôle retrouve la taille de l'épreuve.** En préparant la vague 2 de l'import (143 questions de cinq cours du MIT), la mesure a montré que **36 des 52 rooms** avaient une tâche `test` plus grosse que la règle du moteur ne l'autorise — jusqu'à **80 et 77 questions** à rendre sur les deux rooms Stanford. La cause : les questions reprises d'un examen universitaire étaient versées dans la tâche `test` de la room. Correction : elles forment désormais une **réserve** (`Secura_Rooms::reserve()`) qui alimente le **réservoir** de la section ; `get_tasks()` ne rend plus que les tâches maison. **Mesures :** 0 question importée dans une tâche (contre 320), copie servie du `test` de 2 à 10 questions (max 80 avant), **réservoir Stanford inchangé à 164**, **712 questions** au total, manque de réservoir **25**, examens déverrouillés **46/52** (contre 26/52). Le moteur de progression n'est pas touché. **Trois garde-fous** ajoutés à l'auditeur « épreuves » et **six tests de non-régression** dans `tests/smoke-test.php` (331 tests, 0 échec) : la mutation (remettre l'ancien comportement de fusion) fait bien tomber les contrôles. Le test A/B du panel des élèves en local donne le même résultat avant et après : les constats locaux restants sont des constats d'environnement, l'arbitre reste GitHub en conteneurs. |
 | 02/11/2026 (v0.11.0, après refus de la CI) | v0.11.0 | **La première version de v0.11.0 a été refusée par la CI** : le 18ᵉ auditeur a trouvé un constat de fond (35 questions de machine sur 81 jouées « refusées »). La cause n'était pas la plateforme mais **l'outil de mesure** : il ne savait pas répondre au nouveau type de question, et il déclarait la réussite en comparant un index de copie à un index de source — deux index sans rapport, puisque le tirage mélange les questions. Une mesure pouvait donc passer au vert **sans que le drapeau ait jamais été accepté**. Les deux défauts sont corrigés : l'auditeur répond comme un élève, et il ne déclare la réussite que si la question de drapeau elle-même a été acceptée (reconnue à son chemin, unique dans la room). |
 | 02/11/2026 (v0.11.0) | v0.11.0 | **L'import d'un examen réel passe à l'échelle : 132 questions du MIT 6.858 (dont 115 problèmes d'examen rédigés avec la correction officielle), nouveau type de question « solution », deux sources trouvées et refusées avec preuve automatique (PortSwigger, MIT 6.1600). Mesures : 524 questions, réservoirs de 9 à 39 (médiane 24), 636 150 892 copies possibles, examens au réservoir trop juste passés de 36 à 22. Comité : **229 contrôles, 0 bloquant, 0 majeur, 1 mineur**. |
 | 02/11/2026 (v0.10.0, CI après fusion) | v0.10.0 | **Les cinq travaux GitHub sont verts** sur le code fusionné : CI, recette et compatibilité (dont Polylang, désormais épinglé), machines en vrais conteneurs (45 contrôles), audit externe des 18 auditeurs (**229 contrôles en CI**, 0 bloquant, 0 majeur, 1 mineur) et déploiement. |

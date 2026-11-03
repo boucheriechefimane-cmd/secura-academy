@@ -1,0 +1,310 @@
+{
+    "mesure": "2026-11-03T10:33:02+00:00",
+    "total": 25,
+    "sections": {
+        "fondations-reseaux-web-et-cryptographie :: Module 1 : Introduction à la cybersécurité": {
+            "pool": 15,
+            "epreuve": 3,
+            "besoin": 15,
+            "manque": 0,
+            "examens": {
+                "penser-comme-un-defenseur": 3
+            },
+            "rooms": {
+                "penser-comme-un-defenseur": 3
+            }
+        },
+        "fondations-reseaux-web-et-cryptographie :: Module 2 : Fondamentaux des réseaux": {
+            "pool": 15,
+            "epreuve": 3,
+            "besoin": 15,
+            "manque": 0,
+            "examens": {
+                "les-fondamentaux-du-reseau": 3
+            },
+            "rooms": {
+                "les-fondamentaux-du-reseau": 3
+            }
+        },
+        "fondations-reseaux-web-et-cryptographie :: Module 3 : Sécurité des applications web": {
+            "pool": 11,
+            "epreuve": 3,
+            "besoin": 15,
+            "manque": 4,
+            "examens": {
+                "securiser-une-application-web": 3
+            },
+            "rooms": {
+                "securiser-une-application-web": 3
+            }
+        },
+        "fondations-reseaux-web-et-cryptographie :: Module 4 : Mémoire et défenses": {
+            "pool": 10,
+            "epreuve": 3,
+            "besoin": 15,
+            "manque": 5,
+            "examens": {
+                "memoire-et-defenses": 3
+            },
+            "rooms": {
+                "memoire-et-defenses": 3
+            }
+        },
+        "fondations-reseaux-web-et-cryptographie :: Module 5 : Authentification": {
+            "pool": 9,
+            "epreuve": 3,
+            "besoin": 15,
+            "manque": 6,
+            "examens": {
+                "authentification": 3
+            },
+            "rooms": {
+                "authentification": 3
+            }
+        },
+        "fondations-reseaux-web-et-cryptographie :: Module 6 : Chiffrement et HTTPS": {
+            "pool": 11,
+            "epreuve": 3,
+            "besoin": 15,
+            "manque": 4,
+            "examens": {
+                "chiffrement-et-https": 3
+            },
+            "rooms": {
+                "chiffrement-et-https": 3
+            }
+        },
+        "scenarios-m3-dix-missions-reelles :: Module 1 : Triage et secrets (scénarios 1 et 2)": {
+            "pool": 27,
+            "epreuve": 5,
+            "besoin": 25,
+            "manque": 0,
+            "examens": {
+                "le-service-qui-ne-repond-plus": 5,
+                "le-mot-de-passe-oublie": 5
+            },
+            "rooms": {
+                "le-service-qui-ne-repond-plus": 5,
+                "le-mot-de-passe-oublie": 5
+            }
+        },
+        "scenarios-m3-dix-missions-reelles :: Module 2 : Le web se trahit (scénarios 3 et 4)": {
+            "pool": 21,
+            "epreuve": 5,
+            "besoin": 25,
+            "manque": 4,
+            "examens": {
+                "la-page-qui-se-trahit": 5,
+                "la-requete-qui-ne-se-fie-a-personne": 5
+            },
+            "rooms": {
+                "la-page-qui-se-trahit": 5,
+                "la-requete-qui-ne-se-fie-a-personne": 5
+            }
+        },
+        "scenarios-m3-dix-missions-reelles :: Module 3 : Fichiers et journaux (scénarios 5 et 6)": {
+            "pool": 20,
+            "epreuve": 4,
+            "besoin": 20,
+            "manque": 0,
+            "examens": {
+                "le-fichier-quon-naurait-pas-du-laisser": 4,
+                "qui-a-force-la-porte": 4
+            },
+            "rooms": {
+                "le-fichier-quon-naurait-pas-du-laisser": 4,
+                "qui-a-force-la-porte": 4
+            }
+        },
+        "scenarios-m3-dix-missions-reelles :: Module 4 : Réseau et pivot (scénarios 7 et 8)": {
+            "pool": 25,
+            "epreuve": 5,
+            "besoin": 25,
+            "manque": 0,
+            "examens": {
+                "le-reseau-qui-parle-trop": 4,
+                "traverser-le-mur": 5
+            },
+            "rooms": {
+                "le-reseau-qui-parle-trop": 4,
+                "traverser-le-mur": 5
+            }
+        },
+        "scenarios-m3-dix-missions-reelles :: Module 5 : Mémoire et TLS (scénarios 9 et 10)": {
+            "pool": 24,
+            "epreuve": 5,
+            "besoin": 25,
+            "manque": 1,
+            "examens": {
+                "le-binaire-qui-obeit-trop": 5,
+                "le-certificat-qui-ne-prouve-rien": 5
+            },
+            "rooms": {
+                "le-binaire-qui-obeit-trop": 5,
+                "le-certificat-qui-ne-prouve-rien": 5
+            }
+        },
+        "les-universites-22-rooms-6-cours :: MIT 6.858 : systemes securises (5 rooms)": {
+            "pool": 21,
+            "epreuve": 4,
+            "besoin": 20,
+            "manque": 0,
+            "examens": {
+                "menaces-vulnerabilites-et-modele-de-menace": 4,
+                "debordement-de-tampon-lattaque-et-les-defenses": 4,
+                "architecture-de-confiance-separer-les-privileges": 4,
+                "bac-a-sable-confiner-le-code-natif": 4,
+                "le-web-et-ses-regles-sop-csrf-et-sessions": 4
+            },
+            "rooms": {
+                "menaces-vulnerabilites-et-modele-de-menace": 4,
+                "debordement-de-tampon-lattaque-et-les-defenses": 4,
+                "architecture-de-confiance-separer-les-privileges": 4,
+                "bac-a-sable-confiner-le-code-natif": 4,
+                "le-web-et-ses-regles-sop-csrf-et-sessions": 4
+            }
+        },
+        "les-universites-22-rooms-6-cours :: MIT 6.857 : reseau et cryptographie (4 rooms)": {
+            "pool": 25,
+            "epreuve": 4,
+            "besoin": 20,
+            "manque": 0,
+            "examens": {
+                "segmenter-isoler-pivoter-la-securite-reseau": 4,
+                "tls-et-https-le-chiffrement-qui-tient-la-route": 4,
+                "sauthentifier-mot-de-passe-session-second-facteur": 4,
+                "cryptographie-cle-chiffrement-signature": 4
+            },
+            "rooms": {
+                "segmenter-isoler-pivoter-la-securite-reseau": 4,
+                "tls-et-https-le-chiffrement-qui-tient-la-route": 4,
+                "sauthentifier-mot-de-passe-session-second-facteur": 4,
+                "cryptographie-cle-chiffrement-signature": 4
+            }
+        },
+        "les-universites-22-rooms-6-cours :: pwn.college : de la memoire au shell (4 rooms)": {
+            "pool": 29,
+            "epreuve": 4,
+            "besoin": 20,
+            "manque": 0,
+            "examens": {
+                "x86-et-memoire-comprendre-la-pile": 4,
+                "deborder-la-pile-le-canari-et-loffset": 4,
+                "rop-construire-une-attaque-sans-shellcode": 4,
+                "vulnerabilite-de-format-string-printf-qui-parle-trop": 4
+            },
+            "rooms": {
+                "x86-et-memoire-comprendre-la-pile": 4,
+                "deborder-la-pile-le-canari-et-loffset": 4,
+                "rop-construire-une-attaque-sans-shellcode": 4,
+                "vulnerabilite-de-format-string-printf-qui-parle-trop": 4
+            }
+        },
+        "les-universites-22-rooms-6-cours :: CYBER.ORG : hygiene numerique (4 rooms)": {
+            "pool": 23,
+            "epreuve": 4,
+            "besoin": 20,
+            "manque": 0,
+            "examens": {
+                "mots-de-passe-la-longueur-bat-la-complexite": 4,
+                "hameconnage-lire-un-message-avant-de-cliquer": 4,
+                "publier-en-ligne-ce-que-les-autres-voient-de-toi": 4,
+                "hygiene-numerique-le-deuxieme-facteur": 4
+            },
+            "rooms": {
+                "mots-de-passe-la-longueur-bat-la-complexite": 4,
+                "hameconnage-lire-un-message-avant-de-cliquer": 4,
+                "publier-en-ligne-ce-que-les-autres-voient-de-toi": 4,
+                "hygiene-numerique-le-deuxieme-facteur": 4
+            }
+        },
+        "les-universites-22-rooms-6-cours :: OWASP : securite des applications (3 rooms)": {
+            "pool": 20,
+            "epreuve": 4,
+            "besoin": 20,
+            "manque": 0,
+            "examens": {
+                "le-top-10-owasp-et-la-surface-dattaque": 4,
+                "valider-les-entrees-le-premier-remede-anti-injection": 4,
+                "journaux-et-audit-la-trace-qui-vaut-de-lor": 4
+            },
+            "rooms": {
+                "le-top-10-owasp-et-la-surface-dattaque": 4,
+                "valider-les-entrees-le-premier-remede-anti-injection": 4,
+                "journaux-et-audit-la-trace-qui-vaut-de-lor": 4
+            }
+        },
+        "les-universites-22-rooms-6-cours :: Stanford : comment marche un ordinateur (2 rooms)": {
+            "pool": 21,
+            "epreuve": 4,
+            "besoin": 20,
+            "manque": 0,
+            "examens": {
+                "comment-marche-un-ordinateur-de-la-donnee-au-programme": 4,
+                "donnees-et-systemes-organiser-linformation": 4
+            },
+            "rooms": {
+                "comment-marche-un-ordinateur-de-la-donnee-au-programme": 4,
+                "donnees-et-systemes-organiser-linformation": 4
+            }
+        },
+        "les-labs-avances-juice-shop-dojo-et-quiz :: Lab 1 : OWASP Juice Shop (2 rooms)": {
+            "pool": 14,
+            "epreuve": 3,
+            "besoin": 15,
+            "manque": 1,
+            "examens": {
+                "la-boutique-en-ligne-se-connecter-en-administrateur": 3,
+                "la-zone-administrateur-ce-quun-administrateur-voit": 3
+            },
+            "rooms": {
+                "la-boutique-en-ligne-se-connecter-en-administrateur": 3,
+                "la-zone-administrateur-ce-quun-administrateur-voit": 3
+            }
+        },
+        "les-labs-avances-juice-shop-dojo-et-quiz :: Le dojo : cinq ceintures, vingt defis (5 rooms)": {
+            "pool": 19,
+            "epreuve": 3,
+            "besoin": 15,
+            "manque": 0,
+            "examens": {
+                "ceinture-blanche-lire-chercher-comprendre": 3,
+                "ceinture-jaune-permissions-proprietaire-contenu": 3,
+                "ceinture-orange-reseau-processus-configuration": 3,
+                "ceinture-verte-binaires-chaines-memoire": 3,
+                "ceinture-noire-cryptographie-cles-empreintes": 3
+            },
+            "rooms": {
+                "ceinture-blanche-lire-chercher-comprendre": 3,
+                "ceinture-jaune-permissions-proprietaire-contenu": 3,
+                "ceinture-orange-reseau-processus-configuration": 3,
+                "ceinture-verte-binaires-chaines-memoire": 3,
+                "ceinture-noire-cryptographie-cles-empreintes": 3
+            }
+        },
+        "les-labs-avances-juice-shop-dojo-et-quiz :: Les briefs et le quiz de revision (7 rooms)": {
+            "pool": 50,
+            "epreuve": 10,
+            "besoin": 50,
+            "manque": 0,
+            "examens": {
+                "brief-1-le-dojo-comment-on-sentraine": 2,
+                "brief-2-le-web-comment-on-parle-a-un-serveur": 2,
+                "brief-3-les-scenarios-dexploitation": 2,
+                "brief-4-les-registres-le-carnet-du-processeur": 2,
+                "brief-5-ne-pas-se-faire-avoir": 2,
+                "brief-6-explorer-une-application-web": 2,
+                "kahoot-la-revision-des-labs-avances": 10
+            },
+            "rooms": {
+                "brief-1-le-dojo-comment-on-sentraine": 2,
+                "brief-2-le-web-comment-on-parle-a-un-serveur": 2,
+                "brief-3-les-scenarios-dexploitation": 2,
+                "brief-4-les-registres-le-carnet-du-processeur": 2,
+                "brief-5-ne-pas-se-faire-avoir": 2,
+                "brief-6-explorer-une-application-web": 2,
+                "kahoot-la-revision-des-labs-avances": 10
+            }
+        }
+    }
+}

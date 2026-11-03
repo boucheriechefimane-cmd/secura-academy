@@ -382,122 +382,53 @@ def extraire_items(chemin):
     return items
 
 
-# Les rooms dont le reservoir d'examen est trop juste (mesure reelle :
-# Secura_Exam::pool_size), avec le nombre de questions qui manquent.
-# La sonde reproductible est run/probe-pool.php.
-CIBLES = [
-    ("penser-comme-un-defenseur", 2, "tous"),
-    ("les-fondamentaux-du-reseau", 3, "reseau"),
-    ("securiser-une-application-web", 5, "web"),
-    ("memoire-et-defenses", 5, "memoire"),
-    ("authentification", 6, "auth"),
-    ("chiffrement-et-https", 5, "crypto"),
-    ("le-service-qui-ne-repond-plus", 0, "tous"),
-    ("le-mot-de-passe-oublie", 0, "auth"),
-    ("la-page-qui-se-trahit", 4, "web"),
-    ("la-requete-qui-ne-se-fie-a-personne", 4, "web"),
-    ("le-fichier-quon-naurait-pas-du-laisser", 0, "os"),
-    ("qui-a-force-la-porte", 0, "os"),
-    ("le-reseau-qui-parle-trop", 0, "reseau"),
-    ("traverser-le-mur", 1, "reseau"),
-    ("le-binaire-qui-obeit-trop", 1, "memoire"),
-    ("le-certificat-qui-ne-prouve-rien", 1, "crypto"),
-    ("segmenter-isoler-pivoter-la-securite-reseau", 0, "reseau"),
-    ("tls-et-https-le-chiffrement-qui-tient-la-route", 0, "crypto"),
-    ("sauthentifier-mot-de-passe-session-second-facteur", 0, "auth"),
-    ("cryptographie-cle-chiffrement-signature", 0, "crypto"),
-    ("x86-et-memoire-comprendre-la-pile", 0, "memoire"),
-    ("deborder-la-pile-le-canari-et-loffset", 0, "memoire"),
-    ("rop-construire-une-attaque-sans-shellcode", 0, "memoire"),
-    ("vulnerabilite-de-format-string-printf-qui-parle-trop", 0, "memoire"),
-    ("mots-de-passe-la-longueur-bat-la-complexite", 0, "auth"),
-    ("hameconnage-lire-un-message-avant-de-cliquer", 0, "web"),
-    ("publier-en-ligne-ce-que-les-autres-voient-de-toi", 0, "web"),
-    ("hygiene-numerique-le-deuxieme-facteur", 0, "auth"),
-    ("le-top-10-owasp-et-la-surface-dattaque", 0, "web"),
-    ("valider-les-entrees-le-premier-remede-anti-injection", 0, "web"),
-    ("journaux-et-audit-la-trace-qui-vaut-de-lor", 0, "os"),
-    ("comment-marche-un-ordinateur-de-la-donnee-au-programme", 0, "memoire"),
-    ("donnees-et-systemes-organiser-linformation", 0, "os"),
-    ("la-boutique-en-ligne-se-connecter-en-administrateur", 1, "web"),
-    ("la-zone-administrateur-ce-quun-administrateur-voit", 1, "os"),
-    ("kahoot-la-revision-des-labs-avances", 6, "tous"),
-]
-
-MOTS_THEMES = {
-    "reseau": ("firewall", "network", "packet", "tcp", "ddos", "dns", "router",
-               "wireless", "denial", "tor", "proxy", "segmentation", "captcha"),
-    "web": ("web", "javascript", "cookie", "xss", "sql", "browser", "http",
-            "url", "dropbox", "website", "origin", "cors", "php", "get[",
-            "mysql", "sanitiz"),
-    "memoire": ("stack", "buffer", "heap", "memory", "overflow", "canary",
-                "rop", "baggy", "bound", "allocator", "return address", "strcpy",
-                "virtual memory", "page"),
-    "auth": ("password", "authentication", "login", "session", "srp",
-             "credential", "username", "token", "spam"),
-    "crypto": ("key", "encrypt", "cipher", "hash", "signature", "random",
-               "diffie", "hmac", "tls", "certificate", "kerberos", "rsa"),
-    "os": ("process", "system call", "kernel", "permission", "privilege",
-           "sandbox", "native client", "okws", "symbolic", "android", "manifest",
-           "chroot", "file descriptor", "capsicum", "okd"),
-}
+# La repartition des questions importees ne se decide plus ici, mais dans
+# tools/repartition-themes.py, a partir d'une MESURE du site
+# (scripts/audit/probe-sections.php). Deux raisons :
+#
+#   - l'ancienne table CIBLES etait figee : elle datait d'une mesure
+#     ancienne, et les questions de base de donnees ou d'algorithmes
+#     atterrissaient dans « authentification » ;
+#   - le moteur tire ses questions dans toute la SECTION d'une room :
+#     c'est donc la section, et non la room, qui est l'unite de besoin.
+#
+# On importe ici le module pour que tous les extracteurs (celui-ci, celui
+# des blocs, celui des sous-questions) repartissent de la meme maniere.
+_repartition = None
 
 
-def themes_de(item):
-    """Les themes dont parle l'item."""
-    texte = (item["enonce"] + " " + item["justification"]).lower()
-    trouves = set()
-    for theme, clefs in MOTS_THEMES.items():
-        for clef in clefs:
-            if clef in texte:
-                trouves.add(theme)
-                break
-    return trouves
+def module_repartition():
+    """Le module de repartition, charge une seule fois."""
+    global _repartition
+
+    if _repartition is None:
+        import importlib.util
+
+        chemin = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "repartition-themes.py"
+        )
+        specification = importlib.util.spec_from_file_location(
+            "repartition_themes", chemin
+        )
+        module = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(module)
+        _repartition = module
+
+    return _repartition
 
 
-def repartir(questions):
-    """Repartit les questions dans les rooms qui ont besoin de questions.
+def repartir(questions, theme="cyber"):
+    """Repartit les questions dans les rooms, d'apres la mesure du site.
 
-    On commence par les rooms dont le reservoir est le plus juste, et on
-    respecte le theme : une question de memoire va dans une room de
-    memoire, une question web dans une room web. Quand aucune room du
-    theme ne manque plus de questions, la question va dans la room qui
-    manque le plus.
+    `theme` est le theme du cours d'origine : « cyber » pour 6.858, 6.828
+    et 14.15J ; « donnees » pour 6.830 ; « algorithmes » pour 6.006 et
+    6.046J ; « cpp » pour 1.124J ; « performance » pour 6.172.
 
-    Une room ne recoit jamais plus de questions qu'il n'en manque : sinon
-    on comble une room deja large pendant qu'une autre reste juste, et la
-    mesure « reservoir de l'examen » ne progresse pas.
+    Le theme n'est pas devine d'apres les mots de la question : il est
+    declare par l'appelant, qui sait de quel cours viennent les
+    questions.
     """
-    capacite = {slug: manque for slug, manque, _ in CIBLES}
-    themes_cibles = {slug: theme for slug, _, theme in CIBLES}
-    par_room = {}
-
-    for question in questions:
-        texte = question["question"].lower()
-        trouves = set()
-        for theme, clefs in MOTS_THEMES.items():
-            for clef in clefs:
-                if clef in texte:
-                    trouves.add(theme)
-                    break
-
-        eligibles = [c for c in CIBLES if capacite[c[0]] > 0
-                     and (themes_cibles[c[0]] == "tous" or themes_cibles[c[0]] in trouves)]
-        if not eligibles:
-            eligibles = [c for c in CIBLES if capacite[c[0]] > 0]
-        if not eligibles:
-            eligibles = list(CIBLES)
-
-        # On remplit d'abord les rooms les moins remplies (proportionnellement
-        # a leur manque) : le reservoir d'un examen tire dans toute sa
-        # section, donc une question posee dans une room aide aussi les
-        # examens voisins. Concentrer tout sur la room la plus juste
-        # laisserait les autres au meme niveau.
-        choisi = min(eligibles, key=lambda c: len(par_room.get(c[0], [])) / c[1])
-        capacite[choisi[0]] -= 1
-        par_room.setdefault(choisi[0], []).append(question)
-
-    return par_room
+    return module_repartition().repartir(questions, theme)
 
 
 def construire_questions(items):

@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.11.3
+ * Version:           0.11.4
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -13,6 +13,26 @@
  *
  * @package Secura_Academy
  *
+ * 0.11.4 — Les examens d'universite quittent les taches : le point de
+ *           controle retrouve la taille de l'epreuve. Une question
+ *           reprise d'un examen universitaire (elle porte sa source et
+ *           sa licence) etait versee dans la tache « test » de la room :
+ *           le point de controle de l'eleve grossissait alors jusqu'a
+ *           80 questions a rendre, la regle du moteur (« le test fait
+ *           la taille de l'epreuve, jamais plus ») etant detournee.
+ *           Mesure : 36 rooms gonfles, 320 questions importees, point
+ *           de controle de 80 et 77 questions sur les deux rooms
+ *           Stanford. Correction : les questions importees vivent dans
+ *           une RESERVE, qui alimente le reservoir des epreuves de la
+ *           section — les copies d'examen restent donc aussi variees,
+ *           et la copie servie du test revient a 2 a 10 questions
+ *           (mesure apres : mediane 4, reservoir Stanford 164,
+ *           manque de reservoir 25, 46 examens deverrouilles au lieu
+ *           de 26). Trois garde-fous automatiques verifient la regle
+ *           (aucune question importee dans une tache, copie servie
+ *           jamais plus grande que l'epreuve, reserve bien alimentee
+ *           par le reservoir) et six tests de non-regression
+ *           verifient la separation.
  * 0.11.3 — Deux nouveaux cours d'examen du MIT sont importes avec leurs
  *           corriges officiels : 6.828 Operating System Engineering
  *           (Fall 2012, 4 examens) et 14.15J Networks (Spring 2018).
@@ -211,7 +231,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.11.3' );
+define( 'SECURA_ACADEMY_VERSION', '0.11.4' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

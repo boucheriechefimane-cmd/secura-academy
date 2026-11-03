@@ -15,6 +15,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Secura_Rooms {
 
 	/**
+	 * Reserve de questions importees, par room.
+	 *
+	 * Les questions importees d'une universite (licence CC BY-NC-SA) sont
+	 * reservees : elles alimentent le reservoir des epreuves de la section
+	 * (c'est ce qui fait varier les copies d'examen), mais elles ne doivent
+	 * JAMAIS gonfler un point de controle. Le test doit avoir la taille de
+	 * l'epreuve, jamais plus (cf. Secura_Exam::paper()).
+	 *
+	 * @var array
+	 */
+	private static $reserve = array();
+
+	/**
 	 * Types de question possibles.
 	 *
 	 * @return array
@@ -660,7 +673,59 @@ final class Secura_Rooms {
 			);
 		}
 
+		/* SEPARATION IMPORT / CONTROLE.
+		   Les questions importees portent une source et une licence : c'est
+		   ce qui les distingue du contenu maison. On les retire des taches
+		   (un point de controle ne doit pas faire 80 questions) et on les
+		   met en reserve : la reserve alimente le reservoir des epreuves de
+		   la section, donc les copies d'examen restent variees. */
+		$reserve = array();
+
+		foreach ( $tasks as $index => $tache ) {
+			$maison = array();
+
+			foreach ( (array) $tache['questions'] as $question ) {
+				if ( ! empty( $question['source'] ) ) {
+					$reserve[] = $question;
+
+					continue;
+				}
+
+				$maison[] = $question;
+			}
+
+			$tasks[ $index ]['questions'] = $maison;
+		}
+
+		self::$reserve[ $room_id ] = $reserve;
+
 		return $tasks;
+	}
+
+	/**
+	 * La reserve de questions importees d'une room.
+	 *
+	 * Ce sont les questions reprises d'un examen d'universite, avec leur
+	 * source et leur licence. Elles ne font partie d'aucune tache : elles
+	 * sont tirees au sort dans le reservoir des epreuves de la section
+	 * (cf. Secura_Exam::pool()), ce qui donne a chaque eleve une copie
+	 * d'epreuve differente sans jamais alourdir les points de controle.
+	 *
+	 * @param int $room_id Identifiant de la room.
+	 * @return array Liste de questions normalisees.
+	 */
+	public static function reserve( $room_id ) {
+		$room_id = absint( $room_id );
+
+		if ( ! $room_id ) {
+			return array();
+		}
+
+		if ( ! isset( self::$reserve[ $room_id ] ) ) {
+			self::get_tasks( $room_id );
+		}
+
+		return isset( self::$reserve[ $room_id ] ) ? self::$reserve[ $room_id ] : array();
 	}
 
 	/**

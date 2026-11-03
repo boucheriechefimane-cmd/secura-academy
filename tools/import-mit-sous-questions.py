@@ -197,6 +197,9 @@ def main(argv=None):
     analyseur.add_argument("--licence", default="CC BY-NC-SA 4.0")
     analyseur.add_argument("--prefixe", required=True)
     analyseur.add_argument("--prefixe-solution", required=True)
+    analyseur.add_argument("--theme", default="cyber",
+                            help="theme du cours d'origine : cyber, donnees, "
+                                 "algorithmes, cpp, performance, compilation, langage")
     analyseur.add_argument("--tache", default="test")
     analyseur.add_argument("--repartition", default="",
                             help="fichier JSON de repartition {room: [questions]} (facultatif)")

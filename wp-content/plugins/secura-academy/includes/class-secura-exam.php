@@ -292,6 +292,38 @@ final class Secura_Exam {
 					);
 				}
 			}
+
+			/* LA RESERVE ALIMENTE LE RESERVOIR.
+			   Les questions importees d'une universite ne sont dans aucune
+			   tache : un point de controle ne doit jamais faire 80
+			   questions. Elles sont tirees au sort ici, dans le reservoir
+			   de la section : c'est ce qui garde des copies d'examen
+			   differentes pour chaque eleve, sans toucher au format du
+			   test (qui a la taille de l'epreuve, jamais plus). */
+			foreach ( Secura_Rooms::reserve( $rid ) as $q_index => $question ) {
+				$mode = isset( $question['mode'] ) ? $question['mode'] : 'text';
+
+				/* Une question de drapeau ou d'action est liee a la
+				   machine de SA room : elle ne voyage pas. */
+				if ( $rid !== $room_id && in_array( $mode, array( 'flag', 'action' ), true ) ) {
+					continue;
+				}
+
+				$cle = self::cle_question( $question );
+
+				if ( isset( $vus[ $cle ] ) ) {
+					continue;
+				}
+
+				$vus[ $cle ] = true;
+
+				$pool[] = array(
+					'room'     => $rid,
+					'task'     => -1,
+					'q'        => $q_index,
+					'question' => $question,
+				);
+			}
 		}
 
 		return $pool;

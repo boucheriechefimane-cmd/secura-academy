@@ -63,75 +63,92 @@ foreach ( $rooms as $room ) {
 		if ( isset( $tache['type'] ) ) {
 			$types[] = $tache['type'];
 		}
+	}
 
+	/* Les questions importees d'une universite ne sont plus dans les
+	   taches : elles vivent dans la reserve (Secura_Rooms::reserve),
+	   qui alimente le reservoir des epreuves. On les audite quand
+	   meme, avec exactement les memes regles. */
+	$questions_auditees = array();
+
+	foreach ( (array) $taches as $tache ) {
 		foreach ( (array) ( isset( $tache['questions'] ) ? $tache['questions'] : array() ) as $question ) {
-			$questions_tot++;
+			$questions_auditees[] = $question;
+		}
+	}
 
-			if ( 'choice' === ( isset( $question['mode'] ) ? $question['mode'] : '' ) ) {
-				$choix = isset( $question['choices'] ) ? (array) $question['choices'] : array();
-				$correct = isset( $question['correct'] ) ? (int) $question['correct'] : -1;
+	foreach ( (array) Secura_Rooms::reserve( $room->ID ) as $question ) {
+		$questions_auditees[] = $question;
+	}
 
-				/* Une question importee garde le format de son examen
-				   d'origine : deux propositions (vrai/faux) ou trois.
-				   On n'invente pas de fausse proposition, et on n'exige
-				   pas quatre choix quand la source n'en a que deux.
-				   Elle doit en revanche porter sa source et sa licence. */
-				$importee = ! empty( $question['source'] );
+	foreach ( $questions_auditees as $question ) {
+		$questions_tot++;
 
-				if ( $importee ) {
-					$questions_importees++;
+		if ( 'choice' === ( isset( $question['mode'] ) ? $question['mode'] : '' ) ) {
+			$choix = isset( $question['choices'] ) ? (array) $question['choices'] : array();
+			$correct = isset( $question['correct'] ) ? (int) $question['correct'] : -1;
 
-					if ( count( $choix ) < 2 || count( $choix ) > 3 || $correct < 0 || $correct >= count( $choix ) ) {
-						$choix_mauvais++;
-					} else {
-						$positions[ $correct ]++;
-					}
+			/* Une question importee garde le format de son examen
+			   d'origine : deux propositions (vrai/faux) ou trois.
+			   On n'invente pas de fausse proposition, et on n'exige
+			   pas quatre choix quand la source n'en a que deux.
+			   Elle doit en revanche porter sa source et sa licence. */
+			$importee = ! empty( $question['source'] );
 
-					if ( empty( $question['licence'] ) ) {
-						$sans_licence[] = $room->post_title;
-					}
-				} elseif ( 4 !== count( $choix ) || $correct < 0 || $correct > 3 ) {
+			if ( $importee ) {
+				$questions_importees++;
+
+				if ( count( $choix ) < 2 || count( $choix ) > 3 || $correct < 0 || $correct >= count( $choix ) ) {
 					$choix_mauvais++;
 				} else {
 					$positions[ $correct ]++;
 				}
 
-				if ( empty( $question['explanation'] ) ) {
-					$sans_explica[] = $room->post_title;
-				}
-
-				if ( empty( $question['hint'] ) ) {
-					$sans_indice[] = $room->post_title;
-				}
-			}
-
-			/* Une question « solution » est un probleme d'examen
-			   universitaire : l'eleve redige sa reponse, puis la
-			   correction officielle lui est montree. Elle doit donc
-			   porter cette correction (sinon l'eleve n'apprend rien),
-			   sa source et sa licence — et aucune proposition : ce
-			   n'est pas un QCM. */
-			if ( 'solution' === ( isset( $question['mode'] ) ? $question['mode'] : '' ) ) {
-				$questions_solution++;
-
-				$explication = isset( $question['explanation'] ) ? trim( (string) $question['explanation'] ) : '';
-				$choix       = isset( $question['choices'] ) ? (array) $question['choices'] : array();
-
-				if ( strlen( $explication ) < 80 || ! empty( $choix )
-					|| empty( $question['source'] ) || empty( $question['licence'] ) ) {
-					$solution_mauvaises++;
-				}
-
 				if ( empty( $question['licence'] ) ) {
 					$sans_licence[] = $room->post_title;
 				}
+			} elseif ( 4 !== count( $choix ) || $correct < 0 || $correct > 3 ) {
+				$choix_mauvais++;
+			} else {
+				$positions[ $correct ]++;
+			}
 
-				if ( empty( $question['hint'] ) ) {
-					$sans_indice[] = $room->post_title;
-				}
+			if ( empty( $question['explanation'] ) ) {
+				$sans_explica[] = $room->post_title;
+			}
+
+			if ( empty( $question['hint'] ) ) {
+				$sans_indice[] = $room->post_title;
 			}
 		}
-	}
+
+		/* Une question « solution » est un probleme d'examen
+		   universitaire : l'eleve redige sa reponse, puis la
+		   correction officielle lui est montree. Elle doit donc
+		   porter cette correction (sinon l'eleve n'apprend rien),
+		   sa source et sa licence — et aucune proposition : ce
+		   n'est pas un QCM. */
+		if ( 'solution' === ( isset( $question['mode'] ) ? $question['mode'] : '' ) ) {
+			$questions_solution++;
+
+			$explication = isset( $question['explanation'] ) ? trim( (string) $question['explanation'] ) : '';
+			$choix       = isset( $question['choices'] ) ? (array) $question['choices'] : array();
+
+			if ( strlen( $explication ) < 80 || ! empty( $choix )
+				|| empty( $question['source'] ) || empty( $question['licence'] ) ) {
+				$solution_mauvaises++;
+			}
+
+			if ( empty( $question['licence'] ) ) {
+				$sans_licence[] = $room->post_title;
+			}
+
+			if ( empty( $question['hint'] ) ) {
+				$sans_indice[] = $room->post_title;
+			}
+		}
+		}
+
 
 	foreach ( $types_attendus as $attendu ) {
 		if ( ! in_array( $attendu, $types, true ) ) {

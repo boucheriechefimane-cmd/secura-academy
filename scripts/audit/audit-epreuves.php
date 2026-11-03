@@ -123,6 +123,12 @@ foreach ( $rooms as $room ) {
 			);
 		}
 	}
+
+	/* Les questions reprises d'un examen d'universite vivent dans la
+	   reserve de la room (cf. Secura_Rooms::reserve) : elles font
+	   partie de la plateforme, meme si elles ne sont dans aucune
+	   tache — c'est la reserve qui alimente le reservoir. */
+	$questions += count( (array) Secura_Rooms::reserve( $room->ID ) );
 }
 
 audit_info(
@@ -696,6 +702,100 @@ function audit_deverrouille_tache( $user_id, $room_id, array $tache, $index ) {
 
 	Secura_Progress::save_room_state( $user_id, $room_id, $state );
 }
+
+/* ------------------------------------------------------------------ */
+echo "\n7. Les examens d'universite restent en reserve : un point de controle ne doit pas faire 80 questions\n";
+
+$dans_tache = array();
+$gonfles    = array();
+$sans_reserve = array();
+$tailles    = array();
+
+foreach ( $rooms as $room ) {
+	$taches = Secura_Rooms::get_tasks( $room->ID );
+
+	/* Regle 1 : une question importee (elle porte une source et une
+	   licence) ne doit se trouver dans AUCUNE tache. */
+	foreach ( $taches as $tache ) {
+		foreach ( (array) $tache['questions'] as $question ) {
+			if ( ! empty( $question['source'] ) ) {
+				$dans_tache[] = 'room ' . $room->post_name . ' : question importee dans la tache ' . $tache['type'];
+			}
+		}
+	}
+
+	/* Regle 2 : la copie servie du point de controle ne depasse jamais
+	   la taille prevue par le moteur (la taille de l'epreuve). */
+	$epreuve = 0;
+
+	foreach ( $taches as $tache ) {
+		if ( 'exam' === $tache['type'] ) {
+			$epreuve = count( $tache['questions'] );
+
+			break;
+		}
+	}
+
+	foreach ( $taches as $index => $tache ) {
+		if ( 'test' !== $tache['type'] ) {
+			continue;
+		}
+
+		$attendu = max( 1, count( $tache['questions'] ), $epreuve );
+		$copie   = Secura_Exam::paper( 0, $room->ID, $index, $tache );
+		$tailles[] = count( $copie );
+
+		if ( count( $copie ) > $attendu ) {
+			$gonfles[] = 'room ' . $room->post_name . ' : copie de ' . count( $copie ) . ' questions au lieu de ' . $attendu;
+		}
+	}
+
+	/* Regle 3 : la reserve doit vraiment alimenter le reservoir :
+	   sinon les questions importees disparaitraient de la plateforme. */
+	if ( ! empty( (array) Secura_Rooms::reserve( $room->ID ) ) ) {
+		$importees = 0;
+
+		foreach ( Secura_Exam::pool( $room->ID, array( 'exam', 'test' ) ) as $entree ) {
+			if ( ! empty( $entree['question']['source'] ) ) {
+				$importees++;
+			}
+		}
+
+		if ( 0 === $importees ) {
+			$sans_reserve[] = 'room ' . $room->post_name . ' : sa reserve est vide, elle n alimente plus le reservoir';
+		}
+	}
+}
+
+audit_verifier(
+	'les questions reprises d\'un examen d\'universite ne sont dans aucune tache (elles sont en reserve)',
+	empty( $dans_tache ),
+	count( $dans_tache ) . ' question(s) importee(s) dans une tache',
+	'bloquant',
+	implode( ' ; ', array_slice( $dans_tache, 0, 5 ) )
+);
+
+audit_verifier(
+	'la copie servie du point de controle ne depasse jamais la taille de l\'epreuve',
+	empty( $gonfles ),
+	count( $gonfles ) . ' room(s) avec un point de controle gonfle',
+	'bloquant',
+	implode( ' ; ', array_slice( $gonfles, 0, 5 ) )
+);
+
+audit_verifier(
+	'la reserve alimente bien le reservoir des epreuves (les questions importees restent jouables)',
+	empty( $sans_reserve ),
+	count( $sans_reserve ) . ' room(s) dont la reserve n\'alimente plus le reservoir',
+	'bloquant',
+	implode( ' ; ', array_slice( $sans_reserve, 0, 5 ) )
+);
+
+audit_info(
+	'taille de la copie servie du point de controle',
+	( $tailles ? min( $tailles ) : 0 ) . ' a ' . ( $tailles ? max( $tailles ) : 0 ) . ' questions',
+	'mesure sur les ' . count( $tailles ) . ' points de controle de la plateforme'
+);
 
 /* ------------------------------------------------------------------ */
 exit( audit_fin() );

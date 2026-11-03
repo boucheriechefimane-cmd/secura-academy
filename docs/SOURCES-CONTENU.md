@@ -512,3 +512,34 @@ affaiblie ou retirée, la CI rougit.
 Zeldovich) publient **34 quiz et 10 examens avec corrigés officiels** :
 c'est le plus gros gisement qui reste, et il est **sans licence** — d'où
 la demande d'autorisation (`docs/DEMANDE-AUTORISATION-MIT.md`).
+
+## 17. Où vivent les questions importées : la réserve (03/11/2026)
+
+Une question reprise d'un examen d'université porte trois choses : son
+énoncé **mot pour mot**, la **source** (le cours, l'année, la page) et la
+**licence** (CC BY-NC-SA 4.0 pour tout MIT OCW). Ce n'est pas une question
+« de la plateforme » : c'est un contenu d'ailleurs, avec son auteur et sa
+licence.
+
+C'est pour cela qu'elle vit dans une **réserve** (`Secura_Rooms::reserve()`)
+et **pas dans une tâche**. Le raisonnement, mesuré :
+
+- une question importée versée dans la tâche `test` de la room **gonfle le
+  point de contrôle** de l'élève : mesuré à **80 questions** à rendre sur une
+  room dont l'épreuve fait 4 questions ;
+- la même question, versée dans la **réserve** de la room, **alimente le
+  réservoir** de la section : les copies d'examen restent donc aussi
+  variées qu'avant (réservoir Stanford : 164 questions, inchangé), et le
+  point de contrôle retrouve la taille de l'épreuve (2 à 10 questions).
+
+La réserve n'est pas un dépotoir : elle est **tirée au sort comme les
+autres**, avec la même déduplication, et elle est **auditée comme les
+autres** (l'auditeur « contenu » vérifie sur les 320 questions importées
+qu'elles portent leur licence, leur source et leur correction officielle ;
+l'auditeur « épreuves » vérifie qu'aucune d'elles n'entre dans une tâche et
+que la réserve alimente bien le réservoir).
+
+Et si un jour la règle change — si l'on veut un jour servir les questions
+d'université **dans** une tâche — il faudra le faire pour une raison
+pédagogique explicite, pas par défaut d'architecture. Les garde-fous
+existants (trois contrôles automatiques) le diront.

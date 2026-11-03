@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-02-quatre",
+  "_version": "2026-11-03-cinq",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -173,6 +173,66 @@
       "commercial": false,
       "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
       "note": "Licence vérifiée le 02/11/2026 sur https://cs50.harvard.edu/x/license/ : CC BY-NC-SA 4.0. En attente d'import : les exercices sont des programmes à écrire, leur intégration comme « questions » demande un travail de mise en forme."
+    },
+    {
+      "id": "mit-ocw-6-006-examens",
+      "nom": "MIT OpenCourseWare — 6.006 Introduction to Algorithms (Spring 2020)",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.006 Introduction to Algorithms, Spring 2020 — quiz d’examen et corrigé officiel (MIT EECS)",
+      "usage": "quiz d’examen et corrigé officiel (enoncés de problemes d’algorithmes, avec la correction du MIT)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Les quiz 1, 2 et l’examen final sont importes avec leur corrige officiel."
+    },
+    {
+      "id": "mit-ocw-6-046j-examens",
+      "nom": "MIT OpenCourseWare — 6.046J Design and Analysis of Algorithms (Spring 2015)",
+      "url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)",
+      "usage": "quiz d’examen et corrigé officiel (enoncés de problemes d’algorithmes, avec la correction du MIT)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Les quiz 1, 2 et l’examen final sont importes avec leur corrige officiel."
+    },
+    {
+      "id": "mit-ocw-6-830-examens",
+      "nom": "MIT OpenCourseWare — 6.830 Database Systems (Fall 2010)",
+      "url": "https://ocw.mit.edu/courses/6-830-database-systems-fall-2010/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.830 Database Systems, Fall 2010 — quiz d’examen et corrigé officiel (MIT EECS)",
+      "usage": "quiz d’examen et corrigé officiel (transactions, SQL, optimisation de requetes, avec la correction du MIT)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Les 11 items dont l’enonce depend d’un tableau ou d’un schema absent du PDF ne sont pas importes : on ne devine jamais le contexte manquant."
+    },
+    {
+      "id": "mit-ocw-6-172-examens",
+      "nom": "MIT OpenCourseWare — 6.172 Performance Engineering of Software Systems (Fall 2018)",
+      "url": "https://ocw.mit.edu/courses/6-172-performance-engineering-of-software-systems-fall-2018/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
+      "usage": "quiz d’examen et corrigé officiel (performance, concurrence, compilation, avec la correction du MIT)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Les reponses sont enoncEs en clair dans le corrige ; l’appariement enonce/corrige est verifie par comparaison."
+    },
+    {
+      "id": "mit-ocw-1-124j-examens",
+      "nom": "MIT OpenCourseWare — 1.124J Foundations of Software Engineering (Fall 2000)",
+      "url": "https://ocw.mit.edu/courses/1-124j-foundations-of-software-engineering-fall-2000/resources/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 1.124J Foundations of Software Engineering, Fall 2000 — quiz d’examen et corrigé officiel (MIT EECS)",
+      "usage": "quiz d’examen et corrigé officiel (C++, modele objet, avec la correction du MIT)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Les questions portent sur du code C++ : elles gardent leur code dans l’enonce."
     }
   ],
   "regles": [

@@ -701,14 +701,22 @@ ne suffit pas, c'est ce qu'un élève verrait sur une photo d'écran), et
 > Le chiffre de 131 millions qui figurait ici avant la v0.10.0 était un
 > **mirage** : le réservoir comptait deux fois la même question (celle de
 > l'entraînement et celle de l'examen d'une même room). Après la
-> correction, puis après l'import des 132 questions d'examen du MIT
-> 6.858 (v0.11.0), le réservoir réel est de **9 à 39 questions distinctes**
-> par examen (médiane 24). Après l'import des 132 questions du MIT 6.858
-> (v0.11.0), puis de 45 questions de plus tirées des examens du MIT 6.828
-> (Operating System Engineering) et 14.15J (Networks) — chacune vérifiée
-> contre le corrigé officiel du MIT —, la plateforme compte **569
-> questions**, et le manque de réservoir des examens est tombé de **80 à
-> 31**.
+> correction, le réservoir réel est de **9 à 164 questions distinctes**
+> par examen (médiane 21). Après l'import des 132 questions d'examen du
+> MIT 6.858 (v0.11.0), puis de 45 questions du MIT 6.828 et 14.15J, puis
+> de 143 questions de cinq autres cours du MIT (6.006, 6.046J, 6.172,
+> 6.830, 1.124J — chacune vérifiée contre le corrigé officiel du MIT) —,
+> la plateforme compte **712 questions**, et le manque de réservoir des
+> examens est tombé de **80 à 25**.
+>
+> **Les examens d'université sont en réserve.** Une question reprise d'un
+> examen universitaire porte sa source et sa licence : elle n'entre jamais
+> dans une tâche, sinon le point de contrôle de l'élève gonfle (mesuré :
+> 80 questions à rendre au lieu de 4). Elle vit dans la **réserve** de la
+> room, qui alimente le **réservoir** de la section : les copies d'examen
+> restent donc aussi variées qu'avant, et le `test` garde la taille de
+> l'épreuve — exactement ce que décrit « La taille d'une copie » plus
+> haut.
 > Un contrôle automatique vérifie qu'aucune question liée à une machine
 > (drapeau, action dans le terminal) ne voyage dans une autre room — sinon
 > l'élève chercherait un fichier qui n'existe pas chez lui.

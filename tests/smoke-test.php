@@ -38,6 +38,19 @@ define( 'SECURA_USER_RANKS', 'secura_ranks' );
 define( 'SECURA_OPTION_FIRST_BLOOD', 'secura_first_blood' );
 
 /* ---------------------------------------------------------------------
+ * Les lots d'import des examens d'universite
+ *
+ * Ces fichiers ne portent que des donnees : les questions, leur
+ * source, leur licence. On les charge ici pour que le test de
+ * non-regression de la reserve (en bas de fichier) puisse les utiliser
+ * comme un vrai WordPress les chargerait.
+ * ------------------------------------------------------------------ */
+
+foreach ( (array) glob( __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-import-*.php' ) as $lot_import ) {
+	require_once $lot_import;
+}
+
+/* ---------------------------------------------------------------------
  * Émulation WordPress minimale
  * ------------------------------------------------------------------ */
 
@@ -2766,6 +2779,75 @@ check(
 	false === seca_est_contenu_importe( $fichier_code ),
 	'un fichier de code ordinaire n\'est pas un import'
 );
+
+/* ---------------------------------------------------------------------
+ * Non-regression : les examens d'universite sont en RESERVE
+ *
+ * Une question reprise d'un examen d'universite porte une cle 'source'.
+ * Elle ne doit jamais entrer dans une tache : sinon le point de
+ * controle de l'eleve gonfle (mesure : 80 questions au lieu de 4).
+ * Elle vit dans la reserve, qui alimente le reservoir des epreuves :
+ * les copies d'examen restent donc variees, et le point de controle
+ * garde la taille de l'epreuve.
+ * ------------------------------------------------------------------ */
+
+$room_import = 991;
+
+$post_import = new stdClass();
+
+$post_import->ID           = $room_import;
+$post_import->post_type    = SECURA_POST_TYPE;
+$post_import->post_title   = 'Room de test (reserve)';
+$post_import->post_excerpt = 'Extrait de test';
+$post_import->post_content = 'Contenu de test';
+$post_import->post_name    = 'comment-marche-un-ordinateur-de-la-donnee-au-programme';
+
+$GLOBALS['securatest_posts'][ $room_import ] = $post_import;
+
+$GLOBALS['securatest_meta'][ $room_import ][ SECURA_META_TASKS ] = array(
+	array(
+		'type'      => 'test',
+		'questions' => array(
+			array( 'question' => 'Question maison de la room', 'mode' => 'text', 'answers' => array( 'une reponse' ), 'explanation' => 'L\'explication de la question maison.' ),
+		),
+	),
+	array(
+		'type'      => 'exam',
+		'questions' => array(
+			array( 'question' => 'Question d\'examen maison', 'mode' => 'choice', 'choices' => array( 'a', 'b', 'c', 'd' ), 'correct' => 0, 'explanation' => 'L\'explication de la question d\'examen.' ),
+		),
+	),
+);
+
+$taches_import  = Secura_Rooms::get_tasks( $room_import );
+$reserve_import = Secura_Rooms::reserve( $room_import );
+
+$importees_dans_taches = 0;
+
+foreach ( $taches_import as $tache_import ) {
+	foreach ( (array) $tache_import['questions'] as $question_import ) {
+		if ( ! empty( $question_import['source'] ) ) {
+			$importees_dans_taches++;
+		}
+	}
+}
+
+check( 0 === $importees_dans_taches, 'aucune question d\'un examen d\'universite n\'entre dans une tache : le point de controle ne gonfle pas' );
+check( count( $reserve_import ) > 0, 'la reserve de la room contient les questions importees' );
+check( 2 === count( $taches_import ), 'la room garde ses deux taches' );
+check( 1 === count( $taches_import[0]['questions'] ), 'la tache « test » garde sa seule question maison' );
+
+$reservoir_import = 0;
+$liste_import     = Secura_Exam::pool( $room_import, array( 'exam', 'test' ) );
+
+foreach ( $liste_import as $entree_import ) {
+	if ( ! empty( $entree_import['question']['source'] ) ) {
+		$reservoir_import++;
+	}
+}
+
+check( $reservoir_import > 0, 'la reserve alimente le reservoir des epreuves : les questions importees restent jouables' );
+check( count( $liste_import ) > count( $taches_import[0]['questions'] ), 'le reservoir est plus grand que la tache seule (les copies d\'examen varient)' );
 
 /* ---------------------------------------------------------------------
  * Bilan
