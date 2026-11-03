@@ -44,7 +44,7 @@ foreach ( $rooms as $room ) {
 /* La copie servie : on la mesure avec un eleve fictif dont on vide le
    cache des copies (sinon on relit une copie ancienne). */
 $user = get_users( array( 'number' => 1, 'fields' => array( 'ID' ) ) );
-$user_id = $user ? (int) $user[0] : 0;
+$user_id = $user ? (int) $user[0]->ID : 0;
 
 foreach ( $rooms as $room ) {
 	$taches = Secura_Rooms::get_tasks( $room->ID );

@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-03-neuf",
+  "_version": "2026-11-03-onze",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -305,6 +305,30 @@
       "commercial": false,
       "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
       "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Le corrige officiel est public, avec les questions."
+    },
+    {
+      "id": "mit-ocw-6-851-examens",
+      "nom": "MIT OpenCourseWare — 6.851 Advanced Data Structures (Spring 2012)",
+      "url": "https://ocw.mit.edu/courses/6-851-advanced-data-structures-spring-2012/pages/assignments/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)",
+      "usage": "problèmes d’exercices et corrigés « Sample solution » du MIT (structures de données avancées)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Pour le 6.851, ce sont les enonces et les « Sample solution » publies par le MIT. Pour le 18.404J, l’examen final et son corrige officiel."
+    },
+    {
+      "id": "mit-ocw-18-404j-examens",
+      "nom": "MIT OpenCourseWare — 18.404J Theory of Computation (Fall 2020)",
+      "url": "https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/pages/exams/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)",
+      "usage": "examen final et corrigé officiel (théorie du calcul)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable",
+      "note": "Licence verifiee le 03/11/2026 sur la page du cours : CC BY-NC-SA 4.0. Pour le 6.851, ce sont les enonces et les « Sample solution » publies par le MIT. Pour le 18.404J, l’examen final et son corrige officiel."
     }
   ],
   "regles": [

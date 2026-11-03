@@ -1,0 +1,66 @@
+<?php
+/**
+ * Questions importees — MIT OpenCourseWare — 18.404J Theory of Computation (Fall 2020)
+ *
+ * Genere par tools/import-questions.py : ne pas editer a la main.
+ * Licence : CC BY-NC-SA 4.0
+ * Usage commercial : NON autorise (licence NC ou contenu non reutilisable) — le site reste gratuit pour les eleves
+ * Attribution : MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)
+ */
+if ( ! function_exists( 'seca_import_mit_ocw_18_404j_examens' ) ) {
+	function seca_import_mit_ocw_18_404j_examens() {
+		return array(
+			'source' => array('id' => 'mit-ocw-18-404j-examens', 'nom' => 'MIT OpenCourseWare — 18.404J Theory of Computation (Fall 2020)', 'url' => 'https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/pages/exams/', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)'),
+			'rooms' => array(
+				'theorie-du-calcul' => array(
+					'title' => 'theorie-du-calcul',
+					'tasks' => array(
+						'test' => array(
+							array('question' => '[MIT — question d’examen, en anglais] P ≤ TIME(n5 ) ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : False, hierarchy theorem.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 1),
+							array('question' => '[MIT — question d’examen, en anglais] NSPACE(n5 ) ≤ PSPACE ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : True, Savitch’s theorem.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 0),
+							array('question' => '[MIT — question d’examen, en anglais] coNP ≤ PSPACE ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : True, PSPACE is closed under complement.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 0),
+							array('question' => '[MIT — question d’examen, en anglais] NP ≤ BPP ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : Open, stated in lecture.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 2),
+							array('question' => '[MIT — question d’examen, en anglais] P ≤ (NP ← coNP) ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : True, follows from deﬁnition.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 0),
+							array('question' => '[MIT — question d’examen, en anglais] PSAT ≤ (NP → coNP) ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : Open, implies NP = coNP (considering language 0SAT → 1SAT );
+negation implies PSPACE ∪= NP.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 2),
+							array('question' => '[MIT — question d’examen, en anglais] CLIQUE is coNP-hard ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : Open, equivalent to NP = coNP.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 2),
+							array('question' => '[MIT — question d’examen, en anglais] ISO is NP-hard ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : Open, stated in lecture.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 2),
+							array('question' => '[MIT — question d’examen, en anglais] TQBF is EXPSPACE-complete ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : False, implies PSPACE = EXPSPACE.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 1),
+							array('question' => '[MIT — question d’examen, en anglais] For any languages A, B and C, if A \'L B and B \'L C then A \'L C ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : True, recompute bits of ﬁrst reduction.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 0),
+							array('question' => '[MIT — question d’examen, en anglais] SAT \'P SAT ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : Open, equivalent to NP = coNP.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 2),
+							array('question' => '[MIT — question d’examen, en anglais] SAT \'m SAT ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : True, SAT is decidable.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 0),
+							array('question' => '[MIT — question d’examen, en anglais] TQBF \'L PATH ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : False, implies PSPACE = NL.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 1),
+							array('question' => '[MIT — question d’examen, en anglais] HAMPATH \'P PATH ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : Open, equivalent to P = NP.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 2),
+							array('question' => '[MIT — question d’examen, en anglais] PATH \'P PATH ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : True, PATH ∩ P.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 0),
+							array('question' => '[MIT — question d’examen, en anglais] PATH \'L PATH ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : True, NL = coNL.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 0),
+							array('question' => '[MIT — question d’examen, en anglais] Prove that there is a log space reduction from ODD-PARITY to PATH ,
+i.e., ODD-PARITY \'L PATH .
+(You may use any theorem we have proved in this course)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Obviously ODD-PARITY ∩ L and we know L ≤ NL. We proved that PATH is NP-
+complete and so every language in NL is log-space reducible to PATH .
+Note: Giving a direct reduction from ODD-PARITY to PATH is possible too.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] No log space reduction from PATH to ODD-PARITY is known. State what surprising
+consequence would follow if such a reduction were discovered, and why.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : If PATH \'L ODD-PARITY then PATH ∩ L and thus NL = L, solving a big open
+problem.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] Recall the interactive proof system we gave to show that #SAT ∩ IP.
+Is the Prover which follows that protocol a weak Prover? Why or why not?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : No, the prover for #SAT is not a weak Prover, as far as we know. Calculating the
+cooeﬁcients of the polynomials seems to require more than polynomial time.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] The class weak-IP is equal to another class that we have previously deﬁned.
+What is that class? Prove your answer.
+2
+18.404J / 18.4041J / 6.840J Theory of Computation
+For information about citing these materials or our Terms of Use, visit:
+3', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The class weak-IP = BPP. Clearly, BPP ≤ weak-IP because the Veriﬁer can simply
+ignore the Prover. Conversely, weak-IP ≤ BPP because we can make a BPP machine
+which simulates both the Veriﬁer and the weak Prover P . If w ∩ A then P causes the
+Veriﬁer to accept with high probability and so will the BPP machine. If w ∪∩ A then P
+causes the Veriﬁer to accept with low probability and so will the BPP machine.
+2
+18.404J / 18.4041J / 6.840J Theory of Computation
+For information about citing these materials or our Terms of Use, visit:', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+						),
+					),
+				),
+			),
+		);
+	}
+}
