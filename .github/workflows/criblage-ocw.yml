@@ -75,7 +75,11 @@ jobs:
           path: rapports
       - name: Fusionner
         run: |
-          python3 tools/criblage-ocw.py --fusionner rapports/rapport-*.json --sortie criblage-ocw.json
+          # Chaque artefact est extrait dans son propre sous-dossier
+          # (rapports/rapport-robot-0/rapport-0.json) : le motif doit
+          # donc descendre dans l'arborescence. C'est le script qui
+          # developpe le motif, pas le shell.
+          python3 tools/criblage-ocw.py --fusionner "rapports/**/rapport-*.json" --sortie criblage-ocw.json
       - uses: actions/upload-artifact@v4
         with:
           name: criblage-ocw

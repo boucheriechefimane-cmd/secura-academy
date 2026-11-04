@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.12.0
+ * Version:           0.12.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,18 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.12.1 — Les faux positifs du comite corriges a la racine.
+ *
+ *           - Les 20 questions du quiz MIT 6.172 ont enfin un indice :
+ *             l'eleve etait bloque sans aucune aide. L'extracteur
+ *             (tools/import-mit-blocs.py) et le lot sont corriges.
+ *           - L'audit externe lui-meme etait en cause sur trois points :
+ *             un typo de variable qui signalait 536 questions a tort,
+ *             une regle qui contredisait son propre libelle sur le
+ *             format Stanford CS224N (4 propositions), et une
+ *             recherche d'attribution qui ignorait le HTML servi.
+ *             Voir docs/AUDITS-REGISTRE.md.
  *
  * 0.12.0 — Le moteur de recolte, les six robots, et trois nouveaux cours
  *           (Stanford CS107, Stanford CS224N, MIT 6.867) : 144 questions
@@ -330,7 +342,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.12.0' );
+define( 'SECURA_ACADEMY_VERSION', '0.12.1' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

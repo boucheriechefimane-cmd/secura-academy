@@ -27,6 +27,7 @@ Usage :
 
 import argparse
 import concurrent.futures
+import glob
 import io
 import json
 import os
@@ -141,10 +142,29 @@ def main():
     args = analyseur.parse_args()
 
     if args.fusionner is not None:
+        # Les fichiers peuvent etre donnes explicitement, ou designes par un
+        # motif. Le motif est developpe ICI, pas par le shell : dans le
+        # workflow, chaque artefact est extrait dans son propre sous-dossier
+        # (rapports/rapport-robot-0/rapport-0.json), et le motif doit donc
+        # chercher dans l'arborescence. On accepte aussi bien un motif que
+        # des fichiers precis.
+        fichiers = []
+        for motif in args.fusionner:
+            if any(c in motif for c in '*?['):
+                found = glob.glob(motif, recursive=True)
+                fichiers += [f for f in found if os.path.isfile(f)]
+            else:
+                fichiers.append(motif)
+
+        if not fichiers:
+            print('aucun rapport a fusionner : rien a faire', file=sys.stderr)
+            return 1
+
         fusion = []
-        for f in args.fusionner:
+        for f in sorted(set(fichiers)):
             with io.open(f, encoding='utf-8') as fh:
                 fusion += json.load(fh)
+
         with io.open(args.sortie, 'w', encoding='utf-8') as fh:
             fh.write(json.dumps(fusion, ensure_ascii=False, indent=2) + "\n")
         candidats = [c for c in fusion if c['a_un_corrige'] and c['reutilisable']]

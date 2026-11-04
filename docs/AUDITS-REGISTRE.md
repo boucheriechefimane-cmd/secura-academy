@@ -956,6 +956,49 @@ push** désormais, et ne peuvent plus se dégrader.
 
 ---
 
+## 4 bis. Quand l'auditeur a tort : les faux positifs du 04/11/2026
+
+Le comité du 03/11 a signalé **quatre** constats. En les reprenant un par un
+avec une mesure, **trois venaient de l'auditeur lui-même** et un seul était
+un vrai défaut de la plateforme. C'est exactement le piège qu'un audit
+automatique tend : un contrôle mal écrit accuse le contenu au lieu de
+s'accuser lui-même.
+
+| Constat du comité | Ce que la mesure a montré | Origine | Traitement |
+|---|---|---|---|
+| 536 questions « solution » sans correction officielle | **0 question réellement non conforme** : correction, source et licence sont présentes sur les 536 | **Faux positif de l'auditeur** — un typo de variable : il mesurait `strlen( $explanation )` (anglais) au lieu de `$explication` (français), donc `strlen(null)` valait 0 et toute question était comptée comme trop courte | Variable corrigée ; le contrôle a reçu la **mesure réelle en preuve**, pour qu'un vrai défaut futur soit compté au lieu de passer en silence |
+| 11 questions à choix malformées | Les **11** sont des QCM **Stanford CS224N à 4 propositions** (A/B/C/D), avec une seule bonne réponse à la bonne place | **Faux positif de l'auditeur** — la règle exigeait 2 ou 3 propositions, alors que son propre libellé disait « le format d'origine quand elles sont importées » | La règle accepte désormais le format **mesuré** (2, 3 ou 4), toujours avec une seule bonne réponse, une source et une licence |
+| 20 questions sans indice (mineur) | **Vrai défaut** : les 20 questions du quiz **MIT 6.172** n'avaient aucun indice — l'élève était bloqué | Contenu | L'extracteur (`tools/import-mit-blocs.py`) et le lot sont corrigés à la source |
+| 1 bloquant + 1 majeur DevOps | **Vrais défauts** : `criblage-ocw.yml` et `recuperation-sources.yml` demandaient plus de permissions que nécessaire, et le second n'était borné dans le temps | Configuration | `permissions: contents: read` et `timeout-minutes` ajoutés |
+
+Deux autres corrections sont tombées en route :
+
+- **L'attribution vidéo n'était pas trouvee** alors qu'elle est bien servie :
+  l'auditeur cherchait dans le texte visible après `wp_strip_all_tags()`, qui
+  efface les scripts — or l'attribution est dans les **données structurées**
+  (JSON-LD) que le navigateur affiche. On cherche maintenant dans le **HTML
+  servi**.
+- **L'auditeur « accessibilité » plantait** sur une variable mal orthographiée
+  (`$ciables_petites` au lieu de `$cibles_petites`). Invisible à l'œil,
+  fatal à l'exécution : l'audit n'avait jamais pu rendre son verdict. Corrigé,
+  et l'audit tourne enfin.
+
+### La transparence du harnais
+
+Un constat **sans preuve** est rejeté par le harnais : une affirmation sans
+preuve n'est pas un constat. Mais l'affichage écrivait `BLOQUANT` en
+majuscules, comme si le constat bloquait la mise en ligne — alors que le
+harnais venait de le rejeter. C'est ce qui a fait lire au comité quatre
+problèmes là où il y en avait un. L'écriture est désormais
+`[NON ÉTAYÉ] (gravité annoncée)`, et les contrôles de contenu reçoivent la
+**mesure** comme preuve.
+
+**Règle retenue : un diagnostic se vérifie contre une seconde mesure.** Elle
+a été appliquée ici, et elle a payé : sur les quatre constats, un seul
+résistait à la mesure.
+
+---
+
 ## 5. Comment reproduire l'audit
 
 ```bash
@@ -998,4 +1041,5 @@ Les rapports sont écrits dans `docs/audits/` et archivés par le workflow.
 | 01/11/2026 (nuit, suite 5) | v0.8.4 | Question posée par le propriétaire : « as-tu fait tous les tests qu'il faut ? si on redemande aux 15 agents le même audit, qu'obtiendra-t-on ? ». **Contre-expertise des quinze scripts** : six contrôles ne regardaient qu'une room sur 52 (données structurées, onboarding, UX/UI, performance, multilingue, SEO). Tous ont été étendus à **toute la collection** — 207 contrôles au lieu de 203. **Aucun nouveau constat** : la plateforme était saine, mais on ne l'avait pas vérifié partout. **Test négatif** : une room amputée de son résumé en bac à sable est invisible pour l'ancien contrôle (« ok ») et détectée par le nouveau, qui la nomme. **Trou de la barrière** : la CI ne rougissait que sur les constats *bloquants* — le défaut `h1 → h3` (majeur) avait été livré avec une CI verte ; la barrière bloque désormais sur **majeur ou bloquant**, et un contrôle de l'auditeur « DevOps » vérifie ce comportement **en l'exécutant** (codes 0/1/1), testé dans les deux sens. **Reproductibilité** : le comité rejoué deux fois donne **15/15 rapports identiques**. Total : **207 contrôles, 0 constat** |
 | 01/11/2026 (nuit, suite 4) | v0.8.3-bis | La CI a trouvé un **majeur d'accessibilité** que la recette locale ne voyait pas : un saut de titre `h1` → `h3` dans la room « Kahoot ». Deux causes : le bloc Kahoot titrait en `<h3>` alors que tous les autres blocs de room titrent en `<h2>` ; et surtout, **le contrôle d'accessibilité tirait une room au hasard** — visible en CI, invisible en local, et différent d'une exécution à l'autre. **Correction :** bloc Kahoot en `<h2>` (rendu inchangé, le style est porté par la classe) ; l'audit vérifie désormais **les 53 pages** (accueil + 52 rooms) ; l'auditeur « SEO » vérifie le titre de **chaque** room sur la page servie. **Garde-fou :** le défaut a été **remis volontairement** dans le code pour prouver que l'audit le détecte (il nomme la room), puis retiré — un garde-fou testé dans les deux sens. Total : **203 contrôles, 0 constat** |
 | 01/11/2026 (nuit, suite 3) | v0.8.3 | La CI a signalé un « majeur » multilingue : des propriétés physiques dans la feuille arabe. En cherchant, on a trouvé un **vrai défaut invisible** : le thème déclarait sa feuille arabe avec un **chemin de fichier** au lieu d'une **adresse**, donc le navigateur demandait une URL qui n'existait pas (404) — **la mise en page arabe n'était jamais appliquée**. Le constat, lui, était un **faux positif** : le contrôle mesurait la page 404 (qui contient le CSS de WordPress), pas une feuille de style. **Correction :** adresse correcte, et feuille arabe chargée dès que le visiteur lit en arabe, même sur un site en français ; version du thème cohérente. **Garde-fous :** un contrôle **bloquant** vérifie désormais que toutes les feuilles de style d'une page se chargent (HTTP 200), dans les trois langues ; et le contrôle ne mesure plus une page d'erreur comme si c'était une feuille de style. Un faux positif de l'auditeur « SEO » est corrigé au passage (apostrophes non normalisés). Total : **202 contrôles, 0 constat** |
+| 04/11/2026 (v0.12.1, les faux positifs corriges) | v0.12.1 | **Trois des quatre constats du comite venaient de l'auditeur, pas de la plateforme.** Le typos de variable qui signalait **536 questions « solution »** a tort (il mesurait `$explanation` au lieu de `$explication`, donc `strlen(null)` valait 0) ; la regle des questions importees contredisait son propre libelle en refusant les **4 propositions** du Stanford CS224N ; et l'auditeur « licences » cherchait l'attribution dans le texte visible, alors qu'elle est servie dans les **donnees structurees**. Le seul vrai defaut etait le manque d'indice des **20 questions du quiz MIT 6.172** — corrige a la source (extracteur et lot). Les **deux workflows** (`criblage-ocw.yml`, `recuperation-sources.yml`) ont recu `permissions: contents: read` et `timeout-minutes`. Un defaut de transparence est corrige au passage : un constat rejete pour absence de preuve s'affichait « BLOQUANT » en majuscules alors que le harnais le rejete ; il s'affiche desormais **[NON ETAYE]**, et les controles de contenu recoivent la mesure reelle en preuve. Mesure : **18 auditeurs, 0 bloquant, 0 avertissement PHP** (l'auditeur « accessibilite », qui plantait sur une variable mal orthographiee, tourne enfin). |
 | 03/11/2026 (v0.12.0, le moteur et les six robots) | v0.12.0 | **Le sitemap n'est pas un moteur : c'est une boussole. Le moteur, c'est le criblage.** `tools/criblage-ocw.py` fait la seconde moitié tout seul — il lit le sitemap (2 587 cours en une requête), filtre les numéros de cours, puis pour chaque cours lit le sitemap du cours, les pages d'examen, les pages de ressources, et regarde le **nom du fichier** : c'est là, et nulle part ailleurs, que se trouve le signal du corrigé (`_sol`, `_soln`, `_solution`, `Answers`, `key`). La licence est lue dans le pied de page (`creativecommons.org/licenses/...`). Mesure réelle : **430 cours analysés en une passe**, **66 avec un corrigé ET une licence CC** (55 jamais vus), 364 sans corrigé ou sans licence exploitable — c'est du temps de calcul gagné, pas de la matière perdue. Le partage en six est réel : `--shard i/6` et le workflow `criblage-ocw.yml` (matrice à 6 robots + fusion). Téléchargement parallèle mesuré : **615 documents de 9 cours en 104 s**. Trois extracteurs de plus, avec leurs garde-fous : Stanford CS107 (41 q, appariement par (numéro de problème, lettre de partie)), Stanford CS224N (67 q : le QCM à plusieurs bonnes réponses reste une **rédaction**, l'énoncé et les propositions mot pour mot), MIT 6.867 (36 q, QCM « T/F » dont la réponse officielle est imprimée en marge à droite). La banque passe de 897 à **1 041 questions** (392 maison + 649 en réserve), **0 question importée dans une tâche**, 52 rooms, copie servie : médiane 4 / max 10 / min 2, réserve max 393, 46 examens déverrouillés et 6 bloqués. |
