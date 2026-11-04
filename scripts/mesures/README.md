@@ -17,8 +17,14 @@ en pointant `SECURA_WP_DIR` vers la racine de l'installation :
 | `mesure-alignement.php` | l'alignement entre la copie servie et la question brute |
 | `mesure-deverrouillage.php` | le nombre de taches bloquees et le nombre de taches debloquees |
 | `empreinte-reservoir.php` | l'empreinte de chaque reservoir, pour prouver qu'un import n'a pas change le contenu |
+| `empreinte-questions.php` | l'empreinte des questions normalisees, tache par tache : apres une correction, seule la TAILLE de la tache « test » doit avoir change, le contenu doit etre identique |
 
 La regle : **une mesure se compare a la mesure d'avant**. Les empreintes
 (`empreinte-reservoir.php`) ont existe pour prouver que la separation
 « examen d'universite en reserve » n'avait rien change au contenu des
 reservoirs.
+
+Ces deux empreintes se combinent : l'une dit « le reservoir est intact »,
+l'autre dit « les questions servies sont intactes ». Une correction qui
+deplace une question d'une room a l'autre change les deux — c'est
+exactement ce qu'on veut voir.
