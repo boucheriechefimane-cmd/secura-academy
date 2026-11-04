@@ -59,6 +59,7 @@ cp "$REPO_DIR/docs/ROADMAP.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/COMPATIBILITE-PLUGINS.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/CONTENU-MIT.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/IMPORTER-QUESTIONS.md" "$TMP/recette/docs/"
+cp "$REPO_DIR/docs/RECOLTE-OCW-2026-11.md" "$TMP/recette/docs/"
 
 # Les outils : le generateur de contenu (avec le controle qualite),
 # l'outil de verification des drapeaux Juice Shop et le catalogue video.
@@ -76,6 +77,19 @@ cp "$REPO_DIR/tools/ocw-recupere.py" "$TMP/recette/tools/"
 cp "$REPO_DIR/tools/sources-autorisees.json" "$TMP/recette/tools/"
 cp "$REPO_DIR/tools/plugins-tiers.json" "$TMP/recette/tools/"
 rm -rf "$TMP/recette/tools/contenu-universites/__pycache__"
+
+# Le moteur de criblage OCW et le telechargeur parallelise : c'est ce qui
+# remplace la navigation a la main dans le sitemap (boussole -> moteur).
+cp "$REPO_DIR/tools/criblage-ocw.py" "$TMP/recette/tools/"
+cp "$REPO_DIR/tools/telecharger-ocw.py" "$TMP/recette/tools/"
+
+# Les douze extracteurs : un par format d'examen university.
+mkdir -p "$TMP/recette/tools/extracteurs"
+cp "$REPO_DIR/tools/import-mit-"*.py "$REPO_DIR/tools/import-stanford-"*.py "$TMP/recette/tools/extracteurs/" 2>/dev/null || true
+
+# La recolte elle-meme : le rapport fusionne des six robots (430 cours).
+mkdir -p "$TMP/recette/tools/recolte"
+cp "$REPO_DIR/docs/recolte/"*.json "$TMP/recette/tools/recolte/" 2>/dev/null || true
 
 # Le lot d'examen livre (MIT OCW 6.858) : c'est lui qui alimente les
 # reserves d'examen, et il est verifiable a tout moment.
