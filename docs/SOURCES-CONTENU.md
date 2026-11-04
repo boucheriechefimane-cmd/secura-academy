@@ -726,7 +726,7 @@ donné 135 questions**, avec la licence **CC BY-NC-SA 4.0 vérifiée le
 
 | Source | Licence (vérifiée le) | Ce que nous en prenons | Décision |
 |---|---|---|---|
-| **MIT 6.661** Receivers, Antennas and Signals (Spring 2003) | CC BY-NC-SA 4.0 (04/11/2026) | **74 questions** d'examen + corrigé officiel | **RÉUTILISABLE** (import, attribution, ShareAlike) |
+| **MIT 6.661** Receivers, Antennas and Signals (Spring 2003) | CC BY-NC-SA 4.0 (04/11/2026) | **105 questions** d'examen + corrigé officiel (74 en v0.12.3, 105 après la correction d'appariement de v0.12.6) | **RÉUTILISABLE** (import, attribution, ShareAlike) |
 | **MIT 6.111** Introductory Digital Systems Laboratory (Spring 2006) | CC BY-NC-SA 4.0 (04/11/2026) | **22 questions** : 21 d'algèbre booléenne (énoncé et corrigé alignés ligne à ligne) + 1 de calcul | **RÉUTILISABLE** (import, attribution, ShareAlike) |
 | **MIT 6.262** Discrete Stochastic Processes (Spring 2011) | CC BY-NC-SA 4.0 (04/11/2026) | **13 questions** d'examen + corrigé officiel | **RÉUTILISABLE** |
 | **MIT 6.253** Convex Analysis and Optimization (Spring 2012) | CC BY-NC-SA 4.0 (04/11/2026) | **11 questions** d'examen + corrigé officiel | **RÉUTILISABLE** |
@@ -785,8 +785,11 @@ voisin) ; l'attribution nomme le **cours** et la **source des tests**.
 | **MIT 6.041SC** Probabilistic Systems Analysis (Spring 2013) | CC BY-NC-SA 4.0 (04/11/2026) | **2 questions** | **RÉUTILISABLE** |
 | **MIT 6.046J** Introduction to Algorithms (SMA 5503, Fall 2005) | CC BY-NC-SA 4.0 (04/11/2026) | **2 questions** | **RÉUTILISABLE** |
 | **MIT 6.973** Communication System Design (Spring 2006) | CC BY-NC-SA 4.0 (04/11/2026) | **2 questions** | **RÉUTILISABLE** |
+| **MIT 6.041** Probabilistic Systems Analysis (Spring 2006) | CC BY-NC-SA 4.0 (04/11/2026) | **9 questions** | **RÉUTILISABLE** |
+| **MIT 6.641** Electromagnetic Fields, Forces, and Motion (Fall 2009) | CC BY-NC-SA 4.0 (04/11/2026) | **1 question** | **RÉUTILISABLE** |
 
-**Dix cours sont refusés**, et le motif est écrit : ce sont des cours de
+**Vingt-huit cours sont refusés** (au total, toutes vagues confondues),
+et le motif est écrit : dix sont des cours de
 **chimie et de sciences des matériaux** (3.00, 3.012, 3.034, 3.052,
 3.091SC, 3.15, 3.205, 3.21, 3.22, 3.40J). **La plateforme est une
 plateforme de sécurité** : y loger un examen de chimie serait un
@@ -796,8 +799,16 @@ mensonge, même avec la meilleure licence du monde.
 Diffusion, 18.786 Number Theory II) : ils sont **signalés, pas
 forcés** — on ne réécrit pas un document pour le faire entrer.
 
-Le catalogue `tools/sources-autorisees.json` passe de **39 à 59
+**Dix-huit autres cours sont refusés pour leur format** : schéma absent,
+corrigé scanné, appariement impossible, énoncé illisible à l'extraction,
+énoncé qui n'est qu'un fragment d'en-tête, ou corrigé qui n'est pas un
+corrigé. Le tableau complet des motifs est dans
+`docs/recolte/bilan-suite-cours.json`.
+
+Le catalogue `tools/sources-autorisees.json` passe de **39 à 61
 entrées**. Le bilan par cours est `docs/recolte/bilan-suite-cours.json`.
+Les **66 cours** de la liste de criblage sont traités : **39 importés,
+28 refusés**.
 
 ### 9.1 Deux garde-fous ajoutés après la campagne (04/11/2026)
 
