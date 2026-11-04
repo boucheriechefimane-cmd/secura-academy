@@ -1,0 +1,182 @@
+[
+ {
+  "cours": "18-085-computational-science-and-engineering-i-summer-2020",
+  "source": "mit-ocw-18-085-examens",
+  "questions": 7,
+  "motif": ""
+ },
+ {
+  "cours": "18-024-multivariable-calculus-with-theory-spring-2011",
+  "source": "mit-ocw-18-024-examens",
+  "questions": 33,
+  "motif": ""
+ },
+ {
+  "cours": "18-034-honors-differential-equations-spring-2009",
+  "source": "mit-ocw-18-034-examens",
+  "questions": 30,
+  "motif": ""
+ },
+ {
+  "cours": "18-04-complex-variables-with-applications-spring-2018",
+  "source": "mit-ocw-18-04-examens",
+  "questions": 108,
+  "motif": ""
+ },
+ {
+  "cours": "18-05-introduction-to-probability-and-statistics-spring-2022",
+  "source": "mit-ocw-18-05-examens",
+  "questions": 427,
+  "motif": ""
+ },
+ {
+  "cours": "18-06-linear-algebra-spring-2010",
+  "source": "mit-ocw-18-06-examens",
+  "questions": 27,
+  "motif": ""
+ },
+ {
+  "cours": "18-366-random-walks-and-diffusion-fall-2006",
+  "questions": 0,
+  "motif": "aucun extracteur ne couvre ce format"
+ },
+ {
+  "cours": "18-435j-quantum-computation-fall-2003",
+  "source": "mit-ocw-18-435j-examens",
+  "questions": 5,
+  "motif": ""
+ },
+ {
+  "cours": "18-440-probability-and-random-variables-spring-2014",
+  "source": "mit-ocw-18-440-examens",
+  "questions": 53,
+  "motif": ""
+ },
+ {
+  "cours": "18-443-statistics-for-applications-spring-2015",
+  "source": "mit-ocw-18-443-examens",
+  "questions": 46,
+  "motif": ""
+ },
+ {
+  "cours": "18-600-probability-and-random-variables-fall-2019",
+  "source": "mit-ocw-18-600-examens",
+  "questions": 166,
+  "motif": ""
+ },
+ {
+  "cours": "18-102-introduction-to-functional-analysis-spring-2009",
+  "source": "mit-ocw-18-102-examens",
+  "questions": 7,
+  "motif": ""
+ },
+ {
+  "cours": "18-786-number-theory-ii-class-field-theory-spring-2016",
+  "questions": 0,
+  "motif": "aucun extracteur ne couvre ce format"
+ },
+ {
+  "cours": "6-003-signals-and-systems-fall-2011",
+  "source": "mit-ocw-6-003-examens",
+  "questions": 21,
+  "motif": ""
+ },
+ {
+  "cours": "6-011-introduction-to-communication-control-and-signal-processing-spring-2010",
+  "source": "mit-ocw-6-011-examens",
+  "questions": 2,
+  "motif": ""
+ },
+ {
+  "cours": "6-012-microelectronic-devices-and-circuits-fall-2009",
+  "source": "mit-ocw-6-012-f09-examens",
+  "questions": 65,
+  "motif": ""
+ },
+ {
+  "cours": "6-013-electromagnetics-and-applications-spring-2009",
+  "source": "mit-ocw-6-013-examens",
+  "questions": 51,
+  "motif": ""
+ },
+ {
+  "cours": "6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010",
+  "source": "mit-ocw-6-041-f10-examens",
+  "questions": 15,
+  "motif": ""
+ },
+ {
+  "cours": "6-041sc-probabilistic-systems-analysis-and-applied-probability-fall-2013",
+  "source": "mit-ocw-6-041sc-examens",
+  "questions": 2,
+  "motif": ""
+ },
+ {
+  "cours": "6-046j-introduction-to-algorithms-sma-5503-fall-2005",
+  "source": "mit-ocw-6-046j-f05-examens",
+  "questions": 2,
+  "motif": ""
+ },
+ {
+  "cours": "6-7220j-nonlinear-optimization-spring-2025",
+  "source": "mit-ocw-6-7220j-examens",
+  "questions": 3,
+  "motif": ""
+ },
+ {
+  "cours": "6-973-communication-system-design-spring-2006",
+  "source": "mit-ocw-6-973-examens",
+  "questions": 2,
+  "motif": ""
+ },
+ {
+  "cours": "3-00-thermodynamics-of-materials-fall-2002",
+  "questions": 0,
+  "motif": "thermodynamique des materiaux : sans lien avec la securite"
+ },
+ {
+  "cours": "3-012-fundamentals-of-materials-science-fall-2005",
+  "questions": 0,
+  "motif": "science des materiaux : sans lien avec la securite"
+ },
+ {
+  "cours": "3-034-organic-biomaterials-chemistry-fall-2005",
+  "questions": 0,
+  "motif": "chimie des biomateriaux : sans lien avec la securite"
+ },
+ {
+  "cours": "3-052-nanomechanics-of-materials-and-biomaterials-spring-2007",
+  "questions": 0,
+  "motif": "nanomecanique des materiaux : sans lien avec la securite"
+ },
+ {
+  "cours": "3-091sc-introduction-to-solid-state-chemistry-fall-2010",
+  "questions": 0,
+  "motif": "chimie de l'etat solide : sans lien avec la securite"
+ },
+ {
+  "cours": "3-15-electrical-optical-magnetic-materials-and-devices-fall-2006",
+  "questions": 0,
+  "motif": "materiaux electriques, optiques et magnetiques : sans lien avec la securite"
+ },
+ {
+  "cours": "3-205-thermodynamics-and-kinetics-of-materials-fall-2006",
+  "questions": 0,
+  "motif": "thermodynamique des materiaux : sans lien avec la securite"
+ },
+ {
+  "cours": "3-21-kinetic-processes-in-materials-spring-2006",
+  "questions": 0,
+  "motif": "processus cinetiques dans les materiaux : sans lien avec la securite"
+ },
+ {
+  "cours": "3-22-mechanical-behavior-of-materials-spring-2008",
+  "questions": 0,
+  "motif": "comportement mecanique des materiaux : sans lien avec la securite"
+ },
+ {
+  "cours": "3-40j-physical-metallurgy-fall-2009",
+  "questions": 0,
+  "motif": "metallurgie physique : sans lien avec la securite"
+ }
+]

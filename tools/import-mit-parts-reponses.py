@@ -202,24 +202,108 @@ def blocs_numerotes(lignes):
     """Les blocs « 1. », « 2. » ... d'un document, dans l'ordre.
 
     Sert au format « numeros-reponses » : l'enonce et le corrige sont
-    deux listes de blocs numerotes, on les apparie par leur rang.
+    deux listes de blocs numerotes. On garde le **numero** de chaque
+    bloc : l'appariement se fait alors par le numero lui-meme, et non
+    par le rang — un corrige dont les problemes sont dans un autre ordre
+    est alors refuse, au lieu d'etre apparie de travers.
     """
     blocs = []
     courant = None
     for ligne in lignes:
         m = RE_PROBLEME.match(ligne)
         if m:
-            courant = [m.group(2).strip()]
+            courant = [int(m.group(1)), [m.group(2).strip()]]
             blocs.append(courant)
             continue
         if courant is not None:
-            courant.append(ligne.strip())
+            courant[1].append(ligne.strip())
     if not blocs:
         # Pas d'items numerotes : le document ne contient qu'un probleme.
         corps = corps_sans_entete(lignes)
         texte = '\n'.join([l.strip() for l in corps if l.strip()]).strip()
-        return [texte] if texte else []
-    return ['\n'.join([x for x in b if x]).strip() for b in blocs]
+        return [(None, texte)] if texte else []
+    return [(numero, '\n'.join([x for x in texte if x]).strip())
+            for numero, texte in blocs]
+
+
+def apparier_par_numero(enonces, solutions):
+    """Apparie deux listes de blocs numerotes PAR LEUR NUMERO.
+
+    Renvoie [(numero, enonce, reponse)], ou None si l'appariement est
+    impossible (numeros absents d'un cote, ou mismatch). On refuse
+    d'apparier par le rang : un corrige dont l'ordre differe de celui
+    de l'enonce donnerait des questions faussees.
+    """
+    numeros_enonce = [numero for numero, _ in enonces]
+    numeros_corrige = [numero for numero, _ in solutions]
+    sans_numero_enonce = all(n is None for n in numeros_enonce)
+    sans_numero_corrige = all(n is None for n in numeros_corrige)
+    if sans_numero_enonce and sans_numero_corrige:
+        # Aucun des deux documents ne numrote ses items : il n'y a qu'un
+        # probleme de chaque cote, l'appariement ne peut pas etre errone et le
+        # compte des blocs fait foi.
+        if len(enonces) != len(solutions):
+            return None
+        return [(None, enonce, reponse)
+                for (numero, enonce), (numero2, reponse) in zip(enonces, solutions)]
+    if None in numeros_enonce or None in numeros_corrige:
+        return None
+    if sorted(numeros_enonce) != sorted(numeros_corrige):
+        return None
+    table = dict(solutions)
+    return [(numero, texte, table[numero]) for numero, texte in enonces]
+
+
+RE_MARQUEUR_REPONSE = re.compile(
+    r'^[ \t]*(ANSWER|Answer|SOLUTION|Solution|SOLUTIONS|Solutions)[ \t]*[:.]?[ \t]*$')
+RE_MARQUEUR_REPONSE_INLINE = re.compile(
+    r'\b(?:ANSWER|Answer|SOLUTION|Solution)\b[ \t]*[:.]')
+
+
+def _normalise(texte):
+    """Un texte compare : minuscules, espaces groupes, ponctuation finale coupee."""
+    texte = re.sub(r'\s+', ' ', (texte or '')).strip().lower()
+    return texte.strip('.:;,()[]"\'')
+
+
+def _meme_enonce(avant, enonce):
+    """Le texte « avant » est-il l'enonce de la question ?
+
+    On compare apres normalisation : minuscules, espaces groupes, la
+    ponctuation finale coupee, et sans le prefixe « Problem 3. » ni la
+    lettre de partie « (a) ».
+    """
+    avant_n = _normalise(avant)
+    enonce_n = _normalise(enonce)
+    if not avant_n or not enonce_n:
+        return False
+    avant_sans_titre = re.sub(r'^problem\s+\d+[.:]?\s*', '', avant_n)
+    avant_sans_lettre = re.sub(r'^\(?[a-z]\)?\s*', '', avant_sans_titre)
+    enonce_sans_lettre = re.sub(r'^\(?[a-z]\)?\s*', '', enonce_n)
+    for gauche, droite in ((avant_sans_titre, enonce_n),
+                           (avant_sans_lettre, enonce_sans_lettre)):
+        if gauche and droite and (gauche in droite or droite in gauche):
+            return True
+    return False
+
+
+def corrige_sans_repetition(reponse, enonce):
+    """Retire l'enonce repete en tete du corrige officiel.
+
+    Beaucoup de corriges du MIT repetent l'enonce du probleme avant le
+    marqueur « ANSWER: » ou « Solution: » — sur sa propre ligne, ou
+    termine en fin de ligne. On ne garde que ce qui suit le marqueur —
+    mais SEULEMENT si le texte avant le marqueur est bien l'enonce
+    (compare apres normalisation). Dans le doute, on ne touche a rien.
+    """
+    marqueur = RE_MARQUEUR_REPONSE_INLINE.search(reponse)
+    if not marqueur:
+        return reponse
+    avant = reponse[:marqueur.start()]
+    apres = reponse[marqueur.end():].strip()
+    if not apres or not _meme_enonce(avant, enonce):
+        return reponse
+    return apres
 
 
 def choisir_mode(reponse):
@@ -230,7 +314,8 @@ def choisir_mode(reponse):
     return 'solution', None
 
 
-def fabriquer_question(prefixe, enonce, reponse, source, mode, index=None):
+def fabriquer_question(prefixe, enonce, reponse, source, mode, index=None,
+                       licence=LICENCE):
     """Construit une question du lot, ou None si la correction ne suffit pas."""
     if mode == 'choice':
         return {
@@ -239,7 +324,7 @@ def fabriquer_question(prefixe, enonce, reponse, source, mode, index=None):
             "hint": HINT_CHOICE,
             "explanation": "Corrigé officiel du MIT : " + reponse,
             "source": source,
-            "licence": LICENCE,
+            "licence": licence,
             "xp": XP,
             "choices": ["True", "False", "Open question"],
             "correct": index,
@@ -250,7 +335,7 @@ def fabriquer_question(prefixe, enonce, reponse, source, mode, index=None):
         "hint": HINT_SOLUTION,
         "explanation": "Corrigé officiel du MIT : " + reponse,
         "source": source,
-        "licence": LICENCE,
+        "licence": licence,
         "xp": XP,
     }
 
@@ -273,7 +358,8 @@ def paires_de_fichiers(dossier):
     return paires
 
 
-def extraire_parts_reponses(enonce_txt, corrige_txt, prefixe, source, journal):
+def extraire_parts_reponses(enonce_txt, corrige_txt, prefixe, source, journal,
+                            licence=LICENCE):
     """MIT 18.404J : les parties (a), (b)... et leurs reponses en ligne."""
     questions = []
     _, problemes = decouper_problemes(enonce_txt)
@@ -289,19 +375,25 @@ def extraire_parts_reponses(enonce_txt, corrige_txt, prefixe, source, journal):
                 continue
             enonce = enonces[lettre]
             reponse = reponses[lettre]
+            # On retire d'abord l'enonce repete en tete du corrige : c'est
+            # la reponse qu'on garde qui doit passer le controle de
+            # longueur, pas celle qui contient l'enonce.
+            reponse = corrige_sans_repetition(reponse, enonce)
             mode, index = choisir_mode(reponse)
             if mode == 'solution':
                 reponse, pb = controle_correction(reponse)
                 if pb:
                     journal.append("probleme %d, partie (%s) : %s" % (numero, lettre, pb))
                     continue
-            question = fabriquer_question(prefixe, enonce, reponse, source, mode, index)
+            question = fabriquer_question(prefixe, enonce, reponse, source, mode,
+                                         index, licence)
             if question:
                 questions.append(question)
     return questions
 
 
-def extraire_numeros_reponses(enonce_txt, corrige_txt, prefixe, source, journal):
+def extraire_numeros_reponses(enonce_txt, corrige_txt, prefixe, source, journal,
+                               licence=LICENCE):
     """MIT 6.851 : les problemes 1., 2., 3. et le « Sample solution »."""
     questions = []
     lignes = enonce_txt.split('\n')
@@ -323,18 +415,77 @@ def extraire_numeros_reponses(enonce_txt, corrige_txt, prefixe, source, journal)
         journal.append("l'enonce annonce %d item(s), le corrige en a %d : appariement refuse"
                        % (len(enonces), len(solutions)))
         return questions
-    for rang, (enonce, reponse) in enumerate(zip(enonces, solutions), start=1):
+    paires = apparier_par_numero(enonces, solutions)
+    if paires is None:
+        journal.append("les numeros de l'enonce et du corrige ne se "
+                       "correspondent pas : appariement refuse")
+        return questions
+    for numero, enonce, reponse in paires:
         if not enonce or not reponse:
             continue
+        reponse = corrige_sans_repetition(reponse, enonce)
         reponse, pb = controle_correction(reponse)
         if pb:
-            journal.append("item %d : %s" % (rang, pb))
+            journal.append("item %s : %s" % (numero, pb))
             continue
         question = fabriquer_question(
-            prefixe, (contexte + "\n" if contexte else "") + enonce, reponse, source, 'solution')
+            prefixe, (contexte + "\n" if contexte else "") + enonce, reponse,
+            source, 'solution', None, licence)
         if question:
             questions.append(question)
     return questions
+
+
+def rooms_du_lot(questions, theme):
+    """Les rooms qui accueillent les questions.
+
+    `--theme` accepte deux choses :
+    - le slug d'une room reelle (par exemple
+      « comment-marche-un-ordinateur-de-la-donnee-au-programme ») :
+      toutes les questions vont dans cette room ;
+    - un theme (« algorithmes », « communications », « cyber »…) : les
+      questions sont alors reparties dans les rooms de la section du
+      theme, d'apres la mesure du site (module tools/repartition-themes.py).
+    """
+    rooms_connues = charger_rooms_connues()
+
+    if rooms_connues and theme in rooms_connues:
+        return [{
+            "room": theme,
+            "title": theme,
+            "tasks": {"test": questions},
+        }]
+
+    par_room = repartir(questions, theme)
+    if not par_room:
+        return []
+    return [{
+        "room": slug,
+        "title": slug,
+        "tasks": {"test": quest},
+    } for slug, quest in sorted(par_room.items())]
+
+
+def charger_rooms_connues():
+    """Les slugs de rooms que le plugin sait creer (liste vide si absente)."""
+    chemin = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          "rooms-connues.json")
+    if not os.path.exists(chemin):
+        return {}
+    with io.open(chemin, encoding="utf-8") as fichier:
+        return json.load(fichier)
+
+
+def repartir(questions, theme):
+    """Pose les questions dans les rooms reelles, d'apres la MESURE du site."""
+    import importlib.util
+
+    chemin = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          "repartition-themes.py")
+    specification = importlib.util.spec_from_file_location("repartition", chemin)
+    module = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(module)
+    return module.repartir(questions, theme)
 
 
 def main():
@@ -346,8 +497,12 @@ def main():
     analyseur.add_argument("--source", required=True)
     analyseur.add_argument("--url", required=True)
     analyseur.add_argument("--attribution", required=True)
+    analyseur.add_argument("--licence", default=LICENCE)
     analyseur.add_argument("--prefixe", default="[MIT — question d’examen, en anglais] ")
-    analyseur.add_argument("--theme", required=True, help="la room qui accueille le lot")
+    analyseur.add_argument("--theme", required=True,
+                        help="la room qui accueille le lot, ou un theme "
+                             "(« algorithmes », « cyber »…) : les questions sont "
+                             "alors reparties dans les rooms de sa section")
     args = analyseur.parse_args()
 
     paires = paires_de_fichiers(args.texte)
@@ -361,9 +516,11 @@ def main():
         enonce_txt = nettoyer(io.open(enonce_f, encoding='utf-8', errors='ignore').read())
         corrige_txt = nettoyer(io.open(corrige_f, encoding='utf-8', errors='ignore').read())
         if args.format == 'parts-reponses':
-            trouvees = extraire_parts_reponses(enonce_txt, corrige_txt, args.prefixe, args.source, journal)
+            trouvees = extraire_parts_reponses(enonce_txt, corrige_txt, args.prefixe,
+                                              args.source, journal, args.licence)
         else:
-            trouvees = extraire_numeros_reponses(enonce_txt, corrige_txt, args.prefixe, args.source, journal)
+            trouvees = extraire_numeros_reponses(enonce_txt, corrige_txt, args.prefixe,
+                                                 args.source, journal, args.licence)
         for q in trouvees:
             # Le champ « source » d'une question porte l'attribution
             # complete : c'est elle qui sera affichee a l'eleve.
@@ -379,14 +536,10 @@ def main():
 
     lot = {
         "source": args.source,
-        "licence": LICENCE,
+        "licence": args.licence,
         "attribution": args.attribution,
         "url": args.url,
-        "rooms": [{
-            "room": args.theme,
-            "title": args.theme,
-            "tasks": {"test": questions},
-        }],
+        "rooms": rooms_du_lot(questions, args.theme),
     }
     with io.open(args.sortie, 'w', encoding='utf-8') as f:
         f.write(json.dumps(lot, ensure_ascii=False, indent=2) + "\n")

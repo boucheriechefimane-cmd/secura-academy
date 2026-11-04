@@ -1,0 +1,554 @@
+{
+  "source": "mit-ocw-18-440-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/18-440-probability-and-random-variables-spring-2014/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Lisa’s truck has three states: broken (in Lisa’s possession),\nworking (in Lisa’s possession), and in the shop. Denote these states B, W,\nand S.\nWrite the three-by-three Markov transition matrix for this problem.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Write the three-by-three Markov transition matrix for this problem.\nANSWER: Ordering the states B, W, S, we may write the Markov\nchain matrix as         ⎛           ⎞\n.5 0 .5\nM = ⎝.1 .9 0 ⎠ .\n0 .5 .5",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Lisa’s truck has three states: broken (in Lisa’s possession),\nworking (in Lisa’s possession), and in the shop. Denote these states B, W,\nand S.\nOver the long term, what fraction of mornings does the truck start\nout in each of the three states, B, S, and W ?\n2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Over the long term, what fraction of mornings does the truck start\nout in each of the three states, B, S, and W ? ANSWER: We ﬁnd\nthe stationarity probability vector π = (πB , πW , πS ) = (1/7, 5/7, 1/7)\nby solving πM = π (with components of π summing to 1).",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X1 , X2 , X3 , . . . is an inﬁnite sequence of\nindependent random variables which are each e       equal to 1 with probability\n1/2 and −1 with probability 1/2. Write Yn = ni=1 Xi . Answer the\nfollowing:\nIn which of the cases below is the sequence Zn a martingale? (Just\ncircle the corresponding letters.)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : In which of the cases below is the sequence Zn a martingale? (Just\ncircle the corresponding letters.)\n(i) Zn = Xn + Yn ANSWER: NO\nn\n(ii) Zn =  i=1 (2Xi + 1) ANSWER: YES\n(iii) Zn = ni=1 (−Xi + 1) ANSWER: YES\n(iv) Zn = ni=1 Yi ANSWER: NO\ne\n(v) Zn = ni=2 Xi Xi−1 ANSWER: YES\ne",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) When Harry’s cell phone is on, the times when he receives\nnew text messages form a Poisson process with parameter λT = 3/minute.\nThe times at which he receives new email messages form an independent\nPoisson process with parameter λE = 1/minute. He receives personal\nmessages on Facebook as an independent Poisson process with rate\nλF = 2/minute.\nCompute the probability that Harry receives 10 new messages total\n(including email, text, and Facebook) during his first two minutes of\nwaiting.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the probability that Harry receives 10 new messages total\n(including email, text, and Facebook) during his ﬁrst two minutes of\nwaiting. ANSWER: Number total in two minutes is Poisson with\nrate λ = 2(λE + λT + λF ) = 12. So answer is\nλk e−λ /k! = 1210 e−12 /10!.\n2",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) When Harry’s cell phone is on, the times when he receives\nnew text messages form a Poisson process with parameter λT = 3/minute.\nThe times at which he receives new email messages form an independent\nPoisson process with parameter λE = 1/minute. He receives personal\nmessages on Facebook as an independent Poisson process with rate\nλF = 2/minute.\nWhat is the probability that Harry receives no messages of any kind\nduring his first five minutes of waiting?\n5",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What is the probability that Harry receives no messages of any kind\nduring his ﬁrst ﬁve minutes of waiting? ANSWER: Time till ﬁrst\nmessage is exponential with parameter 6. Probability this time\nexceeds 5 is e−30 .",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X and Y have a joint density function f given\nby\n1/π x2 + y 2 < 1\nf (x, y) =                  .\n0   x2 + y 2 ≥ 1\nExpress E[sin(XY )] as a double integral. (You don’t have to\nexplicitly evaluate the integral.)\n6",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Express E[sin(XY )] as a double integral. (You don’t have to\nexplicitly evaluate the integral.) ANSWER:\n√\n1    1−x2\n1\n√       sin(xy)dydx.\n−1   − 1−x2 π",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X be the number on a standard die roll (i.e., each of\n{1, 2, 3, 4, 5, 6} is equally likely) and Y the number on an independent\nstandard die roll. Write Z = X + Y .\nCompute the conditional expectation E[Y |Z] as a function of Z (for\nZ ∈ {2, 3, 4, . . . , 12}).\n7",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the conditional expectation E[Y |Z] as a function of Z (for\nZ ∈ {2, 3, 4, . . . , 12}). ANSWER:\nZ = E[Z|Z] = E[X + Y |Z] = E[X|Z] + E[Y |Z]. By symmetry,\nE[X|Z] = E[Y |Z] = Z/2.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that Xi are i.i.d. random variables, each of which\nassumes a value in {−1, 0, 1}, each with probability 1/3.\nCompute the moment generating function for the sum        i=1 Xi .\n8",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the moment generating function for the sum      i=1 Xi .\nANSWER: (e−t + 1 + et )n /3n",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X and Y be independent random variables. Suppose X\ntakes values in {1, 2} each with probability 1/2 and Y takes values in\n{1, 2, 3, 4} each with probability 1/4. Write Z = X + Y .\nCompute H(X, Z).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute H(X, Z). ANSWER: log 2 + log 4 = log 8 = 3.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X be a normal random variable with mean 0 and\nvariance 1.\nCompute E[X 2 + 2X − 5].\n10",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute E[X 2 + 2X − 5]. ANSWER:\nE[X 2 ] + 2E[X] − 5 = 1 + 0 − 5 = −4.\n4",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X be a random variable with density function f ,\ncumulative distribution function F , variance V and mean M .\nIf X1 , . . . , Xn are independent copies of X. Compute (in terms of F )\nthe cumulative distribution function for the largest of the Xi .\n4",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If X1 , . . . , Xn are independent copies of X. Compute (in terms of F )\nthe cumulative distribution function for the largest of the Xi .\nANSWER: F (a)n . This is the probability that all n values are less\nthan a.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X and Y are outcomes of independent\nstandard die rolls (each equal to {1, 2, 3, 4, 5, 6} with equal probability).\nWrite Z = X + Y .\n1\nCompute H(X, Z).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute H(X, Z). ANSWER: log 36 = 2 log 6.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X and Y are outcomes of independent\nstandard die rolls (each equal to {1, 2, 3, 4, 5, 6} with equal probability).\nWrite Z = X + Y .\n1\nCompute H(Z) + HZ (Y ). (Hint: you shouldn’t need to do any more\ncalculations.)\n6",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute H(Z) + HZ (Y ). (Hint: you shouldn’t need to do any more\ncalculations.) ANSWER: log 36",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Elaine’s not-so-trusty old car has three states: broken (in\nElaine’s possession), working (in Elaine’s possession), and in the shop.\nDenote these states B, W, and S.\nIf the car starts out B on one morning, what is the probability that\nit will start out B two days later?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If the car starts out B on one morning, what is the probability that\nit will start out B two days later? ANSWER: 1/4",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \nSuppose that X1 , X2 , X3 , . . . is an inﬁnite sequence of independent\nrandom variables which are each equal to 2 with probability 1/3 and .5\nwith probability 2/3. Let Y0 = 1 and Yn = ni=1 Xi for n ≥ 1.\n2\nWhat is the the probability that Yn reaches 8 before the first time\nthat it reaches 18 ?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What is the the probability that Yn reaches 8 before the ﬁrst time\nthat it reaches 18 ? ANSWER: sequences is martingale, so\n1 = EYT = 8p + (1/8)(1 − p). Solving gives 1 − 8p = (1 − p)/8, so\n8 − 64p = 1 − p and 63p = 7. Answer is p = 1/9.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \nSuppose that X1 , X2 , X3 , . . . is an inﬁnite sequence of independent\nrandom variables which are each equal to 2 with probability 1/3 and .5\nwith probability 2/3. Let Y0 = 1 and Yn = ni=1 Xi for n ≥ 1.\n2\nUse the central limit theorem to approximate the probability that\nlog Y10000 (and hence Y10000 ) is greater than its median value.\n8",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Use the central limit theorem to approximate the probability that\nlog Y10000 (and hence Y10000 ) is greater than its median value.\nANSWER: About .5.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X be a uniformly distributed random variable on [−1, 1].\nIf X1 , . . . , Xn are independent copies of X, and\nZ = max{X1 , X2 , . . . , Xn }, then what is the cumulative distribution\nfunction FZ ?\n2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If X1 , . . . , Xn are independent copies of X, and\nZ = max{X1 , X2 , . . . , Xn }, then what is the cumulative distribution\nfunction FZ ? ANSWER: FX1 (a) = (a + 1)/2 for a ∈ [−1, 1]. Thus\na+1 n\n⎧\n⎨ 2\n⎪          a ∈ [−1, 1]\nFZ (a) = FX1 (a)FX2 (a) . . . FXn (a) = 0         a < −1\n⎪\n1        a>1\n⎩",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) A certain bench at a popular park can hold up to two\npeople. People in this park walk in pairs or alone, but nobody ever sits\ndown next to a stranger. They are just not friendly in that particular way.\nIndividuals or pairs who sit on a bench stay for at least 1 minute, and tend\nto stay for 4 minutes on average. Transition probabilities are as follows:\nIf the bench is empty, what is the probability it will be empty two\nminutes later?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If the bench is empty, what is the probability it will be empty two\nminutes later? ANSWER: 12 12 + 14 14 + 14 14 = 6/16 = 3/8.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) A certain bench at a popular park can hold up to two\npeople. People in this park walk in pairs or alone, but nobody ever sits\ndown next to a stranger. They are just not friendly in that particular way.\nIndividuals or pairs who sit on a bench stay for at least 1 minute, and tend\nto stay for 4 minutes on average. Transition probabilities are as follows:\nIf the bench is empty, then by the next minute it has a 1/2 chance of\nbeing empty, a 1/4 chance of being occupied by 1 person, and a 1/4\nchance of being occupied by 2 people.\n(ii) If it has 1 person, then by the next minute it has 1/4 chance of being\nempty and a 3/4 chance of remaining occupied by 1 person.\n(iii) If it has 2 people then by the next minute it has 1/4 chance of being\nempty and a 3/4 chance of remaining occupied by 2 people.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If the bench is empty, then by the next minute it has a 1/2 chance of\nbeing empty, a 1/4 chance of being occupied by 1 person, and a 1/4\nchance of being occupied by 2 people.\n(ii) If it has 1 person, then by the next minute it has 1/4 chance of being\nempty and a 3/4 chance of remaining occupied by 1 person.\n(iii) If it has 2 people then by the next minute it has 1/4 chance of being\nempty and a 3/4 chance of remaining occupied by 2 people.\n1",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X1 , X2 , X3 , . . . is an inﬁnite sequence of\nindependent random variables which are each e       equal to 5 with probability\n1/2 and −5 with probability 1/2. Write Yn = ni=1 Xi . Answer the\nfollowing:\nIn which of the cases below is the sequence Zn a martingale? (Just\ncircle the corresponding letters.)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : In which of the cases below is the sequence Zn a martingale? (Just\ncircle the corresponding letters.)\n(i) Zn = 5Xn\nn\n(ii) Zn = 5−n     i=1 Xi\nn     2\n(iii) Zn =     i=1 Xi\n(iv) Zn = 17\n(v) Zn = Xn − 4\nANSWER: (iv) only.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X and Y are independent exponential random\nvariables with parameter λ = 2. Write Z = min{X, Y }\nExpress E[cos(X 2 Y 3 )] as a double integral. (You don’t have to\nexplicitly evaluate the integral.)\n6",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Express E[cos(X 2 Y 3 )] as a double integral. (You don’t have to\nexplicitly\ne ∞ e ∞ evaluate       the integral.) ANSWER:\ncos(x2 y 3 ) · 2e−2x · 2e−2y dydx",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X1 , X2 , X3 be independent standard die rolls (i.e., each\nof {1, 2, 3, 4, 5, 6} is equally likely). Write Z = X1 + X2 + X3 .\nCompute the conditional expectation E[X2 |Z] as a function of Z (for\nZ ∈ {3, 4, 5, . . . , 18}).\n7",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the conditional expectation E[X2 |Z] as a function of Z (for\nZ ∈ {3, 4, 5, . . . , 18}). ANSWER: Note that\nE[X1 + X2 + X3 |Z] = E[Z|Z] = Z. So by symmetry and additivity\nof conditional expectation we ﬁnd E[X2 |Z] = Z/3.\n3",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that Xi are i.i.d. uniform random variables on [0, 1].\nCompute the moment generating function for the sum         i=1 Xi .\n8",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the moment generating function for the sum ni=1 Xi .\ne\nt   \u0001n\nANSWER: e −1    t",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X be a normal random variable with mean 0 and\nvariance 5.\ne∞             2\nCompute E[X 9 + X 3 − 50X + 7].\n9",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute E[X 9 + X 3 − 50X + 7]. ANSWER:\nE[X 9 ] = E[X 7 ] = E[X] = 0 by symmetry, so\nE[X 9 + X 3 − 50X + 7] = 7.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X and Y be independent random variables. Suppose X\ntakes values {1, 2} each with probability 1/2 and Y takes values {1, 2, 3}\neach with probability 1/3. Write Z = X + Y .\nCompute H(X, Z).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute H(X, Z). ANSWER:\nH(X, Z) = H(X, Y ) = H(X) + H(Y ) = log 6.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X1 , X2 , X3 , . . . is an inﬁnite sequence of\nindependent random variables which are each equal to Q       2 with probability\n1/3 and .5 with probability 2/3. Let Y0 = 1 and Yn = ni=1 Xi for n ≥ 1.\nWhat is the the probability that Yn reaches 4 before the first time\n1\nthat it reaches 64 ?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What is the the probability that Yn reaches 4 before the ﬁrst time\n1\nthat it reaches 64 ? ANSWER: Yn is a martingale, so by the\noptional \bstopping theorem, EE[YT ] = Y0 = 1 (where\nT = min n : Yn ∈ {1/64, 4} ). Thus E[YT ] = 4p + (1/64)(1 − p) = 1.\nSolving yields p = 63/255 = 21/85.\n4",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X1 , X2 , X3 , . . . is an inﬁnite sequence of\nindependent random variables which are each equal to Q       2 with probability\n1/3 and .5 with probability 2/3. Let Y0 = 1 and Yn = ni=1 Xi for n ≥ 1.\nCompute EY100 .\n11\n18.440 Probability and Random Variables\nSpring 2014\nFor information about citing these materials or our Terms of Use, visit:",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute EY100 . ANSWER: Since Yn is a martingale, we have\nE[Y100 ] = 1. This can also be derived by noting that for independent\nrandom variables, the expectation of a product is the product of the\nexpectations.\n5\n18.440 Probability and Random Variables\nSpring 2014\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Lisa’s truck has three states: broken (in Lisa’s possession),\nworking (in Lisa’s possession), and in the shop. Denote these states B, W,\nand S.\nIf the truck starts out W on one morning, what is the probability\nthat it will start out B two days later?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If the truck starts out W on one morning, what is the probability\nthat it will start out B two days later? ANSWER:\n(9/10)(1/10) + (1/10)(1/2) = .09 + .05 = .14",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X1 , X2 , X3 , . . . is an inﬁnite sequence of\nindependent random variables which are each e       equal to 1 with probability\n1/2 and −1 with probability 1/2. Write Yn = ni=1 Xi . Answer the\nfollowing:\nWhat is the probability that Yn reaches 10 before the first time that\nit reaches −30?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What is the probability that Yn reaches 10 before the ﬁrst time that\nit reaches −30? ANSWER: Probability p satisﬁes\n10p + (−30)(1 − p) = 0, so 40p = 30 and p = 3/4.\n1",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) When Harry’s cell phone is on, the times when he receives\nnew text messages form a Poisson process with parameter λT = 3/minute.\nThe times at which he receives new email messages form an independent\nPoisson process with parameter λE = 1/minute. He receives personal\nmessages on Facebook as an independent Poisson process with rate\nλF = 2/minute.\nAfter catching up on existing messages one morning, Harry begins to\nwait for new messages to arrive. Let X be the amount of time (in\nminutes) that Harry has to wait to receive his first text message.\nWrite down the probability density function for X.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : After catching up on existing messages one morning, Harry begins to\nwait for new messages to arrive. Let X be the amount of time (in\nminutes) that Harry has to wait to receive his ﬁrst text message.\nWrite down the probability density function for X. ANSWER:\ntime is exponential with parameter λT = 3, so density function is\nf (x) = 3e−3x for x ≥ 0.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) When Harry’s cell phone is on, the times when he receives\nnew text messages form a Poisson process with parameter λT = 3/minute.\nThe times at which he receives new email messages form an independent\nPoisson process with parameter λE = 1/minute. He receives personal\nmessages on Facebook as an independent Poisson process with rate\nλF = 2/minute.\nLet Y be the amount of time elapsed before the third email message.\nCompute Var(Y ).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let Y be the amount of time elapsed before the third email message.\nCompute Var(Y ). ANSWER: Variance of time till email message is\n1/λ2E = 1. Memoryless property and additivity of variance of\nindependent sums gives Var(S) = 3.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X and Y have a joint density function f given\nby\n1/π x2 + y 2 < 1\nf (x, y) =                  .\n0   x2 + y 2 ≥ 1\nCompute the probability density function fX for X.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the probability density function fX for X. ANSWER:\n∞                 1\n√\nπ 2 1 − x2 −1 ≤ x ≤ −1\nfX (x) =      f (x, y)dy =\n−∞                 0            otherwise",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X be the number on a standard die roll (i.e., each of\n{1, 2, 3, 4, 5, 6} is equally likely) and Y the number on an independent\nstandard die roll. Write Z = X + Y .\nCompute the conditional probability P [X = 6|Z = 8].",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the conditional probability P [X = 6|Z = 8]. ANSWER:\n1/5",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that Xi are i.i.d. random variables, each of which\nassumes a value in {−1, 0, 1}, each with probability 1/3.\nCompute the moment generating function for X1 .\nPn",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the moment generating function for X1 . ANSWER:\nEetX1 = (e−t + 1 + et )/3.\n3\nen",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X and Y be independent random variables. Suppose X\ntakes values in {1, 2} each with probability 1/2 and Y takes values in\n{1, 2, 3, 4} each with probability 1/4. Write Z = X + Y .\nCompute the entropies H(X) and H(Y ).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the entropies H(X) and H(Y ). ANSWER: log 2 = 1 and\nlog 4 = 2.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X be a normal random variable with mean 0 and\nvariance 1.\nCompute E[eX ].",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute E[eX ]. ANSWER:\nZ ∞                    Z ∞\n1     2              1      2\nE(eX ) =       √ e−x /2 ex dx =      √ e−(x −2x+1)/2+1/2 dx =\n−∞     2π              −∞    2π\nZ ∞\n1        2\ne1/2     √ e−(x−1) /2 dx = e1/2 .\n−∞  2π",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X be a random variable with density function f ,\ncumulative distribution function F , variance V and mean M .\nCompute the mean and variance of 3X + 3 in terms of V and M .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the mean and variance of 3X + 3 in terms of V and M .\nANSWER: Mean 3M + 3, variance 9V .",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X and Y are outcomes of independent\nstandard die rolls (each equal to {1, 2, 3, 4, 5, 6} with equal probability).\nWrite Z = X + Y .\n1\nCompute the entropies H(X) and H(Y ).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the entropies H(X) and H(Y ). ANSWER: log 6 and log 6",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X and Y are outcomes of independent\nstandard die rolls (each equal to {1, 2, 3, 4, 5, 6} with equal probability).\nWrite Z = X + Y .\n1\nCompute H(10X + Y ).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute H(10X + Y ). ANSWER: log 36 = 2 log 6 (since 36 sums\nall distinct).",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Elaine’s not-so-trusty old car has three states: broken (in\nElaine’s possession), working (in Elaine’s possession), and in the shop.\nDenote these states B, W, and S.\nWrite the three-by-three Markov transition matrix for this problem.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Write the three-by-three Markov transition matrix for this problem.\nANSWER: Markov chain matrix is\n⎛           ⎞\n.5 0 .5\nM = ⎝.5 .5 0 ⎠\n0 .5 .5",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Elaine’s not-so-trusty old car has three states: broken (in\nElaine’s possession), working (in Elaine’s possession), and in the shop.\nDenote these states B, W, and S.\nOver the long term, what fraction of mornings does the car start out\nin each of the three states, B, S, and W ?\n7",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Over the long term, what fraction of mornings does the car start out\nin each of the three states, B, S, and W ? ANSWER: Row vector π\nsuch\ns 1 1that1 πM = π (with components of π summing to one) is\n3  3  3 .",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \nSuppose that X1 , X2 , X3 , . . . is an inﬁnite sequence of independent\nrandom variables which are each equal to 2 with probability 1/3 and .5\nwith probability 2/3. Let Y0 = 1 and Yn = ni=1 Xi for n ≥ 1.\n2\nFind the mean and variance of log Y10000 .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Find the mean and variance of log Y10000 . ANSWER: Compute for\nlog Y1 , multiply by 10000.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X be a normal random variable with mean µ and\nvariance σ 2 .\n2\nFind µ, assuming that σ 2 = 3 and E[eX ] = 1.\n10",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Find µ, assuming that σ 2 = 3 and E[eX ] = 1. ANSWER:\nµ + σ 2 /2 = 0 so µ = −9/2.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) A certain bench at a popular park can hold up to two\npeople. People in this park walk in pairs or alone, but nobody ever sits\ndown next to a stranger. They are just not friendly in that particular way.\nIndividuals or pairs who sit on a bench stay for at least 1 minute, and tend\nto stay for 4 minutes on average. Transition probabilities are as follows:\nUse E, S, D to denote respectively the states empty, singly occupied,\nand doubly occupied. Write the three-by-three Markov transition\nmatrix for this problem, labeling columns and rows by E, S, and D.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Use E, S, D to denote respectively the states empty, singly occupied,\nand doubly occupied. Write the three-by-three Markov transition\nmatrix for this problem, labeling columns and rows by E, S, and D.\nANSWER:                   ⎛               ⎞\n1/2 1/4 1/4\n⎝1/4 3/4 0 ⎠\n1/4 0 3/4",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) A certain bench at a popular park can hold up to two\npeople. People in this park walk in pairs or alone, but nobody ever sits\ndown next to a stranger. They are just not friendly in that particular way.\nIndividuals or pairs who sit on a bench stay for at least 1 minute, and tend\nto stay for 4 minutes on average. Transition probabilities are as follows:\nOver the long term, what fraction of the time does the bench spend\nin each of the three states?\n3",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Over the long term, what fraction of the time does the bench spend\nin each of the three states? ANSWER: We know\n⎛              ⎞\n\u0001   1/2 1/4  1/4               \u0001\nE S D ⎝1/4 3/4 0 ⎠ = E S D\n1/4 0 3/4\nand E + S + D = 1. Solving gives E = S = D = 1/3.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X1 , X2 , X3 , . . . is an inﬁnite sequence of\nindependent random variables which are each e       equal to 5 with probability\n1/2 and −5 with probability 1/2. Write Yn = ni=1 Xi . Answer the\nfollowing:\nWhat is the probability that Yn reaches 65 before the first time that\nit reaches −15?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What is the probability that Yn reaches 65 before the ﬁrst time that\nit reaches −15? ANSWER: Yn is a martingale, so by the optional\nE T ] = Y0 = 1 (where\nstopping theorem, we have E[Y\nT = min n : Yn ∈ {−15, 65} ). We thus ﬁnd\n0 = Y0 = E[YT ] = 65p + (−15)(1 − p) so 80p = 15 and p = 3/16.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X and Y are independent exponential random\nvariables with parameter λ = 2. Write Z = min{X, Y }\nCompute the probability density function for Z.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the probability density function for Z. ANSWER: Z is\nexponential with parameter λ + λ = 4 so FZ (t) = 4e−4t for t ≥ 0.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X1 , X2 , X3 be independent standard die rolls (i.e., each\nof {1, 2, 3, 4, 5, 6} is equally likely). Write Z = X1 + X2 + X3 .\nCompute the conditional probability P [X1 = 6|Z = 16].",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the conditional probability P [X1 = 6|Z = 16]. ANSWER:\nOne can enumerate the six possibilities that add up to 16. These are\n(4, 6, 6), (6, 4, 6), (6, 6, 4) and (6, 5, 5), (5, 6, 5), (5, 5, 6). Of these, three\nhave X1 = 6, so P [X1 = 6|Z = 16] = 1/2.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that Xi are i.i.d. uniform random variables on [0, 1].\nCompute the moment generating function for X1 .\nPn",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the\ne 1 moment  generating function for X1 . ANSWER:\ntX        tx      et −1\nE(e ) = 0 e dx = t .\n1",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X be a normal random variable with mean 0 and\nvariance 5.\ne∞             2\nCompute E[eX ].",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute E[eX ]. ANSWER: E[etX ] = −∞ √5√       1\n2π\ne−x /(2·5) e−x dx.\nA complete the square trick allows one to evaluate this and obtain\ne5/2 .",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X and Y be independent random variables. Suppose X\ntakes values {1, 2} each with probability 1/2 and Y takes values {1, 2, 3}\neach with probability 1/3. Write Z = X + Y .\nCompute the entropies H(X) and H(Y ).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the entropies H(X) and H(Y ). ANSWER:\nH(X) = −(1/2) log 12 − (1/2) log 21 = − log 21 = log 2. Similarly,\nH(Y ) = −(1/3) log 13 − (1/3) log 31 − (1/3) log 31 = − log 31 = log 3.",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Let X and Y be independent random variables. Suppose X\ntakes values {1, 2} each with probability 1/2 and Y takes values {1, 2, 3}\neach with probability 1/3. Write Z = X + Y .\nCompute H(2X 3Y ).\n10",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute H(2X 3Y ). ANSWER: Also log 6, since each distinct\n(X, Y ) pair gives a distinct number for 2X 3Y .",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.440 — question d’examen, en anglais] \n(10 points) Suppose that X1 , X2 , X3 , . . . is an inﬁnite sequence of\nindependent random variables which are each equal to Q       2 with probability\n1/3 and .5 with probability 2/3. Let Y0 = 1 and Yn = ni=1 Xi for n ≥ 1.\nFind the mean and variance of log Y400 .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Find the mean and variance of log Y400 . ANSWER: log X1 is log 2\nwith probability 1/3 and − log 2 with probability 2/3. So\n1        2            − log 2\nE[log X1 ] =     log 2 + (− log 2) =         .\n3        3               3\nSimilarly,\n1          2\nE[(log X1 )2 ] = (log 2)2 + (− log 2)2 = (log 2)2 .\n3          3\nThus,\n− log 2 \u00012               1   8\nVar(X1 ) = E[(log Xi )2 ]−E[log Xi ]2 = (log 2)2 −              = (log 2)2 (1− ) = (log 2)2 .\n3                     9   9\nMultiplying, we ﬁnd E[log Y400 ] = 400E[log X1 ] = −400(log 2)/3.\nAnd Var[log Y400 ] = (3200/9)(log 2)2 .",
+            "source": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.440 Probability And Random Variables, Spring 2014 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    }
+  ]
+}

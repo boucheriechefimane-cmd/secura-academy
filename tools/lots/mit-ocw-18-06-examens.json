@@ -1,0 +1,267 @@
+{
+  "source": "mit-ocw-18-06-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Find the matrix P that projects every vector b in R3 onto the line in the direction of\na = (2, 1, 3).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Find the matrix P that projects every vector b in R3 onto the line in the direction of\na = (2, 1, 3).\nSolution The general formula for the orthogonal projection onto the column space of a\nmatrix A is\nP = A(AT A)−1 AT .\nHere,\n⎡ ⎤                             ⎡      ⎤\n2                                4 2 6\n⎢ ⎥                           1 ⎢      ⎥\nA = ⎢1⎥         so that       P=\n⎢ ⎥                             ⎢      ⎥\n⎢2 1 3⎥\n⎣ ⎦                          14 ⎣      ⎦\n3                                6 3 9\nRemarks:\n• Since we’re projecting onto a one-dimensional space, AT A is just a number and we\ncan write things like P = (AAT )/(AT A). This won’t work in general.\n• You don’t have to know the formula to do this. The ith column of P is, pretty much\nby deﬁnition, the projection of ei (e1 = (1, 0, 0), e2 = (0, 1, 0), e3 = (0, 0, 1)) onto the\nline in the direction of a. And this is something you should know how to do without\na formula.\nRUBRIC: There was some leniency for computational errors, but otherwise there weren’t\nmany opportunities for partial credit.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] What are all the eigenvectors of P and their corresponding eigenvalues? (You can use\nthe geometry of projections, not a messy calculation.) The diagonal entries of P add up\nto            .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : What are all the eigenvectors of P and their corresponding eigenvalues? (You can use\nthe geometry of projections, not a messy calculation.) The diagonal entries of P add up\nto           .\nSolution The diagonal entries of P add up to 1 = the sum of the eigenvalues\nSince P is a projection, it’s only possible eigenvalues are λ = 0 (with multiplicity equal to\nthe dimension of the nullspace, here 2) and λ = 1 (with multiplicity equal to the dimension\nof the column space, here 1). So, a complete list of eigenvectors and eigenvalues is:\n• λ = 0 with multiplicity 2. The eigenvectors for λ = 0 are precisely the vectors in the\n�         �T      �          �T\nnull space. That is, all linear combinations of 3 0 −2 and −1 2 0 .\n• λ = 1 with multiplicity 1. The eigenvectors for λ = 1 are precisely the vectors in the\n�        �T\ncolumn space. That is, all multiples of 2 1 3 .\nRUBRIC: 2 points for the sum of eigenvalues, 4 points for a full list (with multiplicities)\nof eigenvalues, and 4 points for a complete description of all eigenvectors. In light of the\nemphasized “all,” you’d lose 1 point if you gave two eigenvectors for λ = 0 and didn’t say\nthat all (at least non-zero) linear combinations were also eigenvectors for λ = 0.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] (Separate question) If q1 and q2 are any orthonormal vectors in R5 , give a formula for the\nprojection p of any vector b onto the plane spanned by q1 and q2 (write p as a combination\nof q1 and q2 ).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : If q1 and q2 are any orthonormal vectors in R5 , give a formula for the projection p of any\nvector b onto the plane spanned by q1 and q2 (write p as a combination of q1 and q2 ).\nSolution p = (q1T b)q1 + (q2T b)q 2 .\nRUBRIC: little partial credit. If you identiﬁed the diﬀerence between b and p instead, you\nmay have gotten some points.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] For any invertible matrix A, the (1, 1) entry of A−1 is the ratio of                 .\nSo the (1, 1) entry of A− 1\n4 is                        .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : For any invertible matrix A, the (1, 1) entry of A−1 is the ratio of                      .\nSo the (1, 1) entry of A− 1\n4 is                         .\nSolution Cramer’s rule gives A−1 = |A|\n1\nC T where C is the cofactor matrix, whose (i, j) entry\nis (−1)i+j |Mij | where Mij is the submatrix obtained by deleting row i and column j of the\n(arbitrary) invertible matrix A. Thus the entry with i = j = 1 is |M11 |/|A|.\nIn the case where A = An , the submatrix M11 is An−1 ; so the desired formula is |An−1 |/|An |.\nNow, |An | = 1 − n by part (a). So |A4 | = −3 and |A3 | = −2. Thus the (1, 1) entry of A−1\n4\nis 2/3.\nRUBRIC: 5 points for the correct ratio, 5 points for the correct application to the current\nproblem. If the wrong ratio was given, then no credit was given for applying it.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] What is the third eigenvalue of A3 and a corresponding eigenvector?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : What is the third eigenvalue of A3 and a corresponding eigenvector?\nSolution In solution 2 of part (a) above, we saw that the third eigenvalue is −2 and a\ncorresponding eigenvector is (1, 1, 1).\nAnother way to proceed is to notice that the trace of A3 is 0. However, the trace is the\nsum of the eigenvalues, and two of them are 1. So the third must be −2. Alternatively, in\npart (a), we saw that |A3 | = −2. However, the determinant is the product of the eigenvalues,\nand two of them are 1. So the third must be −2.\nA third way to proceed is to ﬁnd the characteristic polynomial of A3 , which is λ3 − 3λ + 2.\nSince 1 is a double root, we can ﬁnd the third root by dividing twice by λ − 1.\nRUBRIC: 5 points for the eigenvalue, 5 points for a corresponding eigenvector.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] One eigenvector of H is u itself. Find the corresponding eigenvalue.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : One eigenvector of H is u itself. Find the corresponding eigenvalue.\nSolution Since Hu = (I − 2uuT )u = u − 2uuT u = u − 2u = −u, λ = −1.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Find the diagonal entries H11 and Hii in terms of u1 , . . . , un . Add up H11 + . . . + Hnn and\nseparately add up the eigenvalues of H.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Find the diagonal entries H11 and Hii in terms of u1 , . . . , un . Add up H11 + . . . + Hnn and\nseparately add up the eigenvalues of H.\nSolution Since ith diagonal entry of uuT is u2i , the i diagonal entry of H is Hii = 1−2u2i\n(3 points). Summing these together gives ni=1 Hii = n − 2 ni=1 u2i = n − 2 (3 points).\n�                     �\n�\nAdding up the eigenvalues of H also gives     λi = (1) − 1 + (n − 1)(1) = n − 2 (4 points).",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Suppose Q is any orthogonal n by n matrix. How do you know that Q A QT = Q A Q−1\nis positive deﬁnite? Write down which test you are using.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Suppose Q is any orthogonal n by n matrix. How do you know that Q A QT = Q A Q−1\nis positive deﬁnite? Write down which test you are using.\nSolution Using the energy text (xT Ax > 0 for nonzero x), we ﬁnd that xT QAQT x =\n(QT x)T A(QT x) > 0 for all nonzero x as well (since Q is invertible). Using the positive\neigenvalue test, since A is similar to QAQ−1 and similar matrices have the same\neigenvalues, QAQ−1 also has all positive eigenvalues. (5 points for test, 5 points for\napplication)",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Find its eigenvalues and eigenvectors.\n⎡ ⎤\n2\nWrite the vector u(0) = ⎣ ⎦ as a combination of those eigenvectors.\n⎢ ⎥\n0\ndu",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Find its eigenvalues and eigenvectors.\n⎡    ⎤\n⎢ 2 ⎥\nWrite the vector u(0) = ⎣ ⎦ as a combination of those eigenvectors.\n0\nSolution Since det(A − λI) = λ2 + 4, the eigenvalues are 2i, −2i (4 points). Two\nassociated eigenvectors are [1     − 2i]T , [1 2i]T , though there are many other choices\n(4 points). u(0) is just the sum of these two vectors (2 points).\ndu",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Find the 3 matrices in the Singular Value Decomposition A = U Σ V T in two steps.\n–First, compute V and Σ using the matrix AT A.\n–Second, ﬁnd the (orthonormal) columns of U.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Find the 3 matrices in the Singular Value Decomposition A = U Σ V T in two steps.\n–First, compute V and Σ using the matrix AT A.\n–Second, ﬁnd the (orthonormal) columns of U.\nSolution Note that AT A = V ΣT U T U ΣV T = V Σ2 V T , so the diagonal entries of Σ\nare simply the positive roots of the eigenvalues of\n⎡         ⎤⎡          ⎤ ⎡      ⎤\n⎢ 0 4 ⎥ ⎢ 0 −1 ⎥ ⎢ 16 0 ⎥\nAT A = ⎣          ⎦⎣          ⎦=⎣      ⎦\n−1 0        4 0         0 1\ni.e. σ1 = 4, σ2 = 1. Since AT A is already diagonal, V is the identity matrix. The\ncolumns of U should satisfy Au1 = σ1 v1 , Au2 = σ2 v2 : by inspection, one obtains\n⎡ ⎤          ⎡        ⎤      ⎡           ⎤\n⎢ 0 ⎥        ⎢ −1 ⎥          ⎢ 0 −1 ⎥\nu1 = ⎣ ⎦ , u2 = ⎣          ⎦,U = ⎣            ⎦\n1             0               1 0",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] (10 points) If the process of elimination subtracted 3 times row 1 from row 2 and\nthen 5 times row 1 from row 3, what matrix connects R and d to the original A and\nb? Use this matrix to ﬁnd A and b.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The matrix connecting R and d to the original A and b is\n⎡           ⎤ ⎡            ⎤     ⎡            ⎤\n1 0 0          1 0 0             1 0 0\n⎢           ⎥ ⎢            ⎥     ⎢            ⎥\nE = E31 E21 = ⎢ 0 1 0 ⎥ · ⎢ −3 1 0 ⎥ = ⎢ −3 1 0 ⎥\n⎢           ⎥ ⎢            ⎥     ⎢            ⎥\n⎣           ⎦ ⎣            ⎦     ⎣            ⎦\n−5 0 1           0 0 1           −5 0 1\nThat is, R = EA and Eb = d. Thus, A = E −1 R and b = E −1 d, giving\n⎡           ⎤ ⎡                  ⎤       ⎡                 ⎤\n1 0 0         1 −2 −5                    1   −2   −5\n⎢       ⎥ ⎢                            ⎥   ⎢           ⎥\nA=⎢ 3 1 0 ⎥·⎢ 0                            =   3 −6 −15 ⎥\n⎢       ⎥ ⎢                            ⎥   ⎢           ⎥\n0     0 ⎥   ⎢\n⎣       ⎦ ⎣                            ⎦   ⎣           ⎦\n5 0 1     0                  0     0       5 −10 −25\n⎡             ⎤ ⎡    ⎤       ⎡       ⎤\n1 0 0       4        4\n⎢       ⎥ ⎢ ⎥       ⎢    ⎥\nb = ⎢ 3 1 0 ⎥ · ⎢ 0 ⎥ = ⎢ 12 ⎥\n⎢       ⎥ ⎢ ⎥       ⎢    ⎥\n⎣       ⎦ ⎣ ⎦       ⎣    ⎦\n5 0 1       0       20",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] (10 points) Describe the column space of this particular matrix A. “All combinations\nof the four columns” is not a suﬃcient answer.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : C(A) is a plane in R3 given by all combinations of the pivot columns, namely\n⎡ ⎤         ⎡ ⎤\n1           2\n⎢ ⎥         ⎢ ⎥\nc1 ⎢ 3 ⎥ + c2 ⎢ 8 ⎥\n⎢ ⎥         ⎢ ⎥\n⎣ ⎦         ⎣ ⎦\n0           4",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] What is the column space of A? Describe the nullspace of A.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The column space is a 3-dimensional space inside a 3-dimensional space , i.e.\nit contains all the vectors, and the nullspace has dimension 5 − 3 = 2 > 0 inside R5 .",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] (14 points) Is the vector b = � 28 ⎢ in the column space of A?\n�    ⎢\n�    ⎣",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (14 points) Is the vector b = ⎢ 28 ⎥ in the column space of A?\n⎢     ⎥\n⎣     ⎦\n14\nSolution: Yes . Reducing the matrix combining A and b gives\n⎡          ⎤   ⎡         ⎤    ⎡          ⎤\n2 1 8           2 1 8          2 1 8\n⎢          ⎥   ⎢         ⎥    ⎢          ⎥\n⎢ 6 5 28 ⎥ → ⎢ 0 2 4 ⎥ → ⎢ 0 2 4 ⎥\n⎢          ⎥   ⎢         ⎥    ⎢          ⎥\n⎣          ⎦   ⎣         ⎦    ⎣          ⎦\n2 4 14          0 3 6          0 0 0\n⎡ ⎤\n3\nThus, x = ⎣ ⎦ is a solution to Ax = b, and b is in the column space of A.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] What are the column space and nullspace of P ? Describe them geometrically and also\ngive a basis for each space.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : What are the column space and nullspace of P ? Describe them geometrically and also\ngive a basis for each space.\nSolution The column space is the line in R3 in the direction of a = (2, 1, 3). One basis for\nit is\n⎡ ⎤\n2\n⎢ ⎥\n⎢ ⎥\n⎢1⎥\n⎣ ⎦\n3\nand there’s not really much choice in giving this basis (you can rescale by a non-zero con­\nstant).\nThe nullspace is the plane in R3 that is perpendicular to a = (2, 1, 3) (i.e., 2x+y+z = 0.)\nOne basis for it is\n⎡   ⎤ ⎡ ⎤\n3  −1\n⎢ ⎥ ⎢ ⎥\n⎢ 0 ⎥,⎢ 2 ⎥\n⎢ ⎥ ⎢ ⎥\n⎣ ⎦ ⎣ ⎦\n−2     0\nthough there are a lot of diﬀerent looking choices for it (any two vectors that are perpendic­\nular to a and not in the same line will work).\nRUBRIC: 6 points for giving a correct basis, and 4 points for giving the complete geometric\ndescription. Note that it is not correct to say e.g., N (P) = R2 . It is correct to say that N (P)\nis a (2-dimensional) plane in R3 , but this is not a complete geometric description unless you\nsay (geometrically) which plane it is: the one perpendicular to a/to the line through a.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Suppose A = QR where Q has orthonormal columns and R is upper triangular invertible.\nFind x\n� and p in terms of Q and R and b (not A).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Suppose A = QR where Q has orthonormal columns and R is upper triangular invertible.\nFind x\n� and p in terms of Q and R and b (not A).\nSolution Since QT Q = I and R is invertible, we obtain\n� = (AT A)−1 AT b = ((QR)T (QR))−1 (QR)T b\nx\n= (RT QT QR)−1 RT QT b = R−1 (RT )−1 RT QT b = R−1 QT b\n� = QQT b\np = (QR)x\nNote that QQT is not the identity matrix in general.\nRUBIC: 6 points for ﬁnding x\n�, 4 points for p. One point oﬀ from each if the equations are\nnot simpliﬁed, more points oﬀ for bad form, having variables other than Q, R and b, etc.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Find the determinant of An . Here is a suggested approach:\nStart by adding all rows (except the last) to the last row, and then factoring out a\nconstant. (You could check n = 3 to have a start on part b.)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Find the determinant of An . Here is a suggested approach:\nStart by adding all rows (except the last) to the last row, and then factoring out a\nconstant. (You could check n = 3 to have a start on part b.)\nSolution Following the hint, add all of the rows to the last row (which does not change the\ndeterminant). Thus the matrix becomes\n⎡                                                    ⎤\n0        −1     −1               ···       −1\n⎢                                                     ⎥\n⎢ −1            0    −1               ···       −1 ⎥\n⎢                                                     ⎥\n⎢                                                     ⎥\n⎢ −1          −1                      ···       −1 ⎥ .\n⎢                                                     ⎥\n0\n⎢                                                     ⎥\n⎢     ..        ..     ..                         .. ⎥\n⎢\n⎣      .         .      .                          . ⎥⎦\n−(n − 1) −(n − 1) −(n − 1)           ···     −(n − 1)\nNext, pull out the factor of −(n − 1) from the last row. As the determinant is linear in\neach row separately, we get\n�                                               �        �                          �\n0        −1        −1       ···       −1           � 0 −1 −1 · · ·       −1�\n�                                               �        �                          �\n�                                               �\n�                                               �        �                          �\n� −1             0       −1       ···     −1 �           �−1  0 −1 · · ·       −1�\n�                                               �        �                          �\n�                                               �        �                          �\n� −1           −1                 ···     −1 � = (1 − n) �−1 −1  0 ···         −1� .\n�                                               �        �                          �\n0\n�                                               �        �                          �\n�     ..         ..       ..                .. �         � .. .. ..             .. �\n�\n�      .          .        .                 . ��        � .\n�     .  .              . ��\n�                                               �        �                          �\n�−(n − 1) −(n − 1) −(n − 1)       ···   −(n − 1)�        � 1  1  1 ···          1�\nNext, add the last row back to each of the other rows (which again keeps the determinant\nthe same). So now we want to ﬁnd\n�                    �\n�1     0 0 · · · 0�\n�                    �\n�                    �\n�0     1 0 · · · 0�\n�                    �\n�                    �\n(1 − n) �0     0 1 · · · 0� .\n�                    �\n�                    �\n� ..   .. ..     .. �\n�.      . .       . ��\n�\n�                    �\n�1     1 1 · · · 1�\nThis matrix is lower triangular. So its determinant is the product of the entries on its\ndiagonal. Thus the above quantity is (1 − n).\nAlternately, one can ﬁnd the determinant of the matrix by ﬁnding all its eigenvalues.\nAs An = I − ones(n), we know that N (An − I) = N (− ones(n)). The latter nullspace\nhas dimension n − 1. Thus 1 is an eigenvalue of multiplicity n − 1, and the corresponding\neigenvectors are all the nonzero vectors whose entries add up to 0.\nIn addition, all of the rows of An add up to 1−n. So 1−n is an eigenvalue with eigenvector\n(1, 1, . . . , 1). Thus we have found all of the eigenvectors and eigenvalues. The determinant\nis the product of the eigenvalues, so it is 1n−1 · (1 − n) or 1 − n.\nRUBRIC: 2 points for following the hint, 2 points for pulling out the factor of (1 − n)\ncorrectly, 2 points for adding the last row to the other rows, 2 points for the correct answer.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Find two orthogonal eigenvectors with A3 x = x. (So λ = 1 is a double eigenvalue.)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Find two orthogonal eigenvectors with A3 x = x. (So λ = 1 is a double eigenvalue.)\nSolution In solution 2 of part (a) above, we saw that the eigenvectors are all the nonzero\nvectors whose entries add up to 0. Two obvious such vectors are (1, −1, 0) and (0, 1, −1),\nbut there are many more linearly independent pairs.\nHowever, (1, −1, 0) and (0, 1, −1) are not orthogonal! So we must ﬁnd another pair. We\ncan use the Gram–Schmidt process to get orthogonal vectors, or we can just try to guess two\northogonal vectors whose entries add up to 1. For example, (1, −1, 0) and (1, 1, −2) work.\n(Note that the vectors are not required to have unit length.)\nRUBRIC: up to 5 points for a correct method, 2 points for ﬁnding linearly independent\nvectors, 3 points for orthogonality.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Show directly that H 2 = I. Since H = H T , we now know that H is not only\nsymmetric but also                                   .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Show directly that H 2 = I. Since H = H T , we now know that H is not only\nsymmetric but also                                   .\nSolution Explicitly, we ﬁnd H 2 = (I − 2uuT )2 = I 2 − 4uuT + 4uuuT uuT (2 points):\nsince uT u = 1, H 2 = I (3 points). Since H = H T , we also have H T H = 1, implying\nthat H is an orthogonal (or unitary) matrix.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] If v is any vector perpendicular to u, show that v is an eigenvector of H and ﬁnd the\neigenvalue. With all these eigenvectors v, that eigenvalue must be repeated how many\ntimes? Is H diagonalizable? Why or why not?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : If v is any vector perpendicular to u, show that v is an eigenvector of H and ﬁnd the\neigenvalue. With all these eigenvectors v, that eigenvalue must be repeated how many\ntimes? Is H diagonalizable? Why or why not?\nSolution For any vector v orthogonal to u (i.e. uT v = 0), we have Hv = (I−2uuT )v =\nv − 2uuT v = v, so the associated λ is 1. The orthogonal complement to the space\nspanned by u has dimension n−1, so there is a basis of (n−1) orthonormal eigenvectors\nwith this eigenvalue. Adding in the eigenvector u, we ﬁnd that H is diagonalizable.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] How do you know that A−1 is also positive deﬁnite? (We know A−1 is symmetric. I just\nhad an e-mail from the International Monetary Fund with this question.)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : How do you know that A−1 is also positive deﬁnite? (We know A−1 is symmetric. I just\nhad an e-mail from the International Monetary Fund with this question.)\nSolution Since a matrix is positive-deﬁnite if and only if all its eigenvalues are positive\n(5 points), and since the eigenvalues of A−1 are simply the inverses of the eigenvalues\nof A, A−1 is also positive deﬁnite (the inverse of a positive number is positive) (5\npoints).",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Show that the block matrix\n⎡        ⎤\n⎢ A A ⎥\nB=⎣     ⎦\nA A\nis positive semideﬁnite. How do you know B is not positive deﬁnite?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Show that the block matrix\n⎡  ⎤\nA A\nB=⎣\n⎢     ⎥\n⎦\nA A\nis positive semideﬁnite. How do you know B is not positive deﬁnite?\nSolution First, since B is singular, it cannot be positive deﬁnite (it has eigenvalues\nof 0). However, the pivots of B are the pivots of A in the ﬁrst n rows followed by 0s\nin the remaining rows, so by the pivot test, B is still semi-deﬁnite. Similarly, the ﬁrst\nn upper-left determinants of B are the same as those of A, while the remaining ones\nare 0s, giving another proof. Finally, given a nonzero vector\n⎡ ⎤\n⎢ x ⎥\nu=⎣ ⎦\ny\nwhere x and y are vectors in Rn , one has uT Bu = (x+y)T A(x+y) which is nonnegative\n(and zero when x + y = 0).",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] Solve the equation      = Au starting with the same vector u(0) at time t = 0.\ndt\nIn other words: the solution u(t) is what combination of the eigenvectors of A?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Solve the equation      = Au starting with the same vector u(0) at time t = 0.\ndt\nIn other words: the solution u(t) is what combination of the eigenvectors of A?\nSolution One simply adds in factors of eλt to each term, giving\n⎡      ⎤          ⎡    ⎤\n⎢ 1 ⎥        −2it ⎢\n1 ⎥\nu(t) = e2it ⎣      ⎦+e        ⎣    ⎦\n−2i               2i",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] (14 points) What is the 3 by 3 reduced row echelon matrix R and what is d?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : First, since R is in reduced row echelon form, we must have\n�               �T\nd=       4 0 0\nThe other two vectors provide special solutions for R, showing that R has rank 1:\nagain, since it is in reduced row echelon form, the bottom two rows must be all 0, and\n⎡             ⎤\n1 −2 −5\n�             �T           ⎢             ⎥\nthe top row is 1 −2 −5 , i.e. R = ⎢ 0                   0 ⎥.\n⎢             ⎥\n0\n⎣             ⎦\n0     0   0",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] (16 points) Find all special solutions to Ax = 0 and describe in words the whole\nnullspace of A.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : First, by row reduction\n⎡              ⎤    ⎡           ⎤ ⎡         ⎤ ⎡         ⎤\n0 1 2 2             0 1 2 2      0 1 0 1     0 1 0 1\n⎢              ⎥    ⎢           ⎥ ⎢         ⎥ ⎢         ⎥\n⎢ 0 3 8 7 ⎥→⎢ 0 0 2 1 ⎥→⎢ 0 0 2 1 ⎥→⎢ 0 0 1 2 ⎥       1\n⎢              ⎥    ⎢           ⎥ ⎢         ⎥ ⎢         ⎥\n⎣              ⎦    ⎣           ⎦ ⎣         ⎦ ⎣         ⎦\n0 0 4 2             0 0 4 2      0 0 0 0     0 0 0 0\nso the special solutions are\n⎡       ⎤      ⎡           ⎤\n1              0\n⎢ ⎥        ⎢     ⎥\n⎢ 0 ⎥      ⎢ −1 ⎥\n⎢ ⎥        ⎢     ⎥\ns1 = ⎢ ⎥ , s2 = ⎢\n⎢   ⎥      ⎢     ⎥\n⎢ 0 ⎥          1\n⎢ −2 ⎥\n⎥\n⎣ ⎦        ⎣     ⎦\n0           1\nThus, N (A) is a plane in R4 given by all linear combinations of the special solutions.",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] (10 points) What is the reduced row echelon form R � = rref(B) when B is the 6 by\n8 block matrix            �         ⎡\nA A\nB=�          ⎣ using the same A?\nA A",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (10 points) What is the reduced row echelon form R∗ = rref(B) when B is the 6 by\n8 block matrix             ⎡         ⎤\nA A\nB=⎣            ⎦ using the same A?\nA A\nSolution: Note that B immediately reduces to\n⎡        ⎤\nA A\nB=⎣           ⎦\n0 0\nWe reduced A above: the row reduced echelon form of of B is thus\n⎡             ⎤\n⎡                   ⎤                0 1 0 1\nrref (A) rref (A)                ⎢             ⎥\nB=   ⎣                   ⎦ , rref (A) = ⎢ 0 0 1 2 ⎥\n⎢           1 ⎥\n0        0                ⎣             ⎦\n0 0 0 0",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.06 — question d’examen, en anglais] (10 points) Explain in words how knowing all solutions to Ax = b decides if a given\nvector b is in the column space of A.\n�       ⎡\n8\n�    ⎢",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : The column space of A contains all linear combinations of the columns of\nA, which are precisely vectors of the form Ax for an arbitrary vector x. Thus,\nAx = b has a solution if and only if b is in the column space of A .\n⎡     ⎤\n8\n⎢     ⎥",
+            "source": "MIT OpenCourseWare, 18.06 Linear Algebra, Spring 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    }
+  ]
+}

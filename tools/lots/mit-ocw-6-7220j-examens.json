@@ -1,0 +1,54 @@
+{
+  "source": "mit-ocw-6-7220j-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.7220j Nonlinear Optimization, Spring 2025 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/6-7220j-nonlinear-optimization-spring-2025/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.7220J — question d’examen, en anglais] \nExistence and uniqueness of Euclidean projections\nLet Ω ⊆ ℝ𝑛 be a nonempty set.\n[7pts] Give a formal argument as to why, when Ω is closed and convex, the Euclidean projection\nof any point 𝑥 ∈ ℝ𝑛 exists and is unique. As a reminder, the Euclidean projection of 𝑥 is a\nsolution to the nonlinear optimization problem\nmin ‖𝑦 − 𝑥‖2\n𝑦\ns.t. 𝑦 ∈ Ω.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Existence: we choose a point 𝑦0 ∈ Ω and define Ω0 = Ω ∩ {𝑦 : ‖𝑥 − 𝑦‖2 ≤ ‖𝑥 − 𝑦0 ‖2 }. It’s\nclear that for any point 𝑦 outside Ω0 , 𝑦 cannot be the minimizer of the projection problem.\nTherefore, we can restrict the minimization of ‖𝑦 − 𝑥‖2 to Ω0 , and the Weierstrass Theorem\nguarantees the existence of a minimizer.\nUniqueness: let 𝑧 be one of the minimizers of the problem. The first-order optimality\ncondition at 𝑧 reads\n⟨𝑥 − 𝑧, 𝑦 − 𝑧⟩ ≤ 0      ∀𝑦 ∈ Ω.\nFor any 𝑦 ≠ 𝑧,\n‖𝑥 − 𝑦‖22 = ‖𝑥 − 𝑧 + (𝑧 − 𝑦)‖22 = ‖𝑥 − 𝑧‖22 + ‖𝑧 − 𝑦‖22 − 2⟨𝑥 − 𝑧, 𝑦 − 𝑧⟩ > ‖𝑥 − 𝑧‖22 .\nTherefore, the projection is unique.",
+            "source": "MIT OpenCourseWare, 6.7220j Nonlinear Optimization, Spring 2025 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.7220j Nonlinear Optimization, Spring 2025 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.7220J — question d’examen, en anglais] \nExistence and uniqueness of Euclidean projections\nLet Ω ⊆ ℝ𝑛 be a nonempty set.\n[7pts] If the assumption of convexity is removed, is the existence of a projection still guaranteed?\nFor those cases in which a projection exists, is such a projection still guaranteed to be unique?\nFor each, give either a proof or a counterexample.\n(Remember: a set is closed if “it contains its boundary”, that is, the limit of any converging sequence\nof points that belong to the set belongs to the set. For example, the interval [1, 2] ≔ {𝑥 ∈ ℝ : 1 ≤ 𝑥 ≤\n2} is a closed set, while the interval (1, 2] ≔ {𝑥 ∈ ℝ : 1 < 𝑥 ≤ 2} is not. You can take for granted that\nthe union of two closed sets is closed.)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Yes. The existence argument, which is based on the Weierstrass theorem, does not require\nconvexity, only closedness. So, the existence of a projection is guaranteed even for nonconvex\nfeasible sets Ω. However, uniqueness is not guaranteed. For example, consider projecting the\norigin 𝑥 = (0, 0) onto the circle",
+            "source": "MIT OpenCourseWare, 6.7220j Nonlinear Optimization, Spring 2025 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.7220j Nonlinear Optimization, Spring 2025 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.7220J — question d’examen, en anglais] \nExistence and uniqueness of Euclidean projections\nLet Ω ⊆ ℝ𝑛 be a nonempty set.\n[7pts] If the assumption of closedness is removed, is the existence of a projection still guaran-\nteed? For those cases in which a projection exists, is such a projection still guaranteed to be\nunique? For each, give either a proof or a counterexample.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : No, existence is not guaranteed anymore if the assumption of closedness is removed. For\nexample, consider projecting the point 0 onto the open interval (1, 2) ⊂ ℝ. The projection\nproblem has no solution, since for any candidate solution point 𝑦 ∈ (1, 2), the point\n𝑦−1\n𝑦′ ≔ 1 +\n2\nbelongs to (1, 2) and achieves a strictly lower objective. However, in those cases where a\nprojection does exist, then the projection would be unique, again by the proof of uniqueness\nin (a) (the uniqueness argument does not depend on closedness).",
+            "source": "MIT OpenCourseWare, 6.7220j Nonlinear Optimization, Spring 2025 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.7220j Nonlinear Optimization, Spring 2025 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    }
+  ]
+}

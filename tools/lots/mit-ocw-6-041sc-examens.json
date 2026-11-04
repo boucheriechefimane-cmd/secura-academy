@@ -1,0 +1,42 @@
+{
+  "source": "mit-ocw-6-041sc-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.041sc Probabilistic Systems Analysis And Applied Probability, Fall 2013 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/6-041sc-probabilistic-systems-analysis-and-applied-probability-fall-2013/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.041SC — question d’examen, en anglais] (5 points) Find E[N 2 ].",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : E[N 2 ] = E[E[N 2 | Λ]] = E[var(N | Λ) + (E[N | Λ])2 ]\n= E[Λ + Λ2 ]\n= E[Λ] + var(Λ) + (E[Λ])2\n1    2\n=    + 2\n2 2\n= 1.",
+            "source": "MIT OpenCourseWare, 6.041sc Probabilistic Systems Analysis And Applied Probability, Fall 2013 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.041SC — question d’examen, en anglais] (5 points) Find the linear least squares estimator of Λ given N .\n2\nMassachusetts Institute of Technology\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Final Exam | Fall 2010)\nProblem 1. (32 points) Consider a Markov chain {Xn ; n = 0, 1, . . .}, speciﬁed by the following\ntransition diagram.\n0.6                0.5               0.9\n0.4              0.3\n1                 2              3\n0.2             0.1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : ˆ LLMS = E[Λ] + cov(N, Λ) (N − E[N ]).\nΛ\nvar(N )\nSolving for the above quantities:\n1\nE[Λ] =\n2\n1\nE[N ] = E[E[N | Λ]] = E[Λ] = .\n2\n1   3\nvar(N ) = E[N 2 ] − (E[N ])2 = 1 −      2\n= .\n2   4\n1\ncov(N, Λ) = E[N Λ] − E[N ]E[Λ] = E[E[N Λ | Λ]] − (E[Λ])2 = E[Λ2 ] − (E[Λ])2 = var(Λ) = .\n4\n8\nMassachusetts Institute of Technology\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n;&ŝŶĂů\u0003\u001cǆĂŵ\u0003^ŽůƵƚŝŽŶƐ\u0003ͮ\u0003&Ăůů\u0003ϮϬϭϬͿ\nSubstituting these into the equation above:\ncov(N, Λ)\nΛ̂LLMS = E[Λ] +               (N − E[N ])\nvar(N )\n�        �\n1 1/4          1\n=     +       N−\n2 3/4          2\n1\n=     (N + 1) .",
+            "source": "MIT OpenCourseWare, 6.041sc Probabilistic Systems Analysis And Applied Probability, Fall 2013 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    }
+  ]
+}

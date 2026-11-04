@@ -1,0 +1,321 @@
+{
+  "source": "mit-ocw-18-024-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/18-024-multivariable-calculus-with-theory-spring-2011/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 10 - DUE APRIL 28\nE.7:1,2 (Necessary deﬁnitions on previous page) (6 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (E7:1,2)\n1 Let l be the arclength of C, and parameterize C by its arclength: α(t) =\n(x(t), y(t)). Then α\u0002 (t) = 1 thus n(t) = (y \u0002 (t), −x\u0002 (t)).\nWe have\n�              � l                                            �\n\u0002       \u0002\nf · n ds =     (P (α(t)), Q(α(t))) · (y (t), −x (t)) dt =   −Q dx + P dy\nC            0                                              C\n2 Using Green’s Theorem for the function g = (−Q, P )\n� � �           �         �\n∂P    ∂Q\n+       dxdy =     −Q dx + P dy\nR ∂x      ∂y            C\nBut part(1) above gives us the value of the RHS. Combining, we have\n� � �            �        �\n∂P     ∂Q\n+       dxdy =     f · n ds\nR ∂x      ∂y            C",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 10 - DUE APRIL 28\n11.22:4 (4 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (11.22:4) Note that\n�         � �        �\n∂u ∂u        ∂v ∂v      ∂u ∂v ∂u  ∂v   ∂       ∂\nf·g = v     −       +u   −     = v +u −v −u    =    (uv)− (uv)\n∂x ∂y        ∂x ∂y      ∂x ∂x ∂y  ∂y   ∂x      ∂y\nApplying Green’s Theorem for the function h = (uv, uv):\n� �              � � �                 �         �               �\n∂        ∂\nf·gdx dy =         (uv) −    (uv) dx dy =      uv (dx+dy) = (1)(y) (dx+dy)\nR               R ∂x        ∂y                 C               C\nParameterize the circle by s(t) = (cos t, sin t) then\n� �                �                  � 2π\nf · gdx dy =     y (dx + dy) =         sin t(− sin t + cos t) dt = −π\nR               C                  0",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 10 - DUE APRIL 28\n11.25:3 (4 points) make sure to prove it!",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (11.25:3) Whenever C1 and C2 cobound a region R1 ⊂ R we have\n�                �                 � � �         �\n∂P   ∂Q\nP dx + Qdy −      P dx + Qdy =          −      dxdy\nC1                C2                 R1 ∂y   ∂x\n∂P    ∂Q\nThis evaluates to 0 when              =     . Thus\n∂y     ∂x\n�                      �\nP dx + Qdy =     P dx + Qdy\nC1                   C2\nLet C be a Jordan curve, oriented counterclockwise that does not contract\n�      in\nthe annulus. Since one cannot apply Green’s Theorem on this region C P dx+\nQdy = A for some A ∈ R, not necessarily zero. For example when (P, Q) =\nx          y                      2    2\n�\n( 2      , −         ) on  R  = {1 ≤ x   +y   ≤ 2}, we have   C\nP dx+Qdy = 2π (as\nx + y 2 x2 + y 2\nwe will see in (11.25:1)). Now any Jordan curve C \u0002 in R either bounds a simply\nconnected region or it cobounds a region with C or −C. (We are somewhat\nglossing over the diﬃculty that C, C \u0002 might intersect. But this problem can\nbe easily rectiﬁed by choosing a third curve that cobounds with both C and\nC \u0002 and intersects neither of them.) In the ﬁrst case, using Green’s Theorem\nimplies               �                   � �\n∂P     ∂Q\nP dx + Qdy =              =     =0\nC�                    D ∂y      ∂x\nwhere here D ⊂ R and ∂D = C \u0002 .\nIn the second case, we use the observations outlined initially to determine\n�                   �\nP dx + Qdy = ± P dx + Qdy = ±A.\nC�                        C\nThus there are 3 possible values for line integrals along piecewise smooth Jor­\ndan curves.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 3 - DUE FEBRUARY 24 Note the date change for this Pset! Due Thursday at 11:00 a.m., before class.\nLet T : Rn → Rn be a linear transformation and let P denote a paralellpiped in Rn\nformed by the vectors {v1 , · · · , vn }. Let m(T ) denote the matrix of the transformation of\nT using the standard basis in Rn . Finally, let T (P ) denote the image of the parallelpiped\nunder the transformation T . Prove\nvol(T (P )) = |det(m(T ))|vol(P ).\n(5 pts)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : First we note that T (P�)n is again a parallelepiped. To see this notice\n� that if\nx ∈ T (P ) then x = T ( i=1 ci vi ) where 0 ≤ ci ≤\n�1. By linearity x = i ci T (vi )\nfor 0 ≤ ci ≤ 1. That is, T (P ) = {x ∈ Rn |x = i ci T (vi ), 0 ≤ ci ≤ 1} and this\nis precisely the deﬁnition of a parallelepiped.\nNow, we determine the volume. If V denotes the matrix formed such that the\nith row is vi , then:\nV ol(P ) = |det(V )|\nLet W denote matrix with wi = m(T )vi as the ith row, then by the deﬁnition\nof T (P ) above:\nV ol(T (P )) = |det(W )| = |det(m(T )V )| = |det(m(T ))det(V )| = |det(m(T ))|vol(P ).",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 3 - DUE FEBRUARY 24 Note the date change for this Pset! Due Thursday at 11:00 a.m., before class.\nLet P represent the plane containing the points (1, 0, 0), (3, 2, 4), (1, −1, 1). Find the\npoint on the plane that minimizes the distance between the plane and the origin.\nRemark: You should solve this problem without using an optimization technique (don’t\ntake any derivatives). You can justify this point minimizes distance using the geometry of\nvectors. (5 pts)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : First the vectors (3, 2, 4) − (1, 0, 0) = (2, 2, 4) and (1, −1, 1) − (1, 0, 0) =\n(0, −1, 1) are parallel to the plane P . Thus, the vector (2, 2, 4) × (0, −1, 1) =\n(6, −2, −2) is orthogonal to the plane P . The unit normal vector is thus\n1\n√1 (3, −1, −1) = n.  Now, we consider the projection of the point (1, 0, 0) on\n11\nthe plane onto this normal direction n:\n(1, 0, 0) · n      3       3\nprojn (1, 0, 0) =                 n = √   n =    (3, −1, −1)\n||n||2          11     11\nThis gives the nearest point of P to the origin.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 3 - DUE FEBRUARY 24 Note the date change for this Pset! Due Thursday at 11:00 a.m., before class.\n14.9:15 (5 pts)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (14.9:15)\n(a) As r\u0002 (t) = A × r(t), a(t) = r\u0002\u0002 (t) = A × r\u0002 (t). Thus, A · a(t) = A · (A ×\nr\u0002 (t)) = 0 as per the deﬁning properties of the cross-product. Thus a(t)\nis orthogonal to both A and r\u0002 (t).\n2\n(b) Recall that a(t) = v (t)T \u0002 (t) + v \u0002 (t)T (t). As shown in part (a), a(t) is or­\nthogonal to r\u0002 (t) and therefore to the tangential vector T (t). This means\nthat the component v \u0002 (t) must be identically zero. By the mean value\ntheorem, this implies v(t) is constant. Now since the speed is constant\nwe would like to compute it at t = 0. While the speed is not deﬁned\nat t = 0 (since the initial condition is for t = 0), the constancy of the\nfunction means we can take the limit as t → 0+ of this constant function\nto get its value:\nv(t) = lim+ v(t) = lim+ A × r(t) = A × r(0) = A × B\nt→0           t→0\nThe speed is |A × B| = |A||B| sin θ.\n(c) The following steps enable us to determine the curve deﬁning r(t):\nr\u0002 (t) = A × r(t)\nA · r\u0002 (t) = A · (A × r(t) = 0\n=⇒ r(t) · A     is constant\nSo the angle between the position vector and A is ﬁxed at θ. Also from\npart(a), a ⊥ A implies the curve sits in a plane orthogonal to A. Both\nr\u0002 (t) and a(t) are orthogonal to A. This could imply a(t) r\u0002 (t), but\nthis is not possible as a(t) = r\u0002\u0002 (t) ⊥ r\u0002 (t). As acceleration and velocity\nare perpendicular, r(t) must deﬁne a circle. Precisely, r(t) is a circle in a\nplane orthogonal to A that makes a cone angle of θ with A.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 9 - DUE APRIL 21\n11.9:8 (4 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (11.9:8) Using Fubini’s Theorem (we assumed that the double integral exists):\n\u0002 \u0002                tx           \u0002 t \u0003\u0002 t txy      \u0004\ney                        e\ndx dy =                 dx dy =\n[0,t]×[1,t] y                      0 y\n3                        3\n1\n\u0002 t\u0005               \u0006           \u0002 t ty2\ny    tx t               e −1\ny −3 e y            dy =               dy =\n1          t        x=0         1   ty 2\n\u0007                    \bt\n1 ty2        1        1    1       1     1 2\n− 3e +                  = 2 − − 3 et + 3 et\nt            ty y=1    t     t t          t",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 9 - DUE APRIL 21\n11.15:6 (4 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (11.15:6) The volume can be computed as the double integral of the function\n6 − x − 2y\nf (x, y) =              over region S = {(x, y)|0 ≤ x ≤ 6, 0 ≤ y ≤ (6 − x)/2}:\n3\n\u0002 \u0002                          \u0002 6 \u0003\u0002 6−x                \u0004\n6 − x − 2y                      2 6 − x − 2y\ndy dx =                           dy dx =\nS       3                 0     0         3\n\u0002 6\u0007                \b 6−x        \u0002 6\u0007          \b       \u0007           \b6\n6−x         y2 2                (6 − x)2            (6 − x)3\ny−           dx =                   dx = −               =6\n0      3        3 y=0           0       12                 36     0",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 9 - DUE APRIL 21\n11.18:10 (6 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (11.18:10) Place the coordinate system so that the sides of the rectangle be­\ncome parallel to the axis and A = (0, 0), B = (0, b), C = (a, b) and D = (a, 0).\nThe side AB then is along the y axis and the side AD is along the x axis. The\nrectangle can be described as Q = {0 ≤ x ≤ a, 0 ≤ y ≤ b}. The distances\nof any point (x, y) from segment AB and AD are x and y respectively. Thus,\ndensity f (x, y) and mass m(Q) can be deﬁned as:\nf (x, y) = x × y\n\u0002 \u0002                               2\nab\nm(Q) =          f (x, y) d y d x =\nQ                     2\nThen the coordinates of the center of mass can be computed as:\n\u0002 \u0002\n1                         2\nx =                  x(xy) d y d x = a\nm(Q)                        3\n\u0002 \u0002Q\n1                         2\ny =                  y(xy) d y d x = b\nm(Q)       Q                3",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 5 - DUE MARCH 10\n8.14:10 (6 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (8.14:10)\n(a) By hypothesis, we know \u0002f (x) = 0 for all x ∈ B(a). By deﬁnition\n\u0002f (x) = (D1 f (x), . . . , Dn f (x)), thus D1 f (x) = · · · = Dn f (x) = 0. By\nthe 1-dimensional theorem, this means that f (x) is constant on every line\nx + te1 , . . . x + ten for any x ∈ B(a). Let f (a) = c. Given y ∈ B(a), we\nwill prove that f (y) = c. Let y − a = d1 e1 + · · · + dn en , then:\nc = f (a) = f (a + d1 e1 ) = · · · = f (a + d1 e1 + · · · + dn en ) = f (y).\n(b) The condition means, that a is a local maximum of the function f . In\nparticular, because f (x) = 0 for all x ∈ B(a), 0 is a maximum for\nall the functions f (a + tei ). By the 1-dimensional theorem Di (f (a)) =\nf \u0002 (a + tei ) = 0, and thus\n\u0002f (a) = (D1 f (a), . . . , Dn f (a)) = 0.\n�      � �",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 5 - DUE MARCH 10\n8.17:10 (6 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (8.17:10) Denote f (x, y, z) = (x−c)2 +y 2 +z 2 and g(x, y, z) = x2 +(y −1)2 +z 2 .\nThen the spheres in question are given by:\nLf (3) = {(x, y, z) : f (x, y, z) = (x − c)2 + y 2 + z 2 = 3}\nLg (1) = {(x, y, z) : g(x, y, z) = x2 + (y − 1)2 + z 2 = 1}\n1\nAt a point (x, y, z) where the two spheres intersect:\ngradient of Lf (3) is \u0002 f (x, y, z) = (2(x − c), 2y, 2z)\ngradient of Lg (1) is \u0002 g(x, y, z) = (2x, 2(y − 1), 2z)\nand T (Lf (3)), T (Lg (1)) are the respective tangent planes of Lf (3), Lg (1).\nBy deﬁnition, the gradient is perpendicular to the tangent plane. Or \u0002f (x, y, z)\nis perpendicular to T (Lf (3)) and \u0002g(x, y, z) perpendicular to T (Lg (1)). Thus\nthe tangent planes T (Lf (3)) and T (Lg (1)) are perpendicular at the intersection\nif and only if the gradients are perpendicular to each other at the intersection:\n\u0002f (x, y, z) · \u0002g(x, y, z) = 0 or 4x(x − c) + 4y(y − 1) + 4z 2 = 0\nTo ﬁnd c for the above condition to hold, we can solve the system of 3 equa­\ntions:\n(x − c)2 + y 2 + z 2 = 3\nx2 + (y − 1)2 + z 2 = 1\n4x(x − c) + 4y(y − 1) + 4z 2 = 0\nAdd the ﬁrst two equations to get 2(x2 + y 2 + z 2 ) − 2xc − √\n2y = 3 − c2 . This,\n2\ncombined with the last equation, gives c = 3. Thus c = ± 3.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 5 - DUE MARCH 10\nLet f : Rn → R be a linear transformation. Prove that Ta = f for all a ∈ Rn . (6\npoints)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Ta is deﬁned such that:\nf (x) = f (a) + Ta (x − a) + |x − a|E(a, x − a)\n2\nwhere E(a, x − a) → 0 as |x − a| → 0.\nThus Ta = f if and only if:\nf (x) = f (a) + f (x − a) + |x − a|E(a, x − a)\nwhere E → 0 as |x − a| → 0.\nSince f is a linear transformation,\nf (x) = f (a) + f (x − a)\nand thus E(a, x − a) ≡ 0 as |x − a| → 0.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 8 - DUE APRIL 7\n10.9:6 (4 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (10.9:6) Writing the equation of the cylinder in complete square form:\na           a2\n(x − )2 + y 2 =\n2           4\nThus looking from high above the xy-plane the picture looks like:\nThe parametrization of the cylinders’ intersection with the xy-plane is:\n�a         a a       �\ns�(t) =    cos t + , sin t, 0\n2         2 2\n1\nWe need to lift it up to sit on the sphere:\n�a         a a           �\ns(t) =     cos t + , sin t, z(t) ,\n2        2 2\nwhere z(t) ≥ 0 and\n�a                 a �2 � a        �2               �a            a�\n2\ncos t +        +      sin t + z(t) = a           cos t +       + z(t)2 = a2\n2              2       2                          2           2\nThis means, that\na √\nz(t) = √ 1 − cos t\n2\nNow\n�\n(y 2 , z 2 , x2 ) · d(x, y, z)\nC\n� 2π 3                                                �                                 �\na � 2                                    �                           sin t\n=                  sin t, 2(1 − cos t), (cos t + 1)2 ) · − sin t, cos t, �                    dt\n0      8                                                                 2(1 − cos t)\n� �                                                              �\na3 2π                                             sin t(cos  t + 1) 2\n=                   − sin3 t + 2 cos t(1 − cos t) + �                       dt\n8 0                                                  2(1 − cos t)\n�                       �                                �\na3 2π 3                   a3 2π                             a3 2π sin t(cos t + 1)2\n=−                  sin tdt + +           cos t(1 − cos t)dt +               �               dt\n8 0                      4 0                              8 0         2(1 − cos t)\nComputing each of the integrals separately we get:\na3      a3 π\n=0+         π+0=\n4        4\n�                      �\n−y        x",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 8 - DUE APRIL 7\n10.18:13 (8 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (10.18:13) Note, that the function is not necessarily well deﬁned in (0, 0). Thus\nwe will ﬁx our basepoint at (1, 0). Then given a point r(cos ϑ, sin ϑ) ∈ R2 ,\nthen an obvious path from (1, 0) to r(cos ϑ, sin ϑ) can be parametrized by\ns1 : [0, ϑ] → R2 and s2 : [1, r] → R2 with\ns1 (t) = (cos t, sin t)\ns2 (t) = t(cos ϑ, sin ϑ)\nFor n \u0007= −1\n� ϑ                                         � r\nn\nφ(r(cos ϑ, sin ϑ)) =         a1 (cos t, sin t)·(− sin t, cos t)d t+    atn (cos ϑ, sin ϑ)·(cos ϑ, sin ϑ)d t\n0                                                1\n� r\narn+1   a\n=0+a             tn d t =         −\n1               n+1 n+1\nChecking that it is a potential function:\narn+1\n∇          = arn (cos ϑ, sin ϑ)\nn+1\nFor n = −1 we have\n� r                                                  � r\na                                                  1\nψ(r(cos ϑ, sin ϑ)) =             (cos ϑ, sin ϑ) · (cos ϑ, sin ϑ)dt = a              d t = a log r\n1   t                                             1    t\nAgain checking that this is indeed a potential function:\na\n∇ψ(r(cos ϑ, sin ϑ)) = (cos ϑ, sin ϑ).\nr\n3",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 4 - DUE MARCH 3\nB.63:3. First prove that f (t) is continuous on [0, 1]. Then solve the stated problem.(6\npts)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (B63:3)                         �             � �\n(t, t cos πt ) for 0 < t ≤ 1,\nf (t) =\n(0, 0) for t = 0.\nf : R → R2 , thus it is continuous if both f1 (t) = t and\n�      � �\nt cos πt for 0 < t ≤ 1,\nf2 (t) =\n0 for t = 0.\nare continuous. f1 is clearly continuous at any point t, and so is f2 at any point\nt=\n\u0004 0. For t = 0 we have to check that if tn → 0, then f2 (tn ) → f2 (0) = 0:\n� �\nπ\n|f2 (tn )| = |tn cos     | ≤ |tn |\ntn\nthus it tends to 0 too. Further, note that both f1 (t) and f2 (t) do not have any\nself intersections and are therefore simple curves.\nBecause f (t) is simple and continuous over a continuous stretch of t, we can\nassess whether f (t) has a ﬁnite arc length (is rectiﬁable) by:\n(a) partitioning the space of t into n discrete blocks deﬁned by vertices t1 ,\nt2 , . . . tn .\n(b) deﬁning a polygonal arc connecting points (t1 , f (t1 )), (t2 , f (t2 )), . . . (tn , f (tn ))\n- this represents a sampled approximation of f (t)\n(c) considering the limit as n → ∞ of the length of this polygonal arc\nFor n = 5, the partition of t is deﬁned by the collection of points t\u0002 in P5 :\n�                �\n1 1 1 1\nP5 = 0, , , , , 1\n5 4 3 2\n� �\nand the polygonal arc connects the points (t\u0002 , t\u0002 cos tπ� ):\n�          �     � �         � �      � �         �           �\n1 1       1 1       1 1          1 1\n(0, 0),    ,−    ,    ,    ,   ,−      ,     ,    , (1, −1) .\n5 5       4 4       3 3          2 2\n1\n∏(P5)\nf2(t)\n-1\nNotice\n��            �2       �                   �2\n�n\n1   1                 (−1)k (−1)k−1\n|π(Pn )| = ||(1/n, (−1) /n)−(0, 0)||+\nn\n−           +            −\nk=2\nk k−1                   k    k−1\n√         ��          �2 �                     �2\n2   �n\n1           (−1)k 2k + (−1)k+1\n=     +                    +\nn     k=2\nk(k − 1)            k(k − 1)\n√                               √                  √                 √\n2 �          √                  2 � 2k − 1         2 �               2 �2\nn                               n                   n                n\n1                                                  1    1\n=    +             4k − 4k + 2 >\n2               +             =    +          + >    +    .\nn k=2 k(k − 1)                   n k=2 k(k − 1)     n k=2 (k − 1) k  n k=2 k\n2\n(This is not quite what the notes have, but nearly so.)\nThus the length of Pn tends to ∞ as n goes to ∞, so f (t) cannot be rectiﬁable.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 4 - DUE MARCH 3\n14.15:11 (5 pts)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (14.15:11)\n(a) With the notation of the exercise\nv(t) = 5(cos α(t)i + sin α(t)j)\nand\na(t) = v\u0002 (t) = 5α\u0002 (t)(− sin α(t)i + cos α(t)j)\nthen\n|a(t) × v(t)|   |25α\u0002 (t)|\nκ(t) ≡                         =            = 2t\nv(t)3          125\nThis means:\n|α\u0002 (t)| = 10t.\nπ\nAs a result, α\u0002 (t) could be −10t or 10t. Since α(0) = and the curve\n2\nπ\nstays in the positive half plane, i.e. α(t) < ∀t, we see that α\u0002 (0) < 0.\n2\n3\nThen by continuity α\u0002 (t) < 0. Thus the correct solution is α\u0002 (t) = −10t.\nπ\nIntegrating we get α(t) = −5t2 + C. As α(0) = C, C = and we get\n2\nπ\nα(t) = −5t2 +         .\n2\n(b) We have already computed everything necessary:\nπ                π\nv(t) = 5(cos α(t)i + sin α(t)j) = 5(cos(−5t2 +           )i + sin(−5t2 + )j)\n2                2",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 4 - DUE MARCH 3\n8.5:2,4 (8 pts)\nThe problems from Chapter 14 refer to Apostol Volume I.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (8.5:2,4) 8.5:2 Let\nL :=      lim        f (x, y).\n(x,y)→(a,b)\nWe would like to prove that if\nlim(f (x, y)) exists for every y,\nx→a\nthen\nlim lim(f (x, y)) = L\ny→b x→a\nLet us denote limx→a f (x, y) = Ly for each y. Then we need to show limy→b Ly =\nL. Suppose not. Then for some \u0005 > 0 there exists a sequence yn → b such\nthat |Lyn − L| > \u0005. Reindex the sequence yn , and perhaps remove some ele­\nments, so that |yn − b| < 1/n for each n. Now, for each n choose xn such that\n|xn − a| < 1/n and\n|f (xn , yn ) − Lyn | < \u0005/2.\n4\nNow consider for each n,\n|f (xn , yn ) − L| ≥ |L − Lyn | − |Lyn − f (xn , yn )| > \u0005 − \u0005/2 = \u0005/2 > 0.\nThus, we constructed a sequence (xn , yn ) → (a, b) such that f (xn , yn ) does not\nconverge to L. This implies a contradiction and it follows that one must have\nlimy→b Ly → L.\n8.5:4\nx2 y 2\nf (x, y) =                  whenever x2 y 2 + (x − y)2 =\n\u0004 0\nx y + (x − y)\n2 2         2\nThen\nlim lim(f (x, y)) = lim 0 = 0,\ny→0 x→0                y→0\nand similarly\nlim lim(f (x, y)) = lim 0 = 0.\nx→0 y→0             x→0\nBut for y = x\nx4\nlim f (x, x) = lim   = 1.\nx→0           x→0 x4",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 10 - DUE APRIL 28\n11.22:2 (4 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (11.22:2) Q can be written as the sum of two functions Q = Q1 + Q2 , where\n2              1\nQ1 = −x2 ye−y and Q2 = 2         . Thus, the integral to evaluate is\nx + y2\n�\nP dx + Q1 dy + Q2 dy.\nC\nLet R1 be the square {|x| ≤ a, |y| ≤ a} and C its boundary. First note that\n∂P          2  ∂Q1\n= −2yxe−y =\n∂y              ∂x\nThen, by Green’s theorem:\n�                 � �           �            �\n∂P   ∂Q1\nP dx + Q1 dy =                      −       dxdy = 0.\nC                      R1       ∂y    ∂x\n�\nTo compute the remaining part C Q2 dy, ﬁrst observe that the integral will\ncertainly be zero along y = ±a as there one has dy ≡ 0. So, we can compute\n�           � a            � a\ndt            dt\nQ2 dy =       2    2\n−      2    2\n= 0.\nC          −a a + t       −a a + t\n1\nNotice the sign on the second integral corresponds to the fact that the direction\nof the parameterized curve is opposite the counterclockwise orientation on the\nsquare.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 10 - DUE APRIL 28\n11.22:8 (6 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (11.22:8) If C is parameterized by arclength s(t) = (x(t), y(t)) then n =\n(y \u0002 , −x\u0002 )\n(a) We can write\n�      �\n∂g\nds =    ∇g · n ds =\nC ∂n       C\n� �       � �        �      � �                �      �\n∂g ∂g     ∂y ∂x             ∂g ∂y ∂g ∂x               ∂g      ∂g\n,    ·    ,      dt =            −         dt =        dy −    dx\nC  ∂x ∂y     ∂t ∂t          C ∂x ∂t     ∂y ∂t          C ∂x      ∂y\nUsing Green’s Theorem we get\n� � � 2        �      � �\n∂ g ∂2g\n2\n+ 2 dx dy =      ∇2 g dx dy\nR ∂x     ∂y           R\n(b) Similarly\n�            �\n∂g          ∂g         ∂g\nf    ds =   f     dy − f    dx\nC ∂n         C ∂x          ∂y\n� � �                                  �\n∂f ∂g      ∂ 2 g ∂f ∂g      ∂2g\n=               +f 2 +            + f 2 dx dy\nR ∂x ∂x        ∂x      ∂y ∂y    ∂y\n� �\n�                  �\n=        ∇f · ∇g + f ∇2 g dx dy\nR\n2\n(c) To prove this part, apply part (b) with the roles of f and g reversed.\nThen subtract this equation from the equation stated in part (b).",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 10 - DUE APRIL 28\n11.25:1 (6 points) As always, justify all steps of your calculations with proofs or the\nappropriate theorem.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (11.25:1)\n3\n(a) First let Br (boundary of disc Dr ) be a circle around (0, 0) with radius r.\nWe can parameterize Br by s(t) = (r cos t, r sin t). Then P = r sin t/r2\nand Q = −r cos t/r2 . So\n�                     � 2π\nP dx + Q dy =          (r sin t/r2 )(−r sin t) dt + (−r cos t/r2 )(r cos t) dt\nBr                    0\n� 2π\n−r2\n=              dt = −2π\n0     r2\nFor any piecewise smooth Jordan curve C that bounds a region R that\ncontains (0, 0) we can choose r small enough so that the disc Dr of radius\n∂P       ∂Q\nr lies inside C. Then R − Dr is a region where          =       and these\n∂y      ∂x\npartial derivatives are well deﬁned. Thus, as in the previous exercise we\nhave that\n�                   �\nP dx + Q dy = ±      P dx + Q dy = ±2π.\nC                      Br\nThe sign depends on the orientation of C with respect to the orientation\nof Br . The integral is positive if C is oriented clockwise and negative\notherwise.\n∂P     ∂Q\n(b) If (0, 0) is outside the region then in the whole region     =      (and\n∂y     ∂x\nthese partial derivatives are everywhere� well deﬁned). Thus we can once\nmore use Green’s Theorem to see that C P dx + Q dy = 0.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 3 - DUE FEBRUARY 24 Note the date change for this Pset! Due Thursday at 11:00 a.m., before class.\n14.4: 23 (5 pts)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (14.4:23) Since F is continuous, we can apply the ﬁrst fundamental theorem\nof calculus to determine a derivative for the expression on the right hand side\nof the equation. Thus\n�\n\u0002       x       x    1          1 x\nF (x) = e A + xe A + F (x) − 2           F (t) dt = 2ex A + xex A    ∀ x > 0.\nx         x 1\nNow we apply the second fundamental theorem of calculus and the above result\nto get:                      �              �\nx                        x\nF (x) − F (1) =             F \u0002 (t) dt = A           (2et + tet ) dt\n1                        1\nIntegrating by parts we have:\n�x            �x\n�    t �\n�\nt �\nF (x) − F (1) = A(2e + te − e )� = A(e + te )� = A(ex + xex ) − 2Ae\nt     t         t\n1                       1\nSubstituting F (1) = eA we observe\nF (x) = Aex + Axex − Ae",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 3 - DUE FEBRUARY 24 Note the date change for this Pset! Due Thursday at 11:00 a.m., before class.\n14.9:12 (5 pts)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (14.9:12)\n(a) The motion is counterclockwise. This can be seen as follows: For t such\nthat g(t) > 0, the particle is at some point on the upper half of the ellipse.\nHere as the horizontal component of the velocity is negative (leftward),\nthe upper portion of the ellipse is carved out from right to left. This is\ncounterclockwise motion.\n(b) Since r(t) = (f (t), g(t)) gives the ellipse, we see\n3f (t)2 + g(t)2 = 1\nTaking the derivative of both sides with respect to t, and substituting the\ngiven fact that f \u0002 (t) = −g(t) we see\n6f (t)f \u0002 (t)+2g(t)g \u0002 (t) = 0 =⇒ −6f (t)g(t)+2g(t)g \u0002 (t) = 0 =⇒ g(t)[g \u0002 (t)−3f (t)] = 0\nThat is, for g(t) \u0007= 0 we have g \u0002 (t) = 3f (t). Hence the vertical component\nof velocity is proportional to f (t). When g(t) = 0, use the continuity of\ng \u0002 (t) to get the same result.\n(c) Notice that the position vector (and therefore f and g) should be periodic.\nMoreover, g \u0002 (t) = 3f (t) implies g \u0002\u0002 (t) = 3f \u0002 (t) = −3√\ng(t). Assuming we’ve\nparameterized so that g(0) = 0, we see g(t) = sin( 3t) solves the above\nsecond order diﬀerential equation. Since the period of this function is\n2π\n√ , this is precisely the time needed to travel around the ellipse once.\n3",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 3 - DUE FEBRUARY 24 Note the date change for this Pset! Due Thursday at 11:00 a.m., before class.\n14.13:16 (5 pts)\nThe problems from Chapter 14 refer to Apostol Volume I.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (14.13:16) As the area of the function f is proportional to its arc length over\nthe same interval, we can write:\n� x             � x�\nA(x) ≡      f (t)dt = c      1 + (f \u0002 (t))2 dt\na              a\nNote: To compute arc length we are assuming that f \u0002 is continuous.\nApplying the second fundamental theorem of calculus we see\n�\nA\u0002 (x) = f (x) and A\u0002 (x) = c 1 + (f \u0002 (x))2\nOr equivalently:\n�                  f 2 (x)\nf (x) = c    1 + (f \u0002 (x))2 =⇒         − (f \u0002 (x))2 = 1\nc2\n3\nNotice a ﬁrst solution is if f \u0002 ≡ 0 then f 2 = c2 works and f is just a constant\nfunction.\nNow suppose f \u0002 \u0007= 0. In this case, the equation above is solved by:\nx                     x\nf (x) = c cosh( ) and f \u0002 (x) = sinh( )\nc                     c\nAs cosh2 (x)−sinh2 (x) = 1, the constraint of f 2 /c2 −f \u00022 = 1 is fulﬁlled. A more\ncomplete derivation of this solution can be found in the ﬁnal exam year 2010.\nTherein the Taylor series for two functions u, v such that u\u0002 = v, v \u0002 = u with\nconditions u(0) = 0, v(0) = 1 are examined. It is shown that u and v were the\nfunctions cosh x and sinh x, and follow the property cosh2 (x) − sinh2 (x) = 1.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 9 - DUE APRIL 21\n11.15:2 (4 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (11.15:2)\n\u0002 \u0002                                \u0002 1 \u0002 1+x\n(1 + x) sin y d x d y =                (1 + x) sin y d y d x =\nS                              0      0\n\u0002 1                                       \u0005x                                               \u00061\n(1 + x)(1 − cos(1 + x))d x =             (x + 2) − (x + 1) sin(x + 1) − cos(x + 1)\n0                                      2                                                  0\n3\n=    + cos 1 + sin 1 − cos 2 − 2 sin 2\n2",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 9 - DUE APRIL 21\n11.15:13 (4 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (11.15:13) The domain we integrate over is given as\nx2 − 4\nS = {−6 ≤ x ≤ 2,              ≤ y ≤ 2 − x}\n4\n1\nObserve the points of intersection of the two functions of x are at (−6, 8) and\n(2, 0). Integrating in x√ﬁrst will require dividing the domain into two regions,\nas√on 0 ≤ y ≤ 8,   √ − 4 + 4y ≤ x ≤ 2 − y while on −1 ≤ y ≤ 0 we see\n− 4 + 4y ≤ x ≤ 4 + 4y.\nTherefore we can evaluate our integral\n\u0002 2 \u0002 2−x                    \u0002 0 \u0002 √4y+4                    \u0002 8 \u0002 2−y\n2\nf (x, y) d y d x =       √\nf (x, y) d x d y +       √\nf (x, y) d x d y\nx −4\n−6      4\n−1   − 4y+4                   0    − 4y+4",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 9 - DUE APRIL 21\nLet R, S be bounded subsets of the plane with corresponding density functions fR , fS\nrespectively. Let T = R ∪ S and deﬁne fT to be the appropriate density function on each\ncomponent of T . Let m(R), m(S) denote the respective masses of R, S. Prove\n(xR m(R) + xS m(S), y R m(R) + y S m(S))\n(xT , y T ) =                                            .\nm(R) + m(S)\nHere xU denotes the center of mass of the region U . (8 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Let fS , fR represent the density functions for S, R respectively. We deﬁne\n⎧\n⎨ fR (x) if x ∈ R\nfR∪S (x) =    fS (x) if x ∈ S                       (1)\n⎩\n0    otherwise\nThen\n\u000e\u000e                      \u000e\u000e                  \u000e\u000e\nxf R ∪S d x d y        xfR d x d y +     xf d x d y\nxT = \u000e \u000eR∪S                 = \u000e R\u000e               \u000e \u000eS S         .\nf\nR∪S R∪S\ndx dy            f dx dy +\nR R\nf dx dy\nS S\n2\n\u000e\u000e                      \u000e\u000e                             \u000e\u000e\nNow observe\n\u000e\u000e        that     R\nxf R d x d y = x R    R\nfR d x d y = x R m(R) and    S\nxfS d x d y =\nxS     f\nS S\nd x d y = x S m(S).  Thus\nxR m(R) + xS m(S)\nxT =                     .\nm(R) + m(S)\nA similar argument works for y T and the result follows immediately.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 5 - DUE MARCH 10\n8.17:6 - also prove f is not diﬀerentiable at (0, 0). (6 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (8.17:6) f (x, y) =    |xy| = |x| |y|\n(a) f (x, y) = 0 on the lines (x, 0) and (0, y). Thus ∂f\n∂x\n= ∂f\n∂y\n= 0 at the origin.\n(b) For f to have a tangent plane at the origin, it must have a total derivative\nat the origin. If indeed f had a total derivative at the origin then we\nexpect\n∂f ∂f              ∂f   ∂f\nf \u0002 ((x, y); (1, 1)) to be (     ,   ) · (1, 1) =    +    = 0 + 0 = 0.\n∂x ∂y              ∂x ∂y\nBut in reality, f \u0002 ((x, y = x); (1, 1)) is the partial derivative along the line\nx = y. On this line, f (x, x) = x, thus f \u0002 ((x, y); (1, 1)) = 1. This deﬁes\nour expectation. Thus f cannot have a total derivative, nor a tangent\nplane at the origin.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 5 - DUE MARCH 10\nLet f : Rn → Rm such that the inverse image of every open set is open. Prove f\nis continuous. (6 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Consider a ∈ Rn . To prove continuity at a we need to ﬁnd a δ > 0 for every\ngiven \u0004 > 0 with the property that |x − a| < δ implies |f (x) − f (a)| < \u0004.\nNote that the set of points f (x) for which |f (x) − f (a)| < \u0004 are contained in\nan open ball B\u0003 (f (a)). Now the preimage of this open ball f −1 (B\u0003 (f (a))) is\nopen but may not be connected. That is, it may consist of the union of a few\ndisjoint open sets. But, necessarily, one of these open sets contains a. Call this\nopen set U . Then openness implies there exists δ > 0 such that Bδ (a) ⊂ U .\nMoreover, as f (U ) ⊂ B\u0003 (f (a)), containment implies f (Bδ (a)) ⊂ B\u0003 (f (a)). It\nfollows that f is continuous.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 8 - DUE APRIL 7\n10.5:11 (4 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (10.5:11) Parameterize the sides of the square C by maps si : [0, 1] → R2 by\ns1 (t)   =   (1 − t, t);\ns2 (t)   =   (−t, 1 − t);\ns3 (t)   =   (t − 1, −t);\ns4 (t)   =   (t, t − 1).\nWith this parametrization:\n�              � 1               � 1               � 1               � 1\ndx + dy          −1 + 1            −1 − 1             1−1               1+1\n=                dt+               dt+               dt+               dt\nC |x| + |y|    0 (1 − t) + t     0 t + (1 − t)     0 (1 − t) + t     0 t + (1 − t)\nThe ﬁrst and the third summands are 0, and the second and fourth terms\ncancel each other, giving: �\ndx + dy\n=0\nC |x| + |y|",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 8 - DUE APRIL 7\nC34:3 (4 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (C34:3) As per the question, f (x, y) =                          ,          . Therefore we can\nx 2 + y 2 x2 + y 2\nwrite                                 �\n1\nφ(x, y) =                      (−y, x) · d(x, y)\nC   x2 + y 2\nAs suggested in the exercise we will compute the integral along a speciﬁc path\nstarting at (1, 0). For given (x, y) we can parameterize the path in two parts\nwith s1 : [1, x] → R2 and s2 : [0, y] → R2 . (Here an interval [a,b] is understood\nas [b,a] if a > b.)\ns1 (t) = (t, 0)\ns2 (t) = (x, t)\n2\nWith these notations:\n�\n1\nφ(x, y) =                   (−y, x) · d(x, y)\nC x +y\n2     2\n� x           � y\n0               x                y\n=     − 2 dt +               dt = arctan\n1    t        0 x +t\n2     2             x\nFinally, we can check that this is indeed the potential function for f (x, y):\n1\n∇φ(x, y) =                      (−y, x) = f (x, y).\nx2 + y 2",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 8 - DUE APRIL 7\n10.18:17,18 - First read Example 2 in Section 10.16. Then do the two problems. Note\nthat comments about 17 and 18 originate on the previous page and continue onto page\n346. (2 and 8 points)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (10.18:17,18) In this exercise\n�                  �\ny       x\nf (x, y) = − 2     ,\nx + y 2 x2 + y 2\n10.18:17 We have computed on the recitation that\ny 2 − x2\nD1 f2 (x, y) = D2 f1 (x, y) =\n(x2 + y 2 )2\n10.18:18 (Compare the results with 3)\n(a) We will consider the 3 cases one by one. First, for x = 0 we have, by\ndeﬁnition, θ = π/2. Now when x \u0007= 0\nsin θ   r sin θ  y\ntan θ =         =         = .\ncos θ   r cos θ  x\nand\ny           −y\narctan   = arctan    = φ ∈ (−π/2, π/2).\nx           −x\nFor x > 0, −π/2 < θ = φ < π/2 and this corresponds directly with the\ndeﬁnition of the arctan function.\nFor x < 0, it turns out that θ = φ + π because the angle between (x, y)\nand (−x, −y) is precisely π.\n(b) Using the derivation rule for the inverse function. If x > 0\n∂θ           ∂          y\n(x, y) =     arctan\n∂x          ∂x          x\ny     1            y\n= − 2        y 2 = − 2\nx 1 + (x)        x + y2\n∂θ          ∂           y\n(x, y) =     arctan\n∂y          ∂y          x\n1     1          x\n=         y 2 = 2\nx 1 + (x)      x + y2\nSimilar argument works for x < 0 case. For x = 0 one computes the left\nand right derivatives, and see that they are both equal to:\n∂θ            1\n(0, y) = −\n∂x            y\n4\nand\n∂θ\n(0, y) = 0.\n∂y\n∂θ      ∂θ\nHence for all (x, y), the relations in the exercise for and    hold. This\n∂x      ∂y\nproves that θ is a potential function for f on the set T .",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 4 - DUE MARCH 3\n14.13:21 (5 pts)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (14.13:21) By the chain-rule the derivative of Y (t) = X[u(t)] is Y \u0002 (t) =\nu\u0002 (t)X \u0002 [u(t)]. Using this:\n� d                           � d\n\u0002\n|Y (t)|d t =               |u\u0002 (t)X \u0002 [u(t)]|d t\nc                          c\nSubstituting u = u(t)\n� d                        � u(d)\n\u0002                       |u\u0002 (t)X \u0002 [u(t)]|\n|Y (t)|d t =                                    du\nc                          u(c)            u\u0002 (t)\nBut u\u0002 (t) > 0, as a re-parametrization of a curve is by deﬁnition an increas­\ning function (and further by assumption it is strictly increasing). Therefore\n|u\u0002 (t)|\n= 1 and\nu\u0002 (t)\n� d              � u(d)\n\u0002\n|Y (t)|d t =        |X \u0002 (u)| d u\nc                         u(c)",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.024 — question d’examen, en anglais] PSET 4 - DUE MARCH 3\nLet f : Rn → Rm be continuous. Prove the inverse image of any open set is open.\nThat is, let U ⊂ Rm be open. Prove that f −1 (U ) = {x ∈ Rn |f (x) ∈ U } is open. (Using \u0002, δ\narguments will be helpful.) (6 pts)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Assume f : Rn → Rm is continuous. Given an open set U ⊂ Rm we want to\nprove that f −1 (U ) is open. This means that for any point x ∈ f −1 (U ) we need\nto show there exists R > 0 such that BR (x) ⊂ f −1 (U ).\nGiven x ∈ f −1 (U ), we know f (x) ∈ U . As U is open, there exists r > 0 such\nthat Br (f (x)) ⊂ U . Recall f is continuous at x, thus for any \u0005 > 0 there is a\nδ > 0 such that |x − y| < δ implies |f (x) − f (y)| < \u0005. Choosing \u0005 = r, ﬁnd δ.\nThen continuity tells us\nf (Bδ (x)) ⊂ Br (f (x)) ⊂ U.\nIt follows immediately that Bδ (x) ⊂ f −1 (U ). Thus, f −1 (U ) is open.",
+            "source": "MIT OpenCourseWare, 18.024 Multivariable Calculus With Theory, Spring 2011 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    }
+  ]
+}

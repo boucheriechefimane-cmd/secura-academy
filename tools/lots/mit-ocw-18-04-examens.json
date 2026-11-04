@@ -1,0 +1,1104 @@
+{
+  "source": "mit-ocw-18-04-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/18-04-complex-variables-with-applications-spring-2018/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(30: 10,5,10,5 points)\n𝑧\nLet 𝑧1 = 1 + 𝑖, 𝑧2 = 1 + 3𝑖. Compute 𝑧1 𝑧2 , 𝑧1 /𝑧2 , 𝑧12 (use the principal branch of log).\n𝑧\n(Give 𝑧1 𝑧2 and 𝑧1 /𝑧2 in standard rectangular form and 𝑧12 in polar form.)\n𝑧1    1 + 𝑖 1 − 3𝑖   4 − 2𝑖   2−𝑖",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : 𝑧1 = 1 + 𝑖, 𝑧2 = 1 + 3𝑖: 𝑧1 𝑧2 = −2 + 4𝑖 ,            =       ⋅       =        =     .\n𝑧2   1 + 3𝑖 1 − 3𝑖     10      5\n√                                                                             𝑦\n|𝑧1 | = 2, Arg(𝑧√ 1 ) = 𝜋/4 (principal branch).\n𝑧1 = 1 + 𝑖\nSo log(𝑧1 ) = log( 2) + 𝑖 𝜋4 = 12 log(2) + 𝑖 𝜋4 (principal branch).\nThus,                                                                                         𝑥\n𝑧\n𝑧12 = e𝑧2 log(𝑧1 ) = e(1+3𝑖)(log(2)/2+𝑖𝜋/4) = elog(2)/2−3𝜋/4 e𝑖(3 log(2)/2+𝜋/4) (not pretty!)",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(30: 10,5,10,5 points)\n𝑧\nLet 𝑧 = 1 + 𝑖 3.\n(i) Compute 𝑧8 . (Give your answer in standard form.)\n(ii) Find all the 4th roots of 𝑧.\n√",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (i) 𝑧 = 1 + 3 𝑖 = 2e𝑖𝜋/3 , so\n√\n𝑧8 = 256e𝑖8𝜋/3 = 256e𝑖2𝜋/3 = 128(−1 +              3 𝑖)\n(ii) 𝑧1/4 = (2e𝑖𝜋/3+2𝑛𝜋𝑖 )1/4 = 21/4 e𝑖𝜋/12 , 21/4 e𝑖7𝜋/12 , 21/4 e𝑖13𝜋/12 , 21/4 e𝑖19𝜋/12\nSince 𝜋/12 = 15∘ this doesn’t have a pretty standard form, so we’ll leave them as is. We\ncan always get numerical approximations if needed.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\nShow that if |𝑧| = 1 then 𝑧−1 = 𝑧.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We’ll give two ways to say this:\n1      𝑧      𝑧    𝑧\nMethod 1: =           = 2 = = 𝑧.\n𝑧    𝑧⋅𝑧     |𝑧|   1\nMethod 2: 𝑧 = e𝑖𝜃 , so by part (a) 𝑧 = e−𝑖𝜃 = 𝑧 −1 .\n18.04 Problem Set 1, Spring 2018 Solutions                                                               3",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,10 points)\nSketch the curve 𝑧 = e𝑡(1+𝑖) , where −∞ < 𝑡 < ∞.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : e𝑡(1+𝑖) = e𝑡 e𝑖𝑡 . So as 𝑡 grow the magnitude grows exponentially and the argument\nincreases. This gives a spiral!\nIm(z)\nRe(z)\nNote, this is not to scale. The exponential e𝑡 grows too quickly, so we drew e0.2𝑡 instead.\nQualitatively this is a good representation of the curve.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nLet 𝑧𝑘 = e2𝜋𝑖/𝑛 . Show\n                             1 + 𝑧𝑘 + 𝑧𝑘2 + 𝑧𝑘3 + … + 𝑧𝑘𝑛−1 = 0\nHint: The polynomial 𝑧𝑛 − 1 has one easy root. Use that to factor it into a linear term and\na degree 𝑛 − 1 term.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The 𝑛th roots of 1 are all the roots of the equation 𝑧𝑛 − 1 = 0. Since we know\nthat 𝑧 = 1 is a root we can factor the equation as\n(𝑧 − 1)(𝑧 𝑛−1 + 𝑧 𝑛−2 + … + 𝑧 + 1) = 0\nSince 𝑧𝑘 is also a root of 𝑧 𝑛 − 1 and 𝑧𝑘 ≠ 1, we must have 𝑧𝑘 is a root of the second factor.\nThis is what we were asked to show!",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points) (Orthogonal lines stay orthogonal!)\nRepeat part (a) for the mapping 𝑤 = 𝑧 2 .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : This part is similar to part (a), though we will need a little more algebraic\nmanipulation to identify the image curves.\n(i) The vertical line 𝑥 = 𝑎 is parametrized by 𝑧 = 𝑎 + 𝑖𝑦, with −∞ < 𝑦 < ∞. So the image\nis 𝑤 = 𝑎2 − 𝑦2 + 𝑖2𝑎𝑦. Let’s write this as 𝑤 = 𝑢 + 𝑖𝑣. It is easy to see that with 𝑢 = 𝑎2 − 𝑦2\nand 𝑣 = 2𝑎𝑦 we have\n𝑢 = 𝑎2 − (𝑣/2𝑎)2 .\nThis is a parabola in the 𝑢𝑣-plane which opens to the left and has vertex at (𝑎2 , 0).\n(ii) Horizontal lines 𝑦 = 𝑏 are similar:\nParametrization: 𝑧 = 𝑥 + 𝑖𝑏, with −∞ < 𝑥 < ∞.\nImage: 𝑤 = 𝑥2 − 𝑏2 + 𝑖2𝑏𝑥.\nIf 𝑤 = 𝑢 + 𝑖𝑣 then u = (𝑣/2𝑏)2 − 𝑏2 . This is a parabola opening to the right with vertex at\n(−𝑏2 , 0).\nThe figure below is labeled in the same way as the figure in part (a). Notice the vertical\nlines 𝑥 = 𝑎 and 𝑥 = −𝑎 map to the same parabola as befits the 2-to-1 mapping 𝑤 = 𝑧 2 .\nThe real 𝑧-axis (𝑥 = 0) maps to the positive real 𝑤-axis (𝑢 > 0). We can view this as a\ndegenerate parabola. Likewise for the imaginary 𝑧-axis.\nIm(w)\nlv1 , lv5                             lh1 , lh5\nz 7→ w = z 2\nIm(z)\nlv1        lv2      lv3         lv4     lv5\n1                        lh5                                   lv2 , lv4                                              lh2 , lh4\nlh4\nRe(z)                                                                                        Re(w)\n−1                 0                    1   lh3                                   lv3                                                        lh3\nlh2\n−1                       lh1\n(iii) To show the image curves are orthogonal (meet at right angles) we need to show that\ntheir tangent vectors are orthogonal. Happily, we’ve parametrized the image curves in parts\n(i) and (ii), so computing tangent vectors is easy. In keeping with the course we will write\nvectors as 𝑥 + 𝑖𝑦 rather than in 18.02 notation as ⟨𝑥, 𝑦⟩\n18.04 Problem Set 1, Spring 2018 Solutions                                                  6\nHorizontal line: 𝑧 = 𝑎+𝑖𝑦; image 𝑤 = 𝑎2 −𝑦2 +𝑖2𝑎𝑦; image tangent vector: 𝑑𝑤\n𝑑𝑦 = −2𝑦+𝑖2𝑎.\nVertical line: 𝑧 = 𝑥 + 𝑖𝑏; image 𝑤 = 𝑥 − 𝑏 + 𝑖2𝑥𝑏; image tangent vector: 𝑑𝑤\n2   2\n𝑑𝑥 = 2𝑥 + 𝑖2𝑏.\nThe lines meet at the point 𝑎 + 𝑖𝑏, so we need to check the tangents at that point.\nHorizontal line image: 𝑑𝑤𝑑𝑦 = −2𝑏 + 𝑖2𝑎\n𝑑𝑤\nVertical line image: 𝑑𝑥 = 2𝑎 + 𝑖2𝑏\nIt is easy to see that these are orthogonal. For 18.04 the nicest way to say this is to note\nthat −2𝑏 + 𝑖2𝑎 = 𝑖(2𝑎 + 𝑖2𝑏). Since multiplication by 𝑖 is rotation by 90∘ the vectors are at\nright angles.\nExtra problems not for points",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\nShow that cos(𝑧) is an analytic for all 𝑧, i.e. it’s an entire function. Compute its\nderivative and show it equals − sin(𝑧).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Show that cos(𝑧) is an analytic for all 𝑧, i.e. it’s an entire function. Compute its\nderivative and show it equals − sin(𝑧).\nWe’ll do this two ways, first from the definition of cos(𝑧) in terms of exponentials. Second,\nwe’ll write cos(𝑧) as a function of 𝑥 and 𝑦 and verify the Cauchy-Riemann equations.\ne𝑖𝑧 + e−𝑖𝑧\nMethod 1. By definition cos(𝑧) =                 , so cos(𝑧) is entire because both e𝑖𝑧 and e−𝑖𝑧\n2\nare entire. Its derivative is\n𝑑 cos(𝑧)   𝑖e𝑖𝑧 − 𝑖e−𝑖𝑧   −e𝑖𝑧 + e−𝑖𝑧\n=              =             = − sin(𝑧)\n𝑑𝑧            2            2𝑖\nMethod 2. First let’s write cos(𝑧) = 𝑢(𝑥, 𝑦) + 𝑖𝑣(𝑥, 𝑦)\ne𝑖(𝑥+𝑖𝑦) + e−𝑖(𝑥+𝑖𝑦)   e−𝑦 e𝑖𝑥 + e𝑦 e−𝑖𝑥\ncos(𝑧) =                        =                   = … = cos(𝑥) cosh(𝑦) − 𝑖 sin(𝑥) sinh(𝑦)\n2                    2\n(You can work out the algebraic details of this formula.) Next we compute the partials and\nverify the Cauchy-Riemann equations.\n𝑢𝑥 = − sin(𝑥) cosh(𝑦)       𝑢𝑦 = cos(𝑥) sinh(𝑦)\n𝑣𝑥 = − cos(𝑥) sinh(𝑦)       𝑣𝑦 = −𝑖 sin(𝑥) cosh(𝑦)\nSince 𝑢𝑥 = 𝑣𝑦 and 𝑢𝑦 = 𝑣𝑥 the Cauchy-Riemann equations hold for all 𝑧 and cos(𝑧) is entire\nand\n𝑑 cos(𝑧)\n= 𝑢𝑥 − 𝑖𝑢𝑦 = − sin(𝑥) cosh(𝑦) − 𝑖 cos(𝑥) sinh(𝑦) = − sin(𝑧).\n𝑑𝑧\n(You can easily check that the last expression is indeed − sin(𝑧).)",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\n𝑛\n𝑃 ′ (𝑧)        1\nLet 𝑃 (𝑧) = (𝑧 − 𝑟1 )(𝑧 − 𝑟2 ) … (𝑧 − 𝑟𝑛 ).       Show that           =∑\n𝑃 (𝑧)    𝑗=1\n𝑧 − 𝑟𝑗\nSuggestion: try 𝑛 = 2 and 𝑛 = 3 first.\n𝑑 𝑎𝑧 + 𝑏",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝑃 (𝑧) = (𝑧 − 𝑟1 )(𝑧 − 𝑟2 ) … (𝑧 − 𝑟𝑛 ).     Show that           =∑\n𝑃 (𝑧)    𝑗=1\n𝑧 − 𝑟𝑗\nSuggestion: try 𝑛 = 2 and 𝑛 = 3 first.\nFollowing the suggestion for 𝑛 = 2: let 𝑃 (𝑧) = (𝑧 − 𝑟1 )(𝑧 − 𝑟2 ). Using the product rule for\n𝑃 ′ we get\n𝑃 ′ (𝑧)   (𝑧 − 𝑟2 ) + (𝑧 − 𝑟1 )     1         1\n=                       =       +         .\n𝑃 (𝑧)      (𝑧 − 𝑟1 )(𝑧 − 𝑟2 )     𝑧 − 𝑟1 𝑧 − 𝑟2\nThis is exactly what was claimed. The only diﬀiculty in going to larger 𝑛 is in presenting\nthe argument. We’ll let (𝑧 − 𝑟1 )(𝑧 − 𝑟2 )\u0018 −\u0018\n(𝑧\u0018 𝑟3\u0018) … (𝑧 − 𝑟𝑛 ) mean the product of all the terms\nleaving out the one with the line throught it. Then if 𝑃 (𝑧) = (𝑧 − 𝑟1 )(𝑧 − 𝑟2 ) … (𝑧 − 𝑟𝑛 ) the\nproduct rule gives us\n𝑛\n𝑃 ′ (𝑧) = ∑(𝑧 − 𝑟1 )(𝑧 − 𝑟2 ) ⋯ \u0018 −\u0018\n(𝑧\u0018 𝑟\u0018\n𝑗 ) ⋯ (𝑧 − 𝑟𝑛 ).\n𝑗=1\nFrom this it is clear that\n𝑃 ′ (𝑧)   𝑛\n(𝑧\u0018\n(𝑧 − 𝑟1 )(𝑧 − 𝑟2 ) ⋯ \u0018  −\u0018𝑟𝑘\u0018) ⋯ (𝑧 − 𝑟𝑛 )   𝑛\n1\n=∑                                              =∑\n𝑃 (𝑧)    𝑗=1\n(𝑧 − 𝑟1 )(𝑧 − 𝑟2 ) ⋯ (𝑧 − 𝑟𝑗 ) ⋯ (𝑧 − 𝑟𝑛 )  𝑗=1\n𝑧 − 𝑟𝑗\n𝑑 𝑎𝑧 + 𝑏",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\nLet 𝑓(𝑧) be analytic in a 𝐷 a disk centered at the origin. Show that 𝐹1 (𝑧) = 𝑓(𝑧) is\nanalytic in 𝐷.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Then\n𝐹1 (𝑧) = 𝑓(𝑧) = 𝑢(𝑥, −𝑦) − 𝑖𝑣(𝑥, −𝑦).\nWe can write 𝐹1 (𝑧) = 𝑈1 (𝑥, 𝑦) + 𝑖𝑉1 (𝑥, 𝑦), where 𝑈1 (𝑥, 𝑦) = 𝑢(𝑥, −𝑦) and 𝑉1 (𝑥, 𝑦) =\n−𝑣(𝑥, −𝑦). Since 𝑓(𝑧) is analytic the Cauchy-Riemann equations say that 𝑢𝑥 = 𝑣𝑦 and\n𝑢𝑦 = −𝑣𝑥 . To check the Cauchy-Riemann equations on 𝐹1 we take the partial derivatives\nof 𝑈1 and 𝑉1 . (We need to be careful with the −𝑦 when taking partials with respect to 𝑦.):\n𝜕𝑈1           𝜕𝑢             𝜕𝑈1     𝜕𝑢\n(𝑥, 𝑦) =    (𝑥, −𝑦),        = − (𝑥, −𝑦)\n𝜕𝑥           𝜕𝑥              𝜕𝑦     𝜕𝑦\n𝜕𝑉1            𝜕𝑣             𝜕𝑉1   𝜕𝑣\n(𝑥, 𝑦) = − (𝑥, −𝑦),           =    (𝑥, −𝑦)\n𝜕𝑥             𝜕𝑥             𝜕𝑦    𝜕𝑦\nApplying the C-R equations for 𝑓(𝑧) we see they are satisfied by 𝐹1 (𝑧):\n𝜕𝑈1          𝜕𝑢           𝜕𝑣           𝜕𝑉1\n(𝑥, 𝑦) =    (𝑥, −𝑦) =    (𝑥, −𝑦) =     (𝑥, 𝑦)\n𝜕𝑥           𝜕𝑥           𝜕𝑦            𝜕𝑦\n𝜕𝑈1           𝜕𝑢           𝜕𝑣              𝜕𝑉\n(𝑥, 𝑦) = − (𝑥, −𝑦) =       (𝑥, −𝑦) = − 1 (𝑥, 𝑦)\n𝜕𝑦           𝜕𝑦           𝜕𝑥              𝜕𝑥\nThus, 𝐹1 (𝑧) is analytic.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(30: 10,10,10 points)\n1\nShow that ∫𝐶 𝑧2 𝑑𝑧 = 0 for any simple closed curve 𝐶 in 2 ways.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Show that ∫𝐶 𝑧2 𝑑𝑧 = 0 for any simple closed curve 𝐶 in 2 ways.\n(i) Apply the fundamental theorem of complex line integrals\n(ii) Write out both the real and imaginary parts of the integral as 18.02 integrals of the form\n∫𝐶 𝑀 𝑑𝑥 + 𝑁 𝑑𝑦 and apply Green’s theorem to each part.\n(i) Let 𝑓(𝑧) = 𝑧 2 . We know this has the antiderivative 𝐹 (𝑧) = 𝑧 3 /3. There fore ∫𝐶 𝑓(𝑧) 𝑑𝑧 =\n𝐹 (𝑧1 )−𝐹 (𝑧0 ), where 𝑧0 and 𝑧1 are the endpoints of the curve 𝐶. Since these points coincide,\nthe integral must be 0.\n(ii) This requires some algebraic manipulation. Let 𝑧 = 𝑥 + 𝑖𝑦. Then\n𝑧 2 = (𝑥 + 𝑖𝑦)2 = 𝑥2 − 𝑦2 + 𝑖2𝑥𝑦\nSo,\n𝑧 2 𝑑𝑧 = 𝑧 2 (𝑑𝑥 + 𝑖 𝑑𝑦) = ((𝑥2 − 𝑦2 ) 𝑑𝑥 − 2𝑥𝑦 𝑑𝑦) + 𝑖 (2𝑥𝑦 𝑑𝑥 + (𝑥2 − 𝑦2 ) 𝑑𝑦) .\nIt is clear that everything here is defined and differentiable on all of R2 . So we can apply\nGreen’s theorem to each part of the integral. (Here 𝑅 is the interior of the simple closed\ncurve 𝐶.)\nReal part: ∫(𝑥2 − 𝑦2 ) 𝑑𝑥 − 2𝑥𝑦 𝑑𝑦. So, 𝑀 = 𝑥2 − 𝑦2 , 𝑁 = −2𝑥𝑦. Taking the curl we get\n𝐶\n𝑁𝑥 − 𝑀𝑦 = −2𝑦 − (−2𝑦) = 0. Therefore, by Green’s theorem the integral is 0.\nImaginaray part: We have 𝑀 = 2𝑥𝑦, 𝑁 = 𝑥2 + 𝑦2 . So, 𝑁𝑥 − 𝑀𝑦 = 2𝑥 − 2𝑥 = 0. Again,\nGreen’s theorem implies the integral is 0.\n1",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\nLet 𝐶 be the unit circle traversed counterclockwise. Directly from the definition of\ncomplex line integrals compute ∫ 𝑧𝑑𝑧.\n𝐶\nIs this the same as ∫ 𝑧 𝑑𝑧?\n𝐶",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝐶 be the unit circle traversed counterclockwise. Directly from the definition of\ncomplex line integrals compute ∫ 𝑧𝑑𝑧.\n𝐶\nIs this the same as ∫ 𝑧 𝑑𝑧?\n𝐶\nParametrize 𝐶: 𝛾(𝑡) = e𝑖𝑡 , with 0 ≤ 𝑡 ≤ 2𝜋. So, 𝛾 ′ (𝑡) = 𝑖e𝑖𝑡 . Putting this into the integral\ngives\n2𝜋                        2𝜋\n∫ 𝑧 𝑑𝑧 = ∫             e𝑖𝑡 𝑖 e𝑖𝑡 𝑑𝑡 = ∫          𝑖 𝑑𝑡 = 2𝜋𝑖.\n𝐶            0                         0\nThis is not the same as ∫ 𝑧 𝑑𝑧 which equals 0.\n𝐶",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\nLet 𝐶 be the circle of radius 1 centered at 𝑧 = −4. Let 𝑓(𝑧) = 1/(𝑧 + 4). and consider the\nline integral\n𝐼 = ∫ 𝑓(𝑧) 𝑑𝑧.\n𝐶\nParametrize the curve 𝐶 and carry out the calculation to find the value of 𝐼. Check\nthat the answer confirms your excellent reasoning in part (a).\n1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Parametrize the curve 𝐶 and carry out the calculation to find the value of 𝐼. Check\nthat the answer confirms your excellent reasoning in part (a).\nParametrize 𝐶: 𝛾(𝑡) = −4 + e𝑖𝑡 , with 0 ≤ 𝑡 ≤ 2𝜋. So, 𝛾 ′ (𝑡) = 𝑖e𝑖𝑡 . Now compute the\nintegral:\n2𝜋               2𝜋\n1                1 𝑖𝑡\n∫     𝑑𝑧 = ∫           𝑖e 𝑑𝑡 = ∫    𝑖 𝑑𝑡 = 2𝜋𝑖.\n𝛾 𝑧+4         0    e𝑖𝑡         0",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 10,5 points)\nRepeat using the branch with 𝜋 ≤ arg(𝑧) < 3𝜋.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Repeat using the branch with 𝜋 ≤ arg(𝑧) < 3𝜋.\nThis is the same as part (a) except we need to use 2𝜋 ≤ 𝑡 ≤ 3𝜋. So,\n3𝜋\n3 𝑖4𝑡/3 3𝜋 3              3\n∫𝑧 1/3 𝑑𝑧 = ∫           e𝑖𝑡/3 𝑖e𝑖𝑡 =     e    ∣ = (1 − e𝑖8𝜋/3 ) = (1 − e𝑖2𝜋/3 ) = e2𝜋/3 ⋅ part (a).\n𝛾           2𝜋                        4       2𝜋 4              4",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 5,5,5,5 points)\nCompute ∫      2\n𝑑𝑧, where 𝐶 is the circle of radius 1 centered at 𝑧 = 𝑖.\n𝐶 𝑧 +1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute ∫ 2      𝑑𝑧, where 𝐶 is the circle of radius 1 centered at 𝑧 = 𝑖.\n𝐶 𝑧 +1\n𝑧2           𝑧2\nLet 𝑓(𝑧) =          =                . The only singularity of 𝑓 inside 𝐶 is at 𝑧 = −𝑖.\n𝑧2 + 1   (𝑧 + 𝑖)(𝑧 − 𝑖)\nIm(z)\nC\ni\nRe(z)\n𝑧2\nWe let 𝑔(𝑧) =       , so 𝑓(𝑧) = 𝑔(𝑧)/(𝑧 − 𝑖). By Cauchy’s integral formula we have\n𝑧+𝑖\n𝑔(𝑧)\n∫ 𝑓(𝑧) 𝑑𝑧 = ∫               𝑑𝑧 = 2𝜋𝑖𝑔(𝑖) = −𝜋 .\n𝐶                   𝐶 𝑧−𝑖",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 5,5,5,5 points)\nLet 𝜃 = arg(𝑧) Take 𝐶 to be the wavy contour in the 𝑧-plane described by 0 ≤ arg(𝑧) ≤\n𝜋; |𝑧| = 1 − 0.1 cos(100𝜃). Compute the integral ∫ 𝑧2 𝑑𝑧.\n𝐶",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝜃 = arg(𝑧) Take 𝐶 to be the wavy contour in the 𝑧-plane described by 0 ≤ arg(𝑧) ≤ 𝜋;\n|𝑧| = 1 − 0.1 cos(100𝜃). Compute the integral ∫ 𝑧2 𝑑𝑧.\n𝐶\nMethod 1. Use the antiderivative:\n−0.9\n2    𝑧3\n∫ 𝑧 𝑑𝑧 =    ∣  = −2(0.9)3 .\n𝐶        3 0.9\nMethod 2. 𝐶 is not closed so we close it off by adding the straight line 𝐶1 from -1 to 1\nalong the 𝑥-axis.\n18.04 Problem Set 4, Spring 2018 Solutions                                                       4\nNow, by Cauchy’s theorem ∫           𝑧 2 𝑑𝑧 = 0, so\n𝐶+𝐶1\n0.9\n∫ 𝑧2 𝑑𝑧 = − ∫ 𝑧 2 𝑑𝑧 = − ∫                  𝑥2 𝑑𝑥 = −2(0.9)3 .\n𝐶              𝐶1                  −0.9",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 10,5 points)\nLet 𝑃 (𝑧) = 𝑐𝑜 + 𝑐1 𝑧 + 𝑐2 𝑧2 + 𝑐3 𝑧3 . Let 𝐶 be the circle |𝑧| = 𝑎, for 𝑎 > 0. Compute the\nintegral\n∫ 𝑃 (𝑧)𝑧 −𝑛 𝑑𝑧 for n = 0, 1, 2, …\n𝐶",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝑃 (𝑧) = 𝑐𝑜 + 𝑐1 𝑧 + 𝑐2 𝑧2 + 𝑐3 𝑧3 . Let 𝐶 be the circle |𝑧| = 𝑎, for 𝑎 > 0. Compute the\nintegral\n∫ 𝑃 (𝑧)𝑧−𝑛 𝑑𝑧 for n = 0, 1, 2, …\n𝐶\nThis is harder to express that to see. The key is our well known fact:\n0      if 𝑚 ≠ −1\n∫ 𝑧 𝑚 𝑑𝑧 = {\n𝐶                  2𝜋𝑖    if 𝑚 = −1\nSo\n∫ 𝑃 (𝑧)𝑧−𝑛 𝑑𝑧 = ∫ 𝑐0 𝑧−𝑛 + 𝑐1 𝑧1−𝑛 + 𝑐3 𝑧3−𝑛 + 𝑐3 𝑧3−𝑛 𝑑𝑧\n𝐶                      𝐶\nMost of these terms integrate to 0. We have:\nIf 𝑛 = 1 then the integral is 2𝜋𝑖𝑐0 .\nIf 𝑛 = 2 then the integral is 2𝜋𝑖𝑐1 .\nIf 𝑛 = 3 then the integral is 2𝜋𝑖𝑐2 .\nIf 𝑛 = 4 then the integral is 2𝜋𝑖𝑐3 .\nFor all other 𝑛 the integral is 0.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\n|𝑧|e𝑧\nCompute ∫                               𝑑𝑥.\n−∞   (𝑥2 + 1)(𝑥2 + 4)\nHint: integrate over the closed path shown below. Show that as 𝑅 goes to infinity the\ncontribution of the integral over 𝐶𝑅 becomes 0.\nIm(z)\nCR                            CR\nRe(z)\n−R                C1          R\n1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute ∫         2 + 1)(𝑥2 + 4)\n𝑑𝑥.\n−∞ (𝑥\nHint: integrate over the closed path shown below. Show that as 𝑅 goes to infinity the\ncontribution of the integral over 𝐶𝑅 becomes 0.\n18.04 Problem Set 4, Spring 2018 Solutions                                                 6\nIm(z)\nCR           2i       CR\ni\nRe(z)\n−R               C1    R\nThere is an example like this in the topic 4 notes. The strategy is:\n𝑓(𝑧)\n1. Let 𝑓(𝑧) = 2                 and use Cauchy’s formula to evaluate ∫      𝑓(𝑧) 𝑑𝑧.\n(𝑧 + 1)(𝑧 2 + 4)                                       𝐶1 +𝐶𝑅\n2. Notice that lim ∫ 𝑓(𝑧) 𝑑𝑠 = the integral we want to compute.\n𝑅→∞\n𝐶1\n3. Show that lim ∫ 𝑓(𝑧) 𝑑𝑠 = 0.\n𝑅→∞\n𝐶𝑅\n1\nStep 1. 𝑓(𝑧) =                                   . For 𝑅 large enough the singularities of 𝑓\n(𝑧 + 𝑖)(𝑧 − 𝑖)(𝑧 + 2𝑖)(𝑧 − 2𝑖)\ninside 𝐶1 + 𝐶𝑅 are 𝑧 = 𝑖 and 𝑧 = 2𝑖. As before, we break 𝐶1 + 𝐶𝑅 into two loops, each\nenclosing one of the singularities. We won’t bother drawing or naming the loops.\n1\nLoop around 𝑧 = 𝑖: Let 𝑔(𝑧) =                            . So, by Cauchy,\n(𝑧 + 𝑖)(𝑧 + 2𝑖)(𝑧 − 2𝑖)\n𝑔(𝑧)                𝜋\n∫       𝑓(𝑧) 𝑑𝑧 = ∫            𝑑𝑧 = 2𝜋𝑖𝑔(𝑖) = .\nloop               loop 𝑧 − 𝑖               3\n1\nLoop around 𝑧 = 2𝑖: Let 𝑔(𝑧) =                                . So, by Cauchy,\n(𝑧 + 𝑖)(𝑧 − 𝑖)(𝑧 + 2𝑖)\n𝑔(𝑧)                   𝜋\n∫         𝑓(𝑧) 𝑑𝑧 = ∫           𝑑𝑧 = 2𝜋𝑖𝑔(2𝑖) = − .\nloop             loop 𝑧 − 2𝑖                  6\n𝜋 𝜋  𝜋\nTotaling, ∫        𝑓(𝑧) 𝑑𝑧 =       − = .\n𝐶1 +𝐶𝑅                 3  6 6\nStep 2. This is clear: parametrize 𝐶1 as 𝛾(𝑥) = 𝑥, with −𝑅 ≤ 𝑥 ≤ 𝑅; 𝛾 ′ (𝑥) = 1. So,\n𝑅\n1\n∫ 𝑓(𝑧) 𝑑𝑧 = ∫         2 + 1)(𝑥2 + 4)\n𝑑𝑥\n𝐶1              −𝑅 (𝑥\nthis clearly goes to the integral from −∞ to ∞ in the limit.\nNote: we should verify that the improper integral is absolutely convergent. But this is clear\nsince the denominator grows like 𝑥4 and is never 0 on the real axis.\n18.04 Problem Set 4, Spring 2018 Solutions                                                                    7\nStep 3. Parametrize 𝐶𝑅 : 𝛾(𝜃) = 𝑅e𝑖𝜃 , with 0 ≤ 𝜃 ≤ 𝜋. So,\n𝜋\n1\n∣∫ 𝑓(𝑧) 𝑑𝑧∣ = ∣∫                                             𝑖𝑅e𝑖𝜃 𝑑𝜃∣\n𝐶𝑅                  0       (𝑅2 e𝑖2𝜃 + 1)(𝑅2 e𝑖2𝜃+4 )\n𝜋\n1\n≤∫ ∣                                      𝑖𝑅e𝑖𝜃 ∣ 𝑑𝜃                 (triangle inequality)\n0       (𝑅2 e𝑖2𝜃 + 1)(𝑅2 e𝑖2𝜃+4 )\n𝜋\n1\n=∫                                            𝑅, 𝑑𝜃\n0       |𝑅2 e𝑖2𝜃 + 1| |𝑅2 e𝑖2𝜃+4 |\n𝜋\n1\n𝑙𝑒 ∫                                  𝑅, 𝑑𝜃                  (also by triangle inequality)\n0       |𝑅2 − 1| |𝑅2 − 4|\n𝑅𝜋\n=\n|𝑅2 − 1| |𝑅2 − 4|\nThis goes to 0 as 𝑅 goes to ∞ as required by our strategy.\nPutting the steps together:\n∞\n1                                                𝜋  𝜋\n∫                                       𝑑𝑥 = lim ∫          𝑓(𝑧) 𝑑𝑧 = lim  = .\n−∞     (𝑥2 + 1)(𝑥2 + 4)                    𝑅→∞\n𝐶1 +𝐶𝑅\n𝑅→∞ 6   6\n1",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(10: 5,5 points)\nProve the more general formula\n2𝜋\n𝑛!\n𝑓 (𝑛) (𝑧0 ) =       ∫           𝑓(𝑧0 + 𝑟e𝑖𝜃 )e−𝑖𝑛𝜃 𝑑𝜃.\n2𝜋𝑟𝑛 0",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Prove the more general formula\n2𝜋\n𝑛!\n𝑓 (𝑛) (𝑧0 ) =       ∫         𝑓(𝑧0 + 𝑟e𝑖𝜃 )e−𝑖𝑛𝜃 𝑑𝜃.\n2𝜋𝑟𝑛 0\nUse the same curve as in part (a). This time use Cauchy’s formula for derivatives.\n2𝜋                                         2𝜋\n𝑛!        𝑓(𝑧)            𝑛!            𝑓(𝑧0 + 𝑟e𝑖𝜃 ) 𝑖𝜃       𝑛!\n𝑓 (𝑛) (𝑧0 ) =       ∫            𝑛+1\n𝑑𝑧 =     ∫                       𝑖𝑟e 𝑑𝜃 =     ∫                𝑓(𝑧0 +𝑟e𝑖𝜃 )e−𝑖𝑛𝜃 𝑑𝜃.\n2𝜋𝑖 𝐶𝑟 (𝑧 − 𝑧0 )          2𝜋𝑖 0           𝑛+1\n𝑟 e  𝑖(𝑛+1)𝜃          2𝜋𝑟𝑛 0\nThis is what we needed to prove.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nSuppose 𝑓(𝑧) is analytic on a simply connected region 𝐴 and 𝛾 is a simple closed curve\nin 𝐴. Fix 𝑧0 in 𝐴, but not on 𝛾. Use the Cauchy integral formulas to show that\n𝑓 ′ (𝑧)            𝑓(𝑧)\n∫            𝑑𝑧 = ∫            𝑑𝑧.\n𝛾 𝑧 −  𝑧 0      𝛾 (𝑧 − 𝑧0 )2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Suppose 𝑓(𝑧) is analytic on a simply connected region 𝐴 and 𝛾 is a simple closed curve\nin 𝐴. Fix 𝑧0 in 𝐴, but not on 𝛾. Use the Cauchy integral formulas to show that\n𝑓 ′ (𝑧)            𝑓(𝑧)\n∫           𝑑𝑧 = ∫            𝑑𝑧.\n𝛾 𝑧 −  𝑧 0      𝛾 (𝑧 − 𝑧0 )2\nSince 𝐴 is simply connected we know 𝑓 and 𝑓 ′ are analytic on and inside 𝛾. There are two\ncases: (i) 𝑧0 is inside 𝛾, (ii) 𝑧0 is outside 𝛾.\nIn case (i) we can use Cauchy’s formulas.\n𝑓 ′ (𝑧)\n∫          𝑑𝑧 = 2𝜋𝑖𝑓 ′ (𝑧0 )                (by Cauchy’s integral formula.)\n𝛾 𝑧 −  𝑧 0\n𝑓(𝑧)\n∫            2\n𝑑𝑧 = 2𝜋𝑖𝑓 ′ (𝑧0 )         (by Cauchy’s formula for derivatives.)\n𝛾 (𝑧 − 𝑧 0 )\nThese are the same.\nIn case (ii) both integrands are analytic on and inside 𝛾, so both integrals are 0 by Cauchy’s\ntheorem. Again, the integrals are the same. QED",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n𝑓(𝑧)\nSuppose 𝑓(𝑧) is entire and lim     = 0. Show that 𝑓(𝑧) is constant.\n                            𝑧→∞𝑧\nYou may use Morera’s theorem: if 𝑔(𝑧) is analytic on 𝐴 − {𝑧0 } and continuous on 𝐴, then\n𝑓 is analytic on 𝐴.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝑔(𝑧) =                . Since 𝑔(𝑧) is analytic on C − {0} and continuous on C\n𝑧\nit is analytic on all of C, by Morera’s theorem\nWe claim 𝑔(𝑧) ≡ 0.\nSuppose not, then we can pick a point 𝑧0 with 𝑔(𝑧0 ) ≠ 0. Since 𝑔(𝑧) goes to 0 as |𝑧| gets\nlarge we can pick 𝑅 large enough that |𝑔(𝑧)| < |𝑔(𝑧0 )| for all |𝑧| = 𝑅. But this violates the\nmaximum modulus theorem, which says that the maximum modulus of 𝑔(𝑧) on the disk\n18.04 Problem Set 4, Spring 2018 Solutions                                              12\n|𝑧| ≤ 𝑅 occurs on the circle |𝑧| = 𝑅. This disaster means our assumption that 𝑔(𝑧) ≠ 0 was\nwrong. We conclude 𝑔(𝑧) ≡ 0 as claimed.\nThis means that 𝑓(𝑧) = 𝑓(0) for all 𝑧, i.e. 𝑓(𝑧) is constant.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \ncos(𝑧)\nCompute ∫      2+𝑧+1\n𝑑𝑧 where 𝐶 is the circle |𝑧| = 2.\n𝐶 𝑧",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : There are two roots. Splitting the contour as we’ve done several times leads to a\ntotal integral of 0.\n18.04 Complex Variables with Applications\nSpring 2018\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\nSuppose 𝑢(𝑥, 𝑦) = 𝑥/𝑟2 , where 𝑟 is the usual polar 𝑟. Show that 𝑢 is harmonic and find\na harmonic conjugate 𝑣 such that 𝑓 = 𝑢 + 𝑖𝑣 is analytic.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Before we start: we’ll need the following formulas to help manage the algebra.\n𝜕𝑟       𝑥       𝜕𝑟        𝑦\n𝑟 = √𝑥2 + 𝑦2 ,      = 𝑟𝑥 = ,         = 𝑟𝑦 =                         (1)\n𝜕𝑥       𝑟       𝜕𝑦        𝑟\nFirst check that 𝑢 is harmonic.\n𝑢 = 𝑥𝑟−2\n𝑢𝑥 = 𝑟−2 − 2𝑥2 𝑟−4          𝑢𝑥𝑥 = −2𝑥𝑟−4 − 4𝑥𝑟−4 + 8𝑥3 𝑟−6 = −6𝑥𝑟−4 + 8𝑥3 𝑟−6\n𝑢𝑦 = −2𝑥𝑦𝑟−4                𝑢𝑦𝑦 = −2𝑥𝑟−4 + 8𝑥𝑦2 𝑟−6\n1\n18.04 Problem Set 5, Spring 2018 Solutions                                                 2\nSo,\n𝑢𝑥𝑥 + 𝑢𝑦𝑦 = −8𝑥𝑟−4 + 8𝑥3 𝑟−6 + 8𝑥𝑦2 𝑟−6 = −8𝑥𝑦−4 + 8𝑥(𝑥2 + 𝑦2 )𝑟−6 = 0.\nThis shows 𝑢 is harmonic. (Note: we don’t really need this, since showing that 𝑢 is the\nreal part of an analytic 𝑓 will guarantee it is harmonic. On the other hand, knowing it is\nharmonic means our search for an analytic 𝑓 is guaranteed to be successful.)\nNow, we’ll find 𝑓 directly by integrating 𝑓 ′ = 𝑢𝑥 = 𝑖𝑢𝑦 .\n−𝑥2 + 𝑦2 + 𝑖2𝑥𝑦     (𝑥 − 𝑖𝑦)2      𝑧2       1\n𝑓 ′ = 𝑢𝑥 − 𝑖𝑢𝑦 =           4\n= −      4\n= −     2\n= − 2.\n𝑟                𝑟           2\n𝑧 𝑧      𝑧\n1   𝑧   𝑥 − 𝑖𝑦                   𝑦\nThus, 𝑓(𝑧) =     = 2 =     2\nand 𝑣 = Im(𝑓) = − 2 .\n𝑧  𝑟      𝑟                     𝑟",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nSuppose F = ((𝑥2 − 𝑦2 )/𝑟4 , 2𝑥𝑦/𝑟4 ) is a velocity field. Show that F is divergent free and\nirrotational (curl free) and find a complex potential function for F.\nHint: Find the complex potential first.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We follow the hint to find the complex potential Φ. Let F = (𝑢, 𝑣), then\n𝑥2 − 𝑦2 − 2𝑖𝑥𝑦   (𝑥 − 𝑖𝑦)2   1\nΦ′ = 𝑢 − 𝑖𝑣 =           4\n=      4\n= 2.\n𝑟             𝑟       𝑧\n1\nSo, Φ = − . Since we found a complex potential fo F we have also shown it is divergence\n𝑧\nand curl free.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 10,5 points)\nLet 𝐴 be the region bounded by the positive 𝑥 axis and the ray 𝑥 = 𝑦 in the first quadrant.\n18.04 Problem Set 5, Spring 2018 Solutions                                                               3\nLet’s interpet the level curves of 𝜓 as the streamlines for an incompressible, irrotational\nflow. Give the velocity field of this flow.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Since 𝜓 = Im(𝑧4 ), we get without effort that the complex potential for the flow is\nΦ(𝑧) = 𝑧 4 . If we write Φ′ = 𝑢 − 𝑖𝑣, then the velocity field is F = (𝑢, 𝑣). Computing:\nΦ′ = 4𝑧 3 = 4(𝑥3 − 3𝑥𝑦2 ) + 4𝑖(3𝑥2 𝑦 − 𝑦3 )\nSo, F = (4(𝑥3 − 3𝑥𝑦2 , −4(3𝑥2 𝑦 − 𝑦3 ).\n2.0\n2.0\n1.5\n1.5\n1.0\n1.0\ny\ny\n0.5\n0.5\n0.0\n0.0\n0.0     0.5        1.0    1.5   2.0             -2      -1       0     1     2\nx                                              x\n𝜓𝐻 (right figure) is ‘pulled back’ to the stream function 𝜓 = 𝜓𝐻 (𝑔(𝑧)) (left).\nIn the figure we only show streamlines in the wedge of interest. The flow associated to\nΦ(𝑧) = 𝑧 4 is defined on the entire plane, which is divide into 8 wedges, each containing\nstreamlines which are wholly contained in the wedge.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\nConsider the complex potential for a fluid given by Φ(𝑧) = 𝐴𝑧 3 , where 𝐴 > 0:\n18.04 Problem Set 5, Spring 2018 Solutions                                                   4\nSketch the streamlines and the velocity field in the complex plane.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (Figure generated using R.) The wedge boundaries are straight lines given by the level\ncurve 𝜓 = 0. The stagnation point at the origin is shown. In the vector field, it was diﬀicult\nto get a good picture with the arrows draw proportional to the vector’s length, so we made\nthem all the same size.\n2\n2\n1\n1\n0\n0\ny\ny\n-1\n-1\n-2\n-2\n-2     -1     0   1    2             -2   -1   0     1   2\nx                                x\nVector field and streamlinesfor Φ(𝑧) = 𝐴𝑧 3 .",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nSuppose the vector field F = (𝑢, 𝑣) is divergence free and irrotational (curl free). Show that\n𝑢 is a harmonic function",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Method 1. We know that there is a complex potential function Φ with Φ′ =\n𝑢 − 𝑖𝑣. Since Φ is analytic, so is Φ′ . Since 𝑢 is the real part of an analytic function, it is\nharmonic.\nMethod 2. Divergence and curl free mean\n𝑢𝑥 + 𝑣𝑦 = 0 and 𝑣𝑥 − 𝑢𝑦 = 0.\nDifferentiating these equations by 𝑥 and 𝑦 respectively we have\n𝑢𝑥𝑥 + 𝑣𝑦𝑥 = 0 and 𝑣𝑥𝑦 − 𝑢𝑦𝑦 = 0.\nNow subtract these two equations to get 𝑢𝑥𝑥 + 𝑢𝑦𝑦 = 0 as needed.\n18.04 Problem Set 5, Spring 2018 Solutions                                                    5",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\nLet 𝐴 be the unit disk. Assume it is made of a heat conducting material and that in our\ntwo dimensional world it only loses heat through its boundary. Then at steady state the\ntemperature 𝑇 (𝑥, 𝑦) in the disk is a harmonic function.\nSuppose we hold the temperature of the boundary fixed at\n𝑇 (e𝑖𝜃 ) = 𝑇 (cos(𝜃), sin(𝜃)) = sin2 (𝜃).\nWhat is the maximum temperature on the disk?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The maximum value principle says 𝑇 attains its maximum on the boundary. The\nmaximum of sin2 (𝜃) is 1 ..",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nFind the radius of convergence.\n∞\n𝑧3𝑛\n𝑓1 (𝑧) = ∑           (b) 𝑓2 (𝑧) = 1 + 3(𝑧 − 1) + 3(𝑧 − 1)2 + (𝑧 − 1)3\n𝑛=0\n2𝑛",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : 𝑓1 (𝑧) = ∑             (b) 𝑓2 (𝑧) = 1 + 3(𝑧 − 1) + 3(𝑧 − 1)2 + (𝑧 − 1)3\n𝑛=0\n2𝑛\n𝑧3\nanswers: (a) The series is a geometric series with ratio              . The series converges if\n2\n|𝑧 3 |/2 < 1, i.e. for |𝑧| < 21/3 .",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nSuppose 𝑓 is analytic and has a zero of order 𝑚 at 𝑧0 . Show that 𝑔(𝑧) = 𝑓 ′ (𝑧)/𝑓(𝑧)\nhas a simple pole at 𝑧0 with Res(𝑔, 𝑧0 ) = 𝑚.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : This is a matter of writing out the Taylor series\n𝑓(𝑧) = 𝑎𝑚 (𝑧 − 𝑧0 )𝑚 + 𝑎𝑚+1 (𝑧 − 𝑧0 )𝑚+1 + …\n= 𝑎𝑚 (𝑧 − 𝑧0 )𝑚 ⋅ 𝑔(𝑧), where 𝑔(𝑧0 ) = 1\n𝑓 ′ (𝑧) = 𝑚𝑎𝑚 (𝑧 − 𝑧0 )𝑚−1 + (𝑚 + 1)𝑎𝑚+1 (𝑧 − 𝑧0 )𝑚 + …\n= 𝑚𝑎𝑚 (𝑧 − 𝑧0 )𝑚−1 ⋅ ℎ(𝑧), where ℎ(𝑧0 ) = 1\nSo,\n𝑓 ′ (𝑧)   𝑚𝑎𝑚 (𝑧 − 𝑧0 )𝑚−1 ℎ(𝑧)     𝑚     ℎ(𝑧)\n=              𝑚\n=       ⋅\n𝑓(𝑧)       𝑎𝑚 (𝑧 − 𝑧0 ) 𝑔(𝑧)      𝑧 − 𝑧0 𝑔(𝑧)\nSince ℎ(𝑧)/𝑔(𝑧) is analytic and ℎ(𝑧0 )/𝑔(𝑧0 ) = 1, the desired result Res(𝑔, 𝑧0 ) = 𝑚 follows.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n1\nFind the residue of 𝑓2 (𝑧) =             at 𝑧 = 0.\n2𝑧 cos(𝑧)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Since cos(0) = 1, 𝑔(𝑧) = 𝑧𝑓2 (𝑧) is analytic at 𝑧 = 0. This tells us the pole is\nsimple and Res(𝑓2 , 0) = 𝑔(0) = 1/2.\ne𝑧",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n1\nFind the residue at infinity of 𝑓4 (𝑧) =        .\n1−𝑧",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : First we find\n1              1   1         1\n𝑔(𝑧) =     2\n𝑓4 (1/𝑤) = 2 ⋅      =\n𝑤             𝑤 1 − 1/𝑤   𝑤(𝑤 − 1)\nSo\nRes(𝑓4 , ∞) = − Res(𝑔, 0) = 1.\ncos(𝑧)",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nWrite the principal part of each function at the isolated singularity. Compute the corre-\nsponding residue.\n𝑓1 (𝑧) = 𝑧 3 e1/𝑧",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The only singularity is at 𝑧 = 0. We know\n1   1   1       1\ne1/𝑧 = 1 +     + 2+     3\n+      +…\n𝑧 2𝑧   3!𝑧     4!𝑧4\nSo,\n𝑧  1  1\n𝑓1 (𝑧) = 𝑧 3 + 𝑧 2 +       + +    +…\n2 3! 4!𝑧\n1\nThus, we have Res(𝑓1 , 0) =                .\n24\n1 − cosh(𝑧)",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nLet 𝑓(𝑧) = (1 + 𝑧)𝑎 , computed using the principal branch of log. Give the Taylor series\naround 0.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We’ll do this using derivatives. Keeping the branch in mind 𝑓(𝑧) = e𝑎 log(1+𝑧) . On\nthe principle branch, 𝑓(0) = 1. Taking derivatives we have\n𝑓 (𝑛) (𝑧) = 𝑎(𝑎 − 1) ⋯ (𝑎 − 𝑛 + 1)(1 + 𝑧)𝑎−𝑛 ,   𝑓 (𝑛) (0) = 𝑎(𝑎 − 1) ⋯ (𝑎 − 𝑛 + 1).\nSo\n∞\n𝑎(𝑎 − 1) 2    𝑎(𝑎 − 1) ⋯ (𝑎 − 𝑛 + 1) 𝑛          𝑎\n𝑓(𝑧) = 1 + 𝑎𝑧 +            𝑧 +…+                       𝑧 + … = ∑ ( )𝑧𝑛\n2                    𝑛!                  𝑛=0\n𝑛\n𝑎                 𝑎(𝑎 − 1) ⋯ (𝑎 − 𝑛 + 1)\nwhere ( ) is defined as                         .\n𝑛                            𝑛!\nThe question didn’t ask for the following, but they are worth noting.\n1. If 𝑎 = 𝑛 is a nonnegative integer then the Taylor coeﬀicients are 0 for powers bigger than\n𝑛. For such 𝑎, 𝑓 is entire and the radius of convergence is ∞.\n2. For all other 𝑎 the disk of convergence centered at 0, goes as far as the first singularity,\nwhich is at 𝑧 = 1. That is, the radius of convergence is 1.\n√",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \ne𝑖𝑧\nUse the residue theorem to compute ∫            2\n𝑑𝑧.\n|𝑧|=3 𝑧 (𝑧 − 2)(𝑧 + 5𝑖)\ne𝑖𝑧",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The function 𝑓(𝑧) =                      is meromorphic with poles at 0, 2, −5𝑖. Of\n𝑧2 (𝑧 − 2)(𝑧 + 5𝑖)\nthese, only 0 and 2 are inside the countour of integration 𝐶: |𝑧| = 3.\nIm(z)\nC\nRe(z)\n0       2\n−5i\nSo, ∫ 𝑓(𝑧) 𝑑𝑧 = 2𝜋𝑖(Res(𝑓, 0) + Res(𝑓, 2)). To finish the problem we must compute the\n𝐶\nresidues.\ne𝑖𝑧                                               −12 + 5𝑖\nAt 𝑧 = 0: 𝑔(𝑧) = 𝑧 2 𝑓(𝑧) =                 is analytic. Thus, Res(𝑓, 0) = 𝑔′ (0) =          .\n(𝑧 − 2)(𝑧 + 5𝑖)                                           100\n(We’ll leave it to you to provide the details for finding 𝑔′ (0).)\ne𝑖𝑧                                             e2𝑖\nAt 𝑧 = 2: 𝑔(𝑧) = (𝑧 − 2)𝑓(𝑧) =                 is analytic. Thus, Res(𝑓, 2) = 𝑔(2) =           .\n𝑧2 (𝑧 + 5𝑖)                                       4(2 + 5𝑖)\ne𝑖𝑧                   −12 + 5𝑖      e2𝑖\nWe conclude that ∫            2\n𝑑𝑧 = 2𝜋𝑖 (          +           ).\n|𝑧|=3 𝑧 (𝑧 − 2)(𝑧 + 5𝑖)              100      4(2 + 5𝑖)\n18.04 Problem Set 6, Spring 2018 Solutions                                                         7",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \ne𝑖𝑧\nExplain why Cauchy’s integral formula can be viewed as a special case of the residue\ntheorem.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Cauchy’s integral formula says: if 𝐶 is a simple closed curve and 𝑓 is analytic on\n𝑓(𝑧)\nand inside 𝐶 and ∫         𝑓(𝑧0 ) = 2𝜋𝑖𝑓(𝑧0 ).\n𝐶 𝑧 − 𝑧0\nOn the other hand, since 𝑓 is analytic the only singularity of 𝑓(𝑧)/(𝑧 − 𝑧0 ) is at 𝑧 = 𝑧0 . So,\n𝑓(𝑧)\nthe residue theorem says ∫          𝑓(𝑧0 ) = 2𝜋𝑖 Res(𝑓(𝑧)/(𝑧 − 𝑧0 ), 𝑧0 ).\n𝐶 𝑧  − 𝑧0\nTo see both theorems give the same result we note that 𝑧0 is a simple pole and Res(𝑓(𝑧)/(𝑧−\n𝑧0 ), 𝑧0 ) = 𝑓(𝑧0 ).\nNote: the condition 𝑓 is analytic on 𝐶 can be relaxed. It is enough the 𝑓 be analytic inside\n𝐶 and continuous on and inside 𝐶. Even this can be further relaxed.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\n1\nIn this problem we will compute ∑         using the residue theorem. The techniques learned\n−∞\n𝑛2\nhere are general. In particular, the use of cot(𝜋𝑧) is fairly common.\ncos(𝜋𝑧)\nFind the formula for the power series coeﬀicients of 𝑓(𝑧) directly from the differential\nequation.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We express 𝑓(𝑧) and 𝑓 ′ (𝑧) as Taylor series\n∞\n𝑓(𝑧) = 𝑎0 + 𝑎1 𝑧 + … = ∑ 𝑎𝑛 𝑧𝑛\n𝑛=0\n∞\n𝑓 ′ (𝑧) = 𝑎1 + … = ∑ 𝑛𝑎𝑛 𝑧𝑛−1\n𝑛=0\nMultiplying we get and substituting into the DE we get\n∞\n(1 + 𝑧)𝑓 ′ (𝑧) = ∑(𝑛𝑎𝑛 + (𝑛 + 1)𝑎𝑛+1 )𝑧𝑛 = ∑ 2𝑎𝑛 𝑧𝑛 .\n𝑛=0\nEquation coeﬀicients gives the relation: 2𝑎𝑛 = 𝑛𝑎𝑛 + (𝑛 + 1)𝑎𝑛+1 . A little algebra converts\nthis to the recursive formula\n(2 − 𝑛)𝑎𝑛\n𝑎𝑛+1 =            .\n1+𝑛\nThe initial condition gives 𝑓(0) = 𝑎0 = 1. Using the recursion relation we find 𝑎1 = 2,\n𝑎2 = 1, 𝑎𝑚 = 0 for 𝑚 ≥ 3. Thus, 𝑓(𝑧) = 1 + 2𝑧 + 𝑧 2 .",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\n1\nIn this problem we will compute ∑         using the residue theorem. The techniques learned\n−∞\n𝑛2\nhere are general. In particular, the use of cot(𝜋𝑧) is fairly common.\ncos(𝜋𝑧)\nUse parts (b) and (c) to compute ∑ 2 .\n𝑛=1\n𝑛",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : By parts (b) and (c), letting 𝑁 → ∞, we have\n∞\n1    𝜋2\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = 2𝜋𝑖 [2 ∑             −    ] = 0.\n𝑁→∞\n𝐶𝑛                     𝑛=1\n𝑛2   3\n∞\n1    𝜋2\nThis implies ∑       =    ..\n𝑛=1\n𝑛2   6\nProblems below here are not assigned. Do them just for fun.\nProblem Fun 1. (No points)\n∞      ∞        ∞\n𝑧𝑛        𝑧𝑛\nBy considering the 3 series      ∑  2\n, ∑      , ∑   𝑧 𝑛 , show that a power series may\n𝑛=1\n𝑛     𝑛=1\n𝑛    𝑛=1\nconverge on all, some or no points on the boundary of its disk of convergence.\nSolution: For all three series the radius of convergence is 𝑅 = 1. So the boundary of the\ndisk of convergence is the circle |𝑧| = 1. (Often this is called the circle of convergence, which\nis a slightly confusing name as this problem shows.)\n1                                𝑧𝑛\nSince ∑ 2 is convergent, the series ∑ 2 converges absolutely everywhere on the circle\n𝑛                                 𝑛\n|𝑧| = 1.\n(−1)𝑛                                                 1\nSince ∑          converges (conditionally not absolutely) and ∑ diverges. We see that\n𝑛 𝑛                                                 𝑛\n𝑧\nthe series ∑      converges at some points on |𝑧| = 1. (In fact, it turns out this series\n𝑛\nconverges at every point on the circle except at |𝑧| = 1.)\n18.04 Problem Set 6, Spring 2018 Solutions                                               10\nWhen |𝑧| = 1 the terms in ∑ 𝑧 𝑛 do not decay to 0. Therefore the series is not convergent\nfor any 𝑧 on the unit circle.\nProblem Fun 2. (No points)\nSuppose that there exists a function 𝑓(𝑧) which is analytic at 𝑧 = 0 and which satisfies the\ndifferential equation\n(1 + 𝑧)𝑓 ′ (𝑧) = 2𝑓(𝑧), with 𝑓(0) = 1.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n2𝜋\n8 𝑑𝜃\nCompute ∫                           .\n0        (3 + 2 cos(𝜃))2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Call the integral 𝐼. Using the computations from part (a) we get\n1                    𝑑𝑧              𝑧\n𝐼 =∫                                       ⋅          =∫                     𝑑𝑧.\n|𝑧|=1   (3 + 2(𝑧2 + 1)/2𝑧)2              𝑖𝑧           2\n|𝑧|=1 𝑖(𝑧 + 3𝑧 + 1)\n2\n√                       √\n𝑧                                  −3 +                      5            −3 −     5\nLet 𝑓(𝑧) =      2          2\n. The poles of 𝑓 are 𝑧1 =                               and 𝑧2 =              . Of these\n𝑖(𝑧 + 3𝑧 + 1)                                2                                      2\nonly 𝑧1 is inside |𝑧| = 1. So, by the residue theorem\n𝐼 = 2𝜋𝑖 Res(𝑓, 𝑧1 )\nThe pole is order 2, so we need to do a little work to compute it. Let\n𝑔(𝑧) = (𝑧 − 𝑧1 )2 𝑓(𝑧),              so      Res(𝑓, 𝑧1 ) = 𝑔′ (𝑧1 ).\nComputing 𝑔′ (𝑧1 ) is not hard. It’s probably easiest to factor the denominator symbolically\nusing the roots 𝑧1 and 𝑧2 .\n(𝑧 − 𝑧1 )2 𝑧             𝑧\n𝑔(𝑧) =              2          2\n=             .\n𝑖(𝑧 − 𝑧1 ) (𝑧 − 𝑧2 )     𝑖(𝑧 − 𝑧2 )2\nBy direct computation using the quotient rule we have\n√\n′        (𝑧1 − 𝑧2 )2 − 2𝑧1 (𝑧1 − 𝑧2 )   3 5\n𝑔 (𝑧1 ) =                              =     .\n𝑖(𝑧1 − 𝑧2 )4            25𝑖\n1\n18.04 Problem Set 7, Spring 2018 Solutions                                                         2\n√\n√                                 6𝜋 5\nThe calculation was done using 𝑧1 − 𝑧2 =                5. Thus 𝐼 = 2𝜋𝑖 Res(𝑓, 𝑧1 ) =      .\n25\n2𝜋                                                            √\nsin2 (𝜃)                                       2𝜋",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\n𝑑𝑥\nCompute ∫    2 + 2𝑥 + 2\n. (Answer: 𝜋).\n−∞  𝑥\n1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝐼 be the integral in question. Let 𝑓(𝑧) =                  . Since the denominator\n𝑧 2 + 2𝑧 + 2\ndecays like 1/𝑧2 we can use a semicircular contour.\nIm(z)\nCR\n−1 + i\nRe(z)\n−R     C1                  R\nThe residue theorem implies ∫           𝑓(𝑧) 𝑑𝑧 = 2𝜋𝑖 ∑ residues of 𝑓 inside the contour. We\n𝐶1 +𝐶𝑅\nexamine each of the pieces in this equation.\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = 0 by Theorem 9.1 in the Topic 9 notes.\n𝑅→∞\n𝐶𝑅\nlim𝑅→∞ ∫𝐶 𝑓(𝑧) 𝑑𝑥 = 𝐼 (this is clear).\n1\nSo letting 𝑅 → ∞ we have 𝐼 = 2𝜋𝑖 ∑ residues of 𝑓 in the upper half-plane.\nThe poles of 𝑓 are at 𝑧1 = −1 + 𝑖 and 𝑧2 = −1 − 𝑖. Only 𝑧1 is in the upper half-plane. The\npole is simple so,\n1     1\nRes(𝑓, 𝑧1 ) = lim (𝑧 − 𝑧1 )𝑓(𝑧) =         = .\n𝑧→𝑧1                2𝑧1 + 2  2𝑖\n1\nThus 𝐼 = 2𝜋𝑖 ⋅      = 𝜋.\n2𝑖\n∞\n𝑥2",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\n𝑑𝑥\nShow ∫            𝑑𝑥 =      by integrating around the boundary of the circular sector\n0    𝑥3 + 1        9\nshown and letting 𝑅 → ∞. The vertex angle of the sector is 2𝜋/3.\nIm(z)\nRe(z)\nR\nCircular sector with vertex angle 2𝜋/3.\n1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝐼 be the integral in question. And let 𝑓(𝑧) = 3       . We proceed similarly\n𝑧 +1\nto parts (a) and (b). Here the contour is the circular sector shown. As usual, we put signs\non the pieces of the contour that make the parametrization easier.\nIm(z)\nCR\n−C3\neiπ/3\nRe(z)\nC1        R\nThe poles of 𝑓 are at e𝑖𝜋/3 , −1, e−𝑖𝜋/3 . The only one inside the contour is 𝑧1 = e𝑖𝜋/3 . So\n∫              𝑓(𝑧) 𝑑𝑧 = 2𝜋𝑖 Res(𝑓, 𝑧1 ).\n𝐶1 +𝐶𝑅 −𝐶3\nLooking at each segment of the curve in turn we have\n∞\n1\nOn 𝐶1 : lim ∫ 𝑓(𝑧) 𝑑𝑧 = ∫                   𝑑𝑥 = 𝐼.\nR→∞\n𝐶1           0       𝑥3 + 1\nOn 𝐶3 : Parametrize the curve by 𝛾(𝑡) = 𝑡e𝑖2𝜋/3 , where 𝑡 runs from 0 to 𝑅. So\n∞\n1\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = ∫                        e𝑖2𝜋/3 𝑑𝑡 = e𝑖2𝜋/3 𝐼.\nR→∞\n𝐶3                0       𝑡3 + 1\n18.04 Problem Set 7, Spring 2018 Solutions                                            5\nSince |𝑓(𝑧)| ≈ 1/|𝑧|3 , the same argument as for semicircles shows that\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = 0.\n𝑅→∞\n𝐶𝑅\nPutting it together we have\nlim ∫               𝑓(𝑧) 𝑑𝑧 = (1 − e𝑖2𝜋/3 )𝐼 = 2𝜋𝑖 Res(𝑓, 𝑧1 ).\n𝑅→∞\n𝐶1 +𝐶𝑅 −𝐶3\nAll that’s left is to compute the residue and do some algebra.\n𝑧 − 𝑧1    1     1\nRes(𝑓, 𝑧1 ) = lim              = 2 = 𝑖2𝜋/3 .\n𝑧→𝑧1 𝑧 3 + 1  3𝑧1 3e\nSo,\n2𝜋𝑖                    2𝜋𝑖\n𝐼=                        =\n3e2𝜋𝑖/3 (1 − e𝑖2𝜋/3 )    3(e2𝜋𝑖/3 − e𝑖4𝜋/3 )\n2𝜋𝑖\n=     𝑖2𝜋/3\n(use e𝑖4𝜋/3 = e−𝑖2𝜋/3 )\n3(e       − e−𝑖2𝜋/3 )\n𝜋                      𝜋           2𝜋\n=     𝑖2𝜋/3    −𝑖2𝜋/3\n=               = √ .\n3(e       −e        )/2𝑖    3 sin(2𝜋/3)      3 3",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\ncos(2𝑥)\nCompute ∫         2 + 1)2\n𝑑𝑥. (Answer: 3𝜋/(2𝑒2 ).)\n−∞ (𝑥",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : This is nearly identical to part (a). In this problem the denominator is squared.\ne𝑖2𝑧                  ̃ where 𝐼 ̃ = 2𝜋𝑖 Res(𝑓, 𝑖).\nSo very briefly, 𝑓(𝑧) = 2         and 𝐼 = Re(𝐼),\n(𝑧 + 1)2\nTo compute the residue we make the following calculation:\n(𝑧 − 𝑖)2 e𝑖2𝑧     e𝑖2𝑧\n𝑔(𝑧) = (𝑧 − 𝑖)2 𝑓(𝑧) =                      =          ,        and        Res(𝑓, 𝑖) = 𝑔′ (𝑖).\n(𝑧2 + 1)      (𝑧 + 𝑖)2\n3𝑖e−2            3𝜋e−2\nThis calculation is straightforward, we get 𝑔′ (𝑖) = −                     , so 𝐼 ̃ =       . Finally, 𝐼 =\n4                2\n−2\n3𝜋e\nRe(𝐼)̃ =            .\n2\nPrincipal value.\nRecall if 𝑓(𝑥) is continuous on the real axis except at, say, two points 𝑥1 < 𝑥2 then the\nprincipal value of the integral along the entire 𝑥-axis is defined by\n∞            𝑥1 −𝑟1                𝑥2 −𝑟2                    𝑅\np.v. ∫         = lim [∫          𝑓(𝑥) 𝑑𝑥 + ∫           𝑓(𝑥) 𝑑𝑥 + ∫             𝑓(𝑥) 𝑑𝑥.]\n−∞             −𝑅                     𝑥1 +𝑟1                   𝑥2 +𝑟2\nHere the limit is taken as 𝑅 → ∞, 𝑟1 → 0, 𝑟2 → 0. The extension to more points of\ndiscontinuity should be clear.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\ne3𝑖𝑥\nDerive the formula p.v. ∫                  𝑑𝑥 = {\n−∞ 𝑥 − 𝑤         −𝜋𝑖e−𝑖𝑤                if Im(𝑤) < 0.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Because 𝑤 is complex our complexification trick is not going to work. Instead we\ne𝑖𝑥 + e−𝑖𝑥\nwork with the formula cos(𝑥) =             . Using this formula we can break the integral\n2\ninto two pieces.\n∞                              ∞                             ∞                          ∞\ncos(𝑥)               e𝑖𝑥 + e−𝑖𝑥                  e𝑖𝑥                   e−𝑖𝑥\np.v. ∫          𝑑𝑥 = p.v. ∫              𝑑𝑥 = p.v. ∫             𝑑𝑥 + p.v. ∫           𝑑𝑥\n−∞ 𝑥 − 𝑤             −∞ 2(𝑥 − 𝑤)              −∞ 2(𝑥 − 𝑤)             −∞ 2(𝑥 − 𝑤)\n(2)\nWe’ll apply the residue theorem on a different contour for each piece.\ne𝑖𝑧                  e−𝑖𝑧\nLet 𝑓1 (𝑧) =            and 𝑓2 (𝑧) =          . Consider the following two contours.\n2(𝑧 − 𝑤)              2(𝑧 − 𝑤)\nIm(z)                                                     Im(z)\n2R1 i                   C R1\nw                                                     w\nC1                                         −R2                              R2\nRe(z)                                           Re(z)\n−R1                                      R1                            C2\n−2R2 i         −CR2\nWe can work with the contour on the left with 𝑓1 (Topic 9 notes, Theorem 9.2a) and with\nthe contour on the right for 𝑓2 (same theorem part b). Paying attention to the sign in the\nexponents. These theorems imply\nlim ∫            𝑓1 (𝑧) 𝑑𝑧 = 0,       lim ∫          𝑓2 (𝑧) 𝑑𝑧 = 0.\n𝑅1 →∞                                 𝑅2 →∞\n𝐶𝑅1                                   𝐶𝑅2\nThe case Im(𝑤) > 0.\n18.04 Problem Set 7, Spring 2018 Solutions                                                                 8\nFor now make the assumption Im(𝑤) > 0. Both 𝑓1 and 𝑓2 have their only pole at 𝑧 = 𝑤.\nSince Im(𝑤) > 0, 𝑤 is inside the left-hand contour and the right-hand contour contains no\npoles. So,\n∫          𝑓1 (𝑧) 𝑑𝑧 = 2𝜋𝑖 Res(𝑓1 , 𝑤) = 𝜋𝑖e𝑖𝑤\n𝐶1 +𝐶𝑅1\n∫          𝑓2 (𝑧) 𝑑𝑧 = 0.\n𝐶1 −𝐶𝑅2\nNow we finish the problem in the usual manner: letting 𝑅1 and 𝑅2 go to infinity we have\n∞                       ∞                         ∞\ncos(𝑥)\np.v. ∫   2+1\n𝑑𝑥 = p.v. ∫ 𝑓1 (𝑥) 𝑑𝑥 + p.v. ∫ 𝑓2 (𝑥) 𝑑𝑥 = 𝜋𝑖e𝑖𝑤 + 0 = 𝜋𝑖e𝑖𝑤 .\n−∞ 𝑥                −∞                 −∞\nThis is exactly what we were supposed to show.\nThe case Im(𝑤) < 0 is the same. The minus sign occurs because the curve 𝐶1 + 𝐶𝑅2 is\ntraversed in a clockwise direction.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\ne𝑖𝑥\nDerive the formula ∫                   𝑑𝑥 = 𝜋/2.\n0          𝑥2\n1 − cos(2𝑥)    1\nHint: sin2 (𝑥) =             = Re(1 − e2𝑖𝑥 ).\n2         2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Call the integral in question 𝐼. First note that there is not problem at 𝑥 = 0\n∞\nsince the integrand is continuous there. There is also no problem at ∞ because ∫                        1/𝑥2 𝑑𝑥\n1\nconverges. We start by using symmetry to get\n∞\nsin2 (𝑥)\n2𝐼 = p.v. ∫           𝑑𝑥.\n−∞    𝑥2\nSince the integral is known to converge the principal value will give the same value and is\nconvenient to use with indented contours.\n1 − e𝑖2𝑧\nNow, follow the hint and let 𝑓(𝑧) =          . Note that since the numerator is 0 at 𝑧 = 0,\n2𝑧2\n𝑓 has a simple pole at 𝑧 = 0.\nWe use the indented contour shown.\nIm(z)\n2Ri                          CR\n−C2\nC1                                 C3\nRe(z)\n−R                   −r      0     r                  R\nWe’ll make our argument a little more quickly than in previous problems. By Cauchy’s\ntheorem\n∫             𝑓(𝑧) 𝑑𝑥 = 0.\n𝐶1 −𝐶2 +𝐶3 +𝐶𝑅\nBy the usual limit theorems\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = 0 and lim ∫ 𝑓(𝑧) 𝑑𝑧 = 𝜋𝑖 Res(𝑓, 0)\n𝑅→∞                                    𝑟→0\n𝐶𝑅                                     𝐶2\nBy definition\n∞\nlim         ∫         𝑓(𝑧) 𝑑𝑧 = p.v. ∫           𝑓(𝑥) 𝑑𝑥.\n𝑅→∞, 𝑟→0\n𝐶1 +𝐶3                         −∞\n18.04 Problem Set 7, Spring 2018 Solutions                                                              10\nComputing Res(𝑓, 0):\n1 − (1 + 𝑖2𝑧 − 4𝑧 2 /2 − …)   𝑖\n𝑓(𝑧) =                    2\n=− +𝑧+…\n2𝑧                𝑧\nSo, Res(𝑓, 0) = −𝑖.\n∞\nPutting it all togother: 2𝐼 = p.v. ∫        𝑓(𝑥) 𝑑𝑥 = 𝜋𝑖 Res(𝑓, 0) = 𝜋. So, 𝐼 = 𝜋/2 ,\n−∞",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n1 for −1 < 𝑥 < 1\nLet 𝑓(𝑥) = {\n0 elsewhere.\n∞\n̂\nLet 𝑓(𝑥) = e−𝑥 . Let 𝜔 > 0 and 𝐼 = ∫                                          𝑓(𝑥)e𝑖2𝜔𝑥 𝑑𝑥. Use the rectangle with\n0\n∞\n2      √\nvertices at 0, 𝑅, 𝑅 + 𝑖𝜔 and 𝑖𝜔 and the known integral ∫ e−𝑥 𝑑𝑥 = 𝜋/2 to show that\n0\n2√\n𝐼 = e−𝜔 𝜋/2 + 𝑖𝐵. Here 𝐵 is the imaginary part and we are not concerned with its value.\n2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝑔(𝑧) = e−𝑧 e𝑖2𝑧𝜔 . We go through the 4 sides of the rectangle one at a time.\nIm(z)\n−C3                   (R, iω)\niω\n−C4                                            C2\nC1\nRe(z)\nR\nOn 𝐶1 , 𝑧 = 𝑥, with 𝑥 from 0 to 𝑅. So,\n∞\n2\nlim ∫ 𝑔(𝑧) 𝑑𝑧 = ∫                          e−𝑥 e𝑖2𝑥𝜔 𝑑𝑥 = 𝐼.\n𝑅→∞\n𝐶1                     0\nOn 𝐶2 , 𝑧 = 𝑅 + 𝑖𝑦, with 𝑦 from 0 to 𝜔; 𝑑𝑧 = 𝑖 𝑑𝑦; 𝑧2 = 𝑅2 − 𝑦2 + 𝑖2𝑅𝑦; 2𝑖𝑧𝜔 = 2𝑖𝑅𝜔 − 2𝑦𝜔.\nSo,\n𝜔                                                                           𝜔\n2   2                                                      2           2\n∣∫ 𝑔(𝑧) 𝑑𝑧∣ = ∣∫ e−𝑅 e𝑦 e−2𝑖𝑅𝑦 e2𝑖𝑅𝜔 e−2𝑦𝜔 𝑖 𝑑𝑦∣ ≤ e−𝑅 ∫ e𝑦 e−2𝑦𝜔 𝑑𝑦.\n𝐶2                  0                                                                           0\nClearly this goes to 0 as 𝑅 goes to ∞.\nOn 𝐶3 , 𝑧 = 𝑥 + 𝑖𝜔, with 𝑥 from 0 to 𝑅; 𝑑𝑧 = 𝑑𝑥; 𝑧 2 = 𝑥2 − 𝜔2 + 2𝑖𝑥𝜔; 2𝑖𝑧𝜔 = 2𝑖𝑥𝜔 − 2𝜔2 .\nSo,\n𝑅                                                                       𝑅\n−𝑥2 𝜔2 −2𝑖𝑥𝜔 2𝑖𝑥𝜔 −2𝜔2                                   −𝜔2               2\n∫ 𝑔(𝑧) 𝑑𝑧 = ∫ e                 e e            e          e            𝑑𝑥 = e              ∫ e−𝑥 𝑑𝑥.\n𝐶3                 0                                                                       0\n√\n𝜋           2\nAs 𝑅 → ∞, this integral goes to e−𝜔       .\n2\nOn 𝐶4 , 𝑧 = 𝑖𝑦, with 𝑦 from 0 to 𝜔; 𝑑𝑧 = 𝑖 𝑑𝑦; 𝑧2 = −𝑦2 ; 2𝑖𝑧𝜔 = −2𝑦𝜔. So,\n𝜔\n2\n∫ 𝑔(𝑧) 𝑑𝑧 = ∫ e−𝑦 e−2𝑦𝜔 𝑖 𝑑𝑦.\n𝐶4                  0\nThis is pure imaginary, call it 𝑖𝐵.\nSince 𝑔(𝑧) is entire, we have ∫                              𝑔(𝑧) 𝑑𝑧 = 0. So, using the limits above, we have\n𝐶1 +𝐶2 −𝐶3 −𝐶4\n√\n−𝜔2    𝜋\nlim ∫                             𝑔(𝑧) 𝑑𝑧 = 𝐼 − e                         − 𝑖𝐵.\n𝑅→∞\n𝐶1 +𝐶2 −𝐶3 −𝐶4                                                2\n18.04 Problem Set 7, Spring 2018 Solutions                                                                                       14\nThis is what we needed to show!\n∞\n̂",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nFind a fractional linear transformation that maps the right half-plane to the unit disk\nsuch that the origin is mapped to -1.\n𝑧−1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : 𝑇 (𝑧) =       . To verify this works we need to check three things.\n𝑧+1\n1. 𝑇 (0) = −1. This is obvious.\n2. 𝑇 maps the boundary of the right half-plane (𝑦-axis) to the boundary of the unit disk\n(unit circle).\n3. 𝑇 maps the right half-plane to the inside of the disk.\n|𝑖𝑦 − 1|\nTo see (2): Take 𝑖𝑦 on the boundary of the half-plane.         Then, |𝑇 (𝑖𝑦)| =              =\n|𝑖𝑦 + 1|\n√1 + 𝑦2\n= 1. This shows 𝑇 (𝑖𝑦) is on the unit circle. Since we know fractional linear\n√1 + 𝑦 2\ntransformations map lines to lines or circles this shows the image of the 𝑦-axis must be the\nentire unit circle.\nTo see (3): (1) shows that one point in the right half-plane maps to the inside of the disk.\nThis implies the entire half-plane must do so also.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nLet 𝑆 be a circle and 𝑧1 a point not on the circle. Show that there is exactly one point\n𝑧2 such that 𝑧1 and 𝑧2 are symmetric with respect to 𝑆.\n(Hint: start by proving this for 𝑆 a line.)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝑆 be a circle and 𝑧1 a point not on the circle. Show that there is exactly one point\n𝑧2 such that 𝑧1 and 𝑧2 are symmetric with respect to 𝑆.\n(Hint: start by proving this for 𝑆 a line.)\nThis is in the topic 10 notes in section 10.3.2:\nLet 𝑇 be a fractional linear transformation that maps 𝑆 to a line. We know that 𝑤1 = 𝑇 (𝑧1 )\nhas a unique reflection 𝑤2 in this line. Since 𝑇 −1 preserves symmetry, 𝑧1 and 𝑧2 = 𝑇 −1 (𝑤2 )\nare symmetric in 𝑆. Since 𝑤2 is the unique point symmetric to 𝑤1 the same is true for 𝑧2\nvis-a-vis 𝑧1 .\nw = T (z)\ny\ny\nS                                            T (S)\nz1\nz2 = T −1 (w2 )\nx\nx\nw1 = T (z1 )           w2",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nWhere does it map the circle |𝑧| = 1?\n(This problem will be helful when we look at Joukowsky transformations.)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If 𝑧 = e𝑖𝜃 then the computation above shows that\n𝑤 = 𝑧 + 1/𝑧 = 2 cos(𝜃).\nThat is, 𝑤 is real. So the unit circle is mapped to the line segment −2 ≤ 𝑥 ≤ 2. (As 𝑧 goes\nonce around the circle, 𝑤 covers the segment twice.)\nu\na=2\na = 1.5\na=1\n-2                                2 v",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nStart with the same flow as part (a). Use the Milne-Thomson Theorem to make this\nflow go around the cylinder |𝑧| = 1. Give the complex potential, the stream function and\nsketch some streamlines.\n1\n18.04 Problem Set 9, Spring 2018 Solutions                                                  2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Below on the right is the flow asked for: uniform + vortex around a cylinder. As\na bonus, on the left, we show uniform around a cylinder. Stagnation points are shown as\norange dots. The cylinder is shown as an orange circle. We include the streamlines inside\nthe cylinder because they look nice!\nIn the figures 𝑈 = 1, 𝑄 = 1, 𝑉 = 2𝑖 and 𝑅 = 1.\nLeft: uniform flow around a cylinder. Right: uniform plus vortex around a cylinder.\nAs before, uniform flow has Φ𝑈 = 𝑈 𝑧. A vortex around 𝑧 = 2𝑖 has Φ𝑉 (𝑧) = 𝑖𝑄 log(𝑧 − 2𝑖).\nSo uniform plus vortex has complex potential\nΦ𝑈𝑉 (𝑧) = 𝑈 𝑧 + 𝑖𝑄 log(𝑧 − 2𝑖).\nThe Milne-Thomson circle theorem implies that this flow around a cylinder of radius 𝑅 has\ncomplex potential\n𝑈 𝑅2\nΦ(𝑧) = Φ𝑈𝑉 (𝑧) + Φ𝑈𝑉 (𝑅2 /𝑧) = 𝑈 𝑧 +         + 𝑖𝑄 log(𝑧 − 2𝑖) − 𝑖𝑄 log(𝑅2 /𝑧 + 2𝑖).\n𝑧\nThe effect of 𝑈 is just to scale and rotate the flow. Setting 𝑈 = 1 makes the arithmetic a\nlittle simpler and doesn’t affect the basic analysis, so let’s do that. We have\n𝑅2\nΦ(𝑧) = 𝑧 +      + 𝑖𝑄 log(𝑧 − 2𝑖) − 𝑖𝑄 log(𝑅2 /𝑧 + 2𝑖).\n𝑧\nSo, for 𝑧 = 𝑥 + 𝑖𝑦, the stream function is\n𝑅2 𝑦\n𝜓 = Im(Φ) = (𝑦 −         + 𝑄 log(|𝑧 − 2𝑖|) − 𝑄 log(|𝑅2 /𝑧 + 2𝑖|)) .\n𝑟2\nAgain we used Φ′ to draw some arrows for the velocity field and find stagnation points.\n𝑅2     𝑖𝑄      𝑖𝑄𝑅2\nΦ′ (𝑧) = 1 −      +       +            .                          (2)\n𝑧2   𝑧 − 2𝑖 𝑧(𝑅2 + 2𝑖𝑧)\nStagnation points are where Φ′ (𝑧) = 0. Since we end up with a fourth order polynomial,\nwe used Octave’s roots function to find the roots.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nConsider 𝑓(𝑧) = 𝑧 5 − 2𝑧.\nHow many times does 𝑓 wind the circle |𝑧| = 3 around the origin? That is, let 𝛾(𝜃)\nparametrize the circle. How many times does the curve 𝑓 ∘ 𝛾(𝜃) wind around the origin.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The figure on the left below show the plot of 𝑓 ∘ 𝛾, where 𝛾 is the circle |𝑧| = 3.\nLeft plot: parts (a) and (c).   Right plot: part (b).\nWe will use the argument principle and Rouchés theorem to show that the winding number\nof 𝑓 ∘ 𝛾 around 0 is Ind(𝑓 ∘ 𝛾, 0) = 5 .\nUsing the notation from the class notes, the argument principle says that Ind(𝑓 ∘ 𝛾, 0) =\n𝑍𝑓,𝛾 − 𝑃𝑓,𝛾 . Since 𝑓 is entire there are no poles and we have\nInd(𝑓 ∘ 𝛾, 0) = 𝑍𝑓,𝛾\nSo, to show the winding number is 5, it suﬀices to show that 𝑓 has exactly 5 zeros inside 𝛾.\nFor this, we split 𝑓 into pieces: 𝑓 = 𝑔 + 𝑧, where 𝑔(𝑧) = 𝑧 5 and ℎ(𝑧) = −2𝑧. On |𝑧| = 3 we\nhave\n|ℎ| = 6 < 35 = |𝑔|.\nSo Rouchés theorem implies that 𝑍𝑔,𝛾 = 𝑍𝑔+ℎ,𝛾 . Clearly 𝑍𝑔,𝛾 = 5 This shows that 𝑓 = 𝑔 + ℎ\nhas 5 zeros inside 𝛾. QED.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nConsider 𝑓(𝑧) = 𝑧 5 − 2𝑧.\nHow many times does 𝑓 wind the circle |𝑧| = 3 around the point 𝑧 = −2?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝛾 be the circle of radius 3 around the origin. Clearly, Ind(𝑓 ∘ 𝛾, −2) =\nInd(−2 + 𝑓 ∘ 𝛾, 0). Now we apply Rouchés theorem to show that 𝑓(𝑧) − 2 has 5 zeros inside\n𝛾. This will imply that Ind(𝑓 ∘ 𝛾, −2) = 5.\nLet 𝑔(𝑧) = 𝑧5 . |𝑔| = 35 on 𝛾. Also 𝑔 has 5 zeros inside 𝛾.\nLet ℎ(𝑧) = −2𝑧 − 2. |ℎ| ≤ 8 on 𝛾.\nSince |ℎ| < |𝑔| on 𝛾, Rouchés theorem says that 𝑓 − 2 = 𝑔 + ℎ and 𝑔 both have 5 zeros inside\n𝛾.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nShow that 𝑓(𝑧) = 𝑧6 + 4𝑧 2 − 1 has exactly two roots in the disk |𝑧| < 1.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Show that 𝑓(𝑧) = 𝑧 6 + 4𝑧 2 − 1 has exactly two roots in the disk |𝑧| < 1.\nLet 𝑔(𝑧) = 4𝑧 2 − 1 and ℎ(𝑧) = 𝑧 6 . On the unit circle we have\n|ℎ(𝑧)| = 1 < 3 ≤ |𝑔(𝑧)|.\nSo, since 𝑔 and ℎ have no poles, Rouchés theorem says 𝑔 and 𝑓 = 𝑔 + ℎ have the same\nnumber of zeros inside the unit circle. The roots of 𝑔(𝑧) are ±1/2, i.e. 𝑔 has exactly two\nzeros in the disk, therefore, so does 𝑓.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nIn this problem we will consider linear systems with negative feedback, where the feedback\ngain is 𝑘. That is, if 𝐺(𝑠) is the open loop system function then the closed loop system\n𝐺(𝑠)\nfunction is 𝐺𝐶𝐿 (𝑠) =            .\n1 + 𝑘𝐺(𝑠)\n𝑠+1\nSuppose a linear system has system function 𝐺(𝑠) =                    . Let the feedback\n(𝑠 − 1)(𝑠 − 2)\ngain 𝑘 = 4. Is the closed loop system stable? Do this analytically.\n18.04 Problem Set 9, Spring 2018 Solutions                                                5",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We have\n𝑠+1\n𝐺       (𝑠−1)(𝑠−2)                      𝑠+1\n𝐺𝐶𝐿 =           =                     =                             .\n1 + 𝑘𝐺   1 + 𝑘(𝑠+1)\n(𝑠−1)(𝑠−2)\n(𝑠 − 1)(𝑠 − 2) + 𝑘(𝑠 + 1)\n𝑠+1\nFor 𝑘 = 4 this becomes 𝐺𝐶𝐿 (𝑠) = 2                . It’s easy to compute that 𝐺𝐶𝐿 has poles\n√                               𝑠  +𝑠+6\n−1 ± −23\n. Since these are in the left half-plane, 𝐺𝐶𝐿 is stable.\n2",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nLet 𝑓(𝑧) = (𝑧 + 1/𝑧)/2. Use a package like Matlab or Mathematic to draw 𝑓 ∘ 𝛾 for the\nfollowing curves.\nMake sure that the axes both have the same scale, so that circles plot as circles and not\nellipses. In Matlab the command axis equal after you plot will do this.\nThe circle |𝑧| = 3/2.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Here 𝑎 = 3/2, 𝑏 = 0. The image is an ellipse\n18.04 Problem Set 9, Spring 2018 Solutions                                               7\n3",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nLet 𝑓(𝑧) = (𝑧 + 1/𝑧)/2. Use a package like Matlab or Mathematic to draw 𝑓 ∘ 𝛾 for the\nfollowing curves.\nMake sure that the axes both have the same scale, so that circles plot as circles and not\nellipses. In Matlab the command axis equal after you plot will do this.\nThe circle |e𝑖𝜋/4 𝑧 + 1/2| = 3/2.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : This is similar to part (b).\n1  3                      3     1\n𝑣 = e𝑖𝜋/4 𝑧 +     = e𝑖𝜃 , so, 𝑧 = e−𝑖𝜋/4 ( e𝑖𝜃 − )\n2  2                      2     2\nThat is, 𝑎 = e−1𝑖∗𝜋/4 ∗ 1.5 and 𝑏 = e−1𝑖∗𝜋/4 ∗ (−0.5)\nNotice how this looks like an airfoil. We could use a more complicated shaping functions to\nmap the circle to other shapes. This map would map a flow around the cylinder to a flow\naround the new shape. For example, this could be used to study flow around a wing.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(30: 10,5,10,5 points)\n𝑧\nCompute all the values of 𝑖𝑖 . Say which one comes from the principal branch of log.\n(Give all your answers in standard form.)\nIs it surprising that 𝑖𝑖 is real?\n𝜋",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : |𝑖| = 1 and Arg(𝑖) = 𝜋/2, so log(𝑖) =            𝑖 + 2𝑛𝜋𝑖, where 𝑛 is any integer. Thus\n2\n𝑖𝑖 = e𝑖 log(𝑖) = e−𝜋/2−2𝑛𝜋\nOn the principal branch 𝑖𝑖 = e−𝜋/2 . I’m surprised that it’s real!\n√",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\nShow e𝑧 = e𝑧 .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝑧 = 𝑥 + 𝑖𝑦, then e𝑧 = e𝑥 e𝑖𝑦 = e𝑥 cos(𝑦) + 𝑖e𝑥 sin(𝑦). So,\n(e𝑧 ) = e𝑥 cos(𝑦) − 𝑖e𝑥 sin(𝑦) = e𝑥 e−𝑖𝑦 = e𝑥−𝑖𝑦 = e𝑧",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\nLet 𝑥+𝑖𝑦                      2   2\n𝑥−𝑖𝑦 = 𝑎 + 𝑖𝑏. Show that 𝑎 + 𝑏 = 1.\nHint: This takes one line if you look at it right. Think polar form.\n𝑥 + 𝑖𝑦       𝑟e𝑖𝜃",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If 𝑥 + 𝑖𝑦 = 𝑟e𝑖𝜃 , then 𝑥 − 𝑖𝑦 = 𝑟e−𝑖𝜃 . So, ∣             ∣ = ∣ −𝑖𝜃 ∣ = |e2𝑖𝜃 | = 1.    QED\n𝑥 − 𝑖𝑦      𝑟e",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,10 points)\nConsider the mapping 𝑧 → 𝑤 = 𝑧 2 . Draw the image in the 𝑤-plane of the triangular\nregion in the 𝑧-plane with vertices 0, 1 and 𝑖.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The figure shows the image.\nIn brief we have: 𝑧 = 1 ↦ 𝑤 = 1, 𝑧 = (1 + 𝑖)/2 ↦ 𝑤 = 𝑖/2, 𝑧 = 𝑖 ↦ 𝑤 = −1.\nThe sides of the triangle map as follows:\nthe line segment [0, 1] ↦ the line segment [0, 1]\nthe line segment [0, 𝑖] ↦ the line segment [0, −1]\nthe line segment [1, 𝑖] ↦ the parabola shown in the figure (proved below).\nz 7→ w = z 2\nIm(z)                                                Im(w)\ni\n0.5i\n(1 + i)/2\nRe(z)                                               Re(w)\n1                               −1                   1\nIt takes a small amount of algebra to find the equation for the image of the segment\nfrom 1 to 𝑖. We parametrize the segment as 𝑧 = (1 − 𝑡) + 𝑡𝑖 with 0 ≤ 𝑡 ≤ 1. Then\n𝑤 = 𝑧 2 = (1 − 2𝑡) + 2𝑡(1 − 𝑡)𝑖. As a curve in the plane this is\n𝑤 = (𝑢(𝑡), 𝑣(𝑡)), where 𝑢(𝑡) = 1 − 2𝑡 and 𝑣(𝑡) = 2𝑡(1 − 𝑡).\nA little more algebra shows that 𝑡 = (1 − 𝑢)/2 and therefore 𝑣 = −𝑢2 + 1/2. This is the\n18.04 Problem Set 1, Spring 2018 Solutions                                                  4\nformula for the parabola shown.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points) (Orthogonal lines stay orthogonal!)\nConsider the mapping 𝑤 = e𝑧 .\n(i) Sketch in the 𝑤-plane the image under this mapping of vertical lines in the 𝑧-plane.\n(ii) On the same graph sketch the image of horizontal lines.\nShow enough lines to give a good idea of what’s happening.\n(iii) Show (argue either geometrically or analytically) that the images of a vertical and a\nhorizontal lines meet at right angles.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (i) As usual, let 𝑧 = 𝑥 + 𝑖𝑦. Vertical line have the equation 𝑥 = 𝑎 for some\nconstant 𝑎. We can parametrize this line by 𝑧 = 𝑎 + 𝑖𝑦, with −∞ < 𝑦 < ∞. The image of\nthe line under the mapping is\n𝑤 = e𝑎+𝑖𝑦 = e𝑎 e𝑖𝑦 .\nThus |𝑤| = e𝑎 is constant, so the image is a circle of radius e𝑎 centered on 0.\n(ii) Likewise, horizontal lines have the equation 𝑦 = 𝑏 for some constant 𝑏. We parametrize\nthis by 𝑧 = 𝑥 + 𝑖𝑏, with −∞ < 𝑥 < ∞. The image of the line under this mapping is\n𝑤 = e𝑥+𝑖𝑏 = e𝑥 e𝑖𝑏 .\nThus arg(𝑤) = 𝑏 is constant, so the image is a ray from the origin at angle 𝑏.\nIn the figure below we label the corresponding curves with the same label. So, for example,\nthe image of the vertical line 𝑙𝑣4 is the circle in the 𝑤-plane labeled 𝑙𝑣4\n18.04 Problem Set 1, Spring 2018 Solutions                                                                                                                                  5\nIm(z)                                                                                 Im(w)\nlh3\nlv1                 lv2      lv3       lv4                     z 7→ w = ez\nπi                          lh5\nlh4                                lh2\n3π/4 i                      lh4\nπ/2 i                       lh3                                                                             lv4\nπ/4 i\nlv3\nlh2                                                               lv2\nlv1\nRe(z)                                                                                   Re(w)\n−1                     0        1/2        1      lh1                               lh5                                                        lh1\n−π/4 i                      lh8\n−π/2 i                      lh7\n−3π/4 i                     lh6\nlh8\nlh6\nlh7\n(iii) The images found in parts (i) and (ii) are circles and rays. Geometrically we know\nthat radii are perpendicular to circles, so rays from the origin are perpendicular to circles\ncentered on the origin.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nFind all points where\n\n                                            𝑧−1     𝜋\n                                    Arg (       )=±\n                                            𝑧+2     2\nHint: let 𝑤 = (𝑧 − 1)/𝑧 + 2). What does the condition say about the relation between 𝑤\nand 𝑤? Be careful to note points where Arg(𝑤) is not defined.\n\n\n\n\n\n18.04 Complex Variables with Applications\nSpring 2018\n\n\n\nFor information about citing these materials or our Terms of Use, visit:",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Answer: the set of points is the circle |𝑧 + 1/2| = 3/2, excluding the points 𝑧 = 1\nand 𝑧 = −2 where arg(𝑤) is not defined.\nJustification. Arg(𝑤) = ±𝜋/2 means that 𝑤 is on the imaginary axis (and 𝑤 ≠ 0). Thus\nwe must have\n𝑧−1\n𝑤=         = 𝑖𝑏, where 𝑏 ≠ 0 is real.\n𝑧+2\n2𝑖𝑏 + 1\nSolving for 𝑧 we get 𝑧 =          .\n−𝑖𝑏 + 1\nWe can view this as a mapping 𝑏 ↦ 𝑧 from the real 𝑏-line to the complex 𝑧-plane. A tiny\namount of algebra gives\n2𝑖𝑏 + 1        3\n𝑧=           =          − 2.\n−𝑖𝑏 + 1     −𝑖𝑏 + 1\nIgnoring the scale by 3 and the shift by -2 for the moment we have:\n1\nClaim. The image of 𝑤 = −𝑖𝑏+1   where 𝑏 is real is the circle |𝑤 − 1/2| = 1/2, i.e. the circle\nwith radius 1/2 and center 1/2.\nProof.\n1                1 + 𝑏𝑖     1\n|𝑤 − 1/2| = ∣           − 1/2∣ = ∣           ∣= .\n−𝑖𝑏 + 1            2(1 − 𝑏𝑖)   2\n(The last equality follow from problem 2c.)\nSince 𝑧 = 3𝑤 − 2 we have the 𝑧-image is the circle of radius 3/2 with center 3/2 − 2 = −1/2.\n𝑧−1\nAlternative solution. 𝑤 = (𝑧 − 1)/(𝑧 + 2) is pure imaginary, so 𝑤 = −𝑤, i.e.              =\n𝑧+2\n𝑧−1\n−       . A little algebra gives 2|𝑧|2 + 𝑧 + 𝑧 = 4.\n𝑧+2\nLet 𝑧 = 𝑥 + 𝑖𝑦. The above becomes 2(𝑥2 + 𝑦2 ) + 2𝑥 = 4 or 𝑥2 + 𝑦2 + 𝑥 = 4. Completing the\nsquare gives (𝑥 + 1/2)2 + 𝑦2 = 9/4. That is |𝑧 + 1/2|2 = 9/4.\n18.04 Problem Set 1, Spring 2018 Solutions   7\n18.04 Complex Variables with Applications\nSpring 2018\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\nGive the region where cot(𝑧) is analytic. Compute its derivative.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Give the region where cot(𝑧) is analytic. Compute its derivative.\ncos(𝑧)\nSince cot(𝑧) =        is the quotient of entire functions it is analytic for all 𝑧 except where\nsin(𝑧)\nsin(𝑧) = 0. We know sin(𝑧) = 0 for all multiples of 𝜋. To see that this is all the zeros of sin\nwe use the formula\nsin(𝑧) = sin(𝑥) cosh(𝑦) + 𝑖 cos(𝑥) sinh(𝑦)\nSince cosh(𝑦) is never 0, the real part of sin(𝑧) is only 0 where sin(𝑥) = 0, where 𝑥 = 𝑛𝜋\nfor some integer 𝑛. Since cos(𝑛𝜋) ≠ 0, the imaginary part of sin(𝑧) is only 0 if sinh(𝑦) = 0.\nThis only happens when 𝑦 = 0 Therefore, the zeros of sin(𝑧) are at 𝑧 = 𝑥 + 𝑖𝑦 = 𝑛𝜋.\nSo cot(𝑧) is analytic on the set C − {𝑛𝜋 where 𝑛 is an integer}.\nWe use the quotient rule to compute the derivative. Since the algebra will be identical to\nthe real case, we know the derivative will be − csc2 (𝑧):\n𝑑 cot(𝑧)   𝑑 cos(𝑧)     − sin(𝑧) sin(𝑧) − cos(𝑧) cos(𝑧)      1\n=   (       )=                2\n=− 2      = − csc2 (𝑧).\n𝑑𝑧      𝑑𝑧 sin(𝑧)                sin (𝑧)               sin (𝑧)\n1\n18.04 Problem Set 2, Spring 2018 Solutions                                                     2",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\n𝑛\n𝑃 ′ (𝑧)        1\nCompute and simplify      (        ).\n𝑑𝑧 𝑐𝑧 + 𝑑\nWhat happens when 𝑎𝑑 − 𝑏𝑐 = 0 and why?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute and simplify      (       ).\n𝑑𝑧 𝑐𝑧 + 𝑑\nWhat happens when 𝑎𝑑 − 𝑏𝑐 = 0 and why?\n𝑎𝑧 + 𝑏\nLet 𝑓(𝑧) =        . The quotient rule gives\n𝑐𝑧 + 𝑑\n𝑎(𝑐𝑧 + 𝑑) − (𝑎𝑧 + 𝑏)𝑐    𝑎𝑑 − 𝑏𝑐\n𝑓 ′ (𝑧) =                  2\n=           .\n(𝑐𝑧 + 𝑑)          (𝑐𝑧 + 𝑑)2\nIf 𝑎𝑑 − 𝑏𝑐 = 0 then the derivative is always 0, so 𝑓(𝑧) must be constant. We verify this\ndirectly: We know 𝑎/𝑐 = 𝑏/𝑑, call this ratio 𝑟. Then\n𝑎𝑧 + 𝑏   𝑟𝑐𝑧 + 𝑟𝑑\n𝑓(𝑧) =           =          = 𝑟.\n𝑐𝑧 + 𝑑    𝑐𝑧 + 𝑑\nThis shows that 𝑓(𝑧) is constant.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\nLet 𝑓(𝑧) be as in part (a). Show that 𝐹2 (𝑧) = 𝑓(𝑧) is not analytic unless 𝑓 is constant.\nHint for both parts: Use the Cauchy-Riemann equations.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : This part is similar except we’ll find that the C-R equations are not satisfied\n𝐹2 (𝑧) = 𝑓(𝑧) = 𝑢(𝑥, −𝑦) + 𝑖𝑣(𝑥, −𝑦).\nWe can write 𝐹2 (𝑧) = 𝑈2 (𝑥, 𝑦) + 𝑖𝑉2 (𝑥, 𝑦), where 𝑈2 (𝑥, 𝑦) = 𝑢(𝑥, −𝑦) and 𝑉2 (𝑥, 𝑦) =\n𝑣(𝑥, −𝑦). Taking partial derivatives we get\n𝜕𝑈2          𝜕𝑢             𝜕𝑈2    𝜕𝑢\n(𝑥, 𝑦) =    (𝑥, −𝑦),        = − (𝑥, −𝑦)\n𝜕𝑥           𝜕𝑥              𝜕𝑦    𝜕𝑦\n𝜕𝑉2          𝜕𝑣             𝜕𝑉2    𝜕𝑣\n(𝑥, 𝑦) =    (𝑥, −𝑦),        = − (𝑥, −𝑦)\n𝜕𝑥          𝜕𝑥             𝜕𝑦     𝜕𝑦\n18.04 Problem Set 2, Spring 2018 Solutions                                                  4\nWe see that\n𝜕𝑈2          𝜕𝑢           𝜕𝑣             𝜕𝑉\n(𝑥, 𝑦) =    (𝑥, −𝑦) =    (𝑥, −𝑦) = − 2 (𝑥, 𝑦)\n𝜕𝑥           𝜕𝑥           𝜕𝑦             𝜕𝑦\n𝜕𝑈2           𝜕𝑢           𝜕𝑣            𝜕𝑉2\n(𝑥, 𝑦) = − (𝑥, −𝑦) =       (𝑥, −𝑦) =     (𝑥, 𝑦)\n𝜕𝑦           𝜕𝑦           𝜕𝑥            𝜕𝑥\nThus, the C-R equations are not satisfied unless all the partials are 0, in which case 𝑓(𝑧) is\nconstant.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(30: 10,10,10 points)\n1\nConsider the integral ∫     𝑑𝑧, where 𝐶 is the unit circle. Write out both the real and\n𝐶 𝑧\nimaginary parts as 18.02 integrals, i.e. of the form ∫𝐶 𝑀 (𝑥, 𝑦) 𝑑𝑥 + 𝑁 (𝑥, 𝑦) 𝑑𝑦.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Consider the integral ∫ 𝑑𝑧, where 𝐶 is the unit circle. Write out both the real and\n𝐶 𝑧\nimaginary parts as 18.02 integrals, i.e. of the form ∫𝐶 𝑀 (𝑥, 𝑦) 𝑑𝑥 + 𝑁 (𝑥, 𝑦) 𝑑𝑦.\n1\n18.04 Problem Set 3, Spring 2018 Solutions                                                           2\n1     1      𝑥 − 𝑖𝑦\nWe have     =        = 2      , So\n𝑧   𝑥 + 𝑖𝑦  𝑥 + 𝑦2\n1        𝑥 − 𝑖𝑦                   𝑥            𝑦                −𝑦            𝑥\n∫    𝑑𝑧 = ∫ 2      2\n(𝑑𝑥+𝑖 𝑑𝑦) = ∫ 2     2\n𝑑𝑥 + 2     2\n𝑑𝑦 + 𝑖 ∫ 2      2\n𝑑𝑥 + 2      𝑑𝑦\n𝐶 𝑧      𝐶 𝑥 +  𝑦               𝑐 𝑥 + 𝑦       𝑥  + 𝑦          𝐶 𝑥 +  𝑦       𝑥  + 𝑦2\nNote that the real part uses the radial vector field and the imaginary part uses the tangential\n(to the circle) vector field.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\nLet 𝐶 be the circle of radius 1 centered at 𝑧 = −4. Let 𝑓(𝑧) = 1/(𝑧 + 4). and consider the\nline integral\n𝐼 = ∫ 𝑓(𝑧) 𝑑𝑧.\n𝐶\nDoes Cauchy’s Theorem imply that 𝐼 = 0? Why or why not?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Does Cauchy’s Theorem imply that 𝐼 = 0? Why or why not?\nNo. 𝑓(𝑧) = 1/(𝑧 + 4) is not analytic at 𝑧 = −4. Since this is in the interior of 𝐶 the function\nis not analytic on a simply connected region containing 𝐶, so Cauchy’s theorem does not\napply.\nIm\nC\nRe\n-4\nThe singularity 𝑧 = −4 is inside the curve 𝐶.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 10,5 points)\nCompute ∫𝐶 𝑧1/3 𝑑𝑧, where 𝐶 the unit semicircle shown. Use the principal branch of\narg(𝑧) to compute the cube root.\nIm 𝑧\n𝐶\nRe 𝑧\n−1              1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute ∫𝐶 𝑧1/3 𝑑𝑧, where 𝐶 the unit semicircle shown. Use the principal branch of\narg(𝑧) to compute the cube root.\nIm 𝑧\n𝐶\nRe 𝑧\n−1                1\nWe parametrize the curve being sure to put the polar angle in the proper branch of arg:\n𝛾(𝑡) = e𝑖𝑡 , where 0 ≤ 𝑡 ≤ 𝜋. So,\n𝜋                        𝜋\n3 𝑖4𝑡/3 𝜋 3 𝑖4𝜋/3        3      √\n∫𝑧 1/3 𝑑𝑧 = ∫ e𝑖𝑡/3 𝑖e𝑖𝑡 = 𝑖 ∫ e𝑖4𝑡/3 𝑑𝑡 =                        e    ∣ = (e     − 1) = (−3 − 𝑖 3).\n𝛾          0                        0                       4       0 4              8",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 5,5,5,5 points)\nUse Cauchy’s integral formula to compute\nsin(𝜋𝑧 2 ) + cos(𝜋𝑧 2 )\n∫                         𝑑𝑧,\n𝐶    (𝑧 − 1)(𝑧 − 2)\nwhere 𝐶 is the circle of radius 4: |𝑧| = 4.\n𝑧2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Use Cauchy’s integral formula to compute\nsin(𝜋𝑧 2 ) + cos(𝜋𝑧 2 )\n∫                         𝑑𝑧,\n𝐶    (𝑧 − 1)(𝑧 − 2)\nwhere 𝐶 is the circle of radius 4: |𝑧| = 4.\nsin(𝜋𝑧 2 ) + cos(𝜋𝑧 2 )\nLet 𝑓(𝑧) =                           . There are two singularities of 𝑓 inside the contour 𝐶. Let’s\n(𝑧 − 1)(𝑧 − 2)\nuse the trick of splitting 𝐶 into two closed contours, each of which surrounds exactly on\nsingularity.\nIm(z)\nC3\nC2                               C1\n−C3\nRe(z)\n1     2       4\nSplit |𝑧| = 4 into two contours.\nWe have\n∫ 𝑓(𝑧) 𝑑𝑧 = ∫                   𝑓(𝑧) 𝑑𝑧 = ∫          𝑓(𝑧) 𝑑𝑧 + ∫            𝑓(𝑧) 𝑑𝑧.\n𝐶            𝐶1 +𝐶3 −𝐶3 +𝐶2               𝐶1 +𝐶3                −𝐶3 +𝐶2\nWe compute each integral separately.\nsin(𝜋𝑧2 ) + cos(𝜋𝑧 2 )\n𝐶1 + 𝐶3 : This contour contains the singularity 𝑧 = 2. We let 𝑔(𝑧) =                           ,\n(𝑧 − 1)\nso 𝑓(𝑧) = 𝑔(𝑧)/(𝑧 − 2). Now, 𝑔(𝑧) is analytic on and inside 𝐶1 + 𝐶3 so, by Cauchy’s integral\nformula we have\n𝑔(𝑧)\n∫         𝑓(𝑧) 𝑑𝑧 = ∫             𝑑𝑧 = 2𝜋𝑖𝑔(2) = 2𝜋𝑖.\n𝐶1 +𝐶3              𝐶1 +𝐶3 𝑧 − 2\nsin(𝜋𝑧 2 ) + cos(𝜋𝑧 2 )\n−𝐶3 + 𝐶2 : This contour contains the singularity 𝑧 = 1. We let 𝑔(𝑧) =                    ,\n(𝑧 − 2)\nso 𝑓(𝑧) = 𝑔(𝑧)/(𝑧 − 2). Now, 𝑔(𝑧) is analytic on and inside −𝐶3 + 𝐶2 so, by Cauchy’s\nintegral formula we have\n𝑔(𝑧)\n∫           𝑓(𝑧) 𝑑𝑧 = ∫              𝑑𝑧 = 2𝜋𝑖𝑔(1) = 2𝜋𝑖.\n−𝐶3 +𝐶2               −𝐶3 +𝐶2 𝑧 − 1\nAdd the results together we get: the integral in the question equals 4𝜋𝑖.\n1\n18.04 Problem Set 4, Spring 2018 Solutions                                                    2\nNote. We could have done this with partial fractions. In essence, that is what we’ve\ndone. The method shown will be formalized and made easier once we’ve learned the residue\ntheorem.\n𝑧2",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 5,5,5,5 points)\nLet 𝐶 be the circle of radius 2: |𝑧| = 2. Use Cauchy’s integral formula to compute\n𝑧\n∫             𝑑𝑧.\n𝐶   𝑧2 − 1\nBe careful: 𝑧 is not analytic, but there is a way around this.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝐶 be the circle of radius 2: |𝑧| = 2. Use Cauchy’s integral formula to compute\n𝑧\n∫                      𝑑𝑧.\n𝐶   𝑧2 − 1\nBe careful: 𝑧 is not analytic, but there is a way around this.\nThe trick here is that on the curve 𝐶 we have 𝑧 = 4/𝑧. Therefore,\n𝑧                                  4\n∫                 𝑑𝑧 = ∫                               𝑑𝑧.\n𝐶   𝑧2 − 1                 𝐶   𝑧(𝑧 2 − 1)\n(If you don’t believe this you should parametrize 𝐶 and write out both integrals explicitly.\nYou will see they are the same. Of course, this is special to the circle 𝐶. It woudn’t be true\non every curve.)\n4\nNow, 𝑓(𝑧) =       2\nhas three singularities inside 𝐶: at 𝑧 = 0, ±1. We use our trick of\n𝑧(𝑧 − 1)\ndividing 𝐶. This time into three loops.\nIm(z)\nC3\nC5             −C4 C4 −C2 C2                      C1\nRe(z)\n−1                           1         2\nC6\n18.04 Problem Set 4, Spring 2018 Solutions                                                3\nSo, ∫ 𝑓(𝑧) 𝑑𝑧 = ∫                                 𝑓(𝑧) 𝑑𝑧 = ∫ 𝑓(𝑧) 𝑑𝑧+∫ 𝑓(𝑧) 𝑑𝑧+∫ 𝑓(𝑧) 𝑑𝑧.\n𝐶            𝐶1 +𝐶2 −𝐶2 +𝐶3 +𝐶4 −𝐶4 +𝐶5 +𝐶6            𝐿1         𝐿2         𝐿3\nHere 𝐿1 , 𝐿2 and 𝐿3 are the names of the loops as defined below. We now do the same thing\nas in part (a). We will do it without many comments.\n4\nFirst note: 𝑓(𝑧) =                 .\n𝑧(𝑧 − 1)(𝑧 + 1)\n4\nOn 𝐿1 = 𝐶1 + 𝐶2 : Inside this loop 𝑓 has a singularity at 𝑧 = 1. Let 𝑔(𝑧) = 𝑧(𝑧+1) , so\n𝑓(𝑧) = 𝑔(𝑧)/(𝑧 − 1).\n𝑔(𝑧)\n∫ 𝑓(𝑧) 𝑑𝑧 = ∫          = 2𝜋𝑖𝑔(1) = 4𝜋𝑖.\n𝐿1            𝐿1 𝑧 − 1\nOn 𝐿2 = −𝐶2 + 𝐶3 + 𝐶4 + 𝐶6 : Inside this loop 𝑓 has a singularity at 𝑧 = 0. Let 𝑔(𝑧) =\n4\n(𝑧+1)(𝑧−1) , so 𝑓(𝑧) = 𝑔(𝑧)/𝑧.\n𝑔(𝑧)\n∫ 𝑓(𝑧) 𝑑𝑧 = ∫           = 2𝜋𝑖𝑔(0) = −8𝜋𝑖.\n𝐿2              𝐿2 𝑧\n4\nOn 𝐿3 = −𝐶4 + 𝐶5 : Inside this loop 𝑓 has a singularity at 𝑧 = −1. Let 𝑔(𝑧) = 𝑧(𝑧−1) , so\n𝑓(𝑧) = 𝑔(𝑧)/(𝑧 + 1).\n𝑔(𝑧)\n∫ 𝑓(𝑧) 𝑑𝑧 = ∫            = 2𝜋𝑖𝑔(−1) = 4𝜋𝑖.\n𝐿3              𝐿3 𝑧 +1\nTotaling the contribution from each loop we have our answer: 4𝜋𝑖 − 8𝜋𝑖 + 4𝜋𝑖 = 0 .",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 10,5 points)\nLet 𝑓(𝑧) = 𝑧 𝑛 , where 𝑛 is a positive integer. By directly computing the integral, show\nthat Cauchy’s integral formula holds for 𝑓(𝑧0 ) and Cauchy’s formula for derivatives holds\nfor 𝑓 ′ (𝑧0 ).\nYou may need the binomial formula for expanding (𝑎 + 𝑏)𝑛 . As a hint: you may want\nto make a short argument, based on Cauchy’s theorem, reducing the integrals to circles\ncentered on the point of interest.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝑓(𝑧) = 𝑧 𝑛 , where 𝑛 is a positive integer. By directly computing the integral, show\nthat Cauchy’s integral formula holds for 𝑓(𝑧0 ) and Cauchy’s formula for derivatives holds\nfor 𝑓 ′ (𝑧0 ).\nYou may need the binomial formula for expanding (𝑎 + 𝑏)𝑛 . As a hint: you may want to\nmake a short argument, based on Cauchy’s theorem, reducing the integrals to circles centered\non the point of interest.\nFirst 𝑓(𝑧0 ): Fix 𝑧0 as our point of interest. Suppose 𝐶 is a simple closed curve going\n(counterclockwise) around 𝑧0 . Our goal is to show that\n1      𝑧𝑛\n∫         = 𝑧0𝑛 .\n2𝜋𝑖 𝐶 𝑧 − 𝑧0\nBy the extended version of Cauchy’s theorem we know\n𝑧𝑛         𝑧𝑛\n∫        =∫         ,\n𝐶 𝑧 − 𝑧0  𝐶𝑟 𝑧 − 𝑧0\nwhere 𝐶𝑟 is a small circle centered at 𝑧0 and entirely inside 𝐶. This last integral we can\ncompute directly.\nParametrize 𝐶𝑟 : 𝛾(𝑡) = 𝑧0 + 𝑟e𝑖𝜃 , with 0 ≤ 𝜃 ≤ 2𝜋. 𝛾 ′ (𝜃) = 𝑖𝑟e𝑖𝜃 . So,\n2𝜋                                      2𝜋\n1       𝑧𝑛         1             (𝑧0 + 𝑟e𝑖𝜃 )𝑛             1\n∫          𝑑𝑧 =    ∫                  𝑖𝜃\n𝑖𝑟e𝑖𝜃 𝑑𝜃 =    ∫ (𝑧0 + 𝑟e𝑖𝜃 )𝑛 𝑑𝜃\n2𝜋𝑖 𝐶𝑟 𝑧 − 𝑧0      2𝜋𝑖 0              𝑟e                   2𝜋 0\nThe binomial formula tells us that\n2𝜋                          2𝜋\n1                       1\n∫ (𝑧0 + 𝑟e𝑖𝜃 )𝑛 𝑑𝜃 =    ∫ (𝑧0𝑛 + 𝑛𝑧0𝑛−1 𝑟e𝑖𝜃 + 𝑎2 𝑧0𝑛−2 𝑟2 e𝑖2𝜃 + … + 𝑟𝑛 e𝑖𝑛𝜃 ) 𝑑𝜃,\n2𝜋 0                    2𝜋 0\n2𝜋 𝑖𝑚𝜃\nwhere the 𝑎𝑗 are binomial coeﬀicients whose exact value doesn’t concern us. Since ∫0        e    𝑑𝜃 =\n0 for 𝑚 = 1, 2, 3, …, after integration, the only nonzero term in the integral is\n2𝜋\n1\n∫          𝑧0𝑛 𝑑𝜃 = 𝑧0𝑛 .     QED\n2𝜋 0\nSecond 𝑓 ′ (𝑧0 ). This is similar. We have to show that\n1       𝑧𝑛\n∫             = 𝑛𝑧0𝑛−1 .\n2𝜋𝑖 𝐶 (𝑧 − 𝑧0 )2\n18.04 Problem Set 4, Spring 2018 Solutions                                                               5\nUsing the binomial theorem we get\n2𝜋\n1        𝑧𝑛             1           (𝑧0 + 𝑟e𝑖𝜃 )𝑛\n∫             2\n𝑑𝑧 =    ∫                       𝑖𝑟e𝑖𝜃 𝑑𝜃\n2𝜋𝑖 𝐶𝑟 (𝑧 − 𝑧0 )        2𝜋𝑖 0           𝑟2 e𝑖2𝜃\n2𝜋\n1          (𝑧0𝑛 + 𝑛𝑧0𝑛−1 𝑟e𝑖𝜃 + 𝑎2 𝑧0𝑛−2 𝑟2 e𝑖2𝜃 + … + 𝑟𝑛 e𝑖𝑛𝜃 )\n=      ∫                                                              𝑑𝜃,\n2𝜋 0                                𝑟e𝑖𝜃\n2𝜋\n1          (𝑧0𝑛 e−𝑖𝜃 + 𝑛𝑧0𝑛−1 𝑟 + 𝑎2 𝑧0𝑛−2 𝑟2 e𝑖𝜃 + … + 𝑟𝑛 e𝑖(𝑛−1)𝜃 )\n=      ∫                                                                   𝑑𝜃\n2𝜋 0                                     𝑟\nAfter integration, the only nonzero term is\n2𝜋\n1\n∫        𝑛𝑧0𝑛−1 𝑑𝜃 = 𝑛𝑧0𝑛−1 .     QED\n2𝜋 0",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\n|𝑧|e𝑧\nCompute ∫ 2 𝑑𝑧 where 𝐶 is the circle |𝑧| = 2.\n𝐶 𝑧\n1\n∞\n1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute ∫ 2 𝑑𝑧 where 𝐶 is the circle |𝑧| = 2.\n𝐶 𝑧\n|𝑧|e𝑧          2e𝑧\nSince |𝑧| = 2 on C, the line integral ∫      2\n𝑑𝑧 =  ∫   2\n𝑑𝑧. We can compute this last\n𝐶 𝑧            𝐶 𝑧\nintegral using Cauchy’s integral formula for the derivative.\nLet 𝑔(𝑧) = 2e𝑧 . Then ∫𝐶 𝑔(𝑧)           ′\n𝑧2 𝑑𝑧 = (2𝜋𝑖)𝑔 (0) = 4𝜋𝑖 .\n∞\n1",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\n|𝑧|e𝑧\nShow that ∫                       𝑑𝑧 = 0 in two different ways.\n|𝑧|=2   𝑧2 (𝑧 − 1)3",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Show that ∫                                𝑑𝑧 = 0 in two different ways.\n|𝑧|=2   𝑧 2 (𝑧 − 1)3\n(i) Use Cauchy’s integral formula. You’ll need to divide the contour to isolate each of the\nsingularities of the integrand.\n(ii) First, show that the integral doesn’t change if you replace the contour by the curve\n|𝑧| = 𝑅 for 𝑅 > 2. Next, show that this integral must go to 0 as 𝑅 goes to infinity.\nBoth parts of this problem are similar to what we’ve done in earlier problems. We give brief\nanswers.\n(i) Let 𝑓(𝑧) = 1/(𝑧 2 (𝑧 − 1)3 ). The countour |𝑧| = 2 contains singularities of 𝑓 at 𝑧 = 0 and\n𝑧 = 1.\nLoop around 0: Let 𝑔(𝑧) = 1/(𝑧 − 1)3 .\n𝑔(𝑧)\n∫        𝑓(𝑧), 𝑑𝑧 = ∫           2\n= 2𝜋𝑖𝑔′ (0) = −6𝜋𝑖.\n|𝑧|=2                  |𝑧|=2  𝑧\nLoop around 1: Let 𝑔(𝑧) = 1/𝑧 2 .\n𝑔(𝑧)\n∫           𝑓(𝑧), 𝑑𝑧 = ∫                3\n= 2𝜋𝑖𝑔″ (1) = 6𝜋𝑖.\n|𝑧|=2                     |𝑧|=2 (𝑧 − 1)\nAdding these together we get 0.\n(ii) Since all the singularities of 𝑓 are inside |𝑧| = 2 the extended Cauchy theorem allow us\n18.04 Problem Set 4, Spring 2018 Solutions                                                     8\nto replace the contour |𝑧| = 2 by |𝑧| = 𝑅 without changing the integral. Then,\n∣∫        𝑓(𝑧) 𝑑𝑧∣ ≤ ∫       |𝑓(𝑧)| |𝑑𝑧|\n|𝑧|=𝑅              |𝑧|=𝑅\n2𝜋\n𝑅\n=∫                            𝑑𝜃\n0        𝑅2 |𝑅e𝑖𝜃 − 1|3\n2𝜋\n𝑅\n≤∫                         𝑑𝜃\n0        𝑅2 (𝑅 − 1)3\n2𝜋𝑅\n=\n𝑅2 (𝑅 − 1)3\nThis clearly goes to 0 as 𝑅 goes to infinity.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n𝜋\nShow ∫ ecos 𝜃 cos(sin(𝜃)) 𝑑𝜃 = 𝜋. Hint, consider e𝑧 /𝑧 over the unit circle.\n       0",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (Follow the hint.) Parametrize the unit circle as 𝛾(𝜃) = e𝑖𝜃 , with 0 ≤ 𝜃 ≤ 2𝜋. So,\n2𝜋                                               2𝜋\ne𝑧                   e𝑐𝑜𝑠𝜃+𝑖 sin 𝜃 𝑖𝜃\n∫     𝑑𝑧 = ∫                         𝑖e 𝑑𝜃 = 𝑖 ∫                         e𝑐𝑜𝑠𝜃+𝑖 sin 𝑑𝜃\n𝛾 𝑧       0                e𝑖𝜃                0\n2𝜋                                                                 2𝜋\ncos 𝜃\n= 𝑖∫        e           (cos(sin 𝜃) + 𝑖 sin(sin 𝜃)) 𝑑𝜃 = ∫                     ecos 𝜃 (𝑖 cos(sin 𝜃) − sin(sin 𝜃)) 𝑑𝜃.\n0                                                                  0\nThis is close to what we want. Let’s use Cauchy’s integral formula to evaluate it and then\nextract the value we need. By Cauchy the integral is 2𝜋𝑖e0 = 2𝜋𝑖. So,\n2𝜋\n∫         ecos 𝜃 (𝑖 cos(sin 𝜃) − sin(sin 𝜃)) 𝑑𝜃 = 2𝜋𝑖.\n0\nTaking the imaginary part we have\n2𝜋\n∫         ecos 𝜃 cos(sin 𝜃) 𝑑𝜃 = 2𝜋.\n0\n18.04 Problem Set 4, Spring 2018 Solutions                                                       11\nThis integral goes to 2𝜋, while our integral goes to 𝜋. By symmetry ours is half the above.\n(It might be easier to see this if you use the limits [−𝜋, 𝜋] instead of [0, 2𝜋].)\nAnswer: 𝜋 (as we were supposed to show).",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nChallenge: Redo part (a), but drop the assumption that 𝐴 is simply connected.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Challenge: Redo part (a), but drop the assumption that 𝐴 is simply connected.\n𝑓(𝑧)                                                               𝑓 ′ (𝑧)      𝑓(𝑧)\nLet 𝑔(𝑧) = 𝑧−𝑧  . 𝑔 is analytic on a neighborhood of 𝛾. Note: 𝑔′ (𝑧) =                −            .\n0                                                             𝑧 − 𝑧0    (𝑧 − 𝑧0 )2\nSo,\n𝑓 ′ (𝑧)           𝑓(𝑧)\n∫          𝑑𝑧 − ∫           2\n𝑑𝑧 = ∫ 𝑔′ (𝑧) 𝑑𝑧 = 0.\n𝛾 𝑧 − 𝑧0       𝛾 (𝑧 − 𝑧0 )        𝛾\nIt equals 0 because the integral of a derivative around a closed curve is 0. So, the two\nintegrals on the left side are equal.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \ncos(𝑧)\nCompute ∫     2\n𝑑𝑧, where 𝐶 is the circle |𝑧| = 2.\n𝐶 𝑧 +1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Singularities are at ±𝑖.\n−2       −2\nIntegral = 2𝜋𝑖      + 2𝜋𝑖     = 0.\n2𝑖       −2𝑖\n1",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,10 points)\nLet 𝑢(𝑥, 𝑦) = 𝑥3 − 3𝑥𝑦2 + 2𝑥.\nFind a harmonic conjugate 𝑣 for 𝑢 in two ways.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (i) By Cauchy-Riemann 𝑣𝑥 = −𝑢𝑦 = 6𝑥𝑦, 𝑣𝑦 = 𝑢𝑥 = 3𝑥2 − 3𝑦2 + 2 Integrating 𝑣𝑥 with\nrespect to 𝑥 we get 𝑣 = 3𝑥2 𝑦 + 𝑔(𝑦), where 𝑔(𝑦) is a function of 𝑦 alone.\nIntegrating 𝑣𝑦 with respect to 𝑦 we get 𝑣 = 3𝑥2 − 𝑦3 + 2𝑦 + ℎ(𝑥), where ℎ(𝑥) is a function\nof 𝑥 alone.\nComparing the two expressions for 𝑣 we get 𝑔(𝑦) = −𝑦3 + 2𝑦 + ℎ(𝑥). Since 𝑔 is a function\nof 𝑦 alone, we must have ℎ(𝑥) is constant. So, 𝑔(𝑦) = −𝑦3 + 2𝑦 + 𝑐 and\n𝑣 = 3𝑥2 𝑦 − 𝑦3 + 2𝑦 + 𝑐,\nwhere 𝑐 is an arbitrary constant.\n(ii)\n𝑓 ′ = 𝑢𝑥 − 𝑖𝑢𝑦 = 3𝑥2 − 𝑦2 + 2 + 𝑖6𝑥𝑦 = 3(𝑥2 − 𝑦2 + 𝑖2𝑥𝑦) + 2 = 3𝑧 2 + 2.\nTherefore 𝑓 = 𝑧3 + 2𝑧 + 𝐶 = (𝑥3 − 𝑥𝑦2 + 2𝑥 + 𝑐1 ) + 𝑖(3𝑥2 𝑦 − 𝑦3 + 2𝑦 + 𝑐2 ), where 𝐶 = 𝑐1 + 𝑖𝑐2 .\nSo,\n𝑣 = Im(𝑓) = 3𝑥2 𝑦 − 𝑦3 + 2𝑦 + 𝑐2 .\nExactly as in part (i).",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(20: 10,10 points)\nSame question for 𝑢(𝑥, 𝑦) = (𝑥2 − 𝑦2 )/𝑟4 .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : In this case we won’t bother checking that 𝑢 is harmonic. Once we find the\nanalytic 𝑓 we’ll know that 𝑢 is harmonic. First we do the algebra to find 𝑓 ′ = 𝑢𝑥 − 𝑖𝑢𝑦 .\nYou may have to fill in a few algebraic steps to see how we did the full computation.\n𝑢 = (𝑥2 − 𝑦2 )𝑟−4\n2𝑥𝑟2 − 4𝑥3 + 4𝑥𝑦2    −2(𝑥3 − 3𝑥𝑦2 )\n𝑢𝑥 = 2𝑥𝑟−4 − 4(𝑥2 − 𝑦2 )𝑥𝑟−6 =                   =\n𝑟6                𝑟6\n2       2    3\n−2𝑦𝑟 − 4𝑥 𝑦 + 4𝑦      −2(3𝑥2 𝑦 − 𝑦3 )\n𝑢𝑦 = −2𝑦𝑟−4 − 4(𝑥2 − 𝑦2 )𝑦𝑟−6 =                     =\n𝑟6                𝑟6\nSo\n−2[𝑥3 − 3𝑥𝑦2 − 𝑖(3𝑥2 𝑦 − 𝑦3 )]   −2(𝑥 − 𝑖𝑦)3       𝑧3        2\n𝑓 ′ = 𝑢𝑥 − 𝑖𝑢𝑦 =                 6\n=       6\n= −2      3\n= − 3.\n𝑟                        𝑟            𝑧3 𝑧      𝑧\n1  𝑧2   𝑥2 − 𝑦2 − 𝑖2𝑥𝑦                  2𝑥𝑦\nThus, 𝑓(𝑧) = 2 = 4 =                and 𝑣 = Im(𝑓) = − 4 .\n𝑧   𝑟          𝑟4                         𝑟",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 10,5 points)\nLet 𝐴 be the region bounded by the positive 𝑥 axis and the ray 𝑥 = 𝑦 in the first quadrant.\n18.04 Problem Set 5, Spring 2018 Solutions                                                               3\nFind a nonzero function 𝜓 that is harmonic on 𝐴 and is 0 on the boundary.\nHint: Start with the same question on the upper half-plane 𝑦 > 0.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Find a nonzero function 𝜓 that is harmonic on 𝐴 and is 0 on the boundary.\nHint: Start with the same question on the upper half-plane 𝑦 > 0.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\nConsider the complex potential for a fluid given by Φ(𝑧) = 𝐴𝑧 3 , where 𝐴 > 0:\n18.04 Problem Set 5, Spring 2018 Solutions                                                   4\nFind the potential 𝜙, the stream-function 𝜓 and the velocity field (𝑢, 𝑣).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : So, 𝜙 = Re(Φ) = 𝐴(𝑥3 − 3𝑥𝑦2 ) . 𝜓 = Im(Φ) = 𝐴(𝑥3 − 3𝑥𝑦2 ) . (𝑢, 𝑣) = ∇𝜙 = 𝐴(3𝑥2 − 3𝑦2 , −6𝑥𝑦).",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\nConsider the complex potential for a fluid given by Φ(𝑧) = 𝐴𝑧 3 , where 𝐴 > 0:\n18.04 Problem Set 5, Spring 2018 Solutions                                                   4\nUse this to find an incompressible, irrotational flow in a wedge (for some angle)?\nWhat is the angle of the wedge you can do with this solution?\n1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : This is similar to the previous problem. The rays at angles 𝜃 = 0, 𝜋/3, 2𝜋/3, ..., 5𝜋/3\nare all streamlines. So, they divide the plane into 6 wedges with vertex angle 𝜋/3. We can\nview each of the wedges as having walls at its boundary and the streamlines represent a\nflow within the wedge.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\nLet 𝐴 be the unit disk. Assume it is made of a heat conducting material and that in our\ntwo dimensional world it only loses heat through its boundary. Then at steady state the\ntemperature 𝑇 (𝑥, 𝑦) in the disk is a harmonic function.\nSuppose we hold the temperature of the boundary fixed at\n𝑇 (e𝑖𝜃 ) = 𝑇 (cos(𝜃), sin(𝜃)) = sin2 (𝜃).\nWhat is the temperature at the center of the disk?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We can use the mean value theorem for harmonic functions\n2𝜋                          2𝜋\n1                           1                          1\n𝑇 (0, 0) =      ∫        𝑇 (e𝑖𝜃 ) 𝑑𝜃 =      ∫        sin2 (𝜃) 𝑑𝜃 =     .\n2𝜋 0                        2𝜋 0                        2\n(We’ll leave the details of the last integration for you to supply.)",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(15: 5,5,5 points)\nLet 𝐴 be the unit disk. Assume it is made of a heat conducting material and that in our\ntwo dimensional world it only loses heat through its boundary. Then at steady state the\ntemperature 𝑇 (𝑥, 𝑦) in the disk is a harmonic function.\nSuppose we hold the temperature of the boundary fixed at\n𝑇 (e𝑖𝜃 ) = 𝑇 (cos(𝜃), sin(𝜃)) = sin2 (𝜃).\nWhat is the minimum temperature on the disk?\nChallenge. Find the temperature 𝑇 (𝑥, 𝑦) throughout the disk.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Likewise, the minimum value principle says 𝑇 attains its minimum on the boundary.\nThe minimum of sin2 (𝜃) is 0 ..\nChallenge. Method 1. The systematic way to solve this using the Poisson integral\nformula. You can look it up on the web or in the textbooks linked to from the class website.\nComputing the integral is doable, but a bit of a chore.\nMethod 2. Notice that\n1 − cos(2𝜃)        1 − e𝑖2𝜃\nsin2 (𝜃) =                   = Re (          )\n2                2\nReplacing e𝑖2𝜃 by 𝑧 2 we have that, on the unit circle 𝑧 = e𝑖𝜃\n𝑇 (𝑧) = Re((1 − 𝑧 2 )/2).\nSince (1 − 𝑧 2 )/2 is analytic, its real part is harmonic over the whole disk, i.e.\n1 − 𝑧2   1 𝑥2 − 𝑦2\n𝑇 (𝑥, 𝑦) = Re (              )= −        .\n2      2    2",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nFind the radius of convergence.\n∞\n𝑧3𝑛",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : This is a finite series. The radius of convergence is ∞.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n1\nWhat is the order of the pole of 𝑓1 (𝑧) =                            at 𝑧 = 0.\n(2 cos(𝑧) − 2 + 𝑧2 )2\nHint: Work with 1/𝑓1 (𝑧).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝑔 = 1/𝑓1 = (2 cos(𝑧) − 2 + 𝑧 2 )2 . We write out the Taylor series for this\n2\n𝑧2 𝑧4                           2\n𝑔(𝑧) = (2 (1 −    +    − …) − 2 + 𝑧 2 ) = 𝑧 8 ( + 𝑎9 𝑧 + + …)\n2!   4!                         4!\nSince 𝑔 has a zero of order 8, 𝑓1 = 1/𝑔 has a pole of order 8 at 𝑧 = 0.\n𝑧2 + 1",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n1\nLet 𝑓3 (𝑧) =           . Find all the isolated singularities and compute the residue at\n𝑧(𝑧 + 1)3\neach one.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : There are poles at 𝑧 = 0 and 𝑧 = −1.\nAt 𝑧 = 0:   the pole is simple,\nRes(𝑓3 , 0) = lim 𝑧𝑓3 (𝑧) = 1 (by inspection).\n𝑧→0\n18.04 Problem Set 6, Spring 2018 Solutions                                                           3\ne𝑧\nAt 𝑧 = −1:         𝑔(𝑧) = (𝑧 + 1)3 𝑓3 (𝑧) =\nis analytic at 𝑧 = −1. If 𝑔(𝑧) = 𝑎0 + 𝑎1 (𝑧 + 1) + …,\n𝑧\nthen Res(𝑓, −1) = 𝑎2 = 𝑔″ (−1)/2!. Now it’s easy to compute that Res(𝑓3 , −1) = −5e−1 /2.\n1",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n1\nLet 𝑓5 (𝑧) =          𝑧            , where 𝑓(𝑧) is analytic and 𝑓(0) = 1. Find the residue at\n∫0 𝑓(𝑤) 𝑑𝑤\n𝑧 = 0.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝑓5 (𝑧) =        𝑧             , where 𝑓(𝑧) is analytic and 𝑓(0) = 1. Find the residue at 𝑧 = 0.\n∫0 𝑓(𝑤) 𝑑𝑤\n𝑧\nLet 𝑔(𝑧) = ∫ 𝑓(𝑤) 𝑑𝑤. So 𝑔 is analytic and 𝑔(0) = 0 and 𝑔′ (0) = 𝑓(0) = 1. That is 𝑔 has\n0\na simple zero at 𝑧 = 0. Thus, 𝑓5 (𝑧) = cos(𝑧)/𝑔(𝑧) has a simple pole at 𝑧 = 0 and we have,\ncos(0)\nRes(𝑓5 , 0) =           =1\n𝑔′ (0)",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nWrite the principal part of each function at the isolated singularity. Compute the corre-\nsponding residue.\n𝑓2 (𝑧) =\n𝑧3",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The only singularity is at 𝑧 = 0. We know\n𝑧2 𝑧4\ncosh(𝑧) = 1 +        +    +…\n2   4!\nSo,\n−𝑧2 /2 − 𝑧 4 /4! − …   1  𝑧\n𝑓2 (𝑧) =                        =− − −…\n𝑧3             2𝑧 4!\n1\nThus, we have Res(𝑓2 , 0) = − .\n2\n18.04 Problem Set 6, Spring 2018 Solutions                                                   4",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nDoes the principal branch of 𝑧 have a Laurent expansion in the domain 0 < |𝑧|?\n√",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : No, 𝑧 is not analytic on the region 0 < |𝑧|. In fact, it is not analytic on any\nannulus centered at 0.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \ne𝑖𝑧\nEvaluate ∫         e1/𝑧 sin(1/𝑧) 𝑑𝑧.\n|𝑧|=1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The integrand 𝑓(𝑧) = e1/𝑧 sin(1/𝑧) has a pole at 𝑧 = 0 and no other singularities.\nTo compute the residue we multiply series\n1   1         1  1          1  1\n𝑓(𝑧) = (1 +        +   2\n+ …) ( −    3\n+ …) = + 2 + …\n𝑧 2!𝑧         𝑧 3!𝑧         𝑧 𝑧\nThus, Res(𝑓, 0) = 1 and ∫             𝑓(𝑧) 𝑑𝑧 = 2𝜋𝑖.\n|𝑧|=1",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\n1\nIn this problem we will compute ∑         using the residue theorem. The techniques learned\n−∞\n𝑛2\nhere are general. In particular, the use of cot(𝜋𝑧) is fairly common.\ncos(𝜋𝑧)\nSolve this equation to get a closed-form expression for 𝑓(𝑧).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The differential equation is separable: 𝑓 ′ /𝑓 = 2/(1 + 𝑧). Solving we get 𝑓(𝑧) =\n𝐶(𝑧 + 1)2 . The inital condition 𝑓(0) = 1 determines 𝐶 = 1. So, 𝑓(𝑧) = (𝑧 + 1)2 .",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\n1\nIn this problem we will compute ∑         using the residue theorem. The techniques learned\n−∞\n𝑛2\nhere are general. In particular, the use of cot(𝜋𝑧) is fairly common.\ncos(𝜋𝑧)\nCheck your answer to part(b) against the Taylor series obtained by expanding out the\nclosed-form expression for the solution found in part (a).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The answers to parts (a) and (b) are clearly the same.\nProblem Fun 3. (No points) Show that | cot(𝜋𝑧)| < 2 along the contour in problem 10.\nHint, show that along the vertical sides | cot(𝜋𝑧)| < 1, while along the horizontal sides\n| cot(𝜋𝑧)| < 2.\nSolution: We know\ncos(𝜋𝑧)    e𝑖𝜋𝑧 + e−𝑖𝜋𝑧   𝑖(e2𝜋𝑖𝑧 + 1)\ncot(𝜋𝑧) =           = 𝑖 𝑖𝜋𝑧         =              .\nsin(𝜋𝑧)    e − e−𝑖𝜋𝑧       e2𝑖𝜋𝑖𝑧 − 1\n18.04 Problem Set 6, Spring 2018 Solutions                                                 11\nThe right side of 𝐶𝑁 is along the line (𝑁 + 1/2) + 𝑖𝑦. On this line\ne𝑖(2𝑁+1)𝜋 e−2𝜋𝑦 + 1      −e−2𝜋𝑦 + 1\n| cot(𝜋𝑧)| = ∣ 𝑖(2𝑁+1)𝜋 −2𝜋𝑦      ∣ = ∣ −2𝜋𝑦      ∣.\ne         e     −1       −e     −1\nSince e−2𝜋𝑦 > 0, the denominator is clearly larger in magnitude than the numerator. So\n|𝑐𝑜𝑡(𝜋𝑧)| < 1 along the right side of 𝐶𝑁 .\nSince the left side of 𝐶𝑁 is minus the right side and cot is an odd function, the result holds\nalong the left side as well.\nThe top side of 𝐶𝑁 is along the line 𝑥 + 𝑖(𝑁 + 1/2). So along this line\ne2𝜋𝑖𝑥 e−(2𝑁+1)𝜋 + 1    1 + e−(2𝑁+1)𝜋\n| cot(𝜋𝑧)| = ∣ 2𝜋𝑖𝑥 −(2𝑁+1)𝜋      ∣≤\ne     e         −1     1 − e−(2𝑁+1)𝜋\n1+𝑎\nThis is of the form     , with 0 < 𝑎 ≤ e−𝜋 . Since (1 + 𝑎)/(1 − 𝑎) is an increasing function,\n1 − 𝑎 −𝜋\nthe maximum is at 𝑎 = e and this is clearly less than 2 (in fact, less than 1.1).\nAgain, by symmetry the result holds on the bottom also.\nWe have shown that, along 𝐶𝑁 , | cot(𝜋𝑧)| < 2.\n∞\nProblem Fun 4. (No points) Suppose the radius of convergence of ∑ 𝑎𝑛 𝑧𝑛 is 𝑅.           Show\n𝑛=0\n∞\nthat the radius of convergence of ∑ 𝑛2 𝑎𝑛 𝑧𝑛 is also 𝑅.\n𝑛=0\nSolution: Idea: if the we can use ratio test then the factor of 𝑛2 does not change the limit\nof the ratio test. That is,\n(𝑛 + 1)2 |𝑎𝑛+1 𝑧𝑛+1 |       (𝑛 + 1)2    |𝑎 𝑧|     |𝑎 𝑧|\n𝐿 = lim        2     𝑛\n= lim     2\nlim 𝑛+1 = lim 𝑛+1 .\n𝑚→∞      𝑛 |𝑎𝑛 𝑧 |                 𝑛          |𝑎𝑛 |     |𝑎𝑛 |\nSince we get the same limit with or without the factor of 𝑛2 , the radius of convergence is\nthe same in both cases.\nThe problem is that the limit might not exist. We offer two more technical proofs.\nProof 1. Let 𝑓(𝑧) = ∑ 𝑎𝑛 𝑧𝑛 . We know that 𝑓(𝑧) is anlaytic inside the radius of conver-\n𝑛=0\ngence 𝑅. By Taylor’s theorem we also know that\n∞\n𝑓 ′ (𝑧) = ∑ 𝑛𝑎𝑛 𝑧𝑛−1\n𝑛=0\n∞\nhas the same radius of convergence. Thus 𝑔(𝑧) = 𝑧𝑓 (𝑧) = ∑ 𝑛𝑎𝑛 𝑧𝑛 also has radius of\n′\n𝑛=0\n∞\nconvergence 𝑅. Continuing in the same way, 𝑧𝑔 (𝑧) = ∑ 𝑛 𝑎𝑛 𝑧𝑛 has radius of convergence\n′           2\n𝑛=0\n𝑅.\n18.04 Problem Set 6, Spring 2018 Solutions                                            12\nProof 2. Pick 𝑧 with |𝑧| = 𝑟 < 𝑅. Then pick 𝑟1 with 𝑟 < 𝑟1 < 𝑅. Since the original series\nhas radius of convergence 𝑅, ∑ |𝑎𝑛 |𝑟1𝑛 converges. Now, since 𝑟1 /𝑟 > 1, we know\n𝑛2 𝑟𝑛          𝑛2\nlim      = lim          = 0.\n𝑛→∞ 𝑟𝑛         (𝑟1 /𝑟)𝑛\n1\nThus ∑ |𝑛2 𝑎𝑛 𝑧𝑛 | = ∑ 𝑛2 |𝑎𝑛 |𝑟𝑛 converges by asymptotic comparison with ∑ |𝑎𝑛 |𝑟1𝑛 .\nQED\n18.04 Complex Variables with Applications\nSpring 2018\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n2𝜋\n8 𝑑𝜃\nCompute ∫                 .\n0    5 + 2 cos(𝜃)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Call the integral to compute 𝐼. We let 𝑧 = e𝑖𝜃 and convert the integral to a line\nintegral over the unit circle. As usual, we have\n𝑑𝑧                             𝑧 + 1/𝑧   𝑧2 + 1\n𝑑𝜃 =             and       cos(𝜃) =               =\n𝑖𝑧                                2        2𝑧\nSo\n8   𝑑𝑧                  8\n𝐼 =∫                               =∫  ⋅                   𝑑𝑧\n|𝑧|=1         5 + 2(𝑧 2 + 1)/2𝑧\n𝑖𝑧              2\n|𝑧|=1 𝑖(𝑧 + 5𝑧 + 1)\n√\n8                                −5 ± 21                             √\nLet 𝑓(𝑧) =      2\n. The poles of 𝑓 are at             . Of these only 𝑧1 = (−5+ 21)/2\n𝑖(𝑧 + 5𝑧 + 1)                               2\nis inside |𝑧| = 1. So, by the residue theorem\n(𝑧 − 𝑧1 )8       16𝜋                 16𝜋\n𝐼 = 2𝜋𝑖 Res(𝑓, 𝑧1 ) = 2𝜋𝑖 lim                             =         =             √ .\n𝑧→𝑧1 𝑖(𝑧 2 + 5𝑧 + 1)   2𝑧1 + 5                21\nAs often, the limit was computed using L’Hospital’s rule. The fact that the limit exists\nimplies the pole was simple and the limit is its residue.\n2𝜋\n𝑑𝜃",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n2𝜋\n8 𝑑𝜃\nCompute ∫                          𝑑𝜃, 𝑎 > |𝑏| > 0.         (Answer:      (𝑎 −   𝑎2 − 𝑏2 ).)\n0        𝑎 + 𝑏 cos(𝜃)                                     𝑏2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : As usual, call the integral in question 𝐼. The conversion of this integral to one\nover the unit circle is similar to the previous parts. On the unit circle 𝑧 = e𝑖𝜃 , so:\n2\n𝑧 − 1/𝑧     (𝑧2 − 1)2\nsin2 (𝜃) = (           ) =           .\n2𝑖         −4𝑧 2\nAfter a little algebra we have 𝐼 = ∫               𝑓(𝑧) 𝑑𝑧, where\n|𝑧|=1\nsin2 (𝜃)     1         (𝑧 2 − 1)2                 (𝑧 2 − 1)2\n𝑓(𝑧) =               ⋅   =                        =                           .\n𝑎 + 𝑏 cos(𝜃) 𝑖𝑧    −2𝑖𝑧2 (𝑏𝑧 2 + 2𝑎𝑧 + 𝑏)   −2𝑖𝑏𝑧 2 (𝑧 2 + 2𝑎𝑧/𝑏 + 1)\n√                           √\n−𝑎 + 𝑎2 − 𝑏2              −𝑎 − 𝑎2 − 𝑏2\nThe poles of 𝑓(𝑧) are at 0, 𝑧1 =                    and 𝑧2 =                   . Only 0 and 𝑧1\n𝑏                          𝑏\nare inside the curve |𝑧| = 1. So,\n𝐼 = 2𝜋𝑖(Res(𝑓, 0) + Res(𝑓, 𝑧1 )).\nAll that’s left is to slog through computing the residues.\n(𝑧 2 − 1)2\nAt 𝑧 = 0: Let 𝑔(𝑧) = 𝑧 2 𝑓(𝑧) =                      . So, Res(𝑓, 0) = 𝑔′ (0) = 𝑎/𝑖𝑏2 . (This\n−2𝑖𝑏(𝑧 2 + 2𝑎𝑧/𝑏 + 1)\nlast value is not hard to compute.)\nAt 𝑧 = 𝑧1 : Since the pole is simple this is not too hard to do by brute force. Here’s a\nsomewhat more delicate way of doing the computation. Factoring the denominator using\nthe poles 𝑧1 and 𝑧2 , we have\n(𝑧2 − 1)2\n𝑓(𝑧) =                              .\n−2𝑖𝑏𝑧 2 (𝑧 − 𝑧1 )(𝑧 − 𝑧2 )\n(𝑧12 − 1)2                                                       √\nSo, Res(𝑓, 𝑧1 ) =        2\n. It is easy to see that 𝑧1 𝑧2 = 1 and 𝑧1 − 𝑧2 = 2 𝑎2 − 𝑏2 /𝑏.\n−2𝑖𝑏𝑧1 (𝑧1 − 𝑧2 )\nSo, multiplying top and bottom by 𝑧22 we get\n√\n𝑧22    (𝑧12 − 1)2             (𝑧2 𝑧12 − 𝑧2 )2        (𝑧1 − 𝑧2 )2    (𝑧1 − 𝑧2 )     𝑎2 − 𝑏2\nRes(𝑓, 𝑧1 ) = 2 ⋅                   =                         =                =            =           .\n𝑧2 −2𝑖𝑏𝑧12 (𝑧1 − 𝑧2 )     −2𝑖𝑏𝑧22 𝑧12 (𝑧1 − 𝑧2 )   −2𝑖𝑏(𝑧1 − 𝑧2 )     −2𝑖𝑏          𝑖𝑏2\nThus,                                         √                     √\n𝑎           𝑎2 − 𝑏 2    2𝜋(𝑎 − 𝑎2 − 𝑏2 )\n𝐼 = 2𝜋𝑖 ( 2 −                  )=\n𝑖𝑏            𝑖𝑏2              𝑏2\nas claimed.\n18.04 Problem Set 7, Spring 2018 Solutions                                                    3",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\n𝑑𝑥\nCompute ∫         2      2\n𝑑𝑥.       (Answer: 𝜋/3.)\n−∞ (𝑥 + 1)(𝑥 + 4)\n𝑧2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝐼 be the integral in question. And let 𝑓(𝑧) =                    . We proceed\n(𝑧 2 + 1)(𝑧 2 + 4)\nexactly as in part (a). Using the contour shown below we find\n𝐼 = 2𝜋𝑖 ∑ residues of 𝑓 in the upper half-plane.\nIm(z)\nCR\n2i\ni\nRe(z)\n−R     C1                  R\nContour for part (b).\nThe poles of 𝑓 are at ±𝑖 and ±2𝑖. Only 𝑖 and 2𝑖 are in the upper half-plane. All we need\n18.04 Problem Set 7, Spring 2018 Solutions                                                      4\nto do now is compute their residues.\n(𝑧 − 𝑖)𝑧 2           𝑖2       −1\nRes(𝑓, 𝑖) = lim(𝑧 − 𝑖)𝑓(𝑧) = lim   2        2\n=     2\n=\n𝑧→𝑖              𝑧→𝑖 (𝑧 + 1)(𝑧 + 4)       2𝑖(𝑖 + 4)      6𝑖\n2            2\n(𝑧 − 2𝑖)𝑧            4𝑖         1\nRes(𝑓, 2𝑖) = lim (𝑧 − 2𝑖)𝑓(𝑧) = lim 2                  =               = .\n𝑧→2𝑖               𝑧→2𝑖 (𝑧 + 1)(𝑧 2 + 4)     4𝑖(4𝑖2 + 1)    3𝑖\nIn both cases we computed the limit using L’Hospital’s rule. Since the limit existed we\nknow the pole is simple and the limit is the residue. This gives\n1  1  𝜋\n𝐼 = 2𝜋𝑖 (−     + )= .\n6𝑖 3𝑖 3\n∞                √\n1        2𝜋 3",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\ncos(2𝑥)\nCompute ∫     2\n𝑑𝑥.\n−∞ 𝑥 + 1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let 𝐼 be the integral in question. We start with complex replacement: Let\n∞\ne𝑖2𝑥\n𝐼̃= ∫      2\n𝑑𝑥.\n−∞ 𝑥 + 1\nSo, 𝐼 = Re(𝐼)̃.\nConsider the following contour\nIm(z)\n2Ri                  CR\ni\nC1\nRe(z)\n−R                                      R\n𝑖2𝑧\nNow, let 𝑓(𝑧) = 𝑧e2 +1 . Theorem 9.2 in the notes (we could also use Theorem 9.1 here)\nimplies that\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = 0.\n𝑅→∞\n𝐶𝑅\n18.04 Problem Set 7, Spring 2018 Solutions                                                                6\nThe only pole of 𝑓 inside the contour is 𝑧 = 𝑖. So, as usual, we find\ne−2\n𝐼 ̃ = 2𝜋𝑖 Res(𝑓, 𝑖) = 2𝜋𝑖 ⋅          = e−2 𝜋.\n2𝑖\nFinally: 𝐼 = Re(𝐼)̃ = e−2 𝜋. .\n∞\ncos(2𝑥)",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\ne3𝑖𝑥\nCompute p.v. ∫         𝑑𝑥.\n−∞ 𝑥 − 2𝑖",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : In this case, the integrand has no poles along the real axis. So, the principal value\nonly requires that we integrate over a symmetric interval [−𝑅, 𝑅] and let 𝑅 go to infinity.\ne3𝑖𝑧\nLet 𝑓(𝑧) =          . 𝑓 has one pole at 𝑧 = 2𝑖. The residue is easy to compute: Res(𝑓, 2𝑖) =\n𝑧 − 2𝑖\ne−6 .\nIm(z)\n2Ri                       CR\n2i\nC1\nRe(z)\n−R                                           R\n18.04 Problem Set 7, Spring 2018 Solutions                                                                   7\nThe residue theorem implies\n∫             𝑓(𝑧) 𝑑𝑧 = 2𝜋𝑖 Res(𝑓, 2𝑖) = 2𝜋𝑖e−6 .                            (1)\n𝐶1 +𝐶𝑅\nLooking at each piece:\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = 0 (Theorem 9.2 in the Topic 9 notes).\n𝑅→0\n𝐶𝑅\n∞\ne3𝑖𝑥\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = p.v. ∫               𝑑𝑥. (This is obvious).\n−∞ 𝑥 − 2𝑖\n𝑅→∞\n𝐶1\nThus, letting 𝑅 → ∞ in Equation 1, we have\n∞\ne3𝑖𝑥\np.v. ∫           𝑑𝑥 = 2𝜋𝑖e−6 .\n−∞ 𝑥 − 2𝑖\n∞\ncos(𝑥)        𝜋𝑖e𝑖𝑤                  if Im(𝑤) > 0",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n∞\ne𝑖𝑥\nDerive the formula p.v. ∫                   𝑑𝑥 = 𝜋𝑖(e2𝑖 − e𝑖 ).\n−∞ (𝑥 − 1)(𝑥 − 2)\ne𝑖𝑧",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Call the principal value in question 𝐼. Let 𝑓(𝑧) =                                 . Consider the\n(𝑧 − 1)(𝑧 − 2)\nfollowing contour\nIm(z)\n2Ri\nCR\n−C2                −C4\nC1                       1          C3          2      C5\nRe(z)\n−R                                  1−r1       1+r1        2−r2       2+r2    R\nFirst we’ll look at the integrals over each piece.\nOn 𝐶𝑅 : lim ∫ 𝑓(𝑧) 𝑑𝑧 = 0, by Theorem 9.2 in the Topic 9 notes.\n𝑅→∞\n𝐶𝑅\nOn 𝐶2 : lim ∫ 𝑓(𝑧) 𝑑𝑧 = 𝜋𝑖 Res(𝑓, 1) = −𝜋𝑖e𝑖 .              𝑓 has a simple pole at 𝑧 = 1. So, this\n𝑟1 →0\n𝐶2\nfollowis using Topic 9 Theorem 9.13 on integrating over a semicircle around a simple pole.\nOn 𝐶4 : lim ∫ 𝑓(𝑧) 𝑑𝑧 = 𝜋𝑖 Res(𝑓, 2) = 𝜋𝑖e2𝑖 . The reasoning is the same as for 𝐶2 .\n𝑟2 →0\n𝐶4\n∞\nOn 𝐶1 + 𝐶3 + 𝐶5 : Clearly lim ∫𝐶 +𝐶 +𝐶 𝑓(𝑧) 𝑑𝑧 = p.v. ∫−∞ 𝑓(𝑥) 𝑑𝑥. Here the limit is taken\n1  3  5\nas 𝑅 → ∞ and 𝑟1 , 𝑟2 → 0.\n18.04 Problem Set 7, Spring 2018 Solutions                                                                   9\nSince there are no poles of 𝑓(𝑧) inside the closed contour we have\n∫                             𝑓(𝑧) 𝑑𝑧 = 0.\n𝐶1 −𝐶2 +𝐶3 −𝐶4 +𝐶5 +𝐶𝑅\nSo, taking limits and doing a little algebra this becomes\n∞\np.v. ∫          𝑓(𝑥) 𝑑𝑥 = 𝜋𝑖(e2𝑖 − e𝑖 ).              𝑄𝐸𝐷\n−∞\n∞\nsin2 (𝑥)",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n(7 √\n              points)\n          ∞                       √\n                𝑥\nCompute ∫     2\n                   𝑑𝑥. (Answer: 𝜋/ 2.)\n        0   𝑥 +1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : As always, call the integral 𝐼. We use the contour\nIm(z)\nCR\ni\n−Cr         C1\nRe(z)\n−C2\n−i\nHere the inner circle has radius 𝑟 and the outer circle has radius 𝑅.\n√\n𝑧\nLet 𝑓(𝑧) = 2       . For 𝑓 we make a branch cut along the positive real axis and use the\n𝑧 +1\nbranch with 0 < arg(𝑧) < 2𝜋.\nInside the contour 𝑓 has poles at ±𝑖. So,\n∫                𝑓(𝑧) 𝑑𝑧 = 2𝜋𝑖(Res(𝑓, 𝑖) + Res(𝑓, −𝑖)).                          (3)\n𝐶1 +𝐶𝑅 −𝐶2 −𝐶𝑟\nWe look at the pieces of the contour separately.\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = 0                                      (Usual reason using Theorem 9.1.)\n𝑅→∞\n𝐶𝑅\n𝑟1/2\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = 0                                       (On 𝐶3 we have |𝑓(𝑧) =               is small for small 𝑟.)\n𝑟→0\n𝐶3                                                                          |1 + 𝑧 2 |\n∞    √\n𝑥                                                              √        √\nlim        ∫ 𝑓(𝑧) 𝑑𝑧 = ∫   𝑑𝑥 = 𝐼                    (Since, on 𝐶1 , arg(𝑧) ≈ 0, so       𝑧≈       𝑥 and 𝑓(𝑧) ≈ 𝑓(𝑥).)\n𝑅→∞, 𝑟→0\n𝐶1        0   1 + 𝑥2\n∞ √\n𝑥                                                             √       √\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = − ∫           𝑑𝑥 = −𝐼                 (Since, on 𝐶2 , arg(𝑧) ≈ 2𝜋, so      𝑧 ≈ − 𝑥 and 𝑓(𝑧) ≈ −𝑓(𝑥).)\n𝑅→∞, 𝑟→0\n𝐶2          0   1 + 𝑥2\n18.04 Problem Set 7, Spring 2018 Solutions                                                      11\nTaking the limit in Equation 3, this gives\n2𝐼 = 2𝜋𝑖(Res(𝑓, 𝑖) + Res(𝑓, −𝑖)).\n√\n𝑧\nAll that’s left is to compute the residues. Since 𝑓(𝑧) =                   , the residues are\n(𝑧 + 𝑖)(𝑧 − 𝑖)\n√             1/2\n𝑖   (e𝑖𝜋/2 )       e𝑖𝜋/4     1+𝑖\nRes(𝑓, 𝑖) =     =             =         = √\n2𝑖        2𝑖          2𝑖       2 2𝑖\n√          𝑖3𝜋/2 1/2\n−𝑖    (e      )       e𝑖3𝜋/4    1−𝑖\nRes(𝑓, −𝑖) =      =               =          = √\n−2𝑖          −2𝑖           2𝑖     2 2𝑖\n∞ √\n1+𝑖      1−𝑖       2𝜋                                 𝑥           𝜋\nSo 2𝐼 = 2𝜋𝑖 ( √ + √ ) = √ . Finally, we have ∫                          2\n𝑑𝑥 = √ . .\n2 2𝑖 2 2𝑖           2                         0    1+𝑥             2",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \n1 for −1 < 𝑥 < 1\nLet 𝑓(𝑥) = {\n0 elsewhere.\n∞\n̂\nNow use part (a) and symmetry to show that the Fourier transform 𝑓(𝜔) = ∫ 𝑓(𝑥)e−𝑖𝜔𝑥 𝑑𝑥 =\n√ −𝜔2 /4                                                                    −∞\n𝜋e     .\n2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Since, 𝑓(𝑥) = e−𝑥 is an even function we have\n∞                                 ∞                                               ∞                                    ∞\n∫     𝑓(𝑥)e−𝑖𝜔𝑥 𝑑𝑥 = ∫                  𝑓(𝑥)(e−𝑖𝜔𝑥 +e𝑖𝜔𝑥 ) 𝑑𝑥 = ∫                       𝑓(𝑥)2 cos(𝜔𝑥) 𝑑𝑥 = 2 Re (∫           𝑓(𝑥)e𝑖𝜔𝑥 𝑑𝑥)\n−∞                              0                                               0                                    0\n∞                                 ∞                                         √\n2       𝜋\nPart (a) implies ∫              𝑓(𝑥)e𝑖𝜔𝑥 𝑑𝑥 = ∫                   𝑓(𝑥)e2𝑖(𝜔/2)𝑥 𝑑𝑥 = e−𝜔 /4                + 𝑖𝐵. So, we have that\n0                                 0                                             2\nthe Fourier transform\n∞                                                 ∞\n−𝑖𝜔𝑥                                                    2  √\n∫       𝑓(𝑥)e                 𝑑𝑥 = 2 Re (∫                𝑓(𝑥)e𝑖𝜔𝑥 𝑑𝑥) = e−𝜔 /4 𝜋.            QED\n−∞                                                0\nProblem Fun.2. (No points)\n2𝜋\n2𝜋 ⋅ (2𝑛)!\nCompute ∫ (cos 𝜃)2𝑛 𝑑𝜃. For 𝑛 = 1, 2, …. (Answer:                                                    .)\n0                                                                              22𝑛 (𝑛!)2\nSolution: Let\n2𝑛\n1 𝑧 + 1/𝑧                         (𝑧 2 + 1)2𝑛\n𝑓(𝑧) =      (      )                   =               .\n𝑖𝑧   2                            𝑖22𝑛 𝑧2𝑛+1\nWe know that\n2𝜋\n∫ (cos 𝜃)2𝑛 𝑑𝜃 = ∫                        𝑓(𝑧) 𝑑𝑧 = 2𝜋 Res(𝑓, 0).\n0                                 |𝑧|=1\nExpand (𝑧2 + 1)2𝑛 using the binomial theorem:\n(2𝑛)! 2𝑛\n(𝑧2 + 1)2𝑛 = … +                    𝑧 +…\n𝑛!𝑛!\n1     (2𝑛)!\nFrom this it’s clear that Res(𝑓, 0) =   2𝑛\n⋅       .\n𝑖2       𝑛!𝑛!\n2𝜋 ⋅ (2𝑛)!\nThus, the integral in question is 2𝑛        , as asserted.\n2 𝑛!𝑛!\nProblem Fun.3. (No points)\n∞\n𝑥2\nCompute p.v. ∫    2     2\n𝑑𝑥.\n−∞ (𝑥 + 1)\n∞\n𝑥2\nIs this the same as the integral ∫                      2     2\n𝑑𝑥 without the principal value?\n−∞ (𝑥 + 1)\n𝑥2\nSolution: The integrand 𝑓(𝑥) =              has no singularities on the 𝑥-axis and is asymp-\n(𝑥2 + 1)2\ntotic to 1/𝑥2 , so the integral converges absolutely. This implies the integral is the same\nwith or without the principal value.\n18.04 Problem Set 7, Spring 2018 Solutions                                                 15\nLet 𝐼 be the integral in question. Since |𝑓(𝑧)| decays like 1/|𝑧|2 , we can use a semicircular\ncontour.\nIm(z)\nCR\ni\nRe(z)\n−R      C1                     R\nThe residue theorem implies ∫           𝑓(𝑧) 𝑑𝑧 = 2𝜋𝑖 ∑ residues of 𝑓 inside the contour. We\n𝐶1 +𝐶𝑅\nexamine each of the pieces in this equation.\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = 0.                    (Theorem 9.1 in the Topic 9 notes.)\n𝑅→∞\n𝐶𝑅\nlim ∫ 𝑓(𝑧) 𝑑𝑧 = 𝐼.                    (This is clear.)\n𝑅→∞\n𝐶1\nThe only pole of 𝑓 inside the contour is at 𝑧 = 𝑖. This is a pole of order 2. Letting\n𝑧2                                     𝑖\n𝑔(𝑧) = (𝑧 − 𝑖)2 𝑓(𝑧) =         2\n, we have Res(𝑓, 𝑖) = 𝑔′ (𝑖) = − ..\n(𝑧 + 𝑖)                                   4\n𝜋\nThus, 𝐼 =\n2\n18.04 Complex Variables with Applications\nSpring 2018\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nA fixed point 𝑧 of a transformation 𝑇 is one where 𝑇 (𝑧) = 𝑧. Let 𝑇 be a fractional\nlinear transformation. Assume 𝑇 is not the identity map. Show 𝑇 has a most two fixed\npoints.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : A fixed point 𝑧 of a transformation 𝑇 is one where 𝑇 (𝑧) = 𝑧. Let 𝑇 be a fractional\nlinear transformation. Assume 𝑇 is not the identity map. Show 𝑇 has a most two fixed\n18.04 Problem Set 8, Spring 2018 Solutions                                                    3\npoints.\n𝑎𝑧 + 𝑏\nLet 𝑇 (𝑧) =        . To find fixed points we solve the equation 𝑇 (𝑧) = 𝑧. A little algebra\n𝑐𝑧 + 𝑑\nputs the equation in the form\n𝑎𝑧 + 𝑏\n= 𝑧 ⇔ 𝑐𝑧 2 + (𝑑 − 𝑎)𝑧 − 𝑏 = 0.\n𝑐𝑧 + 𝑑\nThere are a number of cases to consider. In all of them the number of fixed points is at\nmost two.\nIf 𝑐 ≠ 0 then the quadratic equation has at most two solutions. (It might have only one if\nit has a repeated root.)\nIf 𝑐 = 0 then the equation is linear and there is at most one solution. (There may be none.)",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nShow that the mapping 𝑤 = 𝑧 + 1/𝑧 maps the circle |𝑧| = 𝑎 (𝑎 ≠ 1) to the ellipse\n𝑢2               𝑣2\n2\n+               2\n= 1.\n(𝑎 + 1/𝑎)         (𝑎 − 1/𝑎)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We’ll use the notation 𝑤 = 𝑢 + 𝑖𝑣. We’ll write points on the circle |𝑧| = 𝑎 as 𝑎e𝑖𝜃 .\nSo,\n1          1\n𝑤=𝑧+         = 𝑎e𝑖𝜃 + 𝑖𝜃\n𝑧         𝑎e\ncos(𝜃) − 𝑖 sin(𝜃)\n= (𝑎 cos(𝜃) + 𝑖𝑎 sin(𝜃)) +\n𝑎\n1                   1\n= (𝑎 + ) cos(𝜃) + 𝑖 (𝑎 − ) sin(𝜃).\n𝑎                  𝑎\n1                 1\nThis shows 𝑢 = (𝑎 + ) cos(𝜃) and (𝑎 − ) sin(𝜃). Now it is clear that\n𝑎                 𝑎\n𝑢2                   𝑣2\n2\n+               2\n= cos2 (𝜃) + sin2 (𝜃) = 1.   QED\n(𝑎 + 1/𝑎)           (𝑎 − 1/𝑎)",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nStart with a uniform flow and add a vortex at the point 2i. Give the complex potential\nfor this flow. From that compute the stream function and sketch some streamlines. You can\ndo this by hand or with a package like Matlab or Mathematica.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Here is the plot of some streamlines with a few velocity vectors added to show\nthe direction. The orange dot on the negative 𝑦-axis is the stagnation point.\nUniform flow with a vortex at 0. Here, 𝑈 = 1, 𝑄 = 1.\nUniform flow has complex potential Φ𝑈 (𝑧) = 𝑈 𝑧, where 𝑈 is the direction.\nA vortex at 𝑧 = 2𝑖 has complex potential Φ𝑉 (𝑧) = 𝑖𝑄 log(𝑧 − 2𝑖), where 𝑄 is a measure of\nthe circulation strength.\nTo avoid a lot of complicated arithmetic, let’s set 𝑈 = 1. So, the combined flow has complex\npotential Φ(𝑧) = 𝑧 + 𝑖𝑄 log(𝑧).\nLet 𝑧 = 𝑥 + 𝑖𝑦 = 𝑟e𝑖𝜃 , then\nΦ(𝑧) = (𝑥 + 𝑖𝑦) + 𝑖𝑄(log(|𝑧 − 2𝑖|) + 𝑖 arg(𝑧 − 2𝑖)) = (𝑥 − 𝑄 arg(𝑧 − 2𝑖)) + 𝑖(𝑦 + 𝑄 log(|𝑧 − 2𝑖|)).\nSo, the stream function is 𝜓 = Im(Φ) = 𝑦 + 𝑄 log(|𝑧 − 2𝑖|) .\nTo plot some velocity vectors we used the fact the Φ′ = 𝑢 − 𝑖𝑣, where (𝑢, 𝑣) is the velocity\nvector field. In this case,\n𝑖𝑄       𝑄(𝑦 − 2) + 𝑖𝑄𝑥\nΦ′ (𝑧) = 1 +          =1+                .                           (1)\n𝑧 − 2𝑖        |𝑧 − 2𝑖|2\n𝑄(𝑦 − 2)         𝑄𝑥\nSo, (𝑢, 𝑣) = (1 +          ,−            ). Checking the velocity at 𝑧 = 1 + 2𝑖 we see the\n|𝑧 − 2𝑖|2    (|𝑧 − 2𝑖|2\narrow points downward, so the circulation is clockwise around 𝑧 = 2𝑖.\nStagnation points are where Φ′ (𝑧) = 0. In this case this there is only one stagnation point\nat 𝑧 = −𝑄𝑖 + 2𝑖. This shows that the stronger the circulation the farther out it pushes the\nstagnation point.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nExplain why the flows in both parts (a) and (b) look like uniform flow far from the\norigin.\n18.04 Problem Set 9, Spring 2018 Solutions                                                 3",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : In general, the velocity field (𝑢, 𝑣) is related to Φ′ (𝑧) by Φ′ = 𝑢 − 𝑖𝑣.\nIn part (a) Φ′ (𝑧) = 1 + 𝑖𝑄/(𝑧 − 2𝑖). As 𝑧 goes to infinity Φ′ (𝑧) ≈ 1. This shows the vector\nfield is approximately uniform for large 𝑧.\nPart (b) is the same: The expression in Equation 2 for Φ′ (𝑧) is approximately 1 for large\n𝑧.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nConsider 𝑓(𝑧) = 𝑧 5 − 2𝑧.\nHow many times does 𝑓 wind the circle |𝑧| = 1 around the origin?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The figure on the right above shows 𝑓 ∘ 𝛾 where 𝛾 is the unit circle. The style of\nargument is identical to part (a).\nLet 𝑓 = 𝑔 + ℎ, where 𝑔(𝑧) = −2𝑧 and ℎ = 𝑧 5 . On |𝑧| = 1, |ℎ| = 1 < 2 = |𝑔|. It is clear that\n𝑔 has exactly one zero inside 𝛾. So, Rouchés theorem implies 𝑍𝑓,𝛾 = 𝑍𝑔,𝛾 = 1. That is, the\nwinding number is 1.\n18.04 Problem Set 9, Spring 2018 Solutions                                                  4",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nShow that 𝑓(𝑧) = 𝑧3 + 9𝑧 + 30 has no roots in the disk |𝑧| < 2.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Show that 𝑓(𝑧) = 𝑧 3 + 9𝑧 + 30 has no roots in the disk |𝑧| < 2.\nWe apply Rouchés theorem: let 𝑔(𝑧) = 9𝑧 + 30 and ℎ(𝑧) = 𝑧3 . Both 𝑔 and ℎ are analytic\nand 𝑓 = 𝑔 + ℎ.\nOn the curve 𝐶 ∶ |𝑧| = 2 we have |𝑔| ≥ |12| and |ℎ| = 8, i.e. |ℎ| < |𝑔|. Since |ℎ| is strictly\nless than |𝑔| on 𝐶, Rouchés theorem implies that 𝑔 and 𝑓 = 𝑔 + ℎ have the same number of\nzeros inside 𝐶. Since 𝑔(𝑧) clearly has no zeros inside the circle, neither does 𝑓.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nSuppose 𝑓(𝑧) is analytic on a region containing |𝑧| ≤ 1. Suppose also that |𝑓(𝑧)| < 1 on\n|𝑧| = 1. Show that 𝑓(𝑧) − 𝑧 has exactly one zero in the disk |𝑧| < 1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We know that 𝑔(𝑧) = −𝑧 has exactly one zero in the unit disk. Since |𝑓| < 1 = |𝑔|\non the unit circle, we can apply Rouchés theorem to show that\n1 = 𝑍𝑔,|𝑧|=1 = 𝑍𝑓+𝑔,|𝑧|=1 = 𝑍𝑓−𝑧,|𝑧= 1    QED.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nIn this problem we will consider linear systems with negative feedback, where the feedback\ngain is 𝑘. That is, if 𝐺(𝑠) is the open loop system function then the closed loop system\n𝐺(𝑠)\nfunction is 𝐺𝐶𝐿 (𝑠) =            .\n1 + 𝑘𝐺(𝑠)\n𝑠+1\nFor the system in part (a) draw the Nyquist plot, that is draw the curve 𝑘𝐺 ∘ 𝛾 where the\ncurve 𝛾 is the 𝑦-axis. You can use any tool you want to do this. One suggestion is to use the\nfollowing applet: https://web.mit.edu/jorloff/www/jmoapplets/nyquist/nyquistCrit.html.\n(Use this version of the applet. I’ve modified the one we used in class to include feedback\ngain.)\nHow many times does this curve wind around −1? Explain how this is consistent with your\nanswer to part (a).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The plot below shows the winding number of 4𝐺 ∘ 𝛾 around −1 is 2. This is\nconsistent with part (a) because:\n1. 𝐺(𝑠) has two poles in the right half-plane.\n2. the Nyquist criterion for stability says that if 𝐺𝐶𝐿 is stable then the winding number of\nthe Nyquist plot around -1 equals the number of poles in the right half-plane.",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nLet 𝑓(𝑧) = (𝑧 + 1/𝑧)/2. Use a package like Matlab or Mathematic to draw 𝑓 ∘ 𝛾 for the\nfollowing curves.\nMake sure that the axes both have the same scale, so that circles plot as circles and not\nellipses. In Matlab the command axis equal after you plot will do this.\nThe circle |𝑧 + 1/2| = 3/2.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If 𝑣 = 𝑧 + 1/2 then |𝑣| = |𝑧 + 1/2| = 3/2. So, 𝑣 = e𝑖𝜃 , with 0 ≤ 𝜃 ≤ 2𝜋.\n2\n3 𝑖𝜃 1\nSolving for 𝑧: 𝑧 = 𝑣 − 1/2 = e − . So 𝑎 = 3/2 and 𝑏 = −1/2\n2       2",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.04 — question d’examen, en anglais] \nLet 𝑓(𝑧) = (𝑧 + 1/𝑧)/2. Use a package like Matlab or Mathematic to draw 𝑓 ∘ 𝛾 for the\nfollowing curves.\nMake sure that the axes both have the same scale, so that circles plot as circles and not\nellipses. In Matlab the command axis equal after you plot will do this.\nThe unit circle |𝑧| = 1.\n18.04 Complex Variables with Applications\nSpring 2018\nFor information about citing these materials or our Terms of Use, visit:",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Here 𝑎 = 1 and 𝑏 = 0. The result is a line segment on the real axis between -1 and 1.\nIt’s easy to see why this happens: on the unit circle 𝑧 = e𝑖𝜃 , so\n𝑧 + 1/𝑧   e𝑖𝜃 + e−𝑖𝜃\n=            = cos(𝜃).\n2           2\nThis is real and stays between -1 and 1.\n18.04 Problem Set 9, Spring 2018 Solutions   8\n18.04 Complex Variables with Applications\nSpring 2018\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.04 Complex Variables With Applications, Spring 2018 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    }
+  ]
+}

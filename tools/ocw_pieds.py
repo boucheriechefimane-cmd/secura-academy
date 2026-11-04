@@ -40,6 +40,15 @@ RE_MARQUEUR = re.compile(
 # precede de dizaines d'espaces.
 RE_NUMERO_PAGE = re.compile(r'^\s{0,80}\d{1,3}\s*$')
 
+# Le pied de page interne du MIT : le titre du document et le numero de
+# page, colles sur la meme ligne (« Practice Exam 1: All Questions,
+# Spring 2022                    23 »). On ne le retire qu'en FIN de
+# morceau : au milieu du texte, une ligne ressemble a cela peut etre
+# du contenu.
+RE_PIED_INTERNE = re.compile(
+    r'^\s{0,40}\S.*\b(?:Spring|Fall|Summer|Winter|January|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s*'
+    r"\'?\d{2,4}\b\s{2,}\d{1,3}\s*$")
+
 # Le marqueur doit etre dans les premieres lignes du morceau.
 TETE = 4
 
@@ -66,7 +75,34 @@ def retirer_pieds_de_page(texte):
                 gardees[-1] = '\n'.join(lignes)
             continue
         gardees.append(morceau)
-    return '\x0c'.join(gardees)
+    texte = '\x0c'.join(gardees)
+
+    # Le pied de page interne du MIT est colle en fin de page, sans
+    # saut de page : on le retire ligne par ligne, en fin de morceau.
+    morceaux = texte.split('\x0c')
+    for index, morceau in enumerate(morceaux):
+        lignes = morceau.split('\n')
+        if not lignes:
+            continue
+        # Le titre du document avec son numero de page peut aussi
+        #'ouvrir la page (« Practice Exam 1: All Questions, Spring 2022
+        #    2 ») : on le retire alors en tete de morceau.
+        while lignes and RE_PIED_INTERNE.match(lignes[0]):
+            lignes.pop(0)
+        derniere = lignes[-1] if lignes else ''
+        if not (RE_PIED_INTERNE.match(derniere) or RE_NUMERO_PAGE.match(derniere)):
+            morceaux[index] = '\n'.join(lignes)
+            continue
+        # Pied de page interne du MIT (« ... Spring 2022    23 ») ou numero
+        # de page seul : on le retire, et avec lui les lignes vides qui le
+        # precedaient (c'est ce que faitait deja le nettoyage du bloc
+        # OCW : la mise en page doit rester identique pour les
+        # extracteurs).
+        lignes.pop()
+        while lignes and not lignes[-1].strip():
+            lignes.pop()
+        morceaux[index] = '\n'.join(lignes)
+    return '\x0c'.join(morceaux)
 
 
 if __name__ == '__main__':

@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.12.4
+ * Version:           0.12.5
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,29 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.12.5 — La deuxieme vague des cours du criblage : 1 072 questions
+ *           d'examen officielles de plus, et un test de non-regression.
+ *
+ *           - Vingt cours du MIT importes sans reecriture : 18.05
+ *             (427), 18.600 (166), 18.04 (108), 6.012 (65), 18.443
+ *             (46), 6.013 (51), 18.440 (53), 18.024 (33), 18.034
+ *             (30), 18.06 (27), 6.003 (21), 6.041 (15), 18.085 (7),
+ *             18.102 (7), 18.435J (5), 6.7220J (3), 6.011 (2),
+ *             6.041SC (2), 6.046J (2), 6.973 (2).
+ *           - Chaque lot porte l'URL du cours, la licence CC BY-NC-SA
+ *             4.0 verifiee par le moteur de criblage, et l'attribution
+ *             du cours ET de la source des tests.
+ *           - Dix cours sont REFUSES avec un motif ecrit : dix cours
+ *             de chimie et de sciences des materiaux, sans lien avec
+ *             la cybersecurite. Deux cours ont un format non couvert :
+ *             ils sont signales, pas forces.
+ *           - Les dix lots deja livres sont rejoues a chaque changement
+ *             d'extracteur (tools/non-regression-lots.py) : les dix
+ *             corrections sont identiques, aucune difference.
+ *           - Le titre interne du document (« Practice Exam 1: All
+ *             Questions, Spring 2022   23 ») ne finit plus dans un
+ *             corrige.
  *
  * 0.12.4 — Le pied de page d'OCW ne finit plus dans un enonce, et une
  *           room inconnue ne peut plus disparaitre en silence.
@@ -378,7 +401,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.12.4' );
+define( 'SECURA_ACADEMY_VERSION', '0.12.5' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

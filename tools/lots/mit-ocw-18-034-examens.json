@@ -1,0 +1,294 @@
+{
+  "source": "mit-ocw-18-034-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/18-034-honors-differential-equations-spring-2009/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #1 Due by Friday, February 13, 2009, by NOON.\nSuppose a function y = f (x) satisﬁes the differential equation dy = 4y sin 2x dx and the initial\ncondition y(π) = e. The purpose of this exercise is to ﬁnd y(π/6).\n(a) Separate variables and integrate to obtain ln y = c − 2 cos 2x, y > 0. By use of the initial\ncondition show that c = 3, and then get y(π/6).\n(b) The initial condition y(π) = e means that x = π corresponds to y = e. Likewise, x = π/6\ncorresponds to y = a, where a = y(π/6). Integrating between corresponding limits gives\n� a       � π/6\ndy\n=        4 sin 2x dx.\ne y       π\nEvaluate the deﬁnite integrals and solve the resulting equation for a.\n(c) If xdy + 3ydx = 0 and y(−π) = e you can’t ﬁnd y(π). Why not?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) y(π/6) = e2\n(b) Same as part (a)\n(c) Because dx\nx is not integrable on any interval containing the point\nx = 0.",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #1 Due by Friday, February 13, 2009, by NOON.\n(a) Show that y1 (x) = 0 and y2 (x) = x3/2 are solutions for x ≥ 0 of the differential equation\ny � = (3/2)y 1/3 .\n(b) Discuss that all nonnegative solutions of the differential equation in part (a) starting at (0, 0)\nlie between two solutions y1 and y2 and that the solution\n�\n0              for x < c,\ny(x) =           3/2\n(x − c)        for x ≥ c\nﬁlls out the funnel between them.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (b) Let c = sup{x : y(x) = 0}.\nIf c = +∞, then y = y1 . If c < +∞, then y(x) = 0 for x ≤ c\nand y(x) = (x − c)3/2 for x > c by the separation of variables and\nuniqueness.",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #7 (modiﬁed on April 13, 2009) Due by Friday, April 17, 2009, by NOON.\nIn many applications the input f and the output y are related by L2 y = L1 f , where L1 and L2\nare linear differential operators.\n(a) If Pj is the characteristic polynomial of Lj , j = 1, 2, show that\nP2 (s)Y (s) = P1 (s)F (s) + P0 (s),\nwhere P0 (s)is a polynomial depending on the initial conditions of both f and y.\n(b) The null initial condition gives the transfer function W (s) = P1 (s)/P2 (s). If W (s) = Lw,\nexpress y by the convolution theorem.\n(c) We can have a function w as in part (b) only if the degree of P1 is less than that of P2 . Why?\nWhat happens to the formula of part (b) if P1 = P2 ?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) ­\n(b) Y (s) = PP12 ((ss)) F (s) = W (s)F (s).           y =w∗f\n(c) Because W (s) → 0 as s → ∞.\nIf P1 = P2 then W (s) = 1 and w(t) = δ(t). So, y = f .",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #7 (modiﬁed on April 13, 2009) Due by Friday, April 17, 2009, by NOON.\nConsider the system of differential equations Y � = AY , where\n�                 �         �                 �\ny11 (t) y12 (t)             a11 (t) a12 (t)\nY =                      ,    A=                     .\ny21 (t) y22 (t)             a21 (t) a22 (t)\n(a) If U (t) is a fundamental solution and C is a nonsingular matrix, show that U C is also a funda­\nmental solution.\n(b) If V (t) is a fundamental solution, show that U (t) = V (t)V (t0 )−1 satisﬁes U (t0 ) = I and is also\na fundamental solution.\n(c) Show that |Y |� = D1 + D2 , where\n�                                    �\n�a11 y11 + a12 y21 a11 y12 + a12 y22 �\nD1 = � �                                    � = a11 |Y |\ny21               y22        �\nand D2 = a22 |Y |. Deduce the Liouville theorem.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) (U C)� = U � C = (AU )C = A(U C) and |U C| = |U ||C| =\n� 0\n(b) V (t0 ) is a non-singular matrix.\n(c) Let Y = (y�1 y�2 ).\n|Y |� = |y�1 � y�2 | + |y�1 y�2 � |\n= |Ay�1 y�2 | + |y�1 Ay�2 |\n= D1 + D2 = (a11 + a22 )|Y |.    Liouviue’s theorem.",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #7 (modiﬁed on April 13, 2009) Due by Friday, April 17, 2009, by NOON.\nSolve the initial value problem\n� � �      �� �                  �         � � �\nd y1     1 4   y1                      y1 (0)   0\n=          ,                           =\ndt y2    2 −1  y2                      y2 (0)   3\n(a) by using the eigenvalues and (b) by using the Laplace transform.\n(c) For which values of a and b, the solution of the initial value problem\n� � �            �� �            �       � � �\nd y1         1 4        y1           y1 (0)    a\n=                  ,               =\ndt y2         2 −1       y2           y2 (0)    b\nhas the behavior limt→∞ (y1 (t), y2 (t))T = (0, 0)?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) c1 e         + c2 e              .\n1                 −1\n� �         � �\na         2\n(b)          =c         , c is an arbitrary const.\nb         1\n3\n⎛    ⎞\na",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #5 (modiﬁed on March 30, 2009) Due by Friday, April 3, 2009, by NOON.\nFor the initial value problem x� = f (t, x) with x(t0 ) = x0 , where f is continuous and Lips­\nchitzian in the rectangle |t − t0 | ≤ T and |x − x0 | ≤ K with the Lipschitzian constant L, suppose\nthe exact solution x and the Picard iterates xn all exist over one and the same interval of t. Show\nthat on such an interval\nT n+1 LT\n|x(t) − xn (t)| ≤ M Ln          e ,\n(n + 1)!\nwhere |f (t, x)| ≤ M in |t − t0 | ≤ T and |x − x0 | ≤ K.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : In the course of the local existence theorem,       |xk (t) − xk−1 (t)| ≤\n1\n|t − t0 |k\nM Lk−1              for k = 1, 2, . . .\nk!\n�                         �\n� �∞                      �\n|x(t) − xn (t)| = �      (xk (t) − xk−1 (t))�\n�                         �\n�k=n+1                    �\n∞\n�\n≤       |xk (t) − xk−1 (t)|\nk=n+1\n∞\nM � (LT )k\n≤       L          k!\nk=n+1\n∞\nM (LT )n+1 � (LT )k\n=       L (n+1)!      k!\nk=0\nn T n+1 LT\n=      M L (n+1)! e",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #5 (modiﬁed on March 30, 2009) Due by Friday, April 3, 2009, by NOON.\n(a) Show that L(1/ t)(s) = π/s by using the well-known formula                  e dx =          .\n0               2\n√\n√            π\n(b) Use part (a) to show that L( t)(s) = 3/2 for s > 0.\n2s\n2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) L √ =              e √ dt =        e             dx, where x2 = st.\nt�      0             t    0         x s\n∞\n2             2\ne−x dx = π/s\n�\n=√\ns 0\n√      � ∞         √       √ e−st ∞ � ∞ e−st 1\n�\n−st\n(b) L[ t] =        e       t dt = t         −             √ dt by parts.\n�0 ∞                  −s 0        0    −s 2 t\n1               1      √\n=0+             e−st √ dt = π/2s3/2\n2s 0               t\n2\n� ∞\n2             2",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #8 (modiﬁed on April 27, 2009) Due by Friday, May 1, 2009, by NOON.\nAn n × n complex matrix A is called Hermitian if A = A∗ , where A∗ is the conjugate transpose\nof A. That is, aij = aji for all 1 ≤ i, j ≤ n. When A is real A∗ = AT and the terms “Hermitian” and\n”symmetric” mean the same thing. If �u = (u1 , . . . , un ) and �v = (v1 , . . . , vn ) are column vectors in\nRn , then �u�v ∗ = u1 v̄1 + · · · + un v̄n and �u�2 = uu∗ .\nIf A = A∗ show that all eienvalues of A are real. Furthermore, if A = A∗ then eigenvectors �u\nand �v corresponding to different eigenvalues λ and µ are orthogonal. That is, �u�v ∗ = 0.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) Let Au = λu. Then u∗ Au = u∗ λu = λuu∗ .\n¯ ∗ . So, u∗ Au = λu\nOn the other hand, u∗ A = u∗ A∗ = (Au)∗ = λu                ¯ ∗ u.           ⇒ λ is real.\n(b) Let Au = λu, Av = µv,               u �= 0, v �= 0, λ �= µ\nUsing the argument above, v Au = λv u, u∗ Av = µu∗ v.\n∗    ∗\nAnd v ∗ Au = µv\n¯ ∗ u. So v ∗ v = 0\n2   2                                    2   2",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #8 (modiﬁed on April 27, 2009) Due by Friday, May 1, 2009, by NOON.\n(a) For x� = 6x + y, y � = 4x + 3y show that the origin is an unstable node.\n(b) If y = mx is a trajectory, show that m = 1 or m = −4.\n(c) Sketch the trajectories in the (x, y)-plane.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) P (λ) = λ2 − 9λ − 14 ... unstable node.\n(b) m = 4+3m   2\n6+m , m + 3m − 4 = 0 So, m = 1 or m = −4.\n5\n(c)",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #9 (modiﬁed on May 6, 2009) Due by Friday, May 8, 2009, by NOON.\nConsider the plane autonomous system\nx� = f (x, y),        y � = g(x, y),\nwhere f, g are continuously differentiable.\n(a) If limt→∞ (x(t), y(t)) = (x1 , y1 ), show that (x1 , y1 ) is a critical point.\n(b) Near a critical point (x0 , y0 ) the system can be written as\n�        �� �      ��         �\nx − x0       a b     x − x0\n=                    ,\ny − y0       c d     y − y0\nwhere a, b, c, d are functions of (x, y) satisfying\n�     � �                             �\na b     fx (x0 , y0 ) fy (x0 , y0 )\nlim              =                                .\n(x,y)→(x0 ,y0 ) c d      gx (x0 , y0 ) gy (x0 , y0 )",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) Suppose not. This means at least one of the inequalities f > 0, f < 0, g > 0, g < 0 holds\nat (x1 , y1 ). Without loss of generality, let f (x1 , y1 ) = −2α < 0. (other cases are similar).\nBy continuity, f (x(t), y(t)) < −α for t > T for some large T > 0.\nHence, x� (t) ≤ −α for t > T , and x(t) ≤ −αt + β for some β for t > T .\nThen x(t) → −∞ as t → ∞, which contradicts that x(t) → x1 .\n(b) Without loss of generality, let x0 = y0 = 0.\n�\nLet F (t) = f (xt, yt) in a disk r < δ for some δ > 0. Hence r = x2 + y 2 .\nBy the Mean Value Theorem, F (1) − F (0) = F � (τ ) for some 0 < τ < 1.\nAnd, F � (τ ) = fx (xτ, yτ )x + fy (xτ, yτ )y.\nSince fx and fy are continuous, |fx (xτ, yτ )−fx (0, 0)| < �(r), |fy (xτ, yτ )−fy (0, 0)| < �(r)\nand �(r) → 0 as r → 0.\nTherefore a → fx (0, 0), b → fy (0, 0), as r → 0. A similar argument applies to g.",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #9 (modiﬁed on May 6, 2009) Due by Friday, May 8, 2009, by NOON.\n(a) Let                                    �\nx sin(1/x)             x �= 0,\nf (x) =\n0                      x = 0.\nShow that the critical point 0 of x� + f (x) = 0 is neutrally stable, but not asymptotically stable.\n(b) Show that the critical point (0, 0) of the plane autonomous system\nx� = y − x3 ,         y � = −x3\nis stable, although its linearization is unstable.\n1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) In addition to x = 0, x = nπ  , n = 1, 2, 3, ... are critical points. Let o < |x(0)| � 1 so\n1               1\nthat (n+1)π < |x(0)| ≤ nπ for some n large.\n1                1\nThen (n+1)π   < |x(t)| < nπ  for all t since a non-stationary solution cannot pass through\na critical point.\nTherefore |x(t)| < n+1\nn |x(0)| ≤ 2|x(0)|, and 0 is stable.\n1                                  1\nTake xn (0) = nπ , n = 1, 2, 3... . Then xn (t) = nπ  for all t. So ,0 is not asymptotically\nstable.\n� �� �              �� �\nx          0 1        x\n(b) The linear system is           =\ny          0 0        y\nThe solutions are x(t) = a + bt, y(t) = b. Therefore (0, 0) is unstable.\nFor the nonlinear system, let E(x, y) = x4 + 2y 2 . Then, E(0, 0) = 0, E(x, y) > 0 for\n� (0, 0).\n(x, y) =\nĖ(x, y) = 4x3 (y − x3 ) + 4y(−x3 ) = −4x6 ≤ 0. So, (0, 0) is stable.\n8",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #3 Due by Friday, March 6, 2009, by NOON .\n(a) Birkhoff-Rota, pp. 57, #4. (Typo. I(x) = q − p2 /4 − p� /2.)\n(b) Birkhoff-Rota, pp. 57, #7(a). (Use part (a) instead of #6 as is suggested in the text.)\n(c) Birkhoff-Rota, pp. 57, #7(b).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (c)         2 2\n+            ≥ (n + y2 )2 . Compare the solution with\n(1 − x )       1 − x2\ncos(n + y2 )x.",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #3 Due by Friday, March 6, 2009, by NOON .\n(a) Birkhoff-Rota, pp. 75, #3, (b) Birkhoff-Rota, pp. 75, #4.\n∗\nIt is called a one-sided Lipschitz condition.\n1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) c1 ex + c2 e−x + c3 eix + c4 e−ix or c1 ex + c2 e−x + c3 cos x + c4 sin x\n√                  √           √                √\n(1+i)x/ 2 + c e(1−i)x/ 2 + c e(−1+i)x/ 2 + c e(−1−i)x/ 2 or\n(b) c1 e√\n√2           √3         √       4\n√            √\ne 2 (c1 cos x/ 2+c2 sin x/ 2)+e−x/ 2 (c3 cos x/ 2+c4 sin x/ 2)\nx/\n1",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #2 Due by Friday, February 20, 2009, by NOON. Notation. � = d/dx.\nBrikhoff-Rota, pp. 20, #9.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Let α = a + ib, β = c + id. In terms of polar coordinate functions,\ncos(θ) Re((β + iα)eiθ )\ny �� = Im(αβ)\nRe(αe−iθ )\nSo y �� changes signs at slopes −b/a, ∞ and a+d\nb−c\n.",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #2 Due by Friday, February 20, 2009, by NOON. Notation. � = d/dx.\nLet\nLy = y �� + y.\nWe are going to ﬁnd the rest solution of the differential equation Ly = 3 sin 2x + 3 + 4ex . That is the\nsolution with u(0) = u� (0) = 0.\n(a) Find the general solution of Ly = 0.\n(b) Solve Ly = 3 sin 2x, Ly = 3, and Ly = 4ex by use of appropriate trial solutions.\n(c) Determine the constants in\ny(x) = c1 cos x + c2 sin x − sin 2x + 3 + 2ex\nto ﬁnd the solution.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) c1 sin x + c2 cos x\n(b) − sin 2x, 3, 2ex\n(c) −b sin x − sin 2x + 3 + 2ex\n1\nd",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #1 Due by Friday, February 13, 2009, by NOON.\nBirkhoff-Rota, pp. 5, #3.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) y is increasing because y � = y 2 + 1 > 0. The formula is obtained\nby the separation of variables.\n(b) y(x) = tan(x − c) is deﬁned on the interval (c − π/2, c + π/2).",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #1 Due by Friday, February 13, 2009, by NOON.\nBirkhoff-Rota, pp. 11, #7. (Typo. k is n.)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Let q(x) = an xn + an−1 xn−1 + . . . + a0 , an =\n� 0\nThe general solution y(x) = c/x+ n+1 x + an−1\nan n\nn x\nn−1 +. . .+a , (x �= 0)\n0\nwhere c is constant admits the only polynomial solution when c = 0.",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #7 (modiﬁed on April 13, 2009) Due by Friday, April 17, 2009, by NOON.\nOne method of determining the ratio e/m of charge to mass for an electron leads to the system\nmx�� + Hey � = eE,          my �� − Hex� = 0.\nThe initial values are x(0) = x� (0) = y(0) = y � (0) = 0 and m, e, H, E are positive constants.\n(a) Solve by the Laplace transform and show that the path of a particle in the coordinates (x, y) are\ngiven by\nx(t) = E(ωH)−1 (1 − cos ωt),         y(t) = E(ωH)−1 (ωt − sin ωt),\nwhere ω = He/m. This is a cycloid generated by a circle of radius E(ωH)−1 .\n(b) How can one determine the system-parameter e/m from knowledge of the path and the values\nE and H set by the experimenter?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) ­\n(b) Once you have a cycloid:\nT = 2π WEH is calculated by mesuring the distance between two cusps.",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #7 (modiﬁed on April 13, 2009) Due by Friday, April 17, 2009, by NOON.\n(a) Show that if (y1 (t), y2 (t)) is a solution of\nt2 y1� = −2ty1 + 4y2 ,       ty2� = −2ty1 + 5y2\nthen both y1 and y2 are solutions of the Euler equation\n(t2 φ� + 2tφ)� = −8φ + 5(tφ� + 2φ).\n1\n−2t−1 4t−2\n�             �\n(b) Find a fundamental matrix for\n−2    5t−1\n�           �\n1   2t     −2\n(c) For A = 2 2              obtain a fundamental matrix.\nt t + 2t −2",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) ­\n2 t2\n�            �\n(b) By setting φ(t) = tm ,                     .\nt t3\n�               �\n2     1      φ(t)\n(c) By setting φ� (t) = e t ,               2 2\nt tφ(t) − t2 e t\n� �             �      �\n3t  2         −3t      1",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #5 (modiﬁed on March 30, 2009) Due by Friday, April 3, 2009, by NOON.\n(a) Let fn (t), n = 1, 2, . . . be continuous functions on an interval [a, b] and {fn (t)} converge\nuniformly to f (t) on [a, b]. Show that\n� b            � b\nlim     fn (t)dt =     f (t)dt.\nn→∞ a                         a\n(b) Construct {fn (t)} on [0, 1] such that the above equality does not hold true.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) Since fn → f uniformly on [a, b], for � > 0 given, there exists\nN ∈ Z+ such that |fn (t) − f (t)| < �/(b − a) for t ∈ [a, b] whenever\nn ≥ N . For n ≥ N ,\n�� b             � b         � � b\n�                            �\n�\n�    fn (t) dt −     f (t) dt�≤\n�     |fn (t) − f (t)| dt < �\na                 a          a\n(b) fn (t) is given by\nn\n0     1/2n 1/n                    1\n� 1\n1\nfn (t) dt =     for all n,\n�0 1                 2\nf (t) dt = 0.\n0",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #5 (modiﬁed on March 30, 2009) Due by Friday, April 3, 2009, by NOON.\nLet f be a real-valued continuous function in the rectangle |t − t0 | ≤ T and |x − x0 | ≤ K.\nConsider the initial value problem\n(1)                             x�� = f (t, x),         x(t0 ) = x0 ,     x� (t0 ) = x1 .\n(a) Show that φ is a solution of (1) if and only if φ is a solution of the integral equation\n� t\n(2)                         x(t) = x0 + (t − t0 )x1 +       (t − s)f (s, x)ds.\nt0\n(b) Let {xn } be a successive approximation for (2). That is, x0 (t) = x0 and\n� t\nxn (t) = x0 + (t − t0 )x1 +     (t − s)f (s, xn−1 )ds n = 1, 2, . . . .\nt0\nIf f (t, x) is continuous and Lipshitzian with respect to x in the rectangle |t − t0 | ≤ T and |x − x0 | ≤\nK, show that {xn } converges on the interval |t − t0 | ≤ min(T, K/B) to the solution of (1), where\nB = |x1 | + M T /2 and |f (t, x)| ≤ M in |t − t0 | ≤ T and |x − x0 | ≤ K.\n� ∞             √\n√         �                                         ∗         −x2        π",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) (⇒) Let F (t) = f (t, φ(t)) and solve x�� = F (t) when x(t0 ) = x0 ,\nx� (t0 ) = x1 .\nd t\n�                           � t\n∂f\n(⇐) Use           f (s, t) ds = f (t, t) +           (s, t) ds.\ndt t0                             t0 ∂t\n(b) Repeat the proof of the local existence theorem by showing\n�� t                    �\n�                       �\n(1) |xn (t) − x0 | = |x1 | |t − t0 | + � (t − s)f (s, xn−1 (s) ds��\n�\nt0�\nt\n≤ |x1 | |t − t0 | + M        |t − s| ds\nt0\n= |x1 | |t − t0 | + M2 |t − t0 |\n2\n≤ B |t − t0 |\n� t\n(2) |xn (t) − xn−1 (t)| ≤        (t − s)|f (s, xn−1 (s)) − f (s, xn−2 (s))| ds\nt0�\nt\n≤ L (t − s)|xn−1 − xn−2 | ds\nt0\n|t − t0 |2n\n≤ M Ln−1\n(2n)!\nwhere L is the Lipshitz constant.\n� � � ∞                      � ∞       √\n1               −st 1            −x2 s 2x",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #5 (modiﬁed on March 30, 2009) Due by Friday, April 3, 2009, by NOON.\n(a) Show that L(et )(s) does not exist for any interval of the form s > a.\n(b) For what values of k, will L(1/tk ) exist?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) L[et ] =         et −st dt is indeﬁnite for every real value of s, no\n0\nmatter how large, since t2 − st > 0 for t > s and so\n� ∞               � ∞               � ∞\nt2 −st            t2 −st\ne        dt >     e        dt >     e0 dt = ∞\n0                s               s\n�   � � ∞\n1               1\n(b) L k =          e−st k dt, (s > 0). The trouble here is when t = 0.\nt        0      t                    � τ              � τ\n−st                            −st 1          dt\nNear t = 0, e       ≈ 1 and therefore       e     k\ndt �      k\n=\n⎧                                        0       t        0 t\n⎪\n⎨ t1−k ��τ\n⎪                                   � �\n� k �= 1 . Therefore, L 1 exists for k < 1.\n⎪  1 − k �0                          tk\nτ\n⎪\nlog t|0    k=1\n⎩",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #8 (modiﬁed on April 27, 2009) Due by Friday, May 1, 2009, by NOON.\n(a) Let A be a 3 × 3 matrix with eigenvalues λ1 , λ2 , λ3 . Show that the nonzero columns of\n(A − λ2 I)(A − λ3 I) are eigenvectors for λ1 .\n(b) A 3 × 3 matrix A has characteristic polynomial p(λ) = λ(λ2 − 1). Find eAt .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) p(λ) = (λ − λ1 )(λ − λ2 )(λ − λ3 )\nBy Cayley-Hamilton, (A − λ1 I)(A − λ2 I)(A − λ3 I) = 0\n(b) By Cayley-Hamilton, A(A2 − I) = 0             So, A2k+1 = A and A2k = A2 .\nt2 A2 t3 A3\neAt = I + tA +      +      + ···\n2!    3!\nt3 t5              t2 t4\n= I + A(t + + + · · · ) + A2 ( + + · · · )\n3! 5!              2! 4!\n1             1\n= I + A2 + A(et − e−t ) + A2 (et + e−t ).\n2             2",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #9 (modiﬁed on May 6, 2009) Due by Friday, May 8, 2009, by NOON.\n(a) If V (x, y) is continuously differentiable, then each solution curve of the plane autonomous\nsystem\n∂V                    ∂V\nx� =     (x, y),     y� = −    (x, y)\n∂y                    ∂x\nlies on some level curve V (x, y) = constant.\n(b) Show that the solution curves of the autonomous system\nx� = x(2y 3 − x3 ),          y � = −y(2x3 − y 3 )\nare the curves x3 + y 3 − 3cxy = 0, where c is an arbitrary constant. Sketch typical solution curves.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Birkhoﬀ-Rota pp. 135-136, Theorem 1 and Example 3.\nFolia of Descartes are in ﬁgure 5.2.",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #9 (modiﬁed on May 6, 2009) Due by Friday, May 8, 2009, by NOON.\n(a) Show that x� = f (x) has an asymptotically stable critical point 0 if and only if 0 < |x| < δ\nimplies xf (x) < 0 for some δ > 0.\n(b) Show that x� = f (x) has an asymptotically stable critical point 0 if f (0) = 0 and f � (0) < 0.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) Birkhoﬀ-Rota pp. 153. Theorem 5.\n(b) Let E(x) = x2 a Lyapunov function. E(0) = 0 and E(x) > 0 for x �= 0.\nAnd Ė(x) = 2xf (x) < 0 for x =� 0 and x near 0 since f � (0) < 0.\nTherfore 0 is asymptotically stable.\n1",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #3 Due by Friday, March 6, 2009, by NOON .\nThis problem pertains to the differential equation y �� + ω 2 y = sin ω0 t, where ω �= 0 and ω0 is\nclose to but different from ω.\nsin ω0 t\n(a) Verify that y1 (t) = 2        is a particular solution.\nω − ω02\n(b) As ω0 → ω show that one of the initial conditions y1 (0) or y1� (0) becomes inﬁnite.\nsin ω0 t − sin ωt\n(c) Check that y2 (t) =                   is the particular solution for which the initial conditions\nω 2 − ω02\nremain ﬁnite as ω0 → ω.\n(d) By l’Hospital’s rule show that the limit as ω0 → ω of y2 (t) gives a particular solution of y �� +\nω 2 y = sin ωt.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (b) y1� (0) = ω+ωω0 ω−1ω0 → +∞ as ω0 → ω.\n(c) y2� (0) = − ω+1ω0 → − 21ω .\n1\n(d) lim y2 (t) = −            t cos ωt.\nω0 →ω                 2ω",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #3 Due by Friday, March 6, 2009, by NOON .\nLet (cosh x)y �� + (cos x)y � = (1 + x2 )y for a < x < b and let y(a) = y(b) = 1. Show that\n0 < y(x) < 1 for a < x < b.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : Suppose u(x) > 1 at some point a < x < b. Then u takes a positive\nmaximum > 1 at a < c < b. Observe that u(c) > 1, u� (c) = 0 and\nu�� (c) ≤ 0.\nAt c, the diﬀerential equation reduces to\n(cosh c)u�� (c) = (1 + e2 )u(c)\n≤0                >0\nBut this is a contradiction.\nThe case u(x) < 0 at some point is completely analogous.",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #2 Due by Friday, February 20, 2009, by NOON. Notation. � = d/dx.\nSuppose that f be a continuous bounded function for the entire real axis. If f � is continuous,\nthen show that the nonzero solution of the initial value problem of y � = yf (y) with y(0) = y0 =\n� 0\nexists for all x. (You may need to assume the uniqueness theorem. )",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : As long as the solution is deﬁned, yy = f (y) (y is never zero by unique­\nness).\n⇒ (log |y|)� ≤ |f (y)| ≤ M by assumption. Then\n|y(x)| ≤ |y0 |eM x                        (1)\nFor a > 0, consider the rectangle {(x, y) : |x| ≤ a, |y| ≤ |y0 |eM a }. If\nthe solution does not exist on x ∈ (−a, a), then |y(a)| = |y0 |eM a . This\ncontradicts (??).",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #2 Due by Friday, February 20, 2009, by NOON. Notation. � = d/dx.\n(The Ricatti equation) It is the differential equation of the form y � = a(x) + b(x)y + c(x)y 2 . In\ngeneral the Ricatti equation is not solvable by elementary means∗. However,\n(a) show that if y1 (x) is a solution then the general solution is y = y1 + u, where u is the general\nsolution of a certain Bernoulli equation (cf. pset #1).\n(b) Solve the Ricatti equation y � = 1 − x2 + y 2 by the above method.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) u solves the DE y � + (−b(x) + 2c(x)y1 (x))y + c(x)y 2 = 0.\n1\n(b) y1 (x) = x, u(x) = − x+c .",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          },
+          {
+            "question": "[MIT 18.034 — question d’examen, en anglais] 18.034 Problem Set #2 Due by Friday, February 20, 2009, by NOON. Notation. � = d/dx.\n(Euler’s equi-dimensional equation) It is a differential equation of the form x2 y �� +pxy � +qy = 0,\nwhere p, q are constants.\n(a) Show that the setting x = et changes the differential equation into an equation with constant\ncoefﬁcients.\n(b) Use this to ﬁnd the general solution to x2 y �� + xy � + y = 0.\n(c) For which values of p, the general solutions of x2 y �� + pxy � + 2y = 0 are deﬁned for the entire\nreal axis (−∞, ∞)?\n∗\nThis was shown by Liouville in 1841.\n1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "explanation": "Corrigé officiel du MIT : (a) ü + (p − 1)u̇ + qu = 0, · = dt\n(b) sin log |x|, cos log |x|\n(c) No solutions\n2",
+            "source": "MIT OpenCourseWare, 18.034 Honors Differential Equations, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "xp": 20
+          }
+        ]
+      }
+    }
+  ]
+}

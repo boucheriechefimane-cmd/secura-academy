@@ -1,0 +1,174 @@
+{
+  "source": "mit-ocw-6-041-f10-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \nSuppose that there are exactly k gala apples among the n apples Bob picked. Caleb\ncomes by and gives Bob a ripe gala apple to add to his bounty. Bob then picks an apple\nat random from the n + 1 apples and eats it.\n(i) (12 points) What is the probability that it was a ripe apple?\n(ii) (12 points) What is the probability that it was a gala apple if it was ripe?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : i. (12 points) Among the n + 1 apples, his bounty includes: 1 ripe gala from Caleb,\nk gala, n − k honey crisp. We can compute the probability of eating a ripe apple\nconditioned on Bob selecting an apple from each of the three disjoint cases listed\nabove. The total probability theorem allows us to then ﬁnd the probability of Bob\neating a ripe apple.\nP(ripe apple) = P(ripe apple | Caleb’s ripe gala)P(Caleb’s ripe gala)\n+ P(ripe apple | k gala)P(k gala)\n+ P(ripe apple | n − k honey crisp)P(n − k honey crisp)\n1          k        n−k\n= 1·      +g·         +h·\nn+1        n+1        n+1\n1 + gk + h(n − k)\n=                   .\nn+1\nii. (12 points) Using Bayes’ Rule:\nP(ripe ∩ gala)\nP(gala | ripe apple) =                  .\nP(ripe apple)\nWe can compute the P(ripe ∩ gala) as such:\nPage 1 of 3\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Fall 2009)\nP(ripe ∩ gala) = P(ripe ∩ gala | Caleb’s ripe gala)P(Caleb’s ripe gala)\n+ P(ripe ∩ gala | k gala)P(k gala)\n+ P(ripe ∩ gala | n − k honey crisp)P(n − k honey crisp)\n1            k      n−k\n= 1·         +g·        +0·\nn+1          n+1      n+1\n1 + gk\n=          .\nn+1\nCombining this result with that of (i),\n1+gk\nn+1            1 + gk\nP(gala | ripe apple) = 1+gk+h(n−k) =                   .\n1 + gk + h(n − k)\nn+1",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \nMultiple Choice (4 pts. each, 24 pts. total)\nClearly circle the appropriate choice. No partial credit will be given for individual questions in this\npart of the quiz.\na. Earthquakes in Sumatra occur according to a Poisson process of rate λ = 2/year. Conditioned\non the event that exactly two earthquakes take place in a year, what is the probability that both\nearthquakes occur in the ﬁrst three months of the year? (for simplicity, assume all months have\n30 days, and each year has 12 months, i.e., 360 days).\nR = {(x1 , x2 ) : x1 + x2 > ξ} for some value ξ.\n(ii) R = {(x1 , x2 ) : x1 + x2 < ξ} for some value ξ.\n(iii) R = {(x1 , x2 ) : ex1 + ex2 > ξ} for some value ξ.\n(iv) R = {(x1 , x2 ) : ex1 + ex2 < ξ} for some value ξ.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : R = {(x1 , x2 ) : x1 + x2 > ξ} for some value ξ.\n(ii) R = {(x1 , x2 ) : x1 + x2 < ξ} for some value ξ.\n(iii) R = {(x1 , x2 ) : ex1 + ex2 > ξ} for some value ξ.\n(iv) R = {(x1 , x2 ) : ex1 + ex2 < ξ} for some value ξ.",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(12 pts. total)\nAliens of two races (blue and green) are arriving on Earth independently according to Poisson process\ndistributions with parameters λb and λg respectively. The Alien Arrival Registration Service Authority\n(AARSA) will begin registering alien arrivals soon.\nLet T1 denote the time AARSA will function until it registers its ﬁrst alien. Let G be the event\nthat the ﬁrst alien to be registered is a green one. Let T2 be the time AARSA will function until at\nleast one alien of both races is registered.\n(4 points.) Express µ1 = E[T1 ] in terms of λg and λb . Show your work.\n1\nAnswer: µ1 = E[T1 ] = λg + λb",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We consider the process of arrivals of both types of Aliens. This is a merged Poisson\nprocess with arrival rate λg +λb . T1 is the time until the ﬁrst arrival, and therefore is exponentially\n1\ndistributed with parameter λg + λb . Therefore µ1 = E[T1 ] = λg +       λb .\nOne can also go about this using derived distributions, since T1 = min(T1g , T1b ) where T1g and T1b\nare the ﬁrst arrival times of green and blue Aliens respectively (i.e., T1g and T1b are exponentially\ndistributed with parameters λg and λb , respectively. )",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(12 pts. total)\nAliens of two races (blue and green) are arriving on Earth independently according to Poisson process\ndistributions with parameters λb and λg respectively. The Alien Arrival Registration Service Authority\n(AARSA) will begin registering alien arrivals soon.\nLet T1 denote the time AARSA will function until it registers its ﬁrst alien. Let G be the event\nthat the ﬁrst alien to be registered is a green one. Let T2 be the time AARSA will function until at\nleast one alien of both races is registered.\n(4 points.) Express µ2 = E[T2 ] in terms of λg and λb .\nShow your work.\n\u0012        \u0013               \u0012        \u0013\n1      λg                1             λb         1\nAnswer:        +                             +\nλg + λb λg + λb             λb         λg + λb       λg",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The time T2 until at least one green and one red Aliens have arrived can be expressed as\nT2 = max(T1g , T1b ), where T1g and T1b are the ﬁrst arrival times of green and blue Aliens respectively\n(i.e., T1g and T1b are exponentially distributed with parameters λg and λb , respectively.)\n1\nThe expected time till the 1st Alien arrives was calculated in (a), µ1 = E[T1 ] = λg +λb\n. To\ncompute the remaining time we simply condition on the 1st Alien being green(e.g. event G) or\nblue(event Gc ), and use the memoryless property of Poisson, i.e.,\nE[T2 ] = E[T1 ] + P(G)E[Time until ﬁrst Blue arrives|G] + P(Gc )E[Time until ﬁrst Green arrives|Gc ]\n= E[T1 ] + P(G)E[T2b ] + (1 − P(G))E[T2g ]\n\u0012 \u0013             \u0012 \u0013\n1         λg       1         λb      1\n=          +                 +\nλg + λb λg + λb λb           λg + λb λg\nPage 10 of 18\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2009)",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(18 pts. total)\nResearcher Jill is interested in studying employment in technology ﬁrms in Dilicon Valley. She denotes\nby Xi the number of employees in technology ﬁrm i and assumes that Xi are independent and identically\ndistributed with mean p. To estimate p, Jill randomly interviews n technology ﬁrms and observes the\nnumber of employees in these ﬁrms.\n(6 points.) Find the smallest n, the number of technology ﬁrms Jill must sample, for which the\nChebyshev inequality yields a guarantee\nP(|Mn − p| ≥ 0.5) ≤ 0.05.\nAssume that var (Xi ) = v for some constant v. State your solution as a function of v. Show\nyour work.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Since Mn converges to p in probability and var(Mn ) = nn2 · var(Xi ) = v/n, Chebyshev\ninequality gives\nvar(Mn )         v\nP (|Mn − p| ≥ 0.5) ≤           =           = 0.05\n0.52      n · 0.52\n⇒ n = 80v.\nPage 11 of 18\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2009)",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(12 pts. total)\nThe RandomView window factory produces window panes. After manufacturing, 1000 panes were\nloaded onto a truck. The weight Wi of the i-th pane (in pounds) on the truck is modeled as a random\nvariable, with the assumption that the Wi ’s are independent and identically distributed.\n(6 points.) Assume that the measured weight of the load on the truck was 2340 pounds, and\nthat var (Wi ) ≤ 4. Find an approximate 95 percent conﬁdence interval for µ = E[Wi ], using the\nCentral Limit Theorem (you may use the standard normal table which was handed out with this\nquiz). Show your work.\n\u0002           \u0003\nAnswer: 2.216, 2.464",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The sample mean estimator Θ̂n = W1 +···+W\nn\nn\nin this case is\n2340\nΘ̂1000 =        = 2.34\n1000\nUsing the CDF Φ(z) of the standard normal available in the normal tables, we have Φ(1.96) =\n0.975, so we obtain\n|Θ̂1000 − µ|\nP( p                 ≤ 1.96) ≈ 0.95.\nvar (Wi ) /1000\nBecause the variance is less than 4, we have\np                                       p\nP(|Θ̂1000 − µ| ≤ 1.96 var (Wi ) /1000) ≤ P(|Θ̂1000 − µ| ≤ 1.96 4/1000),\nand letting the right-hand side of the above equation ≈ 0.95 gives a 95% conﬁdence, i.e.,\nr                     r\n\u0002                  4                     4 \u0003 \u0002                              \u0003\nΘ̂1000 − 1.96       , Θ̂1000 + 1.96       = Θ̂1000 − 0.124, Θ̂1000 + 0.124\n1000                  1000\nPage 13 of 18\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2009)",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(12 pts. total)\nA newscast covering the ﬁnal baseball game between Sed Rox and Y Nakee becomes noisy at the\ncrucial moment when the viewers are informed whether Y Nakee won the game.\nLet a be the parameter describing the actual outcome: a = 1 if Y Nakee won, a = −1 otherwise.\nThere were n viewers listening to the telecast. Let Yi be the information received by viewer i (1 ≤ i ≤\nn). Under the noisy telecast, Yi = a with probability p, and Yi = −a with probability 1 − p. Assume\nthat the random variables Yi are independent of each other.\nThe viewers as a group come up with a joint estimator\n(          Pn\n1     if   i=1 Yi ≥ 0,\nZn =\n−1 otherwise.\n(6 points.) Find limn→∞ P(Zn = a) assuming that p > 0.5 and a = 1. Show your work.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Note that\nn\n!             \u0012 Pn          \u0013\ni=1 Yi\nX\nlim P(Zn = 1) = lim P             Yi ≥ 0   = lim P               ≥0 .\nn→∞                n→∞                        n→∞        n\ni=1\nSince Yi are i.i.d. with mean E[Yi ] = 2p − 1 and ﬁnite variance var(Yi ) = 1 − (2p − 1)2 , one has,\nby Chebyshev inequality, for all ǫ > 0\n\u0012 Pn                       \u0013\ni=1 Yi\nlim P              − (2p − 1) ≥ ǫ = 0.\nn→∞           n\n\u0010 Pn                  \u0011\ni=1 Yi\nTake ǫ = p− 12 , and the above equation implies limn→∞ P       n     ≤ (2p − 1)/2  = 0. Therefore,\nlimn→∞ P(Zn = 1) = 1.",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \nAlice shows up at an Athena* cluster at time zero and spends her time\nexclusively in typing emails. The times that her emails are sent are a Poisson process with rate λA per\nhour.\n1. (3 points) What is the probability that Alice sent exactly three emails during the time interval\n[1, 2]?\n(5 points) Find E[N 2 ].",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (5 points) Find E[N 2 ].\nSolution:\nE[N 2 ] = E[E[N 2 | Λ]] = E[var(N | Λ) + (E[N | Λ])2 ]\n= E[Λ + Λ2 ]\n= E[Λ] + var(Λ) + (E[Λ])2\n1    2\n=    + 2\n2 2\n= 1.",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(12 points) For i = 1, 2, let Yi be the total number of ripe apples Bob picked from the\nﬁrst i trees. Find the expectation and the variance of Y2 . (Note that Y1 = X1 − 1 and\nY2 = (X1 − 1) + (X2 − 1).)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (12 points) Given that Y2 = (X1 − 1) + (X2 − 1), we can use the linearity property of\nexpectations to ﬁnd the expectation of Y2 .\nE[Y2 ] = E[(X1 − 1) + (X2 − 1)]\n= E[X1 ] + E[X2 ] − 2\n2\n=        −2\n1−g\n2g\n=       .\n1−g\nSince adding or subtracting a constant from a random variable has no eﬀect on its\nvariance, and since X1 and X2 are independent, we have\nvar(Y2 ) = var((X1 − 1) + (X2 − 1))\n= var(X1 + X2 )\n= var(X1 ) + var(X2 )\n2g\n=          .\n(1 − g)2",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \nMultiple Choice (4 pts. each, 24 pts. total)\nClearly circle the appropriate choice. No partial credit will be given for individual questions in this\npart of the quiz.\na. Earthquakes in Sumatra occur according to a Poisson process of rate λ = 2/year. Conditioned\non the event that exactly two earthquakes take place in a year, what is the probability that both\nearthquakes occur in the ﬁrst three months of the year? (for simplicity, assume all months have\n30 days, and each year has 12 months, i.e., 360 days).\nNone of the above.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We deﬁned R = {x = (x1 , x2 )|L(x) > c} where\nfX (x; H1 )   θ1 e−θ1 x1 θ1 e−θ1 x2   θ12 (θ0 −θ1 )(x1 +x2 )\nL(x) =               =                       =     e                  = 4e−(x1 +x2 ) .\nfX (x; H0 )   θ0 e−θ0 x1 θ0 e−θ0 x2   θ02\nSo R = {(x1 , x2 )|x1 + x2 < − log (c/4)}\nPage 8 of 18\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2009)",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(12 pts. total)\nAliens of two races (blue and green) are arriving on Earth independently according to Poisson process\ndistributions with parameters λb and λg respectively. The Alien Arrival Registration Service Authority\n(AARSA) will begin registering alien arrivals soon.\nLet T1 denote the time AARSA will function until it registers its ﬁrst alien. Let G be the event\nthat the ﬁrst alien to be registered is a green one. Let T2 be the time AARSA will function until at\nleast one alien of both races is registered.\n(4 points.) Express p = P(G) in terms of λg and λb . Show your work.\nλ\nAnswer: P(G) = λg +gλb",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We consider the same merged Poisson process as before, with arrival rate λg +λb . Any\nλ\nparticular arrival of the merged process has probability λg +gλb of corresponding to a green Alien\nλ\nand probability λgλ+bλb of corresponding to a blue Alien. The question asks for P(G) = λg +gλb .\nPage 9 of 18\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2009)",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(18 pts. total)\nResearcher Jill is interested in studying employment in technology ﬁrms in Dilicon Valley. She denotes\nby Xi the number of employees in technology ﬁrm i and assumes that Xi are independent and identically\ndistributed with mean p. To estimate p, Jill randomly interviews n technology ﬁrms and observes the\nnumber of employees in these ﬁrms.\n(6 points.) Jill uses\nX1 + · · · + Xn\nMn =\nn\nas an estimator for p. Find the limit of P(Mn ≤ x) as n → ∞ for x < p. Find the limit of\nP(Mn ≤ x) as n → ∞ for x > p. Show your work.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Since Xi is i.i.d., Mn converges to p in probability, i.e., limn→∞ P(|Mn − p| > ǫ) = 0,\nimplying limn→∞ P(Mn < p − ǫ) = 0 and limn→∞ P(Mn > p + ǫ) = 0, for all ǫ > 0. Hence\n\u001a\n0, x < p ,\nlim P(Mn ≤ x) =\nn→∞                     1, x > p .",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(18 pts. total)\nResearcher Jill is interested in studying employment in technology ﬁrms in Dilicon Valley. She denotes\nby Xi the number of employees in technology ﬁrm i and assumes that Xi are independent and identically\ndistributed with mean p. To estimate p, Jill randomly interviews n technology ﬁrms and observes the\nnumber of employees in these ﬁrms.\n(6 points.) Assume now that the researcher samples n = 5000 ﬁrms. Find an approximate value\nfor the probability\nP(|M5000 − p| ≥ 0.5)\nusing the Central Limit Theorem. Assume again that var (Xi ) = v for some constant v. Give\nyour answer in terms of v, and the standard normal CDF Φ. Show your work.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : By CLT, we can approximate by a standard normal distribution\nPn\ni=1√Xi − np\nnv\nwhen n is large, and hence,\n\u0012 Pn                 √ \u0013          \u0012 √ \u0013\ni=1√Xi − np    0.5 n            0.5 n\nP (|M5000 − p| ≥ 0.5) = P                    ≥ √     = 2 − 2Φ    √   ,\nnv            v                 v\nwhere n = 5000.\nPage 12 of 18\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2009)",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(12 pts. total)\nThe RandomView window factory produces window panes. After manufacturing, 1000 panes were\nloaded onto a truck. The weight Wi of the i-th pane (in pounds) on the truck is modeled as a random\nvariable, with the assumption that the Wi ’s are independent and identically distributed.\n(6 points.) Now assume instead that the random variables Wi are i.i.d, with an exponential\ndistribution with parameter θ > 0, i.e., a distribution with PDF\nfW (w; θ) = θe−θw\nWhat is the maximum likelihood estimate of θ, given that the truckload has weight 2340 pounds?\nShow your work.\n1000\nAnswer: Θ̂mle\n1000 = 2340 = 0.4274",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The likelihood function is\nn\nY                      n\nY\nfW (w; θ) =         fWi (wi ; θ) =         θe−θwi ,\ni=1                    i=1\nAnd the log-likelihood function is\nn\nX\nlog fW (w; θ) = n log θ − θ                 wi ,\ni=1\nPn\nThe derivative with respect to θ is nθ − i=1 wi ,, and by setting it to zero, we see that the\nmaximum of log fW (w; θ) over θ ≥ 0 is attained at θ̂n = P nn wi . The resulting estimator is\ni=1\nn\nΘ̂mle\nn   = Pn                 .\ni=1 Wi\nIn our case,\n1000\nΘ̂mle\n1000 =          = 0.4274\n2340\nPage 14 of 18\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2009)",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(12 pts. total)\nA newscast covering the ﬁnal baseball game between Sed Rox and Y Nakee becomes noisy at the\ncrucial moment when the viewers are informed whether Y Nakee won the game.\nLet a be the parameter describing the actual outcome: a = 1 if Y Nakee won, a = −1 otherwise.\nThere were n viewers listening to the telecast. Let Yi be the information received by viewer i (1 ≤ i ≤\nn). Under the noisy telecast, Yi = a with probability p, and Yi = −a with probability 1 − p. Assume\nthat the random variables Yi are independent of each other.\nThe viewers as a group come up with a joint estimator\n(          Pn\n1     if   i=1 Yi ≥ 0,\nZn =\n−1 otherwise.\n(6 points.) Find limn→∞ P(Zn = a), assuming that p = 0.5 and a = 1. Show your work.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Note that\nn\n!           \u0012 Pn        \u0013\nX\ni=1 Yi\nlim P(Zn = 1) = lim P             Yi ≥ 0   = lim P    √      ≥0 .\nn→∞                n→∞                       n→∞         n\ni=1\nPn\n=1 Yi\nSince Yi are i.i.d. with E[Yi ] = 0 and var(Yi ) = 1, we can approximate          i√\nn\nas a standard\nnormal random variable when n goes to inﬁnity. Thus, limn→∞ P(Zn = 1) = 1/2.\nPage 18 of 18\n6.041 / 6.431 Probabilistic Systems Analysis and Applied Probability\nFall 2010\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    }
+  ]
+}

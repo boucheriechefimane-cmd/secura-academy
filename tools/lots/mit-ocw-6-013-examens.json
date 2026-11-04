@@ -1,0 +1,526 @@
+{
+  "source": "mit-ocw-6-013-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/6-013-electromagnetics-and-applications-spring-2009/",
+  "rooms": [
+    {
+      "room": "les-fondamentaux-du-reseau",
+      "title": "les-fondamentaux-du-reseau",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(30/200 points)\nR = 100 \nA 100-ohm air-filled lossless TEM line is\nC = 10-10/2π [F]\nterminated with a 100-ohm resistor and a                      Zo = 100 \n10-10/2π Farad capacitor in series, as illustrated.\nIt is driven at 100 MHz.                                                             z\n0\nWhat fraction F = |ΓL|2 of the incident\npower is reflected from this load?                 F=",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What fraction F = |L|2 of the incident\npower is reflected from this load?                     F = 1/5\nZn = 0.01(100 + 1/(j210810-10/2) = 1 – j\n = (Zn – 1)/(Zn + 1) = -j/(2 – j), ||2 = F = (1/50.5)2 = 1/5",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(30/200 points)\nR = 100 \nA 100-ohm air-filled lossless TEM line is\nC = 10-10/2π [F]\nterminated with a 100-ohm resistor and a                      Zo = 100 \n10-10/2π Farad capacitor in series, as illustrated.\nIt is driven at 100 MHz.                                                             z\n0\nWhat is the minimum distance D(meters) from the load at which the line current\n|I(z)| is maximum? You may express your answer in terms of the angle\nβ(degrees) shown on the Smith Chart.\nβ degrees             Dmin =\nRn = 1\njXn = j\njXn = 0\n|ΓL|\njXn = -j\nToward\ngenerator\nPlease turn sheet over to answer part (c).\n-5-                                      5/16/09",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What is the minimum distance D(meters) from the load at which the line current\n|I(z)| is maximum? You may express your answer in terms of the angle\nβ(degrees) shown on the Smith Chart.\n degrees             Dmin = 3/8 + /240 [m]\nRn = 1\njXn = j\nDmin = l/8 + /720 = 3(/8 + /720)\njXn = 0\n = c/f = 3×108/108\n|L|\njXn = -j\nToward               Can we match? YES\ngenerator",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(30/200 points)\nR = 100 \nA 100-ohm air-filled lossless TEM line is\nC = 10-10/2π [F]\nterminated with a 100-ohm resistor and a                      Zo = 100 \n10-10/2π Farad capacitor in series, as illustrated.\nIt is driven at 100 MHz.                                                             z\n0\nCan we match this load by adding another       Can we match? YES NO\ncapacitor in series somewhere and, if so, at\nwhat distance D and with what value Cm?        D=\nCm =\n-6-                          5/16/09",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Can we match this load by adding another                  D = ¾ + /120 [m]\ncapacitor in series somewhere and, if so, at\nwhat distance D and with what value Cm?                   Cm = 10-10/2\n-3-                                          7/13/09",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(20/200 points)\nz\nA flat perfect conductor has a surface current in the                           y\nxy plane at z = 0 of:                                                  θ\nJs\n–jbx                                              =∞                         x\nJs = x̂ Joe          [A/m].\nApproximately what is⎯H in the xy plane at z = 0+?\n⎯H(z = 0+) =",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Approximately what isH in the xy plane at z = 0+?              H(z = 0+) = - ŷ Joe-jbx\nTo induce this current one",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(20/200 points)\nz\nA flat perfect conductor has a surface current in the                           y\nxy plane at z = 0 of:                                                  θ\nJs\n–jbx                                              =∞                         x\nJs = x̂ Joe          [A/m].\nHow might one easily induce this current sheet at frequency f [Hz] on the surface of\na good conductor? Please be reasonably specific and quantitative.\nTo induce this current one\nmight:\nPlease turn sheet over for Problem 6.\n-7-                                      5/16/09",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : How might one easily induce this current sheet\nmight: Reflect a TM wave\nat frequency f [Hz] on the surface of a good\nincident from  =  and  =\nconductor? Please be reasonably specific and\nquantitative (not absolute phase).                          sin-1 (bo/2), where o < 2/b\nand |Hy| = Jo/2.",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(25/200 points)\nx                  d\nA resonator is filled with a dielectric having                     b\nε = 4εo and has dimensions b, a, and d along the x,                                    z\ny, and z directions, respectively, where d > a > b.                                     ε = 4εo\ny\na\nWhat is the lowest resonant frequency fm,n,q [Hz]        fm,n,q [Hz] =\nfor this resonator?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What is the lowest resonant frequency fm,n,q [Hz]          fm,n,q = c[(1/2a)2 + (1/2b)2]0.5/2\nfor this resonator?\nfmnp = (c/2)[(m/a)2 + (n/b)2+ (p/d)2]0.5 = c[(1/2a)2 + (1/2b)2]0.5\n= c[(1/2a)2 + (1/2b)2]0.5/2",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(25/200 points)\nx                  d\nA resonator is filled with a dielectric having                     b\nε = 4εo and has dimensions b, a, and d along the x,                                    z\ny, and z directions, respectively, where d > a > b.                                     ε = 4εo\ny\na\nWhat is the polarization of the electric vector⎯E at the center of the resonator for this\nlowest frequency mode?\nPolarization of ⎯E is:\nPlease turn sheet over to answer part (c).\n-9-                                               5/16/09",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What is the polarization of the electric\nvectorE at the center of the resonator for         Polarization of E is: x̂ (linear)\nthis lowest frequency mode?",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(25/200 points)\nx                  d\nA resonator is filled with a dielectric having                     b\nε = 4εo and has dimensions b, a, and d along the x,                                    z\ny, and z directions, respectively, where d > a > b.                                     ε = 4εo\ny\na\nWhat is the Q of this resonance if the dielectric has a slight conductivity σ? Hint: a\nratio of integrals may suffice, so the integrals might not need to be computed.\nQ =\n- 10 -                                     5/16/09",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What is the Q of this resonance if the dielectric has a slight conductivity ? Hint: a\nratio of integrals may suffice, so the integrals might not need to be computed.\nQ = (o)(a-2 + d-2)\nQ = woWT/Pd = 2f101 [2V (o|E|2/4)dV]/[ V (|E|2/2)dV\n= 2f101/ = (o)(a-2 + d-2)\n-4-                                                      7/13/09",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nProblem 2\nGIVEN\n\u0003      \u0004\n˜ jωt , where Ẽ is a phasor, then what is\nIf the electric ﬁeld is E(t) = \u0002 Ee\nE(t) if\nFIND\nE = 1 - j        (b) E = ejπ/4 - 1      (c) ⎯E = j x̂ + (1 - j) ŷ",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Ẽ = 1 − j\nWORK\nejωt = cos(ωt) + j sin(ωt) by Euler’s theory. If Ẽ = Ẽr + jẼi , where Ẽr and\nẼi are both real quantities, then\n\u0005                         \u0006\n˜ jωt\nEe = Ẽr cos(ωt) − Ẽi sin(ωt) + j Ẽi cos(ωt) + Ẽr sin(ωt) ,          (2.1)\nthe real part of which is\n˜ jωt ) = E˜r cos(ωt) − E˜i sin(ωt).\nE(t) = \u0002(Ee                                                (2.2)\nAlternatively, Ẽ may be expressed as the product of a magnitude and an\nexponential,\n\u0002 \u0002                             \u0005 \u0006\n\u0002 \u0002 jφ                               ˜\nẼ = \u0002Ẽ \u0002 e where φ = arctan EE˜ i . Then\nr\n\u0002 \u0002                \u0002 \u0002\n˜ jωt = \u0002\u0002E˜ \u0002\u0002 ej(ωt+φ) = \u0002\u0002Ẽ \u0002\u0002 (cos(ωt + φ) + j sin(ωt + φ)) ,\nEe                                                                  (2.3)\nthe real part of which is\n\u0002 \u0002\njωt  \u0002 \u0002\n˜\nE(t) = \u0002(Ee ) = \u0002E˜r \u0002 cos(ωt + φ).                     (2.4)\nNow, turn the crank and apply trigonometric identities to get more mean-\ningful answers. In (a), E˜r = 1 and E˜i = −1, so\n√\nE(t) = cos(ωt) + sin(ωt) = 2 sin(ωt + 45◦ )\n◦\n√ Also, the phase angle, φ, is arctan(−1) = −45 , while the magnitude is\n2, so\n√                     √\nE(t) = 2 cos(ωt − 45◦ ) = 2 sin ωt + 45◦\n3\nFIND\nẼ if E(t) = x̂ cos(ωt) + ŷ sin(ωt + π/4).\nWORK\nThe ŷ-component is identiﬁed immediately as the same result of the inverse\nproblem in part(a), so again, Ẽy = 1 − j. By inspection, the x̂ component\nhas a phase angle of φ = 0 and unity magnitude, so Ẽx = 1. Then\n(1 − j)\nẼ = x̂ + ŷ \u0007\n(2)\nUseful Matlab Commands\nEp = exp(j*pi/4)-1 %Define complex phasor. You can use \"i\" instead of \"j\".\nangle(Ep) %Get phase angle of phasor.\nangle(Ep)*180/pi %Get phase angle of phasor in degrees.\nabs(Ep) %Get magnitude of phasor.\n%You could also do symbolic manipulation...\nsyms w t\nreal( Ep*exp(j*w*t) )\n%...but you wouldn’t like the result (try it).\n%Plot the phasor in the complex plane.\npolar([0 angle(Ep)], [0 abs(Ep)])\n5",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nWhat is the force f⊥ [N] attracting the two plates in the y direction?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Using the force/energy equation, we know that the force attracting the two plates will be equal to the\npartial derivative of the stored energy in the system with respect to the changing variable (in this case, d).\nf⊥ = ∂w\n∂d\ne\n2\nWe know that the energy stored in a capacitor with a ﬁxed charge Q on the plates is ωe = Q d\n2εA , so the force\nattracting the two plates is\n2       2\n∂ Q d    Q\nf⊥ = ∂w\n∂d = ∂d 2εA = 2εA\ne\nNoting that Q = εAV\nd  we can cast the result in terms of the applied voltage\nV 2 ε◦ bL\nf⊥ =                                                         (1)\n2d2\nIt’s also possible to solve this problem using the pressure due to the electric ﬁeld on the conductor, f¯ = −Pe A.\n−ε E 2\nWe know Pe = ◦2 ◦ , and we can relate E and A to the voltage and dimensions of the overlap.\n2           2\nf = −Pe A = ε2◦dV2 bL = V 2εd◦2bL\nWhich is the same as the result using the force/energy relation.",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nand briefly explain your design.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Consider a ring with outer radius R, and width w, having N segments (N/2 segments are conducting\nplates, see diagram below).\nBy these conditions, each segment has angular width\nΘwidth = 2Nπ\n1\nIf we place this ring above an identical ring, than the area of overlap of conducting plates will go from zero\nto (2wR − w2 )π as Θ goes from zero to Θwidth . So we can express the overlap area as a function of Θ by\nA = (2wR − w2 ) N4 Θ = A◦ Θ,\nwhere A◦ is a constant (with respect to Θ). Using this expression, we can calculate capacitance as a function\nof Θ,\nεA◦\nC = εA\nd = s Θ = C◦ Θ\nwhere d is the separation between the two rings.\nThe stored energy in the overlap is\n2       2\nQ\nwe = 2C = 2CQ◦ Θ\ngiving a torque\n2                 2\n−Q ∂               Q 2d\nT = − ∂w\n∂Θ = 2C◦ ∂Θ Θ\ne           −1\n= εN (2wR−w 2 )Θ2\nIf we take the case of one ring, with w = R and N = 4, then the above expression becomes equation 6.2.14\nfrom the notes.\nFrom the notes, we know that the power from the %50 duty cycle is P = T ω/2. We know that the angular\nvelocity will be limited by the maximum speed of the outer edge, wmax = vmax /R. So the mechanical power\nobtained from one ring is\n(2wR − w2 )N ε◦ Ebd\n2\ndvmax\nP ower =                                                          (3)\n16R\nTo get the highest power, we want to put as many segments as possible into the total allowed volume.\nThis will happen when we make w and d as small as possible and R as large as possible (d = 0.5 [mm],\nw = 4d = 2 [mm]).\nvol = 1 [L] = 0.001 [m3 ] = dπ(R2 − (R − w)2 ) = dπ(2Rw − w2 ) = π(R8d2 − 16d3 )\nR = 0.001\n8πd2 + 4d = 159.16 [m]\nIf we limit the length of any one segment to 4d to reduce the fringing ﬁelds, we can ﬁt N = 2πR\n4d = 500015.8\n(but we need N to be an even whole number, so choose N = 500014) segments on the ring. So the total\nmechanical power becomes:\n(2wR−w2 )N ε◦ Ebd\n2\ndvmax                             2\n)×500014×(8.85×10−12 )×(0.0005)×100 2\nP ower =            16R            = (2×0.002×159.16−16×(0.002) 16×159.16                           Ebd\nP ower = 5.53 × 10−11 Ebd\n2\nFor Ebd = 106 [V /m] this becomes P ower = 55.3 [W ]",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nPlease sketch the general geometry you assumed for your maximum-power motor in",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : To get the maximum power we want to have a high number of segments, but to reduce fringing ﬁelds\nthere is a limit to how small we can make any individual segment. Since we were not told how to make the\nstructure, we put all the volume into a single ring with a 159 m radius. This neglects any material used to\ndrive and support the structure. See diagram below.\n2",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nTo help gauge the plausibility of your answer to (c), evaluate Pmax for the case Ebd =\n106 [V/m].",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : P ower = 55.3 [W ], and the ring has a radius of 159.16 [m].",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nWhat is the maximum voltage V (numerical value) induced across the ~3340-km\ndiameter of Io by this moving magnetic field?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : From the Lorentz force law, we know that electrons moving with velocity v̄ will experience a force\nf¯ = −e(E¯ + v̄ × µ◦ H̄ ). In the case of a conductor moving through a magnetic ﬁeld, this force will cause\nelectrons to move within the conductor until the electric forces due to the distribution of electrons balance\nthe magnetic forces due to the conductors motion.\nUsing the notation in the following diagram, we can pretend that Io is moving through the magnetic ﬁeld\n¯ = −ŷ 10−4 [A/m] with velocity v̄ = ẑ 7200[m/s].\nH        µ◦\nIf the electric and magnetic forces are balanced, than f is zero, so we can solve for the electric ﬁeld in terms\nof the magnetic ﬁeld.\nf¯ = −e(E\n¯ + v̄ × µ◦ H̄) = 0\n¯ = −v̄ × µ◦ H\nE            ¯ = −ˆ\nz v × −ˆ\ny µ◦ H\n¯ = −x̂µ◦ vH\nE\nNoting that the ﬁeld is constant within the conductor, we know that the potential diﬀerence V across the\nconductor will be the product of the ﬁeld and the length of the conductor, V = Ed (in this case, d is the\nwidth of Io).\nV = dµ◦ vH = (3340 × 103 )(7200)(10−4 ) = 2.4 × 106 [V ].\nKnowing the direction of the induced electric ﬁeld, −x̂, we can determine that the side of Io closest to Jupiter\nwill accumulate a negative charge (if no other current path exists).",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nThis voltage produces a current I that flows through a weak plasma along the\nmagnetic field lines down to Jupiter’s ionosphere and back, and then through the full\ndiameter of Io, with a total circuit resistance of about one ohm. What is the resulting\nmagnetic force vector f [N] on Io? Does this force tend to accelerate Io or slow it\ndown in its orbit about Jupiter (Io moves in the same direction Jupiter is\nrotating)?⎯Explain briefly with a sketch showing the directions of the current through\nIo and the force on Io.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Electrons will ﬂow from the side of Io closest Jupiter, along the magnetic ﬁeld lines, through Jupiter’s\nionosphere, and back to the Io. Through Io this results in a ﬂow of electrons along −x̂ (see diagram), with\na current\n6\nI¯ = x̂ 2.4×10\n1Ω\n[V ]\n3\nThe force exerted on Io by the magnetic ﬁeld, due to the current, will be\n6\n¯ ◦ d = x̂ 2.4×10 [V ] × −ŷ(10−4 )(3340 × 103 )\nf¯ = I¯ × Hµ             1Ω\nf¯ = −ẑ 801.6 × 106 [N ]\nThis force speeds up Io’s movement around Jupiter.\n2         6 2",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nWhat mechanical power P [W] is being applied to Io (numerical value)? This can be\ncompared to the ~1 GW electrical power typically radiated in radio and television\nbroadcast bands by these Io-generated currents.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : P = VR = (2.4×10\n1\n)\n= 5.76 × 1012 [W atts]",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nWhat is the force f pulling the gap closed?        I\n+      N                        d\nV",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : To ﬁnd the force pulling the gap closed apply the force energy equation to the energy stored in the\ndevice. In the capacitor case, the constant was total charge on one of the plates. In the case for the inductor\nwe’ll look at constant Λ = Li (short circuit the coil while still allowing current to ﬂow). The energy stored\n2\nin an inductor is wm = 2ΛL [J] by equation 3.2.23 and 3.2.16. So, the force pulling the gap closed is\n2   2             2\nf = ∂w    ∂ Λ     Λ ∂     d         Λ\n∂d = ∂d 2L = 2 ∂d µ◦ N 2 A = 2µ◦ N 2 A\nm\nWhich reduces to:\nµ◦ N 2 Ai2\nf=                                                       (6)\n2d2\nIt is also possible to solve this problem using the pressure on the surface of the rod at the gap due to the\nmagnetic ﬁeld.\n2       2         2     2\nf = Pm A = µ◦2H A = µ◦ A(N\n2d2\ni)\nA = µ◦ N Ai\n2d2\nWhich is the same result as above.",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nWhat is L when there is no gap?                    -\nA",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : When d = 0 there is no gap, so the H ﬁeld inside the iron cylinder becomes H = Hµ = NDi giving an\ninductance of\nµN 2 A\nL=                                                   (7)\nD",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nSketch the approximate vector magnetic\nfield B outside the torus.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The B ¯ ﬁeld emerges from the high permeability torus nearly at right angles, and therefore representative\nB¯ ﬁeld lines might include those illustrated here (plus others, not drawn).",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nIf the wire is superconducting and the situation is static, the inductor voltage V = 0. If\nnow we mechanically force d → 2d in τ seconds with I held constant, what is V(t)\nduring this period? One could make a sensor this way, perhaps a microphone.\n-2-                                        2/13/09\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : From equation 3.2.13 we know that the voltage across the coil is the derivative of the ﬂux linkage, Λ.\nThe ﬂux linkage is\n2\nΛ = Li = µ◦ Nd A i\nWe can express d as a function of time using\nd(t) = d(1 + τt )\ngiving ∂d∂t(t) = τd\n5\nso the volatage across the coil will be\n∂Λ  ∂ µ◦ N 2 A    −iµ◦ N 2 A\nV =       = i         =                  (8)\n∂t  ∂t d(t)      dτ (1 + t/τ )2\nfor 0 < t < τ .\nNote that this voltage jumps from 0 at t = 0− to some value at t = 0+ .\n6\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nSketch the total electric fieldE(x,y,t) for z < 0 and t = 0 for the waves of part (c).\nDHS 3/18/09\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : First ﬁnd the real electric ﬁeld.\n√                     √                √\nE(x, y, z, t) = Re{Ee ¯ jωt } = Re{ √E◦ jkx/ 2 jωt\ne        e (−ˆ  x2jsin(kz/ 2) + ẑ2cos(kz/ 2))}\n¯                 2\n√                 kx       kz\n√             kx        kz\nE(x, y, z, t) = x̂ 2E◦ sin(ωt + √    2\n)sin( √ 2\n) + ẑ 2E◦ cos(ωt + √ 2\n)cos( √ 2\n)\nAt t = 0 this becomes\n√         kx        kz\n√         kx        kz\nE(x, y, z, t) = x̂ 2E◦ sin( √ 2\n)sin( √ 2\n) + ẑ 2E◦ cos( √ 2\n)cos( √ 2\n)\nFor a wave with wavelength λ, we can use k = 2λπ to get\n√        √           √            √        √           √\nE(x, y, z, t) = x̂ 2E◦ sin( 2π λx )sin( 2π λz ) + ẑ 2E◦ cos( 2π λx )cos( 2π λz )\nWe want to sketch the electric ﬁeld lines. We do this in a couple of steps, ﬁrst identiﬁng lines where the ﬁeld\nis completly along x̂ or ẑ, then sketching the components along the line, and ﬁnally connecting the sketched\nlines.\nStep 1\nFrom the above expression for the real electric ﬁeld we know that the ﬁeld will be only along ẑ when z = n √λ2 ,\nλ\nand the ﬁeld will be completly along x̂ when z = (2n − 1) 2√ 2\n.\nStep 2\nAlong these lines we sketch the electric ﬁeld vectors (just pick a few interesting points). See sketch.\n6\nStep 3\nNow we connect the arrows drawn in step 2 to see the electric ﬁeld lines. See sketch below.\n7\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(a)\nBased on the second\nfigure, what is the\n1 volt                                                                Load = ZL Ω\nunknown complex\nload impedance ZL? A           0                                                                          z\nSmith chart is attached                                                     z = - λ/8 0\nand may be used.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : In this case, we can calculate VSWR and |Γ|.\n¯\nV SW R = 21 = 2, |Γ| = VV SW R−1\nSW R+1 = 2−1\n2+1 = 1\n3\n¯\nAgain, at a voltage minimum the reﬂection coeﬃcient is Γ|V min = −|Γ| = − 13 . So at the voltage minimum,\n¯\nthe normalized impedance is\n1+Γ\nZ |V min = 1−¯Γ = 1−1/3   1\n1+1/3 = 2\n¯             ¯\nFrom this point we can either solve the problem using a Smith Chart or by using equation 7.2.24.\n1\nTo solve using a Smith Chart ﬁrst ﬁnd the point corresponding to ZN = 0.5. Next draw the |Γ| = const\ncircle. Finally, rotate from the ZN = 0.5 point toward the load by λ8 . The new point is the normalized load\nimpedance at the load. Based on the attached Smith Chart, ZL = Z◦ (0.8 − 0.6j).\nTo solve using equation 7.2.24, ﬁrst observe that when z = − λ8 , tan(kz) = tan( 2π −λ\nλ 8 ) = tan(−π/4) = −1\nL +jZ◦\nZ( −λ )N = 21 = Z\n¯ 8             Z◦ +jZL\n0.5Z◦ + 0.5jZL = ZL + jZ◦\nZL (1 − 0.5j) = Z◦ (0.5 − j)\nZL = Z◦ 10−.50−.5jj = Z◦ 12−−2jj × 2+j\n2+j\n= Z◦ 4−53j = Z◦ (0.8 − 0.6j)\nWhich is the same as the answer from the Smith Chart.",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(a)\nThe load of part (b) is matched using a capacitor Cm shunting the TEM line at z = -Am; what\nvalues of Cm and Am produce a match with minimum Am? A second Smith chart is attached\nand may be used. “Shunting” means placed across the line rather than in series with it.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : For shunt matching it is easier to work with admittances. The admittance of a capacitor is YC = jωC >\n0, so we need to ﬁnd the ﬁrst point on the line where the input admittance as a real part of 1 (matched)\nand negative imaginary part (so that the admittance of the capacitor can cancel it out). Again, it’s possible\nto solve this problem using a equation 7.2.24 or the Smith Chart.\nTo solve using the Smith Chart, ﬁrst locate the load impedance. Next draw the circle of constant |Γ|, and\n¯\nﬁnd the point λ/2 from the load. This is the admittance of the load. Follow the constant |Γ| circle to the\n¯\npoint it crosses the Re(Y ) = 1 circle, with a negative imaginary value. This is the point at which we can\n¯\nmatch the load with a shunt capacitance.\nFrom the Smith Chart, we can match at z = −0.2225λ with a capacitance C = 0.7/(ωZ◦ ).\nWe can also solve this problem using equation 7.2.24. First we solve for the normalized admittance:\nZ −j Z tan(kz)     Z −j Z tan(kz) Z ∗ +jZ tan(kz)       Z Z ∗ +jZ 2 tan(kz)−jZ Z ∗ tan(kz)+Z Z tan2 (kz)\nYN = Z1N = Z◦L −jZ L            ◦\n¯ tan(kz) = Z −jZ\nL\n¯L\n¯ tan(kz) Z\n◦\n∗ +jZ tan(kz) =\n◦ L\n¯     ◦            L L\n|ZL |2 −2ZLI Z◦¯tan(kz)+Z\n¯       2\nL ◦\n¯2\n¯                   ◦           L  ◦               ◦                                        ◦ tan (kz)\n¯     ¯                ¯             ¯L                     ¯\nWhere ZLI is the imaginary part of the load impedance. To match the load, we need to ﬁnd a place where\nthe real part of the complex admittance is 1.\n2\nZ◦ ZLR +ZLR Z◦ tan (kz)\nRe(YN ) = 1 = |ZL |2 −2Imag(Z                2    2\nL )Z◦ tan(kz)+Z◦ tan (kz)\n¯           ¯\nWe can plug in the known load impedance, and divide top and bottom by Z◦2 to get:\n2\n0.8+0.8tan (kz)\n1 = 1+1.2tan(kz)+tan 2 (kz)\ntan2 (kz) + 1.2tan(kz) + 1 = 0.8 + 0.8tan2 (kz)\n0.2tan2 (kz) + 1.2tan(kz) + 0.2 = 0\ntan2 (kz) + 6tan(kz) + 1 = 0\nWe can solve for tan(kz) using the quadratic formula\n√\n62 −4∗1∗1\n√\ntan(kz) = −6± 2∗1         = −3 ± 2 2\n√\nλ\nz = 2π arctan(−3 ± 2 2)\nGiving two possible solutions z = −0.02704λ, and z = −0.22296λ. Adding some multiple of 0.5λ to either\nof these solutions will also satisify the Re(Y ) = 1 condition since tan(kz) is periodic, so we actually have an\n¯\ninﬁnite number of possible match points. For simplicity we’ll take the ﬁrst point that meets our requirements.\nBy plugging these distances into the impedance equation, we see that z = −0.22296λ is the solution we\nwant. At this point the input admittance is:\n2\nYn = 1−j(0.8−j0.6)tan(−2π0.22296)\n(0.8−j0.6)−jtan(−2π0.22296) ≈ 1 − j0.7071\n¯\nSo we can match the load by placing a shunt capacitance of C = 0.7071/(ωZ◦ ) at position z = −0.22296λ\nBlank chart © Black Magic Design. All rights reserved. This content is excluded from our Creative Commons\nlicense. For more information, see\n3\nBlank chart © Black Magic Design. All rights reserved. This content is excluded from our Creative Commons\nlicense. For more information, see\n4",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(a)\nf [Hz]?                    |V(z)|max\n(ii) VSWR?\n|V(z)|min                                                          Load = RL\n(iii) Zo [Ohms]?\n(iv) C [F/m] of the line?                  0                                                                  z\n0",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : For an air ﬁlled line we know that the propagation velocity is c◦ . Looking at the ﬁgure we see the\ndistance between adjacent voltage minima is A, so the wavelength is λ = 2A. The frequency of the wave is\ngiven by the ratio of the propagation velocity to the wavelength:\n8\nf = λp = 3×10  1.5   8\nv\n2A = A × 10 [Hz]\n(ii) The voltage standing wave ratio is the ratio of the maximum voltage on the line to the minimum voltage\non the line:\n|V (z)|\nV SW R = |¯V (z)|max\nmin\n¯\nZ −1\n(iii) At a voltage minima (at the load in this case) we know that Γ = −|Γ| = Z n\n¯ +1 . So we can write:\n¯     ¯    ¯\nn\n1+Γ   1−|Γ|1\nZ(z = 0)N = R  L\nZ◦ = 1−¯ Γ = 1+|Γ|\n¯ = V SW R\n¯                     ¯      ¯\nWe can solve this for Z◦\n|V (z)|\nRL\nZ◦ = Z(z=0) n\n= RL × V SW R = RL |¯V (z)|max\nmin\n¯                           ¯\n1\n(iv) We know that the velocity of propagation on the line is Vp = √LC        , and that the characteristic\n\u0002\nL\nimpedance of the line is Z◦ = C  , so the Capacitance per unit length of the line is\nC = Vp1Z◦ = (3×108 )R1L V SW R [F/m]",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(a)\nL [Hy/m] of the line?                           z=-A\n(vi) Γ?\n(vii) Fraction of power                    |V(z)|\nreflected by the load?\n2 volts",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Using the same relations as in part (iv) we know that the inductance per unit length will be\nL= Z ◦\nVp =\nRL V SW R\n3×108\n(vi) We know that the magnitude of the reﬂection coeﬃcient is given by\n|Γ| = VV SW R−1\nSW R+1\n¯\nand that at z = 0 the reﬂection coeﬃcient is Γ = −|Γ\n¯     ¯\nSo the reﬂection coeﬃcient is\nΓ(z) = − VV SW R−1 j2πz/A\nSW R+1 e\n¯\n(vii) The fraction of the power reﬂected by the load is the square of the magnitude of the reﬂection coeﬃcient\n\u0003          \u00042\nP−      V SW R−1\nP+  =   V SW R+1",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nThe VSWR = 3 on the twin lead antenna feed wire, and the bulb is brightest one meter from\nthe antenna port. What is the complex impedance ZA of the antenna port?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : From the VSWR we can determine the magnitude of the reﬂection coeﬃcient. The point where the bulb\nis brightest will correspond to a current maximum (Γ(z) = −|Γ|).\n¯        ¯\n3−1   2    1\n|Γ| = VV SW R−1\nSW R+1  =  3+1 = 4 =  2\n¯\n2π λ\nΓ(−λ/4) = − 12 = ΓL e−j2kλ/4 = ΓL e−j2 λ 4\n¯                   ¯            ¯\n4π λ\nΓL = − 12 ej λ 4 = − 12 ejπ = 21\n¯\n1+Γ\nZLN = 1−¯ΓLL = 1.50.5 = 3\n¯          ¯\nZL = ZLN Z◦ = 3 × 300 = 900 [Ω]\n¯      ¯",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nThe ham now wants to add in either series or parallel with the antenna feed line the shortest\npossible short-circuited stub of 300-ohm twin-lead wire that would achieve a near-perfect\nmatch for the antenna. (i) How long should this stub be (S), (ii) should it be in series or\nparallel with the feed line, and (iii) how far (A) from the antenna port should it be attached?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : It’s possible to match the load using a short-circuited stub in series or in parallel with the antenna feed\nline. The position and length of the stub will likely be diﬀerent in each case, so we need to test both methods\nand pick the one that results in the shortest stub length.\nWe could work the problem exactly for each matching statagie, or we can use the Smith Chart to get the\napproximate solutions and then do the exact solution for the case predicted to be shorter. Since I like using\nthe Smith Chart that’s how we’ll solve the problem. The Smith Chart solutions are attached at the end of\nthis problem solution. The method for each solution is described below.\nSmith Chart Series Match\nTo ﬁnd a match using the stub in series we work with impedances.\n(1) First locate the normalized load point on the Smith Chart.\n(2) Next draw the circle of constant |Γ|. There are two possible match positions. These positions occur when\n¯\nthe circle of constant |Γ| crosses the Re{Zn } = 1 circle. The imaginary component of the short-circuited\n¯                  ¯\nstub impedance goes positive (from zero) before going negative, so we want the match point where the load\nhas a negative imaginary component of impedance.\n(3) From the match point we can read oﬀ the value of the imaginary component of impedance (−j1.16Z◦ ),\nand get the position ((0.333 − 0.25)λ = λ/12 towards generator). Next we ﬁnd the length of the stub needed\nto match the load at this point.\n(4) First ﬁnd the stub impedance point (Zn = 0, position = 0 λ towards generator). Next ﬁnd the point\ncorresponding to an impedance of j1.16Z◦ (position = 0.136 λ towards generator). The diﬀerence in positions\nis the length of the stub needed to match the load (0.136λ = 0.544 [m]).\nSmith Chart Parallel Match\nTo ﬁnd a match using the stub in parallel it is easier to work with admittances.\n(1) First locate the normalized load point on the Smith Chart.\n(2) Next draw the circle of constant |Γ|. Rotate about this circle by λ/4 to ﬁnd the normalized load\n¯\nadmittance.\n(3) Identify the two possible match positions. These positions occur when the circle of constant |Γ| crosses\n¯\nthe Re{Yn } = 1 circle. The imaginary component of the short-circuited stub admittance goes negative\n¯\n(from inﬁnity) before going positive, so we want the match point where the load has a positive imaginary\ncomponent of admittance.\n(4) From the match point we can read oﬀ the value of the imaginary component of admittance (+j1.155Z◦ ),\nand get the position (0.1675λ towards generator). Next we ﬁnd the length of the stub needed to match the\n5\nload at this point.\n(5) First ﬁnd the stub impedance point (Zn = 0, position = 0 λ towards generator). Now rotate by λ/4\nto get the stub admittance (inﬁnity, position λ/4). Next ﬁnd the point corresponding to an admittance of\nj − 1.155Z◦ (position = 0.363 λ towards generator). The diﬀerence in positions is the length of the stub\nneeded to match the load (0.113λ = 0.4544 [m]).\nFrom the Smith Chart results, we know that we can match the load using the shortest short-circuited stub\nwhen we place the stub in parallel with the feed line.\nExact Solution to the Parallel Match\n◦ −jZL tan(kz)\nYn (z) = Z\nZL −jZ◦ tan(kz)\n¯\nZ◦ −jZL tan(kz)     L +jZ◦ tan(kz)          1                   2             2                    2\nYn (z) = Z L −jZ◦ tan(kz)\n∗Z                  2 +Z 2 tan2 (kz) Z◦ ZL + jZ◦ tan(kz) − jZL tan(kz) + ZL Z◦ tan (kz)\nZL +jZ◦ tan(kz) = ZL\n¯                                                 ◦\n1                          2\nRe{Yn (z)} = 1 = Z 2 +Z 2 tan2 (kz) Z◦ ZL + ZL Z◦ tan (kz)\n¯              L    ◦\nZL2 + Z◦2 tan2 (kz) = Z◦ ZL + ZL Z◦ tan2 (kz)\nZL2 − Z◦ ZL = tan2 (kz)(ZL Z◦ − Z◦2 )\n\u0002 2             \u0002                  √\nZ −Z◦ ZL        9002 −300∗900\ntan(kz) = ± ZLL Z◦ −Z  2 = ±   900∗300−3002 = ± 3\n◦\nkz = ± π3 ,\nz = − λ6 (this is the sign that will work for us).\nPlugging this back into the expression for impedance we get\n√\nY (−λ/6) = Y◦ (1 + j 3 23 )\n¯\n√\nSo our stub has to have an admittance of −j 3 23 Y◦ .\n√\njY◦\nYS = tan(kz) = −j 3 32 Y◦\n¯\n√\ntan(kz) = − 23\n√\n2π        −1      3\nλ z = tan   (− 2 )\n√\nλ\nz = 2π tan−1 (− 23 ) = −0.1136λ = −0.4544 [m]\nSo,\n(i) The stub should be 0.4544 meters long\n(ii) The stub should be in parallel with the feed line\n(iii) The stub should be placed λ6 = 23 meters from the antenna port\n6\n7\n8\nProblem Set 7 Draft Solution Problem 7.3",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n- jZo             (b)                            - jZo\nZo, c                    Zo                    Zo, c                      Zo\nλ/2                                            3λ/4\nZo",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : For a half-wave line, the input impedance is just the load impedance.",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n+             (d)                        +\nZo, c               V                           Zo, c        V\n-                                        -\nλ/4                                             λ/4\nHint: For parts (c) and (d) it may be helpful to use the basic equations for V(z) and I(z) to relate\nvoltages at one position to those at another.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : In this case the problem is a little more complicated. The Thevenin equivalent resistance will be Z◦ . To\nﬁnd the open circuit voltage, we need to think about the standing wave pattern that results in the steady\nstate.\nAt the input (from the sources point of view) of the transmission line, the line’s equivalent impedance is zero\nV\n(the λ/4 transform of an open circuit). So the current has to be IT = ¯ZS◦ . This gives us two equations:\nVT = 0 = V+ + V− = (I+ + I− )Z◦\nV\nIT = ¯ZS◦ = I+ − I−\nV\nThe ﬁrst equation tells us that I− = −I+ , and when we put this into the second equation we get I+ = 2¯ZS◦ .\nV\nUsing this we can get V+ = ¯2S . At the open circuit the voltage will be twice the forward going voltage\n(since the reﬂection coeﬃcient is 1 at an open circuit). Finally, we know that the open circuit voltage will\nlag behind the source voltage by a quarter wave (φ = kz = − 2λπ λ4 = − π2 ).\nπ\nSo the Thevenin voltage will be VT hevenin = VS e−j 2 .\n¯",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nAssume (for this problem) that the solar cell ε = 4εo, and that in the absence of reflections\nthe cell yields constant power over the wavelength band 0.4-0.6 microns and zero\nelsewhere. Approximately what coating thickness d and permittivity εcoat would be best?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Assume we want to match at normal incidence, and at the center of the wavelength band given (0.5μm).\nFurther, assume that we can neglect reﬂections from the back of the solar cell. We can approximate this\nproblem as a quarter wave line matching problem. The impedance of one line will be Z◦ = η◦ and the\n¯\nimpedance of the second line will be ZL = ηL .\n¯\nWe know from the notes that the impedance of the line used to match the two materials should be Za =\n¯\n(Z◦ ZL )0.5 , so we have the following relation\n\u0002           \u0002 \u0002\nηa = μεa◦ = ( με◦◦ εμL◦ )0.5 = ( √εμ◦◦εL )0.5\nSo we need to choose\n√\nεa = ε◦ εL = 2ε◦\n√    0.5\nFor this value of ε, a free-space wavelength of 0.5μm has wavelength λ = λ◦ / 2 = √ 2\n[μm]. The coating\nthickness will be one quarter of this value.\n1\nd = 8√ 2\n[μm] ≈ 88 [nm]",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nWhat fraction of the solar power is reflected at one-micron wavelength by your coating?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : At one micron, the layer will be λ8 thick, so we know the apparent impedance at the surface of the\ncoating will be\nL +jZa            η ε−0.5 +jη ε−0.5\n−0.5 ◦ a                          ε0.5 +jε0.5\nZin = Za Z\nZa +jZL = η◦ εa\n◦ L\nη ε−0.5 +jη ε−0.5\n= η◦ ε−0.5\na\na      L\nε0.5 +jε0.5\n◦ L       ◦ a               L      a\n√\nZin  √1   2+j2\n√\nZ◦ =   2 2+j 2\nZin\n−1\nΓ = ZZin\n◦\n¯    Z◦ +1\nThe fraction of the power reﬂected is |Γ|2 , which is\n¯\n|Γ|2 = 0.059, at one micron.\n¯\n11\nProblem Set 7 Draft Solution Problem 7.5",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nWhat are L and C for a parallel resonance?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : For a parallel RLC resonance, we have the following relations\n\u0002                    \u0002\nQ=R C   L which  tells us   C\nL = Q/R = 0.2\n1\n√\nω = √LC  = 2π × 106 which tells us LC = (2π × 106 )−1 .\n√ \u0002L                          1     1\nL = LC C     = (2π × 106 )−1 × 0.2   = 4π × 10−5\n√ \u0002\nC = LC C   L = (2π × 10 )\n6 −1\n× 0.2 = π1 × 10−7",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nWe now wish to add a lossless 1-MHz bandpass filter, as illustrated, to a 100-ohm amplifier\nso that the combination is matched to a 100-ohm transmission line at resonance, yields a 3\ndB bandwidth of 50 MHz, and approaches a short circuit far from resonance. Please sketch\nthe arrangement of parts inside the filter and indicate their numerical values.\n-2\nThe Complete Smith Chart\nBlack Magic Design\n0.12                    0.13\n0.11                                                                             0.14\n0.38                  0.37                                                     0.15\n0.1                          0.39                                                                           0.36\n90\n0.4                         100                                                                      80                            0.35                         0.1\n0   .09                                                                                                                                                                                              6\n45\n50\n1                110                                                                                                             40                            70                0.3\n0.4\n1.0\n4\n0.9\n1.2\n0.1\n55\n.08\n0.8\n0                                                                                                                                                                                                                                                        7\n35\n1.4\n2                                                                                                                                                                                                                                   0.3\n0.7\n0.4               0                                                                                                                                                                                                              60           3\n12\n0.6 60\n)\n/Yo\n1.6\n0.1\n0.0\n7                                                                            (+jB                                                                                                                                                                            30                                        8\nCE                                                                                                                                                                                                                                0.3\n3                                                AN\n0.4\n1.8\nPT                                                                                               0.2                                                                                                                                       2\nCE                                                                                                                                                                                                                                     50\n65\n0                                         S\n13                                         SU\n2.0\nVE\n0.5\n06\n0.\nTI                                                                                                                                                                                                                                                         25\n19\nCI\n0.\n44\n0.\nPA\n31\n0.\nCA\n70\nR\n,O                                                                                                                                              0.4\no)\n0\n40\n14\n4\n5\n0.\n0.2\n0.0\n/Z\n5\n20\n0.3\njX\n0.4\n(+\n3.0\nT\n75\nEN\n0.6\nN\nPO\n4\n0.2\n0.0\n0.3\nOM\n0\n6\n0.2\n1\n30\n15\n0.4\n9\nEC\n0.8                                                                                                                                                15\n>\nR—\n4.0\n80\nNC\nTO\nTA\n1.0\n0.22\nAC\nERA\n0.47\n0.28\n5.0\nRE\n1.0\nGEN\n0.2\n0\nIVE\n20\n85\n1 6\n10\nUCT\nARD\n8\n0.\n0.23\nIND\nS TOW\n0.48\n0.27\nANG\n90\n0.6\nANG\nLE OF\nNGTH\n10\nLE OF\n0\n0.1\n17\n0.4\nTRANSM\n0.0 —> WAVELE\n0.24\n0.49\n0.26\nREFLECTION COEFFICIENT IN DE\n20\n0.2\nISSION COEFFICIENT IN\n50\n0.1\n0.2\n0.3\n0.4\n0.5\n0.6\n0.7\n0.8\n0.9\n1.0\n1.2\n1.4\n1.6\n1.8\n2.0\n3.0\n4.0\n5.0\n10\n20\n50\n0.25\n0.25\n± 180\n0.0\n50\nRESISTANCE COMPONENT (R/Zo), OR CONDUCTANCE COMPONENT (G/Yo)\nAD <—\n0.2\n20\n0.24\nO\n0.49\n0.26\nD  L\n0.4\n70\nR\n0.1\nDEGR\nOWA\n-1\nG\n10\nRE\nT\nES\nEES\n0.6\n-90\n0.23\nS\n)\n0.48\n0.27\nTH\n/Yo\nG\n(-jB\n8\nN\n0.                                                                                                                                                                     -10\nE\nCE\nL\n0\n-85\n-20\n6\nE\n0.2\n1\nAV\nAN\n1.0\n-\n5.0\n0.22\nW\nT\n7\n0.28\n0.4\nP\n1.0\n<—\nCE\nUS\n-15 -80\n4.0\nES\n0.8                                                                                                                                                -15\nIV\n4\n0.2\n0\n-30\nT\n0.0\n0.3\nC\n6\n0.2\n1\n0.4\nDU\n9\nIN\n0.6\n-75\nR\n3.0\nO\n),\n5\nZo\n-20\n0.2\n0.0\nX/\n5\n4                                                                                                                                                                                                                                                                                                                                            0.3\n0.4\n0.              (-j\n40\n-4\n-1\n0\nT                                                                                                                                   0.4\nEN\n-70\nN\nPO\n06\n0.\n19\n0.\nM\nCO                                                                                                                                                                                                                                                                     -25\n44\n0.\n0.5\n31\n0.\nE\n2.0\n30                                                  NC                                                                                                                                                                                                                               -5\nTA                                                                                                                                                                                                                                    0\n-65\n-1\n7                                           AC                                                                                                  0.2                                                                                                                                      0.1\n1.8\nE\n0.0                                        VE\nR                                                                                                                                                                                                                                          8\n0.6\nITI                                                                                                                                                                                                                                                        0.3\n3\n0.4                                           AC                                                                                                                                                                                                                 -30                                   2\n1.6\nCAP\n-60\n0                                                                                                                                                                                              -60       0.1\n8                        -12\n0.7\n0.0                                                                                                                                                                                                                                      7\n1.4\n2                                                                                                                                                                                                    -35                                                0.3\n0.8\n0.4                                                                                                                                                                                                                                                3\n1.2\n-55\n0.9\n0.1\n1.0\n9                                                                                                                                                                   -70\n0.0                 -110                                                                                                            0                                               6\n-4\n0\n-5\n5\n0.3\n-4\n1\n0.4                         0.1                      -100                                                                           -80                        0.15                         4\n-90\n0.11                                                                      0.14                            0.35\n0.4                                                       0.12                  0.13\n0.39                                                                             0.36\n0.38                    0.37\nO (C dB O ]\nF\n. C K SS [ SS C [dB\nRADIALLY SCALED PARAMETERS\nEF\n.\nN P L L EN\nP)\nTOWARD LOAD —>                                                                                             <— TOWARD GENERATOR\nSW d S [d EFF , E o\nRT\nA W. L. W. TT\nEF O ]\nP T.\n∞100 40\nSM EA O O\n20             10                               5              4                      3             2.5                 2        1.8         1.6         1.4             1.2 1.1 1          15               10     7        5                                        4                     3                            2           1\nF, NS\nN\nTR S. RF S. A\nR BS B] , P r I\n. L L. OE\nRF L. C\nO CO FF\n∞ 40 30                                                                                                                                                                                                                                                                                                                                                                                                                              ∞\nRF\n20                    15                                         10                     8                6          5          4           3         2         1      1 1                                         1.1               1.2         1.3 1.4                1.6         1.8    2                             3         4         5                   10        20\nS\n0                                1               2               3                 4              5               6            7        8     9         10          12         14                  20          30 ∞ 0                          0.1           0.2               0.4         0.6     0.8       1                1.5              2                   3          4         5         6                  10 15 ∞\nI\nor\nE\n1                   0.9         0.8      0.7         0.6       0.5                0.4                0.3                    0.2                      0.1                 0.05                     0.01           0 0                 1.1               1.2             1.3           1.4        1.5      1.6 1.7 1.8 1.9 2                                             2.5         3                   4         5          10 ∞\nF,\nEF\nO\n1                           0.9                 0.8              0.7                    0.6                   0.5                      0.4               0.3                   0.2                 0.1           0 1                 0.99                    0.95                0.9                        0.8                0.7                 0.6            0.5        0.4           0.3         0.2           0.1            0\n.C\nSM\nCENTER\nN\nA\nTR\n0.0                              0.1                 0.2              0.3                    0.4                   0.5                      0.6               0.7                   0.8                 0.9            1                  1.1                  1.2                  1.3                1.4                  1.5                1.6                    1.7              1.8                   1.9                         2\nORIGIN\n© Black Magic Design. All rights reserved. This content is excluded from our Creative Commons license.\nFor more information, see\nThe Complete Smith Chart\nBlack Magic Design\n0.12                    0.13\n0.11                                                                             0.14\n0.38                  0.37                                                     0.15\n0.1                          0.39                                                                           0.36\n90\n0.4                         100                                                                      80                            0.35                         0.1\n0   .09                                                                                                                                                                                              6\n45\n50\n1                110                                                                                                             40                            70                0.3\n0.4\n1.0\n4\n0.9\n1.2\n0.1\n55\n.08\n0.8\n0                                                                                                                                                                                                                                                        7\n35\n1.4\n2                                                                                                                                                                                                                                   0.3\n0.7\n0.4               0                                                                                                                                                                                                              60           3\n12\n0.6 60\n)\n/Yo\n1.6\n0.1\n0.0\n7                                                                            (+jB                                                                                                                                                                            30                                        8\nCE                                                                                                                                                                                                                                0.3\n3                                                AN\n0.4\n1.8\nPT                                                                                               0.2                                                                                                                                       2\nCE                                                                                                                                                                                                                                     50\n65\n0                                         S\n13                                         SU\n2.0\nVE\n0.5\n06\n0.\nTI                                                                                                                                                                                                                                                         25\n19\nCI\n0.\n44\n0.\nPA\n31\n0.\nCA\n70\nR\n,O                                                                                                                                              0.4\no)\n0\n40\n14\n4\n5\n0.\n0.2\n0.0\n/Z\n5\n20\n0.3\njX\n0.4\n(+\n3.0\nT\n75\nEN\n0.6\nN\nPO\n4\n0.2\n0.0\n0.3\nOM\n0\n6\n0.2\n1\n30\n15\n0.4\n9\nEC\n0.8                                                                                                                                                15\n>\nR—\n4.0\n80\nNC\nTO\nTA\n1.0\n0.22\nAC\nERA\n0.47\n0.28\n5.0\nRE\n1.0\nGEN\n0.2\n0\nIVE\n20\n85\n1 6\n10\nUCT\nARD\n8\n0.\n0.23\nIND\nS TOW\n0.48\n0.27\nANG\n90\n0.6\nANG\nLE OF\nNGTH\n10\nLE OF\n0\n0.1\n17\n0.4\nTRANSM\n0.0 —> WAVELE\n0.24\n0.49\n0.26\nREFLECTION COEFFICIENT IN DE\n20\n0.2\nISSION COEFFICIENT IN\n50\n0.1\n0.2\n0.3\n0.4\n0.5\n0.6\n0.7\n0.8\n0.9\n1.0\n1.2\n1.4\n1.6\n1.8\n2.0\n3.0\n4.0\n5.0\n10\n20\n50\n0.25\n0.25\n± 180\n0.0\n50\nRESISTANCE COMPONENT (R/Zo), OR CONDUCTANCE COMPONENT (G/Yo)\nAD <—\n0.2\n20\n0.24\nO\n0.49\n0.26\nD  L\n0.4\n70\nR\n0.1\nDEGR\nOWA\n-1\nG\n10\nRE\nT\nES\nEES\n0.6\n-90\n0.23\nS\n)\n0.48\n0.27\nTH\n/Yo\nG\n(-jB\n8\nN\n0.                                                                                                                                                                     -10\nE\nCE\nL\n0\n-85\n-20\n6\nE\n0.2\n1\nAV\nAN\n1.0\n-\n5.0\n0.22\nW\nT\n7\n0.28\n0.4\nP\n1.0\n<—\nCE\nUS\n-15 -80\n4.0\nES\n0.8                                                                                                                                                -15\nIV\n4\n0.2\n0\n-30\nT\n0.0\n0.3\nC\n6\n0.2\n1\n0.4\nDU\n9\nIN\n0.6\n-75\nR\n3.0\nO\n),\n5\nZo\n-20\n0.2\n0.0\nX/\n5\n4                                                                                                                                                                                                                                                                                                                                            0.3\n0.4\n0.              (-j\n40\n-4\n-1\n0\nT                                                                                                                                   0.4\nEN\n-70\nN\nPO\n06\n0.\n19\n0.\nM\nCO                                                                                                                                                                                                                                                                     -25\n44\n0.\n0.5\n31\n0.\nE\n2.0\n30                                                  NC                                                                                                                                                                                                                               -5\nTA                                                                                                                                                                                                                                    0\n-65\n-1\n7                                           AC                                                                                                  0.2                                                                                                                                      0.1\n1.8\nE\n0.0                                        VE\nR                                                                                                                                                                                                                                          8\n0.6\nITI                                                                                                                                                                                                                                                        0.3\n3\n0.4                                           AC                                                                                                                                                                                                                 -30                                   2\n1.6\nCAP\n-60\n0                                                                                                                                                                                              -60       0.1\n8                        -12\n0.7\n0.0                                                                                                                                                                                                                                      7\n1.4\n2                                                                                                                                                                                                    -35                                                0.3\n0.8\n0.4                                                                                                                                                                                                                                                3\n1.2\n-55\n0.9\n0.1\n1.0\n9                                                                                                                                                                   -70\n0.0                 -110                                                                                                            0                                               6\n-4\n0\n-5\n5\n0.3\n-4\n1\n0.4                         0.1                      -100                                                                           -80                        0.15                         4\n-90\n0.11                                                                      0.14                            0.35\n0.4                                                       0.12                  0.13\n0.39                                                                             0.36\n0.38                    0.37\nO (C dB O ]\nF\n. C K SS [ SS C [dB\nRADIALLY SCALED PARAMETERS\nEF\n.\nN P L L EN\nP)\nTOWARD LOAD —>                                                                                             <— TOWARD GENERATOR\nSW d S [d EFF , E o\nRT\nA W. L. W. TT\nEF O ]\nP T.\n∞100 40\nSM EA O O\n20             10                               5              4                      3             2.5                 2        1.8         1.6         1.4             1.2 1.1 1          15               10     7        5                                        4                     3                            2           1\nF, NS\nN\nTR S. RF S. A\nR BS B] , P r I\n. L L. OE\nRF L. C\nO CO FF\n∞ 40 30                                                                                                                                                                                                                                                                                                                                                                                                                              ∞\nRF\n20                    15                                         10                     8                6          5          4           3         2         1      1 1                                         1.1               1.2         1.3 1.4                1.6         1.8    2                             3         4         5                   10        20\nS\n0                                1               2               3                 4              5               6            7        8     9         10          12         14                  20          30 ∞ 0                          0.1           0.2               0.4         0.6     0.8       1                1.5              2                   3          4         5         6                  10 15 ∞\nI\nor\nE\n1                   0.9         0.8      0.7         0.6       0.5                0.4                0.3                    0.2                      0.1                 0.05                     0.01           0 0                 1.1               1.2             1.3           1.4        1.5      1.6 1.7 1.8 1.9 2                                             2.5         3                   4         5          10 ∞\nF,\nEF\nO\n1                           0.9                 0.8              0.7                    0.6                   0.5                      0.4               0.3                   0.2                 0.1           0 1                 0.99                    0.95                0.9                        0.8                0.7                 0.6            0.5        0.4           0.3         0.2           0.1            0\n.C\nSM\nCENTER\nN\nA\nTR\n0.0                              0.1                 0.2              0.3                    0.4                   0.5                      0.6               0.7                   0.8                 0.9            1                  1.1                  1.2                  1.3                1.4                  1.5                1.6                    1.7              1.8                   1.9                         2\nORIGIN\n© Black Magic Design. All rights reserved. This content is excluded from our Creative Commons license.\nFor more information, see\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : From the problem statement we know we are looking for a parallel resonator (short circuit far from\nresonance), with the input to the ampliﬁer serving as the load resistor. We also know that QLoaded =\n2π×1×106\n2π×50×106 = 0.02.\nQLoaded = 0.02 = ω CR th R\nRth +R , which tells us that\nRth +R      1     200    4     −10\nC=Q\nω Rth R = 2π×50×106 1002 = π × 10\n1\nω = √LC which tells us L = ω21C .\nL = (2π×106 )21 4 ×10−10 = 161π × 10−2\nπ\n12\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nG = 10\nλ = fc = 0.005 [m]",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (Minimum Power)\nStep 1: Find the intensity at the target\nG           10\nIped = Pt 4πr 2 = Pt 4π(50)2\nStep 2: Find the intensity at the reciever, given the cross section of the target\n−2\n1             10\nIrec = Iped σ 4π(50) 2 = Iped 4π(50)2\nStep 3: Find the power at the reciever, given the intensity at the reciever\n2              2\nPrec = Irec Aef f = Irec G 4λπ = Irec 104πλ\nStep 4: Combine\n−2       2\n10\nPrec = Pt 4π(50)   10    10λ\n2 4π(50)2 4π = Pt (4π)−3 (50)−4 (0.005)2\nSo the power we need to send is\nPt = Prec (4π)3 (50)4 (0.005)−2 = 10−12 (4π)3 (50)4 (0.005)−2 = 0.25(4π)3 = 16π 3 = 496 [W ]",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \nG = 10\nλ = fc = 0.005 [m]",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (Voltage)\nP = IV = V 2 /R = V 2 /100\n√           √\nV = 100 × P = 100 × 496 = 223 [V ]\n6\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(34/100 points)\n\nE = 2 x̂ cos(t + z) andH = ŷ sin(t  z  ) .\n2\n                                 z\nThe wave velocity v and direction [m/s]?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (t  z)  0  velocity v          1 [m/s]\nt                                t",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(34/100 points)\n\nE = 2 x̂ cos(t + z) andH = ŷ sin(t  z  ) .\n2\n                                 z\nThe time average wave intensity I [W/m2]?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Wave intensity I = E  H  2cos2 (t)  1 [W/m2 ]",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(34/100 points)\n\nE = 2 x̂ cos(t + z) andH = ŷ sin(t  z  ) .\n2\n                                 z\nThe permeability μ [H/m] for this medium?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : η = E/H = 2. μ = η/v =     μ/ε  = 2×1 = 2 [H/m]\n1                                   1",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(34/100 points)\n\nE = 2 x̂ cos(t + z) andH = ŷ sin(t  z  ) .\n2\n                                 z\nThe pressure Pm [N/m2] the wave exerts when normally\nincident (θi = 0) on a perfectly reflecting mirror?\nx",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Pressure Pm = Wm =      H 2 where |H| = 2 at s = ∞. Pm = 22 = 2 [N/m2]\n2                                   4",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(28/100 points)\nWhat is H inside the toroid when the current\nthrough the coil is I Amperes?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Ampere’s Law: πDH = NI  H = NI/πD [A/m]             (points counterclockwise)",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(28/100 points)\nWhat is the approximate inductance L of this\nI\ninductor?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : L = /I.  = NAμoH. So L = NAμoNI/πDI = μoN2A/πD [H]",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(28/100 points)\nThe core of this coil is now one-percent filled\nwith many turns of iron wire having μ =            Iron wire, filling the\n1000μo, as illustrated. What now is the            toroid one percent\ninductance L?\n-2\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : μ  0.01×1000μo + 0.99μo = 10.99 μo; A  A/100, so L  L’ = 10.99 μoN2A/πD [H]\n-1\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(28/100 points)\nWhat is the numerical value of RTh?\nBriefly explain your reasoning (required).\nz",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : RTh = 100 ohms since there is no “glitch” at t = 2τ and therefore no reflection at the source\nwhen the step returns at 2τ. Thus RTh is matched to the line.",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(28/100 points)\nDiagram a simple load at the end of the line that could produce this response; it is not\nnecessary to compute element values. Simply label your components as R, L, or C, as\nnecessary.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : An R and C in parallel at the end of the line produces this response; the C in parallel looks\nlike a short circuit, yielding the zero at t = τ, and the R in parallel prevents the voltage V\nfrom returning to the source voltage A = 2 volts.",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(22/100 points)\nA certain parallel-plate TEM transmission line is filled with μo and ε = 9εo.\nWhat is the approximate wavelength λ (numerical value) for a 1-GHz signal on this line?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : A 1-GHz signal on this TEM line has λ = 10 cm since λ = vp/f = 1/109 μo 9ε o = 0.1[m].\n3ω\n− jω μo 9ε o (1+ 0.01j)z            −j      1+ 0.01j z\n-αz                − jkz",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(22/100 points)\nA certain parallel-plate TEM transmission line is filled with μo and ε = 9εo.\nAssume a sinusoidal signal propagates in the +z direction as |V(z)| = Voe-z and that ε =\n9εo(1 + 0.01j). What are the sign and approximate numerical value of  at 1 GHz?\n-1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : |V(z)| = Voe . Vo e                           = Vo e                              = Vo e         c\n, 1+ 0.01j = ± (1 + 0.005j) , but\nthe      “-”       solution               propagates                in       the       wrong               direction.          Therefore        we\n3ω                        6π 109\n−j    1+ 0.01j z        −j            1+ 0.01j z\nhave e\nc\n=e        3×108\n= e −20 jπ (1+ 0.005 j) z = e −20 jπ (1+ 0.005 j)z ⇒ e0.1π z = e −α z\n⇒ α = −π /10 = −0.314[m −1 ]                                 Therefore this transmission line amplifies.",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(22/100 points)\nExplain completely but very briefly whether this is a TE or TM wave.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : ⎯H = x̂ Hoe-jz - 0.6y is a TM wave because H is ⊥ z axis, the axis of propagation.",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(22/100 points)\nWhat is the approximate angular frequency  [r/s] of this wave?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : (ω [r/s]/c)2 = ko2 = kz2 + ky2 = 12 + (0.6j)2 = 0.64. So ω = 0.8c = 2.4 x 108 [r/s].",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(28/100 points)\nWhat is the numerical value of the inductance L [Hy/m] for this line?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Numerical value of the inductance L [Hy/m] on a line having c = 3x108 [m/s] and Zo = 100\nL                                                                                                                                |V(z)|\nis L =        LC = 100/(3x108) = 3.33 x 10-7 [Hy/m]\nC",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(28/100 points)\nThe magnitude of the voltage |V(z)| is\nZ(z = -3 meters)                      |V(z)|\nmeasured on this line as illustrated. The\nVSWR = 3. What fraction F of the\npower incident upon the load is being\nreflected?                                                                                  Load ZL\nz\nz = -7                z = -3           0",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : |Γ| = (VSWR – 1)/(VSWR + 1) = 2/4, so F = |Γ|2 = ¼.                                                                                          Load z\nz = -7           z = -3      0",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.013 — question d’examen, en anglais] \n(28/100 points)\nWhat is the complex impedance Z(z = -3 meters) seen looking toward the load?\nAlthough a Smith chart is not required for this           Rn = 0\nproblem, a small one is provided here as a                                                    Rn = 2\njXn = j\ncourtesy.\nRn = 1\njX = 0\njXn = -j\nRn = \nTo generator\n-2\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Z(z = -3 meters) = real and minimum since |V| = minimum. Zn (z = -3) = (1 - |Γ|)/(1 + |Γ|)\n= 1/3, so Z (z = -3) = 100/3 = 33.3 Ω.\n‐1\n6.013 Electromagnetics and Applications\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    }
+  ]
+}

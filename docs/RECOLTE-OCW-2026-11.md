@@ -256,6 +256,128 @@ Désormais :
 
 ---
 
+## 4 ter. La deuxième vague : vingt cours de plus (04/11/2026)
+
+### Le point de départ
+
+La liste de travail est le rapport de criblage de la CI : **430 cours
+analysés, 66 avec un corrigé ET une licence Creative Commons, 55
+n jamais vus**. Les **44 cours restants** ont été téléchargés par
+`tools/telecharger-ocw.py --direct` : **850 documents, 66 dossiers,
+193 Mo, 33 secondes**.
+
+### La carte des formats
+
+Avant d'écrire quoi que ce soit, `tools/carte-cours.py` a fait l'inventaire
+: pour chaque cours, combien de documents, combien de paires
+énoncé/corrigé, et quel extracteur les couvre. C'est cette carte qui a
+dit quels extracteurs il fallait écrire, et lesquels il ne fallait pas
+réécrire.
+
+### Le résultat : 1 072 questions
+
+| Cours | Questions | Cours | Questions |
+|---|---|---|---|
+| 18.05 Probability and Statistics | **427** | 18.024 Multivariable Calculus | 33 |
+| 18.600 Probability and Random Variables | 166 | 18.034 Honors Differential Equations | 30 |
+| 18.04 Complex Variables | 108 | 18.06 Linear Algebra | 27 |
+| 6.012 Microelectronic Devices | 65 | 6.003 Signals and Systems | 21 |
+| 6.013 Electromagnetics | 51 | 6.041 Probabilistic Systems | 15 |
+| 18.440 Probability | 53 | 18.085 Computational Science | 7 |
+| 18.443 Statistics for Applications | 46 | 18.102 Functional Analysis | 7 |
+| 18.435J Quantum Computation | 5 | 6.7220J Nonlinear Optimization | 3 |
+| 6.011 Communication and Control | 2 | 6.041SC Probabilistic Systems | 2 |
+| 6.046J Introduction to Algorithms (SMA) | 2 | 6.973 Communication System Design | 2 |
+
+### Les refus, avec leur motif
+
+- **Dix cours de chimie et de sciences des matériaux** (3.00, 3.012,
+  3.034, 3.052, 3.091SC, 3.15, 3.205, 3.21, 3.22, 3.40J) : **sans lien
+  avec la cybersécurité**. La plateforme est une plateforme de
+  sécurité ; y loger un examen de chimie serait un mensonge, même avec
+  une licence parfaite.
+- **Deux cours dont le format n'est pas couvert** : 18.366 (Random
+  Walks and Diffusion) et 18.786 (Number Theory II). Ils sont
+  **signalés, pas forcés** : on ne réécrit pas un document pour le
+  faire entrer.
+
+### La preuve : aucun des dix lots déjà livrés n'a bougé
+
+`tools/non-regression-lots.py` rejoue les dix extracteurs sur les
+documents d'origine et compare les corrections avec les lots livrés :
+
+```
+mit-ocw-14-15j-examens       ok (14 corrections identiques)
+mit-ocw-18-404j-examens      ok (20 corrections identiques)
+mit-ocw-6-042j-examens       ok (5 corrections identiques)
+mit-ocw-6-111-examens        ok (22 corrections identiques)
+mit-ocw-6-253-examens        ok (11 corrections identiques)
+mit-ocw-6-262-examens        ok (13 corrections identiques)
+mit-ocw-6-450-examens        ok (3 corrections identiques)
+mit-ocw-6-661-examens        ok (74 corrections identiques)
+mit-ocw-6-832-examens        ok (7 corrections identiques)
+mit-ocw-6-851-examens        ok (12 corrections identiques)
+10 lot(s) verifie(s), 0 difference(s)
+```
+
+`tools/noter-lots.py` note en plus la qualité de chaque lot (réponses
+identiques à l'énoncé, réponses sans signe de réponse, réponses trop
+courtes) : c'est cet outil qui a servi à choisir l'extracteur le plus
+fiable pour chaque cours.
+
+### Deux pièges trouvés en route
+
+1. **Le contrôle de longueur arrivait trop tard.** La correction était
+   nettoyée (énoncé répété retiré) **après** le contrôle de longueur :
+   une réponse comme « 1/4 » passait le contrôle, puis devenait trop
+   courte une fois nettoyée. L'ordre des opérations est maintenant
+   inverse — on nettoie, puis on contrôle.
+2. **Le titre interne du document finissait dans les corrections.**
+   « Practice Exam 1: All Questions, Spring 2022   23 » apparaissait
+   dans **95 corrections sur 436**. Le module `tools/ocw_pieds.py` le
+   retire désormais (95 → **0**), sans toucher au contenu réel.
+
+### Mesures
+
+| | avant | après |
+|---|---|---|
+| banque de questions | 1 176 | **2 248** |
+| dont maison | 392 | 392 |
+| dont importées (réserve) | 784 | **1 856** |
+| importées dans une tâche | 0 | **0** |
+| réserve maximale | 451 | **1 373** |
+| copie servie (médiane / max / min) | 4 / 10 / 2 | 4 / 10 / 2 |
+| entrées du catalogue des sources | 39 | **59** |
+
+### Reproduire
+
+```bash
+# 1. Télécharger les 44 cours restants
+python3 tools/telecharger-ocw.py \
+  --rapport docs/recolte/criblage-ocw-2026-11-04.json \
+  --dossier run/ocw-suite --travailleurs 6 --direct --cours <44 slugs>
+
+# 2. Cartographier les formats
+python3 tools/carte-cours.py --dossier run/ocw-suite --json /tmp/carte.json
+
+# 3. Fabriquer les vingt lots (cahier de route exécutable)
+python3 tools/import-lot-mit-suite.py \
+  --texte run/ocw-suite --sortie tools/lots
+
+# 4. Contrôler la qualité
+python3 tools/controler-lot.py tools/lots/mit-ocw-18-*-examens.json
+
+# 5. Vérifier l'absence de régression sur les lots déjà livrés
+python3 tools/non-regression-lots.py
+
+# 6. Vérifier puis importer vers le plugin
+python3 tools/import-questions.py --verifier tools/lots/mit-ocw-18-05-examens.json
+python3 tools/import-questions.py --importer-dossier tools/lots \
+  --sortie wp-content/plugins/secura-academy/includes
+```
+
+---
+
 ## 5. Reproduire
 
 ```bash
@@ -287,9 +409,15 @@ vérifiée, leur usage et l'indication « non commercial ».
 
 ## 6. Ce qui reste à faire
 
-- **43 des 55 cours** de la liste du criblage ne sont pas encore traités.
-  Le même enchaînement s'applique : télécharger, écrire l'extracteur du
-  format, ou refuser avec un motif écrit.
+- **23 des 55 cours** de la liste du criblage ne sont pas encore traités
+  (la deuxième vague en a traité 20, et 12 étaient déjà faits : 7
+  prioritaires + 5 de la vague 1). Le même enchaînement s'applique :
+  télécharger, écrire l'extracteur du format, ou refuser avec un motif
+  écrit. Les cours restants sont principalement ceux dont le format
+  n'est pas encore couvert (18.366, 18.786, 18.075, 18.966, 18.03,
+  6.012-Fall 2005, 6.034, 6.035, 6.825, 6.01SC, 6.341, 6.152J,
+  6.241J, 6.061, 6.642, 6.641) — le bilan par cours, motif par motif,
+  est dans `docs/recolte/bilan-suite-cours.json`.
 - **6.034, 6.035, 6.341** ne sont pas perdus : ils demandent un traitement
   des **schémas** (récupérer les figures des PDF et les joindre aux
   questions). C'est un travail Out Of Band, pas un problème de format.

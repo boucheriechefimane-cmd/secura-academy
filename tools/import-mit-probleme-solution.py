@@ -77,6 +77,7 @@ import sys
 # rien. Le module fait les deux : exact d'abord, puis sans le hash.
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ocw_appariement import apparier  # noqa: E402
+from ocw_pieds import RE_PIED_INTERNE  # noqa: E402
 
 
 LICENCE = "CC BY-NC-SA 4.0"
@@ -142,6 +143,10 @@ RE_PROBLEME_NUM = re.compile(
 # Une partie : « (a) ... » ou « a) ... ».
 RE_PARTIE = re.compile(r"^\s{0,10}\(?([a-z])\)\s+(.*)$")
 
+# Les lettres romaines : un cours peut numeroter ses sous-questions
+# « (i) », « (ii) » a l'interieur d'une partie « (b) ».
+LETTRES_ROMAINES = set("ivx")
+
 # Le repere « [6 points] » qui introduit la reponse.
 RE_REPERE_POINTS = re.compile(r"^\s{0,10}\[\s*(\d+)\s*points?\s*\]\s*(.*)$")
 
@@ -152,12 +157,20 @@ RE_SOLUTION_NOMME = re.compile(
 )
 RE_SOLUTION_PHASE = re.compile(r"^\s{0,10}Solution\s*\.?\s*(.*)$")
 
+# Le repere « Solution: » (deux-points) : la reponse de la partie en
+# cours, sur la meme ligne. Distinct de « Solution. » et de
+# « Solution 2a) », qui ouvrent une nouvelle partie.
+RE_SOLUTION_PHASE_INLINE = re.compile(r"^\s{0,10}Solution\s*:\s*(.*)$")
+
 
 def nettoyer(texte):
     """Retire les pieds de page OCW, les numeros de page, et les lignes vides."""
     texte = RE_FOOTER.sub('', texte)
     lignes = [l.rstrip() for l in texte.replace('\r\n', '\n').split('\n')]
     lignes = [l for l in lignes if not RE_PIED.match(l)]
+    # Le titre du document avec son numero de page (« Practice Exam 1:
+    # All Questions, Spring 2022    23 ») n'est pas du contenu.
+    lignes = [l for l in lignes if not RE_PIED_INTERNE.match(l)]
     return '\n'.join(lignes)
 
 
@@ -269,16 +282,31 @@ def segmenter(lignes):
             lettre = m.group(2)
             buffer = [m.group(3).strip()]
             continue
+        m = RE_SOLUTION_PHASE_INLINE.match(ligne)
+        if m and lettre is not None:
+            # « Solution: <reponse> » : la reponse de la partie en cours.
+            buffer.append(ligne.strip())
+            continue
         m = RE_SOLUTION_PHASE.match(ligne)
         if m:
+            contenu = m.group(1).strip().lstrip(':').strip()
             vider()
             phase = "reponse"
             lettre = ""
             # La reponse peut commencer sur la meme ligne : « Solution. T F F ».
-            buffer = [m.group(1).strip()] if m.group(1).strip() else []
+            buffer = [contenu] if contenu else []
             continue
         m = RE_PARTIE.match(ligne)
         if m:
+            # Une partie commence par « (a) », « (b ) »… Mais certains
+            # cours numerotent leurs sous-questions « (i) », « (ii) » a
+            # l'interieur d'une partie : ces sous-items ne sont PAS des
+            # parties, sinon la partie (b) serait coupee en deux et la
+            # reponse irait se perdre.
+            if (m.group(1) in LETTRES_ROMAINES and lettre is not None
+                    and lettre not in LETTRES_ROMAINES):
+                buffer.append(ligne.strip())
+                continue
             vider()
             lettre = m.group(1)
             buffer = [m.group(2).strip()]
@@ -290,6 +318,24 @@ def segmenter(lignes):
     vider()
     contexte = '\n'.join([m for m in avant_partie if m]).strip()
     return contexte, segments
+
+
+RE_REPERE_SOLUTION = re.compile(
+    r'(?:^|\n)\s*(?:Solution|SOLUTION)\s*:\s*', re.MULTILINE)
+
+
+def couper_reperes_solution(texte):
+    """Separe l'enonce et la reponse d'un bloc porte par « Solution: ».
+
+    Certains cours (MIT 18.05) ecrivent la reponse a la suite de la
+    question, dans la meme partie : « ... Compute P(A|B). Solution: (i)
+    Inclusion exclusion: ... ». On rend (enonce, reponse) ; si le
+    repere est absent, la reponse est vide.
+    """
+    morceaux = RE_REPERE_SOLUTION.split(texte, maxsplit=1)
+    if len(morceaux) < 2:
+        return texte, ''
+    return morceaux[0].strip(), morceaux[1].strip()
 
 
 def couper_reperes_points(texte):
@@ -525,10 +571,13 @@ def construire(enonce_path, corrige_path, prefixe, attribution, licence, xp):
         enonces_corrige, reponses_corrige = {}, {}
         for phase, lettre, texte in segments:
             if phase == "enonce":
-                avant, apres = couper_reperes_points(texte)
+                avant, reponse = couper_reperes_solution(texte)
+                avant, apres = couper_reperes_points(avant)
                 enonces_corrige[lettre] = avant
                 if apres:
                     reponses_corrige[lettre] = apres
+                if reponse:
+                    reponses_corrige[lettre] = reponse
             else:
                 reponses_corrige[lettre] = texte
 
@@ -551,8 +600,8 @@ def construire(enonce_path, corrige_path, prefixe, attribution, licence, xp):
                 # Le corrige ne donne pas de reponse pour cette partie :
                 # il s'agit d'un corrige « en ligne » dont la partie EST
                 # la reponse. L'enonce vient alors du fichier d'examen.
-                reponse = enonces_corrige.get(lettre, '')
-                enonce = enonces_examen.get(lettre, '')
+                reponse = enonces_corrige.get(lettre, '').strip()
+                enonce = enonces_examen.get(lettre, '').strip()
 
             if not enonce and lettre in enonces_examen:
                 enonce = enonces_examen[lettre]

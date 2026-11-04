@@ -1,0 +1,74 @@
+{
+  "source": "mit-ocw-18-435j-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/18-435j-quantum-computation-fall-2003/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.435J — question d’examen, en anglais] \nIn NMR quantum computing, a Hadamard gate is implemented by rotating\n                 G G\naround the axis (x + z )/ 2 . Compute the matrix obtained by rotation around this axis\nby π radians, and compare to a Hadamard gate.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If we denote the rotation by angle θ about (x + z )/ 2 by R(θ) , we have\nR(θ) = exp[−i(θ / 2)(σX + σZ )/ 2}\nθ           θ\n= cos I − i sin (σX + σZ )/ 2\n2           2\n⇒\nR(π) = −i(σX + σZ )/ 2\n−i   0 1   1 0  \n=                  +               \n2   1 0   0 −1  \n−i  1 1 \n=\n2  1 −1 \n= −iH\nwhere H is the Hadamard gate.",
+            "source": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.435J — question d’examen, en anglais] \nLet\n1\nH = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )\n2\nbe an operator on two qubits.\nUsing (a), find exp(−i πH / 4) and exp(−i πH / 2) .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Using equation (4.7) of N&C, we have\nexp(i θH ) = cos(θ)I ⊗ I + i sin(θ)H\n⇒\nexp(−i πH / 4) =     2I ⊗ I / 2 − i 2H / 2\nand\nexp(−i πH / 2) = −iH .",
+            "source": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.435J — question d’examen, en anglais] \nLet\n1\nH = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )\n2\nbe an operator on two qubits.\nFind a set of orthonormal eigenstates of H .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : You can easily verify that the Bell states, described in the first problem of Problem Set 3, are\none possible set of eigenstates. (In fact, H = Ι2AB − I ⊗ I .) The first state in that problem, the\nsinglet sate, has eigenvalue –1 and the other three have eigenvalues +1.",
+            "source": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 18.435J — question d’examen, en anglais] \nLet\n1\nH = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )\n2\nbe an operator on two qubits.\nFind H 2 and write it in a simple form.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : We have\n1\nH 2 = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )H .\n2\nNote that\n1                 1\n(σX ⊗ σX )H = (σX ⊗ σX )(σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )\n2                 4\n1\n= (σX σX ⊗ σX σX + σX σY ⊗ σX σY + σX σZ ⊗ σX σZ + σX ⊗ σX )\n4\n1\n= (I ⊗ I + i σZ ⊗ iσZ + (−i )σY ⊗ (−i )σY + σX ⊗ σX )\n4\n1\n= (I ⊗ I − σZ ⊗ σZ − σY ⊗ σY + σX ⊗ σX ) .\n4\nSimilarly,\n1                   1\n(σY ⊗ σY )H = (−σX ⊗ σX + σY ⊗ σY − σZ ⊗ σZ + I ⊗ I )\n2                   4\n1                   1\n(σ ⊗ σZ )H = (−σX ⊗ σX − σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )\n2 Z                 4\n1            H\n(I ⊗ I )H = .\n2            2\nAdding up these four relations, one can obtain\nH2 = I ⊗ I .",
+            "source": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 18.435J — question d’examen, en anglais] \nLet\n1\nH = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )\n2\nbe an operator on two qubits.\nFind the eigenvalues of H .",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Using Problem 1(b) in Problem Set 2, it can be seen that the only possible values for the\neigenvalues are +1 and –1.",
+            "source": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -750,6 +750,55 @@ reformulé : c'est le refus qui fait foi.
 
 Le catalogue `tools/sources-autorisees.json` passe de **32 à 39 entrées**.
 
+## 9 bis. La deuxième vague : vingt cours de plus (04/11/2026)
+
+La liste de travail est le rapport de criblage produit par la CI
+(`docs/recolte/criblage-ocw-2026-11-04.json`) : **430 cours analysés,
+66 avec un corrigé ET une licence Creative Commons, 55 jamais vus**.
+Les **44 cours restants** ont été téléchargés (**850 documents**), puis
+cartographiés (`tools/carte-cours.py`) pour choisir l'extracteur.
+
+**Vingt cours entrent** — énoncé et corrigé **officiels du MIT**, sans
+réécriture. La licence **CC BY-NC-SA 4.0** est celle vérifiée par le
+moteur de criblage sur la page de chaque cours (pas déduite d'un cours
+voisin) ; l'attribution nomme le **cours** et la **source des tests**.
+
+| Source | Licence (vérifiée le) | Ce que nous en prenons | Décision |
+|---|---|---|---|
+| **MIT 18.05** Introduction to Probability and Statistics (Spring 2022) | CC BY-NC-SA 4.0 (04/11/2026) | **427 questions** d'examen + corrigé officiel | **RÉUTILISABLE** |
+| **MIT 18.600** Probability and Random Variables (Fall 2019) | CC BY-NC-SA 4.0 (04/11/2026) | **166 questions** | **RÉUTILISABLE** |
+| **MIT 18.04** Complex Variables with Applications (Spring 2018) | CC BY-NC-SA 4.0 (04/11/2026) | **108 questions** | **RÉUTILISABLE** |
+| **MIT 6.012** Microelectronic Devices and Circuits (Fall 2009) | CC BY-NC-SA 4.0 (04/11/2026) | **65 questions** | **RÉUTILISABLE** |
+| **MIT 6.013** Electromagnetics and Applications (Spring 2009) | CC BY-NC-SA 4.0 (04/11/2026) | **51 questions** | **RÉUTILISABLE** |
+| **MIT 18.440** Probability and Random Variables (Spring 2014) | CC BY-NC-SA 4.0 (04/11/2026) | **53 questions** | **RÉUTILISABLE** |
+| **MIT 18.443** Statistics for Applications (Spring 2015) | CC BY-NC-SA 4.0 (04/11/2026) | **46 questions** | **RÉUTILISABLE** |
+| **MIT 18.024** Multivariable Calculus with Theory (Spring 2011) | CC BY-NC-SA 4.0 (04/11/2026) | **33 questions** | **RÉUTILISABLE** |
+| **MIT 18.034** Honors Differential Equations (Spring 2009) | CC BY-NC-SA 4.0 (04/11/2026) | **30 questions** | **RÉUTILISABLE** |
+| **MIT 18.06** Linear Algebra (Spring 2010) | CC BY-NC-SA 4.0 (04/11/2026) | **27 questions** | **RÉUTILISABLE** |
+| **MIT 6.003** Signals and Systems (Fall 2011) | CC BY-NC-SA 4.0 (04/11/2026) | **21 questions** | **RÉUTILISABLE** |
+| **MIT 6.041** Probabilistic Systems Analysis (Fall 2010) | CC BY-NC-SA 4.0 (04/11/2026) | **15 questions** | **RÉUTILISABLE** |
+| **MIT 18.085** Computational Science and Engineering I (Summer 2020) | CC BY-NC-SA 4.0 (04/11/2026) | **7 questions** | **RÉUTILISABLE** |
+| **MIT 18.102** Introduction to Functional Analysis (Spring 2009) | CC BY-NC-SA 4.0 (04/11/2026) | **7 questions** | **RÉUTILISABLE** |
+| **MIT 18.435J** Quantum Computation (Fall 2003) | CC BY-NC-SA 4.0 (04/11/2026) | **5 questions** | **RÉUTILISABLE** |
+| **MIT 6.7220J** Nonlinear Optimization (Spring 2025) | CC BY-NC-SA 4.0 (04/11/2026) | **3 questions** | **RÉUTILISABLE** |
+| **MIT 6.011** Introduction to Communication, Control and Signal Processing (Spring 2010) | CC BY-NC-SA 4.0 (04/11/2026) | **2 questions** | **RÉUTILISABLE** |
+| **MIT 6.041SC** Probabilistic Systems Analysis (Spring 2013) | CC BY-NC-SA 4.0 (04/11/2026) | **2 questions** | **RÉUTILISABLE** |
+| **MIT 6.046J** Introduction to Algorithms (SMA 5503, Fall 2005) | CC BY-NC-SA 4.0 (04/11/2026) | **2 questions** | **RÉUTILISABLE** |
+| **MIT 6.973** Communication System Design (Spring 2006) | CC BY-NC-SA 4.0 (04/11/2026) | **2 questions** | **RÉUTILISABLE** |
+
+**Dix cours sont refusés**, et le motif est écrit : ce sont des cours de
+**chimie et de sciences des matériaux** (3.00, 3.012, 3.034, 3.052,
+3.091SC, 3.15, 3.205, 3.21, 3.22, 3.40J). **La plateforme est une
+plateforme de sécurité** : y loger un examen de chimie serait un
+mensonge, même avec la meilleure licence du monde.
+
+**Deux cours ont un format non couvert** (18.366 Random Walks and
+Diffusion, 18.786 Number Theory II) : ils sont **signalés, pas
+forcés** — on ne réécrit pas un document pour le faire entrer.
+
+Le catalogue `tools/sources-autorisees.json` passe de **39 à 59
+entrées**. Le bilan par cours est `docs/recolte/bilan-suite-cours.json`.
+
 ### 9.1 Deux garde-fous ajoutés après la campagne (04/11/2026)
 
 **Le pied de page d'OCW ne doit jamais finir dans un énoncé.** Les
