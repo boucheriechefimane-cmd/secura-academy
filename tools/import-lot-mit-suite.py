@@ -61,10 +61,6 @@ COURS = [
      "mit-ocw-18-06-examens", "algorithmes",
      [("import-mit-parts-reponses.py", "parts-reponses",
        "[MIT 18.06 — question d’examen, en anglais] ")]),
-    ("18-366-random-walks-and-diffusion-fall-2006",
-     "mit-ocw-18-366-examens", "algorithmes",
-     [("import-mit-probleme-solution.py", None,
-       "[MIT 18.366 — question d’examen, en anglais] ")]),
     ("18-435j-quantum-computation-fall-2003",
      "mit-ocw-18-435j-examens", "algorithmes",
      [("import-mit-probleme-solution.py", None,
@@ -85,10 +81,6 @@ COURS = [
      "mit-ocw-18-102-examens", "algorithmes",
      [("import-mit-parts-reponses.py", "numeros-reponses",
        "[MIT 18.102 — question d’examen, en anglais] ")]),
-    ("18-786-number-theory-ii-class-field-theory-spring-2016",
-     "mit-ocw-18-786-examens", "algorithmes",
-     [("import-mit-probleme-solution.py", None,
-       "[MIT 18.786 — question d’examen, en anglais] ")]),
     ("6-003-signals-and-systems-fall-2011",
      "mit-ocw-6-003-examens", "communications",
      [("import-mit-parts-reponses.py", "numeros-reponses",
@@ -121,6 +113,14 @@ COURS = [
      "mit-ocw-6-7220j-examens", "algorithmes",
      [("import-mit-probleme-solution.py", None,
        "[MIT 6.7220J — question d’examen, en anglais] ")]),
+    ("6-041-probabilistic-systems-analysis-and-applied-probability-spring-2006",
+     "mit-ocw-6-041-s06-examens", "algorithmes",
+     [("import-mit-probleme-solution.py", None,
+       "[MIT 6.041 — question d’examen, en anglais] ")]),
+    ("6-641-electromagnetic-fields-forces-and-motion-spring-2009",
+     "mit-ocw-6-641-f09-examens", "communications",
+     [("import-mit-parts-reponses.py", "numeros-reponses",
+       "[MIT 6.641 — question d’examen, en anglais] ")]),
     ("6-973-communication-system-design-spring-2006",
      "mit-ocw-6-973-examens", "communications",
      [("import-mit-probleme-solution.py", None,
@@ -129,6 +129,46 @@ COURS = [
 
 # Cours dont le sujet n'a rien a voir avec la cybersecurite : on ne les
 # importe pas. Le motif est ecrit, il n'est pas devine.
+# Les cours dont le format n'est pas exploitable, avec le motif ecrit.
+# On ne complete jamais un document par du contenu redige : c'est le
+# refus qui fait foi.
+REFUS_FORMAT = {
+    "18-03-differential-equations-spring-2010":
+        "l'enonce est illisible a l'extraction (police non standard dans le PDF)",
+    "18-075-advanced-calculus-for-engineers-fall-2004":
+        "aucune paire enonce + corrige trouvee (les documents ne s'apparient pas)",
+    "18-086-mathematical-methods-for-engineers-ii-spring-2006":
+        "l'enonce extrait est un en-tete de feuille de travail, pas une question",
+    "18-366-random-walks-and-diffusion-fall-2006":
+        "appariement refuse : l'enonce annonce plus d'items que le corrige",
+    "18-786-number-theory-ii-class-field-theory-spring-2016":
+        "appariement refuse : l'enonce et le corrige n'ont pas les memes items",
+    "18-966-geometry-of-manifolds-spring-2007":
+        "aucune paire enonce + corrige trouvee (les documents ne s'apparient pas)",
+    "6-012-microelectronic-devices-and-circuits-fall-2005":
+        "le corrige est un PDF scanne : pas de couche texte",
+    "6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011":
+        "les 'corriges' sont des copies remplies d'un quiz en ligne",
+    "6-034-artificial-intelligence-spring-2005":
+        "l'enonce renvoie a un arbre dessine, le corrige est un tableau",
+    "6-035-computer-language-engineering-spring-2010":
+        "les blocs de base sont sur la page suivante, la reponse est du code",
+    "6-061-introduction-to-electric-power-systems-spring-2011":
+        "le corrige ne dit pas ou commence la reponse (pas de repere)",
+    "6-152j-micro-nano-processing-technology-fall-2005":
+        "aucune paire enonce + corrige trouvee (les documents ne s'apparient pas)",
+    "6-241j-dynamic-systems-and-control-spring-2011":
+        "appariement refuse : l'enonce et le corrige n'ont pas les memes items",
+    "6-341-discrete-time-signal-processing-fall-2005":
+        "les cases cochees du corrige n'existent pas dans la couche texte",
+    "6-641-electromagnetic-fields-forces-and-motion-spring-2005":
+        "l'enonce extrait est une formule deposee hors de sa ligne (mise en page du PDF)",
+    "6-642-continuum-electromechanics-fall-2008":
+        "l'enonce extrait est un fragment de solution, pas la question",
+    "6-825-techniques-in-artificial-intelligence-sma-5504-fall-2002":
+        "l'enonce est un examen du 6.891, le corrige du 6.825",
+}
+
 REFUS_SUJET = {
     "3-00-thermodynamics-of-materials-fall-2002":
         "thermodynamique des materiaux : sans lien avec la securite",
@@ -256,6 +296,10 @@ def main(argv=None):
         total += n
         print("%-58s %3d question(s) -> %s" % (slug[:58], n, os.path.basename(chemin)))
         bilan.append({"cours": slug, "source": source, "questions": n, "motif": ""})
+
+    for slug, motif in sorted(REFUS_FORMAT.items()):
+        print("%-58s REFUS : %s" % (slug[:58], motif))
+        bilan.append({"cours": slug, "questions": 0, "motif": motif})
 
     for slug, motif in sorted(REFUS_SUJET.items()):
         print("%-58s REFUS : %s" % (slug[:58], motif))

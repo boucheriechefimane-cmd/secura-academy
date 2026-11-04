@@ -60,6 +60,175 @@ P(gala | ripe apple) = 1+gk+h(n−k) =                   .
 1 + gk + h(n − k)
 n+1', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) Find c.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points)
+We’re given that the joint PDF is constant in the shaded region, and since the PDF must
+integrate to 1, we know that the constant must equal 1 over the area of the region. Thus,
+1
+c=       = 2.
+1/2', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) What are the recurrent states?
+Page 3 of 16
+Department of Electrical Engineering & Computer Science
+6.041/6.431: Probabilistic Systems Analysis
+(Fall 2009)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points)
+The recurrent states are {3,4}.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) Find the steady-state probabilities πj = limn→∞ P(Xn = j | X0 = i), or explain why they do
+not exist.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points)
+The steady-state probabilities do not exist since there is more than one recurrent class. The
+long-term state probabilities would depend on the initial state.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) What is the probability that Al ﬁnishes his ﬁrst lap before any of the others?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points)
+The event that Al is the ﬁrst to ﬁnish a lap is the same as the event that the ﬁrst arrival in
+the merged process came from Al’s process. This probability is
+λA       21
+= .
+λA + λB + λC  68', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) Find X̂MAP (N ), the MAP estimator of X based on an observation of N .
+Page 4 of 16
+Department of Electrical Engineering & Computer Science
+6.041/6.431: Probabilistic Systems Analysis
+(Fall 2009)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points)
+The expression for X̂MAP (N ), the MAP estimator of X based on an observation of N is
+X̂MAP (N ) = arg max fX|N (x | n)
+x
+fX (x)pN |X (n | x)
+= arg max
+x        pN (n)
+= arg max fX (x)pN |X (n | x)
+x
+λ2 n+1 −(1+λ)x
+= arg max   x     e
+x n!
+= arg max xn+1 e−(1+λ)x ,
+x
+where the third equality holds since pN (n) has no dependency on x and the last equality
+holds by removing all quantities that have no dependency on x. The max can be found by
+diﬀerentiation and the result is:
+1+N
+X̂MAP (N ) =       .
+1+λ
+This is the only local extremum in the range x ∈ [0, ∞). Moreover, fX|N (x | n) equals 0 at
+x = 0 and goes to 0 as x → ∞ and fX|N (x | n) > 0 otherwise. We can therefore conclude
+that X̂MAP (N ) is indeed a maximum.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(7 points) Find the marginal PDF of Y .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (7 points)
+The marginal PDF of Y can be found by integrating the joint PDF of X and Y .
+Z
+fY (y) =    fX,Y (x, y)dx
+ZX∞
+=     xe−(1+y)x dx
+0
+(
+1
+(1+y)2
+,       y≥0
+fY (y) =
+0,             otherwise.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(7 points) Find the conditional expectation of X, given that Y = 2.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (7 points)
+Z
+E[X | Y = 2] =                  x · fX|Y (x | 2)dx
+X
+Z ∞
+=9             x2 e−3x dx
+0
+2
+=9·
+33
+2
+= .
+3
+Page 1 of 5
+Department of Electrical Engineering & Computer Science
+6.041/6.431: Probabilistic Systems Analysis
+(Fall 2009)', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(7 points) Find the PDF of e2X .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (7 points)
+Let’s define Z = e2X . Since X is an exponential random variable that takes on non-negative
+values (X ≥ 0), Z ≥ 1. We find the PDF of Z by first computing its CDF.
+FZ (z) = P(Z ≤ z)
+= P(e2X ≤ z)
+= P(2X ≤ ln z)
+ln z
+= P(X ≤        )
+2
+ln z
+= 1 − e− 2
+−1
+= 1 − eln z 2
+The CDF of Z is:
+1
+1 − z− 2
+
+z≥1
+FZ (z) =
+0,               z<1
+Page 2 of 5
+Department of Electrical Engineering & Computer Science
+6.041/6.431: Probabilistic Systems Analysis
+(Fall 2009)
+Differentiating the CDF of Z yields the PDF
+ 1 −3
+2z
+2           z≥1
+fZ (z) =
+0,             z<1
+Alternatively, you can apply the PDF formula for a strictly monotonic function of a continuous
+random variable. Recall if z = g(x) and x = h(z), then
+dh
+fZ (z) = fX (h(z))        (z) .
+dy
+In this problem, z = e2x and x = 21 ln z. Note that fZ (z) is nonzero for z > 1. Since X is an
+exponential random variable with λ = 1, fX (x) = ex . Thus,
+1
+fZ (z) = e− 2 ln z
+1
+2z
+−1  1
+= eln z 2
+2z
+1 −3
+= z 2 z ≥ 1,
+2
+where the second equality holds since the expression inside the absolute value is always positive
+for z ≥ 1.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) The quantity E[ E[X | Y, N ] | N ] is always:', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points) The quantity E[E[X | Y, N ] | N ] is always:
+(i) A number.
+(ii) A discrete random variable.
+(iii) A continuous random variable.
+(iv) Not enough information to choose between (i)-(iii).
+If X, Y and N are not independent, then the inner expectation G(Y, N ) = E[X | Y, N ] is
+a function of Y and N . Furthermore E[G(Y, N ) | N ] is a function of N , a discrete random
+variable. If X, Y and N are independent, then the inner expectation E[X | Y, N ] = E[X],
+which is a number. The expectation of a number given N is still a number, which is a special
+case of a discrete random variable.
+Page 3 of 5
+Department of Electrical Engineering & Computer Science
+6.041/6.431: Probabilistic Systems Analysis
+(Fall 2009)', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(7 points) Find the covariance of X and Q.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (7 points)
+We know that cov(X, Q) = E[XQ] − E[X]E[Q], so first let’s calculate E[XQ]:
+1
+E[XQ] = E[E[XQ | Q]] = E[QE[X | Q]] = E[Q2 ] = .
+3
+Therefore, we have
+1 1 1 1
+cov(X, Q) =     − · = .
+3 2 2 12', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(7 points) If X and Y are standard normal, ﬁnd the probability that S ≥ 1.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (7 points)
+P(S ≥ 1) = P(min{X, Y } ≥ 1) = P(X ≥ 1 and Y ≥ 1) = P(X ≥ 1)P(Y ≥ 1)
+= (1 − FX (1))(1 − FY (1)) = (1 − Φ(1))2 ≈ (1 − 0.8413)2 ≈ 0.0252.
+Page 4 of 5
+Department of Electrical Engineering & Computer Science
+6.041/6.431: Probabilistic Systems Analysis
+(Fall 2009)', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
 Multiple Choice (4 pts. each, 24 pts. total)
 Clearly circle the appropriate choice. No partial credit will be given for individual questions in this
 part of the quiz.
@@ -250,6 +419,158 @@ var(Y2 ) = var((X1 − 1) + (X2 − 1))
 2g
 =          .
 (1 − g)2', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) Find E[X | Y = 1/4] and Var[X | Y = 1/4], that is, the conditional mean and conditional
+variance of X given that Y = 1/4.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points)
+To ﬁnd the conditional expectation and variance, ﬁrst we need to determine what the condi­
+tional distribution is given Y = 1/4. At Y = 1/4, we take a horizontal slice of a uniform joint
+PDF, which gives us a uniform distribution over the interval x ∈ [1/4, 3/4]. Thus, we have
+1
+E[X | Y = 1/4] = ,
+2
+(1/2)2   1
+var(X | Y = 1/4) =           = .
+12    48', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) Find P(X2 = 4 | X0 = 2).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points)
+The 2-step transition probability from State 2 to State 4 can be found by enumerating all the
+possible sequences. They are {2 → 1 → 4} and {2 → 4 → 4}. Thus,
+1 1 1   7
+P(X2 = 4 | X0 = 2) =          · + ·1= .
+3 6 3   18', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) What is the probability of eventually visiting state 4, given that the initial state is X0 = 1?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points)
+To ﬁnd the probability of being absorbed by state 4, we set up the absorption probabilities.
+Note that a4 = 1 and a3 = 0.
+1    1     1   1
+a1 = a1 + a2 + a3 + a4
+4    4     3   6
+1    1     1
+= a1 + a2 +
+4    4     6
+1     1   1
+a2 = a1 + a3 + a4
+3     3   3
+1     1
+= a1 +
+3     3
+Solving these equations yields a1 = 38 .
+Page 2 of 7
+Department of Electrical Engineering & Computer Science
+6.041/6.431: Probabilistic Systems Analysis
+(Fall 2009)', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) Find E[N ] and Var[N ], the unconditional mean and variance of N', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points)
+Using the law of iterated expectations and the law of total variance,
+E[N ] = E[E[N | X]]
+= E[X]
+2
+= ,
+λ
+var(N ) = E[var(N | X)] + var(E[N | X])
+= E[X] + var(X)
+2    2
+= + 2,
+λ λ
+where var(N | X) = E[N | X] = X.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(7 points) Find the joint PDF of X and Y .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (7 points)
+We start by recognizing that fX (x) = e−x for x ≥ 0 and fY |X (y | x) = xe−xy for y ≥ 0.
+Furthermore, fX,Y (x, y) = fX (x) · fY |X (y | x). Substituting for fx (x) and fY |X (y | x) yields,
+xe−(1+y)x , x ≥ 0, y ≥ 0
+
+fX,Y (x, y ) =
+0,          otherwise.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(7 points) Find the conditional PDF of X, given that Y = 2.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (7 points)
+We are asked to compute the PDF of the random variable X while conditioning on another
+random variable Y . The conditional PDF of X given that Y = 2 is
+fX,Y (x, 2)  xe−3x
+fX|Y (x | 2) =                      = 1
+fY (2)       32
+9xe−3x , x ≥ 0
+
+fX|Y (x | 2) =
+0,       otherwise.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(7 points) Find the conditional PDF of Y , given that X = 2 and Y ≥ 3.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (7 points)
+In the new universe in which X = 2, we are asked to compute the conditional PDF of Y given
+the event Y ≥ 3.
+fY |X (y | 2)
+fY |X,Y ≥3 (y | 2) =                  .
+P(Y ≥ 3 | X = 2)
+We first calculate the P(Y ≥ 3 | X = 2).
+Z ∞
+P(Y ≥ 3 | X = 2) =                   fY |X (y | 2)dy
+3
+Z ∞
+=           2e−2y dy
+3
+= 1 − FY |X (3 | 2)
+= 1 − (1 − e−2·3 )
+= e−6 ,
+where FY |X(3|2) is the CDF of an exponential random variable with λ = 2 evaluated at y = 3.
+Substituting the values of fY |X (y | 2) and P(Y ≥ 3 | X = 2) yields
+2e6 e−2y , y ≥ 3
+
+fY |X,Y ≥3 (y | 2) =
+0,         otherwise.
+Alternatively, fY |X (y | 2) is an exponential random variable with λ = 2. To compute the
+conditional PMF fY |X,Y ≥3 (y | 2), we can apply the memorylessness property of an exponential
+variable. Therefore, this conditional PMF is also an exponential random variable with λ = 2,
+but it is shifted by 3.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(5 points) The quantity E[X | Y ] is always:', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (5 points) The quantity E[X | Y ] is always:
+(i) A number.
+(ii) A discrete random variable.
+(iii) A continuous random variable.
+(iv) Not enough information to choose between (i)-(iii).
+If X and Y are not independent, then E[X | Y ] is a function of Y and is therefore a continuous
+random variable. However if X and Y are independent, then E[X | Y ] = E[X] which is a
+number.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(i) (5 points) Find the mean of X.
+(ii) (5 points) Find the variance of X.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (i) (5 points)
+Using the Law of Iterated Expectations, we have
+1
+E[X] = E[E[X | Q]] = E[Q] = .
+2
+(ii) (5 points)
+X is a Bernoulli random variable with a mean p = 21 and its variance is var(X ) =
+p(1 − p) = 1/4.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(8 points) Find the conditional PDF of Q given that X = 1.
+3
+Department of Electrical Engineering & Computer Science
+6.041/6.431: Probabilistic Systems Analysis
+(Fall 2009)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (8 points)
+Using Bayes’ Rule, we have
+fQ (q)pX |Q (1 | q)   fQ (q)P(X = 1 | Q = q)
+fQ|X (q | 1) =                       =                        ,   0 ≤ q ≤ 1.
+pX (1)                 P(X = 1)
+Additionally, we know that
+P(X = 1 | Q = q) = q,
+and that for Bernoulli random variables
+1
+P(X = 1) = E[X] = .
+2
+Thus, the conditional PDF of Q given X = 1 is
+1·q
+fQ|X (q | 1) =
+1/2
+
+2q, 0 ≤ q ≤ 1,
+=
+0, otherwise.', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.041 — question d’examen, en anglais]
+(7 points) Fix some s and £ with s ≤ £. Give a formula for
+P(s ≤ S and L ≤ £)
+involving FX and FY , and no integrals.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (7 points)
+Recalling Problem 2 of Problem Set 6, we have
+P(s ≤ S and L ≤ `) = P(s ≤ min{X, Y } and max{X, Y } ≤ `)
+= P(s ≤ X and s ≤ Y and X ≤ ` and Y ≤ `)
+= P(s ≤ X ≤ `)P(s ≤ Y ≤ `)
+= (FX (`) − FX (s))(FY (`)FY (s)).', 'source' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Fall 2010 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 6.041 — question d’examen, en anglais]
 Multiple Choice (4 pts. each, 24 pts. total)
 Clearly circle the appropriate choice. No partial credit will be given for individual questions in this

@@ -17,6 +17,118 @@ if ( ! function_exists( 'seca_import_mit_ocw_6_661_examens' ) ) {
 					'tasks' => array(
 						'test' => array(
 							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+Which amplifier should be placed first in the chain to minimize the chain noise
+figure? Explain briefly.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The preferred amplifier depends on both noise figure and gain. The amplifier with F
+= 4 is not in the contest. Using F = F1 + (F2-1)/G1, it follows that we can choose
+between:
+F = 1.5 + (1.6 − 1)/10 = 1.56 and
+F = 0.5 + 1.5/100 = 1.605
+Clearly the first combination has the lower noise figure, so put F = 1.5 first.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+If these amplifiers exhibit undesired non-linearities when their output power exceeds
+one milliwatt, what is the maximum gain Gmax we can tolerate in this amplifier
+chain? Assume the input is matched and at 290K.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The equivalent input power ≅ k(FTo)B = 1.38×10-23×1.615×290×109 = 6.5×10-12 W.
+If the output power is 0.001 watt = GPin, then
+Gmax ≅ 0.001/6.5×10-12 = 1.5×108 = 82 dB.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+Assume we can add an attenuator anywhere in this non-linear circuit by adding a
+room-temperature resistor in series.         Can such a resistor improve system
+performance? If so, where should it be added, and what should be its value R to
+minimize the overall noise figure for this system while meeting the 80-dB gain
+specification and non-linearity constraints?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We need 80 dB gain (but not over 82), so we can put the 70-dB amplifier in series
+with the 10 and/or 20-dB amplifiers. The lowest noise figure results when the 20-dB
+amplifier is followed by the 10 and 70-dB amplifiers, in that order. But then we
+need an attenuator preceding the final amplifier. If we have all three amplifiers in
+series, we need to reduce our gain by a factor of 100 - 82 dB = 18 dB ⇒ 63. If R is
+added in series preceding the final amplifier and the Thevenin source resistance is 50
+ohms, as is the load, then the power transferred is 0.5VI* = 0.5|VTh|250/[(R + 50)(R
++ 100)] versus 0.5|VTh|250/[(50)(100)] when R = 0. This ratio of powers equals 63
+when [(1 + (R/50)][(1 + (R/100)] = 63 = 1 + 3R/100 + R2/5000. This happens when
+R ≅ 485 ohms. This increases the Johnson noise from the input of the final amplifier
+in the ratio [(485 + 50)/50]0.5, which is small compared to 290K increased by the 30-
+dB gain that precedes the resistor.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What overall amplifier chain design is best here, i.e., how should the amplifiers be
+sequenced, and where, if anywhere, should a series resistor R be added?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Consideration of (a) above suggests the lowest noise system has the amplifiers in the
+noise-figure sequence 1.6, 1.5, and 4.0 dB, with R just before the final amplifier.
+Although we could omit the 20-dB amplifier and the resistor R, and still achieve the
+desired 80-dB gain without non-linearities, the noise figure of this combination
+would be 1.5 + 4/10 = `1.9, which is decidedly worse. The 20-dB amplifier followed
+by a smaller R and the 70-dB amplifier would still suffer from the resistor Johnson
+noise more than happens when an extra 10-dB of gain precedes and effectively
+diminishes it.
+-1-                                        12/22/03', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+Define all possible scattering matrices for such a reciprocal three-port device.
+Briefly explain your reasoning, showing that your list is exhaustive.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The general scattering matrix subject to the given constraints is:
+a     b    c
+S= c     a    b
+b     c    a
+where all entries are complex. Losslessness requires ST*S = I, so that:
+|a|2 + |b|2 + |c|2         a*b + c*a + b*c        a*c + c*b + b*a              Σ     α        β
+I = b*a + a*c + c*b              |a|2 + |b|2 + |c|2    c*a + b*c + a*b          =   α∗    Σ        β*
+c*a + b*c + ba*             c*b + b*a + a*c         |a|2 + |b|2 + |c|2          β∗    β        Σ
+Therefore α = β = 0 and Σ = 1. This implies only a, b, or c can be non-zero, and they
+must have magnitude unity to satisfy Σ = 1. However, reciprocity requires symmetry so
+that b = c, and therefore only \'a\' can be non-zero.
+Thus the only allowed S is the identity matrix times a phase shift ejφ, where φ is arbitrary.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+Repeat (a) for non-reciprocal devices. Briefly explain your reasoning.
+-1-                                        12/22/03', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : If we relax the requirement for reciprocity (b = c), only three scattering matrices are
+allowed (a or b or c = 1), and the phase angle φ in each case is again arbitrary.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+a)
+f1 + 75 + 20 MHz
+r.f. passbands
+f (MHz)
+0                     f1 - 95   f1 - 67      f1 f1 + 55
+What is the single-sideband (SSB) noise figure FSSB for the first stage of this
+receiver?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : See Equation (2.3.20) in the notes. FA = LC (Fif + tr - 1) = LC1(F1 + tr1 - 1)', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+a)
+f1 + 75 + 20 MHz
+r.f. passbands
+f (MHz)
+0                     f1 - 95   f1 - 67      f1 f1 + 55
+What is the SSB noise figure for the combined receiver? Note that it is a little worse
+than it might otherwise be because the unused sideband input into the second mixer
+is not at 290K, but something greater that must be reflected in the answer.
+-2-                                       12/22/03', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The second mixer is like an amplifier of gain G2LC2 and noise figure FB\' = LC2(F2 +
+tr2 - 1), but with excess noise (still larger FB) due to the fact that the unused sideband
+into the second mixer is not at 290K, but at a higher temperature when the first
+amplifier sees 290K. If we combine this excess noise input to the second mixer into
+the parameter tr2\', where tr2 is the manufacturer\'s specification, then the cascade
+formula for F yields:
+F = FA + (FB - 1)/GA = Lc1(Fif1 + tr1 - 1) + Lc1[Lc2(Fif2 + tr2\' -1) - 1]/G1
+By definition tr = Nif2/kTo = (shot etc. + kTo)/kTo. (see p 2-44 in text).
+Here Nif2\' = shot etc. + (kTo/2)(1 + [G1/Lc1]) where the G1/Lc1 term accounts for the
+excess thermal noise (G1/Lc1 = 1 if there is no first amplifier). Thus, tr2\' = Nif2/kTo =
+tr2 + ([G1/Lc1] - 1)/2 and
+F = Lc1(Fif1 + tr1 - 1) + Lc1{Lc2(Fif2 - 1 + tr2 + [([G1/Lc1] - 1)/2]) - 1}/G1
+-2-                                         12/22/03', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What happens to the output signal and the
+local oscillator noise when both diodes in                signal
+this circuit are reversed?                                                           output', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Nothing. The local-oscillator noise is identical on both reversed diodes and still
+cancels, while the signal terms are still out of phase and pass through the transformer to
+the i.f. amplifier.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What happens to the output signal and the
+local oscillator noise when the local
+oscillator and signal are swapped and put                                     Configuration
+in the others\' port? Should the diodes be                            (a)     before any swap
+changed to make this configuration work          L.O.
+and, if so, how?
+-3-                                          12/22/03', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The local oscillator noise at i.f. frequencies results when the local oscillator signal at
+the diode mixes with its own noise sidebands, both of which are subject to the same
+phase changes at the junctions of the multiport. Therefore their product is the same in
+both arms of the 4-port device regardless of whether both diodes are reversed or remain
+the same, and thus both noises cancel in the transformer. The products of the signal and
+local oscillator signals remain out of phase in the two diodes, provided they are both up
+or both reversed, and therefore the signal passes through the transformer to the i.f.
+amplifier. Therefore nothing happens and no other changes should be made.
+-3-                                       12/22/03', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
 Consider the limit where the intermolecular collisions of the gas are very frequent (N
 sec-1) compared to the nominal lifetime τ of the state (τ(sec) ≅ 1/A; A is the "Einstein
 A"). What is the effective temperature Teff characterizing the relative values of n1, n2,
@@ -694,6 +806,122 @@ BPSK. Therefore E = 10dB/10 kT [J/bit] and P[W] = RE = E = 100.95 1.38×10-23×1
 							array('question' => '[MIT 6.661 — question d’examen, en anglais]
 For this system, how many Joules/bit are required? Is this result a function of the
 chosen data rate?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : E = 1.23×10-20 [J/bit]; it is independent of the data rate.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+Show that the minimum achievable energy required to communicate one bit over any
+channel is Eb ≅ kT [J] in the Rayleigh-Jeans region. [Note, for interest, that when hf > kT
+we have the option of timing the release of photons with great precision, so one photon
+could convey many bits, based on its time of arrival. To get the correct bound in this case
+we could replace No = kT with the correct Planck expression and repeat the derivation
+above.]', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let Eb = S/C = S/[B log2(1 + S/NoB)] = EbR/[(R/Q) log2(1 + REbQ/kTR)], so
+Q = log2(1 + EbQ/kT) and 2Q - 1 = EbQ/kT. Therefore
+Eb = kT(2Q - 1)/Q = kT if Q = 1. For small Q, Eb diminishes only slightly', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+Find the approximate range of values for Q that permits us to operate within one or
+two dB of the minimum Eb.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Numerically, Q = 2 ⇒ Eb = 1.5kT; Q = 0.3 ⇒ 0.77kT, Q = 0.1 ⇒ 0.72kT.
+Q = 0.001 ⇒ 0.69kT. Lower values for Eb are generally unattainable in practice, so
+Eb > ~0.7kT is a fairly hard limit, where T is the system noise temperature
+characterizing the channel, not the signal. Thus the desired range is: 0 < Q < 2.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+Please sketch nominal shapes for f(t), g(t), i(t), and r(t) for this problem and align
+them on a single graph, noting that we are now in the spatial (or angular) domain, not the
+time domain. Indicate the physical origins of each of these functions.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let x,y be coordinates referenced to the focal plane. We can consider f(x,y) to
+correspond to the lens blurring function (arbitrarily chosen to be narrow) and g(x,y) to
+be the focal plane response function of each CCD pixel; i(x,y) represents the spacing of
+the pixels and r(x,y) corresponds to the viewer\'s visual response function (assumed
+blurry). Thus we might have:
+i(x,y) r(x,y) f(x,y)     g(x,y) i(x,y)
+x,y
+~15 microns', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What physical processes determine n1(t) and n2(t) here?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The noise n1(t) can be considered to be the environmental noise, while n2(t) is post-
+smoothing and can include the sensor noise, photon shot noise, read-out noise, and
+quantization noise. Lumping the sensor noise with n1(t) is awkward because n1(t)
+precedes convolution.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What should the diameter D be for a typical circular parabolic-mirror antenna if the
+SNR for a receiver having TR + TA = 600K is to be >10 dB for a single locust?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Prec = (PtGr/4πr2)(σL/4πr2)Ar =10 kTB
+Assume ηA=0.65, the dish area is πD2/4, Ar = 0.65πD2/4, and Gt = Gr = 0.65(πD/λ)2.
+Therefore D4 = 10kTBλ2r464/Ptπ×0.652σL
+= 10×1.38×10-23600B×9×10-4×1016×64/103π×0.652×10-4= 3.6×10-4B, so
+D = 0.14 B0.25 meters. (B in Hz)', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What considerations should govern the chosen duration τ [sec] of each CW pulse for
+this situation? (No τ needs to be chosen here.)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Longer CW pulses yield better doppler resolution because of reduced B values, but
+poorer range resolution; larger B (shorter τ) requires larger antenna diameters D.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What considerations should govern the chosen spacing T [sec] between consecutive
+CW pulses?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The ambiguity function for a pulse τ = 10 m is ~10 meters wide at its half-amplitude
+points. A factor of 2 compensates the round trip; τ ≅ 2×10/c [s] ≅ 6.7×10-8[s].', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+How does our desire to measure the velocity vector of a swarm of locusts affect our
+choice of CW pulse length τ? What τ might you recommend if locusts fly ~10 ms-1 and
+we should like to know their instantaneous (using a single radar pulse) radial velocity
+within ~±1 ms-1?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Referring to Fig 5.3-12, we see the ambiguity function width ∆f for a doppler shift for
+∆v = ±1 ms-1 is ∆f ≅ 1/2T Hz, where fo 2∆v/c = 1/2T so
+T = c/(4∆v fo) = 3×108/4×1×1010 = 7.5×10-3 seconds.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What pulse length τ[sec] might you recommend in order to measure the instantaneous
+distance of a swarm of locusts within ~±10 m?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The time ambiguity function is triangular with half-amplitude width = τ seconds, and
+the round-trip effect means the range ambiguity function width is cτ/2 meters ≅ 2×10,
+so τ ≅ 40/c = 1.33×10-7 seconds.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+How should we redesign the radar pulse to resolve the conflict between (d) and (e)?
+Roughly sketch and dimension the ambiguity function of your chosen pulse.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We can use a large time-bandwidth pulse. To obtain the range accuracy we need a
+bandwidth B ≅ 1/τ, where we use τ ≅ 1.33×10-7 seconds, so B ≅ 7.5 MHz. To obtain
+the doppler accuracy we need a pulse 7.5 milliseconds long. The ambiguity function
+then is:
+∆τ ≅ 1.33×10-7 sec                         ∆f        7.5 MHz
+0                       τ
+∆f ≅ 133 Hz                                      7.5×10-3 sec', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+Given your answer for (f), what should the diameter D of the antenna be?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The answer to (a) still applies, where B ≅ 7.5 MHz, so D ≅ 7.33 meters.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What is the approximate lateral (not range) resolution L(m) of this radar in normal
+(not ISAR) mode at 10-km altitude?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : θB ≅ λ/D, and resolution L ≅ λR/D, where R is range. Thus L ≅ 0.1×104/10 = 100 m.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What sort of pulse would yield 1-m range resolution?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The range ambiguity function width is cτ/2 meters = 1 m, so τ ≅ 2/c = 6.67×10-9 sec.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What is the approximate lateral resolution (m) of this radar along the flight path of a
+jetliner when operated in its ISAR mode? What is the resolution in the orthogonal
+direction?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : This is an unfocused SAR, so the resolution down track ≅ D = 10 m, across track it is
+the same as for (a): 100 m.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+What changes to the radar operation are required to obtain 1-m resolution along the
+flight path? Please provide quantitative answers and assume D remains 10 meters.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : If D = 10 meters, we must steer the dish to track the aircraft along a 10×100 m
+trajectory centered overhead, 10 times the original resolution-limited 100-m track.
+This longer track is then Fourier transformed as before. Note that two airliners
+following within one km of each other cannot both be mapped because the radar dish
+can track only one at a time.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+Assume the jetliners always fly between 8 and 12 km altitude. What is the maximum
+usable pulse repetition frequency (RPF)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : There should be no echos originating below 8 km or above 12 km, so there will be no
+ambiguity if cT > 2×4000 meters; RPF = T-1 = c/8000 = 3×108/8000 = 37.5 kHz.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+If we use the techniques of part (d) to obtain ~10-cm resolution in range and 1-m
+resolution in the flight-path direction, is delay compensation necessary for the pulse
+envelope? If so, how much delay is required in the worse case?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Yes, delay compensation is needed because the correlation length of the echo is
+~2×1m, and the delay for a 1-km track at 10-km altitude varies from 10 km to
+104/cos[tan-1(0.5/10)] = 10,012.5 meters, a difference of 12.5 meters, >> 2 m. The
+relative delay is 2×12.5/c = 83.3 ns.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+This ability to track the aircraft permits 10 images to be obtained with the original 10-
+m resolution. What is the ratio of rms intensity fluctuations to mean intensity for each
+pixel of the reconstructed average image?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Each separate image has a ratio s/m for intensity ≅ ~0.53, so if we average 10 this is
+reduced by a factor of 100.5 = 0.32, yielding a ratio of ~0.17.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+At what angle off axis is its first null?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : θnull = λ/D = 0.01/10 = 10-3 radian.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+This antenna maps the sky, after which the high spatial frequencies of the resulting
+image are boosted to yield the principal solution. If the target consists of a spatial
+impulse (unresolved source), the restored image exhibits nulls at certain angles. At what
+angle off axis is the first null?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : RE(∧τλ) has support over ±D = 20 meters,
+so TB(⎯φ ) has its first null atλ/2D = 0.01/20 = 5×10-4 radians', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
+							array('question' => '[MIT 6.661 — question d’examen, en anglais]
+Aperture synthesis is achieved by making multiple observations using two small
+antennas within the same 10-m square. At what angle off axis is the first null of the
+synthesized image?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The maximum baseline is 10 m and φ(τ) has support over a square 20 m on a side,
+yielding λ/2D beamwidths = 5×10-4 radians, same as for (b). Both images are limited
+by the maximum spatial frequency governed by the maximum antenna spacing 10 m.', 'source' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003'),
 						),
 					),
 				),

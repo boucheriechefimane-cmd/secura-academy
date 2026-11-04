@@ -147,6 +147,13 @@ RE_PARTIE = re.compile(r"^\s{0,10}\(?([a-z])\)\s+(.*)$")
 # « (i) », « (ii) » a l'interieur d'une partie « (b) ».
 LETTRES_ROMAINES = set("ivx")
 
+# Un contexte purement administratif (« Graded by Prof. Fonstad »,
+# « Due: November 30, 2005 ») n'est pas une question : il ne doit pas
+# etre prefixe a l'enonce.
+RE_CONTEXTE_ADMIN = re.compile(
+    r"^\s*(graded by|due\b|due:|name\s*:|examiner|instructor|problem\s+\d+\s*[:.]|"
+    r"copyright|department|massachusetts institute)", re.I)
+
 # Le repere « [6 points] » qui introduit la reponse.
 RE_REPERE_POINTS = re.compile(r"^\s{0,10}\[\s*(\d+)\s*points?\s*\]\s*(.*)$")
 
@@ -188,15 +195,30 @@ def decouper_problemes(texte):
     lignes « Problem N » ouvrent un nouveau probleme. Un document qui
     n'emploie jamais le mot « Problem » ouvre un probleme sur chaque
     numero suivi d'un titre.
+
+    **Les consignes qui precedent le premier « Problem N »** sont un
+    piege classique : l'enonce d'un examen commence souvent par une
+    liste « Notes: 1. … 2. … 3. … ». Ces lignes portent des numeros, et
+    They'd donc ouvert des problemes « 1 », « 2 », « 3 » — puis le vrai
+    « Problem 1 » serait refuse (un numero deja vu), et l'enonce
+    disparaitrait. C'est exactement ce qui est arrive au MIT 6.012
+    (Fall 2009) : les 65 questions de ce cours avaient pour enonce un
+    fragment d'en-tete. Des que le document emploie « Problem N », les
+    lignes numerotees qui precedent le premier « Problem N » n'ouvrent
+    donc aucun probleme : ce sont les consignes.
     """
+    lignes_texte = texte.split('\n')
+    # Le document emploie-t-il « Problem N » quelque part ?
+    utilise_problem = any(RE_PROBLEME_MOT.match(l) for l in lignes_texte)
     problemes = {}
     courant = None
     mot_du_cours = None
-    for ligne in texte.split('\n'):
+    for ligne in lignes_texte:
         m = RE_PROBLEME_MOT.match(ligne)
         if m is not None:
             mot_du_cours = True
-        elif mot_du_cours is not True and not ligne.lstrip().startswith(('•', '-', '*', '|')):
+        elif (mot_du_cours is not True and not utilise_problem
+              and not ligne.lstrip().startswith(('•', '-', '*', '|'))):
             m = RE_PROBLEME_NUM.match(ligne)
             if m is not None:
                 mot_du_cours = False
@@ -486,7 +508,18 @@ def controler_enonce(enonce):
 
 # Le numero de cours, tel qu'il apparait en tete de document : « 6.825 »,
 # « 6.042/18.062J », « 6.01 ».
-RE_NUMERO_COURS = re.compile(r"\b(\d{1,2}\.\d{3}[a-z]?)\b")
+# Le numero de cours, tel qu'il apparait en tete de document : « 6.825 »,
+# « 6.042/18.062J », « 6.01 ».
+#
+# Il faut reconnaitre CETTE ecriture-la, et non « n'importe quel nombre a
+# trois decimales » : l'enonce du MIT 6.012 (Fall 2009) contient
+# « kT/q = 0.025 V », et le nombre « 0.025 » etait pris pour un numero de
+# cours. Les deux documents semblaient alors etre d'examens differents,
+# et le couple etait refuse. On ne reconnait donc le numero que s'il
+# ouvre une ligne (« 6.012 MICROELECTRONIC DEVICES ») ou s'il suit le
+# mot « MIT ».
+RE_NUMERO_COURS = re.compile(r"^\s*(\d{1,2}\.\d{3}[a-z]?)\b", re.M)
+RE_NUMERO_COURS_MIT = re.compile(r"\bMIT\s+(\d{1,2}\.\d{3}[a-z]?)\b")
 
 
 def numeros_de_cours(texte):
@@ -498,7 +531,9 @@ def numeros_de_cours(texte):
     examen », meme si OCW les a ranges dans le meme dossier.
     """
     tete = '\n'.join(texte.split('\n')[:20])
-    return set(RE_NUMERO_COURS.findall(tete))
+    trouves = set(RE_NUMERO_COURS.findall(tete))
+    trouves |= set(RE_NUMERO_COURS_MIT.findall(tete))
+    return trouves
 
 
 # Les mots vides, pour comparer deux textes sans se laisser distraire par
@@ -606,8 +641,9 @@ def construire(enonce_path, corrige_path, prefixe, attribution, licence, xp):
             if not enonce and lettre in enonces_examen:
                 enonce = enonces_examen[lettre]
 
-            # Le contexte du probleme prefixe l'enonce de chaque partie.
-            if lettre and contexte:
+            # Le contexte du probleme prefixe l'enonce de chaque partie —
+            # sauf s'il ne contient qu'une mention administrative.
+            if lettre and contexte and not RE_CONTEXTE_ADMIN.match(contexte):
                 enonce = "%s\n%s" % (contexte, enonce) if enonce else contexte
 
             enonce, motif = controler_enonce(enonce)

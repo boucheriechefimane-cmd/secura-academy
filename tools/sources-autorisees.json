@@ -1,6 +1,6 @@
 {
   "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-04-seize",
+  "_version": "2026-11-04-dix-sept",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -670,6 +670,28 @@
       "url": "https://ocw.mit.edu/courses/6-973-communication-system-design-spring-2006/",
       "licence": "CC BY-NC-SA 4.0",
       "attribution": "MIT OpenCourseWare, 6.973 Communication System Design, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+      "usage": "questions d'examen et corrige officiel (unites et fin de cours)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "mit-ocw-6-041-s06-examens",
+      "nom": "MIT OpenCourseWare — 6 041 probabilistic systems analysis and applied probability spring 2006",
+      "url": "https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-spring-2006/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+      "usage": "questions d'examen et corrige officiel (unites et fin de cours)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "mit-ocw-6-641-f09-examens",
+      "nom": "MIT OpenCourseWare — 6 641 electromagnetic fields forces and motion spring 2009",
+      "url": "https://ocw.mit.edu/courses/6-641-electromagnetic-fields-forces-and-motion-spring-2009/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.641 Electromagnetic Fields Forces And Motion, Spring 2009 — examen et corrigé officiel (MIT EECS)",
       "usage": "questions d'examen et corrige officiel (unites et fin de cours)",
       "reutilisable": true,
       "commercial": false,

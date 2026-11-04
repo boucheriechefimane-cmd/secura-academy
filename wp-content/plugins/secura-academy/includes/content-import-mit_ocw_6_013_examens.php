@@ -17,6 +17,123 @@ if ( ! function_exists( 'seca_import_mit_ocw_6_013_examens' ) ) {
 					'tasks' => array(
 						'test' => array(
 							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(25/200 points)
+Two square capacitor plates in air have                            +Q         d
+separation d, sides of length b, and charge ±Q as              εo        -Q
+illustrated. Fringing fields can be neglected.                                 b
+b
+What is the capacitance Ca of this device?
+Ca =
+Please turn sheet over to answer parts (b) and (c).
+-1-                                    5/16/09', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : What is the capacitance Ca of this device?
+Ca = ob2/d
+Ca = oA/d = ob2/d', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(25/200 points)
+Two square capacitor plates in air have                            +Q         d
+separation d, sides of length b, and charge ±Q as              εo        -Q
+illustrated. Fringing fields can be neglected.                                 b
+b
+A perfectly conducting plate is introduced                      d/10
+between the capacitor plates, leaving parallel gaps                            +Q    εo       d
+of width d/10 above and below itself. What now is      y     σ=∞               -Q
+the device capacitance Cb when it is fully inserted?         x                      b
+z
+L
+Cb =', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : A perfectly conducting plate is introduced
+between the capacitor plates, leaving parallel gaps
+Cb = 5ob2/d
+of width d/10 above and below itself. What now is
+the device capacitance Cb when it is fully inserted?
+Cb = Ca’/2 = ob2/2(d/10) = 5ob2/d', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(20/200 points)
+The plate separation of a lossless parallel-plate TEM line many wavelengths long
+(length D = 100.25λ) very slowly increases from end A to end B, as illustrated. This
+increases the characteristic impedance of the line from Zo at the input end A, to 4Zo at
+the output end B. This transition from A to B is so gradual that it produces no
+reflections. End B is terminated with a resistor of value 4Zo
+A                  100.25                        B
+ZA    +
+-                                               4Zo +-        4Zo
+VA       Zo
+VB
+What is the input impedance ZA seen at end A? Explain briefly.
+ZA =
+Explanation:', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : What is the input impedance ZA seen at end A?                     ZA = Zo []
+Explanation: Line is matched:
+Explain briefly.                                                no reflections.', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(20/200 points)
+The plate separation of a lossless parallel-plate TEM line many wavelengths long
+(length D = 100.25λ) very slowly increases from end A to end B, as illustrated. This
+increases the characteristic impedance of the line from Zo at the input end A, to 4Zo at
+the output end B. This transition from A to B is so gradual that it produces no
+reflections. End B is terminated with a resistor of value 4Zo
+A                  100.25                        B
+ZA    +
+-                                               4Zo +-        4Zo
+VA       Zo
+VB
+If the sinusoidal (complex) input input voltage is VA, what is the output voltage VB?
+VB =
+Please turn sheet over for Problem 3.
+-3-                                      5/16/09', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : If the sinusoidal (complex) input input voltage is VA, what is the output voltage VB?
+Pin = Pout so |VA|2/2Zo = |VB|2/8Zo  |VB| = 2|VA|               VB = -2jVA [V]
+e-j/2 = -j', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(25/200 points)
+t=0
+At t = 0 a switch connects a voltage V to a          +
+passive air-filled short-circuited TEM line of                   V      iA(t)    Zo, c                 iB(t)
+length D and characteristic impedance Zo, as                 -
+illustrated. Please sketch and quantify dimension:                                z         z=D
+0
+The line voltage v(z) at t = D/2c.
+V(z) at t =D/2c
+z
+0                                       D', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The line voltage v(z) at t = D/2c.
+V(z) at t =D/2c
+V
+z
+0                         D/2                  D', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(25/200 points)
+t=0
+At t = 0 a switch connects a voltage V to a          +
+passive air-filled short-circuited TEM line of                   V      iA(t)    Zo, c                 iB(t)
+length D and characteristic impedance Zo, as                 -
+illustrated. Please sketch and quantify dimension:                                z         z=D
+0
+The current iB(t) through the short circuit for 0 < t < 2D/c.
+iB(t)
+t
+0                                       2D/c', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The current iB(t) through the short circuit for 0 < t < 2D/c.
+iB(t)
+2V/Zo
+t
+0                         D/c                  2D/c
+-2-                                                 7/13/09', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(25/200 points)
+t=0
+At t = 0 a switch connects a voltage V to a          +
+passive air-filled short-circuited TEM line of                   V      iA(t)    Zo, c                 iB(t)
+length D and characteristic impedance Zo, as                 -
+illustrated. Please sketch and quantify dimension:                                z         z=D
+0
+The current iA(t) from the voltage source (z = 0) for 0 < t < 3D/c.
+IA(t)
+t
+0                                       3D/c
+-4-                                          5/16/09', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The current iA(t) from the voltage
+IA(t)
+source (z = 0) for 0 < t < 3D/c.
+3V/Zo
+V/Zo
+t
+0                             2D/c        3D/c', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
 (30/200 points)
 R = 100 
 A 100-ohm air-filled lossless TEM line is
@@ -157,6 +274,77 @@ Q = (o)(a-2 + d-2)
 Q = woWT/Pd = 2f101 [2V (o|E|2/4)dV]/[ V (|E|2/2)dV
 = 2f101/ = (o)(a-2 + d-2)
 -4-                                                      7/13/09', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(20/200 points)
+A certain transmitter transmits PT watts of circularly polarized radiation with antenna
+gain Go (in circular polarization) toward an optimally oriented matched short-dipole
+receiving antenna (gain = 1.5) located a distance R away. The wavelength is .
+R/2                         Obstacle
+PT [W]
+at         Go                                                              Prec [W]
+A
+Circular
+polarization
+R
+In the absence of any obstacles or                   PR =
+reflections, what power PR is received?
+Please turn sheet over to answer part (b).
+- 11 -                                     5/16/09', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : In the absence of any obstacles or
+PR = 0.75 PTGo(/4R)2
+reflections, what power PR is received?
+PR = (PTGo/4R2) Ae, Ae = 0.5 1.52/4', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(20/200 points)
+A certain transmitter transmits PT watts of circularly polarized radiation with antenna
+gain Go (in circular polarization) toward an optimally oriented matched short-dipole
+receiving antenna (gain = 1.5) located a distance R away. The wavelength is .
+R/2                         Obstacle
+PT [W]
+at         Go                                                              Prec [W]
+A
+Circular
+polarization
+R
+A large metal fence is then erected half way
+between the transmitter and receiver, and         PR =
+perpendicular to the line of sight. Fortunately
+it has a round hole of area A centered on that
+line of sight. Assume the hole is sufficiently
+small that the electrical phase of the incident
+wave is constant over its entirety. What power
+is received now?
+- 12 -               5/16/09', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : A large metal fence is then erected half way
+between the transmitter and receiver, and            PR = 0.75PTGo(A/R2)2 [W]
+perpendicular to the line of sight. Fortunately
+it has a round hole of area A centered on that
+line of sight. Assume the hole is sufficiently
+small that the electrical phase of the incident
+wave is constant over its entirety. What power
+is received now?', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(15/200 points)
+An ideal lossless three-level laser has the illustrated energy          E2
+level structure. Level 1 is  Joules above the ground state, and                     [J]
+Level 2 is 3 Joules above the ground state. All rates of                  E1
+[J]
+spontaneous emission Aij have the same finite value except for             E0
+A21, which is infinite.
+What should be the laser frequency fL [Hz]?           fL [Hz] =', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : What should be the laser frequency fL [Hz]?             fL [Hz] = /h
+E = hf', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 6.013 — question d’examen, en anglais]
+(15/200 points)
+An ideal lossless three-level laser has the illustrated energy          E2
+level structure. Level 1 is  Joules above the ground state, and                     [J]
+Level 2 is 3 Joules above the ground state. All rates of                  E1
+[J]
+spontaneous emission Aij have the same finite value except for             E0
+A21, which is infinite.
+What is this laser’s maximum possible                 η=
+efficiency η = (laser power)/(pump power)?
+Please turn sheet over for Problem 10.
+- 13 -                            5/16/09', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : What is this laser’s maximum possible efficiency η = (laser power)/(pump power)?
+η = 1/3
+-5-                                      7/13/09', 'source' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.013 Electromagnetics And Applications, Spring 2009 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 6.013 — question d’examen, en anglais]
 Problem 2
 GIVEN

@@ -376,6 +376,137 @@ python3 tools/import-questions.py --importer-dossier tools/lots \
   --sortie wp-content/plugins/secura-academy/includes
 ```
 
+## 4 quater. Des questions dont l'enonce n'etait pas une question (04/11/2026)
+
+### Le defaut
+
+En relisant les livres, un controle automatique a signale que
+**65 questions du MIT 6.012 (Fall 2009) avaient pour enonce
+« Graded by Prof. Fonstad »** : un fragment d'en-tete de document, pas
+la question. L'eleve aurait recu une page de garde en guise
+d'enonce.
+
+### La cause
+
+L'enonce du MIT commence par une liste de consignes :
+
+```
+Notes:
+ 1. An effort has been made to make the various parts of these problems independent of
+ 2. Some questions ask for an explanation of your answer. No credit will be given for
+ 3. Unless otherwise indicated, you should assume room temperature and that kT/q is
+```
+
+Ces lignes portent des **numeros**. L'extracteur les prenait pour des
+**problemes « 1 », « 2 », « 3 »** ; le vrai « Problem 1 - (34 points) »
+etait alors refuse (un numero deja vu) et **l'enonce disparaissait**.
+
+### Le correctif
+
+Des que le document emploie « Problem N », les lignes numerotees qui
+precedent le premier « Problem N » sont des **consignes** : elles
+n'ouvrent plus aucun probleme.
+
+Deux autres causes, trouvees au passage :
+
+- **« kT/q = 0.025 V »** etait reconnu comme un **numero de cours**.
+  Le couple enonce/corrige du 6.012 paraissait alors etre deux examens
+  differents, et il etait refuse. Le numero de cours n'est desormais
+  reconnu que s'il **ouvre une ligne** ou s'il suit le mot « MIT ».
+- Un contexte purement administratif (« Graded by Prof. X ») n'est
+  plus prefixe a l'enonce.
+
+### Ce que cela change
+
+| Cours | avant | apres |
+|---|---|---|
+| MIT 6.661 Receivers, Antennas and Signals | 74 | **105** |
+| MIT 6.013 Electromagnetics | 51 | **62** |
+| MIT 6.041 Probabilistic Systems (Fall 2010) | 15 | **37** |
+| MIT 6.012 Microelectronic Devices (Fall 2009) | 65 | **26** (les 39 autres avaient un enonce de bout en bout) |
+
+Le **18.05** voit aussi ses paires **reordonnees** : l'ordre avait
+change, et **certaines reponses etaient deposees sur la mauvaise
+question** (verifie : « P(A) = 0.4, P(B) = 0.3 » recevait la reponse
+d'une autre question). C'est le meme defaut, moins visible.
+
+### Le garde-fou
+
+`tools/controler-lot.py` refuse desormais un enonce qui ne contient
+que des mentions administratives. Les **1 881 questions** des 47 lots
+passent le controle ; l'ancien lot du 6.012 est refuse.
+
+### Mesures
+
+| | avant | apres |
+|---|---|---|
+| banque de questions | 2 248 | **2 273** |
+| dont importées (réserve) | 1 856 | **1 881** |
+| importées dans une tâche | 0 | **0** |
+| réserve maximale | 1 373 | **1 395** |
+
+---
+
+## 4 quinquies. La liste de travail est bouclee (04/11/2026)
+
+### Le dernier bilan
+
+Les **66 cours** de la liste de criblage (un examen **et** un corrige
+officiel **et** une licence Creative Commons) sont tous traites :
+
+| | nombre | detail |
+|---|---|---|
+| **importes** | **39** | enonce et corrige officiels, licence CC BY-NC-SA 4.0, attribution du cours et de la source des tests |
+| **refuses** | **28** | chacun avec un motif ecrit dans `docs/recolte/bilan-suite-cours.json` |
+| non traites | **0** | — |
+
+### Les vingt-huit refus, et pourquoi
+
+**Dix cours sans lien avec la cybersecurite** — chimie et sciences des
+materiaux : 3.00, 3.012, 3.034, 3.052, 3.091SC, 3.15, 3.205, 3.21,
+3.22, 3.40J. La plateforme est une plateforme de securite : y loger un
+examen de chimie serait un mensonge, meme avec la meilleure licence du
+monde.
+
+**Dix-huit cours dont le format n'est pas exploitable** :
+
+| cours | motif |
+|---|---|
+| MIT 6.034 Artificial Intelligence | l'enonce renvoie a un **arbre dessine**, le corrige est un tableau |
+| MIT 6.035 Computer Language Engineering | les blocs sont **sur la page suivante**, la reponse est du code |
+| MIT 6.341 Discrete-Time Signal Processing | les **cases cochees** n'existent pas dans la couche texte |
+| MIT 6.012 (Fall 2005) | le corrige est un **PDF scanne** : pas de couche texte |
+| MIT 6.01SC | les « corriges » sont des **copies remplies** d'un quiz en ligne |
+| MIT 6.061 | le corrige ne dit **pas ou commence la reponse** (pas de repere) |
+| MIT 6.152J, 18.075, 18.966 | **aucune paire** enonce + corrige (les documents ne s'apparient pas) |
+| MIT 6.241J, 18.366, 18.786 | **appariement refuse** : l'enonce et le corrige n'ont pas les memes items |
+| MIT 18.03 | l'enonce est **illisible** a l'extraction (police non standard dans le PDF) |
+| MIT 18.086, 6.642, 6.641 (2005) | l'enonce extrait est un **fragment d'en-tete**, pas la question |
+| MIT 6.825 | l'enonce est un examen du **6.891**, le corrige du **6.825** |
+
+**Aucun de ces cours n'a ete complete par du contenu redige** : c'est le
+refus qui fait foi.
+
+### La vague finale
+
+| Cours | Questions |
+|---|---|
+| MIT 6.041 Probabilistic Systems Analysis (Spring 2006) | **9** |
+| MIT 6.641 Electromagnetic Fields, Forces, and Motion (Fall 2009) | **1** |
+
+### Mesures finales
+
+| | avant la liste | maintenant |
+|---|---|---|
+| banque de questions | 1 176 | **2 283** |
+| dont maison | 392 | 392 |
+| dont importées (réserve) | 784 | **1 891** |
+| importées dans une tâche | 0 | **0** |
+| réserve maximale | 451 | **1 404** |
+| entrées du catalogue des sources | 39 | **61** |
+
+---
+
 ---
 
 ## 5. Reproduire
@@ -409,18 +540,19 @@ vérifiée, leur usage et l'indication « non commercial ».
 
 ## 6. Ce qui reste à faire
 
-- **23 des 55 cours** de la liste du criblage ne sont pas encore traités
-  (la deuxième vague en a traité 20, et 12 étaient déjà faits : 7
-  prioritaires + 5 de la vague 1). Le même enchaînement s'applique :
-  télécharger, écrire l'extracteur du format, ou refuser avec un motif
-  écrit. Les cours restants sont principalement ceux dont le format
-  n'est pas encore couvert (18.366, 18.786, 18.075, 18.966, 18.03,
-  6.012-Fall 2005, 6.034, 6.035, 6.825, 6.01SC, 6.341, 6.152J,
-  6.241J, 6.061, 6.642, 6.641) — le bilan par cours, motif par motif,
-  est dans `docs/recolte/bilan-suite-cours.json`.
-- **6.034, 6.035, 6.341** ne sont pas perdus : ils demandent un traitement
-  des **schémas** (récupérer les figures des PDF et les joindre aux
-  questions). C'est un travail Out Of Band, pas un problème de format.
+- **La liste de criblage est bouclée** : les 66 cours sont traités —
+  **39 importés, 28 refusés** avec un motif écrit (voir § 4 quinquies).
+  Ce qui reste, c'est une **nouvelle liste** : le criblage peut tourner
+  sur d'autres promotions, d'autres facultees, ou sur les cours qui
+  n'ont pas encore de corrige en ligne.
+- **Les cours refusés pour « schema absent » (6.034, 6.035, 6.341) ne
+  sont pas perdus** : ils demandent un traitement des **figures** des
+  PDF (les extraire et les joindre aux questions). C'est un travail Out
+  Of Band, pas un problème de format — et il n'est pas fait.
+- **Les cours dont l'énoncé est illisible à l'extraction (18.03)**
+  demandent une **autre extraction** (police non standard dans le PDF) :
+  l'OCR serait une voie, mais elle réécrit le document — donc elle
+  demande une décision explicite, pas une initiative.
 - Le **réservoir trop juste** de 6 examens (manque 16 au total) se corrige
   en important d'autres cours dans les sections concernées, pas en
   déplaçant des questions.

@@ -413,20 +413,36 @@ The problem asks for 𝑃 (𝑋 > 115). Standardizing we get 𝑃 (𝑋 > 115) �
 This is effectively 0.
 9   More problems', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Specify 𝐻0 and 𝐻𝐴 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The first quartile is the value where 25% of the data is below it. We have 16
-data points so this is between the 4th and 5th points, i.e. between 2 and 3. It is reasonable
-to take the midpoint and say 2.5.
-The second quartile is between 8 and 12, we say 10.
-The third quartile is 14.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Discrete prior-discrete likelihood.
+Jon has 1 four-sided, 2 six-sided, 2 eight-sided, 2 twelve sided, and 1 twenty-sided dice. He
+picks one at random and rolls a 7.
+For each type of die, find the posterior probability Jon chose that type.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Make a table. (The last column is included for part (d).)
+Hypothesis    Prior    Likelihood       Bayes numerator         posterior        likelihood
+𝜃        𝑃 (𝜃)   𝜙(𝑥1 = 7 | 𝜃)                           𝑓(𝜃 | 𝑥1 = 7)    𝑃 (𝑥2 = 8 | 𝜃)
+4-sided      1/8          0                  0                    0                 0
+6-sided      1/4          0                  0                    0                 0
+8-sided      1/4         1/8               1/32            1/32𝑇 ≈ 0.536           1/8
+12-sided      1/4        1/12               1/48            1/48𝑇 ≈ 0.357          1/12
+20-sided      1/8        1/20             1/160            1/160𝑇 ≈ 0.107          1/20
+1      1    1
+Total         1                     𝑇 = 32  + 48 + 160            1
+The posterior probabilities are given in the 5th column of the table. The total probability
+7
+𝑇 = 120 is also the answer to part (c).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Discrete prior-discrete likelihood.
 Jon has 1 four-sided, 2 six-sided, 2 eight-sided, 2 twelve sided, and 1 twenty-sided dice. He
 picks one at random and rolls a 7.
-What are the posterior odds Jon chose the 20-sided die?
-𝑃 (20-sided | 𝑥1 = 7)        1/160𝑇', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Odds(20-sided | 𝑥1 = 7) =                               =               = 0.12.
-𝑃 (not 20-sided | 𝑥1 = 7)   1/32𝑇 + 1/48𝑇', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Compute the posterior predictive probability of rolling an 8 on the second roll.
+1', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : See the last two columns in the table. 𝑃 (𝑥2 = 8 | 𝑥1 = 7) = 32𝑇 ⋅ 18 + 48𝑇
+1     1
+⋅ 12 +
+1   1    49
+⋅
+160𝑇 20 = 480 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Compute 𝑝-value or check if test statistic is in the rejection region.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Our definition of the geometric distribution means that 𝑥 = 6 represents 6
+Suppose 𝑥 ∼ geometric(𝜃), 𝑥 = 6. If we have a prior 𝑓(𝜃) ∼ Beta(4, 2) find
+the posterior for 𝜃.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Our definition of the geometric distribution means that 𝑥 = 6 represents 6
 successes in a row and then 1 failure. The updating has the same rule as in the previous
 problem:
 Prior: 𝑓(𝜃) ∼ Beta(4, 2) gives posterior 𝑓(𝜃 | 𝑥 = 6) ∼ Beta(10, 3).
@@ -832,121 +848,120 @@ Step 5. The 90% bootstrap confidence interval for 𝑝 is
 [𝑝̂ − 𝛿0.05 , 𝑝̂ − 𝛿0.95 ]
 4', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-There are 3 arrangements of the word DAD, namely DAD, ADD, and DDA.
-How many arrangements are there of the word PROBABILITY?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Sort the letters: A BB II L O P R T Y. There are 11 letters in all. We build
-arrangements by starting with 11 ‘slots’ and placing the letters in these slots, e.g
-A B I B I L O P R T Y
-Create an arrangement in stages and count the number of possibilities at each stage:
-11
-Stage 1: Choose one of the 11 slots to put the A: ( )
-1
-10
-Stage 2: Choose two of the remaining 10 slots to put the B’s: ( )
-2
-8
-Stage 3: Choose two of the remaining 8 slots to put the I’s: ( )
-2
-6
-Stage 4: Choose one of the remaining 6 slots to put the L: ( )
-1
-1
-5
-Stage 5: Choose one of the remaining 5 slots to put the O: ( )
+A full house in poker is a hand where three cards share one rank and two
+cards share another rank. How many ways are there to get a full-house? What is the
+probability of getting a full-house?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We build a full-house in stages and count the number of ways to make each
+stage:
+13
+Stage 1. Choose the rank of the pair: ( ).
 1
 4
-Stage 6: Choose one of the remaining 4 slots to put the P: ( )
+Stage 2. Choose the pair from that rank, i.e. pick 2 of 4 cards: ( ).
+2
+12
+Stage 3. Choose the rank of the triple (from the remaining 12 ranks): ( ).
 1
+4
+Stage 4. Choose the triple from that rank: ( ).
 3
-Stage 7: Choose one of the remaining 3 slots to put the R: ( )
-1
-2
-Stage 8: Choose one of the remaining 2 slots to put the T: ( )
-1
-1
-Stage 9: Use the last slot for the Y: ( )
-1
-Number of arrangements:
-11 10 8 6 5 4 3 2 1               10 ⋅ 9 8 ⋅ 7
-( )( )( )( )( )( )( )( )( ) = 11 ⋅       ⋅      ⋅ 6 ⋅ 5 ⋅ 4 ⋅ 3 ⋅ 2 ⋅ 1 = 9979200
-1  2 2 1 1 1 1 1 1                 2      2
-Note: choosing 11 out of 1 is so simple we could have immediately written 11 instead of
-11
-belaboring the issue by writing ( ). We wrote it this way to show one systematic way to
-1
-think about problems like this.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose you pick two cards from a deck of 52 playing cards. What is the
-probability that they are both queens?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using choices (order doesn’t matter):
-4                                      52
-Number of ways to pick 2 queens: ( ). Number of ways to pick 2 cards: ( ).
-2                                       2
-4
-( )
-2
-All choices of 2 cards are equally likely. So, probability of 2 queens =
+13 4 12 4
+Number of ways to get a full-house: ( )( )( )( )
+1 2  1  3
+52
+Number of ways to pick any 5 cards out of 52: (      )
+5
+13 4 12 4
+(      )( )( )( )
+1   2    1 3
+Probability of a full house:                     ≈ 0.00144
 52
 ( )
-2
-Using permutations (order matters):
-Number of ways to pick the first queen: 4. No. of ways to pick the second queen: 3.
-Number of ways to pick the first card: 52. No. of ways to pick the second card: 51.
-4⋅3
-All arrangements of 2 cards are equally likely. So, probability of 2 queens: 52⋅51 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+5', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Let 𝐴 and 𝐵 be two events. Suppose the probability that neither 𝐴 or 𝐵
-occurs is 2/3. What is the probability that one or both occur?
-
-                                             1', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We are given 𝑃 (𝐴𝑐 ∩ 𝐵𝑐 ) = 2/3 and asked to find 𝑃 (𝐴 ∪ 𝐵).
-𝐴𝑐 ∩ 𝐵𝑐 = (𝐴 ∪ 𝐵)𝑐 ⇒ 𝑃 (𝐴 ∪ 𝐵) = 1 − 𝑃 (𝐴𝑐 ∩ 𝐵𝑐 ) = 1/3.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+In a ballroom dancing class the students are divided into group 𝐴 and group
+𝐵. There are six people in group 𝐴 and seven in group 𝐵. If four 𝐴s and four 𝐵s are chosen
+and paired off, how many pairings are possible?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Build the pairings in stages and count the ways to build each stage:
+6
+Stage 1: Choose the 4 from group 𝐴: ( ).
+4
+7
+Stage 2: Choose the 4 from group 𝐵: ( )
+4
+We need to be careful because we don’t want to build the same 4 couples in multiple ways.
+Line up the 4 𝐴’s 𝐴1 , 𝐴2 , 𝐴3 , 𝐴4
+Stage 3: Choose a partner from the 4 𝐵s for 𝐴1 : 4.
+Stage 4: Choose a partner from the remaining 3 𝐵s for 𝐴2 : 3
+Stage 5: Choose a partner from the remaining 2 𝐵s for 𝐴3 : 2
+Stage 6: Pair the last 𝐵 with 𝐴4 : 1
+6 7
+Number of possible pairings: ( )( )4!.
+4 4
+Note: we could have done stages 3-6 in one go as: Stages 3-6: Arrange the 4 𝐵s opposite
+the 4 𝐴s: 4! ways.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Suppose that there are ten students in a classroom. What is the probability
+that no two of them have a birthday in the same month?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We assume each month is equally likely to be a student’s birthday month.
+Number of ways ten students can have birthdays in 10 different months:
+12!
+12 ⋅ 11 ⋅ 10 … ⋅ 3 =
+2!
+Number of ways 10 students can have birthday months: 1210 .
+12!
+Probability no two share a birthday month:         = 0.00387.
+2! 1210', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Let 𝐶 and 𝐷 be two events with 𝑃 (𝐶) = 0.25, 𝑃 (𝐷) = 0.45, and 𝑃 (𝐶 ∩ 𝐷) =
+0.1. What is 𝑃 (𝐶 𝑐 ∩ 𝐷)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐷 is the disjoint union of 𝐷 ∩ 𝐶 and 𝐷 ∩ 𝐶 𝑐 .
+𝐶          𝐷
+So, 𝑃 (𝐷 ∩ 𝐶) + 𝑃 (𝐷 ∩ 𝐶 𝑐 ) = 𝑃 (𝐷)                                                       𝐷 ∩ 𝐶𝑐
+⇒ 𝑃 (𝐷 ∩ 𝐶 𝑐 ) = 𝑃 (𝐷) − 𝑃 (𝐷 ∩ 𝐶) = 0.45 − 0.1 = 0.35.                                0.1 0.45−0.1
+(We never use 𝑃 (𝐶) = 0.25.)', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 You roll a four-sided die 3 times. For this problem we’ll use the sample
 space with 64 equally likely outcomes.
-Write down this sample space in set notation.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Write down this sample space in set notation.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+(i) Here we’ll just list all 9 possibilities
+{(4,4,1), (4,4,2), (4,4,3), (4,1,4), (4,2,4), (4,3,4), (1,4,4), (2,4,4), (3,4,4)}
+(ii) This is the same as (i) with the addition of (4,4,4).
+{ (4,4,1), (4,4,2), (4,4,3), (4,1,4), (4,2,4), (4,3,4), (1,4,4), (2,4,4), (3,4,4), (4,4,4)}
+(iii) This is list is a little longer. If we’re systematic about it we can still just write it out.
+{(1,4,1), (2,4,1), (3,4,1), (4,4,1),
+(1,4,2), (2,4,2), (3,4,2), (4,4,2),
+(1,4,3), (2,4,3), (3,4,3), (4,4,3),
+(1,1,4), (2,1,4), (3,1,4), (4,1,4),
+(1,2,4), (2,2,4), (3,2,4), (4,2,4),
+(1,3,4), (2,3,4), (3,3,4), (4,3,4)}
+(iv) {(4,4,1), (4,4,2), (4,4,3), (4,1,4), (4,2,4), (4,3,4)}', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) Writing all 64 possibilities is too tedius. Here’s a more compact representa-
+tion
+{(𝑖, 𝑗, 𝑘) | 𝑖, 𝑗, 𝑘 are integers from 1 to 4}', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Suppose we have 8 teams labeled 𝑇1 , …, 𝑇8 . Suppose they are ordered by
 placing their names in a hat and drawing the names out one at a time.
-How many ways can it happen that all the odd numbered teams are in the odd numbered
-slots and all the even numbered teams are in the even numbered slots?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Slots 1, 3, 5, 7 are filled by 𝑇1 , 𝑇3 , 𝑇5 , 𝑇7 in any order: 4! ways.
-Slots 2, 4, 6, 8 are filled by 𝑇2 , 𝑇4 , 𝑇6 , 𝑇8 in any order: 4! ways.
-Solution: 4! ⋅ 4! = 576.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+What is the probability of this happening?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : There are 8! ways to fill the 8 slots in any way.
+4! ⋅ 4!    576
+Since each outcome is equally likely the probabilitiy is            =       = 0.143 = 1.43%.
+8!      40320
+2   Conditional Probability and Bayes’ Theorem', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-More cards! Suppose you want to divide a 52 card deck into four hands
-with 13 cards each. What is the probability that each hand has a king?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝐻𝑖 be the event that the 𝑖𝑡ℎ hand has one king. We have the conditional
-probabilities
-4 48                           3 36                             2 24
-( )( )                         ( )( )                           ( )( )
-1 12                           1 12                             1 12
-𝑃 (𝐻1 ) =        ;         𝑃 (𝐻2 |𝐻1 ) =        ;      𝑃 (𝐻3 |𝐻1 ∩ 𝐻2 ) =
-52                             39                               26
-( )                            ( )                              ( )
-13                             13                               13
-𝑃 (𝐻4 |𝐻1 ∩ 𝐻2 ∩ 𝐻3 ) = 1
-𝑃 (𝐻1 ∩ 𝐻2 ∩ 𝐻3 ∩ 𝐻4 ) = 𝑃 (𝐻4 |𝐻1 ∩ 𝐻2 ∩ 𝐻3 ) 𝑃 (𝐻3 |𝐻1 ∩ 𝐻2 ) 𝑃 (𝐻2 |𝐻1 ) 𝑃 (𝐻1 )
-2 24 3 36 4 48
-( )( )( )( )( )( )
-1 12 1 12 1 12
-=                    .
-26 39 52
-( )( )( )
-13 13 13', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Corrupted by their power, the judges running the popular game show Amer-
-ica’s Next Top Mathematician have been taking bribes from many of the contestants. Each
-episode, a given contestant is either allowed to stay on the show or is kicked off.
-If the contestant has been bribing the judges they will be allowed to stay with probability 1.
-If the contestant has not been bribing the judges, they will be allowed to stay with probability
-1/3.
-Suppose that 1/4 of the contestants have been bribing the judges. The same contestants
-bribe the judges in both rounds, i.e., if a contestant bribes them in the first round, they bribe
-them in the second round too (and vice versa).
-If you pick a random contestant who was allowed to stay during the first episode, what
-is the probability that they were bribing the judges?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We first compute 𝑃 (𝑆1 ) using the law of total probability.
-1 1 3 1
-𝑃 (𝑆1 ) = 𝑃 (𝑆1 |𝐵)𝑃 (𝐵) + 𝑃 (𝑆1 |𝐻)𝑃 (𝐻) = 1 ⋅                + ⋅ = .
-4 3 4 2
-𝑃 (𝐵)       1/4  1
-We therefore have (by Bayes’ rule) 𝑃 (𝐵|𝑆1 ) = 𝑃 (𝑆1 |𝐵)                     =1⋅     = .
-𝑃 (𝑆1 )     1/2  2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose you are taking a multiple-choice test with 𝑐 choices for each
+question. In answering a question on this test, the probability that you know the answer is
+𝑝. If you don’t know the answer, you choose one at random. What is the probability that
+you knew the answer to a question, given that you answered it correctly?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The following tree shows the setting
+𝑝      1−𝑝
+Know                     Guess
+1            0          1/𝑐           1 − 1/𝑐
+Correct         Wrong     Correct         Wrong
+Let 𝐶 be the event that you answer the question correctly. Let 𝐾 be the event that you
+actually know the answer. The left circled node shows 𝑃 (𝐾 ∩ 𝐶) = 𝑝. Both circled nodes
+together show 𝑃 (𝐶) = 𝑝 + (1 − 𝑝)/𝑐. So,
+𝑃 (𝐾 ∩ 𝐶)         𝑝
+𝑃 (𝐾|𝐶) =                 =
+𝑃 (𝐶)    𝑝 + (1 − 𝑝)/𝑐
+Or we could use the algebraic form of Bayes’ theorem and the law of total probability: Let
+𝐺 stand for the event that you’re guessing. Then we have,
+𝑃 (𝐶|𝐾) = 1, 𝑃 (𝐾) = 𝑝, 𝑃 (𝐶) = 𝑃 (𝐶|𝐾)𝑃 (𝐾) + 𝑃 (𝐶|𝐺)𝑃 (𝐺) = 𝑝 + (1 − 𝑝)/𝑐. So,
+𝑃 (𝐶|𝐾)𝑃 (𝐾)         𝑝
+𝑃 (𝐾|𝐶) =                   =
+𝑃 (𝐶)      𝑝 + (1 − 𝑝)/𝑐', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Corrupted by their power, the judges running the popular game show Amer-
 ica’s Next Top Mathematician have been taking bribes from many of the contestants. Each
@@ -957,112 +972,109 @@ If the contestant has not been bribing the judges, they will be allowed to stay 
 Suppose that 1/4 of the contestants have been bribing the judges. The same contestants
 bribe the judges in both rounds, i.e., if a contestant bribes them in the first round, they bribe
 them in the second round too (and vice versa).
-We want to compute 𝑃 (𝐿2 |𝑆1 ) =                    .
-𝑃 (𝑆1 )
-From the calculation we did in part (a), 𝑃 (𝑆1 ) = 1/2. For the numerator, we have (see the
-tree)
-1 2 3  1
-𝑃 (𝐿2 ∩ 𝑆1 ) = 𝑃 (𝐿2 ∩ 𝑆1 |𝐵)𝑃 (𝐵) + 𝑃 (𝐿2 ∩ 𝑆1 |𝐻)𝑃 (𝐻) = 0 ⋅                         + ⋅ =
-4 9 4  6
-1/6  1
-Therefore 𝑃 (𝐿2 |𝑆1 ) =       = .
-1/2  3', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The following tree shows the setting. Stay1 means the contestant was allowed
-to stay during the first episode and stay2 means the they were allowed to stay during the
-second.
-1/4           3/4
-Bribe                             Honest
-1           0                   1/3            2/3
-Stay1            Leave1           Stay1           Leave1
-1       0                     1/3            2/3
-Stay2     Leave2                Stay2         Leave2
-Let’s name the relevant events:
-𝐵 = the contestant is bribing the judges
-𝐻 = the contestant is honest (not bribing the judges)
-𝑆1 = the contestant was allowed to stay during the first episode
-𝑆2 = the contestant was allowed to stay during the second episode
-𝐿1 = the contestant was asked to leave during the first episode
-𝐿2 = the contestant was asked to leave during the second episode', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+If you pick a random contestant, what is the probability that they are allowed to stay
+during both of the first two episodes?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using the tree we have the total probability of 𝑆2 is
+1 3 1 1  1
+𝑃 (𝑆2 ) =     + ⋅ ⋅ =
+4 4 3 3  3
+𝑃 (𝐿2 ∩ 𝑆1 )', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Consider the Monty Hall problem. Let’s label the door with the car behind
 it 𝑎 and the other two doors 𝑏 and 𝑐. In the game the contestant chooses a door and then
 Monty chooses a door, so we can label each outcome as ‘contestant followed by Monty’, e.g
 𝑎𝑏 means the contestant chose 𝑎 and Monty chose 𝑏.
-Make a probability tree showing all possible outcomes.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : With this strategy the contestant wins with {bc, cb}. The probability of winning is
-𝑃 (𝑏𝑐) + 𝑃 (𝑐𝑏) = 2/3. (Both the tree and the table show this.)', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Make a 3 × 3 probability table showing probabilities for all possible outcomes.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Make a 3 × 3 probability table showing probabilities for all possible outcomes.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Consider the Monty Hall problem. Let’s label the door with the car behind
+it 𝑎 and the other two doors 𝑏 and 𝑐. In the game the contestant chooses a door and then
+Monty chooses a door, so we can label each outcome as ‘contestant followed by Monty’, e.g
+𝑎𝑏 means the contestant chose 𝑎 and Monty chose 𝑏.
+Redo part (c) with the strategy of not switching.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) and (b) In the tree the first row is the contestant’s choice and the second
+row is the host’s (Monty’s) choice.
+Viewed as a table                                        Viewed as a tree
+Contestant                                            1               1          1
+a    b     c                                          3               3          3
+a    0    0     0                          a                               b                          c
+1       1
+Host    b 1/6     0    1/3                     0   2       2               0       0 1                0       1 0
+c 1/6 1/3       0                  a                   c       a                 c        a                 c
+b                       b                          b', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Two dice are rolled.
 𝐴 = ‘sum of two dice equals 3’
 𝐵 = ‘sum of two dice equals 7’
 𝐶 = ‘at least one of the dice shows a 1’
-What is 𝑃 (𝐴|𝐶)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑃 (𝐴|𝐶) =               =       = ..
-𝑃 (𝐶)    11/36  11
-𝑃 (𝐵 ∩ 𝐶)    2/36   2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+What is 𝑃 (𝐵|𝐶)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑃 (𝐵|𝐶) =               =       = ..
+𝑃 (𝐶)    11/36  11', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Two dice are rolled.
-𝐴 = ‘sum of two dice equals 3’
-𝐵 = ‘sum of two dice equals 7’
-𝐶 = ‘at least one of the dice shows a 1’
-𝑃 (𝐴) = 2/36 ≠ 𝑃 (𝐴|𝐶), so they are not independent. Similarly, 𝑃 (𝐵) = 6/36 ≠
-𝑃 (𝐵|𝐶), so they are not independent.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Sample space =
-Ω = {(1, 1), (1, 2), (1, 3), … , (6, 6) } = {(𝑖, 𝑗) | 𝑖, 𝑗 = 1, 2, 3, 4, 5, 6 }.
-(Each outcome is equally likely, with probability 1/36.)
-𝐴 = {(1, 2), (2, 1)},
-𝐵 = {(1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1)}
-𝐶 = {(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1)}
-𝑃 (𝐴 ∩ 𝐶)    2/36   2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+A multiple choice exam has 4 choices for each question. A student has
+studied enough so that the probability they will know the answer to a question is 0.5, the
+probability that they will be able to eliminate one choice is 0.25, otherwise all 4 choices
+seem equally plausible. If they know the answer they will get the question right. If not they
+have to guess from the 3 or 4 choices.
+As the teacher you want the test to measure what the student knows. If the student answers
+a question correctly what’s the probability they knew the answer?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We show the probabilities in a tree:
+1/2          1/4 1/4
+Know                    Eliminate 1        Total guess
+1          0               1/3       2/3      1/4       3/4
+Correct      Wrong Correct               Wrong Correct      Wrong
+For a given problem let 𝐶 be the event the student gets the problem correct and 𝐾 the
+event the student knows the answer.
+The question asks for 𝑃 (𝐾|𝐶).
+We’ll compute this using Bayes’ rule:
+𝑃 (𝐶|𝐾) 𝑃 (𝐾)         1 ⋅ 1/2       24
+𝑃 (𝐾|𝐶) =                    =                   =    ≈ 0.774 = 77.4%
+𝑃 (𝐶)       1/2 + 1/12 + 1/16   31', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose you have an urn containing 7 red and 3 blue balls. You draw three
-balls at random. On each draw, if the ball is red you set it aside and if the ball is blue you
-put it back in the urn. What is the probability that the third draw is blue?
-(If you get a blue ball it counts as a draw even though you put it back in the urn.)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Here is the game tree, 𝑅1 means red on the first draw etc.
-7/10                         3/10
-𝑅1                                                    𝐵1
-6/9                  3/9                          7/10             3/10
-𝑅2                               𝐵2               𝑅2                           𝐵2
-5/8       3/8            6/9             3/9      6/9        3/9     7/10          3/10
-𝑅3              𝐵3 𝑅3                        𝐵3 𝑅3                 𝐵3 𝑅3                 𝐵3
-Summing the probability to all the 𝐵3 nodes we get
-7 6 3      7 3 3         3 7 3        3 3 3
-𝑃 (𝐵3 ) =   ⋅ ⋅ +       ⋅ ⋅ +        ⋅   ⋅ +       ⋅ ⋅   = 0.350.
-10 9 8    10 9 9         10 10 9      10 10 10', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose that 𝑃 (𝐴) = 0.4, 𝑃 (𝐵) = 0.3 and 𝑃 ((𝐴 ∪ 𝐵)𝐶 ) = 0.42. Are 𝐴 and
-𝐵 independent?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have 𝑃 (𝐴 ∪ 𝐵) = 1 − 0.42 = 0.58 and we know because of the inclusion-
-exclusion principle that
-𝑃 (𝐴 ∪ 𝐵) = 𝑃 (𝐴) + 𝑃 (𝐵) − 𝑃 (𝐴 ∩ 𝐵).
-Thus,
-𝑃 (𝐴 ∩ 𝐵) = 𝑃 (𝐴) + 𝑃 (𝐵) − 𝑃 (𝐴 ∪ 𝐵) = 0.4 + 0.3 − 0.58 = 0.12 = (0.4)(0.3) = 𝑃 (𝐴)𝑃 (𝐵).
-So, 𝐴 and 𝐵 are independent.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Some games, like tennis or ping pong, reach a state called deuce. This
+means that the score is tied and a player wins the game when they get two points ahead
+of the other player. Suppose the probability that you win a point is 𝑝 and this is true
+independently for all points. If the game is at deuce what is the probability you win the
+game?
+This is a tricky problem, but amusing if you like puzzles.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝑊 be the event you win the game from deuce and 𝐿
+Practice Exam 1: All Questions, Spring 2022                                                     11deuce
+p             1-p
++1                                     −1
+the event you lose. For convenience, define 𝑤 = 𝑃 (𝑊 ).
+p        1-p                    p        1-p
+The figure shows the complete game tree through 2 points. In the
+third level we just abreviate by indicating the probability of winning              deuce                     deuce
+𝑊                    w         w                𝐿
+from deuce.
+The nodes marked +1 and -1, indicate whether you won or lost the
+first point.                                                                               𝑊              𝑊
+Summing all the paths to 𝑊 we get
+𝑝2
+𝑤 = 𝑃 (𝑊 ) = 𝑝2 + 𝑝(1 − 𝑝)𝑤 + (1 − 𝑝)𝑝𝑤 = 𝑝2 + 2𝑝(1 − 𝑝)𝑤 ⇒ 𝑤 =                        .
+1 − 2𝑝(1 − 𝑝)', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Suppose 𝐴 and 𝐵 are events with 0 < 𝑃 (𝐴) < 1 and 0 < 𝑃 (𝐵) < 1.
-If 𝐴 and 𝐵 are independent can they be disjoint?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : No, they cannot be disjoint: same reason as in part (a).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+If 𝐴 and 𝐵 are disjoint can they be independent?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : No, they cannot be independent: 𝐴 ∩ 𝐵 = ∅ ⇒ 𝑃 (𝐴 ∩ 𝐵) = 0 ≠ 𝑃 (𝐴) ⋅ 𝑃 (𝐵).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose that 𝑋 takes values between 0 and 1 and has probability density
-function 2𝑥. Compute Var(𝑋) and Var(𝑋 2 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We will make use of the formula Var(𝑌 ) = 𝐸[𝑌 2 ] − 𝐸[𝑌 ]2 . First we compute
-1
-2
-𝐸[𝑋] = ∫ 𝑥 ⋅ 2𝑥𝑑𝑥 =
-0                3
-1
-1
-𝐸[𝑋 2 ] = ∫ 𝑥2 ⋅ 2𝑥𝑑𝑥 =
-0                 2
-1
-1
-𝐸[𝑋 ] = ∫ 𝑥4 ⋅ 2𝑥𝑑𝑥 = .
-4
-0            3
-Thus,
-2         1 4   1
-Var(𝑋) = 𝐸[𝑋 2 ] − (𝐸[𝑋]) =               − =
-2 9  18
-and
-2        1 1  1
-Var(𝑋 2 ) = 𝐸[𝑋 4 ] − (𝐸[𝑋 2 ]) =          − = .
-3 4 12', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose 𝐴 and 𝐵 are events with 0 < 𝑃 (𝐴) < 1 and 0 < 𝑃 (𝐵) < 1.
+No, they cannot be independent: 𝐴 ⊂ 𝐵 ⇒ 𝐴 ∩ 𝐵 = 𝐴
+⇒ 𝑃 (𝐴 ∩ 𝐵) = 𝑃 (𝐴) > 𝑃 (𝐴) ⋅ 𝑃 (𝐵). The last inequality follows because 𝑃 (𝐵) < 1.
+4   Expectation and Variance', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The answer to all three parts is ‘No’. Each of these answers relies on the fact
+that the probabilities of 𝐴 and 𝐵 are strictly between 0 and 1.
+To show 𝐴 and 𝐵 are not independent we need to show either 𝑃 (𝐴 ∩ 𝐵) ≠ 𝑃 (𝐴) ⋅ 𝑃 (𝐵)
+or 𝑃 (𝐴|𝐵) ≠ 𝑃 (𝐴).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose 𝑋 is a random variable with 𝐸[𝑋] = 5 and Var(𝑋) = 2. What is
-𝐸[𝑋 2 ]?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Use Var(𝑋) = 𝐸[𝑋 2 ] − 𝐸[𝑋]2 ⇒ 2 = 𝐸[𝑋 2 ] − 25 ⇒ 𝐸[𝑋 2 ] = 27.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+The random variable 𝑋 takes values -1, 0, 1 with probabilities 1/8, 2/8, 5/8
+respectively.
+Compute 𝐸[𝑋].', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have
+𝑋 values:    -1      0         1
+prob:      1/8     2/8       5/8
+𝑋2          1      0         1
+So, 𝐸[𝑋] = −1/8 + 5/8 = 1/2.
+𝑌 values:    0       1', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Compute the expectation and variance of a Bernoulli(𝑝) random variable.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Make a table:
+𝑋:        0          1
+prob:   (1-p)        p
+𝑋2       0          1.
+From the table, 𝐸[𝑋] = 0 ⋅ (1 − 𝑝) + 1 ⋅ 𝑝 = 𝑝.
+Since 𝑋 and 𝑋 2 have the same table 𝐸[𝑋 2 ] = 𝐸[𝑋] = 𝑝.
+Therefore, Var(𝑋) = 𝑝 − 𝑝2 = 𝑝(1 − 𝑝).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Suppose you roll a fair 6-sided die 100 times (independently), and you get
 $3 every time you roll a 6.
@@ -1071,204 +1083,207 @@ Let 𝑋2 be the number of dollars you win on rolls 26 through 50.
 Let 𝑋3 be the number of dollars you win on rolls 51 through 75.
 Let 𝑋4 be the number of dollars you win on rolls 76 throught 100.
 Let 𝑋 = 𝑋1 + 𝑋2 + 𝑋3 + 𝑋4 be the total number of dollars you win over all 100 rolls.
-What is the probability mass function of 𝑋?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : What is the probability mass function of 𝑋?', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+What is the expectation and variance of 𝑋?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑋] = 𝐸[3𝑇 ] = 3𝐸[𝑇 ] = 3 ⋅ 100 ⋅ 16 = 50,
+Var(𝑋) = Var(3𝑇 ) = 9Var(𝑇 ) = 9 ⋅ 100 ⋅ 16 ⋅ 56 = 125.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose you roll a fair 6-sided die 100 times (independently), and you get
-$3 every time you roll a 6.
-Let 𝑋1 be the number of dollars you win on rolls 1 through 25.
-Let 𝑋2 be the number of dollars you win on rolls 26 through 50.
-Let 𝑋3 be the number of dollars you win on rolls 51 through 75.
-Let 𝑋4 be the number of dollars you win on rolls 76 throught 100.
-Let 𝑋 = 𝑋1 + 𝑋2 + 𝑋3 + 𝑋4 be the total number of dollars you win over all 100 rolls.
-(i) Let 𝑇1 be the total number of times you roll a 6 in the first 25 rolls. So, 𝑋1 = 3𝑇1
-and 𝑌 = 12𝑇1 .
-Now, 𝑇1 ∼ Binomial(25, 1/6), so
-𝐸[𝑌 ] = 12𝐸[𝑇1 ] = 12 ⋅ 25 ⋅ 16 = 50.
-and
-1 5
-Var(𝑌 ) = 144Var(𝑇1 ) = 144 ⋅ 25 ⋅⋅ = 500.
-6 6
-(ii) The expectations are the same by linearity because 𝑋 and 𝑌 are the both
-3 × 100 × a Bernoulli(1/6) random variable.
-For the variance, Var(𝑋) = 4Var(𝑋1 ) because 𝑋 is the sum of 4 independent variables all
-identical to 𝑋1 . However Var(𝑌 ) = Var(4𝑋1 ) = 16Var(𝑋1 ). So, the variance of 𝑌 is 4
-times that of 𝑋. This should make some intuitive sense because 𝑋 is built out of more
-independent trials than 𝑋1 .
-Another way of thinking about it is that the difference between 𝑌 and its expectation is
-four times the difference between 𝑋1 and its expectation. However, the difference between
-𝑋 and its expectation is the sum of such a difference for 𝑋1 , 𝑋2 , 𝑋3 , and 𝑋4 . It’s probably
-the case that some of these deviations are positive and some are negative, so the absolute
-value of this difference for the sum is probably less than four times the absolute value of this
-difference for one of the variables, i.e. the deviations are likely to cancel to some extent.
-5     Probability Mass Functions, Probability Density Functions
-and Cumulative Distribution Functions', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) There are a number of ways to present this.
-Let 𝑇 be the total number of times you roll a 6 in the 100 rolls. We know 𝑇 ∼ Binomial(100, 1/6).
-Since you win $3 every time you roll a 6, we have 𝑋 = 3𝑇 . So, we can write
-100  1 𝑘 5 100−𝑘
-𝑃 (𝑋 = 3𝑘) = (      )( ) ( )      ,         for 𝑘 = 0, 1, 2, … , 100.
-𝑘   6   6
-Alternatively we could write
-100   1 𝑥/3 5 100−𝑥/3
-𝑃 (𝑋 = 𝑥) = (       )( ) ( )          ,        for 𝑥 = 0, 3, 6, … , 300.
-𝑥/3   6     6', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose that 𝑋 ∼ Bin(𝑛, 0.5). Find the probability mass function of
+𝑌 = 2𝑋.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : For 𝑦 = 0, 2, 4, … , 2𝑛,
+𝑦      𝑛    1 𝑛
+𝑃 (𝑌 = 𝑦) = 𝑃 (𝑋 =           )=(     )( ) .
+2     𝑦/2   2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose that 𝑋 is uniform on [0, 1]. Compute the pdf and cdf of 𝑋.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have 𝑓𝑋 (𝑥) = 1 for 0 ≤ 𝑥 ≤ 1. The cdf of 𝑋 is
-𝑥                   𝑥
-𝐹𝑋 (𝑥) = ∫ 𝑓𝑋 (𝑡)𝑑𝑡 = ∫ 1𝑑𝑡 = 𝑥.
-0                   0', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-If 𝑌 = 𝑋 2 , compute the pdf and cdf of 𝑌 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : √            √
-𝐹𝑌 (𝑦) = 𝑃 (𝑌 ≤ 𝑦) = 𝑃 (𝑋 2 ≤ 𝑦) = 𝑃 (𝑋 ≤              𝑦) = 1 − e−𝜆 𝑦 .
-Differentiating 𝐹𝑌 (𝑦) with respect to 𝑦, we have
-𝜆 − 1 −𝜆√𝑦
-𝑓𝑌 (𝑦) =        𝑦 2e     .
+If 𝑌 = 2𝑋 + 5, compute the pdf and cdf of 𝑌 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Since 𝑋 is between 0 and 1 we have 𝑌 is between 5 and 7. Now for 5 ≤ 𝑦 ≤ 7,
+we have
+𝑦−5          𝑦−5    𝑦−5
+𝐹𝑌 (𝑦) = 𝑃 (𝑌 ≤ 𝑦) = 𝑃 (2𝑋 + 5 ≤ 𝑦) = 𝑃 (𝑋 ≤                    ) = 𝐹𝑋 (     )=     .
+2            2      2
+Differentiating 𝑃 (𝑌 ≤ 𝑦) with respect to 𝑦, we get the probability density function of 𝑌 ,
+for 5 ≤ 𝑦 ≤ 7,
+1
+𝑓𝑌 (𝑦) = .
 2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Suppose that 𝑋 is a random variable that takes on values 0, 2 and 3 with
 probabilities 0.3, 0.1, 0.6 respectively. Let 𝑌 = 3(𝑋 − 1)2 .
-What is the variance of 𝑋?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑋 2 ] = 0 ⋅ 0.3 + 4 ⋅ 0.1 + 9 ⋅ 0.6 = 5.8 ⇒ Var(𝑋) = 𝐸[𝑋 2 ] − 𝐸[𝑋]2 =
-5.8 − 4 = 1.8.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+What is the expectation of 𝑋?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We first make the probability tables
+𝑋       0     2          3
+prob.   0.3   0.1        0.6
+𝑌       3     3         12
+So, 𝐸[𝑋] = 0 ⋅ 0.3 + 2 ⋅ 0.1 + 3 ⋅ 0.6 = 2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Suppose that 𝑋 is a random variable that takes on values 0, 2 and 3 with
 probabilities 0.3, 0.1, 0.6 respectively. Let 𝑌 = 3(𝑋 − 1)2 .
-Let 𝐹𝑌 (𝑡) be the cumulative density function of 𝑌 . What is 𝐹𝑌 (7)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : From the table we see that 𝐹𝑌 (7) = 𝑃 (𝑌 ≤ 7) = 0.4.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+What is the expection of 𝑌 ?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑌 ] = 3 ⋅ 0.3 + 3 ⋅ 0.1 + 12 ⋅ 6 = 8.4.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-A continuous random variable 𝑋 has PDF 𝑓(𝑥) = 𝑥 + 𝑎𝑥2 on [0,1]
-Find 𝑎, the CDF and 𝑃 (0.5 < 𝑋 < 1).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : First we find the value of 𝑎:
-1                 1
-1 𝑎
-∫ 𝑓(𝑥) 𝑑𝑥 = 1 = ∫ 𝑥 + 𝑎𝑥2 𝑑𝑥 =           +  ⇒ 𝑎 = 3/2.
-0                 0                    2 3
-The CDF is 𝐹𝑋 (𝑥) = 𝑃 (𝑋 ≤ 𝑥). We break this into cases:
-(i) 𝑏 < 0, so 𝐹𝑋 (𝑏) = 0.
-𝑏                    2   3
-(ii) 0 ≤ 𝑏 ≤ 1, so 𝐹𝑋 (𝑏) = ∫0 𝑥 + 32 𝑥2 𝑑𝑥 = 𝑏2 + 𝑏2 .
-(iii) 1 < 𝑥, so 𝐹𝑋 (𝑏) = 1.
-Using 𝐹𝑋 we get
-0.52 + 0.53   13
-𝑃 (0.5 < 𝑋 < 1) = 𝐹𝑋 (1) − 𝐹𝑋 (0.5) = 1 − (                  )= .
-2        16', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Let 𝑇 be the waiting time for customers in a queue. Suppose that 𝑇 is
+exponential with pdf 𝑓(𝑡) = 2e−2𝑡 on [0, ∞).
+Find the pdf of the rate at which customers are served 𝑅 = 1/𝑇 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The CDF for 𝑇 is
+𝑡
+𝑡
+𝐹𝑇 (𝑡) = 𝑃 (𝑇 ≤ 𝑡) = ∫ 2e−2𝑢 𝑑𝑢 = −e−2𝑢 ∣0 = 1 − e−2𝑡 .
+0
+Next, we find the CDF of 𝑅. 𝑅 takes values in (0, ∞).
+For 0 < 𝑟,
+𝐹𝑅 (𝑟) = 𝑃 (𝑅 ≤ 𝑟) = 𝑃 (1/𝑇 < 𝑟) = 𝑃 (𝑇 > 1/𝑟) = 1 − 𝐹𝑇 (1/𝑟) = e−2/𝑟 .
+𝑑 −2/𝑟     2
+We differentiate to get 𝑓𝑅 (𝑟) =       (e  ) = 2 e−2/𝑟 .
+𝑑𝑟        𝑟', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+(PMF of a sum)
+Suppose 𝑋 and 𝑌 are independent and 𝑋 ∼ Bernoulli(1/2) and 𝑌 ∼ Bernoulli(1/3). De-
+termine the pmf of 𝑋 + 𝑌', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : First we’ll give the joint probability table:
+𝑋
+𝑌\\           0      1
+0       1/3    1/3    2/3
+1       1/6    1/6    1/3
+1/2    1/2     1
+We’ll use the joint probabilities to build the probability table for the sum.
+𝑋+𝑌             0           1            2
+(𝑋, 𝑌 )       (0,0)    (0,1), (1,0)    (1,1)
+prob.         1/3      1/6 + 1/3       1/6
+prob.         1/3         1/2          1/6', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Let 𝑋 be a discrete random variable with pmf 𝑝 given by:
 𝑥    −2   −1    0    1   2
 𝑝(𝑥) 1/15 2/15 3/15 4/15 5/15
-Let 𝑌 = 𝑋 2 . Find the pmf of 𝑌 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝑌 = 𝑋 2 . Find the pmf of 𝑌 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Find the value the cdf of 𝑋 at -3/2, 3/4, 7/8, 1, 1.5, 5.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : and (c) To distinguish the distribution functions we’ll write 𝐹𝑋 and 𝐹𝑌 .
+Using the tables in part (a) and the definition 𝐹𝑋 (𝑎) = 𝑃 (𝑋 ≤ 𝑎) etc. we get
+𝑎     -3/2         3/4     7/8        1        1.5   5
+𝐹𝑋 (𝑎)     1/15        6/15    6/15     10/15     10/15   1
+𝐹𝑌 (𝑎)       0         3/15    3/15      9/15      9/15   1', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Let 𝑋 be a discrete random variable with pmf 𝑝 given by:
-𝑥    −2   −1    0    1   2
-𝑝(𝑥) 1/15 2/15 3/15 4/15 5/15
-Find the value the cdf of 𝑌 at -3/2, 3/4, 7/8, 1, 1.5, 5.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) Note: 𝑌 = 1 when 𝑋 = 1 or 𝑋 = −1, so
-𝑃 (𝑌 = 1) = 𝑃 (𝑋 = 1) + 𝑃 (𝑋 = −1).
-Values 𝑦 of 𝑌           0        1       4
-pmf 𝑝𝑌 (𝑦)         3/15     6/15    6/15', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose that the cdf of 𝑋 is given by:
+
+                                        ⎧ 0       for 𝑎 < 0
+                                        {
+                                        { 1       for 0 ≤ 𝑎 < 2
+                                𝐹 (𝑎) = ⎨ 52
+                                        {         for 2 ≤ 𝑎 < 4
+                                        { 5
+                                        ⎩ 1       for 𝑎 ≥ 4.
+Determine the pmf of 𝑋.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The jumps in the distribution function are at 0, 2, 4. The value of 𝑝(𝑎) at a
+jump is the height of the jump:
+𝑎        0       2      4
+𝑝(𝑎)       1/5     1/5    3/5', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose 𝑋 has range [0,1] and has cdf
-                                 𝐹 (𝑥) = 𝑥2       for 0 ≤ 𝑥 ≤ 1.
-
-
-Compute 𝑃 ( 12 < 𝑋 < 34 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑃 (1/2 ≤ 𝑋 ≤ 3/4) = 𝐹 (3/4) − 𝐹 (1/2) = (3/4)2 − (1/2)2 = 5/16 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Let 𝑋 be a random variable with range [0, 1] and cdf
+𝐹 (𝑋) = 2𝑥2 − 𝑥4          for 0 ≤ 𝑥 ≤ 1.
+𝑓(𝑥) = 𝐹 ′ (𝑥) = 4𝑥 − 4𝑥3 in [0,1].
+6     Distributions with Names', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) 𝑃 (1/4 ≤ 𝑋 ≤ 3/4) = 𝐹 (3/4) − 𝐹 (1/4) = 11/16 = 0.6875.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Exponential Distribution
 Suppose that buses arrive are scheduled to arrive at a bus stop at noon but are always 𝑋
 minutes late, where 𝑋 is an exponential random variable with probability density function
 𝑓𝑋 (𝑥) = 𝜆e−𝜆𝑥 . Suppose that you arrive at the bus stop precisely at noon.
-Compute the probability that you have to wait for more than five minutes for the bus
-to arrive.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We compute
-5
-𝑃 (𝑋 ≥ 5) = 1 − 𝑃 (𝑋 < 5) = 1 − ∫ 𝜆e−𝜆𝑥 𝑑𝑥 = 1 − (1 − e−5𝜆 ) = e−5𝜆 .
-0', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose that you have already waiting for 10 minutes. Compute the probability that you
+have to wait an additional five minutes or more.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We want 𝑃 (𝑋 ≥ 15|𝑋 ≥ 10). First observe that 𝑃 (𝑋 ≥ 15, 𝑋 ≥ 10) = 𝑃 (𝑋 ≥
+15). From similar computations in (a), we know
+𝑃 (𝑋 ≥ 15) = e−15𝜆                    𝑃 (𝑋 ≥ 10) = e−10𝜆 .
+From the definition of conditional probability,
+𝑃 (𝑋 ≥ 15, 𝑋 ≥ 10)   𝑃 (𝑋 ≥ 15)
+𝑃 (𝑋 ≥ 15|𝑋 ≥ 10) =                       =            = e−5𝜆
+𝑃 (𝑋 ≥ 10)       𝑃 (𝑋 ≥ 10)
+Note: This is an illustration of the memorylessness property of the exponential distribu-
+tion.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Normal Distribution: Throughout these problems, let 𝜙 and Φ be the pdf
 and cdf, respectively, of the standard normal distribution Suppose 𝑍 is a standard normal
 random variable and let 𝑋 = 3𝑍 + 1.
-Express 𝑃 (𝑋 ≤ 𝑥) in terms of Φ', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have
-𝑥−1        𝑥−1
-𝐹𝑋 (𝑥) = 𝑃 (𝑋 ≤ 𝑥) = 𝑃 (3𝑍 + 1 ≤ 𝑥) = 𝑃 (𝑍 ≤        ) = Φ(     ).
-3          3', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Differentiate the expression from (𝑎) with respect to 𝑥 to get the pdf of 𝑋, 𝑓(𝑥).
+Remember that Φ′ (𝑧) = 𝜙(𝑧) and don’t forget the chain rule', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Differentiating with respect to 𝑥, we have
+d          1    𝑥−1
+𝑓𝑋 (𝑥) =      𝐹𝑋 (𝑥) = 𝜙 (     ).
+dx         3     3
+1   𝑥2
+Since 𝜙(𝑥) = (2𝜋)− 2 e− 2 , we conclude
+1  (𝑥−1)2
+𝑓𝑋 (𝑥) = √ e− 2⋅32 ,
+3 2𝜋
+which is the probability density function of the 𝑁 (1, 9) distribution. Note: The arguments
+in (a) and (b) give a proof that 3𝑍 +1 is a normal random variable with mean 1 and variance
+9. See Problem Set 3, Question 5.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Normal Distribution: Throughout these problems, let 𝜙 and Φ be the pdf
 and cdf, respectively, of the standard normal distribution Suppose 𝑍 is a standard normal
 random variable and let 𝑋 = 3𝑍 + 1.
-Find 𝑃 (−1 ≤ 𝑋 ≤ 1)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have
-2                      2
-𝑃 (−1 ≤ 𝑋 ≤ 1) = 𝑃 (− ≤ 𝑍 ≤ 0) = Φ(0) − Φ (− ) ≈ 0.2475
-3                      3', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Recall that the probability that 𝑍 is within one standard deviation of its mean is approx-
+imately 68%. What is the probability that 𝑋 is within one standard deviation of its mean?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Since 𝐸[𝑋] = 1, Var(𝑋) = 9, we want 𝑃 (−2 ≤ 𝑋 ≤ 4). We have
+𝑃 (−2 ≤ 𝑋 ≤ 4) = 𝑃 (−3 ≤ 3𝑍 ≤ 3) = 𝑃 (−1 ≤ 𝑍 ≤ 1) ≈ 0.68.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Transforming Normal Distributions
 Suppose 𝑍 ∼ N(0,1) and 𝑌 = e𝑍 .
-Find the cdf 𝐹𝑌 (𝑎) and pdf 𝑓𝑌 (𝑦) for 𝑌 . (For the CDF, the best you can do is write it
-in terms of Φ the standard normal cdf.)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Note, 𝑌 follows what is called a log-normal distribution.
-𝐹𝑌 (𝑎) = 𝑃 (𝑌 ≤ 𝑎) = 𝑃 (𝑒𝑍 ≤ 𝑎) = 𝑃 (𝑍 ≤ ln(𝑎)) = Φ(ln(𝑎)).
-Differentiating using the chain rule:
-𝑑           𝑑            1             1             2
-𝑓𝑦 (𝑎) =      𝐹𝑌 (𝑎) =    Φ(ln(𝑎)) = 𝜙(ln(𝑎)) = √      e−(ln(𝑎)) /2 .
-𝑑𝑎          𝑑𝑎           𝑎             2𝜋 𝑎', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+We don’t have a formula for Φ(𝑧) so we don’t have a formula for quantiles. So we have
+to write quantiles in terms of Φ−1 .
+(i) Write the 0.33 quantile of 𝑍 in terms of Φ−1
+(ii) Write the 0.9 quantile of 𝑌 in terms of Φ−1 .
+(iii) Find the median of 𝑌 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (i) The 0.33 quantile for 𝑍 is the value 𝑞0.33 such that 𝑃 (𝑍 ≤ 𝑞0.33 ) = 0.33.
+That is, we want
+Φ(𝑞0.33 ) = 0.33 ⇔ 𝑞0.33 = Φ−1 (0.33) .
+(ii) We want to find 𝑞0.9 where
+−1
+𝐹𝑌 (𝑞0.9 ) = 0.9 ⇔ Φ(ln(𝑞0.9 )) = 0.9 ⇔ 𝑞0.9 = eΦ         (0.9)
+.
+−1
+(iii) As in (ii) 𝑞0.5 = eΦ     (0.5)
+= e0 = 1 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 (Random variables derived from normal random variables)
 Let 𝑋1 , 𝑋2 , …𝑋𝑛 be i.i.d. N(0, 1) random variables.
 Let 𝑌𝑛 = 𝑋12 + … + 𝑋𝑛2 .
-Use the formula Var(𝑋𝑗 ) = 𝐸[𝑋𝑗2 ] − 𝐸[𝑋𝑗 ]2 to show 𝐸[𝑋𝑗2 ] = 1.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Var(𝑋𝑗 ) = 1 = 𝐸[𝑋𝑗2 ] − 𝐸[𝑋𝑗 ]2 = 𝐸[𝑋𝑗2 ]. QED', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Set up an integral in 𝑥 for computing 𝐸[𝑋𝑗4 ].
+For 3 extra credit points, use integration by parts show 𝐸[𝑋𝑗4 ] = 3.
+(If you don’t do this, you can still use this result in part c.)
+∞
+1        2', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑋𝑗4 ] = √ ∫ 𝑥4 e−𝑥 /2 𝑑𝑥.
+2𝜋 −∞
+2                            2
+(Extra credit) By parts: let 𝑢 = 𝑥3 , 𝑣′ = 𝑥e−𝑥 /2 ⇒ 𝑢′ = 3𝑥2 , 𝑣 = −e−𝑥 /2
+∞
+1       3 −𝑥2 /2
+∞         1         2
+𝐸[𝑋𝑗4 ] = √      [𝑥 e         ∣      + √ ∫ 3𝑥2 e−𝑥 /2 𝑑𝑥]
+2𝜋                 𝑖𝑛𝑓𝑡𝑦    2𝜋 −∞
+The first term is 0 and the second term is the formula for 3𝐸[𝑋𝑗2 ] = 3 (by part (a)). Thus,
+𝐸[𝑋𝑗4 ] = 3.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 (Random variables derived from normal random variables)
 Let 𝑋1 , 𝑋2 , …𝑋𝑛 be i.i.d. N(0, 1) random variables.
 Let 𝑌𝑛 = 𝑋12 + … + 𝑋𝑛2 .
-Deduce from parts (a) and (b) that Var(𝑋𝑗2 ) = 2.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Var(𝑋𝑗2 ) = 𝐸[𝑋𝑗4 ] − 𝐸[𝑋𝑗2 ]2 = 3 − 1 = 2. QED', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Use the Central Limit Theorem to approximate 𝑃 (𝑌100 > 110).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑌100 ] = 𝐸[100𝑋𝑗2 ] = 100.      Var(𝑌100 ) = 100Var(𝑋𝑗 ) = 200.
+The CLT says 𝑌100 is approximately normal. Standardizing gives
+𝑌 − 100       10               √
+𝑃 (𝑌100 > 110) = 𝑃 ( 100
+√       >√      ) ≈ 𝑃 (𝑍 > 1/ 2) = 0.24 .
+200       200
+This last value was computed using R: 1 - pnorm(1/sqrt(2),0,1).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 More Transforming Normal Distributions
-Suppose 𝑍 is a standard normal random variable and let 𝑌 = 𝑎𝑍 + 𝑏, where 𝑎 > 0 and
-𝑏 are constants.
-Show 𝑌 ∼ N(𝑏, 𝑎2 ) (remember our notation for normal distributions uses mean and vari-
-ance).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝜙(𝑧) and Φ(𝑧) be the PDF and CDF of 𝑍.
-𝐹𝑌 (𝑦) = 𝑃 (𝑌 ≤ 𝑦) = 𝑃 (𝑎𝑍 + 𝑏 ≤ 𝑦) = 𝑃 (𝑍 ≤ (𝑦 − 𝑏)/𝑎) = Φ((𝑦 − 𝑏)/𝑎).
-Differentiating:
-𝑑         𝑑                1                 1           2   2
-𝑓𝑌 (𝑦) =     𝐹 (𝑦) =    Φ((𝑦 − 𝑏)/𝑎) = 𝜙((𝑦 − 𝑏)/𝑎) = √      e−(𝑦−𝑏) /2𝑎 .
-𝑑𝑦 𝑌      𝑑𝑦               𝑎                 2𝜋 𝑎
-Since this is the density for N(𝑏, 𝑎2 ) we have shown 𝑌 ∼ N(𝑏, 𝑎2 ).
-𝑌 −𝜇', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose 𝑌 ∼ N(𝜇, 𝜎2 ). Show             follows a standard normal distribution.
+𝜎', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : By part (a), 𝑌 ∼ N(𝜇, 𝜎2 ) ⇒ 𝑌 = 𝜎𝑍 + 𝜇. But, this implies (𝑌 − 𝜇)/𝜎 = 𝑍 ∼
+N(0, 1). QED', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 (Sums of normal random variables)
 Let 𝑋, 𝑌 be independent random variables where 𝑋 ∼ 𝑁 (2, 5) and 𝑌 ∼ 𝑁 (5, 9) (we use the
 notation 𝑁 (𝜇, 𝜎2 )). Let 𝑊 = 3𝑋 − 2𝑌 + 1.
-Compute 𝐸[𝑊 ] and Var(𝑊 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑊 ] = 3𝐸[𝑋] − 2𝐸[𝑌 ] + 1 = 6 − 10 + 1 = −3
-Var(𝑊 ) = 9Var(𝑋) + 4Var(𝑌 ) = 45 + 36 = 81', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Let 𝑋 ∼ U(𝑎, 𝑏). Compute 𝐸[𝑋] and Var(𝑋).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Method 1
-1
-𝑈 (𝑎, 𝑏) has density 𝑓(𝑥) =       on [𝑎, 𝑏]. So,
-𝑏−𝑎
-𝑏                     𝑏                𝑏
-1             𝑥2       𝑏 2 − 𝑎2   𝑎+𝑏
-𝐸[𝑋] = ∫ 𝑥𝑓(𝑥) 𝑑𝑥 =    ∫ 𝑥 𝑑𝑥 =         ∣ =          =     .
-𝑎            𝑏−𝑎 𝑎       2(𝑏 − 𝑎) 𝑎 2(𝑏 − 𝑎)     2
-𝑏                         𝑏                𝑏
-2          2     1              𝑥3       𝑏 3 − 𝑎3
-𝐸[𝑋 ] = ∫ 𝑥 𝑓(𝑥) 𝑑𝑥 =    ∫ 𝑥2 𝑑𝑥 =         ∣ =          .
-𝑎             𝑏−𝑎 𝑎        3(𝑏 − 𝑎) 𝑎 3(𝑏 − 𝑎)
-Finding Var(𝑋) now requires a little algebra,
-𝑏 3 − 𝑎3   (𝑏 + 𝑎)2
-Var(𝑋) = 𝐸[𝑋 2 ] − 𝐸[𝑋]2 =              −
-3(𝑏 − 𝑎)       4
-4(𝑏3 − 𝑎3 ) − 3(𝑏 − 𝑎)(𝑏 + 𝑎)2   𝑏3 − 3𝑎𝑏2 + 3𝑎2 𝑏 − 𝑎3    (𝑏 − 𝑎)3   (𝑏 − 𝑎)2
-=                                  =                        =           =          .
-12(𝑏 − 𝑎)                   12(𝑏 − 𝑎)          12(𝑏 − 𝑎)      12
-Method 2
-There is an easier way to find 𝐸[𝑋] and Var(𝑋).
-Let 𝑈 ∼ U(𝑎, 𝑏). Then the calculations above show 𝐸[𝑈 ] = 1/2 and (𝐸[𝑈 2 ] = 1/3 ⇒
-Var(𝑈 ) = 1/3 − 1/4 = 1/12.
-Now, we know 𝑋 = (𝑏 − 𝑎)𝑈 + 𝑎, so 𝐸[𝑋] = (𝑏 − 𝑎)𝐸[𝑈 ] + 𝑎 = (𝑏 − 𝑎)/2 + 𝑎 = (𝑏 + 𝑎)/2
-and Var(𝑋) = (𝑏 − 𝑎)2 Var(𝑈 ) = (𝑏 − 𝑎)2 /12.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+It is known that the sum of independent normal distributions is normal. Compute
+𝑃 (𝑊 ≤ 6).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Since the sum of independent normal is normal part (a) shows: 𝑊 ∼ 𝑁 (−3, 81).
+𝑊 +3      9
+Let 𝑍 ∼ 𝑁 (0, 1). We standardize 𝑊 : 𝑃 (𝑊 ≤ 6) = 𝑃 (       ≤ ) = 𝑃 (𝑍 ≤ 1) ≈ 0.84.
+9       9', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 In 𝑛 + 𝑚 independent Bernoulli(𝑝) trials, let 𝑆𝑛 be the number of successes
 in the first 𝑛 trials and 𝑇𝑚 the number of successes in the last 𝑚 trials.
-What is the distribution of 𝑇𝑚 ? Why?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑇𝑚 ∼ Binomial(𝑚, 𝑝), since it is the number of successes in 𝑚 independent
+What is the distribution of 𝑆𝑛 ? Why?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑆𝑛 ∼ Binomial(𝑛, 𝑝), since it is the number of successes in 𝑛 independent
 Bernoulli trials.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 In 𝑛 + 𝑚 independent Bernoulli(𝑝) trials, let 𝑆𝑛 be the number of successes
 in the first 𝑛 trials and 𝑇𝑚 the number of successes in the last 𝑚 trials.
-Are 𝑆𝑛 and 𝑇𝑚 independent? Why?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Yes, 𝑆𝑛 and 𝑇𝑚 are independent. We haven’t given a formal definition of inde-
-pendent random variables yet. But, we know it means that knowing 𝑆𝑛 gives no information
-about 𝑇𝑚 . This is clear since the first 𝑛 trials are independent of the last 𝑚.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+What is the distribution of 𝑆𝑛 + 𝑇𝑚 ? Why?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑆𝑛 + 𝑇𝑚 ∼ Binomial(𝑛 + 𝑚, 𝑝), since it is the number of successes in 𝑛 + 𝑚
+independent Bernoulli trials.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Compute the median for the exponential distribution with parameter 𝜆.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The density for this distribution is 𝑓(𝑥) = 𝜆 e−𝜆𝑥 . We know (or can compute)
+that the distribution function is 𝐹 (𝑎) = 1 − e−𝜆𝑎 . The median is the value of 𝑎 such that
+𝐹 (𝑎) = 0.5. Thus, 1 − e−𝜆𝑎 = 0.5 ⇒ 0.5 = e−𝜆𝑎 ⇒ log(0.5) = −𝜆𝑎 ⇒ 𝑎 = log(2)/𝜆.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Pareto and the 80-20 rule.
 Pareto was an economist who used the Pareto distribution to model the wealth in a society.
@@ -1277,189 +1292,177 @@ For a fixed baseline 𝑚, the Pareto density with parameter 𝛼 is
 𝑓(𝑥) =          for 𝑥 ≥ 𝑚.
 𝑥𝛼+1
 Assume 𝑋 is a random variable that follows such a distribution.
-Compute 𝑃 (𝑋 > 𝑎) (you may assume 𝑎 ≥ 𝑚).
-∞
-𝛼 𝑚𝛼     𝑚𝛼 ∞   𝑚𝛼', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑃 (𝑋 > 𝑎) = ∫                 = −    ∣ =    .
-𝑎       𝑥𝛼+1     𝑥𝛼 𝑎   𝑎𝛼', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-(Another Arithmetic Puzzle)
-Let 𝑋 and 𝑌 be two independent Bernoulli(0.5) random variables. Define 𝑆 and 𝑇 by:
-𝑆 =𝑋+𝑌      and 𝑇 = 𝑋 − 𝑌 .
-Find the joint and marginal pmf’s for 𝑆 and 𝑇 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Find the joint and marginal pmf’s for 𝑆 and 𝑇 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Let 𝑋 and 𝑌 be two continuous random variables with joint pdf
-𝑓(𝑥, 𝑦) = 𝑐𝑥2 𝑦(1 + 𝑦) for 0 ≤ 𝑥 ≤ 3 and 0 ≤ 𝑦 ≤ 3,
-and 𝑓(𝑥, 𝑦) = 0 otherwise.
-Determine the joint cdf, 𝐹 (𝑎, 𝑏), of 𝑋 and 𝑌 for 𝑎 and 𝑏 between 0 and 3.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : For 0 ≤ 𝑎 ≤ 3 and 0 ≤ 𝑏 ≤ 3. we have
-𝑎       𝑏
-𝑎3 𝑏2 𝑎3 𝑏3
-𝐹 (𝑎, 𝑏) = ∫ ∫ 𝑓(𝑥, 𝑦)𝑑𝑦 𝑑𝑥 = 𝑐 (                                         +      )
-0       0                                         6     9', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Pareto’s principle is often paraphrased as the 80-20 rule. That is, 80% of the wealth
+is owned by 20% of the people. The rule is only exact for a Pareto distribution with
+𝛼 = log(5)/ log(4) = 1.16.
+Suppose 𝛼 = 𝑚 = 1. Compute the 0.80 quantile for the Pareto distribution.
+In general, many phenomena follow the power law described by 𝑓(𝑥). You can look up
+’Pareto principle’ in Wikipedia to read more about this.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We want the value 𝑞0.8 where 𝑃 (𝑋 ≤ 𝑞0.8 ) = 0.8.
+This is equivalent to 𝑃 (𝑋 > 𝑞0.8 ) = 0.2. Using part (a) and the given values of 𝑚 and 𝛼
+1
+we have       = 0.2 ⇒ 𝑞0.8 = 5.
+𝑞0.8
+7    Joint Probability, Covariance, Correlation', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Let 𝑋 and 𝑌 be two continuous random variables with joint pdf
 𝑓(𝑥, 𝑦) = 𝑐𝑥2 𝑦(1 + 𝑦) for 0 ≤ 𝑥 ≤ 3 and 0 ≤ 𝑦 ≤ 3,
 and 𝑓(𝑥, 𝑦) = 0 otherwise.
-Find the marginal pdf 𝑓𝑋 (𝑥) directly from 𝑓(𝑥, 𝑦) and check that it is the derivative of
-𝐹𝑋 (𝑥).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : For 0 ≤ 𝑥 ≤ 3, we have, by integrating over the entire range for 𝑦,
-3
-32 33    27   1
-𝑓𝑋 (𝑥) = ∫ 𝑓(𝑥, 𝑦) 𝑑𝑦 = 𝑐𝑥2 (                                + ) = 𝑐 𝑥2 = 𝑥2 .
-0                                        2  3      2   9
-𝑑
-This is consistent with (c) because 𝑑𝑥 (𝑥3 /27) = 𝑥2 /9.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Find the probability 𝑃 (1 ≤ 𝑋 ≤ 2, 0 ≤ 𝑌 ≤ 1).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Find the probability 𝑃 (1 ≤ 𝑋 ≤ 2, 0 ≤ 𝑌 ≤ 1).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Let 𝑋 and 𝑌 be two continuous random variables with joint pdf
+𝑓(𝑥, 𝑦) = 𝑐𝑥2 𝑦(1 + 𝑦) for 0 ≤ 𝑥 ≤ 3 and 0 ≤ 𝑦 ≤ 3,
+and 𝑓(𝑥, 𝑦) = 0 otherwise.
+Find marginal cdf 𝐹𝑋 (𝑎) for 𝑎 between 0 and 3.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Since 𝑦 = 3 is the maximum value for 𝑌 , we have
+9𝑎3          9       𝑎3
+𝐹𝑋 (𝑎) = 𝐹 (𝑎, 3) = 𝑐 (                     + 3𝑎3 ) = 𝑐 𝑎3 =
+6           2       27', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Let 𝑋 and 𝑌 be two continuous random variables with joint pdf
+𝑓(𝑥, 𝑦) = 𝑐𝑥2 𝑦(1 + 𝑦) for 0 ≤ 𝑥 ≤ 3 and 0 ≤ 𝑦 ≤ 3,
+and 𝑓(𝑥, 𝑦) = 0 otherwise.
+Since 𝑓(𝑥, 𝑦) separates into a product as a function of 𝑥 times a function of 𝑦 we know
+𝑋 and 𝑌 are independent.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) Total probability must be 1, so
+3       3                               3        3
+243
+1 = ∫ ∫ 𝑓(𝑥, 𝑦) 𝑑𝑦 𝑑𝑥 = ∫ ∫ 𝑐(𝑥2 𝑦 + 𝑥2 𝑦2 ) 𝑑𝑦 𝑑𝑥 = 𝑐 ⋅                                           ,
+0       0                               0        0                                        2
+2
+(Here we skipped showing the arithmetic of the integration) Therefore, 𝑐 =                                         .
+243
+(b)
+2       1
+𝑃 (1 ≤ 𝑋 ≤ 2, 0 ≤ 𝑌 ≤ 1) = ∫ ∫ 𝑓(𝑥, 𝑦) 𝑑𝑦 𝑑𝑥
+1       0
+2       1
+= ∫ ∫ 𝑐(𝑥2 𝑦 + 𝑥2 𝑦2 ) 𝑑𝑦 𝑑𝑥
+1       0
+35
+=𝑐⋅
+18
+70
+=      ≈ 0.016
+4374', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Let 𝑋 and 𝑌 be two random variables and let 𝑟, 𝑠, 𝑡, and 𝑢 be real numbers.
-Show that Cov(𝑋 + 𝑠, 𝑌 + 𝑢) = Cov(𝑋, 𝑌 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Show that Cov(𝑋 + 𝑠, 𝑌 + 𝑢) = Cov(𝑋, 𝑌 ).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Show that Cov(𝑟𝑋, 𝑡𝑌 ) = 𝑟𝑡Cov(𝑋, 𝑌 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : This is very similar to part (a).
+We know 𝐸[𝑟𝑋] = 𝑟𝐸[𝑋], so 𝑟𝑋−𝐸[𝑟𝑋] = 𝑟(𝑋−𝐸[𝑋]). Likewise 𝑡𝑌 −𝐸[𝑡𝑌 ] = 𝑠(𝑌 −𝐸[𝑌 ]).
+Once again using the definition of covariance we get
+Cov(𝑟𝑋, 𝑡𝑌 ) = 𝐸[(𝑟𝑋 − 𝐸[𝑟𝑋])(𝑡𝑌 − 𝐸[𝑡𝑌 ])]
+= 𝐸[𝑟𝑡(𝑋 − 𝐸[𝑋])(𝑌 − 𝐸[𝑌 ])]
+(Now we use linearity of expectation to pull out the factor of 𝑟𝑡)
+= 𝑟𝑡𝐸[(𝑋 − 𝐸[𝑋](𝑌 − 𝐸[𝑌 ]))]
+= 𝑟𝑡Cov(𝑋, 𝑌 )', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Let 𝑋 and 𝑌 be two random variables and let 𝑟, 𝑠, 𝑡, and 𝑢 be real numbers.
-This is more of the same. We give the argument with far fewer algebraic details
-Cov(𝑟𝑋 + 𝑠, 𝑡𝑌 + 𝑢) = Cov(𝑟𝑋, 𝑡𝑌 ) (by part (a))
-= 𝑟𝑡Cov(𝑋, 𝑌 ) (by part (b))', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) First note by linearity of expectation we have 𝐸[𝑋 + 𝑠] = 𝐸[𝑋] + 𝑠, thus
-𝑋 + 𝑠 − 𝐸[𝑋 + 𝑠] = 𝑋 − 𝐸[𝑋].
-Likewise 𝑌 + 𝑢 − 𝐸[𝑌 + 𝑢] = 𝑌 − 𝐸[𝑌 ].
-Now using the definition of covariance we get
-Cov(𝑋 + 𝑠, 𝑌 + 𝑢) = 𝐸[(𝑋 + 𝑠 − 𝐸[𝑋 + 𝑠]) ⋅ (𝑌 + 𝑢 − 𝐸[𝑌 + 𝑢])]
-= 𝐸[(𝑋 − 𝐸[𝑋]) ⋅ (𝑌 − 𝐸[𝑌 ])]
-= Cov(𝑋, 𝑌 ).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Derive the formula for the covariance: Cov(𝑋, 𝑌 ) = 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ].', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using linearity of expectation, we have
+Cov(𝑋, 𝑌 ) = 𝐸 [(𝑋 − 𝐸[𝑋])(𝑌 − 𝐸[𝑌 ])]
+= 𝐸 [𝑋𝑌 − 𝐸[𝑋]𝑌 − 𝐸[𝑌 ]𝑋 + 𝐸[𝑋]𝐸[𝑌 ]]
+= 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ] − 𝐸[𝑌 ]𝐸[𝑋] + 𝐸[𝑋]𝐸[𝑌 ]
+= 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ].', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Toss a fair coin 3 times. Let 𝑋 = the number of heads on the first toss, 𝑌
 the total number of heads on the last two tosses, and 𝐹 the number of heads on the first two
 tosses.
-Give the joint probability table for 𝑋 and 𝑌 . Compute Cov(𝑋, 𝑌 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) 𝑋 and 𝑌 are independent, so the table is computed from the product of the
-known marginal probabilities. Since they are independent, Cov(𝑋, 𝑌 ) = 0.
-𝑋
-𝑌\\         0     1        𝑃𝑌
-0         1/8   1/8       1/4
-1         1/4   1/4       1/2
-2         1/8   1/8       1/4
-𝑃𝑋        1/2   1/2        1', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Give the joint probability table for 𝑋 and 𝐹 . Compute Cov(𝑋, 𝐹 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (b) The sample space is Ω = {HHH, HHT, HTH, HTT, THH, THT, TTH,
+TTT}.
+𝑃 (𝑋 = 0, 𝐹 = 0) = 𝑃 ({𝑇 𝑇 𝐻, 𝑇 𝑇 𝑇 }) = 1/4.
+𝑃 (𝑋 = 0, 𝐹 = 1) = 𝑃 ({𝑇 𝐻𝐻, 𝑇 𝐻𝑇 }) = 1/4.              𝑋
+𝐹\\     0   1   𝑃𝐹
+𝑃 (𝑋 = 0, 𝐹 = 2) = 0.                                  0    1/4  0  1/4
+𝑃 (𝑋 = 1, 𝐹 = 0) = 0.                                  1    1/4 1/4 1/2
+𝑃 (𝑋 = 1, 𝐹 = 1) = 𝑃 ({𝐻𝑇 𝐻, 𝐻𝑇 𝑇 }) = 1/4.            2     0  1/4 1/4
+𝑃𝑋 1/2 1/2     1
+𝑃 (𝑋 = 1, 𝐹 = 2) = 𝑃 ({𝐻𝐻𝐻, 𝐻𝐻𝑇 }) = 1/4.
+Cov(𝑋, 𝐹 ) = 𝐸[𝑋𝐹 ] − 𝐸[𝑋]𝐸[𝐹 ].
+𝐸[𝑋] = 1/2, 𝐸[𝐹 ] = 1, 𝐸[𝑋𝐹 ] = ∑ 𝑥𝑖 𝑦𝑗 𝑝(𝑥𝑖 , 𝑦𝑗 ) = 3/4.
+⇒ Cov(𝑋, 𝐹 ) = 3/4 − 1/2 = 1/4.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Covariance and Independence
 Let 𝑋 be a random variable that takes values -2, -1, 0, 1, 2; each with probability 1/5.   Let
 𝑌 = 𝑋2.
-Find 𝐸[𝑋] and 𝐸[𝑌 ].', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using the marginal distributions:                 𝐸[𝑋] = 15 (−2 − 1 + 0 + 1 + 2) = 0.
-1      2     2
-𝐸[𝑌 ] = 0 ⋅ + 1 ⋅ + 4 ⋅ = 2.
-5      5     5', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Covariance and Independence
-Let 𝑋 be a random variable that takes values -2, -1, 0, 1, 2; each with probability 1/5.   Let
-𝑌 = 𝑋2.
-Show Cov(𝑋, 𝑌 ) = 0.
-This is an example of uncorrelated but non-independent random variables. The reason this
-can happen is that correlation only measures the linear dependence between the two variables.
-In this case, 𝑋 and 𝑌 are not at all linearly related.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using the table from part (a) and the means computed in part (d) we get:
-Cov(𝑋, 𝑌 ) = 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ]
-1          1       1        1        1
-= (−2)(4) + (−1)(1) + (0)(0) + (1)(1) + (2)(4)
-5          5       5        5        5
-= 0.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Show 𝑋 and 𝑌 are not independent.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We show the probabilities don’t multiply:
+𝑃 (𝑋 = −2, 𝑌 = 0) = 0 ≠ 𝑃 (𝑋 = −2) ⋅ 𝑃 (𝑌 = 0) = 1/25.
+Since these are not equal 𝑋 and 𝑌 are not independent. (It is obvious that 𝑋 2 is not
+independent of 𝑋.)', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Continuous Joint Distributions
 Suppose 𝑋 and 𝑌 are continuous random variables with joint density function 𝑓(𝑥, 𝑦) = 𝑥+𝑦
 on the unit square [0, 1] × [0, 1].
-Compute the marginal densities for 𝑋 and 𝑌 .
-1                      1                              1
-𝑦2       1', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑓𝑋 (𝑥) = ∫ 𝑓(𝑥, 𝑦) 𝑑𝑦 = ∫ (𝑥 + 𝑦) 𝑑𝑦 = 𝑥𝑦 +                                      ∣ = 𝑥+ .
-0                      0                             2 0      2
-By symmetry, 𝑓𝑌 (𝑦) = 𝑦 + 1/2.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Let 𝐹 (𝑥, 𝑦) be the joint CDF. Compute 𝐹 (1, 1). Compute 𝐹 (𝑥, 𝑦).
+𝑎       𝑏', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐹 (𝑎, 𝑏) = 𝑃 (𝑋 ≤ 𝑎, 𝑌 ≤ 𝑏) = ∫ ∫ (𝑥 + 𝑦) 𝑑𝑦 𝑑𝑥.
+0       0
+2 𝑏            2
+𝑦         𝑏
+Inner integral:     𝑥𝑦 +     ∣ = 𝑥𝑏 + .
+2 0       2
+𝑎
+𝑥2    𝑏2    𝑎2 𝑏 + 𝑎𝑏2
+Outer integral:         𝑏 + 𝑥∣ =            .
+2     2 0        2
+𝑥2 𝑦 + 𝑥𝑦2
+So 𝐹 (𝑥, 𝑦) =                    and   𝐹 (1, 1) = 1.
+2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Continuous Joint Distributions
 Suppose 𝑋 and 𝑌 are continuous random variables with joint density function 𝑓(𝑥, 𝑦) = 𝑥+𝑦
 on the unit square [0, 1] × [0, 1].
-Compute 𝐸[𝑋], 𝐸[𝑌 ], 𝐸[𝑋 2 + 𝑌 2 ], Cov(𝑋, 𝑌 ).
-1   1                              1              1        1
-𝑦2              𝑥     7', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑋] = ∫ ∫ 𝑥(𝑥 + 𝑦) 𝑑𝑦 𝑑𝑥 = ∫ [ 𝑥 𝑦 + 𝑥 ∣ ] 𝑑𝑥 = ∫ 𝑥2 + 𝑑𝑥 =    .         2
-0 0                  0          2 0       0     2     12
-1                      1
-(Or, using (b), 𝐸[𝑋] = ∫ 𝑥𝑓𝑋 (𝑥) 𝑑𝑥 = ∫ 𝑥(𝑥 + 1/2) 𝑑𝑥 = 7/12.)
-0                      0
-By symmetry 𝐸[𝑌 ] = 7/12.
-1       1
-5
-𝐸[𝑋 2 + 𝑌 2 ] = ∫ ∫ (𝑥2 + 𝑦2 )(𝑥 + 𝑦) 𝑑𝑦 𝑑𝑥 =                                   .
-0       0                                              6
-1       1
-1
-𝐸[𝑋𝑌 ] = ∫ ∫ 𝑥𝑦(𝑥 + 𝑦) 𝑑𝑦 𝑑𝑥 =                              .
-0       0                                      3
-1   49      1
-Cov(𝑋, 𝑌 ) = 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ] =                           −    = −     .
-3 144      144', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Are 𝑋 and 𝑌 independent?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : To see if they are independent we check if the joint density is the product of the
+marginal densities.
+𝑓(𝑥, 𝑦) = 𝑥 + 𝑦, 𝑓𝑋 (𝑥) ⋅ 𝑓𝑌 (𝑦) = (𝑥 + 1/2)(𝑦 + 1/2).
+Since these are not equal, 𝑋 and 𝑌 are not independent.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Correlation
-Flip a coin 5 times. Use properties of covariance to compute the covariance and correlation
-between the number of heads on the first 3 and last 3 flips.
-
-
-
-8   Law of Large Numbers, Central Limit Theorem', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : As usual let 𝑋𝑖 = the number of heads on the 𝑖th flip, i.e. 0 or 1.
-Let 𝑋 = 𝑋1 + 𝑋2 + 𝑋3 the sum of the first 3 flips and 𝑌 = 𝑋3 + 𝑋4 + 𝑋5 the sum of the
-last 3. Using the algebraic properties of covariance we have
-Cov(𝑋, 𝑌 ) = Cov(𝑋1 + 𝑋2 + 𝑋3 , 𝑋3 + 𝑋4 + 𝑋5 )
-= Cov(𝑋1 , 𝑋3 ) + Cov(𝑋1 , 𝑋4 ) + Cov(𝑋1 , 𝑋5 )
-+ Cov(𝑋2 , 𝑋3 ) + Cov(𝑋2 , 𝑋4 ) + Cov(𝑋2 , 𝑋5 )
-+ Cov(𝑋3 , 𝑋3 ) + Cov(𝑋3 , 𝑋4 ) + Cov(𝑋3 , 𝑋5 )
-1
-Because the 𝑋𝑖 are independent the only non-zero term in the above sum is Cov(𝑋3 𝑋3 ) = Var(𝑋3 ) =
-4
-Therefore, Cov(𝑋, 𝑌 ) = 14 .
-We get the correlation by dividing by the standard deviations. Since 𝑋 is the sum of 3
-independent Bernoulli(0.5) we have 𝜎𝑋 = √3/4
+Flip a coin 3 times. Use a joint pmf table to compute the covariance and correlation between
+the number of heads on the first 2 and the number of heads on the last 2 flips.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝑋 = the number of heads on the first 2 flips and 𝑌 the number in the last
+2. Considering all 8 possibe tosses: 𝐻𝐻𝐻, 𝐻𝐻𝑇 etc we get the following joint pmf for 𝑋
+and 𝑌
+𝑌 /𝑋 0       1      2
+0      1/8 1/8 0          1/4
+1      1/8 1/4 1/8 1/2
+2      0     1/8 1/8 1/4
+1/4 1/2 1/4 1
+Using the table we find
+1   1  1  1 5
+𝐸[𝑋𝑌 ] =     +2 +2 +4 = .
+4   8  8  8 4
+We know 𝐸[𝑋] = 1 = 𝐸[𝑌 ] so
+5    1
+Cov(𝑋, 𝑌 ) = 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ] =                      −1= .
+4    4
+Since 𝑋 is the sum of 2 independent Bernoulli(0.5) we have 𝜎𝑋 = √2/4
 Cov(𝑋, 𝑌 )    1/4   1
 Cor(𝑋, 𝑌 ) =               =       = .
-𝜎𝑋 𝜎𝑌      (3)/4  3
-8   Law of Large Numbers, Central Limit Theorem', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+𝜎𝑋 𝜎𝑌      (2)/4  2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-(Central Limit Theorem)
-Let 𝑋1 , 𝑋2 , … , 𝑋81 be i.i.d., each with expected value 𝜇 = 𝐸[𝑋𝑖 ] = 5, and variance 𝜎2 =
-Var(𝑋𝑖 ) = 4. Approximate 𝑃 (𝑋1 + 𝑋2 + ⋯ 𝑋81 > 369), using the central limit theorem.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝑇 = 𝑋1 + 𝑋2 + … + 𝑋81 . The central limit theorem says that
-𝑇 ≈ N(81 ∗ 5, 81 ∗ 4) = N(405, 182 )
-Standardizing we have
-𝑇 − 405   369 − 405
-𝑃 (𝑇 > 369) = 𝑃 (         >           )
-18          18
-≈ 𝑃 (𝑍 > −2)
-≈ 0.975
-The value of 0.975 comes from the rule-of-thumb that 𝑃 (|𝑍| < 2) ≈ 0.95. A more exact
-value (using R) is 𝑃 (𝑍 > −2) ≈ 0.9772.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+All or None
+You have $100 and, never mind why, you must convert it to $1000. Anything less is no
+good. Your only way to make money is to gamble for it. Your chance of winning one bet is
+𝑝.
+Here are two extreme strategies:
+Maximum strategy: bet as much as you can each time. To be smart, if you have less than
+$500 you bet it all. If you have more, you bet enough to get to $1000.
+
+
+Minimum strategy: bet $1 each time.
+If 𝑝 < 0.5 (the odds are against you) which is the better strategy?
+What about 𝑝 > 0.5?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : If 𝑝 < 0.5 your expected winnings on any bet is negative, if 𝑝 = 0.5 it is 0, and
+if 𝑝 > 0.5 is is positive. By making a lot of bets the minimum strategy will ’win’ you close
+to the expected average. So if 𝑝 ≤ 0.5 you should use the maximum strategy and if 𝑝 > 0.5
+you should use the minumum strategy.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-(More Central Limit Theorem)
-The average IQ in a population is 100 with standard deviation 15 (by definition, IQ is
-normalized so this is the case). What is the probability that a randomly selected group of
-100 people has an average IQ above 115?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝑋𝑗 be the IQ of a randomly selected person. We are given 𝐸[𝑋𝑗 ] = 100 and
-𝜎𝑋𝑗 = 15.
-Let 𝑋 be the average of the IQ’s of 100 randomly selected people. Then we know
-√
-𝐸[𝑋] = 100 and 𝜎𝑋 = 15/ 100 = 1.5.
-The problem asks for 𝑃 (𝑋 > 115). Standardizing we get 𝑃 (𝑋 > 115) ≈ 𝑃 (𝑍 > 10).
-This is effectively 0.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Hospitals (binomial, CLT, etc)
-• A certain town is served by two hospitals.
-• Larger hospital: about 45 babies born each day.
-• Smaller hospital about 15 babies born each day.
-• For a period of 1 year, each hospital recorded the days on which more than 60% of the
-babies born were boys.
-Let 𝐿𝑖 (resp., 𝑆𝑖 ) be the Bernoulli random variable which takes the value 1 if more
-than 60% of the babies born in the larger (resp., smaller) hospital on the 𝑖th day were boys.
-Determine the distribution of 𝐿𝑖 and of 𝑆𝑖 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The random variable 𝑋𝐿 , giving the number of boys born in the larger
-hospital on day 𝑖, is governed by a Bin(45, 0.5) distribution. So 𝐿𝑖 has a Ber(𝑝𝐿 ) distribution
-with
-45
-45
-𝑝𝐿 = 𝑃 (𝑋 > 27) = ∑ (          ) 0.545 ≈ 0.068
-𝑘=28
-𝑘
-Similarly, the random variable 𝑋𝑆 , giving the number of boys born in the smaller hospital
-on day 𝑖, is governed by a Bin(15, 0.5) distribution. So 𝑆𝑖 has a Ber(𝑝𝑆 ) distribution with
-15
-15
-𝑝𝑆 = 𝑃 (𝑋𝑆 > 9) = ∑ (             ) 0.515 ≈ 0.151
-𝑘=10
-𝑘
-We see that 𝑝𝑆 is indeed greater than 𝑝𝐿 , consistent with (𝑖𝑖).
-365                  365', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+(Binomial ≈ normal)
+Let 𝑋 ∼ binomial(100,1/3).
+An ‘exact’ computation in R gives 𝑃 (𝑋 ≤ 30) = 0.2765539. Use the central limit theorem
+to give an approximation of 𝑃 (𝑋 ≤ 30)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑋 ∼ binomial(100, 1/3) means 𝑋 is the sum of 100 i.i.d. Bernoulli(1/3) random
+variables 𝑋𝑖 .
+We know 𝐸[𝑋𝑖 ] = 1/3 and Var(𝑋𝑖 ) = (1/3)(2/3) = 2/9. Therefore the central limit theorem
+says
+𝑋 ≈ N(100/3, 200/9)
+Standardization then gives
+𝑋 − 100/3   30 − 100/3
+𝑃 (𝑋 ≤ 30) = 𝑃 (             ≤            ) ≈ 𝑃 (𝑍 ≤ −0.7071068) ≈ 0.239751
+√200/9      √200/9
+We used R to do these calculations The approximation agrees with the ‘exact’ number to 2
+decimal places.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Hospitals (binomial, CLT, etc)
 • A certain town is served by two hospitals.
@@ -1467,87 +1470,78 @@ Hospitals (binomial, CLT, etc)
 • Smaller hospital about 15 babies born each day.
 • For a period of 1 year, each hospital recorded the days on which more than 60% of the
 babies born were boys.
-Via the CLT, approximate the 0.84 quantile of 𝐿 (resp., 𝑆). Would you like to revise
-your answer to part (a)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : mean + sd in each case:
-√
-For 𝐿, 𝑞0.84 ≈ 25 + 23.
-√
-For 𝑆, 𝑞0.84 ≈ 55 + 47.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Which hospital do you think recorded more such days?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : When this question was asked in a study, the number of undergraduates
+who chose each option was 21, 21, and 55, respectively. This shows a lack of intuition for
+the relevance of sample size on deviation from the true mean (i.e., variance).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Hospitals (binomial, CLT, etc)
+• A certain town is served by two hospitals.
+• Larger hospital: about 45 babies born each day.
+• Smaller hospital about 15 babies born each day.
+• For a period of 1 year, each hospital recorded the days on which more than 60% of the
+babies born were boys.
+Let 𝐿 (resp., 𝑆) be the number of days on which more than 60% of the babies born in
+the larger (resp., smaller) hospital were boys. What type of distribution do 𝐿 and 𝑆 have?
+Compute the expected value and variance in each case.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Note that 𝐿 = ∑𝑖=1 𝐿𝑖 and 𝑆 = ∑𝑖=1 𝑆𝑖 . So 𝐿 has a Bin(365, 𝑝𝐿 ) distribu-
+tion and 𝑆 has a Bin(365, 𝑝𝑆 ) distribution. Thus
+𝐸[𝐿] = 365𝑝𝐿 ≈ 25
+𝐸[𝑆] = 365𝑝𝑆 ≈ 55
+Var(𝐿) = 365𝑝𝐿 (1 − 𝑝𝐿 ) ≈ 23
+Var(𝑆) = 365𝑝𝑆 (1 − 𝑝𝑆 ) ≈ 47', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Hospitals (binomial, CLT, etc)
+• A certain town is served by two hospitals.
+• Larger hospital: about 45 babies born each day.
+• Smaller hospital about 15 babies born each day.
+• For a period of 1 year, each hospital recorded the days on which more than 60% of the
+babies born were boys.
+What is the correlation of 𝐿 and 𝑆? What is the joint pmf of 𝐿 and 𝑆? Visualize the
+region corresponding to the event 𝐿 > 𝑆. Express 𝑃 (𝐿 > 𝑆) as a double sum.
+9   R Problems
+R will not be on the exam. However, these problems will help you understand the concepts
+we’ve been studying.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Since 𝐿 and 𝑆 are independent, their joint distribution is determined by multiplying
+their individual distributions. Both 𝐿 and 𝑆 are binomial with 𝑛 = 365 and 𝑝𝐿 and 𝑝𝑆
+computed above. Thus
+365 𝑖                  365
+𝑝𝑙,𝑠 𝑃 (𝐿 = 𝑖 and 𝑆 = 𝑗) = 𝑝(𝑖, 𝑗) = (      )𝑝𝐿 (1 − 𝑝𝐿 )365−𝑖 ( )𝑝𝑆𝑗 (1 − 𝑝𝑆 )365−𝑗
+𝑖                      𝑗
+Thus
+364    365
+𝑃 (𝐿 > 𝑆) = ∑ ∑ 𝑝(𝑖, 𝑗) ≈ 0.0000916
+𝑖=0 𝑗=𝑖+1
+(We used R to do the computations.)
+9   R Problems
+R will not be on the exam. However, these problems will help you understand the concepts
+we’ve been studying.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 R simulation
 Consider 𝑋1 , 𝑋2 , …all independent and with distribution N(0, 1). Let 𝑋 𝑚 be the average of
 𝑋1 , …𝑋𝑛 .
-Give 𝐸[𝑋 𝑛 ] and 𝜎𝑋𝑛 exactly.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑋𝑗 ] = 0 ⇒ 𝐸[𝑋 𝑛 ] = 0.
-𝑋1 + … + 𝑋𝑛    1           1
-Var(𝑋𝑗 ) = 1 ⇒ Var (               )=   ⇒ 𝜎𝑋 𝑛 = √ .
-𝑛         𝑛            𝑛', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-R Exercise
-Let 𝑋1 , 𝑋2 , 𝑋3 , 𝑋4 , 𝑋5 be independent 𝑈 (0, 1) random variables.
-Let 𝑋 = 𝑋1 + 𝑋2 + 𝑋3 and 𝑌 = 𝑋3 + 𝑋4 + 𝑋5 .
-Use the runif() function to simulate 1000 trials of each of these variables. Use these to
-estimate Cov(𝑋, 𝑌 ).
-Extra Credit
-Compute this covariance exactly.
-
-
-
-
-18.05 Introduction to Probability and Statistics
-Spring 2022
-
-
-For information about citing these materials or our Terms of Use, visit:', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : a = runif(5*1000,0,1)
-data = matrix(a,5,1000)
-x = colSums(data[1:3,])
-y = colSums(data[3:5,])
-print(cov(x,y))
-Extra Credit
-Compute this covariance exactly.
-Solution: Method 1 (Algebra)
-First, if 𝑖 ≠ 𝑗 we know 𝑋𝑖 and 𝑋𝑗 are independent, so Cov(𝑋𝑖 , 𝑋𝑗 ) = 0.
-Cov(𝑋, 𝑌 ) = Cov(𝑋1 + 𝑋2 + 𝑋3 , 𝑋3 + 𝑋4 + 𝑋5 )
-= Cov(𝑋1 , 𝑋3 ) + Cov(𝑋1 , 𝑋4 ) + Cov(𝑋1 , 𝑋5 )
-+ Cov(𝑋2 , 𝑋3 ) + Cov(𝑋2 , 𝑋4 ) + Cov(𝑋2 , 𝑋5 )
-+ Cov(𝑋3 , 𝑋3 ) + Cov(𝑋3 , 𝑋4 ) + Cov(𝑋3 , 𝑋5 )
-(most of these terms are 0)
-= Cov(𝑋3 , 𝑋3 )
-= Var(𝑋3 )
-1
-=      (known variance of a uniform(0,1) distribution)
-12
-Method 2 (Multivariable calculus)
-In 5 dimensional space we have the joint distribution
-𝑓(𝑥1 , 𝑥2 , 𝑥3 , 𝑥4 , 𝑥5 ) = 1.
-Computing directly
-1       1       1       1       1
-𝐸[𝑋] = 𝐸[𝑋1 + 𝑋2 + 𝑋3 ] = ∫ ∫ ∫ ∫ ∫ (𝑥1 + 𝑥2 + 𝑥3 ) 𝑑𝑥1 𝑑𝑥2 𝑑𝑥3 , 𝑑𝑥4 𝑑𝑥5
-0       0       0       0       0
-1
-first integral = + 𝑥2 + 𝑥3
-2
-1 1
-second integral = + + 𝑥3 = 1 + 𝑥3
-2 2
-3
-third integral =
-2
-3
-fourth integral =
-2
-3
-fifth integral =
-2
-So, 𝐸[𝑋] = 3/2, likewise 𝐸[𝑌 ] = 3/2.
-1       1       1       1       1
-𝐸[𝑋𝑌 ] = ∫ ∫ ∫ ∫ ∫ (𝑥1 + 𝑥2 + 𝑥3 )(𝑥3 + 𝑥4 + 𝑥5 ) 𝑑𝑥1 𝑑𝑥2 𝑑𝑥3 𝑑𝑥4 𝑑𝑥5
-0       0       0       0       0
-= 7/3.
-1
-Cov(𝑋, 𝑌 ) = 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ] = 12 = 0.08333.
-18.05 Introduction to Probability and Statistics
-Spring 2022
-For information about citing these materials or our Terms of Use, visit:', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Use a R simulation to estimate 𝐸[𝑋 𝑛 ] and Var(𝑋 𝑛 ) for 𝑛 = 1, 9, 100. (You should use
+the rnorm function to simulate 1000 samples of each 𝑋𝑗 .)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Here’s my R code:
+x = rnorm(100*1000,0,1)
+data = matrix(x, nrow=100, ncol=1000)
+data1 = data[1,]
+m1 = mean(data1)
+v1 = var(data1)
+data9 = colMeans(data[1:9,])
+m9 = mean(data9)
+v9 = var(data9)
+data100 = colMeans(data)
+m100 = mean(data100)
+v100 = var(data100)
+#display the results
+print(m1)
+print(v1)
+print(m9)
+print(v9)
+print(m100)
+print(v100)
+∑ 𝑥𝑘            ∑ 𝑥𝑘
+Note if 𝑥 = [𝑥1 , 𝑥2 , … , 𝑥𝑛 ] then var(x) actually computes      instead of      . There is
+𝑛−1               𝑛
+a good reason for this which we will learn in the statistics part of the class. For now, it’s
+enough to note that if 𝑛 = 1000 the using 𝑛 or 𝑛 − 1 won’t make much difference.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 If 𝑌 = 𝑋 2 , compute the pdf and cdf of 𝑌 .
 1', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : √            √
@@ -4025,106 +4019,27 @@ For information about citing these materials or our Terms of Use, visit:', 'sour
 Discrete prior-discrete likelihood.
 Jon has 1 four-sided, 2 six-sided, 2 eight-sided, 2 twelve sided, and 1 twenty-sided dice. He
 picks one at random and rolls a 7.
-For each type of die, find the posterior probability Jon chose that type.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Make a table. (The last column is included for part (d).)
-Hypothesis    Prior    Likelihood       Bayes numerator         posterior        likelihood
-𝜃        𝑃 (𝜃)   𝜙(𝑥1 = 7 | 𝜃)                           𝑓(𝜃 | 𝑥1 = 7)    𝑃 (𝑥2 = 8 | 𝜃)
-4-sided      1/8          0                  0                    0                 0
-6-sided      1/4          0                  0                    0                 0
-8-sided      1/4         1/8               1/32            1/32𝑇 ≈ 0.536           1/8
-12-sided      1/4        1/12               1/48            1/48𝑇 ≈ 0.357          1/12
-20-sided      1/8        1/20             1/160            1/160𝑇 ≈ 0.107          1/20
-1      1    1
-Total         1                     𝑇 = 32  + 48 + 160            1
-The posterior probabilities are given in the 5th column of the table. The total probability
-7
-𝑇 = 120 is also the answer to part (c).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+What are the posterior odds Jon chose the 20-sided die?
+𝑃 (20-sided | 𝑥1 = 7)        1/160𝑇', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Odds(20-sided | 𝑥1 = 7) =                               =               = 0.12.
+𝑃 (not 20-sided | 𝑥1 = 7)   1/32𝑇 + 1/48𝑇', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Discrete prior-discrete likelihood.
-Jon has 1 four-sided, 2 six-sided, 2 eight-sided, 2 twelve sided, and 1 twenty-sided dice. He
-picks one at random and rolls a 7.
-Compute the posterior predictive probability of rolling an 8 on the second roll.
-1', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : See the last two columns in the table. 𝑃 (𝑥2 = 8 | 𝑥1 = 7) = 32𝑇 ⋅ 18 + 48𝑇
-1     1
-⋅ 12 +
-1   1    49
-⋅
-160𝑇 20 = 480 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose 𝑥 ∼ binomial(30, 𝜃), 𝑥 = 12. If we have a prior 𝑓(𝜃) ∼ Beta(1, 1)
+find the posterior for 𝜃.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : To be able to talk about this, let’s call 𝑥 the number of successes. So the data is
+12 successes and 18 failures. We know how a Beta prior updates with a binomial likelihood:
+Prior 𝑓(𝜃) ∼ Beta(1, 1) gives posterior 𝑓(𝜃 | 𝑥 = 12) ∼ Beta(13, 19).
+Alternate method. We can also do this with a table. Notice that we don’t bother
+to specify the normalizing constants since the posterior has the form of a Beta(13,19)
+distribution.
+Hypothesis          Prior        Likelihood     Bayes numerator           posterior
+𝜃            𝑓(𝜃) 𝑑𝜃       𝜙(𝑥 = 12|𝜃)                             𝑓(𝜃 | 𝑥 = 6)
+𝜃       𝑐1 𝜃0 (1 − 𝜃)0 𝑑𝜃 𝑐2 𝜃12 (1 − 𝜃)18 𝑐3 𝜃12 (1 − 𝜃)18 𝑑𝜃  𝑐4 𝜃12 (1 − 𝜃)18 𝑑𝜃
+1
+Total                1                         𝑇 = ∫0 𝑐3 𝜃12 (1 − 𝜃)1 𝑑𝜃           1', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Reject or fail to reject 𝐻0 .
-
-Make sure you can use the probability tables.
-
-
-2.5.2 NHST: One-sample 𝑡-test
-
-   • Data: we assume normal data with both 𝜇 and 𝜎 unknown:
-
-                                          𝑥1 , 𝑥2 , … , 𝑥𝑛 ∼ 𝑁 (𝜇, 𝜎2 ).
-
-   • Null hypothesis: 𝜇 = 𝜇0 for some specific value 𝜇0 .
-
-   • Test statistic:
-                                                        𝑥 − 𝜇0
-                                                   𝑡=      √
-                                                        𝑠/ 𝑛
-      where
-                                                         𝑛
-                                                    1
-                                           𝑠2 =         ∑(𝑥𝑖 − 𝑥)2 .
-                                                  𝑛 − 1 𝑖=1
-
-   • Null distribution: 𝑡(𝑛 − 1), Student 𝑡 with 𝑛 − 1 degs of freedom.
-
-   • Student 𝑡 is symmetric around 0, like standard normal.
-
-
-2.5.3 Two-sample 𝑡-test: equal variances
-
-Data: we assume normal data with 𝜇𝑥 , 𝜇𝑦 and (same) 𝜎 unknown:
-
-                          𝑥1 , … , 𝑥𝑛 ∼ N(𝜇𝑥 , 𝜎2 ),    𝑦1 , … , 𝑦𝑚 ∼ N(𝜇𝑦 , 𝜎2 )
-
-Null hypothesis 𝐻0 :      𝜇𝑥 = 𝜇𝑦 .
-                            (𝑛 − 1)𝑠2𝑥 + (𝑚 − 1)𝑠2𝑦 1 1
-Pooled variance:       𝑠2𝑝 =                       ( + ).
-                                  𝑛+𝑚−2             𝑛 𝑚
-                      𝑥̄ − 𝑦̄
-Test statistic:    𝑡=
-                         𝑠𝑝
-Null distribution: 𝜙(𝑡 | 𝐻0 ) is drawn from ∼ 𝑡(𝑛 + 𝑚 − 2).
-                                                         𝑥 − 𝑦 ̄ − 𝜇0
-(More generally we can test 𝐻0 : 𝜇𝑥 − 𝜇𝑦 = Δ𝜇 using 𝑡 =               )
-                                                             𝑠𝑝
-
-2.5.4 𝐹 -test = one-way ANOVA
-
-Like 𝑡-test but for 𝑛 groups of data with 𝑚 data points each.
-
-                         𝑦𝑖,𝑗 ∼ 𝑁 (𝜇𝑖 , 𝜎2 ),     𝑦𝑖,𝑗 = 𝑗th point in ith group
-
-Assumptions: data for each group is an independent normal sample with (possibly) different
-means but the same variance.
-Null hypothesis is: the means are all equal: 𝜇1 = ⋯ = 𝜇𝑛
-                  MS𝐵
-Test statistic is MS  where:
-                     𝑊
-
-
-                                           𝑚
-MS𝐵 = between group variance =                ∑(𝑦𝑖̄ − 𝑦)̄2
-                                          𝑛−1
-
-
-MS𝑊 = within group variance = sample mean of 𝑠21 , … , 𝑠2𝑛
-Idea: If 𝜇𝑖 are equal, this ratio should be near 1.
-
-Null distribution is F-statistic with 𝑛 − 1 and 𝑛(𝑚 − 1) d.o.f.:
-
-                                    MS𝐵
-                                        ∼ 𝐹𝑛−1, 𝑛(𝑚−1) .
-                                    MS𝑊
-
-2.5.5 NHST: some key points', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Prior, 𝑓(𝜃) ∼ N(100, 152 ), 𝑥 ∼ N(𝜃, 102 ).
+In the population IQ is normally distributed: 𝜃 ∼ N(100, 152 ). An IQ test
+finds a person’s ‘true’ IQ + random error ∼ 𝑁 (0, 102 ). Someone takes the test and scores
+120.
+Find the posterior pdf for this person’s IQ.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Prior, 𝑓(𝜃) ∼ N(100, 152 ), 𝑥 ∼ N(𝜃, 102 ).
 2
 So we have, 𝜇prior = 100, 𝜎prior = 152 , 𝜎2 = 102 , 𝑛 = 1, 𝑥 = 𝑥 = 120.
 Applying the normal-normal update formulas: 𝑎 = 1512 , 𝑏 = 1012 . This gives
@@ -4519,90 +4434,103 @@ effective.
 Spring 2022
 For information about citing these materials or our Terms of Use, visit:', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-In a ballroom dancing class the students are divided into group 𝐴 and group
-𝐵. There are six people in group 𝐴 and seven in group 𝐵. If four 𝐴s and four 𝐵s are chosen
-and paired off, how many pairings are possible?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Build the pairings in stages and count the ways to build each stage:
+There are 3 arrangements of the word DAD, namely DAD, ADD, and DDA.
+How many arrangements are there of the word PROBABILITY?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Sort the letters: A BB II L O P R T Y. There are 11 letters in all. We build
+arrangements by starting with 11 ‘slots’ and placing the letters in these slots, e.g
+A B I B I L O P R T Y
+Create an arrangement in stages and count the number of possibilities at each stage:
+11
+Stage 1: Choose one of the 11 slots to put the A: ( )
+1
+10
+Stage 2: Choose two of the remaining 10 slots to put the B’s: ( )
+2
+8
+Stage 3: Choose two of the remaining 8 slots to put the I’s: ( )
+2
 6
-Stage 1: Choose the 4 from group 𝐴: ( ).
+Stage 4: Choose one of the remaining 6 slots to put the L: ( )
+1
+1
+5
+Stage 5: Choose one of the remaining 5 slots to put the O: ( )
+1
 4
-7
-Stage 2: Choose the 4 from group 𝐵: ( )
+Stage 6: Choose one of the remaining 4 slots to put the P: ( )
+1
+3
+Stage 7: Choose one of the remaining 3 slots to put the R: ( )
+1
+2
+Stage 8: Choose one of the remaining 2 slots to put the T: ( )
+1
+1
+Stage 9: Use the last slot for the Y: ( )
+1
+Number of arrangements:
+11 10 8 6 5 4 3 2 1               10 ⋅ 9 8 ⋅ 7
+( )( )( )( )( )( )( )( )( ) = 11 ⋅       ⋅      ⋅ 6 ⋅ 5 ⋅ 4 ⋅ 3 ⋅ 2 ⋅ 1 = 9979200
+1  2 2 1 1 1 1 1 1                 2      2
+Note: choosing 11 out of 1 is so simple we could have immediately written 11 instead of
+11
+belaboring the issue by writing ( ). We wrote it this way to show one systematic way to
+1
+think about problems like this.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Suppose you pick two cards from a deck of 52 playing cards. What is the
+probability that they are both queens?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using choices (order doesn’t matter):
+4                                      52
+Number of ways to pick 2 queens: ( ). Number of ways to pick 2 cards: ( ).
+2                                       2
 4
-We need to be careful because we don’t want to build the same 4 couples in multiple ways.
-Line up the 4 𝐴’s 𝐴1 , 𝐴2 , 𝐴3 , 𝐴4
-Stage 3: Choose a partner from the 4 𝐵s for 𝐴1 : 4.
-Stage 4: Choose a partner from the remaining 3 𝐵s for 𝐴2 : 3
-Stage 5: Choose a partner from the remaining 2 𝐵s for 𝐴3 : 2
-Stage 6: Pair the last 𝐵 with 𝐴4 : 1
-6 7
-Number of possible pairings: ( )( )4!.
-4 4
-Note: we could have done stages 3-6 in one go as: Stages 3-6: Arrange the 4 𝐵s opposite
-the 4 𝐴s: 4! ways.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+( )
+2
+All choices of 2 cards are equally likely. So, probability of 2 queens =
+52
+( )
+2
+Using permutations (order matters):
+Number of ways to pick the first queen: 4. No. of ways to pick the second queen: 3.
+Number of ways to pick the first card: 52. No. of ways to pick the second card: 51.
+4⋅3
+All arrangements of 2 cards are equally likely. So, probability of 2 queens: 52⋅51 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose that there are ten students in a classroom. What is the probability
-that no two of them have a birthday in the same month?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We assume each month is equally likely to be a student’s birthday month.
-Number of ways ten students can have birthdays in 10 different months:
-12!
-12 ⋅ 11 ⋅ 10 … ⋅ 3 =
-2!
-Number of ways 10 students can have birthday months: 1210 .
-12!
-Probability no two share a birthday month:         = 0.00387.
-2! 1210', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Let 𝐶 and 𝐷 be two events with 𝑃 (𝐶) = 0.25, 𝑃 (𝐷) = 0.45, and 𝑃 (𝐶 ∩ 𝐷) =
-0.1. What is 𝑃 (𝐶 𝑐 ∩ 𝐷)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐷 is the disjoint union of 𝐷 ∩ 𝐶 and 𝐷 ∩ 𝐶 𝑐 .
-𝐶          𝐷
-So, 𝑃 (𝐷 ∩ 𝐶) + 𝑃 (𝐷 ∩ 𝐶 𝑐 ) = 𝑃 (𝐷)                                                       𝐷 ∩ 𝐶𝑐
-⇒ 𝑃 (𝐷 ∩ 𝐶 𝑐 ) = 𝑃 (𝐷) − 𝑃 (𝐷 ∩ 𝐶) = 0.45 − 0.1 = 0.35.                                0.1 0.45−0.1
-(We never use 𝑃 (𝐶) = 0.25.)', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Let 𝐴 and 𝐵 be two events. Suppose the probability that neither 𝐴 or 𝐵
+occurs is 2/3. What is the probability that one or both occur?
+
+                                             1', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We are given 𝑃 (𝐴𝑐 ∩ 𝐵𝑐 ) = 2/3 and asked to find 𝑃 (𝐴 ∪ 𝐵).
+𝐴𝑐 ∩ 𝐵𝑐 = (𝐴 ∪ 𝐵)𝑐 ⇒ 𝑃 (𝐴 ∪ 𝐵) = 1 − 𝑃 (𝐴𝑐 ∩ 𝐵𝑐 ) = 1/3.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 You roll a four-sided die 3 times. For this problem we’ll use the sample
 space with 64 equally likely outcomes.
-(i) Here we’ll just list all 9 possibilities
-{(4,4,1), (4,4,2), (4,4,3), (4,1,4), (4,2,4), (4,3,4), (1,4,4), (2,4,4), (3,4,4)}
-(ii) This is the same as (i) with the addition of (4,4,4).
-{ (4,4,1), (4,4,2), (4,4,3), (4,1,4), (4,2,4), (4,3,4), (1,4,4), (2,4,4), (3,4,4), (4,4,4)}
-(iii) This is list is a little longer. If we’re systematic about it we can still just write it out.
-{(1,4,1), (2,4,1), (3,4,1), (4,4,1),
-(1,4,2), (2,4,2), (3,4,2), (4,4,2),
-(1,4,3), (2,4,3), (3,4,3), (4,4,3),
-(1,1,4), (2,1,4), (3,1,4), (4,1,4),
-(1,2,4), (2,2,4), (3,2,4), (4,2,4),
-(1,3,4), (2,3,4), (3,3,4), (4,3,4)}
-(iv) {(4,4,1), (4,4,2), (4,4,3), (4,1,4), (4,2,4), (4,3,4)}', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) Writing all 64 possibilities is too tedius. Here’s a more compact representa-
-tion
-{(𝑖, 𝑗, 𝑘) | 𝑖, 𝑗, 𝑘 are integers from 1 to 4}', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Write down this sample space in set notation.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Write down this sample space in set notation.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Suppose we have 8 teams labeled 𝑇1 , …, 𝑇8 . Suppose they are ordered by
 placing their names in a hat and drawing the names out one at a time.
-What is the probability of this happening?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : There are 8! ways to fill the 8 slots in any way.
-4! ⋅ 4!    576
-Since each outcome is equally likely the probabilitiy is            =       = 0.143 = 1.43%.
-8!      40320
-2   Conditional Probability and Bayes’ Theorem', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+How many ways can it happen that all the odd numbered teams are in the odd numbered
+slots and all the even numbered teams are in the even numbered slots?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Slots 1, 3, 5, 7 are filled by 𝑇1 , 𝑇3 , 𝑇5 , 𝑇7 in any order: 4! ways.
+Slots 2, 4, 6, 8 are filled by 𝑇2 , 𝑇4 , 𝑇6 , 𝑇8 in any order: 4! ways.
+Solution: 4! ⋅ 4! = 576.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose you are taking a multiple-choice test with 𝑐 choices for each
-question. In answering a question on this test, the probability that you know the answer is
-𝑝. If you don’t know the answer, you choose one at random. What is the probability that
-you knew the answer to a question, given that you answered it correctly?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The following tree shows the setting
-𝑝      1−𝑝
-Know                     Guess
-1            0          1/𝑐           1 − 1/𝑐
-Correct         Wrong     Correct         Wrong
-Let 𝐶 be the event that you answer the question correctly. Let 𝐾 be the event that you
-actually know the answer. The left circled node shows 𝑃 (𝐾 ∩ 𝐶) = 𝑝. Both circled nodes
-together show 𝑃 (𝐶) = 𝑝 + (1 − 𝑝)/𝑐. So,
-𝑃 (𝐾 ∩ 𝐶)         𝑝
-𝑃 (𝐾|𝐶) =                 =
-𝑃 (𝐶)    𝑝 + (1 − 𝑝)/𝑐
-Or we could use the algebraic form of Bayes’ theorem and the law of total probability: Let
-𝐺 stand for the event that you’re guessing. Then we have,
-𝑃 (𝐶|𝐾) = 1, 𝑃 (𝐾) = 𝑝, 𝑃 (𝐶) = 𝑃 (𝐶|𝐾)𝑃 (𝐾) + 𝑃 (𝐶|𝐺)𝑃 (𝐺) = 𝑝 + (1 − 𝑝)/𝑐. So,
-𝑃 (𝐶|𝐾)𝑃 (𝐾)         𝑝
-𝑃 (𝐾|𝐶) =                   =
-𝑃 (𝐶)      𝑝 + (1 − 𝑝)/𝑐', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+More cards! Suppose you want to divide a 52 card deck into four hands
+with 13 cards each. What is the probability that each hand has a king?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝐻𝑖 be the event that the 𝑖𝑡ℎ hand has one king. We have the conditional
+probabilities
+4 48                           3 36                             2 24
+( )( )                         ( )( )                           ( )( )
+1 12                           1 12                             1 12
+𝑃 (𝐻1 ) =        ;         𝑃 (𝐻2 |𝐻1 ) =        ;      𝑃 (𝐻3 |𝐻1 ∩ 𝐻2 ) =
+52                             39                               26
+( )                            ( )                              ( )
+13                             13                               13
+𝑃 (𝐻4 |𝐻1 ∩ 𝐻2 ∩ 𝐻3 ) = 1
+𝑃 (𝐻1 ∩ 𝐻2 ∩ 𝐻3 ∩ 𝐻4 ) = 𝑃 (𝐻4 |𝐻1 ∩ 𝐻2 ∩ 𝐻3 ) 𝑃 (𝐻3 |𝐻1 ∩ 𝐻2 ) 𝑃 (𝐻2 |𝐻1 ) 𝑃 (𝐻1 )
+2 24 3 36 4 48
+( )( )( )( )( )( )
+1 12 1 12 1 12
+=                    .
+26 39 52
+( )( )( )
+13 13 13', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Corrupted by their power, the judges running the popular game show Amer-
 ica’s Next Top Mathematician have been taking bribes from many of the contestants. Each
@@ -4613,109 +4541,130 @@ If the contestant has not been bribing the judges, they will be allowed to stay 
 Suppose that 1/4 of the contestants have been bribing the judges. The same contestants
 bribe the judges in both rounds, i.e., if a contestant bribes them in the first round, they bribe
 them in the second round too (and vice versa).
-If you pick a random contestant, what is the probability that they are allowed to stay
-during both of the first two episodes?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using the tree we have the total probability of 𝑆2 is
-1 3 1 1  1
-𝑃 (𝑆2 ) =     + ⋅ ⋅ =
-4 4 3 3  3
-𝑃 (𝐿2 ∩ 𝑆1 )', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+If you pick a random contestant who was allowed to stay during the first episode, what
+is the probability that they were bribing the judges?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We first compute 𝑃 (𝑆1 ) using the law of total probability.
+1 1 3 1
+𝑃 (𝑆1 ) = 𝑃 (𝑆1 |𝐵)𝑃 (𝐵) + 𝑃 (𝑆1 |𝐻)𝑃 (𝐻) = 1 ⋅                + ⋅ = .
+4 3 4 2
+𝑃 (𝐵)       1/4  1
+We therefore have (by Bayes’ rule) 𝑃 (𝐵|𝑆1 ) = 𝑃 (𝑆1 |𝐵)                     =1⋅     = .
+𝑃 (𝑆1 )     1/2  2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Corrupted by their power, the judges running the popular game show Amer-
+ica’s Next Top Mathematician have been taking bribes from many of the contestants. Each
+episode, a given contestant is either allowed to stay on the show or is kicked off.
+If the contestant has been bribing the judges they will be allowed to stay with probability 1.
+If the contestant has not been bribing the judges, they will be allowed to stay with probability
+1/3.
+Suppose that 1/4 of the contestants have been bribing the judges. The same contestants
+bribe the judges in both rounds, i.e., if a contestant bribes them in the first round, they bribe
+them in the second round too (and vice versa).
+We want to compute 𝑃 (𝐿2 |𝑆1 ) =                    .
+𝑃 (𝑆1 )
+From the calculation we did in part (a), 𝑃 (𝑆1 ) = 1/2. For the numerator, we have (see the
+tree)
+1 2 3  1
+𝑃 (𝐿2 ∩ 𝑆1 ) = 𝑃 (𝐿2 ∩ 𝑆1 |𝐵)𝑃 (𝐵) + 𝑃 (𝐿2 ∩ 𝑆1 |𝐻)𝑃 (𝐻) = 0 ⋅                         + ⋅ =
+4 9 4  6
+1/6  1
+Therefore 𝑃 (𝐿2 |𝑆1 ) =       = .
+1/2  3', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The following tree shows the setting. Stay1 means the contestant was allowed
+to stay during the first episode and stay2 means the they were allowed to stay during the
+second.
+1/4           3/4
+Bribe                             Honest
+1           0                   1/3            2/3
+Stay1            Leave1           Stay1           Leave1
+1       0                     1/3            2/3
+Stay2     Leave2                Stay2         Leave2
+Let’s name the relevant events:
+𝐵 = the contestant is bribing the judges
+𝐻 = the contestant is honest (not bribing the judges)
+𝑆1 = the contestant was allowed to stay during the first episode
+𝑆2 = the contestant was allowed to stay during the second episode
+𝐿1 = the contestant was asked to leave during the first episode
+𝐿2 = the contestant was asked to leave during the second episode', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Consider the Monty Hall problem. Let’s label the door with the car behind
 it 𝑎 and the other two doors 𝑏 and 𝑐. In the game the contestant chooses a door and then
 Monty chooses a door, so we can label each outcome as ‘contestant followed by Monty’, e.g
 𝑎𝑏 means the contestant chose 𝑎 and Monty chose 𝑏.
-Make a 3 × 3 probability table showing probabilities for all possible outcomes.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Make a 3 × 3 probability table showing probabilities for all possible outcomes.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Consider the Monty Hall problem. Let’s label the door with the car behind
-it 𝑎 and the other two doors 𝑏 and 𝑐. In the game the contestant chooses a door and then
-Monty chooses a door, so we can label each outcome as ‘contestant followed by Monty’, e.g
-𝑎𝑏 means the contestant chose 𝑎 and Monty chose 𝑏.
-Redo part (c) with the strategy of not switching.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) and (b) In the tree the first row is the contestant’s choice and the second
-row is the host’s (Monty’s) choice.
-Viewed as a table                                        Viewed as a tree
-Contestant                                            1               1          1
-a    b     c                                          3               3          3
-a    0    0     0                          a                               b                          c
-1       1
-Host    b 1/6     0    1/3                     0   2       2               0       0 1                0       1 0
-c 1/6 1/3       0                  a                   c       a                 c        a                 c
-b                       b                          b', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Make a probability tree showing all possible outcomes.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : With this strategy the contestant wins with {bc, cb}. The probability of winning is
+𝑃 (𝑏𝑐) + 𝑃 (𝑐𝑏) = 2/3. (Both the tree and the table show this.)', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Two dice are rolled.
 𝐴 = ‘sum of two dice equals 3’
 𝐵 = ‘sum of two dice equals 7’
 𝐶 = ‘at least one of the dice shows a 1’
-What is 𝑃 (𝐵|𝐶)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑃 (𝐵|𝐶) =               =       = ..
-𝑃 (𝐶)    11/36  11', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+What is 𝑃 (𝐴|𝐶)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑃 (𝐴|𝐶) =               =       = ..
+𝑃 (𝐶)    11/36  11
+𝑃 (𝐵 ∩ 𝐶)    2/36   2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-A multiple choice exam has 4 choices for each question. A student has
-studied enough so that the probability they will know the answer to a question is 0.5, the
-probability that they will be able to eliminate one choice is 0.25, otherwise all 4 choices
-seem equally plausible. If they know the answer they will get the question right. If not they
-have to guess from the 3 or 4 choices.
-As the teacher you want the test to measure what the student knows. If the student answers
-a question correctly what’s the probability they knew the answer?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We show the probabilities in a tree:
-1/2          1/4 1/4
-Know                    Eliminate 1        Total guess
-1          0               1/3       2/3      1/4       3/4
-Correct      Wrong Correct               Wrong Correct      Wrong
-For a given problem let 𝐶 be the event the student gets the problem correct and 𝐾 the
-event the student knows the answer.
-The question asks for 𝑃 (𝐾|𝐶).
-We’ll compute this using Bayes’ rule:
-𝑃 (𝐶|𝐾) 𝑃 (𝐾)         1 ⋅ 1/2       24
-𝑃 (𝐾|𝐶) =                    =                   =    ≈ 0.774 = 77.4%
-𝑃 (𝐶)       1/2 + 1/12 + 1/16   31', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Two dice are rolled.
+𝐴 = ‘sum of two dice equals 3’
+𝐵 = ‘sum of two dice equals 7’
+𝐶 = ‘at least one of the dice shows a 1’
+𝑃 (𝐴) = 2/36 ≠ 𝑃 (𝐴|𝐶), so they are not independent. Similarly, 𝑃 (𝐵) = 6/36 ≠
+𝑃 (𝐵|𝐶), so they are not independent.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Sample space =
+Ω = {(1, 1), (1, 2), (1, 3), … , (6, 6) } = {(𝑖, 𝑗) | 𝑖, 𝑗 = 1, 2, 3, 4, 5, 6 }.
+(Each outcome is equally likely, with probability 1/36.)
+𝐴 = {(1, 2), (2, 1)},
+𝐵 = {(1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1)}
+𝐶 = {(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1)}
+𝑃 (𝐴 ∩ 𝐶)    2/36   2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Some games, like tennis or ping pong, reach a state called deuce. This
-means that the score is tied and a player wins the game when they get two points ahead
-of the other player. Suppose the probability that you win a point is 𝑝 and this is true
-independently for all points. If the game is at deuce what is the probability you win the
-game?
-This is a tricky problem, but amusing if you like puzzles.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝑊 be the event you win the game from deuce and 𝐿
-Practice Exam 1: All Questions, Spring 2022                                                     11deuce
-p             1-p
-+1                                     −1
-the event you lose. For convenience, define 𝑤 = 𝑃 (𝑊 ).
-p        1-p                    p        1-p
-The figure shows the complete game tree through 2 points. In the
-third level we just abreviate by indicating the probability of winning              deuce                     deuce
-𝑊                    w         w                𝐿
-from deuce.
-The nodes marked +1 and -1, indicate whether you won or lost the
-first point.                                                                               𝑊              𝑊
-Summing all the paths to 𝑊 we get
-𝑝2
-𝑤 = 𝑃 (𝑊 ) = 𝑝2 + 𝑝(1 − 𝑝)𝑤 + (1 − 𝑝)𝑝𝑤 = 𝑝2 + 2𝑝(1 − 𝑝)𝑤 ⇒ 𝑤 =                        .
-1 − 2𝑝(1 − 𝑝)', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose you have an urn containing 7 red and 3 blue balls. You draw three
+balls at random. On each draw, if the ball is red you set it aside and if the ball is blue you
+put it back in the urn. What is the probability that the third draw is blue?
+(If you get a blue ball it counts as a draw even though you put it back in the urn.)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Here is the game tree, 𝑅1 means red on the first draw etc.
+7/10                         3/10
+𝑅1                                                    𝐵1
+6/9                  3/9                          7/10             3/10
+𝑅2                               𝐵2               𝑅2                           𝐵2
+5/8       3/8            6/9             3/9      6/9        3/9     7/10          3/10
+𝑅3              𝐵3 𝑅3                        𝐵3 𝑅3                 𝐵3 𝑅3                 𝐵3
+Summing the probability to all the 𝐵3 nodes we get
+7 6 3      7 3 3         3 7 3        3 3 3
+𝑃 (𝐵3 ) =   ⋅ ⋅ +       ⋅ ⋅ +        ⋅   ⋅ +       ⋅ ⋅   = 0.350.
+10 9 8    10 9 9         10 10 9      10 10 10', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Suppose that 𝑃 (𝐴) = 0.4, 𝑃 (𝐵) = 0.3 and 𝑃 ((𝐴 ∪ 𝐵)𝐶 ) = 0.42. Are 𝐴 and
+𝐵 independent?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have 𝑃 (𝐴 ∪ 𝐵) = 1 − 0.42 = 0.58 and we know because of the inclusion-
+exclusion principle that
+𝑃 (𝐴 ∪ 𝐵) = 𝑃 (𝐴) + 𝑃 (𝐵) − 𝑃 (𝐴 ∩ 𝐵).
+Thus,
+𝑃 (𝐴 ∩ 𝐵) = 𝑃 (𝐴) + 𝑃 (𝐵) − 𝑃 (𝐴 ∪ 𝐵) = 0.4 + 0.3 − 0.58 = 0.12 = (0.4)(0.3) = 𝑃 (𝐴)𝑃 (𝐵).
+So, 𝐴 and 𝐵 are independent.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Suppose 𝐴 and 𝐵 are events with 0 < 𝑃 (𝐴) < 1 and 0 < 𝑃 (𝐵) < 1.
-If 𝐴 and 𝐵 are disjoint can they be independent?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : No, they cannot be independent: 𝐴 ∩ 𝐵 = ∅ ⇒ 𝑃 (𝐴 ∩ 𝐵) = 0 ≠ 𝑃 (𝐴) ⋅ 𝑃 (𝐵).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+If 𝐴 and 𝐵 are independent can they be disjoint?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : No, they cannot be disjoint: same reason as in part (a).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose 𝐴 and 𝐵 are events with 0 < 𝑃 (𝐴) < 1 and 0 < 𝑃 (𝐵) < 1.
-No, they cannot be independent: 𝐴 ⊂ 𝐵 ⇒ 𝐴 ∩ 𝐵 = 𝐴
-⇒ 𝑃 (𝐴 ∩ 𝐵) = 𝑃 (𝐴) > 𝑃 (𝐴) ⋅ 𝑃 (𝐵). The last inequality follows because 𝑃 (𝐵) < 1.
-4   Expectation and Variance', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The answer to all three parts is ‘No’. Each of these answers relies on the fact
-that the probabilities of 𝐴 and 𝐵 are strictly between 0 and 1.
-To show 𝐴 and 𝐵 are not independent we need to show either 𝑃 (𝐴 ∩ 𝐵) ≠ 𝑃 (𝐴) ⋅ 𝑃 (𝐵)
-or 𝑃 (𝐴|𝐵) ≠ 𝑃 (𝐴).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose that 𝑋 takes values between 0 and 1 and has probability density
+function 2𝑥. Compute Var(𝑋) and Var(𝑋 2 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We will make use of the formula Var(𝑌 ) = 𝐸[𝑌 2 ] − 𝐸[𝑌 ]2 . First we compute
+1
+2
+𝐸[𝑋] = ∫ 𝑥 ⋅ 2𝑥𝑑𝑥 =
+0                3
+1
+1
+𝐸[𝑋 2 ] = ∫ 𝑥2 ⋅ 2𝑥𝑑𝑥 =
+0                 2
+1
+1
+𝐸[𝑋 ] = ∫ 𝑥4 ⋅ 2𝑥𝑑𝑥 = .
+4
+0            3
+Thus,
+2         1 4   1
+Var(𝑋) = 𝐸[𝑋 2 ] − (𝐸[𝑋]) =               − =
+2 9  18
+and
+2        1 1  1
+Var(𝑋 2 ) = 𝐸[𝑋 4 ] − (𝐸[𝑋 2 ]) =          − = .
+3 4 12', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-The random variable 𝑋 takes values -1, 0, 1 with probabilities 1/8, 2/8, 5/8
-respectively.
-Compute 𝐸[𝑋].', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have
-𝑋 values:    -1      0         1
-prob:      1/8     2/8       5/8
-𝑋2          1      0         1
-So, 𝐸[𝑋] = −1/8 + 5/8 = 1/2.
-𝑌 values:    0       1', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Compute the expectation and variance of a Bernoulli(𝑝) random variable.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Make a table:
-𝑋:        0          1
-prob:   (1-p)        p
-𝑋2       0          1.
-From the table, 𝐸[𝑋] = 0 ⋅ (1 − 𝑝) + 1 ⋅ 𝑝 = 𝑝.
-Since 𝑋 and 𝑋 2 have the same table 𝐸[𝑋 2 ] = 𝐸[𝑋] = 𝑝.
-Therefore, Var(𝑋) = 𝑝 − 𝑝2 = 𝑝(1 − 𝑝).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose 𝑋 is a random variable with 𝐸[𝑋] = 5 and Var(𝑋) = 2. What is
+𝐸[𝑋 2 ]?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Use Var(𝑋) = 𝐸[𝑋 2 ] − 𝐸[𝑋]2 ⇒ 2 = 𝐸[𝑋 2 ] − 25 ⇒ 𝐸[𝑋 2 ] = 27.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Suppose you roll a fair 6-sided die 100 times (independently), and you get
 $3 every time you roll a 6.
@@ -4724,207 +4673,204 @@ Let 𝑋2 be the number of dollars you win on rolls 26 through 50.
 Let 𝑋3 be the number of dollars you win on rolls 51 through 75.
 Let 𝑋4 be the number of dollars you win on rolls 76 throught 100.
 Let 𝑋 = 𝑋1 + 𝑋2 + 𝑋3 + 𝑋4 be the total number of dollars you win over all 100 rolls.
-What is the expectation and variance of 𝑋?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑋] = 𝐸[3𝑇 ] = 3𝐸[𝑇 ] = 3 ⋅ 100 ⋅ 16 = 50,
-Var(𝑋) = Var(3𝑇 ) = 9Var(𝑇 ) = 9 ⋅ 100 ⋅ 16 ⋅ 56 = 125.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+What is the probability mass function of 𝑋?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : What is the probability mass function of 𝑋?', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose that 𝑋 ∼ Bin(𝑛, 0.5). Find the probability mass function of
-𝑌 = 2𝑋.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : For 𝑦 = 0, 2, 4, … , 2𝑛,
-𝑦      𝑛    1 𝑛
-𝑃 (𝑌 = 𝑦) = 𝑃 (𝑋 =           )=(     )( ) .
-2     𝑦/2   2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose you roll a fair 6-sided die 100 times (independently), and you get
+$3 every time you roll a 6.
+Let 𝑋1 be the number of dollars you win on rolls 1 through 25.
+Let 𝑋2 be the number of dollars you win on rolls 26 through 50.
+Let 𝑋3 be the number of dollars you win on rolls 51 through 75.
+Let 𝑋4 be the number of dollars you win on rolls 76 throught 100.
+Let 𝑋 = 𝑋1 + 𝑋2 + 𝑋3 + 𝑋4 be the total number of dollars you win over all 100 rolls.
+(i) Let 𝑇1 be the total number of times you roll a 6 in the first 25 rolls. So, 𝑋1 = 3𝑇1
+and 𝑌 = 12𝑇1 .
+Now, 𝑇1 ∼ Binomial(25, 1/6), so
+𝐸[𝑌 ] = 12𝐸[𝑇1 ] = 12 ⋅ 25 ⋅ 16 = 50.
+and
+1 5
+Var(𝑌 ) = 144Var(𝑇1 ) = 144 ⋅ 25 ⋅⋅ = 500.
+6 6
+(ii) The expectations are the same by linearity because 𝑋 and 𝑌 are the both
+3 × 100 × a Bernoulli(1/6) random variable.
+For the variance, Var(𝑋) = 4Var(𝑋1 ) because 𝑋 is the sum of 4 independent variables all
+identical to 𝑋1 . However Var(𝑌 ) = Var(4𝑋1 ) = 16Var(𝑋1 ). So, the variance of 𝑌 is 4
+times that of 𝑋. This should make some intuitive sense because 𝑋 is built out of more
+independent trials than 𝑋1 .
+Another way of thinking about it is that the difference between 𝑌 and its expectation is
+four times the difference between 𝑋1 and its expectation. However, the difference between
+𝑋 and its expectation is the sum of such a difference for 𝑋1 , 𝑋2 , 𝑋3 , and 𝑋4 . It’s probably
+the case that some of these deviations are positive and some are negative, so the absolute
+value of this difference for the sum is probably less than four times the absolute value of this
+difference for one of the variables, i.e. the deviations are likely to cancel to some extent.
+5     Probability Mass Functions, Probability Density Functions
+and Cumulative Distribution Functions', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) There are a number of ways to present this.
+Let 𝑇 be the total number of times you roll a 6 in the 100 rolls. We know 𝑇 ∼ Binomial(100, 1/6).
+Since you win $3 every time you roll a 6, we have 𝑋 = 3𝑇 . So, we can write
+100  1 𝑘 5 100−𝑘
+𝑃 (𝑋 = 3𝑘) = (      )( ) ( )      ,         for 𝑘 = 0, 1, 2, … , 100.
+𝑘   6   6
+Alternatively we could write
+100   1 𝑥/3 5 100−𝑥/3
+𝑃 (𝑋 = 𝑥) = (       )( ) ( )          ,        for 𝑥 = 0, 3, 6, … , 300.
+𝑥/3   6     6', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-If 𝑌 = 2𝑋 + 5, compute the pdf and cdf of 𝑌 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Since 𝑋 is between 0 and 1 we have 𝑌 is between 5 and 7. Now for 5 ≤ 𝑦 ≤ 7,
-we have
-𝑦−5          𝑦−5    𝑦−5
-𝐹𝑌 (𝑦) = 𝑃 (𝑌 ≤ 𝑦) = 𝑃 (2𝑋 + 5 ≤ 𝑦) = 𝑃 (𝑋 ≤                    ) = 𝐹𝑋 (     )=     .
-2            2      2
-Differentiating 𝑃 (𝑌 ≤ 𝑦) with respect to 𝑦, we get the probability density function of 𝑌 ,
-for 5 ≤ 𝑦 ≤ 7,
-1
-𝑓𝑌 (𝑦) = .
+Suppose that 𝑋 is uniform on [0, 1]. Compute the pdf and cdf of 𝑋.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have 𝑓𝑋 (𝑥) = 1 for 0 ≤ 𝑥 ≤ 1. The cdf of 𝑋 is
+𝑥                   𝑥
+𝐹𝑋 (𝑥) = ∫ 𝑓𝑋 (𝑡)𝑑𝑡 = ∫ 1𝑑𝑡 = 𝑥.
+0                   0', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+If 𝑌 = 𝑋 2 , compute the pdf and cdf of 𝑌 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : √            √
+𝐹𝑌 (𝑦) = 𝑃 (𝑌 ≤ 𝑦) = 𝑃 (𝑋 2 ≤ 𝑦) = 𝑃 (𝑋 ≤              𝑦) = 1 − e−𝜆 𝑦 .
+Differentiating 𝐹𝑌 (𝑦) with respect to 𝑦, we have
+𝜆 − 1 −𝜆√𝑦
+𝑓𝑌 (𝑦) =        𝑦 2e     .
 2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Suppose that 𝑋 is a random variable that takes on values 0, 2 and 3 with
 probabilities 0.3, 0.1, 0.6 respectively. Let 𝑌 = 3(𝑋 − 1)2 .
-What is the expectation of 𝑋?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We first make the probability tables
-𝑋       0     2          3
-prob.   0.3   0.1        0.6
-𝑌       3     3         12
-So, 𝐸[𝑋] = 0 ⋅ 0.3 + 2 ⋅ 0.1 + 3 ⋅ 0.6 = 2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+What is the variance of 𝑋?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑋 2 ] = 0 ⋅ 0.3 + 4 ⋅ 0.1 + 9 ⋅ 0.6 = 5.8 ⇒ Var(𝑋) = 𝐸[𝑋 2 ] − 𝐸[𝑋]2 =
+5.8 − 4 = 1.8.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Suppose that 𝑋 is a random variable that takes on values 0, 2 and 3 with
 probabilities 0.3, 0.1, 0.6 respectively. Let 𝑌 = 3(𝑋 − 1)2 .
-What is the expection of 𝑌 ?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑌 ] = 3 ⋅ 0.3 + 3 ⋅ 0.1 + 12 ⋅ 6 = 8.4.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Let 𝐹𝑌 (𝑡) be the cumulative density function of 𝑌 . What is 𝐹𝑌 (7)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : From the table we see that 𝐹𝑌 (7) = 𝑃 (𝑌 ≤ 7) = 0.4.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Let 𝑇 be the waiting time for customers in a queue. Suppose that 𝑇 is
-exponential with pdf 𝑓(𝑡) = 2e−2𝑡 on [0, ∞).
-Find the pdf of the rate at which customers are served 𝑅 = 1/𝑇 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The CDF for 𝑇 is
-𝑡
-𝑡
-𝐹𝑇 (𝑡) = 𝑃 (𝑇 ≤ 𝑡) = ∫ 2e−2𝑢 𝑑𝑢 = −e−2𝑢 ∣0 = 1 − e−2𝑡 .
-0
-Next, we find the CDF of 𝑅. 𝑅 takes values in (0, ∞).
-For 0 < 𝑟,
-𝐹𝑅 (𝑟) = 𝑃 (𝑅 ≤ 𝑟) = 𝑃 (1/𝑇 < 𝑟) = 𝑃 (𝑇 > 1/𝑟) = 1 − 𝐹𝑇 (1/𝑟) = e−2/𝑟 .
-𝑑 −2/𝑟     2
-We differentiate to get 𝑓𝑅 (𝑟) =       (e  ) = 2 e−2/𝑟 .
-𝑑𝑟        𝑟', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-(PMF of a sum)
-Suppose 𝑋 and 𝑌 are independent and 𝑋 ∼ Bernoulli(1/2) and 𝑌 ∼ Bernoulli(1/3). De-
-termine the pmf of 𝑋 + 𝑌', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : First we’ll give the joint probability table:
-𝑋
-𝑌\\           0      1
-0       1/3    1/3    2/3
-1       1/6    1/6    1/3
-1/2    1/2     1
-We’ll use the joint probabilities to build the probability table for the sum.
-𝑋+𝑌             0           1            2
-(𝑋, 𝑌 )       (0,0)    (0,1), (1,0)    (1,1)
-prob.         1/3      1/6 + 1/3       1/6
-prob.         1/3         1/2          1/6', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+A continuous random variable 𝑋 has PDF 𝑓(𝑥) = 𝑥 + 𝑎𝑥2 on [0,1]
+Find 𝑎, the CDF and 𝑃 (0.5 < 𝑋 < 1).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : First we find the value of 𝑎:
+1                 1
+1 𝑎
+∫ 𝑓(𝑥) 𝑑𝑥 = 1 = ∫ 𝑥 + 𝑎𝑥2 𝑑𝑥 =           +  ⇒ 𝑎 = 3/2.
+0                 0                    2 3
+The CDF is 𝐹𝑋 (𝑥) = 𝑃 (𝑋 ≤ 𝑥). We break this into cases:
+(i) 𝑏 < 0, so 𝐹𝑋 (𝑏) = 0.
+𝑏                    2   3
+(ii) 0 ≤ 𝑏 ≤ 1, so 𝐹𝑋 (𝑏) = ∫0 𝑥 + 32 𝑥2 𝑑𝑥 = 𝑏2 + 𝑏2 .
+(iii) 1 < 𝑥, so 𝐹𝑋 (𝑏) = 1.
+Using 𝐹𝑋 we get
+0.52 + 0.53   13
+𝑃 (0.5 < 𝑋 < 1) = 𝐹𝑋 (1) − 𝐹𝑋 (0.5) = 1 − (                  )= .
+2        16', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Let 𝑋 be a discrete random variable with pmf 𝑝 given by:
 𝑥    −2   −1    0    1   2
 𝑝(𝑥) 1/15 2/15 3/15 4/15 5/15
-Find the value the cdf of 𝑋 at -3/2, 3/4, 7/8, 1, 1.5, 5.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : and (c) To distinguish the distribution functions we’ll write 𝐹𝑋 and 𝐹𝑌 .
-Using the tables in part (a) and the definition 𝐹𝑋 (𝑎) = 𝑃 (𝑋 ≤ 𝑎) etc. we get
-𝑎     -3/2         3/4     7/8        1        1.5   5
-𝐹𝑋 (𝑎)     1/15        6/15    6/15     10/15     10/15   1
-𝐹𝑌 (𝑎)       0         3/15    3/15      9/15      9/15   1', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Let 𝑌 = 𝑋 2 . Find the pmf of 𝑌 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝑌 = 𝑋 2 . Find the pmf of 𝑌 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Suppose that the cdf of 𝑋 is given by:
+Let 𝑋 be a discrete random variable with pmf 𝑝 given by:
+𝑥    −2   −1    0    1   2
+𝑝(𝑥) 1/15 2/15 3/15 4/15 5/15
+Find the value the cdf of 𝑌 at -3/2, 3/4, 7/8, 1, 1.5, 5.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) Note: 𝑌 = 1 when 𝑋 = 1 or 𝑋 = −1, so
+𝑃 (𝑌 = 1) = 𝑃 (𝑋 = 1) + 𝑃 (𝑋 = −1).
+Values 𝑦 of 𝑌           0        1       4
+pmf 𝑝𝑌 (𝑦)         3/15     6/15    6/15', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Suppose 𝑋 has range [0,1] and has cdf
+                                 𝐹 (𝑥) = 𝑥2       for 0 ≤ 𝑥 ≤ 1.
 
-                                        ⎧ 0       for 𝑎 < 0
-                                        {
-                                        { 1       for 0 ≤ 𝑎 < 2
-                                𝐹 (𝑎) = ⎨ 52
-                                        {         for 2 ≤ 𝑎 < 4
-                                        { 5
-                                        ⎩ 1       for 𝑎 ≥ 4.
-Determine the pmf of 𝑋.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The jumps in the distribution function are at 0, 2, 4. The value of 𝑝(𝑎) at a
-jump is the height of the jump:
-𝑎        0       2      4
-𝑝(𝑎)       1/5     1/5    3/5', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Let 𝑋 be a random variable with range [0, 1] and cdf
-𝐹 (𝑋) = 2𝑥2 − 𝑥4          for 0 ≤ 𝑥 ≤ 1.
-𝑓(𝑥) = 𝐹 ′ (𝑥) = 4𝑥 − 4𝑥3 in [0,1].
-6     Distributions with Names', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) 𝑃 (1/4 ≤ 𝑋 ≤ 3/4) = 𝐹 (3/4) − 𝐹 (1/4) = 11/16 = 0.6875.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+
+Compute 𝑃 ( 12 < 𝑋 < 34 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑃 (1/2 ≤ 𝑋 ≤ 3/4) = 𝐹 (3/4) − 𝐹 (1/2) = (3/4)2 − (1/2)2 = 5/16 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Exponential Distribution
 Suppose that buses arrive are scheduled to arrive at a bus stop at noon but are always 𝑋
 minutes late, where 𝑋 is an exponential random variable with probability density function
 𝑓𝑋 (𝑥) = 𝜆e−𝜆𝑥 . Suppose that you arrive at the bus stop precisely at noon.
-Suppose that you have already waiting for 10 minutes. Compute the probability that you
-have to wait an additional five minutes or more.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We want 𝑃 (𝑋 ≥ 15|𝑋 ≥ 10). First observe that 𝑃 (𝑋 ≥ 15, 𝑋 ≥ 10) = 𝑃 (𝑋 ≥
-15). From similar computations in (a), we know
-𝑃 (𝑋 ≥ 15) = e−15𝜆                    𝑃 (𝑋 ≥ 10) = e−10𝜆 .
-From the definition of conditional probability,
-𝑃 (𝑋 ≥ 15, 𝑋 ≥ 10)   𝑃 (𝑋 ≥ 15)
-𝑃 (𝑋 ≥ 15|𝑋 ≥ 10) =                       =            = e−5𝜆
-𝑃 (𝑋 ≥ 10)       𝑃 (𝑋 ≥ 10)
-Note: This is an illustration of the memorylessness property of the exponential distribu-
-tion.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Compute the probability that you have to wait for more than five minutes for the bus
+to arrive.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We compute
+5
+𝑃 (𝑋 ≥ 5) = 1 − 𝑃 (𝑋 < 5) = 1 − ∫ 𝜆e−𝜆𝑥 𝑑𝑥 = 1 − (1 − e−5𝜆 ) = e−5𝜆 .
+0', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Normal Distribution: Throughout these problems, let 𝜙 and Φ be the pdf
 and cdf, respectively, of the standard normal distribution Suppose 𝑍 is a standard normal
 random variable and let 𝑋 = 3𝑍 + 1.
-Differentiate the expression from (𝑎) with respect to 𝑥 to get the pdf of 𝑋, 𝑓(𝑥).
-Remember that Φ′ (𝑧) = 𝜙(𝑧) and don’t forget the chain rule', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Differentiating with respect to 𝑥, we have
-d          1    𝑥−1
-𝑓𝑋 (𝑥) =      𝐹𝑋 (𝑥) = 𝜙 (     ).
-dx         3     3
-1   𝑥2
-Since 𝜙(𝑥) = (2𝜋)− 2 e− 2 , we conclude
-1  (𝑥−1)2
-𝑓𝑋 (𝑥) = √ e− 2⋅32 ,
-3 2𝜋
-which is the probability density function of the 𝑁 (1, 9) distribution. Note: The arguments
-in (a) and (b) give a proof that 3𝑍 +1 is a normal random variable with mean 1 and variance
-9. See Problem Set 3, Question 5.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Express 𝑃 (𝑋 ≤ 𝑥) in terms of Φ', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have
+𝑥−1        𝑥−1
+𝐹𝑋 (𝑥) = 𝑃 (𝑋 ≤ 𝑥) = 𝑃 (3𝑍 + 1 ≤ 𝑥) = 𝑃 (𝑍 ≤        ) = Φ(     ).
+3          3', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Normal Distribution: Throughout these problems, let 𝜙 and Φ be the pdf
 and cdf, respectively, of the standard normal distribution Suppose 𝑍 is a standard normal
 random variable and let 𝑋 = 3𝑍 + 1.
-Recall that the probability that 𝑍 is within one standard deviation of its mean is approx-
-imately 68%. What is the probability that 𝑋 is within one standard deviation of its mean?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Since 𝐸[𝑋] = 1, Var(𝑋) = 9, we want 𝑃 (−2 ≤ 𝑋 ≤ 4). We have
-𝑃 (−2 ≤ 𝑋 ≤ 4) = 𝑃 (−3 ≤ 3𝑍 ≤ 3) = 𝑃 (−1 ≤ 𝑍 ≤ 1) ≈ 0.68.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Find 𝑃 (−1 ≤ 𝑋 ≤ 1)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have
+2                      2
+𝑃 (−1 ≤ 𝑋 ≤ 1) = 𝑃 (− ≤ 𝑍 ≤ 0) = Φ(0) − Φ (− ) ≈ 0.2475
+3                      3', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Transforming Normal Distributions
 Suppose 𝑍 ∼ N(0,1) and 𝑌 = e𝑍 .
-We don’t have a formula for Φ(𝑧) so we don’t have a formula for quantiles. So we have
-to write quantiles in terms of Φ−1 .
-(i) Write the 0.33 quantile of 𝑍 in terms of Φ−1
-(ii) Write the 0.9 quantile of 𝑌 in terms of Φ−1 .
-(iii) Find the median of 𝑌 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (i) The 0.33 quantile for 𝑍 is the value 𝑞0.33 such that 𝑃 (𝑍 ≤ 𝑞0.33 ) = 0.33.
-That is, we want
-Φ(𝑞0.33 ) = 0.33 ⇔ 𝑞0.33 = Φ−1 (0.33) .
-(ii) We want to find 𝑞0.9 where
-−1
-𝐹𝑌 (𝑞0.9 ) = 0.9 ⇔ Φ(ln(𝑞0.9 )) = 0.9 ⇔ 𝑞0.9 = eΦ         (0.9)
-.
-−1
-(iii) As in (ii) 𝑞0.5 = eΦ     (0.5)
-= e0 = 1 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Find the cdf 𝐹𝑌 (𝑎) and pdf 𝑓𝑌 (𝑦) for 𝑌 . (For the CDF, the best you can do is write it
+in terms of Φ the standard normal cdf.)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Note, 𝑌 follows what is called a log-normal distribution.
+𝐹𝑌 (𝑎) = 𝑃 (𝑌 ≤ 𝑎) = 𝑃 (𝑒𝑍 ≤ 𝑎) = 𝑃 (𝑍 ≤ ln(𝑎)) = Φ(ln(𝑎)).
+Differentiating using the chain rule:
+𝑑           𝑑            1             1             2
+𝑓𝑦 (𝑎) =      𝐹𝑌 (𝑎) =    Φ(ln(𝑎)) = 𝜙(ln(𝑎)) = √      e−(ln(𝑎)) /2 .
+𝑑𝑎          𝑑𝑎           𝑎             2𝜋 𝑎', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 (Random variables derived from normal random variables)
 Let 𝑋1 , 𝑋2 , …𝑋𝑛 be i.i.d. N(0, 1) random variables.
 Let 𝑌𝑛 = 𝑋12 + … + 𝑋𝑛2 .
-Set up an integral in 𝑥 for computing 𝐸[𝑋𝑗4 ].
-For 3 extra credit points, use integration by parts show 𝐸[𝑋𝑗4 ] = 3.
-(If you don’t do this, you can still use this result in part c.)
-∞
-1        2', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑋𝑗4 ] = √ ∫ 𝑥4 e−𝑥 /2 𝑑𝑥.
-2𝜋 −∞
-2                            2
-(Extra credit) By parts: let 𝑢 = 𝑥3 , 𝑣′ = 𝑥e−𝑥 /2 ⇒ 𝑢′ = 3𝑥2 , 𝑣 = −e−𝑥 /2
-∞
-1       3 −𝑥2 /2
-∞         1         2
-𝐸[𝑋𝑗4 ] = √      [𝑥 e         ∣      + √ ∫ 3𝑥2 e−𝑥 /2 𝑑𝑥]
-2𝜋                 𝑖𝑛𝑓𝑡𝑦    2𝜋 −∞
-The first term is 0 and the second term is the formula for 3𝐸[𝑋𝑗2 ] = 3 (by part (a)). Thus,
-𝐸[𝑋𝑗4 ] = 3.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Use the formula Var(𝑋𝑗 ) = 𝐸[𝑋𝑗2 ] − 𝐸[𝑋𝑗 ]2 to show 𝐸[𝑋𝑗2 ] = 1.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Var(𝑋𝑗 ) = 1 = 𝐸[𝑋𝑗2 ] − 𝐸[𝑋𝑗 ]2 = 𝐸[𝑋𝑗2 ]. QED', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 (Random variables derived from normal random variables)
 Let 𝑋1 , 𝑋2 , …𝑋𝑛 be i.i.d. N(0, 1) random variables.
 Let 𝑌𝑛 = 𝑋12 + … + 𝑋𝑛2 .
-Use the Central Limit Theorem to approximate 𝑃 (𝑌100 > 110).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑌100 ] = 𝐸[100𝑋𝑗2 ] = 100.      Var(𝑌100 ) = 100Var(𝑋𝑗 ) = 200.
-The CLT says 𝑌100 is approximately normal. Standardizing gives
-𝑌 − 100       10               √
-𝑃 (𝑌100 > 110) = 𝑃 ( 100
-√       >√      ) ≈ 𝑃 (𝑍 > 1/ 2) = 0.24 .
-200       200
-This last value was computed using R: 1 - pnorm(1/sqrt(2),0,1).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Deduce from parts (a) and (b) that Var(𝑋𝑗2 ) = 2.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Var(𝑋𝑗2 ) = 𝐸[𝑋𝑗4 ] − 𝐸[𝑋𝑗2 ]2 = 3 − 1 = 2. QED', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 More Transforming Normal Distributions
-Suppose 𝑌 ∼ N(𝜇, 𝜎2 ). Show             follows a standard normal distribution.
-𝜎', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : By part (a), 𝑌 ∼ N(𝜇, 𝜎2 ) ⇒ 𝑌 = 𝜎𝑍 + 𝜇. But, this implies (𝑌 − 𝜇)/𝜎 = 𝑍 ∼
-N(0, 1). QED', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Suppose 𝑍 is a standard normal random variable and let 𝑌 = 𝑎𝑍 + 𝑏, where 𝑎 > 0 and
+𝑏 are constants.
+Show 𝑌 ∼ N(𝑏, 𝑎2 ) (remember our notation for normal distributions uses mean and vari-
+ance).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝜙(𝑧) and Φ(𝑧) be the PDF and CDF of 𝑍.
+𝐹𝑌 (𝑦) = 𝑃 (𝑌 ≤ 𝑦) = 𝑃 (𝑎𝑍 + 𝑏 ≤ 𝑦) = 𝑃 (𝑍 ≤ (𝑦 − 𝑏)/𝑎) = Φ((𝑦 − 𝑏)/𝑎).
+Differentiating:
+𝑑         𝑑                1                 1           2   2
+𝑓𝑌 (𝑦) =     𝐹 (𝑦) =    Φ((𝑦 − 𝑏)/𝑎) = 𝜙((𝑦 − 𝑏)/𝑎) = √      e−(𝑦−𝑏) /2𝑎 .
+𝑑𝑦 𝑌      𝑑𝑦               𝑎                 2𝜋 𝑎
+Since this is the density for N(𝑏, 𝑎2 ) we have shown 𝑌 ∼ N(𝑏, 𝑎2 ).
+𝑌 −𝜇', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 (Sums of normal random variables)
 Let 𝑋, 𝑌 be independent random variables where 𝑋 ∼ 𝑁 (2, 5) and 𝑌 ∼ 𝑁 (5, 9) (we use the
 notation 𝑁 (𝜇, 𝜎2 )). Let 𝑊 = 3𝑋 − 2𝑌 + 1.
-It is known that the sum of independent normal distributions is normal. Compute
-𝑃 (𝑊 ≤ 6).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Since the sum of independent normal is normal part (a) shows: 𝑊 ∼ 𝑁 (−3, 81).
-𝑊 +3      9
-Let 𝑍 ∼ 𝑁 (0, 1). We standardize 𝑊 : 𝑃 (𝑊 ≤ 6) = 𝑃 (       ≤ ) = 𝑃 (𝑍 ≤ 1) ≈ 0.84.
-9       9', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Compute 𝐸[𝑊 ] and Var(𝑊 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑊 ] = 3𝐸[𝑋] − 2𝐸[𝑌 ] + 1 = 6 − 10 + 1 = −3
+Var(𝑊 ) = 9Var(𝑋) + 4Var(𝑌 ) = 45 + 36 = 81', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Let 𝑋 ∼ U(𝑎, 𝑏). Compute 𝐸[𝑋] and Var(𝑋).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Method 1
+1
+𝑈 (𝑎, 𝑏) has density 𝑓(𝑥) =       on [𝑎, 𝑏]. So,
+𝑏−𝑎
+𝑏                     𝑏                𝑏
+1             𝑥2       𝑏 2 − 𝑎2   𝑎+𝑏
+𝐸[𝑋] = ∫ 𝑥𝑓(𝑥) 𝑑𝑥 =    ∫ 𝑥 𝑑𝑥 =         ∣ =          =     .
+𝑎            𝑏−𝑎 𝑎       2(𝑏 − 𝑎) 𝑎 2(𝑏 − 𝑎)     2
+𝑏                         𝑏                𝑏
+2          2     1              𝑥3       𝑏 3 − 𝑎3
+𝐸[𝑋 ] = ∫ 𝑥 𝑓(𝑥) 𝑑𝑥 =    ∫ 𝑥2 𝑑𝑥 =         ∣ =          .
+𝑎             𝑏−𝑎 𝑎        3(𝑏 − 𝑎) 𝑎 3(𝑏 − 𝑎)
+Finding Var(𝑋) now requires a little algebra,
+𝑏 3 − 𝑎3   (𝑏 + 𝑎)2
+Var(𝑋) = 𝐸[𝑋 2 ] − 𝐸[𝑋]2 =              −
+3(𝑏 − 𝑎)       4
+4(𝑏3 − 𝑎3 ) − 3(𝑏 − 𝑎)(𝑏 + 𝑎)2   𝑏3 − 3𝑎𝑏2 + 3𝑎2 𝑏 − 𝑎3    (𝑏 − 𝑎)3   (𝑏 − 𝑎)2
+=                                  =                        =           =          .
+12(𝑏 − 𝑎)                   12(𝑏 − 𝑎)          12(𝑏 − 𝑎)      12
+Method 2
+There is an easier way to find 𝐸[𝑋] and Var(𝑋).
+Let 𝑈 ∼ U(𝑎, 𝑏). Then the calculations above show 𝐸[𝑈 ] = 1/2 and (𝐸[𝑈 2 ] = 1/3 ⇒
+Var(𝑈 ) = 1/3 − 1/4 = 1/12.
+Now, we know 𝑋 = (𝑏 − 𝑎)𝑈 + 𝑎, so 𝐸[𝑋] = (𝑏 − 𝑎)𝐸[𝑈 ] + 𝑎 = (𝑏 − 𝑎)/2 + 𝑎 = (𝑏 + 𝑎)/2
+and Var(𝑋) = (𝑏 − 𝑎)2 Var(𝑈 ) = (𝑏 − 𝑎)2 /12.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 In 𝑛 + 𝑚 independent Bernoulli(𝑝) trials, let 𝑆𝑛 be the number of successes
 in the first 𝑛 trials and 𝑇𝑚 the number of successes in the last 𝑚 trials.
-What is the distribution of 𝑆𝑛 ? Why?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑆𝑛 ∼ Binomial(𝑛, 𝑝), since it is the number of successes in 𝑛 independent
+What is the distribution of 𝑇𝑚 ? Why?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑇𝑚 ∼ Binomial(𝑚, 𝑝), since it is the number of successes in 𝑚 independent
 Bernoulli trials.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 In 𝑛 + 𝑚 independent Bernoulli(𝑝) trials, let 𝑆𝑛 be the number of successes
 in the first 𝑛 trials and 𝑇𝑚 the number of successes in the last 𝑚 trials.
-What is the distribution of 𝑆𝑛 + 𝑇𝑚 ? Why?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑆𝑛 + 𝑇𝑚 ∼ Binomial(𝑛 + 𝑚, 𝑝), since it is the number of successes in 𝑛 + 𝑚
-independent Bernoulli trials.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Compute the median for the exponential distribution with parameter 𝜆.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The density for this distribution is 𝑓(𝑥) = 𝜆 e−𝜆𝑥 . We know (or can compute)
-that the distribution function is 𝐹 (𝑎) = 1 − e−𝜆𝑎 . The median is the value of 𝑎 such that
-𝐹 (𝑎) = 0.5. Thus, 1 − e−𝜆𝑎 = 0.5 ⇒ 0.5 = e−𝜆𝑎 ⇒ log(0.5) = −𝜆𝑎 ⇒ 𝑎 = log(2)/𝜆.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Are 𝑆𝑛 and 𝑇𝑚 independent? Why?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Yes, 𝑆𝑛 and 𝑇𝑚 are independent. We haven’t given a formal definition of inde-
+pendent random variables yet. But, we know it means that knowing 𝑆𝑛 gives no information
+about 𝑇𝑚 . This is clear since the first 𝑛 trials are independent of the last 𝑚.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Pareto and the 80-20 rule.
 Pareto was an economist who used the Pareto distribution to model the wealth in a society.
@@ -4933,177 +4879,163 @@ For a fixed baseline 𝑚, the Pareto density with parameter 𝛼 is
 𝑓(𝑥) =          for 𝑥 ≥ 𝑚.
 𝑥𝛼+1
 Assume 𝑋 is a random variable that follows such a distribution.
-Pareto’s principle is often paraphrased as the 80-20 rule. That is, 80% of the wealth
-is owned by 20% of the people. The rule is only exact for a Pareto distribution with
-𝛼 = log(5)/ log(4) = 1.16.
-Suppose 𝛼 = 𝑚 = 1. Compute the 0.80 quantile for the Pareto distribution.
-In general, many phenomena follow the power law described by 𝑓(𝑥). You can look up
-’Pareto principle’ in Wikipedia to read more about this.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We want the value 𝑞0.8 where 𝑃 (𝑋 ≤ 𝑞0.8 ) = 0.8.
-This is equivalent to 𝑃 (𝑋 > 𝑞0.8 ) = 0.2. Using part (a) and the given values of 𝑚 and 𝛼
-1
-we have       = 0.2 ⇒ 𝑞0.8 = 5.
-𝑞0.8
-7    Joint Probability, Covariance, Correlation', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Compute 𝑃 (𝑋 > 𝑎) (you may assume 𝑎 ≥ 𝑚).
+∞
+𝛼 𝑚𝛼     𝑚𝛼 ∞   𝑚𝛼', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑃 (𝑋 > 𝑎) = ∫                 = −    ∣ =    .
+𝑎       𝑥𝛼+1     𝑥𝛼 𝑎   𝑎𝛼', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+(Another Arithmetic Puzzle)
+Let 𝑋 and 𝑌 be two independent Bernoulli(0.5) random variables. Define 𝑆 and 𝑇 by:
+𝑆 =𝑋+𝑌      and 𝑇 = 𝑋 − 𝑌 .
+Find the joint and marginal pmf’s for 𝑆 and 𝑇 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Find the joint and marginal pmf’s for 𝑆 and 𝑇 .', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Let 𝑋 and 𝑌 be two continuous random variables with joint pdf
 𝑓(𝑥, 𝑦) = 𝑐𝑥2 𝑦(1 + 𝑦) for 0 ≤ 𝑥 ≤ 3 and 0 ≤ 𝑦 ≤ 3,
 and 𝑓(𝑥, 𝑦) = 0 otherwise.
-Find the probability 𝑃 (1 ≤ 𝑋 ≤ 2, 0 ≤ 𝑌 ≤ 1).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Find the probability 𝑃 (1 ≤ 𝑋 ≤ 2, 0 ≤ 𝑌 ≤ 1).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Determine the joint cdf, 𝐹 (𝑎, 𝑏), of 𝑋 and 𝑌 for 𝑎 and 𝑏 between 0 and 3.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : For 0 ≤ 𝑎 ≤ 3 and 0 ≤ 𝑏 ≤ 3. we have
+𝑎       𝑏
+𝑎3 𝑏2 𝑎3 𝑏3
+𝐹 (𝑎, 𝑏) = ∫ ∫ 𝑓(𝑥, 𝑦)𝑑𝑦 𝑑𝑥 = 𝑐 (                                         +      )
+0       0                                         6     9', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Let 𝑋 and 𝑌 be two continuous random variables with joint pdf
 𝑓(𝑥, 𝑦) = 𝑐𝑥2 𝑦(1 + 𝑦) for 0 ≤ 𝑥 ≤ 3 and 0 ≤ 𝑦 ≤ 3,
 and 𝑓(𝑥, 𝑦) = 0 otherwise.
-Find marginal cdf 𝐹𝑋 (𝑎) for 𝑎 between 0 and 3.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Since 𝑦 = 3 is the maximum value for 𝑌 , we have
-9𝑎3          9       𝑎3
-𝐹𝑋 (𝑎) = 𝐹 (𝑎, 3) = 𝑐 (                     + 3𝑎3 ) = 𝑐 𝑎3 =
-6           2       27', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Let 𝑋 and 𝑌 be two continuous random variables with joint pdf
-𝑓(𝑥, 𝑦) = 𝑐𝑥2 𝑦(1 + 𝑦) for 0 ≤ 𝑥 ≤ 3 and 0 ≤ 𝑦 ≤ 3,
-and 𝑓(𝑥, 𝑦) = 0 otherwise.
-Since 𝑓(𝑥, 𝑦) separates into a product as a function of 𝑥 times a function of 𝑦 we know
-𝑋 and 𝑌 are independent.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) Total probability must be 1, so
-3       3                               3        3
-243
-1 = ∫ ∫ 𝑓(𝑥, 𝑦) 𝑑𝑦 𝑑𝑥 = ∫ ∫ 𝑐(𝑥2 𝑦 + 𝑥2 𝑦2 ) 𝑑𝑦 𝑑𝑥 = 𝑐 ⋅                                           ,
-0       0                               0        0                                        2
-2
-(Here we skipped showing the arithmetic of the integration) Therefore, 𝑐 =                                         .
-243
-(b)
-2       1
-𝑃 (1 ≤ 𝑋 ≤ 2, 0 ≤ 𝑌 ≤ 1) = ∫ ∫ 𝑓(𝑥, 𝑦) 𝑑𝑦 𝑑𝑥
-1       0
-2       1
-= ∫ ∫ 𝑐(𝑥2 𝑦 + 𝑥2 𝑦2 ) 𝑑𝑦 𝑑𝑥
-1       0
-35
-=𝑐⋅
-18
-70
-=      ≈ 0.016
-4374', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Find the marginal pdf 𝑓𝑋 (𝑥) directly from 𝑓(𝑥, 𝑦) and check that it is the derivative of
+𝐹𝑋 (𝑥).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : For 0 ≤ 𝑥 ≤ 3, we have, by integrating over the entire range for 𝑦,
+3
+32 33    27   1
+𝑓𝑋 (𝑥) = ∫ 𝑓(𝑥, 𝑦) 𝑑𝑦 = 𝑐𝑥2 (                                + ) = 𝑐 𝑥2 = 𝑥2 .
+0                                        2  3      2   9
+𝑑
+This is consistent with (c) because 𝑑𝑥 (𝑥3 /27) = 𝑥2 /9.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Let 𝑋 and 𝑌 be two random variables and let 𝑟, 𝑠, 𝑡, and 𝑢 be real numbers.
-Show that Cov(𝑟𝑋, 𝑡𝑌 ) = 𝑟𝑡Cov(𝑋, 𝑌 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : This is very similar to part (a).
-We know 𝐸[𝑟𝑋] = 𝑟𝐸[𝑋], so 𝑟𝑋−𝐸[𝑟𝑋] = 𝑟(𝑋−𝐸[𝑋]). Likewise 𝑡𝑌 −𝐸[𝑡𝑌 ] = 𝑠(𝑌 −𝐸[𝑌 ]).
-Once again using the definition of covariance we get
-Cov(𝑟𝑋, 𝑡𝑌 ) = 𝐸[(𝑟𝑋 − 𝐸[𝑟𝑋])(𝑡𝑌 − 𝐸[𝑡𝑌 ])]
-= 𝐸[𝑟𝑡(𝑋 − 𝐸[𝑋])(𝑌 − 𝐸[𝑌 ])]
-(Now we use linearity of expectation to pull out the factor of 𝑟𝑡)
-= 𝑟𝑡𝐸[(𝑋 − 𝐸[𝑋](𝑌 − 𝐸[𝑌 ]))]
-= 𝑟𝑡Cov(𝑋, 𝑌 )', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Show that Cov(𝑋 + 𝑠, 𝑌 + 𝑢) = Cov(𝑋, 𝑌 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Show that Cov(𝑋 + 𝑠, 𝑌 + 𝑢) = Cov(𝑋, 𝑌 ).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Derive the formula for the covariance: Cov(𝑋, 𝑌 ) = 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ].', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using linearity of expectation, we have
-Cov(𝑋, 𝑌 ) = 𝐸 [(𝑋 − 𝐸[𝑋])(𝑌 − 𝐸[𝑌 ])]
-= 𝐸 [𝑋𝑌 − 𝐸[𝑋]𝑌 − 𝐸[𝑌 ]𝑋 + 𝐸[𝑋]𝐸[𝑌 ]]
-= 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ] − 𝐸[𝑌 ]𝐸[𝑋] + 𝐸[𝑋]𝐸[𝑌 ]
-= 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ].', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Let 𝑋 and 𝑌 be two random variables and let 𝑟, 𝑠, 𝑡, and 𝑢 be real numbers.
+This is more of the same. We give the argument with far fewer algebraic details
+Cov(𝑟𝑋 + 𝑠, 𝑡𝑌 + 𝑢) = Cov(𝑟𝑋, 𝑡𝑌 ) (by part (a))
+= 𝑟𝑡Cov(𝑋, 𝑌 ) (by part (b))', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) First note by linearity of expectation we have 𝐸[𝑋 + 𝑠] = 𝐸[𝑋] + 𝑠, thus
+𝑋 + 𝑠 − 𝐸[𝑋 + 𝑠] = 𝑋 − 𝐸[𝑋].
+Likewise 𝑌 + 𝑢 − 𝐸[𝑌 + 𝑢] = 𝑌 − 𝐸[𝑌 ].
+Now using the definition of covariance we get
+Cov(𝑋 + 𝑠, 𝑌 + 𝑢) = 𝐸[(𝑋 + 𝑠 − 𝐸[𝑋 + 𝑠]) ⋅ (𝑌 + 𝑢 − 𝐸[𝑌 + 𝑢])]
+= 𝐸[(𝑋 − 𝐸[𝑋]) ⋅ (𝑌 − 𝐸[𝑌 ])]
+= Cov(𝑋, 𝑌 ).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Toss a fair coin 3 times. Let 𝑋 = the number of heads on the first toss, 𝑌
 the total number of heads on the last two tosses, and 𝐹 the number of heads on the first two
 tosses.
-Give the joint probability table for 𝑋 and 𝐹 . Compute Cov(𝑋, 𝐹 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (b) The sample space is Ω = {HHH, HHT, HTH, HTT, THH, THT, TTH,
-TTT}.
-𝑃 (𝑋 = 0, 𝐹 = 0) = 𝑃 ({𝑇 𝑇 𝐻, 𝑇 𝑇 𝑇 }) = 1/4.
-𝑃 (𝑋 = 0, 𝐹 = 1) = 𝑃 ({𝑇 𝐻𝐻, 𝑇 𝐻𝑇 }) = 1/4.              𝑋
-𝐹\\     0   1   𝑃𝐹
-𝑃 (𝑋 = 0, 𝐹 = 2) = 0.                                  0    1/4  0  1/4
-𝑃 (𝑋 = 1, 𝐹 = 0) = 0.                                  1    1/4 1/4 1/2
-𝑃 (𝑋 = 1, 𝐹 = 1) = 𝑃 ({𝐻𝑇 𝐻, 𝐻𝑇 𝑇 }) = 1/4.            2     0  1/4 1/4
-𝑃𝑋 1/2 1/2     1
-𝑃 (𝑋 = 1, 𝐹 = 2) = 𝑃 ({𝐻𝐻𝐻, 𝐻𝐻𝑇 }) = 1/4.
-Cov(𝑋, 𝐹 ) = 𝐸[𝑋𝐹 ] − 𝐸[𝑋]𝐸[𝐹 ].
-𝐸[𝑋] = 1/2, 𝐸[𝐹 ] = 1, 𝐸[𝑋𝐹 ] = ∑ 𝑥𝑖 𝑦𝑗 𝑝(𝑥𝑖 , 𝑦𝑗 ) = 3/4.
-⇒ Cov(𝑋, 𝐹 ) = 3/4 − 1/2 = 1/4.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Give the joint probability table for 𝑋 and 𝑌 . Compute Cov(𝑋, 𝑌 ).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (a) 𝑋 and 𝑌 are independent, so the table is computed from the product of the
+known marginal probabilities. Since they are independent, Cov(𝑋, 𝑌 ) = 0.
+𝑋
+𝑌\\         0     1        𝑃𝑌
+0         1/8   1/8       1/4
+1         1/4   1/4       1/2
+2         1/8   1/8       1/4
+𝑃𝑋        1/2   1/2        1', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Covariance and Independence
 Let 𝑋 be a random variable that takes values -2, -1, 0, 1, 2; each with probability 1/5.   Let
 𝑌 = 𝑋2.
-Show 𝑋 and 𝑌 are not independent.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We show the probabilities don’t multiply:
-𝑃 (𝑋 = −2, 𝑌 = 0) = 0 ≠ 𝑃 (𝑋 = −2) ⋅ 𝑃 (𝑌 = 0) = 1/25.
-Since these are not equal 𝑋 and 𝑌 are not independent. (It is obvious that 𝑋 2 is not
-independent of 𝑋.)', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Find 𝐸[𝑋] and 𝐸[𝑌 ].', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using the marginal distributions:                 𝐸[𝑋] = 15 (−2 − 1 + 0 + 1 + 2) = 0.
+1      2     2
+𝐸[𝑌 ] = 0 ⋅ + 1 ⋅ + 4 ⋅ = 2.
+5      5     5', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+							array('question' => '[MIT 18.05 — question d’examen, en anglais]
+Covariance and Independence
+Let 𝑋 be a random variable that takes values -2, -1, 0, 1, 2; each with probability 1/5.   Let
+𝑌 = 𝑋2.
+Show Cov(𝑋, 𝑌 ) = 0.
+This is an example of uncorrelated but non-independent random variables. The reason this
+can happen is that correlation only measures the linear dependence between the two variables.
+In this case, 𝑋 and 𝑌 are not at all linearly related.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using the table from part (a) and the means computed in part (d) we get:
+Cov(𝑋, 𝑌 ) = 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ]
+1          1       1        1        1
+= (−2)(4) + (−1)(1) + (0)(0) + (1)(1) + (2)(4)
+5          5       5        5        5
+= 0.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Continuous Joint Distributions
 Suppose 𝑋 and 𝑌 are continuous random variables with joint density function 𝑓(𝑥, 𝑦) = 𝑥+𝑦
 on the unit square [0, 1] × [0, 1].
-Let 𝐹 (𝑥, 𝑦) be the joint CDF. Compute 𝐹 (1, 1). Compute 𝐹 (𝑥, 𝑦).
-𝑎       𝑏', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐹 (𝑎, 𝑏) = 𝑃 (𝑋 ≤ 𝑎, 𝑌 ≤ 𝑏) = ∫ ∫ (𝑥 + 𝑦) 𝑑𝑦 𝑑𝑥.
-0       0
-2 𝑏            2
-𝑦         𝑏
-Inner integral:     𝑥𝑦 +     ∣ = 𝑥𝑏 + .
-2 0       2
-𝑎
-𝑥2    𝑏2    𝑎2 𝑏 + 𝑎𝑏2
-Outer integral:         𝑏 + 𝑥∣ =            .
-2     2 0        2
-𝑥2 𝑦 + 𝑥𝑦2
-So 𝐹 (𝑥, 𝑦) =                    and   𝐹 (1, 1) = 1.
-2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Compute the marginal densities for 𝑋 and 𝑌 .
+1                      1                              1
+𝑦2       1', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑓𝑋 (𝑥) = ∫ 𝑓(𝑥, 𝑦) 𝑑𝑦 = ∫ (𝑥 + 𝑦) 𝑑𝑦 = 𝑥𝑦 +                                      ∣ = 𝑥+ .
+0                      0                             2 0      2
+By symmetry, 𝑓𝑌 (𝑦) = 𝑦 + 1/2.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Continuous Joint Distributions
 Suppose 𝑋 and 𝑌 are continuous random variables with joint density function 𝑓(𝑥, 𝑦) = 𝑥+𝑦
 on the unit square [0, 1] × [0, 1].
-Are 𝑋 and 𝑌 independent?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : To see if they are independent we check if the joint density is the product of the
-marginal densities.
-𝑓(𝑥, 𝑦) = 𝑥 + 𝑦, 𝑓𝑋 (𝑥) ⋅ 𝑓𝑌 (𝑦) = (𝑥 + 1/2)(𝑦 + 1/2).
-Since these are not equal, 𝑋 and 𝑌 are not independent.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Compute 𝐸[𝑋], 𝐸[𝑌 ], 𝐸[𝑋 2 + 𝑌 2 ], Cov(𝑋, 𝑌 ).
+1   1                              1              1        1
+𝑦2              𝑥     7', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑋] = ∫ ∫ 𝑥(𝑥 + 𝑦) 𝑑𝑦 𝑑𝑥 = ∫ [ 𝑥 𝑦 + 𝑥 ∣ ] 𝑑𝑥 = ∫ 𝑥2 + 𝑑𝑥 =    .         2
+0 0                  0          2 0       0     2     12
+1                      1
+(Or, using (b), 𝐸[𝑋] = ∫ 𝑥𝑓𝑋 (𝑥) 𝑑𝑥 = ∫ 𝑥(𝑥 + 1/2) 𝑑𝑥 = 7/12.)
+0                      0
+By symmetry 𝐸[𝑌 ] = 7/12.
+1       1
+5
+𝐸[𝑋 2 + 𝑌 2 ] = ∫ ∫ (𝑥2 + 𝑦2 )(𝑥 + 𝑦) 𝑑𝑦 𝑑𝑥 =                                   .
+0       0                                              6
+1       1
+1
+𝐸[𝑋𝑌 ] = ∫ ∫ 𝑥𝑦(𝑥 + 𝑦) 𝑑𝑦 𝑑𝑥 =                              .
+0       0                                      3
+1   49      1
+Cov(𝑋, 𝑌 ) = 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ] =                           −    = −     .
+3 144      144', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Correlation
-Flip a coin 3 times. Use a joint pmf table to compute the covariance and correlation between
-the number of heads on the first 2 and the number of heads on the last 2 flips.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝑋 = the number of heads on the first 2 flips and 𝑌 the number in the last
-2. Considering all 8 possibe tosses: 𝐻𝐻𝐻, 𝐻𝐻𝑇 etc we get the following joint pmf for 𝑋
-and 𝑌
-𝑌 /𝑋 0       1      2
-0      1/8 1/8 0          1/4
-1      1/8 1/4 1/8 1/2
-2      0     1/8 1/8 1/4
-1/4 1/2 1/4 1
-Using the table we find
-1   1  1  1 5
-𝐸[𝑋𝑌 ] =     +2 +2 +4 = .
-4   8  8  8 4
-We know 𝐸[𝑋] = 1 = 𝐸[𝑌 ] so
-5    1
-Cov(𝑋, 𝑌 ) = 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ] =                      −1= .
-4    4
-Since 𝑋 is the sum of 2 independent Bernoulli(0.5) we have 𝜎𝑋 = √2/4
+Flip a coin 5 times. Use properties of covariance to compute the covariance and correlation
+between the number of heads on the first 3 and last 3 flips.
+
+
+
+8   Law of Large Numbers, Central Limit Theorem', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : As usual let 𝑋𝑖 = the number of heads on the 𝑖th flip, i.e. 0 or 1.
+Let 𝑋 = 𝑋1 + 𝑋2 + 𝑋3 the sum of the first 3 flips and 𝑌 = 𝑋3 + 𝑋4 + 𝑋5 the sum of the
+last 3. Using the algebraic properties of covariance we have
+Cov(𝑋, 𝑌 ) = Cov(𝑋1 + 𝑋2 + 𝑋3 , 𝑋3 + 𝑋4 + 𝑋5 )
+= Cov(𝑋1 , 𝑋3 ) + Cov(𝑋1 , 𝑋4 ) + Cov(𝑋1 , 𝑋5 )
++ Cov(𝑋2 , 𝑋3 ) + Cov(𝑋2 , 𝑋4 ) + Cov(𝑋2 , 𝑋5 )
++ Cov(𝑋3 , 𝑋3 ) + Cov(𝑋3 , 𝑋4 ) + Cov(𝑋3 , 𝑋5 )
+1
+Because the 𝑋𝑖 are independent the only non-zero term in the above sum is Cov(𝑋3 𝑋3 ) = Var(𝑋3 ) =
+4
+Therefore, Cov(𝑋, 𝑌 ) = 14 .
+We get the correlation by dividing by the standard deviations. Since 𝑋 is the sum of 3
+independent Bernoulli(0.5) we have 𝜎𝑋 = √3/4
 Cov(𝑋, 𝑌 )    1/4   1
 Cor(𝑋, 𝑌 ) =               =       = .
-𝜎𝑋 𝜎𝑌      (2)/4  2', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+𝜎𝑋 𝜎𝑌      (3)/4  3
+8   Law of Large Numbers, Central Limit Theorem', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-All or None
-You have $100 and, never mind why, you must convert it to $1000. Anything less is no
-good. Your only way to make money is to gamble for it. Your chance of winning one bet is
-𝑝.
-Here are two extreme strategies:
-Maximum strategy: bet as much as you can each time. To be smart, if you have less than
-$500 you bet it all. If you have more, you bet enough to get to $1000.
-
-
-Minimum strategy: bet $1 each time.
-If 𝑝 < 0.5 (the odds are against you) which is the better strategy?
-What about 𝑝 > 0.5?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : If 𝑝 < 0.5 your expected winnings on any bet is negative, if 𝑝 = 0.5 it is 0, and
-if 𝑝 > 0.5 is is positive. By making a lot of bets the minimum strategy will ’win’ you close
-to the expected average. So if 𝑝 ≤ 0.5 you should use the maximum strategy and if 𝑝 > 0.5
-you should use the minumum strategy.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+(Central Limit Theorem)
+Let 𝑋1 , 𝑋2 , … , 𝑋81 be i.i.d., each with expected value 𝜇 = 𝐸[𝑋𝑖 ] = 5, and variance 𝜎2 =
+Var(𝑋𝑖 ) = 4. Approximate 𝑃 (𝑋1 + 𝑋2 + ⋯ 𝑋81 > 369), using the central limit theorem.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝑇 = 𝑋1 + 𝑋2 + … + 𝑋81 . The central limit theorem says that
+𝑇 ≈ N(81 ∗ 5, 81 ∗ 4) = N(405, 182 )
+Standardizing we have
+𝑇 − 405   369 − 405
+𝑃 (𝑇 > 369) = 𝑃 (         >           )
+18          18
+≈ 𝑃 (𝑍 > −2)
+≈ 0.975
+The value of 0.975 comes from the rule-of-thumb that 𝑃 (|𝑍| < 2) ≈ 0.95. A more exact
+value (using R) is 𝑃 (𝑍 > −2) ≈ 0.9772.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-(Binomial ≈ normal)
-Let 𝑋 ∼ binomial(100,1/3).
-An ‘exact’ computation in R gives 𝑃 (𝑋 ≤ 30) = 0.2765539. Use the central limit theorem
-to give an approximation of 𝑃 (𝑋 ≤ 30)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝑋 ∼ binomial(100, 1/3) means 𝑋 is the sum of 100 i.i.d. Bernoulli(1/3) random
-variables 𝑋𝑖 .
-We know 𝐸[𝑋𝑖 ] = 1/3 and Var(𝑋𝑖 ) = (1/3)(2/3) = 2/9. Therefore the central limit theorem
-says
-𝑋 ≈ N(100/3, 200/9)
-Standardization then gives
-𝑋 − 100/3   30 − 100/3
-𝑃 (𝑋 ≤ 30) = 𝑃 (             ≤            ) ≈ 𝑃 (𝑍 ≤ −0.7071068) ≈ 0.239751
-√200/9      √200/9
-We used R to do these calculations The approximation agrees with the ‘exact’ number to 2
-decimal places.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+(More Central Limit Theorem)
+The average IQ in a population is 100 with standard deviation 15 (by definition, IQ is
+normalized so this is the case). What is the probability that a randomly selected group of
+100 people has an average IQ above 115?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Let 𝑋𝑗 be the IQ of a randomly selected person. We are given 𝐸[𝑋𝑗 ] = 100 and
+𝜎𝑋𝑗 = 15.
+Let 𝑋 be the average of the IQ’s of 100 randomly selected people. Then we know
+√
+𝐸[𝑋] = 100 and 𝜎𝑋 = 15/ 100 = 1.5.
+The problem asks for 𝑃 (𝑋 > 115). Standardizing we get 𝑃 (𝑋 > 115) ≈ 𝑃 (𝑍 > 10).
+This is effectively 0.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Hospitals (binomial, CLT, etc)
 • A certain town is served by two hospitals.
@@ -5111,9 +5043,25 @@ Hospitals (binomial, CLT, etc)
 • Smaller hospital about 15 babies born each day.
 • For a period of 1 year, each hospital recorded the days on which more than 60% of the
 babies born were boys.
-Which hospital do you think recorded more such days?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : When this question was asked in a study, the number of undergraduates
-who chose each option was 21, 21, and 55, respectively. This shows a lack of intuition for
-the relevance of sample size on deviation from the true mean (i.e., variance).', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Let 𝐿𝑖 (resp., 𝑆𝑖 ) be the Bernoulli random variable which takes the value 1 if more
+than 60% of the babies born in the larger (resp., smaller) hospital on the 𝑖th day were boys.
+Determine the distribution of 𝐿𝑖 and of 𝑆𝑖 .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : The random variable 𝑋𝐿 , giving the number of boys born in the larger
+hospital on day 𝑖, is governed by a Bin(45, 0.5) distribution. So 𝐿𝑖 has a Ber(𝑝𝐿 ) distribution
+with
+45
+45
+𝑝𝐿 = 𝑃 (𝑋 > 27) = ∑ (          ) 0.545 ≈ 0.068
+𝑘=28
+𝑘
+Similarly, the random variable 𝑋𝑆 , giving the number of boys born in the smaller hospital
+on day 𝑖, is governed by a Bin(15, 0.5) distribution. So 𝑆𝑖 has a Ber(𝑝𝑆 ) distribution with
+15
+15
+𝑝𝑆 = 𝑃 (𝑋𝑆 > 9) = ∑ (             ) 0.515 ≈ 0.151
+𝑘=10
+𝑘
+We see that 𝑝𝑆 is indeed greater than 𝑝𝐿 , consistent with (𝑖𝑖).
+365                  365', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 Hospitals (binomial, CLT, etc)
 • A certain town is served by two hospitals.
@@ -5121,98 +5069,87 @@ Hospitals (binomial, CLT, etc)
 • Smaller hospital about 15 babies born each day.
 • For a period of 1 year, each hospital recorded the days on which more than 60% of the
 babies born were boys.
-Let 𝐿 (resp., 𝑆) be the number of days on which more than 60% of the babies born in
-the larger (resp., smaller) hospital were boys. What type of distribution do 𝐿 and 𝑆 have?
-Compute the expected value and variance in each case.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Note that 𝐿 = ∑𝑖=1 𝐿𝑖 and 𝑆 = ∑𝑖=1 𝑆𝑖 . So 𝐿 has a Bin(365, 𝑝𝐿 ) distribu-
-tion and 𝑆 has a Bin(365, 𝑝𝑆 ) distribution. Thus
-𝐸[𝐿] = 365𝑝𝐿 ≈ 25
-𝐸[𝑆] = 365𝑝𝑆 ≈ 55
-Var(𝐿) = 365𝑝𝐿 (1 − 𝑝𝐿 ) ≈ 23
-Var(𝑆) = 365𝑝𝑆 (1 − 𝑝𝑆 ) ≈ 47', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
-							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-Hospitals (binomial, CLT, etc)
-• A certain town is served by two hospitals.
-• Larger hospital: about 45 babies born each day.
-• Smaller hospital about 15 babies born each day.
-• For a period of 1 year, each hospital recorded the days on which more than 60% of the
-babies born were boys.
-What is the correlation of 𝐿 and 𝑆? What is the joint pmf of 𝐿 and 𝑆? Visualize the
-region corresponding to the event 𝐿 > 𝑆. Express 𝑃 (𝐿 > 𝑆) as a double sum.
-9   R Problems
-R will not be on the exam. However, these problems will help you understand the concepts
-we’ve been studying.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Since 𝐿 and 𝑆 are independent, their joint distribution is determined by multiplying
-their individual distributions. Both 𝐿 and 𝑆 are binomial with 𝑛 = 365 and 𝑝𝐿 and 𝑝𝑆
-computed above. Thus
-365 𝑖                  365
-𝑝𝑙,𝑠 𝑃 (𝐿 = 𝑖 and 𝑆 = 𝑗) = 𝑝(𝑖, 𝑗) = (      )𝑝𝐿 (1 − 𝑝𝐿 )365−𝑖 ( )𝑝𝑆𝑗 (1 − 𝑝𝑆 )365−𝑗
-𝑖                      𝑗
-Thus
-364    365
-𝑃 (𝐿 > 𝑆) = ∑ ∑ 𝑝(𝑖, 𝑗) ≈ 0.0000916
-𝑖=0 𝑗=𝑖+1
-(We used R to do the computations.)
-9   R Problems
-R will not be on the exam. However, these problems will help you understand the concepts
-we’ve been studying.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Via the CLT, approximate the 0.84 quantile of 𝐿 (resp., 𝑆). Would you like to revise
+your answer to part (a)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : mean + sd in each case:
+√
+For 𝐿, 𝑞0.84 ≈ 25 + 23.
+√
+For 𝑆, 𝑞0.84 ≈ 55 + 47.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 R simulation
 Consider 𝑋1 , 𝑋2 , …all independent and with distribution N(0, 1). Let 𝑋 𝑚 be the average of
 𝑋1 , …𝑋𝑛 .
-Use a R simulation to estimate 𝐸[𝑋 𝑛 ] and Var(𝑋 𝑛 ) for 𝑛 = 1, 9, 100. (You should use
-the rnorm function to simulate 1000 samples of each 𝑋𝑗 .)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Here’s my R code:
-x = rnorm(100*1000,0,1)
-data = matrix(x, nrow=100, ncol=1000)
-data1 = data[1,]
-m1 = mean(data1)
-v1 = var(data1)
-data9 = colMeans(data[1:9,])
-m9 = mean(data9)
-v9 = var(data9)
-data100 = colMeans(data)
-m100 = mean(data100)
-v100 = var(data100)
-#display the results
-print(m1)
-print(v1)
-print(m9)
-print(v9)
-print(m100)
-print(v100)
-∑ 𝑥𝑘            ∑ 𝑥𝑘
-Note if 𝑥 = [𝑥1 , 𝑥2 , … , 𝑥𝑛 ] then var(x) actually computes      instead of      . There is
-𝑛−1               𝑛
-a good reason for this which we will learn in the statistics part of the class. For now, it’s
-enough to note that if 𝑛 = 1000 the using 𝑛 or 𝑛 − 1 won’t make much difference.', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+Give 𝐸[𝑋 𝑛 ] and 𝜎𝑋𝑛 exactly.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : 𝐸[𝑋𝑗 ] = 0 ⇒ 𝐸[𝑋 𝑛 ] = 0.
+𝑋1 + … + 𝑋𝑛    1           1
+Var(𝑋𝑗 ) = 1 ⇒ Var (               )=   ⇒ 𝜎𝑋 𝑛 = √ .
+𝑛         𝑛            𝑛', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
-A full house in poker is a hand where three cards share one rank and two
-cards share another rank. How many ways are there to get a full-house? What is the
-probability of getting a full-house?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We build a full-house in stages and count the number of ways to make each
-stage:
-13
-Stage 1. Choose the rank of the pair: ( ).
+R Exercise
+Let 𝑋1 , 𝑋2 , 𝑋3 , 𝑋4 , 𝑋5 be independent 𝑈 (0, 1) random variables.
+Let 𝑋 = 𝑋1 + 𝑋2 + 𝑋3 and 𝑌 = 𝑋3 + 𝑋4 + 𝑋5 .
+Use the runif() function to simulate 1000 trials of each of these variables. Use these to
+estimate Cov(𝑋, 𝑌 ).
+Extra Credit
+Compute this covariance exactly.
+
+
+
+
+18.05 Introduction to Probability and Statistics
+Spring 2022
+
+
+For information about citing these materials or our Terms of Use, visit:', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : a = runif(5*1000,0,1)
+data = matrix(a,5,1000)
+x = colSums(data[1:3,])
+y = colSums(data[3:5,])
+print(cov(x,y))
+Extra Credit
+Compute this covariance exactly.
+Solution: Method 1 (Algebra)
+First, if 𝑖 ≠ 𝑗 we know 𝑋𝑖 and 𝑋𝑗 are independent, so Cov(𝑋𝑖 , 𝑋𝑗 ) = 0.
+Cov(𝑋, 𝑌 ) = Cov(𝑋1 + 𝑋2 + 𝑋3 , 𝑋3 + 𝑋4 + 𝑋5 )
+= Cov(𝑋1 , 𝑋3 ) + Cov(𝑋1 , 𝑋4 ) + Cov(𝑋1 , 𝑋5 )
++ Cov(𝑋2 , 𝑋3 ) + Cov(𝑋2 , 𝑋4 ) + Cov(𝑋2 , 𝑋5 )
++ Cov(𝑋3 , 𝑋3 ) + Cov(𝑋3 , 𝑋4 ) + Cov(𝑋3 , 𝑋5 )
+(most of these terms are 0)
+= Cov(𝑋3 , 𝑋3 )
+= Var(𝑋3 )
 1
-4
-Stage 2. Choose the pair from that rank, i.e. pick 2 of 4 cards: ( ).
-2
+=      (known variance of a uniform(0,1) distribution)
 12
-Stage 3. Choose the rank of the triple (from the remaining 12 ranks): ( ).
+Method 2 (Multivariable calculus)
+In 5 dimensional space we have the joint distribution
+𝑓(𝑥1 , 𝑥2 , 𝑥3 , 𝑥4 , 𝑥5 ) = 1.
+Computing directly
+1       1       1       1       1
+𝐸[𝑋] = 𝐸[𝑋1 + 𝑋2 + 𝑋3 ] = ∫ ∫ ∫ ∫ ∫ (𝑥1 + 𝑥2 + 𝑥3 ) 𝑑𝑥1 𝑑𝑥2 𝑑𝑥3 , 𝑑𝑥4 𝑑𝑥5
+0       0       0       0       0
 1
-4
-Stage 4. Choose the triple from that rank: ( ).
+first integral = + 𝑥2 + 𝑥3
+2
+1 1
+second integral = + + 𝑥3 = 1 + 𝑥3
+2 2
 3
-13 4 12 4
-Number of ways to get a full-house: (        )( )( )( )
-1   2  1  3
-52
-Number of ways to pick any 5 cards out of 52: ( )
-5
-13 4 12 4
-(   )( )( )( )
-1   2    1 3
-Probability of a full house:                      ≈ 0.00144
-52
-( )
-5', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
+third integral =
+2
+3
+fourth integral =
+2
+3
+fifth integral =
+2
+So, 𝐸[𝑋] = 3/2, likewise 𝐸[𝑌 ] = 3/2.
+1       1       1       1       1
+𝐸[𝑋𝑌 ] = ∫ ∫ ∫ ∫ ∫ (𝑥1 + 𝑥2 + 𝑥3 )(𝑥3 + 𝑥4 + 𝑥5 ) 𝑑𝑥1 𝑑𝑥2 𝑑𝑥3 𝑑𝑥4 𝑑𝑥5
+0       0       0       0       0
+= 7/3.
+1
+Cov(𝑋, 𝑌 ) = 𝐸[𝑋𝑌 ] − 𝐸[𝑋]𝐸[𝑌 ] = 12 = 0.08333.
+18.05 Introduction to Probability and Statistics
+Spring 2022
+For information about citing these materials or our Terms of Use, visit:', 'source' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.05 Introduction To Probability And Statistics, Spring 2022 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 18.05 — question d’examen, en anglais]
 (Another Arithmetic Puzzle)
 Let 𝑋 and 𝑌 be two independent Bernoulli(0.5) random variables. Define 𝑆 and 𝑇 by:

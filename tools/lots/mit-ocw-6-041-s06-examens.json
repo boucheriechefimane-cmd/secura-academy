@@ -1,0 +1,114 @@
+{
+  "source": "mit-ocw-6-041-s06-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+  "url": "https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-spring-2006/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \nBorders Book store has been in business for 10 years, and over that period, the store has collected\ntransaction data on all of its customers. Various marketing teams have been busy using the data\nto classify customers in hopes of better understanding customer spending habits.\nMarketing Team A has determined that out of their customers, 1/4 are low frequency buyers\n(i.e., they don’t come to the store very often). They have also found that out of the low frequency\nbuyers, 1/3 are high spenders (i.e., they spend a signiﬁcant amount of money in the store), whereas\nout of the high frequency buyers only 1/10 are high spenders. Assume each customer is either a low\nor high frequency buyer.\nCompute the probability that a randomly chosen customer is a high spender.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the probability that a randomly chosen customer is a high spender.\nWe use the abbreviations HF, LF, HS, and LS to refer to high frequency, low frequency, high\nspender, and low spender. Using the total probability theorem,\nP(HS) = P(LF )P(HS | LF ) + P(HF )P(HS | HF )\n1 1 3 1\n=   · + ·\n4 3 4 10\n19\n=     ≈ .1583\n120",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \nBorders Book store has been in business for 10 years, and over that period, the store has collected\ntransaction data on all of its customers. Various marketing teams have been busy using the data\nto classify customers in hopes of better understanding customer spending habits.\nMarketing Team A has determined that out of their customers, 1/4 are low frequency buyers\n(i.e., they don’t come to the store very often). They have also found that out of the low frequency\nbuyers, 1/3 are high spenders (i.e., they spend a signiﬁcant amount of money in the store), whereas\nout of the high frequency buyers only 1/10 are high spenders. Assume each customer is either a low\nor high frequency buyer.\nCompute the probability that a customer is in group C2 or C3 given he/she purchased a book.\nNow in addition to the data from Marketing Team B, you are told that each book costs $15,\neach CD costs $10, and each DVD costs $15.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the probability that a customer is in group C2 or C3 given he/she purchased a book.\nWe use Bayes’ rule.\nP(B ∩ (C2 ∪ C3 ))\nP(C2 ∪ C3 | B) =\nP(B)\nP(B ∩ C2 ) + P(B ∩ C3 )\n=                                         .\nP(B ∩ C1 ) + P(B ∩ C2 ) + P(B ∩ C3 )\nTo get the second line, we used the fact that C1 , C2 , and C3 are mutually disjoint and\ncollectively exhaustive. Now, substituting the given numbers,\n1 1     1 1\n3 · 2 + 3 · 3\nP(C2 ∪ C3 | B) =       1 1       1 1     1 1\n3 · 2 + 3 · 2 + 3 · 3\n5\n=     = .625\n8\nNow in addition to the data from Marketing Team B, you are told that each book costs $15,\neach CD costs $10, and each DVD costs $15.",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(30 points, Each question is equally weighted at 6 points each)\nThe deer process is a Poisson process of arrival rate 8 (λD = 8). The elephant process is a Poisson\nprocess of arrival rate 2 (λE = 2).\nAt the end of 3 hours, you have seen 24 deer but no elephants. What is the probability that you\nwill see an elephant in the next hour?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : 1 − e−2\nPage 6 of 12\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2006)\nSince the deer arrival process is independent of the elephant arrival process, the event that “several\ndeer arrive by the end of 3 hours” is independent of any event deﬁned on the elephant arrival process.\nLet T1 denote the ﬁrst arrival time. Then the desired probability can be expressed as\nP[ an elephant arrival in the next hour | no elephant arrival by the end of 3 hours ]\n= P[ T1 ≤ 4 | T1 > 3 ]\n= 1 − P[ T1 > 4 | T1 > 3 ]\n= 1 − P[ T1 > 1 ]                                                                           (3)\n−2\n= 1−e         .\nStep (3) follows from the memoryless property of the Poisson process.",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(28 points, Each question is equally weighted at 4 points each)\nGraph the minimum state Markov chain model for the MIT football team’s performance. Be sure\nto label all transition probabilities, and clearly indicate what state of the world each Markov state\nrepresents. You may ﬁnd it convenient for the below questions to label each state with an integer.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The performance of the MIT football team is described by a Markov chain, where the state is\ntaken to be\n(result of the game before the last game, result of the last game) .\nThere are four possible states: {W W, W L, LW, LL}. The corresponding transition probability graph\nis We use throughout this problem the following labels for the four states.\n2:WL\n0.6\n0.3\n0.7                 0.4              0.4         4:LL\n1:WW                                                  0.7\n0.6                          0.3\n3:LW\nWW = 1,         WL = 2,            LW = 3 ,         LL = 4 .\nThen we have the probability transition matrix as follows\n⎛                         ⎞\n0.7 0.3 0   0\n⎜ 0    0 0.4 0.6 ⎟\n⎜                ⎟\nP = [ pij ]4×4 = ⎜                ⎟,\n⎝ 0.6 0.4 0   0 ⎠\n0   0 0.3 0.7\nwhere pij is the transition probability from state i to state j.",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(28 points, Each question is equally weighted at 4 points each)\nThe coach decides that he will withdraw the team from the competition immediately after the\nteam’s 3rd consecutive loss (i.e. three losses in a row). Let N be the number of games that the\nteam will play in the competition? Write a system of equations that can be used to ﬁnd E[N ].\nPage 8 of 8",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : t3 = 1 + 0.6t1 + 0.4t2 ,\n⎪\n⎪\n⎪\n⎪  t4 = 1 + 0.3t3\n⎪\n⎩\nt5 = 0\nThree losses in a row can only be reached from state LL. Following this observation, we create a ﬁfth\nstate LLL (labeled 5) and construct the following Markov transition graph. The probability\ntransition matrix of this Markov chain is\n⎛                               ⎞\n0.7 0.3 0   0  0\n⎜ 0    0 0.4 0.6 0 ⎟\n⎜                  ⎟\n⎜                  ⎟\nP = [ pij ]4×4 = ⎜ 0.6 0.4 0   0  0 ⎟,\n⎜                  ⎟\n⎝ 0    0 0.3 0 0.7 ⎠\n0   0 0.3 0   1\nPage 11 of 12\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2006)\n2:WL\n0.6\n0.3\n0.7\n0.7                   0.4          0.4\n1:WW                                   4:LL         5:LLL      1\n0.6                       0.3\n3:LW\nThe number of games played by the MIT football team corresponds to the absorption time from\nstate 1 to state 5. Denote the average absorption time to state 5 as t1 , t2 , t3 , t4 , t5 . The linear\nequation system is as follows.      ⎧\n⎪\n⎪  t1 = 1 + 0.7t1 + 0.3t2\n⎪\n⎪\n⎪\n⎨ t2 = 1 + 0.4t3 + 0.6t4\nt3 = 1 + 0.6t1 + 0.4t2 .\n⎪\n⎪\n⎪\n⎪  t4 = 1 + 0.3t3\n⎪\n⎩\nt5 = 0\nPage 12 of 12",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \nBorders Book store has been in business for 10 years, and over that period, the store has collected\ntransaction data on all of its customers. Various marketing teams have been busy using the data\nto classify customers in hopes of better understanding customer spending habits.\nMarketing Team A has determined that out of their customers, 1/4 are low frequency buyers\n(i.e., they don’t come to the store very often). They have also found that out of the low frequency\nbuyers, 1/3 are high spenders (i.e., they spend a signiﬁcant amount of money in the store), whereas\nout of the high frequency buyers only 1/10 are high spenders. Assume each customer is either a low\nor high frequency buyer.\nCompute the probability that a customer purchases a book or a CD.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Compute the probability that a customer purchases a book or a CD.\nWe use the abbreviations B, C, D for buying a book, CD, or DVD. P(B ∪ C) = P(B) + P(C)\nbecause a customer can only buy 1 item, and hence B and C are disjoint. Applying the total\nprobability theorem,\nP(B) = P(C1 )P(B | C1 ) + P(C2 )P(B | C2 ) + P(C3 )P(B | C3 )\n1 1 1 1 1 1\n=   · + · + ·\n3 2 3 2 3 3\n4\n=   ≈ 0.4444\n9\nSimilarly,\nP(C) = P(C1 )P(C | C1 ) + P(C2 )P(C | C2 ) + P(C3 )P(C | C3 )\n1 1 1          1 1\n=   · + ·0+ ·\n3 4 3          3 3\n7\n=    ≈ 0.1944\n36\nSo, P(B ∪ C) = 49 + 367\n= 23\n36 ≈ .639. (Note: Alternatively, we could have used the fact that\nB and C are conditionally disjoint given C1 , C2 , or C3 . Then, we could just add together the\nconditional probabilities. This would give the formula P(B ∪ C) = 31 · ( 12 + 41 ) + 13 · ( 21 + 0) +\n1     1   1\n3 · ( 3 + 3 ).)",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \nBorders Book store has been in business for 10 years, and over that period, the store has collected\ntransaction data on all of its customers. Various marketing teams have been busy using the data\nto classify customers in hopes of better understanding customer spending habits.\nMarketing Team A has determined that out of their customers, 1/4 are low frequency buyers\n(i.e., they don’t come to the store very often). They have also found that out of the low frequency\nbuyers, 1/3 are high spenders (i.e., they spend a signiﬁcant amount of money in the store), whereas\nout of the high frequency buyers only 1/10 are high spenders. Assume each customer is either a low\nor high frequency buyer.\nWhat’s the daily expected revenue from Skipper? What’s the variance of the daily revenue\nfrom Skipper?\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2006)",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : What’s the daily expected revenue from Skipper?\nThe crucial observation is that Skipper’s revenue can be broken down as the sum of two\nindependent shifted geometric random variables. Let X1 and X2 be 2 independent geometric\nrandom variables with paramater p = 12 . Let R be the total daily revenue from Skipper. We\nﬁnd R = 15(X1 − 1) + 15(X2 − 1), and thus E[R] = 15(E[X1 ] + E[X2 ]) − 30 = $30, where\nwe’ve used E[Xi ] = 11 . Likewise we ﬁnd var(R) = 152 (var(X1 ) + var(X2 )) = $900, where\n2\n1− 12\nwe’ve used var(Xi ) =           2   .\n( 12 )\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2006)",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(30 points, Each question is equally weighted at 6 points each)\nThe deer process is a Poisson process of arrival rate 8 (λD = 8). The elephant process is a Poisson\nprocess of arrival rate 2 (λE = 2).\nIt is now 6 hours since you started watching. You have seen 53 deer but there is still no sight of\nan elephant. How many more deer do you expect to see before you see your ﬁrst elephant?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : 4\nAs in part (b), regarding the arrival of elephant as “success”, it forms a Bernoulli process, with\nparameter p = 51 . Owing to the memoryless property, given that no “success” in the ﬁrst 53 trials\n(have seen 53 deer but no elephant), the number of trials, X1 , up to and including the ﬁrst “success”\nis still a geometrical random variable with parameter p = 15 . Since the number of “failures” (deers)\nbefore the ﬁrst “success” (elephant) is X1 − 1, then\n1\nE[ number of more deers before the ﬁrst elephant ] = E[ X1 − 1 ] =     − 1 = 4.\np",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)"
+          },
+          {
+            "question": "[MIT 6.041 — question d’examen, en anglais] \n(28 points, Each question is equally weighted at 4 points each)\nFind a good approximation to the probability that the team will win its 1000th game, given that\nthe outcomes of games 1000 and 1001 are the same. Clearly state any assumptions you use in the\napproximation.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : 2\nRecall that Xn denotes the outcome of the nth game. The desired probability is\nP[ X1000 = W | X1000 = X1001 ]\nP[ X1000 = X1001 = W ]\n=\nP[ X1000 = X1001 ]\nP[ X1000 = X1001 = W ]\n=\nP[ X1000 = X1001 = W ] + P[ X1000 = X1001 = L ]\nπ1\n≈         ,                                                         (5)\nπ1 + π4\nwhich evaluates to be 12 .\nPage 10 of 12\nDepartment of Electrical Engineering & Computer Science\n6.041/6.431: Probabilistic Systems Analysis\n(Spring 2006)\n⎧\n⎪\n⎪ t1    = 1 + 0.7 · t1 + 0.3 · t2\n⎪\n⎨   t2 = 1 + 0.4 · t3\n(f )                                  .\n⎪\n⎪  t3 = 1 + 0.6 · t1 + 0.4 · t2\n⎪\n⎩\nt4 = 0\nT is the ﬁrst passage time from state 1 to state 4. Let µ1 , µ2 , µ3 , µ4 be the average ﬁrst passage time\nfrom each state to state 4. We have that E[T ] = µ1 Since we are concerned with the ﬁrst passage\ntime to state 4, the Markov chain’s behavior from state 4 is irrelevant. Therefore, we focus on the\nmodiﬁed Markov chain graph where state 4 is converted to an absorbing state. The average ﬁrst\n2:WL\n0.6\n0.3\n0.7                     0.4          0.4\n1:WW                                    4:LL       1\n0.6\n3:LW\npassage time to state 4 in the original Markov chain is equal to the average absorption time to state 4\nin the modiﬁed Markov chain. The required linear equation system is\n⎧\n⎪\n⎪ t1 = 1 + 0.7 · t1 + 0.3 · t2\n⎪\n⎨ t2 = 1 + 0.4 · t3\n.\n⎪\n⎪ t3 = 1 + 0.6 · t1 + 0.4 · t2\n⎪\n⎩\nt4 = 0\n(Though not asked in the problem, we get the solution that µ1 = 7, µ2 = 11        20\n3 , µ3 = 3 ).\n⎧\n⎪\n⎪ t1   = 1 + 0.7t1 + 0.3t2\n⎪\n⎪\n⎪\n⎨ t2   = 1 + 0.4t3 + 0.6t4",
+            "source": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.041 Probabilistic Systems Analysis And Applied Probability, Spring 2006 — examen et corrigé officiel (MIT EECS)"
+          }
+        ]
+      }
+    }
+  ]
+}

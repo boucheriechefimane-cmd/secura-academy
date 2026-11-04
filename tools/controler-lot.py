@@ -39,6 +39,31 @@ def rooms_connues():
         return json.load(fichier)
 
 
+# Les mentions qui ne sont pas une question : en-tete de document,
+# consigne administrative, page de garde.
+RE_ADMINISTRATIF = re.compile(
+    r"^(graded by|due\b|due:|name\s*:|examiner|instructor|copyright|"
+    r"department|massachusetts institute|your name|final exam|exam no|"
+    r"problem\s+\d+\s*[:.]|notes?\s*:|instructions?)", re.I)
+
+
+def enonce_administratif(enonce):
+    """L'enonce ne contient-il que des mentions administratives ?
+
+    On retire le prefixe du lot (« [MIT 18.012 — question d'examen] »)
+    avant de regarder les lignes.
+    """
+    texte = enonce
+    if texte.startswith("["):
+        fin = texte.find("]")
+        if fin > 0:
+            texte = texte[fin + 1:]
+    lignes = [l.strip() for l in texte.split("\n") if l.strip()]
+    if not lignes:
+        return True
+    return all(RE_ADMINISTRATIF.match(l) for l in lignes)
+
+
 def verifie(lot, nom, rooms=None):
     erreurs = []
     vues = set()
@@ -62,6 +87,13 @@ def verifie(lot, nom, rooms=None):
         vues.add(clef)
         if len(enonce) < 20:
             erreurs.append("%s : question %d enonce trop court" % (nom, i))
+        # Un enonce qui ne contient QUE des mentions administratives
+        # (« Graded by Prof. Fonstad ») n'est pas une question : c'est
+        # un en-tete de document. Ce defaut a ete reel (MIT 6.012,
+        # 65 questions dont l'enonce etait un fragment d'en-tete).
+        if enonce_administratif(enonce):
+            erreurs.append("%s : question %d enonce administratif (ce "
+                            "n'est pas une question)" % (nom, i))
         if len(reponse) < 30:
             erreurs.append("%s : question %d reponse trop courte" % (nom, i))
         if reponse and enonce and reponse.strip() == enonce.strip():

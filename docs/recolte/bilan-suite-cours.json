@@ -36,11 +36,6 @@
   "motif": ""
  },
  {
-  "cours": "18-366-random-walks-and-diffusion-fall-2006",
-  "questions": 0,
-  "motif": "aucun extracteur ne couvre ce format"
- },
- {
   "cours": "18-435j-quantum-computation-fall-2003",
   "source": "mit-ocw-18-435j-examens",
   "questions": 5,
@@ -71,11 +66,6 @@
   "motif": ""
  },
  {
-  "cours": "18-786-number-theory-ii-class-field-theory-spring-2016",
-  "questions": 0,
-  "motif": "aucun extracteur ne couvre ce format"
- },
- {
   "cours": "6-003-signals-and-systems-fall-2011",
   "source": "mit-ocw-6-003-examens",
   "questions": 21,
@@ -90,19 +80,19 @@
  {
   "cours": "6-012-microelectronic-devices-and-circuits-fall-2009",
   "source": "mit-ocw-6-012-f09-examens",
-  "questions": 65,
+  "questions": 26,
   "motif": ""
  },
  {
   "cours": "6-013-electromagnetics-and-applications-spring-2009",
   "source": "mit-ocw-6-013-examens",
-  "questions": 51,
+  "questions": 62,
   "motif": ""
  },
  {
   "cours": "6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010",
   "source": "mit-ocw-6-041-f10-examens",
-  "questions": 15,
+  "questions": 37,
   "motif": ""
  },
  {
@@ -119,8 +109,19 @@
  },
  {
   "cours": "6-7220j-nonlinear-optimization-spring-2025",
-  "source": "mit-ocw-6-7220j-examens",
-  "questions": 3,
+  "questions": 0,
+  "motif": "aucun extracteur ne couvre ce format"
+ },
+ {
+  "cours": "6-041-probabilistic-systems-analysis-and-applied-probability-spring-2006",
+  "source": "mit-ocw-6-041-s06-examens",
+  "questions": 9,
+  "motif": ""
+ },
+ {
+  "cours": "6-641-electromagnetic-fields-forces-and-motion-spring-2009",
+  "source": "mit-ocw-6-641-f09-examens",
+  "questions": 1,
   "motif": ""
  },
  {
@@ -128,6 +129,91 @@
   "source": "mit-ocw-6-973-examens",
   "questions": 2,
   "motif": ""
+ },
+ {
+  "cours": "18-03-differential-equations-spring-2010",
+  "questions": 0,
+  "motif": "l'enonce est illisible a l'extraction (police non standard dans le PDF)"
+ },
+ {
+  "cours": "18-075-advanced-calculus-for-engineers-fall-2004",
+  "questions": 0,
+  "motif": "aucune paire enonce + corrige trouvee (les documents ne s'apparient pas)"
+ },
+ {
+  "cours": "18-086-mathematical-methods-for-engineers-ii-spring-2006",
+  "questions": 0,
+  "motif": "l'enonce extrait est un en-tete de feuille de travail, pas une question"
+ },
+ {
+  "cours": "18-366-random-walks-and-diffusion-fall-2006",
+  "questions": 0,
+  "motif": "appariement refuse : l'enonce annonce plus d'items que le corrige"
+ },
+ {
+  "cours": "18-786-number-theory-ii-class-field-theory-spring-2016",
+  "questions": 0,
+  "motif": "appariement refuse : l'enonce et le corrige n'ont pas les memes items"
+ },
+ {
+  "cours": "18-966-geometry-of-manifolds-spring-2007",
+  "questions": 0,
+  "motif": "aucune paire enonce + corrige trouvee (les documents ne s'apparient pas)"
+ },
+ {
+  "cours": "6-012-microelectronic-devices-and-circuits-fall-2005",
+  "questions": 0,
+  "motif": "le corrige est un PDF scanne : pas de couche texte"
+ },
+ {
+  "cours": "6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011",
+  "questions": 0,
+  "motif": "les 'corriges' sont des copies remplies d'un quiz en ligne"
+ },
+ {
+  "cours": "6-034-artificial-intelligence-spring-2005",
+  "questions": 0,
+  "motif": "l'enonce renvoie a un arbre dessine, le corrige est un tableau"
+ },
+ {
+  "cours": "6-035-computer-language-engineering-spring-2010",
+  "questions": 0,
+  "motif": "les blocs de base sont sur la page suivante, la reponse est du code"
+ },
+ {
+  "cours": "6-061-introduction-to-electric-power-systems-spring-2011",
+  "questions": 0,
+  "motif": "le corrige ne dit pas ou commence la reponse (pas de repere)"
+ },
+ {
+  "cours": "6-152j-micro-nano-processing-technology-fall-2005",
+  "questions": 0,
+  "motif": "aucune paire enonce + corrige trouvee (les documents ne s'apparient pas)"
+ },
+ {
+  "cours": "6-241j-dynamic-systems-and-control-spring-2011",
+  "questions": 0,
+  "motif": "appariement refuse : l'enonce et le corrige n'ont pas les memes items"
+ },
+ {
+  "cours": "6-341-discrete-time-signal-processing-fall-2005",
+  "questions": 0,
+  "motif": "les cases cochees du corrige n'existent pas dans la couche texte"
+ },
+ {
+  "cours": "6-641-electromagnetic-fields-forces-and-motion-spring-2005",
+  "questions": 0,
+  "motif": "l'enonce extrait est une formule deposee hors de sa ligne (mise en page du PDF)"
+ },
+ {
+  "cours": "6-642-continuum-electromechanics-fall-2008",
+  "questions": 0,
+  "motif": "l'enonce extrait est un fragment de solution, pas la question"
+ },
+ {
+  "cours": "6-825-techniques-in-artificial-intelligence-sma-5504-fall-2002",
+  "questions": 0,
+  "motif": "l'enonce est un examen du 6.891, le corrige du 6.825"
  },
  {
   "cours": "3-00-thermodynamics-of-materials-fall-2002",

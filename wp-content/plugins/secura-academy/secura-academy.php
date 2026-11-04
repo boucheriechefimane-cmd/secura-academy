@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.12.5
+ * Version:           0.12.7
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,56 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.12.7 — La liste de travail est bouclee : chaque cours a un sort
+ *           ecrit, importe ou refuse.
+ *
+ *           - Deux derniers cours de la liste entrent : MIT 6.041
+ *             (Spring 2006, 9 questions) et MIT 6.641 (Fall 2009,
+ *             1 question), avec la meme licence et la meme
+ *             attribution que les autres.
+ *           - Les 28 cours refuses ont chacun un motif ecrit, dans
+ *             le bilan de campagne (docs/recolte/bilan-suite-cours.json)
+ *             : dix cours de chimie et de sciences des materiaux
+ *             (sans lien avec la securite), et dix-huit dont le
+ *             format n'est pas exploitable (schema absent, corrige
+ *             scanne, appariement impossible, enonce illisible).
+ *             Aucun de ces cours n'a ete complete par du contenu
+ *             redige : c'est le refus qui fait foi.
+ *           - Au total : les 66 cours de la liste de criblage sont
+ *             traites — 39 importes, 28 refuses, un seul exclu de la
+ *             liste de depart (le 6.01SC, dont les "corriges" sont
+ *             des copies remplies d'un quiz en ligne).
+ *
+ * 0.12.6 — Des questions dont l'enonce n'etait pas une question.
+ *
+ *           - Defaut reel trouve en relisant les lots livres : les
+ *             65 questions du MIT 6.012 (Fall 2009) avaient pour
+ *             enonce « Graded by Prof. Fonstad » — un fragment
+ *             d'en-tete, pas la question. Elles ont ete retirees.
+ *           - Cause : l'enonce du MIT commence par une liste
+ *             « Notes: 1. ... 2. ... 3. ... ». Ces lignes numerotees
+ *             ouvraient des problemes « 1 », « 2 », « 3 » ; le vrai
+ *             « Problem 1 » etait alors refuse (numero deja vu) et
+ *             l'enonce disparaitait. Des que le document emploie
+ *             « Problem N », les lignes numerotees qui precedent le
+ *             premier « Problem N » sont des consignes : elles
+ *             n'ouvrent plus aucun probleme.
+ *           - Second defaut corrige : « kT/q = 0.025 V » etait pris
+ *             pour un numero de cours, si bien que le couple
+ *             enonce/corrige du 6.012 paraissait etre deux examens
+ *             differents. Le numero de cours n'est plus reconnu que
+ *             s'il ouvre une ligne ou s'il suit le mot « MIT ».
+ *           - Troisieme point : un contexte purement administratif
+ *             n'est plus prefixe a l'enonce.
+ *           - Gain : le MIT 6.661 passe de 74 a 105 questions, le
+ *             6.013 de 51 a 62, le 6.041 de 15 a 37. Et l'appariement
+ *             du 18.05 est corrige : certaines reponses etaient deposees
+ *             sur la mauvaise question.
+ *           - Garde-fou permanent : tools/controler-lot.py refuse
+ *             un enonce qui ne contient que des mentions
+ *             administratives. Les 1 881 questions des 47 lots
+ *             passent le controle ; l'ancien lot du 6.012 est refuse.
  *
  * 0.12.5 — La deuxieme vague des cours du criblage : 1 072 questions
  *           d'examen officielles de plus, et un test de non-regression.
@@ -401,7 +451,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.12.5' );
+define( 'SECURA_ACADEMY_VERSION', '0.12.7' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
