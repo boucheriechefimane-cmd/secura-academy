@@ -318,7 +318,7 @@ audit_verifier(
 	'mineur',
 	empty( $cibles_petites )
 		? 'Relevé sur ' . count( $html ) . ' pages : aucune commande vide sans attribut aria-label'
-		: implode( "\n", array_slice( $ciables_petites, 0, 5 ) )
+		: implode( "\n", array_slice( $cibles_petites, 0, 5 ) )
 );
 
 /* ------------------------------------------------------------------ */

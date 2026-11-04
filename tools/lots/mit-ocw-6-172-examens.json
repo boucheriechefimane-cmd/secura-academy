@@ -12,6 +12,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nPacking is an optimization that reduces data movement but may increase computation.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -26,6 +27,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nUsing taskset for a serial program diminishes performance variations caused by NUMA (nonuni-\nform memory access).\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -40,6 +42,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nIn the free-list heap-allocation algorithm, allocating to the least-full page maximizes the proba-\nbility that two random accesses hit the same page.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : False",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -64,6 +67,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nIf there is a TLB miss, then the corresponding cache line is not already in cache.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : False",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -78,6 +82,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nIt is generally more important for a memory allocator to quickly allocate small blocks than to\nquickly allocate large blocks.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -92,6 +97,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nOn x86, sequentially consistent behavior can always be achieved through the use of memory\nfences.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -106,6 +112,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nIf a program that runs on 2 threads protects its critical sections using Peterson's algorithm, then\nit is free of data races.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -170,6 +177,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nInlining a function tends to improve performance by reducing the number of instruction cache\nmisses.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : False",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -184,6 +192,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nCompilers eliminate data dependencies through register renaming by replacing x86 logical reg-\nisters with physical registers.\nTrue False\n1.5 1 TRUE OR FALSE (8 PARTS, 16 POINTS)",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : False",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -198,6 +207,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nIf a memory location in a program is read by two logically parallel instructions, then a read-read\ndeterminacy race exists.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : False",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -220,6 +230,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nThe time command can more readily diagnose kernel-mode performance variations (e.g., page\nzeroing) than clock_gettime().\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -234,6 +245,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nWhen using reference counting for garbage collection, cyclic data structures are never garbage\ncollected.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -248,6 +260,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nMemory-allocator performance is more important when requesting a large amount of memory\nthan when requesting a small amount.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : False",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -262,6 +275,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nThere are generally fewer conflict misses in a set-associative cache than a direct-mapped cache.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -276,6 +290,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nWhen dealing with multiple pages, a new block should be allocated from the free list for the\nemptiest page to incur the fewest TLB misses.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : False",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -290,6 +305,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nStreaming writes allow for higher memory bandwidth utilization by bypassing cache with the\nadditional cost of higher latency.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -304,6 +320,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nIf a program that runs on 2 threads protects its critical sections using Peterson's algorithm, then\nit is free of determinacy races.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : False",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -368,6 +385,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nBecause thermal limits prevented CPU manufacturers from increasing clock frequencies signifi-\ncantly, they began to produce multicore microprocessors.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -382,6 +400,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nSuppose that a recursive function performs work on a problem of size N according to the recur-\nrence T ( N ) = 2T ( N/3) + Θ( N lg N ). Then coarsening the recursion is unlikely to significantly\nimprove performance.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",
@@ -396,6 +415,7 @@
           {
             "question": "[MIT 6.172 — question d’examen, en anglais] \n\nWhen using the MSI (modified, shared, invalid) cache coherence protocol, the state of a cache\nline in a processor's cache may transition directly from shared to invalid.\nTrue False",
             "mode": "choice",
+            "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.",
             "xp": 20,
             "explanation": "Réponse officielle du MIT : True",
             "source": "MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)",

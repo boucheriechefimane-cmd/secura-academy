@@ -434,6 +434,8 @@ def construire_problemes(texte_examen, texte_corrige, prefixe, attribution, lice
                 "xp": xp,
                 "options": ["True", "False"],
                 "answer": 0 if valeur == "True" else 1,
+                "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la "
+                        "correction officielle du MIT s’affiche.",
                 "explanation": justification or ("Réponse officielle du MIT : %s" % valeur),
                 "source": attribution,
                 "licence": licence,
@@ -496,6 +498,8 @@ def construire(texte_examen, texte_corrige, format_, prefixe, attribution, licen
                 "xp": xp,
                 "options": ["True", "False"],
                 "answer": 0 if valeur == "True" else 1,
+                "hint": "Question d’examen du MIT : choisis la bonne proposition, puis la "
+                        "correction officielle du MIT s’affiche.",
                 "explanation": justification or ("Réponse officielle du MIT : %s" % valeur),
                 "source": attribution,
                 "licence": licence,

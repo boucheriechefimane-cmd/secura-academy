@@ -24,6 +24,10 @@ on:
         required: false
         default: '0'
 
+# Le robot ne lit que le dépôt : il n'écrit rien, il ne publie rien.
+permissions:
+  contents: read
+
 jobs:
   criblage:
     name: Robot ${{ matrix.robot }} sur 6

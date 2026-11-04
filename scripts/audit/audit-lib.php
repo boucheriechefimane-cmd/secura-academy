@@ -51,6 +51,7 @@ $GLOBALS['seca_audit'] = array(
 	'majeur'    => 0,
 	'mineur'    => 0,
 	'info'      => 0,
+	'non_etaye' => 0,
 	'debut'     => time(),
 );
 
@@ -133,7 +134,11 @@ function audit_verifier( $libelle, $condition, $detail = '', $gravite = 'mineur'
 
 		$GLOBALS['seca_audit']['non_etaye'] = $GLOBALS['seca_audit']['non_etaye'] + 1;
 
-		printf( "  %-7s %s — [NON ÉTAYÉ : aucune preuve] %s\n", strtoupper( $gravite ), $libelle, ( '' !== $detail ? '— ' . $detail : '' ) );
+		/* On n'affiche pas la gravite seule : « BLOQUANT » en majuscules
+		   ferait croire a un constat bloque, alors que le harnais vient
+		   de le rejeter. La gravite annoncee reste lisible, mais le
+		   statut « non etaye » passe devant. */
+		printf( "  [NON ÉTAYÉ] (%s) %s%s\n", strtoupper( $gravite ), $libelle, ( '' !== $detail ? ' — ' . $detail : '' ) );
 
 		return false;
 	}

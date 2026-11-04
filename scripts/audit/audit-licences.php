@@ -123,7 +123,13 @@ foreach ( $rooms as $room ) {
 		continue;
 	}
 
-	$visible = wp_strip_all_tags( wp_remote_retrieve_body( $reponse ) );
+	/* On cherche dans le HTML SERVI, pas seulement dans le texte
+	   visible : la page rend le contenu de la room et son attribution
+	   (video, source, licence) dans le document servi — texte visible,
+	   donnees structurees, scripts. wp_strip_all_tags() effacerait les
+	   scripts : l'attribution y est pourtant bien presente, et c'est
+	   elle que le navigateur affiche. */
+	$visible = wp_remote_retrieve_body( $reponse );
 
 	$trouve = false;
 
@@ -134,7 +140,14 @@ foreach ( $rooms as $room ) {
 
 		$valeur = trim( (string) $video[ $cle ] );
 
-		if ( '' !== $valeur && false !== stripos( $visible, $valeur ) ) {
+		if ( '' === $valeur ) {
+			continue;
+		}
+
+		/* L'attribution doit etre laisible par l'eleve : soit dans le
+		   texte visible, soit dans le HTML servi que le navigateur
+		   affiche (balise <script> de donnees structurees comprise). */
+		if ( false !== stripos( $visible, $valeur ) ) {
 			$trouve = true;
 			break;
 		}

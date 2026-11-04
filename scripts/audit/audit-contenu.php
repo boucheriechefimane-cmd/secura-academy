@@ -52,6 +52,7 @@ $sans_licence   = array();
 $positions      = array( 0 => 0, 1 => 0, 2 => 0, 3 => 0 );
 $sans_attribution = array();
 $sans_traduction  = array();
+$formats          = array();
 
 foreach ( $rooms as $room ) {
 	/* get_tasks() et non le meta brut : on audit aussi les questions
@@ -89,16 +90,19 @@ foreach ( $rooms as $room ) {
 			$correct = isset( $question['correct'] ) ? (int) $question['correct'] : -1;
 
 			/* Une question importee garde le format de son examen
-			   d'origine : deux propositions (vrai/faux) ou trois.
-			   On n'invente pas de fausse proposition, et on n'exige
-			   pas quatre choix quand la source n'en a que deux.
-			   Elle doit en revanche porter sa source et sa licence. */
+			   d'origine : deux propositions (vrai/faux) au MIT, trois
+			   (QCM) au MIT, quatre (A/B/C/D) a Stanford CS224N. On
+			   n'invente pas de fausse proposition, et on n'exige pas
+			   quatre choix quand la source n'en a que deux. Elle doit
+			   en revanche porter sa source et sa licence, et avoir
+			   une seule bonne reponse a la bonne place. */
 			$importee = ! empty( $question['source'] );
 
 			if ( $importee ) {
 				$questions_importees++;
+				$formats[ count( $choix ) ] = ( isset( $formats[ count( $choix ) ] ) ? $formats[ count( $choix ) ] : 0 ) + 1;
 
-				if ( count( $choix ) < 2 || count( $choix ) > 3 || $correct < 0 || $correct >= count( $choix ) ) {
+				if ( count( $choix ) < 2 || count( $choix ) > 4 || $correct < 0 || $correct >= count( $choix ) ) {
 					$choix_mauvais++;
 				} else {
 					$positions[ $correct ]++;
@@ -134,7 +138,7 @@ foreach ( $rooms as $room ) {
 			$explication = isset( $question['explanation'] ) ? trim( (string) $question['explanation'] ) : '';
 			$choix       = isset( $question['choices'] ) ? (array) $question['choices'] : array();
 
-			if ( strlen( $explanation ) < 30 || ! empty( $choix )
+			if ( strlen( $explication ) < 30 || ! empty( $choix )
 				|| empty( $question['source'] ) || empty( $question['licence'] ) ) {
 				$solution_mauvaises++;
 			}
@@ -184,31 +188,53 @@ audit_verifier(
 	'majeur'
 );
 
+/* La preuve est la mesure elle-meme : sans elle, un vrai defaut serait
+   rejete par le harnais et passerait en silence. */
+$formats_lus = array();
+
+foreach ( $formats as $nombre => $compte ) {
+	$formats_lus[] = $compte . ' question(s) à ' . $nombre . ' proposition(s)';
+}
+
+$reponses_placees = 0;
+
+foreach ( $positions as $compte ) {
+	$reponses_placees += $compte;
+}
+
 audit_verifier(
 	'les questions à choix ont quatre propositions (ou le format d\'origine quand elles sont importées) et une seule bonne réponse',
 	0 === $choix_mauvais,
 	$choix_mauvais . ' question(s) malformée(s)',
-	'bloquant'
+	'bloquant',
+	$choix_mauvais . ' question(s) malformée(s) sur ' . $questions_tot . ' question(s) auditee(s)'
+		. ' ; ' . $questions_importees . ' question(s) importee(s), formats d\'origine : '
+		. ( empty( $formats_lus ) ? 'aucun' : implode( ', ', $formats_lus ) )
+		. ' ; ' . $reponses_placees . ' reponse(s) placee(s) a une position valide'
 );
 
 audit_verifier(
 	'les questions importées portent leur licence',
 	empty( $sans_licence ),
 	count( $sans_licence ) . ' question(s) importée(s) sans licence',
-	'majeur'
+	'majeur',
+	$questions_importees . ' question(s) importee(s) auditee(s), toutes porteuses d\'une licence'
 );
 
 audit_info(
 	'questions importées auditées',
 	$questions_importees . ' question(s) d\'un examen universitaire ou d\'une fondation',
-	'format d\'origine conservé : 2 propositions (vrai/faux) ou 3 (QCM), source et licence exigées'
+	'format d\'origine conservé : ' . ( empty( $formats_lus ) ? 'aucun format mesuré' : implode( ', ', $formats_lus ) )
+		. ' — une seule bonne réponse, source et licence exigées'
 );
 
 audit_verifier(
 	'les problèmes d\'examen importés portent leur correction officielle',
 	0 === $solution_mauvaises,
 	$solution_mauvaises . ' question(s) « solution » sans correction officielle complète, sans source ou sans licence',
-	'bloquant'
+	'bloquant',
+	$solution_mauvaises . ' question(s) « solution » non conforme(s) sur ' . $questions_solution
+		. ' auditee(s) ; chacune porte une correction officielle, une source et une licence'
 );
 
 audit_info(
@@ -228,7 +254,9 @@ audit_verifier(
 	'chaque question peut être aidée (un indice, sinon l\'élève est bloqué)',
 	empty( $sans_indice ),
 	count( $sans_indice ) . ' question(s) sans indice',
-	'mineur'
+	'mineur',
+	count( $sans_indice ) . ' question(s) sans indice ; les ' . $questions_tot
+		. ' question(s) auditee(s) portent chacune un indice ou une correction'
 );
 
 audit_verifier(
