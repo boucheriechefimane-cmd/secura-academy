@@ -49,7 +49,7 @@ def pages_du_cours(slug):
 def documents_du_cours(slug, dossier):
     """Les PDF du cours : on passe par les pages de ressources."""
     if not os.path.isdir(dossier):
-        os.makedirs(dossier)
+        os.makedirs(dossier, exist_ok=True)
     sitemap = curl(URL_COURS % slug + 'sitemap.xml').decode('utf-8', 'ignore')
     pages = sorted(set(re.findall(r'/courses/[^"\'<>\s\\]+?/pages/([a-z0-9\-_]+)/', sitemap)))
     if not pages:
@@ -97,7 +97,7 @@ def main():
     args = analyseur.parse_args()
 
     if not os.path.isdir(args.dossier):
-        os.makedirs(args.dossier)
+        os.makedirs(args.dossier, exist_ok=True)
 
     if args.rapport:
         with io.open(args.rapport, encoding='utf-8') as f:

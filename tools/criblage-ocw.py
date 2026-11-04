@@ -59,7 +59,7 @@ def curl(url, cache=None, delai=0.0):
                 return f.read()
         dossier = os.path.dirname(cache)
         if dossier and not os.path.isdir(dossier):
-            os.makedirs(dossier)
+            os.makedirs(dossier, exist_ok=True)
     r = subprocess.run(['curl', '-sL', '--max-time', '60', url], capture_output=True)
     texte = r.stdout.decode('utf-8', 'ignore')
     if cache:
@@ -88,7 +88,7 @@ def licence_du_cours(html):
 def ressources_du_cours(slug, cache_dir='/tmp/ocw-cache'):
     """Les documents du cours : nom de fichier + URL, avec le nom du fichier."""
     if not os.path.isdir(cache_dir):
-        os.makedirs(cache_dir)
+        os.makedirs(cache_dir, exist_ok=True)
     sitemap = curl(URL_SITEMAP_COURS % slug, os.path.join(cache_dir, slug + '-sitemap.xml'))
     pages = sorted(set(RE_PAGE.findall(sitemap)))
     pages = [p for p in pages if any(i in p.lower() for i in PAGES_INTERESSANTES)] or pages
