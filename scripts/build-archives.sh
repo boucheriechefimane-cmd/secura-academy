@@ -60,6 +60,7 @@ cp "$REPO_DIR/docs/COMPATIBILITE-PLUGINS.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/CONTENU-MIT.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/IMPORTER-QUESTIONS.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/RECOLTE-OCW-2026-11.md" "$TMP/recette/docs/"
+cp "$REPO_DIR/docs/INVENTAIRE-BAC-A-SABLE.md" "$TMP/recette/docs/"
 
 # Les outils : le generateur de contenu (avec le controle qualite),
 # l'outil de verification des drapeaux Juice Shop et le catalogue video.
@@ -108,6 +109,10 @@ cp "$REPO_DIR/scripts/build-archives.sh" "$TMP/recette/scripts/"
 # Le comite d'audit externe : les cinq auditeurs et leur lanceur.
 mkdir -p "$TMP/recette/scripts/audit"
 cp "$REPO_DIR/scripts/audit/"*.php "$REPO_DIR/scripts/audit/run-audits.sh" "$TMP/recette/scripts/audit/"
+
+# Les mesures du bac a sable : elles comparent, elles ne testent pas.
+mkdir -p "$TMP/recette/scripts/mesures"
+cp "$REPO_DIR/scripts/mesures/"*.php "$REPO_DIR/scripts/mesures/README.md" "$TMP/recette/scripts/mesures/"
 
 cp "$REPO_DIR/docs/AUDITS-CADRE.md" "$TMP/recette/docs/"
 cp "$REPO_DIR/docs/AUDITS-REGISTRE.md" "$TMP/recette/docs/"

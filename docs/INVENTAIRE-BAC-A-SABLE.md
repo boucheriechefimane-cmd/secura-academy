@@ -24,7 +24,30 @@ C'est un atelier. Ce qui compte dort dans le dépôt GitHub.
 | `wp-cli.phar` | **6,9 Mo** | 1 | WP-CLI | **téléchargé** par `scripts/wordpress-local.sh` lui-même. |
 | `uploads/` | 44 Ko | 3 | `AUDIT-UX.md`, `PASSATION-SECURA-ARENA.md`, `SCENARIOS-M3.md` | **déjà dans le dépôt** (`AUDIT-UX.md` à la racine, les deux autres dans `docs/`). |
 
-Résultat : **349 Mo vidés**, le bac à sable passe de ~360 Mo à ~11 Mo.
+| `.wp-cli/cache/` | **35 Mo** | 1 | le tarball de WordPress mis en cache par WP-CLI | **re-téléchargé** en quelques secondes par `scripts/wordpress-local.sh` |
+
+Résultat : **349 Mo vidés dans le bac à sable**, plus **35 Mo** de cache
+WP-CLI et **871 Mo** libérés dans `/tmp` (qui était saturé à 85 % : c'est
+lui qui faisait échouer l'extraction de WordPress).
+
+**La reconstruction a été prouvee, pas affirmee.** Après avoir tout jeté,
+`bash scripts/wordpress-local.sh` a reconstruit le bac à sable en
+**5 secondes**, et la mesure a retrouvé **les memes chiffres qu'avant** :
+
+| Mesure | Avant le nettoyage | Après reconstruction |
+|---|---|---|
+| Rooms | 52 | **52** |
+| Parcours | 4 | **4** |
+| Version du plugin | v0.12.0 (périmé !) | **v0.12.1** |
+| Questions maison | 392 | **392** |
+| Questions importées en réserve | 649 | **649** |
+| Importées dans une tâche | 0 | **0** |
+| Total | 1 041 | **1 041** |
+| Copie servie (médiane / max / min) | 4 / 10 / 2 | **4 / 10 / 2** |
+| Réservoir max | 393 | **393** |
+
+Le bac à sable est **périmé** : il tournait encore sur le plugin v0.12.0
+alors que le dépôt est en v0.12.1. Le reconstruire l'a remis à jour.
 
 ## Ce qui a été **gardé**, et pourquoi
 
@@ -66,6 +89,18 @@ python3 tools/telecharger-ocw.py --cours 6-867-machine-learning-fall-2006 --sort
 python3 tools/criblage-ocw.py --shard 0/6 --sortie rapports/rapport-robot-0.json
 python3 tools/criblage-ocw.py --fusion rapports/**/rapport-*.json --sortie rapports/criblage-ocw.json
 ```
+
+## Le mot « déjà dans le dépôt » veut dire quoi, concrètement
+
+Trois vérifications ont été faites avant de jeter, pour chaque catégorie :
+
+| Ce qu'on a vérifié | Comment | Résultat |
+|---|---|---|
+| les 8 anciens lots d'import | comparaison question par question entre `run/lots/` et `tools/lots/` | **0 question absente** du dépôt |
+| la sauvegarde de `class-secura-rooms.php` | comparaison des fonctions | la version du dépôt est **plus récente** et contient en plus `reserve` |
+| la répartition des questions | lecture des trois versions | `run/optimiser.py` et `run/redistribuer.py` sont les **prédécesseurs** de `tools/repartition-themes.py`, qui est plus juste (il mesure le site au lieu de lire une table figée, et compte par section) |
+| le catalogue des sources | lecture | les 32 sources sont dans `tools/sources-autorisees.json` ; PortSwigger y est, avec l'usage « lien seul » |
+| le rapport de criblage | comparaison | identique à `docs/recolte/criblage-ocw-2026-11-04.json` |
 
 ## La règle qui évite de refaire ce ménage
 
