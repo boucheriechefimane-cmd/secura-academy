@@ -715,3 +715,53 @@ Pour Stanford, l'absence de licence explicite n'est plus un motif de refus : ell
 **signalée** dans le catalogue et **sous chaque question**, avec l'attribution complète
 (école, cours, examen, corrigé). C'est une décision éditoriale du propriétaire du site,
 pas une permission — elle est écrite comme telle.
+
+---
+
+## 9. La campagne des cours prioritaires (04/11/2026)
+
+Douze cours MIT ont été téléchargés (132 documents) et traités. **Sept ont
+donné 135 questions**, avec la licence **CC BY-NC-SA 4.0 vérifiée le
+04/11/2026 sur la page de chaque cours** :
+
+| Source | Licence (vérifiée le) | Ce que nous en prenons | Décision |
+|---|---|---|---|
+| **MIT 6.661** Receivers, Antennas and Signals (Spring 2003) | CC BY-NC-SA 4.0 (04/11/2026) | **74 questions** d'examen + corrigé officiel | **RÉUTILISABLE** (import, attribution, ShareAlike) |
+| **MIT 6.111** Introductory Digital Systems Laboratory (Spring 2006) | CC BY-NC-SA 4.0 (04/11/2026) | **22 questions** : 21 d'algèbre booléenne (énoncé et corrigé alignés ligne à ligne) + 1 de calcul | **RÉUTILISABLE** (import, attribution, ShareAlike) |
+| **MIT 6.262** Discrete Stochastic Processes (Spring 2011) | CC BY-NC-SA 4.0 (04/11/2026) | **13 questions** d'examen + corrigé officiel | **RÉUTILISABLE** |
+| **MIT 6.253** Convex Analysis and Optimization (Spring 2012) | CC BY-NC-SA 4.0 (04/11/2026) | **11 questions** d'examen + corrigé officiel | **RÉUTILISABLE** |
+| **MIT 6.832** Underactuated Robotics (Spring 2009) | CC BY-NC-SA 4.0 (04/11/2026) | **7 questions** d'examen + corrigé officiel | **RÉUTILISABLE** |
+| **MIT 6.042J / 18.062J** Mathematics for Computer Science (Fall 2010) | CC BY-NC-SA 4.0 (04/11/2026) | **5 questions** d'examen + corrigé officiel | **RÉUTILISABLE** |
+| **MIT 6.450** Principles of Digital Communications I (Fall 2006) | CC BY-NC-SA 4.0 (04/11/2026) | **3 questions** d'examen + corrigé officiel | **RÉUTILISABLE** |
+
+**Cinq cours ont été refusés**, et le motif est écrit dans
+`docs/RECOLTE-OCW-2026-11.md` :
+
+| Source | Motif du refus |
+|---|---|
+| MIT 6.034 Artificial Intelligence | l'énoncé renvoie à un **arbre dessiné** ; le corrigé est un **tableau** de résultats |
+| MIT 6.035 Computer Language Engineering | les blocs de base sont **sur la page suivante** ; la réponse est du **code** |
+| MIT 6.341 Discrete-Time Signal Processing | les cases cochées du corrigé **n'existent pas dans la couche texte** ; schémas absents |
+| MIT 6.825 Numerical Computation | l'énoncé est un examen du **6.891**, le corrigé du **6.825** : deux documents différents |
+| MIT 6.01SC Introduction to EECS I | les « corrigés » sont des **copies remplies d'un quiz en ligne** ; réponses en code |
+
+Aucun de ces cinq cours n'a été complété par du contenu rédigé ou
+reformulé : c'est le refus qui fait foi.
+
+Le catalogue `tools/sources-autorisees.json` passe de **32 à 39 entrées**.
+
+### 9.1 Deux garde-fous ajoutés après la campagne (04/11/2026)
+
+**Le pied de page d'OCW ne doit jamais finir dans un énoncé.** Les
+PDF du MIT portent un pied de page qui est un **bloc** (numéro de page,
+marqueur, URL, cours, année, conditions d'utilisation), pas une ligne.
+Un seul module (`tools/ocw_pieds.py`) le retire désormais, et les
+extracteurs l'utilisent. La preuve que rien n'est perdu est dans
+`docs/RECOLTE-OCW-2026-11.md` § 4 bis.
+
+**Une question qui cite une source doit être jouable là où elle est
+publiée.** Le plugin ignore silencieusement les questions d'une room
+qu'il ne connaît pas : une room mal orthographiée dans un lot ferait
+disparaître des questions sans avertissement. `tools/rooms-connues.json`
+liste les 52 rooms connues ; l'import **refuse** un lot qui cite une
+autre room, et nomme la room connue la plus proche.

@@ -19,17 +19,17 @@ if ( ! function_exists( 'seca_import_mit_ocw_6_172_examens' ) ) {
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 Packing is an optimization that reduces data movement but may increase computation.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 Using taskset for a serial program diminishes performance variations caused by NUMA (nonuni-
 form memory access).
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 In the free-list heap-allocation algorithm, allocating to the least-full page maximizes the proba-
 bility that two random accesses hit the same page.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 Give the parallelism of bitonic_sort() in simple terms.
@@ -48,22 +48,22 @@ sized allocator that uses binned free lists with blocks that are exact powers of
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 If there is a TLB miss, then the corresponding cache line is not already in cache.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 It is generally more important for a memory allocator to quickly allocate small blocks than to
 quickly allocate large blocks.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 On x86, sequentially consistent behavior can always be achieved through the use of memory
 fences.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 If a program that runs on 2 threads protects its critical sections using Peterson\'s algorithm, then
 it is free of data races.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 Describe a performance problem that Ben might see with thread-local free lists that can cause
@@ -142,18 +142,18 @@ Q(n) = Θ( BM(nlog 7)/2-1 ).', 'source' => 'MIT OpenCourseWare, 6.172 Performanc
 
 Inlining a function tends to improve performance by reducing the number of instruction cache
 misses.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 Compilers eliminate data dependencies through register renaming by replacing x86 logical reg-
 isters with physical registers.
 True False
-1.5 1 TRUE OR FALSE (8 PARTS, 16 POINTS)', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
+1.5 1 TRUE OR FALSE (8 PARTS, 16 POINTS)', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 If a memory location in a program is read by two logically parallel instructions, then a read-read
 determinacy race exists.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
 						),
 					),
 				),
@@ -165,36 +165,36 @@ True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis
 
 The time command can more readily diagnose kernel-mode performance variations (e.g., page
 zeroing) than clock_gettime().
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 When using reference counting for garbage collection, cyclic data structures are never garbage
 collected.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 Memory-allocator performance is more important when requesting a large amount of memory
 than when requesting a small amount.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 There are generally fewer conflict misses in a set-associative cache than a direct-mapped cache.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 When dealing with multiple pages, a new block should be allocated from the free list for the
 emptiest page to incur the fewest TLB misses.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 Streaming writes allow for higher memory bandwidth utilization by bypassing cache with the
 additional cost of higher latency.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 If a program that runs on 2 threads protects its critical sections using Peterson\'s algorithm, then
 it is free of determinacy races.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 In lecture, we saw a theorem stating that a P-worker execution of any Cilk program uses at most
@@ -296,18 +296,18 @@ cache misses to create the inputs is Θ(n2 /B).', 'source' => 'MIT OpenCourseWar
 
 Because thermal limits prevented CPU manufacturers from increasing clock frequencies signifi-
 cantly, they began to produce multicore microprocessors.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 Suppose that a recursive function performs work on a problem of size N according to the recur-
 rence T ( N ) = 2T ( N/3) + Θ( N lg N ). Then coarsening the recursion is unlikely to significantly
 improve performance.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 When using the MSI (modified, shared, invalid) cache coherence protocol, the state of a cache
 line in a processor\'s cache may transition directly from shared to invalid.
-True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.',  'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
+True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 A greedy scheduler schedules a computation with work T1 and span T∞ in time Tp ≤ max ( T1 /P, T∞ )

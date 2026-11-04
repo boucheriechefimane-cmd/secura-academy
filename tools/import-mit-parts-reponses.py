@@ -48,6 +48,12 @@ import os
 import re
 import sys
 
+# L'appariement enonce <-> corrige est fait par le module partage
+# (le hash de ressource d'OCW differe d'un fichier a l'autre).
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ocw_appariement import enonces_avec_corrige  # noqa: E402
+from ocw_pieds import retirer_pieds_de_page  # noqa: E402
+
 LICENCE = "CC BY-NC-SA 4.0"
 XP = 20
 
@@ -62,11 +68,13 @@ RE_PARTIE_EN_LIGNE = re.compile(r'\(([a-z])\)\s*(.*?)(?=\s\([a-z]\)\s|$)')
 RE_FOOTER = re.compile(r'(MIT OpenCourseWare|https?://ocw\.mit\.edu|Spring\s*\'?\d\d|Fall\s*\'?\d\d)'
                        r'.*$', re.MULTILINE)
 
-
+# Les pieds de page d'OCW sont retires par le module partage
+# `tools/ocw_pieds.py` : le bloc occupe plusieurs lignes, le retirer
+# ligne par ligne en laissait des morceaux dans l'enonce de la question.
 def nettoyer(texte):
     """Retire les pieds de page OCW et les lignes vides en trop."""
-    texte = RE_FOOTER.sub('', texte)
-    lignes = [l.rstrip() for l in texte.replace('\r\n', '\n').split('\n')]
+    texte = retirer_pieds_de_page(texte)
+    lignes = [l.rstrip() for l in texte.split('\n')]
     return '\n'.join(lignes)
 
 
@@ -248,19 +256,20 @@ def fabriquer_question(prefixe, enonce, reponse, source, mode, index=None):
 
 
 def paires_de_fichiers(dossier):
-    """Apparie <base>.txt avec <base>_sol.txt."""
-    fichiers = {}
-    for nom in sorted(os.listdir(dossier)):
-        if not nom.endswith('.txt'):
-            continue
-        fichiers[re.sub(r'^[0-9a-f]{32}_', '', nom)] = os.path.join(dossier, nom)
+    """Les paires (enonce, corrige) du dossier.
+
+    L'appariement est fait par `tools/ocw_appariement.py`, le module
+    partage avec les autres extracteurs : il tient compte du hash de
+    ressource d'OCW (qui differe d'un fichier a l'autre) et des
+    marqueurs de corrige (`_sol`, `_soln`, `examsol`, `solutions`...).
+    Avant, on exigeait exactement `<base>_sol.txt` : le MIT 14.15J
+    nomme son corrige `..._examsol`, et la paire n'etait donc pas
+    trouvee.
+    """
     paires = []
-    for nom in sorted(fichiers):
-        if nom.endswith('_sol.txt'):
-            continue
-        solution = nom[:-4] + '_sol.txt'
-        if solution in fichiers:
-            paires.append((fichiers[nom], fichiers[solution], nom[:-4]))
+    for enonce, corrige in enonces_avec_corrige(dossier):
+        base = re.sub(r'\.txt$', '', os.path.basename(enonce))
+        paires.append((enonce, corrige, base))
     return paires
 
 

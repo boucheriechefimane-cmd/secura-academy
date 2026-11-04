@@ -377,6 +377,83 @@
       "commercial": false,
       "commercial_note": "licence CC BY-NC-SA 4.0 : réutilisation libre y compris pour un site gratuit, à condition de garder l’attribution et de ne pas faire d’usage commercial",
       "note": "Trouvé automatiquement par le moteur de criblage (tools/criblage-ocw.py) : le nom du fichier de corrigé contient « soln », ce qui annonce un corrigé officiel."
+    },
+    {
+      "id": "mit-ocw-6-253-examens",
+      "nom": "MIT OpenCourseWare — 6.253 Convex Analysis and Optimization (Spring 2012)",
+      "url": "https://ocw.mit.edu/courses/6-253-convex-analysis-and-optimization-spring-2012/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+      "usage": "questions d'examen et corrige officiel (probleme + parties)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "mit-ocw-6-450-examens",
+      "nom": "MIT OpenCourseWare — 6.450 Principles of Digital Communications I (Fall 2006)",
+      "url": "https://ocw.mit.edu/courses/6-450-principles-of-digital-communications-i-fall-2006/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.450 Principles of Digital Communications I, Fall 2006",
+      "usage": "questions d'examen et corrige officiel (probleme + solution en ligne)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "mit-ocw-6-661-examens",
+      "nom": "MIT OpenCourseWare — 6.661 Receivers, Antennas and Signals (Spring 2003)",
+      "url": "https://ocw.mit.edu/courses/6-661-receivers-antennas-and-signals-spring-2003/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003",
+      "usage": "questions d'examen et corrige officiel (reponses en ligne)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "mit-ocw-6-832-examens",
+      "nom": "MIT OpenCourseWare — 6.832 Underactuated Robotics (Spring 2009)",
+      "url": "https://ocw.mit.edu/courses/6-832-underactuated-robotics-spring-2009/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009",
+      "usage": "questions d'examen et corrige officiel (probleme + parties)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "mit-ocw-6-262-examens",
+      "nom": "MIT OpenCourseWare — 6.262 Discrete Stochastic Processes (Spring 2011)",
+      "url": "https://ocw.mit.edu/courses/6-262-discrete-stochastic-processes-spring-2011/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.262 Discrete Stochastic Processes, Spring 2011",
+      "usage": "questions d'examen et corrige officiel (probleme + parties)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "mit-ocw-6-042j-examens",
+      "nom": "MIT OpenCourseWare — 6.042J / 18.062J Mathematics for Computer Science (Fall 2010)",
+      "url": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010",
+      "usage": "questions d'examen et corrige officiel (QCM et problemes)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "mit-ocw-6-111-examens",
+      "nom": "MIT OpenCourseWare — 6.111 Introductory Digital Systems Laboratory (Spring 2006)",
+      "url": "https://ocw.mit.edu/courses/6-111-introductory-digital-systems-laboratory-spring-2006/",
+      "licence": "CC BY-NC-SA 4.0",
+      "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+      "usage": "exercices d'algebre booleenne et leur corrige officiel (lignes alignees)",
+      "reutilisable": true,
+      "commercial": false,
+      "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
     }
   ],
   "regles": [

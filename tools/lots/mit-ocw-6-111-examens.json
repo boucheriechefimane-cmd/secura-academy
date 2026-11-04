@@ -1,0 +1,244 @@
+{
+  "source": "mit-ocw-6-111-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+  "url": "https://ocw.mit.edu/courses/6-111-introductory-digital-systems-laboratory-spring-2006/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.111 — question d’exercice, en anglais] \nCounters\nUsing a 27MHz clock, how many 74LS163’s are required to produce a 1Hz\nclock?\nHint: What is the binary representation of 27000000?",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The Nth output of ripple counters has twice the time period of (N-1)th output, and\nthus the Nth output of ripple counters is 2N slower than the input clock. Thus, to\ncreate a 421.875kHz clock,\n27 MHz\n= 64 = 2 6\n421.875kHz\nwe must divide the input clock by two for six times, requiring two 74LS163.\nCascade the two 4-bit counters as done in Lab 1 and probe at Qb of the second\ncounter as shown below:\nCLR             VDD                       CLR             VDD\nOscillator                                   Oscillator\nCLK             RCO                       CLK             RCO\n@ 27 MHz                                     @ 27 MHz\nQa                                        Qa\n421.875 kHz\nQb                                        Qb\n74LS163                                   74LS163\nQc                                        Qc\nQd                                        Qd\nENT             ENP                       ENT             ENP\nGND              LD                       GND              LD\nFigure 1: 74LS163 connections to provide a 421.875kHz clock\n6.111 Spring 2006 Problem Set 2                                                      2",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\na + 0 = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : a + 0 = a",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\na (a + b) = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : a ( a + b) = a a + ab = ab",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\n( a + b)( a + b) = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : ( a + b)(a + b) = a a + ab + b a + bb = a + ab + ab = a (1 + b + b) = a",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\n(12), (13), f ( a, b, c ) = a + b + c      24) w ⋅ (wxyz ) =\nf ( a, b, ab ) = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : f ( a, b, ab ) = a + b + ab = a + b",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nf [a, b, (ab)] = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : f [ a, b, ( ab)] = a + b + ( ab) = a + b + a + b = 1",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nxy + x y = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : xy + x y = x( y + y ) = x",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\n( w + x + y + z ) y = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : ( w + x + y + z ) y = y",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nw + [ w + ( wx )] = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : w + [ w + ( wx )] = w",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nw + ( w x yz ) = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : w + ( w x yz ) = w(1 + x yz ) = w",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nxz + x y + zy = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : xz + x y + zy = xz + x y",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nx + y + xy z = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : x + y + xy z = x + y + z",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\na ⋅ 0 = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : a ⋅ 0 = 0",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nab + ab = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : ab + ab = b( a + a ) = b",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\na ( a + b + c + ...) = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : a ( a + b + c + ...) = aa + ab + ac + ... = a + ab + ac + ... = a",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nf ( a, b, a ⋅ b) = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : f ( a, b, a ⋅ b) = a + b + ab = a + b + a = 1",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\ny + y y = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : y + y y = y",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nx + y x = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : x + y x = x (1 + y ) = x",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\n( x + y )( x + y ) = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : ( x + y )( x + y ) = x",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nx[ x + ( xy )] = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : x[ x + ( xy )] = x",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\nw ⋅ ( wxyz ) = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : w ⋅ ( wxyz ) = w( w + x + y + z ) = w",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          },
+          {
+            "question": "[MIT 6.111 — exercice d’algebre booléenne, en anglais] \nSimplify each expression by algebraic manipulation. Try to recognize when it is\n( x + z )( x + y )( z + y ) = ",
+            "mode": "solution",
+            "hint": "Question d’exercice du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : ( x + z )( x + y )( z + y ) = ( x + z )( x + y )",
+            "source": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.111 Introductory Digital Systems Laboratory, Spring 2006"
+          }
+        ]
+      }
+    }
+  ]
+}

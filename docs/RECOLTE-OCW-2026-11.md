@@ -1,71 +1,298 @@
-# La récolte OCW du 04/11/2026 — 430 cours analysés, 66 réutilisables
+# Campagne d'import — les cours prioritaires du MIT (04/11/2026)
 
-> Ce document est la **liste de travail** issue du criblage automatique.
-> Source brute : `docs/recolte/criblage-ocw-2026-11-04.json` (archivé depuis l'artefact de la CI).
-> Run de validation : **`41753782904`** (`completed success`) — six robots + fusion.
+Ce document est le **carnet de bord factuel** de la campagne d'import
+lancée le 04/11/2026 sur les **douze cours prioritaires** de la liste de
+travail produite par le criblage (`docs/recolte/criblage-ocw-2026-11-04.json`).
 
-## Ce que le moteur a fait
+Il répond à trois questions, et à trois seulement :
 
-| Étape | Mesure |
-|---|---|
-| Cours listés par le sitemap OCW | **2 587** |
-| Cours analysés (numéros 6.\*, 18.\*, 3.\*) | **430** |
-| Avec un corrigé **et** une licence Creative Commons | **66** |
-| Dont numéro de cours **jamais vu** jusqu'ici | **55** |
-| Documents téléchargés (9 cours, en parallèle) | **615 en 104 s** |
+1. **Qu'est-ce qui a été importé ?** Combien, d'où, avec quelle licence.
+2. **Qu'est-ce qui a été refusé ?** Et **pourquoi**, avec la preuve.
+3. **Comment le reproduire ?** Une commande.
 
-Le signal du corrigé est lu **dans le nom du fichier** (`_sol`, `_soln`, `_solution`, `Answers`, `key`) :
-c'est le seul endroit fiable. La licence est lue dans le pied de page de la page OCW
-(`creativecommons.org/licenses/by-nc-sa/4.0`).
+Rien n'y est déclaré qui n'ait été vérifié. Les chiffres viennent des
+mesures ; les refus, de l'outil lui-même.
 
-## Les 55 numéros jamais vus
+---
 
-Les cours déjà au catalogue (32 sources) sont ici : **6.005**, **6.006**, **6.010 / 6.01SC**,
-**6.046J**, **6.172**, **6.830**, **6.867**, **18.404J**, **18.435J**, **6.867**, **6.041SC**…
-Les 55 ci-dessous sont **nouveaux** et attendent leur extracteur.
+## 1. Le point de départ
 
-### Priorité informatique et sécurité (à extraire en premier)
+Le criblage à six robots (run GitHub `41753782904`) a analysé **430 cours**
+MIT OpenCourseWare et en a retenu **66** ayant à la fois un corrigé officiel
+et une licence Creative Commons, dont **55 jamais vus**.
 
-| Cours | Sujet | Documents |
+Parmi ces 55, douze ont été choisis comme prioritaires (informatique et
+sécurité) :
+
+| # | Cours | Slug OCW |
 |---|---|---|
-| 6.034 | Artificial Intelligence | 4 |
-| 6.035 | Computer Language Engineering | 5 |
-| 6.042J | Mathematics for Computer Science | 6 |
-| 6.825 | Techniques in Artificial Intelligence (SMA-5504) | 5 |
-| 6.830 | Database Systems | 4 |
-| 6.867 | Machine Learning | 28 |
-| 18.404J | Theory of Computation | 8 |
-| 6.006 | Introduction to Algorithms (2008 / 2011 / 2020) | 20 / 6 / 2 |
-| 6.046J | Design and Analysis of Algorithms (SMA-5503, Spring 2012) | 11 / 13 |
-| 6.01SC | Introduction to EECS | 30 |
-| 6.189 | Multicore Programming Primer | 12 |
-| 6.004 | Computation Structures | 9 |
+| 1 | 6.034 Artificial Intelligence | `6-034-artificial-intelligence-spring-2005` |
+| 2 | 6.035 Computer Language Engineering | `6-035-computer-language-engineering-spring-2010` |
+| 3 | 6.042J Mathematics for Computer Science | `6-042j-mathematics-for-computer-science-fall-2010` |
+| 4 | 6.825 Numerical Computation | `6-825-numerical-computation-spring-2003` |
+| 5 | 6.01SC Introduction to EECS I | `6-01sc-introduction-to-electrical-engineering-and-computer-science-i-fall-2005` |
+| 6 | 6.111 Introductory Digital Systems Laboratory | `6-111-introductory-digital-systems-laboratory-spring-2006` |
+| 7 | 6.450 Principles of Digital Communications I | `6-450-principles-of-digital-communications-i-fall-2006` |
+| 8 | 6.262 Discrete Stochastic Processes | `6-262-discrete-stochastic-processes-spring-2011` |
+| 9 | 6.341 Discrete-Time Signal Processing | `6-341-discrete-time-signal-processing-fall-2005` |
+| 10 | 6.661 Receivers, Antennas and Signals | `6-661-receivers-antennas-and-signals-spring-2003` |
+| 11 | 6.832 Underactuated Robotics | `6-832-underactuated-robotics-spring-2009` |
+| 12 | 6.253 Convex Analysis and Optimization | `6-253-convex-analysis-and-optimization-spring-2012` |
 
-### Priorité secondaire (mathématiques, physique, matériaux — hors périmètre cyber)
+**132 documents** ont été téléchargés (énoncés + corrigés) en **4 secondes**,
+via l'URL directe d'OCW (`https://ocw.mit.edu/courses/<slug>/<hash>_<nom>.pdf`).
 
-`18.024`, `18.03`, `18.034`, `18.04`, `18.05`, `18.06`, `18.075`, `18.085`, `18.086`, `18.102`,
-`18.366`, `18.440`, `18.443`, `18.600`, `18.786`, `18.966`, `3.00`, `3.012`, `3.034`, `3.052`,
-`3.091SC`, `3.15`, `3.205`, `3.21`, `3.22`, `3.40J`, `6.003`, `6.011`, `6.012` (×2), `6.013`,
-`6.041` (×3), `6.061`, `6.111`, `6.152J`, `6.241J`, `6.253`, `6.262`, `6.341`, `6.450`,
-`6.641` (×2), `6.642`, `6.661`, `6.7220J`, `6.832`, `6.973`.
+L'appariement énoncé ↔ corrigé est fait par `tools/ocw_appariement.py` :
+le hash de ressource diffère d'un fichier à l'autre, on compare donc le
+**squelette** du nom (`MIT6_111pset01` ↔ `MIT6_111pset01sol`) — **53 paires**
+sur les 132 documents.
 
-## Rappel des règles appliquées
+---
 
-- **Jamais de réécriture** : seul est admis un examen validé par une université ou une certification.
-- **Attribution obligatoire** de la source **du test ET du cours**.
-- **Licence absente** ⇒ signalée honnêtement, ce n'est pas un motif de refus automatique.
-- Le site reste **gratuit à jamais** : les licences **NC** (non commercial) sont utilisables.
-- **Une seule bonne réponse** par question : un corrigé nommant plusieurs bonnes réponses ⇒
-  le format change (rédaction) ou la question est refusée — jamais une réponse inventée.
+## 2. Ce qui est importé : 135 questions, sept cours
 
-## Relancer le criblage
+| Cours | Questions | Format | Extractor |
+|---|---|---|---|
+| 6.661 Receivers, Antennas and Signals | **74** | parties + réponses en ligne | 13ᵉ |
+| 6.111 Introductory Digital Systems Lab | **22** | 1 (13ᵉ) + 21 (14ᵉ) | 13ᵉ + 14ᵉ |
+| 6.262 Discrete Stochastic Processes | **13** | problème + parties | 13ᵉ |
+| 6.253 Convex Analysis and Optimization | **11** | problème + « Solution. » | 13ᵉ |
+| 6.832 Underactuated Robotics | **7** | parties + réponses en ligne | 13ᵉ |
+| 6.042J Mathematics for Computer Science | **5** | QCM numéroté + « Solution. » | 13ᵉ |
+| 6.450 Principles of Digital Communications I | **3** | problème + solution en ligne | 13ᵉ |
+| **Total** | **135** | | |
 
-```bash
-# un sixième du catalogue
-python3 tools/criblage-ocw.py --shard 0/6 --sortie rapports/rapport-robot-0.json
-# la fusion des six
-python3 tools/criblage-ocw.py --fusion rapports/rapport-*.json --sortie rapports/criblage-ocw.json
+**Licence** : `CC BY-NC-SA 4.0` pour les sept cours — **vérifiée le
+04/11/2026 sur la page de chaque cours** (`creativecommons.org/licenses/by-nc-sa/4.0`),
+et non déduite d'un cours voisin.
+
+**Attribution** : elle nomme le cours *et* la source des tests
+(ex. « MIT OpenCourseWare, 6.661 Receivers, Antennas and Signals, Spring 2003 »),
+et voyage avec chaque question jusqu'à l'écran de l'élève.
+
+### Les deux extracteurs écrits pour cette campagne
+
+**13ᵉ — `tools/import-mit-probleme-solution.py`** : le format « problème
+(numéro + titre) → parties `(a) (b) …` → solution officielle ». Le MIT écrit
+ses corrigés de cinq façons différentes selon les cours : « Solution. »,
+« Solution 1a): », « [6 points] » suivi de la réponse, réponses en ligne
+sans repère, ou problème sans parties. L'extracteur les couvre toutes, et
+**refuse** ce qui ne va pas :
+
+| Garde-fou | Ce qu'il attrape |
+|---|---|
+| `RE_PIED` | pieds de page (`-2-`, `Page 3`, `12/22/03`) |
+| `RE_NUMERO_COURS` | deux documents de **cours différents** appariés (6.825 ↔ 6.891) |
+| `RE_CODE` | une « réponse » qui est du code |
+| `RE_OUTILLAGE` | un exercice d'atelier FPGA (Xilinx, Verilog, testbench) |
+| `RE_INCOMPLET` | une question qui renvoie à un schéma (« the tree shown below ») |
+| `RE_DEFORME` | un caractère illisible venu de l'extraction PDF |
+| `controle_paire()` | un « corrigé » qui est en fait l'énoncé recopié |
+| `entete_de_page()` | une réponse qui est l'en-tête du document |
+
+**14ᵉ — `tools/import-mit-expressions.py`** : le MIT 6.111 publie un exercice
+d'algèbre booléenne où l'énoncé et le corrigé sont **alignés ligne à ligne**
+(`1) a + 0 =` … `1) a + 0 = a`). C'est le seul format où l'appariement se
+**prouve** : le membre de gauche doit être rigoureusement identique des deux
+côtés. L'extracteur refuse une paire dont les membres de gauche diffèrent.
+
+> **Un piège réel, trouvé et corrigé.** Les items 3 et 4 du 6.111 portent le
+> même membre de gauche (`a + a`) mais des réponses différentes (`= 1` et
+> `= a`) : la **barre de complément** a disparu à l'extraction. Publier
+> « a + a = 1 » aurait été faux. L'extracteur détecte ce cas (même membre de
+> gauche, réponses différentes) et refuse **six items** au lieu de les
+> publier faux.
+
+### Répartition dans les rooms
+
+La répartition ne se devine pas à partir de mots anglais : elle se fait par
+**thème déclaré** du cours d'origine, puis **proportionnellement au manque
+mesuré** de chaque section (`tools/repartition-themes.py` +
+`tools/cibles-sections.json`).
+
+| Thème | Cours | Room |
+|---|---|---|
+| `communications` | 6.450, 6.661 | `les-fondamentaux-du-reseau` |
+| `algorithmes` | 6.253, 6.262, 6.832, 6.042J, 6.111 | `comment-marche-un-ordinateur-de-la-donnee-au-programme`, `donnees-et-systemes-organiser-linformation` |
+
+Le thème `communications` a été **ajouté** pour la campagne : une question
+d'antennes ou de bruit gaussien n'a rien à faire dans « authentification ».
+Elle va dans « les fondamentaux du réseau », qui est sa place.
+
+---
+
+## 3. Ce qui est refusé : cinq cours, avec le motif
+
+Cinq des douze cours n'ont produit **aucune** question importable. Les motifs
+sont écrits par l'outil, pas prononcés après coup.
+
+| Cours | Motif du refus | Preuve |
+|---|---|---|
+| **6.034** Artificial Intelligence | l'énoncé renvoie à un **arbre dessiné** (« Consider the tree shown below ») et le corrigé est un **tableau** de résultats (Breadth First → `ABCDEG`, Depth First → `ABDFKLECG`…). Sans le dessin, la question n'a pas de sens ; découper un tableau en quatre questions serait une réécriture. | `RE_INCOMPLET` ; « aucune partie exploitable dans le corrigé » |
+| **6.035** Computer Language Engineering | la question dit « State for each of the basic blocks **on the following page** which optimization was performed » : les blocs de base sont **sur la page suivante**, et la réponse est **du code** (le bloc optimisé). | `RE_INCOMPLET` (« the following ») + `RE_CODE` |
+| **6.341** Discrete-Time Signal Processing | c'est un **questionnaire à cocher** (YES / NO / CAN'T TELL) ; les cases cochées du corrigé **n'existent pas dans la couche texte** (l'extraction ne garde que « YES NO CAN'T TELL »), et les questions renvoient à des **diagrammes de systèmes**. | marquage invisible à l'extraction + schémas absents |
+| **6.825** Numerical Computation | le fichier `s2001final.pdf` est un examen du **6.891** (« 6.891 Final Examination ») et son corrigé `s2001final_sol.pdf` appartient au **6.825** (« 6.825 Recitation Problems: Spring Final »). Ce sont **deux documents différents**. | `RE_NUMERO_COURS` : 6.891 ≠ 6.825 |
+| **6.01SC** Introduction to EECS I | les fichiers `_sol` sont des **copies remplies d'un quiz en ligne** (« Full Name: ANSWERS »), pas des corrigés officiels ; les réponses sont du **code Python**. | `controle_paire()` + `RE_CODE` |
+
+**Aucun de ces cinq cours n'a été « complété » par ce que le plugin ou moi
+aurions pu inventer.** C'est le refus qui est le résultat honnête.
+
+Deux refus « techniques » valent d'être signalés :
+
+- **6.111, les travaux pratiques** (Verilog, Xilinx ISE, CoreGen, VGA,
+  tables de transition de machine à états) : ce sont des manipulations de
+  laboratoire qui supposent un outillage absent de la plateforme. Le
+  garde-fou `RE_OUTILLAGE` les refuse. Il reste **une** question de ce
+  cours qui est du calcul pur (combien de 74LS163 pour une horloge de 1 Hz).
+- **6.661 / 6.832** : quelques items changent d'un examen à l'autre ; le
+  garde-fou « numéro de cours différent » les laisse passer parce que les
+  deux documents portent bien le même numéro — l'appariement est alors
+  vérifié **par le contenu** (le membre de gauche, ou le repère
+  « Solution 1a): » qui nomme le couple problème/partie).
+
+---
+
+## 4. Mesures
+
+Mesure dans un WordPress local réel (WordPress 7.1.4, plugin v0.12.4) :
+
+| | Avant | Après |
+|---|---|---|
+| Questions maison (dans les tâches) | 392 | **392** |
+| Questions importées (en réserve) | 649 | **784** |
+| Questions importées retrouvées **dans** une tâche | 0 | **0** |
+| Total de la plateforme | 1 041 | **1 176** |
+| Réservoir maximal d'une exam | 393 | **451** |
+| Copies servies | médiane 4 / max 10 / min 2 | médiane 4 / max 10 / min 2 |
+| Examens au réservoir trop juste | 6 | **6** (manque total 16) |
+
+Le point important : **les 135 questions importées vont toutes dans le
+réservoir**, aucune ne se glisse dans une tâche. C'est ce qui permet à
+l'élève de les tirer au hasard à l'examen, et à personne d'autre.
+
+Audits locaux : contenu **20/20** (0 bloquant, 0 majeur, 0 mineur),
+licences **6/6** (0 bloquant, 0 majeur, 0 mineur), épreuves **16** (0
+bloquant, 0 majeur, 1 mineur : les 6 examens au réservoir trop juste).
+
+---
+
+## 4 bis. Un défaut trouvé dans les lots déjà livrés, et la garde-fou qui l'empêche de revenir
+
+### Le défaut
+
+Le contrôle automatique des lots livrés a signalé une chose simple :
+la **question 12 du lot MIT 14.15J** finissait par le pied de page du
+PDF d'origine :
+
+> `… MIT OpenCourseWare — ocw.mit.edu — 14.15J/6.207J Networks — Spring
+> 2018 — For information about citing these materials or our Terms of
+> Use, visit: …`
+
+L'élève lisait donc la mention de copyright du MIT à la fin de son
+énoncé. C'est le genre de détail que l'on ne voit pas en relisant vite,
+et qui donne l'impression que la plateforme a mal préparé ses copies.
+
+### La cause
+
+Le pied de page d'OCW n'est **pas une ligne**, c'est un **bloc** :
+
+```
+1                    <- numéro de page
+MIT OpenCourseWare   <- le marqueur
+ocw.mit.edu
+14.15J/6.207J Networks
+Spring 2018
+For information about citing these materials or our Terms of Use, visit:
 ```
 
-La fusion accepte un motif `rapports/**/rapport-*.json` (développé récursivement) **ou** des
-chemins explicites, et **échoue bruyamment** si aucun rapport n'est trouvé.
+L'ancien nettoyage (une expression régulière) ne retirait que la ligne
+qui porte le marqueur. Les autres lignes restaient, et — selon la
+manière dont le PDF était coupé — le bloc pouvait même se retrouver **au
+milieu** de l'énoncé.
+
+### Le correctif
+
+Un module unique, `tools/ocw_pieds.py`, fait le travail :
+
+1. le texte est découpé sur les sauts de page (`\x0c`) ;
+2. **un morceau entier** qui commence par un marqueur d'OCW
+   (`MIT OpenCourseWare`, `ocw.mit.edu`, `Terms of Use`) est retiré —
+   pas seulement sa première ligne ;
+3. le numéro de page isolé qui précède ce morceau est retiré aussi.
+
+Les deux extracteurs qui produisent ces lots (sous-questions, parties +
+réponses) l'utilisent désormais.
+
+### La preuve qu'on n'a rien perdu
+
+Les 24 documents des deux cours ont été retéléchargés et les lots
+régénérés, puis comparés question par question avec les lots livrés :
+
+| Cours | Questions | Énoncés | Corrections | Écart |
+|---|---|---|---|---|
+| MIT 14.15J | 14 | 14/14 identiques | 14/14 identiques | aucun |
+| MIT 6.851 | 12 | 12/12 | 12/12 | le pied de page seul |
+| MIT 18.404J | 20 | 20/20 | 20/20 | le pied de page seul |
+
+Et l'audit ligne à ligne des 24 documents (présence effective de chaque
+ligne dans le texte nettoyé) : **0 ligne de contenu réellement perdue**.
+
+### La garde-fou : une room inconnue ne peut plus disparaître en silence
+
+En régénérant les lots, un second défaut est apparu : une room
+inexistante dans un lot n'est **pas signalée** par le plugin — il ignore
+simplement les questions concernées. Trente-deux questions avaient ainsi
+disparu de la mesure, sans le moindre avertissement.
+
+Désormais :
+
+- `tools/rooms-connues.json` liste les 52 rooms que le plugin sait
+  créer (le script `tools/rooms-connues.py` le produit et le compare aux
+  rooms réellement créées sur le site) ;
+- `tools/import-questions.py --verifier` **refuse** un lot dont la room
+  n'existe pas, et propose la room connue la plus proche ;
+- `tools/controler-lot.py` fait le même contrôle ;
+- `tests/import-test.py` le vérifie à chaque push.
+
+---
+
+## 5. Reproduire
+
+```bash
+# 1. Télécharger les documents (132 en quelques secondes)
+python3 tools/telecharger-ocw.py \
+  --rapport docs/recolte/criblage-ocw-2026-11-04.json \
+  --dossier run/ocw-prioritaires --travailleurs 6 --direct \
+  --prefixes 6-034 6-035 6-042j 6-825 6-01sc 6-111 \
+  --prefixes 6-450 6-262 6-341 6-661 6-832 6-253
+
+# 2. Fabriquer les sept lots (cahier de route executable)
+python3 tools/import-lot-mit-prioritaires.py \
+  --texte run/ocw-prioritaires --sortie tools/lots
+
+# 3. Contrôler la qualité (refuse un lot douteux)
+python3 tools/controler-lot.py tools/lots/mit-ocw-6-*-examens.json
+
+# 4. Vérifier puis importer vers le plugin
+python3 tools/import-questions.py --verifier tools/lots/mit-ocw-6-661-examens.json
+python3 tools/import-questions.py --importer-dossier tools/lots \
+  --sortie wp-content/plugins/secura-academy/includes
+```
+
+Le catalogue des sources (`tools/sources-autorisees.json`) passe de **32 à
+39 entrées** : les sept cours sont maintenant listés avec leur licence
+vérifiée, leur usage et l'indication « non commercial ».
+
+---
+
+## 6. Ce qui reste à faire
+
+- **43 des 55 cours** de la liste du criblage ne sont pas encore traités.
+  Le même enchaînement s'applique : télécharger, écrire l'extracteur du
+  format, ou refuser avec un motif écrit.
+- **6.034, 6.035, 6.341** ne sont pas perdus : ils demandent un traitement
+  des **schémas** (récupérer les figures des PDF et les joindre aux
+  questions). C'est un travail Out Of Band, pas un problème de format.
+- Le **réservoir trop juste** de 6 examens (manque 16 au total) se corrige
+  en important d'autres cours dans les sections concernées, pas en
+  déplaçant des questions.

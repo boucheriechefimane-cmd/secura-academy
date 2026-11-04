@@ -33,6 +33,9 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ocw_appariement import enonces_avec_corrige  # noqa: E402
+
 
 def _charger_extracteur_de_base():
     """Recharge la repartition de l'extracteur « questions d'examen ».
@@ -60,7 +63,16 @@ LIGATURES = {
 }
 
 
+# Les pieds de page d'OCW sont retires par le module partage.
+# Les pieds de page d'OCW sont retires par le module partage
+# `tools/ocw_pieds.py` (le bloc occupe plusieurs lignes : le retirer
+# ligne par ligne laissait des morceaux dans l'enonce).
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ocw_pieds import retirer_pieds_de_page  # noqa: E402
+
+
 def nettoyer(texte):
+    texte = retirer_pieds_de_page(texte)
     for avant, apres in LIGATURES.items():
         texte = texte.replace(avant, apres)
     texte = re.sub(r"[ \t]+", " ", texte)
@@ -205,22 +217,23 @@ def main(argv=None):
                             help="fichier JSON de repartition {room: [questions]} (facultatif)")
     args = analyseur.parse_args(argv)
 
-    fichiers = sorted(f for f in os.listdir(args.texte) if f.endswith("_sol.txt"))
-    if not fichiers:
-        print("Aucun corrige (*_sol.txt) dans %s" % args.texte)
+    # L'appariement enonce <-> corrige est fait par le module partage
+    # `tools/ocw_appariement.py` : il tient compte du hash de ressource
+    # d'OCW et des marqueurs de corrige (`_sol`, `_soln`, `examsol`...).
+    # Avant, on exigeait exactement `<base>_sol.txt` : le MIT 14.15J
+    # nomme son corrige `..._examsol`, et la paire n'etait pas trouvee.
+    paires = enonces_avec_corrige(args.texte)
+    if not paires:
+        print("Aucune paire enonce + corrige trouvee dans %s" % args.texte)
         return 1
 
     questions = []
     vues = set()
-    for nom in fichiers:
-        base = nom[: -len("_sol.txt")]
-        chemin_examen = os.path.join(args.texte, base + ".txt")
-        if not os.path.exists(chemin_examen):
-            print("  %-28s pas d'énoncé correspondant — ignoré" % base)
-            continue
+    for chemin_examen, chemin_corrige in paires:
+        base = os.path.basename(chemin_examen)
         lot = construire(
             chemin_examen,
-            os.path.join(args.texte, nom),
+            chemin_corrige,
             args.prefixe_solution,
             args.attribution,
             args.licence,

@@ -277,10 +277,10 @@
             "xp": 20
           },
           {
-            "question": "[MIT — question d’examen, en anglais] The class weak-IP is equal to another class that we have previously deﬁned.\nWhat is that class? Prove your answer.\n2\n18.404J / 18.4041J / 6.840J Theory of Computation\nFor information about citing these materials or our Terms of Use, visit:\n3",
+            "question": "[MIT — question d’examen, en anglais] The class weak-IP is equal to another class that we have previously deﬁned.\nWhat is that class? Prove your answer.",
             "mode": "solution",
             "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
-            "explanation": "Corrigé officiel du MIT : The class weak-IP = BPP. Clearly, BPP ≤ weak-IP because the Veriﬁer can simply\nignore the Prover. Conversely, weak-IP ≤ BPP because we can make a BPP machine\nwhich simulates both the Veriﬁer and the weak Prover P . If w ∩ A then P causes the\nVeriﬁer to accept with high probability and so will the BPP machine. If w ∪∩ A then P\ncauses the Veriﬁer to accept with low probability and so will the BPP machine.\n2\n18.404J / 18.4041J / 6.840J Theory of Computation\nFor information about citing these materials or our Terms of Use, visit:",
+            "explanation": "Corrigé officiel du MIT : The class weak-IP = BPP. Clearly, BPP ≤ weak-IP because the Veriﬁer can simply\nignore the Prover. Conversely, weak-IP ≤ BPP because we can make a BPP machine\nwhich simulates both the Veriﬁer and the weak Prover P . If w ∩ A then P causes the\nVeriﬁer to accept with high probability and so will the BPP machine. If w ∪∩ A then P\ncauses the Veriﬁer to accept with low probability and so will the BPP machine.",
             "source": "MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)",
             "licence": "CC BY-NC-SA 4.0",
             "xp": 20

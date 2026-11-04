@@ -242,6 +242,65 @@ def main():
                 resultat.stdout.strip()[-200:],
             )
 
+    #    4 bis. TOUS les lots livres sont valides, pas seulement trois
+    #    d'entre eux : un lot livre qui ne passe plus la validation est un
+    #    lot qu'il faut corriger avant qu'il n'atteigne les eleves.
+    dossier_lots = os.path.join(RACINE, "tools", "lots")
+    for nom in sorted(os.listdir(dossier_lots)):
+        if not nom.endswith(".json"):
+            continue
+        resultat = lancer(["--verifier", os.path.join(dossier_lots, nom)])
+        verifier(
+            resultat.returncode == 0,
+            "le lot livre %s est valide" % nom[:-5],
+            resultat.stdout.strip()[-200:],
+        )
+
+    #    4 ter. Chaque lot livre respecte les regles de fabrication de la
+    #    plateforme : enonce suffisant, correction officielle presente,
+    #    indice, licence et attribution. Un lot douteux est refuse.
+    controleur = os.path.join(RACINE, "tools", "controler-lot.py")
+    if os.path.exists(controleur):
+        resultat = subprocess.run(
+            [sys.executable, controleur] +
+            [os.path.join(dossier_lots, n) for n in sorted(os.listdir(dossier_lots))
+             if n.endswith(".json")],
+            capture_output=True, text=True,
+        )
+        verifier(
+            resultat.returncode == 0,
+            "tous les lots livres respectent les regles de fabrication",
+            resultat.stdout.strip()[-400:],
+        )
+
+    #    4 quater. Une room qui n'existe pas dans le plugin est refusee.
+    #    Sans ce garde-fou, le plugin ignore SILENCIEUSEMENT les questions
+    #    d'une room inconnue : elles disparaitraient sans bruit.
+    exemple = os.path.join(FIXTURES, "import-exemple.json")
+    with open(exemple, "r", encoding="utf-8") as fichier:
+        lot = json.load(fichier)
+    for room in lot["rooms"]:
+        room["room"] = "room-qui-nexiste-pas"
+    temporaire = os.path.join(FIXTURES, "..", "..", ".lot-room-inconnue.json")
+    temporaire = os.path.abspath(temporaire)
+    with open(temporaire, "w", encoding="utf-8") as fichier:
+        json.dump(lot, fichier, ensure_ascii=False)
+    try:
+        resultat = lancer(["--verifier", temporaire])
+        verifier(
+            resultat.returncode != 0,
+            "un lot dont la room n'existe pas dans le plugin est refuse",
+            resultat.stdout.strip()[-200:],
+        )
+        verifier(
+            "n'existe pas" in resultat.stdout,
+            "le refus dit que la room n'existe pas (et propose une room proche)",
+            resultat.stdout.strip()[-200:],
+        )
+    finally:
+        if os.path.exists(temporaire):
+            os.remove(temporaire)
+
     print("")
     if ECHECS:
         print("ECHEC — %d controle(s) en erreur : %s" % (len(ECHECS), " | ".join(ECHECS)))

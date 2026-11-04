@@ -48,6 +48,12 @@ import json
 import os
 import re
 import sys
+# L'appariement enonce <-> corrige : le hash de ressource d'OCW differe
+# d'un fichier a l'autre, un appariement par nom exact ne trouve donc
+# rien. Le module fait les deux : exact d'abord, puis sans le hash.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ocw_appariement import apparier  # noqa: E402
+
 
 LIGATURES = {
     "ﬀ": "ff", "ﬁ": "fi", "ﬂ": "fl", "ﬃ": "ffi", "ﬄ": "ffl",
@@ -551,11 +557,7 @@ def main(argv=None):
     for nom in fichiers:
         base = nom[:-len(".txt")]
         corrige = None
-        for suffixe in ("_sol.txt", "-solutions.txt", "_solutions.txt", "_answers.txt"):
-            candidat = os.path.join(args.texte, base + suffixe)
-            if os.path.exists(candidat):
-                corrige = candidat
-                break
+        corrige = apparier(nom, args.texte)
         if corrige is None:
             print("  %-34s pas de corrige — ignore" % base, file=sys.stderr)
             continue

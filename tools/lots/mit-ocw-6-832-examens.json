@@ -1,0 +1,94 @@
+{
+  "source": "mit-ocw-6-832-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009",
+  "url": "https://ocw.mit.edu/courses/6-832-underactuated-robotics-spring-2009/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.832 — question d’examen, en anglais] \nThe Simple Pendulum\n(3 points) For this part, we will consider the full dynamics of the simple pendu­\nlum with a constant input torque, but ignore any wrap-around effects. We wish\nto numerically investigate the basin of attraction of the stable ﬁxed point for\nthree parameter sets: {{b = u = 0}; {b = 0.5, u = 0}; {b = 0.5, u = 2gl }}.\nFor each setting of the parameters, give the location of the stable ﬁxed point\nand a plot of its basin of attraction over the domain x ∈ {−2π, 2π} and range\nẋ ∈ {−2 gl , 2 gl }. Use m = 1, l = 1, g = 9.8, and submit separate plots for each\nparameter set.\nHint: A matlab routine containing the basic components to compute and plot the\nbasins of attraction for the simple pendulum is available on the course website\n(calc_basin.m). The existing code creates a mesh over the state space which\nyou can use to keep track of what states are in the basin.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : For the case of b = u = 0 the basin of attraction has a single point; namely the fixed point at [0 0]T . The fixed\npoint (closest to the origin) for the case b = 0.5, u = 0 is [0 0]T . The fixed point for the case b = 0.5, u = 2gl is\n[ π6 0]. The basins of attraction for the latter two cases are shown in Figure 1.\nBOA for u=0,b=0.5                                          BOA for u=g/(2*l),b=0.5\n1                                                                1\n15                                          0.9             15                                               0.9\n0.8                                                              0.8\n10                                                          10\n0.7                                                              0.7\n5                                                           5\n0.6                                                              0.6\n0                                          0.5              0                                               0.5\nθ̇\nθ̇\n0.4                                                              0.4\n−5                                                          −5\n0.3                                                              0.3\n−10                                                         −10\n0.2                                                              0.2\n−15                                          0.1            −15                                               0.1\n0                                                                0\n−6   −4   −2      0        2   4   6                        −6   −4   −2        0         2     4   6\nθ                                                             θ\nFigure 1: The basins of attraction (green) for the case of b = 0.5, u = 0 (left) and b = 0.5, u = 2l\ng\n(right)",
+            "source": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009"
+          },
+          {
+            "question": "[MIT 6.832 — question d’examen, en anglais] \nThe Simple Pendulum\n(1 point) If you use feedback linearization to double gravity for the now effec­\ntively undamped system, how will it change the undamped phase plot you found\nin the last part? In addition to the torque used to cancel damping, how much\nmore torque must your motor be able to output to double gravity? To invert\ngravity?\n1 If you wish to be pedantic, project the visible sky onto a plane, accepting the distortion, and denote the\npoint the telescope is viewing on this plane by (x, y).\n2\n6.832 - Underactuated Robotics                               Problem Set 1, Spring 2009",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Doubling gravity will result in the phase plot of the now effectively undamped system “stretching” vertically, as\nhigher speeds will be reached , but it will remain qualitatively the same. Torque as large as mgl is required to\ndouble gravity, while torque as large as 2mgl is required to invert it, as double gravity just requires the motor to\ncreate and “extra” gravity, while inverting requires first canceling gravity, then adding another negative gravity\nin.",
+            "source": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009"
+          },
+          {
+            "question": "[MIT 6.832 — question d’examen, en anglais] \nOptimal control of the double integrator\n(2 points) Compare the time it takes the minimum time policy and the LQR policy\nto get within .05 of the goal in both x and ẋ. How does the time for the LQR\npolicy change as Q is increased? When Q is set to 100 times the identity matrix\nand R is kept the same, how does the time taken with LQR compare to time taken\nby the min-time policy? Does this make sense?\n3\n6.832 Underactuated Robotics\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : This solution assumes that the actuator cap experienced by the min-time policy is not in place for the LQR policy.\nIf it is the LQR policy will never do as well as the min-time policy, and will not limit towards it either as once\nhard limits on actuation magnitude are in place LQR loses its optimality guarantees and can start performing\nvery poorly.\nThe LQR solution required 9.89 seconds to reach the goal using Q = .25I. The min-time policy required 4.43\nseconds to reach the goal. Using Q = 100I, however, resulted in a time of 4.04 seconds. This is due to the LQR\npolicy not having bounds on actuation, and thus being able to outperform the min-time solution through the use\nof much larger actuator magnitudes than the min-time was permitted.\n3\n6.832 Underactuated Robotics\nSpring 2009\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009"
+          },
+          {
+            "question": "[MIT 6.832 — question d’examen, en anglais] \nNow, give the Hamiltonian for this problem and the adjoint equation. Hint: To\nsee things in the more standard form, you might literally replace the x in your\ndynamics equation and your cost function with a t (it’s perfectly legal).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The Hamiltonian is given by:\n√\ndz        1 + u2\nH = g(x, u) + p(x)    =             + p(x)u.\ndx          z\nUsing the fact that H must be at a minimum with respect to u allows us to write:\n∂H         u\n=0=p+ √\n∂u      z 1 + u2\nThis gives us the value of the adjoint p:\nu\np=− √       ,\nz 1 + u2\nand thus the Hamiltonian may be written:\n√\n1 + u2        u2        1\nH=             − √         = √       .\nz        z 1 + u2  z 1 + u2",
+            "source": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.832 — question d’examen, en anglais] \nThe Simple Pendulum\n(3 points) Using the same pendulum parameters as for the previous part, plot\nthe phase space trajectory of the pendulum for b = 0.5, u = 0 from the intial\ncondition θ = π/4, θ̇ = 0. Use feedback linearization to eliminate damping on\nthe system, and plot this phase space trajectory.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The trajectories for the system with u = 0 and with u = bθ̇ are shown in Figure 2. Note that the feedback\nlinearized system (u = bθ̇) creates a closed circuit (as would an undamped pendulum), with integration errors\naccounting for any small wobble seen in the trajectory. The system with no torque spirals in towards the fixed\npoint, as would be expected given the damping.\nFigure 2: Trajectories for the system without torque (left) and the system feedback linearized to be without damping\n(right).\n2",
+            "source": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009"
+          },
+          {
+            "question": "[MIT 6.832 — question d’examen, en anglais] \nOptimal control of the double integrator\n(2 points) In class we used Pontrayagin to determine the optimal minimum time\npolicy to get to (0, 0) for the brick. In Matlab, encode this minimum-time policy\nwhen |u| ≤ 1. Give the phase space trajectory of a brick following this trajectory\nfrom the initial condition x(0) = 2, ẋ(0) = 1.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The trajectory followed by the min-time policy is much sharper and reaches higher speeds than those achieved\nby the LQR. The LQR follows a much smoother path to the goal, and accelerates much less due to the cost put\non actuation, while the min-time policy is constantly using as much of its actuator as it can.\nFigure 3: Trajectories for the system following the minimum time and the LQR policies.",
+            "source": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009"
+          },
+          {
+            "question": "[MIT 6.832 — question d’examen, en anglais] \nCompute the dynamics of the system z with respect to x (eg, ∂x = ...).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The dynamics are given as:\ndz\n= u.\ndx",
+            "source": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.832 Underactuated Robotics, Spring 2009"
+          }
+        ]
+      }
+    }
+  ]
+}

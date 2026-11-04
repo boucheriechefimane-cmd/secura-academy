@@ -1,0 +1,46 @@
+{
+  "source": "mit-ocw-6-450-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.450 Principles of Digital Communications I, Fall 2006",
+  "url": "https://ocw.mit.edu/courses/6-450-principles-of-digital-communications-i-fall-2006/",
+  "rooms": [
+    {
+      "room": "les-fondamentaux-du-reseau",
+      "title": "les-fondamentaux-du-reseau",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.450 — question d’examen, en anglais] \nShow that a Huﬀman code can be rearranged, with no loss in expected length, into a\ncode for which the “binary decimal” numbers associated with the code words are increasing\nwith decreasing code word probabilities.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Any set of code word length that satisﬁes Kraft can be arranged in binary\ndecimal order. This was shown in lecture 2 when we proved that any set of lengths that\nsatisﬁed the Kraft inequality could be turned into a preﬁx-free code with those lengths.\nIt is not in general possible to assign 0’s and 1’s in the Huﬀman construction so as to\nachieve this ordering property. As an example look at the Huﬀman code for the symbol\nprobabilities {.15, .15, .2, .2, .3}.",
+            "source": "MIT OpenCourseWare, 6.450 Principles of Digital Communications I, Fall 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.450 Principles of Digital Communications I, Fall 2006"
+          },
+          {
+            "question": "[MIT 6.450 — question d’examen, en anglais] \nLet βm = Mm /2m be the fraction of nodes at length m that are leaf nodes. Show that\nβm       2δm\n≤\n1 − βm   1 − δm",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Combining parts (d) and (e), we have\nMm qm   Mm (1 − δm )\nδm ≥         ≥\n2      2(2m − Mm )\nWith the substitution βm = Mm /2m , this becomes\nβm qm   βm (1 − δm )\nδm ≥         ≥\n2      2(1 − βm )\nwhich, on rearrangement, is what is to be proven.\nCite as: Robert Gallager, course materials for 6.450 Principles of Digital Communications I, Fall 2006.\n(\n3",
+            "source": "MIT OpenCourseWare, 6.450 Principles of Digital Communications I, Fall 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.450 Principles of Digital Communications I, Fall 2006"
+          },
+          {
+            "question": "[MIT 6.450 — question d’examen, en anglais] \nAssume that r2 /A is extremely small and approximate the probability in (b) as e−M g(r)\nfor the appropriate function g(r).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : For any ε > 0, (1 − ε)M = eM ln(1−ε) . For ε very small, ln(1 − ε) ≈ ε, so\n(1 − ε)M ≈ e−M ε . Using πr2 /A for ε, this becomes\n2\n(1 − πr2 /A)M ≈ e−M πr /A",
+            "source": "MIT OpenCourseWare, 6.450 Principles of Digital Communications I, Fall 2006",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.450 Principles of Digital Communications I, Fall 2006"
+          }
+        ]
+      }
+    }
+  ]
+}

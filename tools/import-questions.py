@@ -42,6 +42,7 @@ from datetime import datetime, timezone
 
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CATALOGUE = os.path.join(RACINE, "tools", "sources-autorisees.json")
+ROOMS = os.path.join(RACINE, "tools", "rooms-connues.json")
 SORTIE_PAR_DEFAUT = os.path.join(
     RACINE, "wp-content", "plugins", "secura-academy", "includes"
 )
@@ -69,6 +70,27 @@ def catalogue():
     for source in donnees.get("sources", []):
         sources[source["id"]] = source
     return sources
+
+
+def rooms_connues():
+    """Les slugs de rooms que le plugin sait creer (None si la liste manque).
+
+    Le plugin ignore silencieusement les questions d'une room inconnue :
+    sans cette liste, une faute de frappe ferait disparaitre des questions
+    sans le moindre avertissement.
+    """
+    if not os.path.exists(ROOMS):
+        return None
+    with open(ROOMS, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def plus_proche(slug, rooms):
+    """La room connue la plus proche d'un slug inconnu (aide a la correction)."""
+    import difflib
+
+    proches = difflib.get_close_matches(slug, list(rooms), n=1, cutoff=0.4)
+    return proches[0] if proches else "(aucune room voisine)"
 
 
 def verifier_lot(lot, sources, commercial=False):
@@ -134,6 +156,12 @@ def verifier_lot(lot, sources, commercial=False):
             continue
         if not (room.get("title") or "").strip():
             problemes.append("La room '%s' n'a pas de titre." % slug)
+        if rooms_connues() is not None and slug not in rooms_connues():
+            problemes.append(
+                "La room '%s' n'existe pas dans le plugin : ses questions "
+                "seraient ignorees sans bruit. Room connue la plus proche : %s."
+                % (slug, plus_proche(slug, rooms_connues()))
+            )
 
         taches = room.get("tasks") or {}
         if not isinstance(taches, dict) or not taches:

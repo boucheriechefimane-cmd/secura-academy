@@ -5,7 +5,7 @@
   "url": "https://ocw.mit.edu/courses/6-858-computer-systems-engineering-spring-2014/",
   "rooms": [
     {
-      "room": "la-chaine-de-la-confiance",
+      "room": "architecture-de-confiance-separer-les-privileges",
       "title": "La chaîne de la confiance",
       "tasks": {
         "test": [

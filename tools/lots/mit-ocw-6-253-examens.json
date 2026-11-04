@@ -1,0 +1,134 @@
+{
+  "source": "mit-ocw-6-253-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+  "url": "https://ocw.mit.edu/courses/6-253-convex-analysis-and-optimization-spring-2012/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nShow that the intersection ∩i∈I Ci of a collection {Ci | i ∈ I} of cones is a cone.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let x ∈ ∩i∈I Ci and let α be a positive scalar. Since x ∈ Ci for all i ∈ I and each Ci is\na cone, the vector αx belongs to Ci for all i ∈ I. Hence, αx ∈ ∩i∈I Ci , showing that ∩i∈I Ci is a cone.",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          },
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nShow that the vector sum C1 + C2 of two cones C1 and C2 is a cone.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let x ∈ C1 + C2 and let α be a positive scalar. Then, x = x1 + x2 for some x1 ∈ C1 and\nx2 ∈ C2 , and since C1 and C2 are cones, αx1 ∈ C1 and αx2 ∈ C2 . Hence, αx = αx1 +αx2 ∈ C1 +C2 ,\n1\nshowing that C1 + C2 is a cone.",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          },
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nLet X be a nonempty bounded subset of Rn . Show that\n                                    cl(conv(X)) = conv(cl(X)).\nIn particular, if X is compact, then conv(X) is compact.\n\n                                                  1",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The set cl(X) is compact since X is bounded by assumption. Hence, its convex hull, conv(cl(X)),\nis compact, and it follows that\ncl(conv(X)) ⊂ cl(conv(cl(X))) = conv(cl(X)).\nIt is also true that\nconv(cl(X)) ⊂ conv(cl(conv(X))) = cl(conv(X)),\nsince, the closure of a convex set is convex. Hence, the result follows.\n3",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          },
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nShow that if C1 and C2 are nonempty closed convex sets, we have\nC1 ⊂ C2 ,\nif and only if\nσC1 (y) ≤ σC2 (y),               ∀ y ∈ Rn .\nConstruct an example showing that closedness of C1 and C2 is a necessary assumption.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Consider the indicator functions δC1 and δC2 of C1 and C2 . We have\nC1 ⊂ C2       if and only if             δC1 (x) ≥ δC2 (x),   ∀ x ∈ Rn .\nSince σC1 and σC2 are the conjugates of δC1 and δC2 , respectively, the result follows from part (a).\nTo see that the assumption of closedness of C1 and C2 is needed, consider two convex sets that\nhave the same closure, but none of the two is contained in the other, such as for example (0, 1] and\n[0, 1).\n2",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          },
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nConsider the problem\nminimize       f (x) = 10x1 + 3x2\nx\nsubject to 5x1 + x2 ≥ 4, x1 , x2 = 0 or 1,",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : To each of these 4 points we add the ﬁrst orphant and we get the M     ¯ set.\n5",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          },
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nLet C be a nonempty convex set in Rn , and let M be a nonempty aﬃne set in Rn . Show that\nM ∩rin(C) = ∅ is a necessary and suﬃcient condition for the existence of a hyperplane H containing\nM , and such that rin(C) is contained in one of the open halfspaces associated with H.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : If there exists a hyperplane H with the properties stated, the condition M ∩ rin(C) = ∅ clearly\nholds. Conversely, if M ∩ rin(C) = ∅, then M and C can be properly separated. This hyperplane\ncan be chosen to contain M since M is aﬃne. If this hyperplane contains a point in rin(C), then it\nmust contain all of C. This contradicts the proper separation property, thus showing that rin(C)\nis contained in one of the open halfspaces.\n2",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nShow that the image and the inverse image of a cone under a linear transformation is a cone.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : First we prove that A · C is a cone, where A is a linear transformation and A · C is the image\nof C under A. Let z ∈ A · C and let α be a positive scalar. Then, Ax = z for some x ∈ C, and\nsince C is a cone, αx ∈ C. Because A(αx) = αz, the vector αz is in A · C, showing that A · C is a\ncone.\nNext we prove that the inverse image A−1 · C of C under A is a cone. Let x ∈ A−1 · C and let α\nbe a positive scalar. Then Ax ∈ C, and since C is a cone, αAx ∈ C. Thus, the vector A(αx) ∈ C,\nimplying that αx ∈ A−1 · C, and showing that A−1 · C is a cone.",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          },
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nShow that a subset C is a convex cone if and only if it is closed under addition and positive\nscalar multiplication, i.e., C + C ⊂ C, and γC ⊂ C for all γ > 0.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Let C be a convex cone. Then γC ⊂ C, for all γ > 0, by the deﬁnition of cone. Furthermore,\nby convexity of C, for all x, y ∈ C, we have z ∈ C, where\n1\nz = (x + y).\n2\nHence (x + y) = 2z ∈ C, since C is a cone, and it follows that C + C ⊂ C.\nConversely, assume that C + C ⊂ C, and γC ⊂ C. Then C is a cone. Furthermore, if x, y ∈ C\nand α ∈ (0, 1), we have αx ∈ C and (1 − α)y ∈ C, and αx + (1 − α)y ∈ C (since C + C ⊂ C).\nHence C is convex.",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          },
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nConstruct an example of a point in a nonconvex set X that has the prolongation property, but is\nnot a relative interior point of X.\n\n\n\n\n                                              2\n\n\n\n\n\n6.253 Convex Analysis and Optimization\nSpring 2012\n\n\n\nFor information about citing these materials or our Terms of Use, visit:",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : Take two intersecting lines in the plane, and consider the point of intersection.\n4\n6.253 Convex Analysis and Optimization\nSpring 2012\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          },
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nConsider the problem\nminimize       f (x) = 10x1 + 3x2\nx\nsubject to 5x1 + x2 ≥ 4, x1 , x2 = 0 or 1,\nSketch the set of constraint-cost pairs {(4 − 5x1 − x2 , 10x1 + 3x2 )|x1 , x2 = 0 or 1}.\n(b)Describe the corresponding MC/MC framework as per Section 4.2.3.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The set of constraint-cost pairs contains 4 points: (-2,13), (-1,10), (3,3), (4,0).",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          },
+          {
+            "question": "[MIT 6.253 — question d’examen, en anglais] \nConsider the problem\nminimize       f (x) = 10x1 + 3x2\nx\nsubject to 5x1 + x2 ≥ 4, x1 , x2 = 0 or 1,\nSolve the problem and its dual, and relate the solutions to your sketch in part (a).",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : The primal optimal solution is x∗ = (1, 0) and the primal optimal cost is p∗ = 10. The dual\nfunction is easily found to be:\n⎧\n⎨4µ\n⎪            if µ ≤ 2,\nq(µ) = 10 − µ       if 2 ≤ µ ≤ 3,\n⎪\n13 − 2µ if 3 ≤ µ.\n⎩\nTherefore q ∗ = 8. This is the intersection of the line segment connecting the points (4,0), (-1,10)\nwith the y-axis.\n6\n6.253 Convex Analysis and Optimization\nSpring 2012\nFor information about citing these materials or our Terms of Use, visit:",
+            "source": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.253 Convex Analysis and Optimization, Spring 2012"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "source": "mit-ocw-6-042j-examens",
+  "licence": "CC BY-NC-SA 4.0",
+  "attribution": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010",
+  "url": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/",
+  "rooms": [
+    {
+      "room": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "title": "comment-marche-un-ordinateur-de-la-donnee-au-programme",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.042J — question d’examen, en anglais] \nConsider the simple graph G given in ﬁgure 1.\nFigure 1: Simple graph G\nB\nA                                                         C\nD                                                         F\nE\n[4 pts] Give the diameter of G.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : [4 pts] Give the diameter of G.",
+            "source": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010"
+          },
+          {
+            "question": "[MIT 6.042J — question d’examen, en anglais] \nConsider the simple graph G given in ﬁgure 1.\nFigure 1: Simple graph G\nB\nA                                                         C\nD                                                         F\nE\n[4 pts] Give a coloring on G and show that it uses the smallest possible number of\ncolors.",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : [4 pts] Give a coloring on G and show that it uses the smallest possible number of\ncolors.",
+            "source": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010"
+          },
+          {
+            "question": "[MIT 6.042J — question d’examen, en anglais] \nConsider the simple graph G given in ﬁgure 1.\nFigure 1: Simple graph G\nB\nA                                                         C\nD                                                         F\nE\n[4 pts] Give a list of edges reﬂecting the order in which one of the greedy algorithms\npresented in class (i.e. in lecture, recitation, or the course text) would choose edges when\nﬁnding an MST on H.\nMidterm                                                                            10",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : [4 pts] Give a list of edges reﬂecting the order in which one of the greedy algorithms\npresented in class (i.e. in lecture, recitation, or the course text) would choose edges when\nﬁnding an MST on H.",
+            "source": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010"
+          }
+        ]
+      }
+    },
+    {
+      "room": "donnees-et-systemes-organiser-linformation",
+      "title": "donnees-et-systemes-organiser-linformation",
+      "tasks": {
+        "test": [
+          {
+            "question": "[MIT 6.042J — question d’examen, en anglais] \nConsider the simple graph G given in ﬁgure 1.\nFigure 1: Simple graph G\nB\nA                                                         C\nD                                                         F\nE\n[4 pts] Give a Hamiltonian Cycle on G.\nMidterm                                                                              8",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : [4 pts] Give a Hamiltonian Cycle on G.",
+            "source": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010"
+          },
+          {
+            "question": "[MIT 6.042J — question d’examen, en anglais] \nConsider the simple graph G given in ﬁgure 1.\nFigure 1: Simple graph G\nB\nA                                                         C\nD                                                         F\nE\n[4 pts] Does G have an Eulerian cycle? Justify your answer.\nMidterm                                                                                   9\nNow consider graph H, which is like G but with weighted edges, in ﬁgure 2:\nFigure 2: Weighted graph H\nB\n3                       2\nA                                                        C\n10\n3                                         4\n1\nD                                                         F\nE            3",
+            "mode": "solution",
+            "hint": "Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.",
+            "xp": 20,
+            "explanation": "Corrigé officiel du MIT : [4 pts] Does G have an Eulerian cycle? Justify your answer.",
+            "source": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010",
+            "licence": "CC BY-NC-SA 4.0",
+            "attribution": "MIT OpenCourseWare, 6.042J / 18.062J Mathematics for Computer Science, Fall 2010"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -94,6 +94,9 @@ def main():
     analyseur.add_argument('--travailleurs', type=int, default=6)
     analyseur.add_argument('--prefixes', nargs='*', default=None)
     analyseur.add_argument('--avec-corrige-seulement', action='store_true')
+    analyseur.add_argument('--direct', action='store_true',
+                           help="mode direct : l URL se deduit du nom de document "
+                                "(le rapport de criblage donne deja le nom exact)")
     args = analyseur.parse_args()
 
     if not os.path.isdir(args.dossier):
@@ -112,11 +115,27 @@ def main():
     tous = []
     for slug in slugs:
         print('-> %s' % slug, flush=True)
-        docs = documents_du_cours(slug, args.dossier)
-        if args.avec_corrige_seulement:
-            docs = {n: u for n, u in docs.items() if RE_SOLUTION.search(n)}
+        if args.direct and args.rapport:
+            # Le rapport de criblage donne deja le nom EXACT de chaque document.
+            # L URL d OCW est alors directe : on evite le parcours des pages,
+            # qui demande une requete HTML par page et par ressource.
+            entree = next(c for c in retenus if c['cours'] == slug)
+            docs = {}
+            for nom in entree.get('documents_examen') or []:
+                if args.avec_corrige_seulement and not RE_SOLUTION.search(nom):
+                    continue
+                docs[nom] = '%s%s' % (URL_COURS % slug, nom)
+        else:
+            docs = documents_du_cours(slug, args.dossier)
+            if args.avec_corrige_seulement:
+                docs = {n: u for n, u in docs.items() if RE_SOLUTION.search(n)}
         for nom, url in sorted(docs.items()):
-            tous.append((slug, nom, url, args.dossier))
+            # Un dossier par cours : les documents de cours differents ne se
+            # melangent jamais, et on sait toujours d ou vient un fichier.
+            sous_dossier = args.dossier if not args.direct else os.path.join(args.dossier, slug)
+            if not os.path.isdir(sous_dossier):
+                os.makedirs(sous_dossier, exist_ok=True)
+            tous.append((slug, nom, url, sous_dossier))
 
     print('documents a telecharger : %d' % len(tous), flush=True)
     ok = 0

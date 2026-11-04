@@ -45,18 +45,11 @@ problem.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 
 Is the Prover which follows that protocol a weak Prover? Why or why not?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : No, the prover for #SAT is not a weak Prover, as far as we know. Calculating the
 cooeﬁcients of the polynomials seems to require more than polynomial time.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT — question d’examen, en anglais] The class weak-IP is equal to another class that we have previously deﬁned.
-What is that class? Prove your answer.
-2
-18.404J / 18.4041J / 6.840J Theory of Computation
-For information about citing these materials or our Terms of Use, visit:
-3', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The class weak-IP = BPP. Clearly, BPP ≤ weak-IP because the Veriﬁer can simply
+What is that class? Prove your answer.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The class weak-IP = BPP. Clearly, BPP ≤ weak-IP because the Veriﬁer can simply
 ignore the Prover. Conversely, weak-IP ≤ BPP because we can make a BPP machine
 which simulates both the Veriﬁer and the weak Prover P . If w ∩ A then P causes the
 Veriﬁer to accept with high probability and so will the BPP machine. If w ∪∩ A then P
-causes the Veriﬁer to accept with low probability and so will the BPP machine.
-2
-18.404J / 18.4041J / 6.840J Theory of Computation
-For information about citing these materials or our Terms of Use, visit:', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+causes the Veriﬁer to accept with low probability and so will the BPP machine.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 						),
 					),
 				),

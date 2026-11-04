@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.12.1
+ * Version:           0.12.4
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -12,6 +12,42 @@
  * Text Domain:       seca-academy
  *
  * @package Secura_Academy
+ *
+ * 0.12.4 — Le pied de page d'OCW ne finit plus dans un enonce, et une
+ *           room inconnue ne peut plus disparaitre en silence.
+ *
+ *           - Defaut reel trouve dans la question 12 du lot MIT 14.15J :
+ *             le pied de page du PDF (marqueur OCW, URL, cours, annee,
+ *             conditions d'utilisation) etait publie avec l'enonce. Le
+ *             pied de page est pluriligne : l'ancien nettoyage ne
+ *             retirait que la ligne du marqueur et laissait le reste.
+ *             Un module unique (tools/ocw_pieds.py) retire maintenant le
+ *             BLOC de pied de page, dans les deux extracteurs qui
+ *             produisaient ces lots.
+ *           - Non-regression prouvee sur les 24 documents reponses :
+ *             14.15J (14 questions et 14 corrections identiques), 6.851
+ *             (12 questions, seul le pied de page differe), 18.404J
+ *             (20 questions, meme room, meme contenu). Zero ligne de
+ *             contenu reellement perdue.
+ *           - Garde-fou : une room qui n'existe pas dans le plugin est
+ *             refusee a l'import (tools/rooms-connues.json,
+ *             tools/controler-lot.py, tools/import-questions.py). Le
+ *             plugin ignorait jusqu'ici ces questions sans un mot.
+ *
+ * 0.12.3 — La campagne des cours prioritaires : 135 questions de plus,
+ *           sept cours du MIT, deux extracteurs de plus.
+ *
+ *           - MIT 6.661 (74), 6.111 (22), 6.253 (11), 6.832 (7),
+ *             6.042J (5), 6.262 (13), 6.450 (3) : enonce et corrige
+ *             officiels, licence CC BY-NC-SA 4.0 verifiee sur la page
+ *             de chaque cours.
+ *           - Deux extracteurs : le treizieme (probleme + parties +
+ *             solution officielle) et le quatorzieme (enonce et
+ *             corrige alignes ligne par ligne, MIT 6.111).
+ *           - Cinq cours prioritaires sont REFUSES, avec un motif
+ *             ecrit : schema absent, reponse en code, documents
+ *             apparies, questionnaire rempli. Voir
+ *             docs/RECOLTE-OCW-2026-11.md.
  *
  * 0.12.1 — Les faux positifs du comite corriges a la racine.
  *
@@ -342,7 +378,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.12.1' );
+define( 'SECURA_ACADEMY_VERSION', '0.12.4' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );

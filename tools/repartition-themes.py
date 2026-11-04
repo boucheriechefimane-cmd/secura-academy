@@ -53,6 +53,9 @@ DECLARATION = "tools/cibles-sections.json"
 # Ces themes sont ceux des cours MIT/OpenCourseWare que nous importons :
 #
 #   cyber       — 6.858, 6.828, 14.15J (securite des systemes, OS, reseaux)
+#   communications — 6.450, 6.661 (systemes de communication, antennes,
+#                    traitement du signal : la base theorique du
+#                    renseignement et de l'interception des emissions)
 #   donnees     — 6.830 (bases de donnees)
 #   algorithmes — 6.006, 6.046J (conception et analyse d'algorithmes)
 #   cpp         — 1.124J (fondations du genie logiciel, C++)
@@ -62,7 +65,7 @@ DECLARATION = "tools/cibles-sections.json"
 THEMES_SECTION = {
     # Parcours « Fondations : reseaux, web et cryptographie ».
     "fondations-reseaux-web-et-cryptographie :: Module 1": ["cyber"],
-    "fondations-reseaux-web-et-cryptographie :: Module 2": ["cyber"],
+    "fondations-reseaux-web-et-cryptographie :: Module 2": ["cyber", "communications"],
     "fondations-reseaux-web-et-cryptographie :: Module 3": ["cyber"],
     "fondations-reseaux-web-et-cryptographie :: Module 4": ["cyber"],
     "fondations-reseaux-web-et-cryptographie :: Module 5": ["cyber"],
