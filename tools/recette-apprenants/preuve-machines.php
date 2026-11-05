@@ -141,6 +141,18 @@ function seca_preuve_joindre( $nom, $url ) {
 }
 
 /**
+ * La machine embarque-t-elle un client HTTP (curl ou wget) ?
+ *
+ * @param string $nom Conteneur.
+ * @return bool
+ */
+function seca_preuve_a_client_http( $nom ) {
+	$essai = seca_preuve_dans( $nom, 'command -v curl || command -v wget' );
+
+	return '' !== trim( $essai['sortie'] );
+}
+
+/**
  * Le nom du service qui repond dans une pile, deduit de la cible.
  *
  * @param string $cible URL declaree par la room.
@@ -296,8 +308,17 @@ foreach ( $rooms as $room ) {
 
 	$total++;
 
-	$mode    = isset( $manifest['mode'] ) ? $manifest['mode'] : 'single';
-	$cible   = isset( $manifest['target'] ) ? (string) $manifest['target'] : '';
+	$mode  = isset( $manifest['mode'] ) ? $manifest['mode'] : 'single';
+	$cible = isset( $manifest['target'] ) ? (string) $manifest['target'] : '';
+
+	/* La cible n'est pas toujours une URL nue : « noeud interne :
+	   http://internal:8080 ». On en extrait l'adresse au lieu de la
+	   rejeter. */
+	$url = '';
+	if ( preg_match( '#https?://[^\s]+#', $cible, $trouve_url ) ) {
+		$url = $trouve_url[0];
+	}
+
 	$chemins = seca_preuve_drapeaux( $room->ID );
 
 	/* ---------------- Pile compose ---------------- */
@@ -337,32 +358,57 @@ foreach ( $rooms as $room ) {
 		}
 
 		if ( $ok_room && ! empty( $chemins ) ) {
-			$garde_conteneur = seca_preuve_conteneur_compose( $projet, $garde );
+			/* Meme commande que le plugin : « compose exec -u 0 <service> cat
+			   <chemin> ». C'est ce couple (service, chemin) qui doit tenir. */
+			foreach ( $chemins as $chemin ) {
+				$lecture = seca_preuve_exec(
+					'docker compose -f ' . escapeshellarg( $compose ) . ' -p ' . escapeshellarg( $projet )
+					. ' exec -T -u 0 ' . escapeshellarg( $garde ) . ' cat ' . escapeshellarg( $chemin )
+				);
 
-			if ( '' === $garde_conteneur ) {
-				$ok_room   = false;
-				$details[] = 'le service qui garde le drapeau (' . $garde . ') ne tourne pas';
-			} else {
-				list( $drapeaux_ok, $details_drapeaux ) = seca_preuve_verifier_drapeaux( $garde_conteneur, $chemins );
+				$valeur = seca_preuve_drapeau( $lecture['sortie'] );
 
-				if ( ! $drapeaux_ok ) {
+				if ( 0 !== $lecture['code'] || '' === $valeur ) {
+					/* Deux issues tres differentes : soit le fichier n'existe
+					   pas (la room ment), soit il existe mais sans drapeau
+					   exploitable (le lab est casse). */
+					$existe = seca_preuve_exec(
+						'docker compose -f ' . escapeshellarg( $compose ) . ' -p ' . escapeshellarg( $projet )
+						. ' exec -T -u 0 ' . escapeshellarg( $garde ) . ' test -f ' . escapeshellarg( $chemin )
+					);
+
 					$ok_room = false;
+					$details[] = 0 === $existe['code']
+						? 'drapeau sans valeur SECURA{...} dans ' . $chemin . ' (service ' . $garde . ')'
+						: 'drapeau absent : ' . $chemin . ' n existe pas dans le service ' . $garde;
+					continue;
 				}
 
-				$details = array_merge( $details, $details_drapeaux );
+				$lecture_eleve = seca_preuve_exec(
+					'docker compose -f ' . escapeshellarg( $compose ) . ' -p ' . escapeshellarg( $projet )
+					. ' exec -T ' . escapeshellarg( $service ) . ' cat ' . escapeshellarg( $chemin )
+				);
+
+				if ( 0 === $lecture_eleve['code'] && '' !== seca_preuve_drapeau( $lecture_eleve['sortie'] ) ) {
+					$ok_room   = false;
+					$details[] = 'l apprenant lit directement ' . $chemin . ' depuis ' . $service;
+					continue;
+				}
+
+				$details[] = $chemin . ' = ' . $valeur . ' (service ' . $garde . ', root seulement)';
 			}
 		}
 
-		if ( $ok_room && '' !== $cible && 0 === strpos( $cible, 'http' ) ) {
+		if ( '' !== $url ) {
 			/* Depuis la machine de l'apprenant, comme le ferait l'eleve. */
-			$code_http = $conteneur ? seca_preuve_joindre( $conteneur, $cible ) : 0;
+			$code_http = $conteneur ? seca_preuve_joindre( $conteneur, $url ) : 0;
 
 			if ( $code_http >= 200 && $code_http < 500 ) {
-				$details[] = 'cible ' . $cible . ' → HTTP ' . $code_http . ' depuis ' . $service;
+				$details[] = 'cible ' . $url . ' → HTTP ' . $code_http . ' depuis ' . $service;
 
 				/* Et le service qui la sert tourne-t-il vraiment ? Sans
 				   cela, un « noeud interne » absent passerait inapercu. */
-				$hote    = seca_preuve_service_cible( $cible );
+				$hote    = seca_preuve_service_cible( $url );
 				$servant = '' !== $hote ? seca_preuve_conteneur_compose( $projet, $hote ) : '';
 
 				if ( '' !== $servant ) {
@@ -373,7 +419,7 @@ foreach ( $rooms as $room ) {
 				}
 			} else {
 				$ok_room   = false;
-				$details[] = 'cible ' . $cible . ' injoignable depuis ' . $service;
+				$details[] = 'cible ' . $url . ' injoignable depuis ' . $service;
 			}
 		}
 
@@ -453,13 +499,34 @@ foreach ( $rooms as $room ) {
 	}
 
 	if ( '' !== $cible && 0 === strpos( $cible, 'http' ) ) {
-		$code_http = seca_preuve_joindre( $nom, $cible );
+		$port_cible = wp_parse_url( $url, PHP_URL_PORT );
+		$port_cible = $port_cible ? (int) $port_cible : ( 'https' === wp_parse_url( $url, PHP_URL_SCHEME ) ? 443 : 80 );
 
-		if ( $code_http >= 200 && $code_http < 500 ) {
-			$details[] = 'cible ' . $cible . ' → HTTP ' . $code_http;
+		$ecoute = seca_preuve_dans( $nom, '(exec 3<>/dev/tcp/127.0.0.1/' . $port_cible . ') 2>/dev/null && echo ouvert || echo ferme' );
+
+		if ( 'ouvert' === trim( $ecoute['sortie'] ) ) {
+			/* Le port repond : reste a savoir si l'application sert vraiment
+			   quelque chose. Faute de client HTTP dans l'image, on le dit. */
+			if ( seca_preuve_a_client_http( $nom ) ) {
+				$code_http = seca_preuve_joindre( $nom, $url );
+
+				if ( $code_http >= 200 && $code_http < 500 ) {
+					$details[] = 'cible ' . $url . ' → HTTP ' . $code_http;
+				} else {
+					$ok_room   = false;
+					$details[] = 'cible ' . $url . ' : le port ecoute mais ne repond pas (code ' . $code_http . ')';
+				}
+			} else {
+				/* Une room qui annonce un site web dans une image sans curl ni
+				   wget : l'apprenant ne pourrait pas le consulter non plus.
+				   C'est un defaut de la machine, pas un doute du test. */
+				$ok_room   = false;
+				$details[] = 'cible ' . $url . ' : le port ' . $port_cible
+					. ' ecoute mais l image n a ni curl ni wget (l apprenant ne peut pas consulter la cible)';
+			}
 		} else {
 			$ok_room   = false;
-			$details[] = 'cible ' . $cible . ' injoignable depuis la machine';
+			$details[] = 'cible ' . $url . ' injoignable : rien n ecoute sur le port ' . $port_cible;
 		}
 	} elseif ( '' !== $cible ) {
 		list( $fichier_ok, $detail_fichier ) = seca_preuve_cible_fichier( $nom, $cible );
