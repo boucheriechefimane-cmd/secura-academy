@@ -99,101 +99,7 @@ sin(2τ )
 Rxx (τ ) =      x(t)x(t − τ ) dt = 9          .
 −∞                          πτ
 (a) (3 points) What is the energy spectral density S xx (jω) of this signal? (A careful and fully
-labeled sketch of this energy spectral density as a function of ω will suﬃce as an answer.)
-Check your answer carefully, as errors here will propagate! As one check on your answer,
-compute the energy of the signal, namely
-� ∞
-Ex =       x2 (t) dt ,
-−∞
-in both the time domain and the frequency domain — i.e., respectively using Rxx (τ ) and
-S xx (jω) — to be sure you get the same answer both ways.
-(b) (2 points) What is the magnitude of the Fourier transform of x(t), i.e., what is |X(jω)|?
-(Again, a careful and fully labeled sketch of |X(jω)| as a function of ω will suﬃce as an
-answer.)
-(c) (2 points) Keeping in mind your answer to (b), explicitly write down an expression for one
-possible signal x(t) that has the deterministic autocorrelation function Rxx (τ ) speciﬁed
-above. Be sure to explain your reasoning!
-(d) (2 points) Your answer in (c) is not unique; for example, the signal −x(t) would have the
-same deterministic autocorrelation function. Describe precisely the relation – in either
-the time domain or the frequency domain – between any other (correct but otherwise
-arbitrary) answer to (c) and the speciﬁc one you have written down in (c).
-(e) (3 points) Suppose the x(t) above is the input to an ideal lowpass ﬁlter that has gain 1 for
-frequencies ω satisfying |ω| < 1, and gain 0 elsewhere. Denoting the corresponding output
-of the ﬁlter by y(t), determine its energy spectral density S yy (jω) — draw a careful and
-fully labeled sketch! — and also compute the energy Ey of y(t).
-(f) (3 points) Suppose another signal f (t) has deterministic autocorrelation function
-� ∞
-sin(2τ )
-Rf f (τ ) =     f (t)f (t − τ ) dt = cos(10τ )          .
-−∞                                   τ
-Determine the magnitude of the Fourier transform of the signal, i.e., determine |F (jω)|.
-(As before, a careful and fully labeled sketch will suﬃce as the answer.) Now determine
-the value of                       � ∞
-x(t)f (t − τ ) dt ,
-−∞
-where x(t) is the signal above. Explain your reasoning carefully.
-5
-Problem 3 (10 points)
-The ﬁrst ﬁgure below shows our standard conﬁguration for DT processing of a CT signal
-xc (t) to produce a CT signal yc (t). Here T as usual denotes the sampling and reconstruction
-interval, and the D/C converter implements an ideal bandlimited interpolation. The second
-ﬁgure displays the frequency response of the DT ﬁlter, which is an ideal lowpass ﬁlter.
-xc (t)-            xd [n]-                yd [n]-            yc (t)
--
-C/D                Hd (ejΩ )              D/C
-6                                            6
-T                                            T
-H (ejΩ )
-6 d
-1
--
-−π −π/2                 π/2    π        Ω
-Suppose the CT input xc (t) is chosen to be
-xc (t) = sin(2πf1 t) ,
-where f1 = 1300 Hz.
-(a) (1 point) What minimum value does the sampling frequency 1/T have to exceed in order
-to avoid aliasing at the C/D converter, for this signal?
-For each of the following parts, fully specify what the output yc (t) is for the indicated choice
-of the sampling/reconstruction frequency 1/T .
-(b) (3 points) 1/T = 8000 Hz.
-(c) (3 points) 1/T = 4000 Hz.
-(d) (3 points) 1/T = 1600 Hz.
-6
-Problem 4 (20 points)
-Consider the following CT LTI state-space model:
-�     �        � �
-0 1           0
-q̇(t) =         q(t) +     x(t)
-6 1           1
-y(t) = [ 1 1 ] q(t) .
-(a) (3 points) Determine the natural frequencies (or eigenvalues) λ1 and λ2 of the system,
-and the associated eigenvectors v1 and v2 respectively. (Compute these carefully, because
-errors will propagate, and you will lose signiﬁcant points! You should check that what you
-claim is an eigenvalue/eigenvector pair does indeed satisfy the deﬁning matrix equation
-for such a pair.)
-(b) (1 point) Is the system asymptotically stable?
-(c) (3 points) Determine the transfer function H(s) of the system. What feature of this H(s)
-tells you the system is reachable and observable?
-(d) (4 points) When the initial state of the system is at zero, i.e., when q(0) = 0, and when
-the input for t ≥ 0 is x(t) = 5e−t , the output y(t) of the system for t ≥ 0 is
-y(t) = e3t − e−2t .
-(You can use this fact as a check on some of your preceding answers!) What initial
-condition q(0) would we need in order to have y(t) ≡ 0 for t ≥ 0, with this same input
-x(t) = 5e−t for t ≥ 0.
-(e) (3 points) Suppose we implement a state feedback control of the form
-x(t) = gT q(t) + p(t)
-on the given system, where the feedback gain vector is gT = [g1 g2 ], and p(t) is some
-new external input. Write down the resulting state-space model, with input p(t), state
-vector q(t), and output y(t). You need to show the model in detail, making explicit the
-entries of all matrices and vectors involved in the state evolution equation and the output
-equation.
-(f) (4 points) For your closed-loop system in (e), determine what choice of g1 and g2 will
-result in a closed-loop characteristic polynomial of
-ν(s) = s2 + 3s + 2 .
-Is the resulting system observable? Be sure to show your reasoning.
-(g) (2 points) With the state feedback gains picked as in (f), suppose p(t) in the closed-
-loop system is kept constant at the value p = 6 for all time. What is the corresponding
-equilibrium value q of the state vector q(t)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : H(ejΩ ) = exp{−j(60Ω + 25Ω3 )} for |Ω| < π. In this frequency range,
+labeled sketch of this energy spectral density as a function of ω will suﬃce as an', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : H(ejΩ ) = exp{−j(60Ω + 25Ω3 )} for |Ω| < π. In this frequency range,
 1(a) (1 point) the magnitude |H(ejΩ )| is:
 1
 1(b) (1 point) the phase ∠H(ejΩ ) is:
@@ -391,7 +297,383 @@ Setting q̇(t) = 0 in the closed-loop system of 4(e), with the gains picked as i
 4(f ) and with p(t) = p = 6, we ﬁnd
 � �
 3
-q=      .', 'source' => 'MIT OpenCourseWare, 6.011 Introduction To Communication Control And Signal Processing, Spring 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+q=      .', 'source' => 'MIT OpenCourseWare, 6.011 Introduction To Communication Control And Signal Processing, Spring 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas .)
+check your answer carefully, as errors here will propagate! as one check on your answer,
+compute the energy of the signal, namely
+� ∞
+ex =       x2 (t) dt ,
+−∞
+in both the time domain and the frequency domain — i.e., respectively using rxx (τ ) and
+s xx (jω) — to be sure you get the same answer both ways.
+(b) (2 points) what is the magnitude of the fourier transform of x(t), i.e., what is |x(jω)|?
+(again, a careful and fully labeled sketch of |x(jω)| as a function of ω will suﬃce as an
+answer.)
+(c) (2 points) keeping in mind your answer to (b), explicitly write down an expression for one
+possible signal x(t) that has the deterministic autocorrelation function rxx (τ ) speciﬁed
+above. be sure to explain your reasoning!
+(d) (2 points) your answer in (c) is not unique; for example, the signal −x(t) would have the
+same deterministic autocorrelation function. describe precisely the relation – in either
+the time domain or the frequency domain – between any other (correct but otherwise
+arbitrary) answer to (c) and the speciﬁc one you have written down in (c).
+(e) (3 points) suppose the x(t) above is the input to an ideal lowpass ﬁlter that has gain 1 for
+frequencies ω satisfying |ω| < 1, and gain 0 elsewhere. denoting the corresponding output
+of the ﬁlter by y(t), determine its energy spectral density s yy (jω) — draw a careful and
+fully labeled sketch! — and also compute the energy ey of y(t).
+(f) (3 points) suppose another signal f (t) has deterministic autocorrelation function
+� ∞
+sin(2τ )
+rf f (τ ) =     f (t)f (t − τ ) dt = cos(10τ )          .
+−∞                                   τ
+determine the magnitude of the fourier transform of the signal, i.e., determine |f (jω)|.
+(as before, a careful and fully labeled sketch will suﬃce as the answer.) now determine
+the value of                       � ∞
+x(t)f (t − τ ) dt ,
+−∞
+where x(t) is the signal above. explain your reasoning carefully.
+5
+problem 3 (10 points)
+the ﬁrst ﬁgure below shows our standard conﬁguration for dt processing of a ct signal
+xc (t) to produce a ct signal yc (t). here t as usual denotes the sampling and reconstruction
+interval, and the d/c converter implements an ideal bandlimited interpolation. the second
+ﬁgure displays the frequency response of the dt ﬁlter, which is an ideal lowpass ﬁlter.
+xc (t)-            xd [n]-                yd [n]-            yc (t)
+-
+c/d                hd (ejω )              d/c
+6                                            6
+t                                            t
+h (ejω )
+6 d
+1
+-
+−π −π/2                 π/2    π        ω
+suppose the ct input xc (t) is chosen to be
+xc (t) = sin(2πf1 t) ,
+where f1 = 1300 hz.
+(a) (1 point) what minimum value does the sampling frequency 1/t have to exceed in order
+to avoid aliasing at the c/d converter, for this signal?
+for each of the following parts, fully specify what the output yc (t) is for the indicated choice
+of the sampling/reconstruction frequency 1/t .
+(b) (3 points) 1/t = 8000 hz.
+(c) (3 points) 1/t = 4000 hz.
+(d) (3 points) 1/t = 1600 hz.
+6
+problem 4 (20 points)
+consider the following ct lti state-space model:
+�     �        � �
+0 1           0
+q̇(t) =         q(t) +     x(t)
+6 1           1
+y(t) = [ 1 1 ] q(t) .
+(a) (3 points) determine the natural frequencies (or eigenvalues) λ1 and λ2 of the system,
+and the associated eigenvectors v1 and v2 respectively. (compute these carefully, because
+errors will propagate, and you will lose signiﬁcant points! you should check that what you
+claim is an eigenvalue/eigenvector pair does indeed satisfy the deﬁning matrix equation
+for such a pair.)
+(b) (1 point) is the system asymptotically stable?
+(c) (3 points) determine the transfer function h(s) of the system. what feature of this h(s)
+tells you the system is reachable and observable?
+(d) (4 points) when the initial state of the system is at zero, i.e., when q(0) = 0, and when
+the input for t ≥ 0 is x(t) = 5e−t , the output y(t) of the system for t ≥ 0 is
+y(t) = e3t − e−2t .
+(you can use this fact as a check on some of your preceding answers!) what initial
+condition q(0) would we need in order to have y(t) ≡ 0 for t ≥ 0, with this same input
+x(t) = 5e−t for t ≥ 0.
+(e) (3 points) suppose we implement a state feedback control of the form
+x(t) = gt q(t) + p(t)
+on the given system, where the feedback gain vector is gt = [g1 g2 ], and p(t) is some
+new external input. write down the resulting state-space model, with input p(t), state
+vector q(t), and output y(t). you need to show the model in detail, making explicit the
+entries of all matrices and vectors involved in the state evolution equation and the output
+equation.
+(f) (4 points) for your closed-loop system in (e), determine what choice of g1 and g2 will
+result in a closed-loop characteristic polynomial of
+ν(s) = s2 + 3s + 2 .
+is the resulting system observable? be sure to show your reasoning.
+(g) (2 points) with the state feedback gains picked as in (f), suppose p(t) in the closed-
+loop system is kept constant at the value p = 6 for all time. what is the corresponding
+equilibrium value q of the state vector q(t)?', 'L\'inverse de .)
+check your answer carefully, as errors here will propagate! as one check on your answer,
+compute the energy of the signal, namely
+� ∞
+ex =       x2 (t) dt ,
+−∞
+in both the time domain and the frequency domain — i.e., respectively using rxx (τ ) and
+s xx (jω) — to be sure you get the same answer both ways.
+(b) (2 points) what is the magnitude of the fourier transform of x(t), i.e., what is |x(jω)|?
+(again, a careful and fully labeled sketch of |x(jω)| as a function of ω will suﬃce as an
+answer.)
+(c) (2 points) keeping in mind your answer to (b), explicitly write down an expression for one
+possible signal x(t) that has the deterministic autocorrelation function rxx (τ ) speciﬁed
+above. be sure to explain your reasoning!
+(d) (2 points) your answer in (c) is not unique; for example, the signal −x(t) would have the
+same deterministic autocorrelation function. describe precisely the relation – in either
+the time domain or the frequency domain – between any other (correct but otherwise
+arbitrary) answer to (c) and the speciﬁc one you have written down in (c).
+(e) (3 points) suppose the x(t) above is the input to an ideal lowpass ﬁlter that has gain 1 for
+frequencies ω satisfying |ω| < 1, and gain 0 elsewhere. denoting the corresponding output
+of the ﬁlter by y(t), determine its energy spectral density s yy (jω) — draw a careful and
+fully labeled sketch! — and also compute the energy ey of y(t).
+(f) (3 points) suppose another signal f (t) has deterministic autocorrelation function
+� ∞
+sin(2τ )
+rf f (τ ) =     f (t)f (t − τ ) dt = cos(10τ )          .
+−∞                                   τ
+determine the magnitude of the fourier transform of the signal, i.e., determine |f (jω)|.
+(as before, a careful and fully labeled sketch will suﬃce as the answer.) now determine
+the value of                       � ∞
+x(t)f (t − τ ) dt ,
+−∞
+where x(t) is the signal above. explain your reasoning carefully.
+5
+problem 3 (10 points)
+the ﬁrst ﬁgure below shows our standard conﬁguration for dt processing of a ct signal
+xc (t) to produce a ct signal yc (t). here t as usual denotes the sampling and reconstruction
+interval, and the d/c converter implements an ideal bandlimited interpolation. the second
+ﬁgure displays the frequency response of the dt ﬁlter, which is an ideal lowpass ﬁlter.
+xc (t)-            xd [n]-                yd [n]-            yc (t)
+-
+c/d                hd (ejω )              d/c
+6                                            6
+t                                            t
+h (ejω )
+6 d
+1
+-
+−π −π/2                 π/2    π        ω
+suppose the ct input xc (t) is chosen to be
+xc (t) = sin(2πf1 t) ,
+where f1 = 1300 hz.
+(a) (1 point) what minimum value does the sampling frequency 1/t have to exceed in order
+to avoid aliasing at the c/d converter, for this signal?
+for each of the following parts, fully specify what the output yc (t) is for the indicated choice
+of the sampling/reconstruction frequency 1/t .
+(b) (3 points) 1/t = 8000 hz.
+(c) (3 points) 1/t = 4000 hz.
+(d) (3 points) 1/t = 1600 hz.
+6
+problem 4 (20 points)
+consider the following ct lti state-space model:
+�     �        � �
+0 1           0
+q̇(t) =         q(t) +     x(t)
+6 1           1
+y(t) = [ 1 1 ] q(t) .
+(a) (3 points) determine the natural frequencies (or eigenvalues) λ1 and λ2 of the system,
+and the associated eigenvectors v1 and v2 respectively. (compute these carefully, because
+errors will propagate, and you will lose signiﬁcant points! you should check that what you
+claim is an eigenvalue/eigenvector pair does indeed satisfy the deﬁning matrix equation
+for such a pair.)
+(b) (1 point) is the system asymptotically stable?
+(c) (3 points) determine the transfer function h(s) of the system. what feature of this h(s)
+tells you the system is reachable and observable?
+(d) (4 points) when the initial state of the system is at zero, i.e., when q(0) = 0, and when
+the input for t ≥ 0 is x(t) = 5e−t , the output y(t) of the system for t ≥ 0 is
+y(t) = e3t − e−2t .
+(you can use this fact as a check on some of your preceding answers!) what initial
+condition q(0) would we need in order to have y(t) ≡ 0 for t ≥ 0, with this same input
+x(t) = 5e−t for t ≥ 0.
+(e) (3 points) suppose we implement a state feedback control of the form
+x(t) = gt q(t) + p(t)
+on the given system, where the feedback gain vector is gt = [g1 g2 ], and p(t) is some
+new external input. write down the resulting state-space model, with input p(t), state
+vector q(t), and output y(t). you need to show the model in detail, making explicit the
+entries of all matrices and vectors involved in the state evolution equation and the output
+equation.
+(f) (4 points) for your closed-loop system in (e), determine what choice of g1 and g2 will
+result in a closed-loop characteristic polynomial of
+ν(s) = s2 + 3s + 2 .
+is the resulting system observable? be sure to show your reasoning.
+(g) (2 points) with the state feedback gains picked as in (f), suppose p(t) in the closed-
+loop system is kept constant at the value p = 6 for all time. what is the corresponding
+equilibrium value q of the state vector q(t)?', 'Impossible à déterminer', '.)
+Check your answer carefully, as errors here will propagate! As one check on your answer,
+compute the energy of the signal, namely
+� ∞
+Ex =       x2 (t) dt ,
+−∞
+in both the time domain and the frequency domain — i.e., respectively using Rxx (τ ) and
+S xx (jω) — to be sure you get the same answer both ways.
+(b) (2 points) What is the magnitude of the Fourier transform of x(t), i.e., what is |X(jω)|?
+(Again, a careful and fully labeled sketch of |X(jω)| as a function of ω will suﬃce as an
+answer.)
+(c) (2 points) Keeping in mind your answer to (b), explicitly write down an expression for one
+possible signal x(t) that has the deterministic autocorrelation function Rxx (τ ) speciﬁed
+above. Be sure to explain your reasoning!
+(d) (2 points) Your answer in (c) is not unique; for example, the signal −x(t) would have the
+same deterministic autocorrelation function. Describe precisely the relation – in either
+the time domain or the frequency domain – between any other (correct but otherwise
+arbitrary) answer to (c) and the speciﬁc one you have written down in (c).
+(e) (3 points) Suppose the x(t) above is the input to an ideal lowpass ﬁlter that has gain 1 for
+frequencies ω satisfying |ω| < 1, and gain 0 elsewhere. Denoting the corresponding output
+of the ﬁlter by y(t), determine its energy spectral density S yy (jω) — draw a careful and
+fully labeled sketch! — and also compute the energy Ey of y(t).
+(f) (3 points) Suppose another signal f (t) has deterministic autocorrelation function
+� ∞
+sin(2τ )
+Rf f (τ ) =     f (t)f (t − τ ) dt = cos(10τ )          .
+−∞                                   τ
+Determine the magnitude of the Fourier transform of the signal, i.e., determine |F (jω)|.
+(As before, a careful and fully labeled sketch will suﬃce as the answer.) Now determine
+the value of                       � ∞
+x(t)f (t − τ ) dt ,
+−∞
+where x(t) is the signal above. Explain your reasoning carefully.
+5
+Problem 3 (10 points)
+The ﬁrst ﬁgure below shows our standard conﬁguration for DT processing of a CT signal
+xc (t) to produce a CT signal yc (t). Here T as usual denotes the sampling and reconstruction
+interval, and the D/C converter implements an ideal bandlimited interpolation. The second
+ﬁgure displays the frequency response of the DT ﬁlter, which is an ideal lowpass ﬁlter.
+xc (t)-            xd [n]-                yd [n]-            yc (t)
+-
+C/D                Hd (ejΩ )              D/C
+6                                            6
+T                                            T
+H (ejΩ )
+6 d
+1
+-
+−π −π/2                 π/2    π        Ω
+Suppose the CT input xc (t) is chosen to be
+xc (t) = sin(2πf1 t) ,
+where f1 = 1300 Hz.
+(a) (1 point) What minimum value does the sampling frequency 1/T have to exceed in order
+to avoid aliasing at the C/D converter, for this signal?
+For each of the following parts, fully specify what the output yc (t) is for the indicated choice
+of the sampling/reconstruction frequency 1/T .
+(b) (3 points) 1/T = 8000 Hz.
+(c) (3 points) 1/T = 4000 Hz.
+(d) (3 points) 1/T = 1600 Hz.
+6
+Problem 4 (20 points)
+Consider the following CT LTI state-space model:
+�     �        � �
+0 1           0
+q̇(t) =         q(t) +     x(t)
+6 1           1
+y(t) = [ 1 1 ] q(t) .
+(a) (3 points) Determine the natural frequencies (or eigenvalues) λ1 and λ2 of the system,
+and the associated eigenvectors v1 and v2 respectively. (Compute these carefully, because
+errors will propagate, and you will lose signiﬁcant points! You should check that what you
+claim is an eigenvalue/eigenvector pair does indeed satisfy the deﬁning matrix equation
+for such a pair.)
+(b) (1 point) Is the system asymptotically stable?
+(c) (3 points) Determine the transfer function H(s) of the system. What feature of this H(s)
+tells you the system is reachable and observable?
+(d) (4 points) When the initial state of the system is at zero, i.e., when q(0) = 0, and when
+the input for t ≥ 0 is x(t) = 5e−t , the output y(t) of the system for t ≥ 0 is
+y(t) = e3t − e−2t .
+(You can use this fact as a check on some of your preceding answers!) What initial
+condition q(0) would we need in order to have y(t) ≡ 0 for t ≥ 0, with this same input
+x(t) = 5e−t for t ≥ 0.
+(e) (3 points) Suppose we implement a state feedback control of the form
+x(t) = gT q(t) + p(t)
+on the given system, where the feedback gain vector is gT = [g1 g2 ], and p(t) is some
+new external input. Write down the resulting state-space model, with input p(t), state
+vector q(t), and output y(t). You need to show the model in detail, making explicit the
+entries of all matrices and vectors involved in the state evolution equation and the output
+equation.
+(f) (4 points) For your closed-loop system in (e), determine what choice of g1 and g2 will
+result in a closed-loop characteristic polynomial of
+ν(s) = s2 + 3s + 2 .
+Is the resulting system observable? Be sure to show your reasoning.
+(g) (2 points) With the state feedback gains picked as in (f), suppose p(t) in the closed-
+loop system is kept constant at the value p = 6 for all time. What is the corresponding
+equilibrium value q of the state vector q(t)?'), 'correct' => 3, 'answer' => '.)
+Check your answer carefully, as errors here will propagate! As one check on your answer,
+compute the energy of the signal, namely
+� ∞
+Ex =       x2 (t) dt ,
+−∞
+in both the time domain and the frequency domain — i.e., respectively using Rxx (τ ) and
+S xx (jω) — to be sure you get the same answer both ways.
+(b) (2 points) What is the magnitude of the Fourier transform of x(t), i.e., what is |X(jω)|?
+(Again, a careful and fully labeled sketch of |X(jω)| as a function of ω will suﬃce as an
+answer.)
+(c) (2 points) Keeping in mind your answer to (b), explicitly write down an expression for one
+possible signal x(t) that has the deterministic autocorrelation function Rxx (τ ) speciﬁed
+above. Be sure to explain your reasoning!
+(d) (2 points) Your answer in (c) is not unique; for example, the signal −x(t) would have the
+same deterministic autocorrelation function. Describe precisely the relation – in either
+the time domain or the frequency domain – between any other (correct but otherwise
+arbitrary) answer to (c) and the speciﬁc one you have written down in (c).
+(e) (3 points) Suppose the x(t) above is the input to an ideal lowpass ﬁlter that has gain 1 for
+frequencies ω satisfying |ω| < 1, and gain 0 elsewhere. Denoting the corresponding output
+of the ﬁlter by y(t), determine its energy spectral density S yy (jω) — draw a careful and
+fully labeled sketch! — and also compute the energy Ey of y(t).
+(f) (3 points) Suppose another signal f (t) has deterministic autocorrelation function
+� ∞
+sin(2τ )
+Rf f (τ ) =     f (t)f (t − τ ) dt = cos(10τ )          .
+−∞                                   τ
+Determine the magnitude of the Fourier transform of the signal, i.e., determine |F (jω)|.
+(As before, a careful and fully labeled sketch will suﬃce as the answer.) Now determine
+the value of                       � ∞
+x(t)f (t − τ ) dt ,
+−∞
+where x(t) is the signal above. Explain your reasoning carefully.
+5
+Problem 3 (10 points)
+The ﬁrst ﬁgure below shows our standard conﬁguration for DT processing of a CT signal
+xc (t) to produce a CT signal yc (t). Here T as usual denotes the sampling and reconstruction
+interval, and the D/C converter implements an ideal bandlimited interpolation. The second
+ﬁgure displays the frequency response of the DT ﬁlter, which is an ideal lowpass ﬁlter.
+xc (t)-            xd [n]-                yd [n]-            yc (t)
+-
+C/D                Hd (ejΩ )              D/C
+6                                            6
+T                                            T
+H (ejΩ )
+6 d
+1
+-
+−π −π/2                 π/2    π        Ω
+Suppose the CT input xc (t) is chosen to be
+xc (t) = sin(2πf1 t) ,
+where f1 = 1300 Hz.
+(a) (1 point) What minimum value does the sampling frequency 1/T have to exceed in order
+to avoid aliasing at the C/D converter, for this signal?
+For each of the following parts, fully specify what the output yc (t) is for the indicated choice
+of the sampling/reconstruction frequency 1/T .
+(b) (3 points) 1/T = 8000 Hz.
+(c) (3 points) 1/T = 4000 Hz.
+(d) (3 points) 1/T = 1600 Hz.
+6
+Problem 4 (20 points)
+Consider the following CT LTI state-space model:
+�     �        � �
+0 1           0
+q̇(t) =         q(t) +     x(t)
+6 1           1
+y(t) = [ 1 1 ] q(t) .
+(a) (3 points) Determine the natural frequencies (or eigenvalues) λ1 and λ2 of the system,
+and the associated eigenvectors v1 and v2 respectively. (Compute these carefully, because
+errors will propagate, and you will lose signiﬁcant points! You should check that what you
+claim is an eigenvalue/eigenvector pair does indeed satisfy the deﬁning matrix equation
+for such a pair.)
+(b) (1 point) Is the system asymptotically stable?
+(c) (3 points) Determine the transfer function H(s) of the system. What feature of this H(s)
+tells you the system is reachable and observable?
+(d) (4 points) When the initial state of the system is at zero, i.e., when q(0) = 0, and when
+the input for t ≥ 0 is x(t) = 5e−t , the output y(t) of the system for t ≥ 0 is
+y(t) = e3t − e−2t .
+(You can use this fact as a check on some of your preceding answers!) What initial
+condition q(0) would we need in order to have y(t) ≡ 0 for t ≥ 0, with this same input
+x(t) = 5e−t for t ≥ 0.
+(e) (3 points) Suppose we implement a state feedback control of the form
+x(t) = gT q(t) + p(t)
+on the given system, where the feedback gain vector is gT = [g1 g2 ], and p(t) is some
+new external input. Write down the resulting state-space model, with input p(t), state
+vector q(t), and output y(t). You need to show the model in detail, making explicit the
+entries of all matrices and vectors involved in the state evolution equation and the output
+equation.
+(f) (4 points) For your closed-loop system in (e), determine what choice of g1 and g2 will
+result in a closed-loop characteristic polynomial of
+ν(s) = s2 + 3s + 2 .
+Is the resulting system observable? Be sure to show your reasoning.
+(g) (2 points) With the state feedback gains picked as in (f), suppose p(t) in the closed-
+loop system is kept constant at the value p = 6 for all time. What is the corresponding
+equilibrium value q of the state vector q(t)?', '_recupere_le' => '2026-11-04T19:55:22.669786+00:00Z', '_strategie' => 'separation_enum_solution'),
 							array('question' => '[MIT 6.011 — question d’examen, en anglais] For each of the following statements, specify whether the statement is true or false and give a brief (at most a few lines) justiﬁcation or counterexample. (1a) (1.5 points) If X and Y are independent random variables, the unconstrained MMSE estimator Y� of Y given X = x is Y� = µY . (1b) (1.5 points) The following random process is strict sense stationary: x(t) = A where A is a continuous random variable with a pdf uniform between ±1. (1c) (1.5 points) The following random process is ergodic in the mean: x(t) = A where A is a continuous random variable with a pdf uniform between ±1. (1d) (1.5 points) If the input to a stable LTI system is WSS then the output is guaranteed to be WSS. 2
 For each of the following statements, specify whether the statement is true or false and
 give a brief (at most a few lines) justiﬁcation or counterexample.
@@ -513,7 +795,7 @@ yx [n] is unity, and the transfer function from e[n] to ye [n] is (1 − az −1
 maximizes the signal-to-noise ratio (SN R) of w[n] deﬁned as
 E{wx2 [n]}
 SN R =
-E{we2 [n]}', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : For each of the following statements, specify whether the statement is true or false and
+E{we2 [n]}', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : For each of the following statements, specify whether the statement is true or false and
 give a brief (at most a few lines) justiﬁcation or counterexample.
 (1a) (1.5 points) If X and Y are independent random variables, the unconstrained MMSE
 estimator Y� of Y given X = x is Y� = µY .
@@ -825,7 +1107,253 @@ SN R = △2
 To maximize the SN R we select the gain constant a that minimizes the expression
 π(1 + a2 ) − 4a. Diﬀerentiating with respect to a and setting the derivative equal to 0 re­
 sults in a = π2 . We know the value of a = π2 minimizes the denominator because the second
-derivative of π(1 + a2 ) − 4a is greater than zero for this choice of a.', 'source' => 'MIT OpenCourseWare, 6.011 Introduction To Communication Control And Signal Processing, Spring 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+derivative of π(1 + a2 ) − 4a is greater than zero for this choice of a.
+
+[Correction officielle MIT : [MIT 6.011 — question d’examen, en anglais] For each of the following statements, specify whether the statement is true or false and give a brief (at most a few lines) justiﬁcation or counterexample. (1a) (1.5 points) If X and Y are independent random variables, the unconstrained MMSE estimator Y� of Y given X = x is Y� = µY . (1b) (1.5 points) The following random process is strict sense stationary: x(t) = A where A is a continuous random variable with a pdf uniform between ±1. (1c) (1.5 points) The following random process is ergodic in the mean: x(t) = A where A is a continuous random variable with a pdf uniform between ±1. (1d) (1.5 points) If the input to a stable LTI system is WSS then the output is guaranteed to be WSS. 2
+For each of the following statements, specify whether the statement is true or false and
+give a brief (at most a few lines) justiﬁcation or counterexample.
+(1a) (1.5 points) If X and Y are independent random variables, the unconstrained MMSE
+estimator Y� of Y given X = x is Y� = µY .
+(1b) (1.5 points) The following random process is strict sense stationary: x(t) = A where A is
+a continuous random variable with a pdf uniform between ±1.
+(1c) (1.5 points) The following random process is ergodic in the mean: x(t) = A where A is a
+continuous random variable with a pdf uniform between ±1.
+(1d) (1.5 points) If the input to a stable LTI system is WSS then the output is guaranteed to
+be WSS.
+2
+Problem 2 (15 points)
+Suppose x(t) and v(t) are two independent WSS random processes with autocorrelation
+functions respectively Rxx (τ ) and Rvv (τ ).
+(2a) (3 points) Using x(t) and v(t), show how you would construct a random process g(t) whose
+autocorrelation function Rgg (τ ) is that shown in Eq. (2.1). Be sure to demonstrate
+that the resulting process g(t) has the desired autocorrelation function.
+Rgg (τ ) = Rxx (τ )Rvv (τ )                           (2.1)
+For the remainder of this problem assume that Rxx (τ ) and Rvv (τ ) are known to be
+Rxx (τ ) = 2e−|τ |         Rvv (τ ) = e−3|τ |                    (2.2)
+You can also invoke the Fourier transform identity
+2β
+e−β|τ | ⇐⇒                                             (2.3)
+β 2 + ω2
+(2b) (6 points) Let w(t) denote a third WSS random process with autocorrelation function
+Rww (τ ) = δ(τ ). Suppose w(t) is the input to a ﬁrst-order, stable, causal LTI system for
+which the linear constant coeﬃcient diﬀerential equation is
+dx(t)
++ ax(t) = bw(t)                                (2.4)
+dt
+Determine the values of a and b so that the autocorrelation of the output x(t) is Rxx (τ )
+as given in Eq. (2.2).
+(2c) (6 points) Is it possible to have a WSS process z(t) whose autocorrelation function
+Rzz (τ ) = Rxx (τ ) ∗ Rvv (τ ), i.e., Rzz (τ ) is the result of convolving the autocorrelation
+functions Rxx (τ ) and Rvv (τ ) given in Eq. (2.2)? If no, why not? If yes, show how to gen­
+erate z(t) starting from a WSS process w(t) with autocorrelation function Rww (τ ) = δ(τ )
+(you can perform any necessary causal LTI ﬁltering operations).
+3
+Problem 3 (15 points)
+A DT wide-sense stationary random process s[n] has zero mean and the autocovariance
+function Css [m] shown in Figure 3.1. Css [m] = 0 for |m| ≥ 5.
+15
+14
+13
+12
+11
+10
+9
+8
+Css[m]
+7
+6
+5
+4
+3
+2
+1
+0
+−1
+−2
+−3
+−4
+−4   −3    −2   −1   0    1   2    3      4
+m
+Figure 3.1
+The process s[n] is transmitted through a communication channel that introduces noise and
+a one-step delay. The received process r[n] is related to s[n] as indicated by Eq. (3.1). The
+noise process w[n] has zero mean, autocovariance function Cww [m] = 3δ[m]. Furthermore, the
+noise process w[·] is uncorrelated with the process s[·].
+r[n] = s[n − 1] + w[n]                      (3.1)
+We wish to design an estimator s�[n] for s[n]. Throughout this problem the objective is to
+choose the parameters in the estimator to minimize the mean squared error E deﬁned as
+E � E{(s[n] − s�[n])2 }
+(3a) (2 points) Express the covariance functions Crs [m] and Crr [m] in terms of the given
+autocovariance functions Css [m] and Cww [m]?
+(3b) (3 points) If the estimator is restricted to be of the form
+s�[n] = a0 r[n] + a1 r[n − 1]
+will E be minimized with the parameter values a0 = 0 and a1 = 5?
+4
+(3c) (5 points) If the estimator is restricted to be of the form
+s�[n] = a2 r[n]
+determine the value of a2 that minimizes E.
+(3d) (5 points) If the estimator is of the form
+1
+s�[n] =       r[n − no ]
+2
+with no ≥ 0, determine the value of no that minimizes E.
+5
+Problem 4 (14 points)
+Note: Nothing on this problem assumes or requires that you attended today’s
+lecture.
+���������
+�����                                             ����
+��
+��                                    �����������������                   �����������������
+�����        ��             ��                                    �����   ����
+��
+��          ��
+��
+�����
+�����
+Figure 4.1
+D/A converters utilizing oversampled noise shaping often use the structure in Figure 4.1 to
+quantize the output sequence to a 1-bit bitstream for which D/A conversion is then very simple.
+Its eﬀectiveness assumes that x[n] is highly oversampled and that most of the error introduced
+by the quantizer falls outside the signal band.
+In Figure 4.1 the quantizer error is modeled as an additive, zero mean i.i.d sequence e[n]
+that is uniformly distributed in amplitude between ± △  2 at each time instant n. Furthermore,
+e[n] and x[n] are assumed to be independent. The input x[n] has mean µx = 0 and variance
+σx2 = 1. Moreover, the input x[n] is bandlimited, i.e., the power spectral density Sxx (ejΩ ) is
+zero for π2 < |Ω| < π.
+The output y[n] is composed of two components: yx [n] due solely to x[n], and ye [n] due
+solely to e[n]. Similarly, w[n] = wx [n] + we [n]. Note that the transfer function from x[n] to
+6
+yx [n] is unity, and the transfer function from e[n] to ye [n] is (1 − az −1 ).
+(4a) (7 points) Determine the power spectral density of ye [n] as a function of Ω for |Ω| < π.
+(4b) (7 points) Determine E{wx2 [n]}, E{we2 [n]}, and the value of the gain constant “a” that
+maximizes the signal-to-noise ratio (SN R) of w[n] deﬁned as
+E{wx2 [n]}
+SN R =
+E{we2 [n]}]', 'source' => 'MIT OpenCourseWare, 6.011 Introduction To Communication Control And Signal Processing, Spring 2010 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 6.011 — question d’examen, en anglais] For each of the following statements, specify whether the statement is true or false and give a brief (at most a few lines) justiﬁcation or counterexample. (1a) (1.5 points) If X and Y are independent random variables, the unconstrained MMSE estimator Y� of Y given X = x is Y� = µY . (1b) (1.5 points) The following random process is strict sense stationary: x(t) = A where A is a continuous random variable with a pdf uniform between ±1. (1c) (1.5 points) The following random process is ergodic in the mean: x(t) = A where A is a continuous random variable with a pdf uniform between ±1. (1d) (1.5 points) If the input to a stable LTI system is WSS then the output is guaranteed to be WSS. 2
+For each of the following statements, specify whether the statement is true or false and
+give a brief (at most a few lines) justiﬁcation or counterexample.
+(1a) (1.5 points) If X and Y are independent random variables, the unconstrained MMSE
+estimator Y� of Y given X = x is Y� = µY .
+(1b) (1.5 points) The following random process is strict sense stationary: x(t) = A where A is
+a continuous random variable with a pdf uniform between ±1.
+(1c) (1.5 points) The following random process is ergodic in the mean: x(t) = A where A is a
+continuous random variable with a pdf uniform between ±1.
+(1d) (1.5 points) If the input to a stable LTI system is WSS then the output is guaranteed to
+be WSS.
+2
+Problem 2 (15 points)
+Suppose x(t) and v(t) are two independent WSS random processes with autocorrelation
+functions respectively Rxx (τ ) and Rvv (τ ).
+(2a) (3 points) Using x(t) and v(t), show how you would construct a random process g(t) whose
+autocorrelation function Rgg (τ ) is that shown in Eq. (2.1). Be sure to demonstrate
+that the resulting process g(t) has the desired autocorrelation function.
+Rgg (τ ) = Rxx (τ )Rvv (τ )                           (2.1)
+For the remainder of this problem assume that Rxx (τ ) and Rvv (τ ) are known to be
+Rxx (τ ) = 2e−|τ |         Rvv (τ ) = e−3|τ |                    (2.2)
+You can also invoke the Fourier transform identity
+2β
+e−β|τ | ⇐⇒                                             (2.3)
+β 2 + ω2
+(2b) (6 points) Let w(t) denote a third WSS random process with autocorrelation function
+Rww (τ ) = δ(τ ). Suppose w(t) is the input to a ﬁrst-order, stable, causal LTI system for
+which the linear constant coeﬃcient diﬀerential equation is
+dx(t)
++ ax(t) = bw(t)                                (2.4)
+dt
+Determine the values of a and b so that the autocorrelation of the output x(t) is Rxx (τ )
+as given in Eq. (2.2).
+(2c) (6 points) Is it possible to have a WSS process z(t) whose autocorrelation function
+Rzz (τ ) = Rxx (τ ) ∗ Rvv (τ ), i.e., Rzz (τ ) is the result of convolving the autocorrelation
+functions Rxx (τ ) and Rvv (τ ) given in Eq. (2.2)? If no, why not? If yes, show how to gen­
+erate z(t) starting from a WSS process w(t) with autocorrelation function Rww (τ ) = δ(τ )
+(you can perform any necessary causal LTI ﬁltering operations).
+3
+Problem 3 (15 points)
+A DT wide-sense stationary random process s[n] has zero mean and the autocovariance
+function Css [m] shown in Figure 3.1. Css [m] = 0 for |m| ≥ 5.
+15
+14
+13
+12
+11
+10
+9
+8
+Css[m]
+7
+6
+5
+4
+3
+2
+1
+0
+−1
+−2
+−3
+−4
+−4   −3    −2   −1   0    1   2    3      4
+m
+Figure 3.1
+The process s[n] is transmitted through a communication channel that introduces noise and
+a one-step delay. The received process r[n] is related to s[n] as indicated by Eq. (3.1). The
+noise process w[n] has zero mean, autocovariance function Cww [m] = 3δ[m]. Furthermore, the
+noise process w[·] is uncorrelated with the process s[·].
+r[n] = s[n − 1] + w[n]                      (3.1)
+We wish to design an estimator s�[n] for s[n]. Throughout this problem the objective is to
+choose the parameters in the estimator to minimize the mean squared error E deﬁned as
+E � E{(s[n] − s�[n])2 }
+(3a) (2 points) Express the covariance functions Crs [m] and Crr [m] in terms of the given
+autocovariance functions Css [m] and Cww [m]?
+(3b) (3 points) If the estimator is restricted to be of the form
+s�[n] = a0 r[n] + a1 r[n − 1]
+will E be minimized with the parameter values a0 = 0 and a1 = 5?
+4
+(3c) (5 points) If the estimator is restricted to be of the form
+s�[n] = a2 r[n]
+determine the value of a2 that minimizes E.
+(3d) (5 points) If the estimator is of the form
+1
+s�[n] =       r[n − no ]
+2
+with no ≥ 0, determine the value of no that minimizes E.
+5
+Problem 4 (14 points)
+Note: Nothing on this problem assumes or requires that you attended today’s
+lecture.
+���������
+�����                                             ����
+��
+��                                    �����������������                   �����������������
+�����        ��             ��                                    �����   ����
+��
+��          ��
+��
+�����
+�����
+Figure 4.1
+D/A converters utilizing oversampled noise shaping often use the structure in Figure 4.1 to
+quantize the output sequence to a 1-bit bitstream for which D/A conversion is then very simple.
+Its eﬀectiveness assumes that x[n] is highly oversampled and that most of the error introduced
+by the quantizer falls outside the signal band.
+In Figure 4.1 the quantizer error is modeled as an additive, zero mean i.i.d sequence e[n]
+that is uniformly distributed in amplitude between ± △  2 at each time instant n. Furthermore,
+e[n] and x[n] are assumed to be independent. The input x[n] has mean µx = 0 and variance
+σx2 = 1. Moreover, the input x[n] is bandlimited, i.e., the power spectral density Sxx (ejΩ ) is
+zero for π2 < |Ω| < π.
+The output y[n] is composed of two components: yx [n] due solely to x[n], and ye [n] due
+solely to e[n]. Similarly, w[n] = wx [n] + we [n]. Note that the transfer function from x[n] to
+6
+yx [n] is unity, and the transfer function from e[n] to ye [n] is (1 − az −1 ).
+(4a) (7 points) Determine the power spectral density of ye [n] as a function of Ω for |Ω| < π.
+(4b) (7 points) Determine E{wx2 [n]}, E{we2 [n]}, and the value of the gain constant “a” that
+maximizes the signal-to-noise ratio (SN R) of w[n] deﬁned as
+E{wx2 [n]}
+SN R =
+E{we2 [n]}', '_recupere_le' => '2026-11-04T19:55:22.672045+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : For each of the following statements, specify whether the statement is true or false and
+give a brief (at most a few lines) justiﬁcation or counterexample.
+(1a) (1.5 points)')),
 						),
 					),
 				),

@@ -45,11 +45,15 @@ final class Secura_Ajax {
 			'secura_hint'            => 'hint',
 			'secura_terminal'        => 'terminal',
 			'secura_complete_lesson' => 'complete_lesson',
-			'secura_start_exam'      => 'start_exam',
-			'secura_lab_start'       => 'lab_start',
-			'secura_lab_stop'        => 'lab_stop',
-			'secura_lab_status'      => 'lab_status',
-			'secura_set_lang'        => 'set_lang',
+		'secura_start_exam'      => 'start_exam',
+		'secura_exam_time'       => 'exam_time',
+		'secura_exam_submit'     => 'exam_submit',
+		'secura_certificate'     => 'certificate_issue',
+		'secura_certificate_list'=> 'certificate_list',
+		'secura_lab_start'       => 'lab_start',
+		'secura_lab_stop'        => 'lab_stop',
+		'secura_lab_status'      => 'lab_status',
+		'secura_set_lang'        => 'set_lang',
 		);
 
 		foreach ( $actions as $action => $methode ) {
@@ -1012,5 +1016,78 @@ final class Secura_Ajax {
 		}
 
 		wp_send_json_success( array( 'lang' => $lang ) );
+	}
+
+	/**
+	 * Temps restant pour un examen chronométré.
+	 */
+	public static function exam_time() {
+		self::check_request();
+
+		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
+
+		if ( ! $room_id ) {
+			wp_send_json_error( array( 'message' => 'Room manquante.' ), 400 );
+		}
+
+		$remaining = Secura_Exam_Timed::time_remaining( get_current_user_id(), $room_id );
+
+		wp_send_json_success( array(
+			'time_remaining' => $remaining,
+			'expired'        => $remaining <= 0,
+		) );
+	}
+
+	/**
+	 * Soumet un examen chronométré.
+	 */
+	public static function exam_submit() {
+		self::check_request();
+
+		$room_id = isset( $_POST['room_id'] ) ? absint( wp_unslash( $_POST['room_id'] ) ) : 0;
+
+		if ( ! $room_id ) {
+			wp_send_json_error( array( 'message' => 'Room manquante.' ), 400 );
+		}
+
+		$result = Secura_Exam_Timed::submit( get_current_user_id(), $room_id );
+
+		if ( ! $result['ok'] ) {
+			wp_send_json_error( $result, 400 );
+		}
+
+		wp_send_json_success( $result );
+	}
+
+	/**
+	 * Délivre un certificat pour un parcours terminé.
+	 */
+	public static function certificate_issue() {
+		self::check_request();
+
+		$path_id = isset( $_POST['path_id'] ) ? absint( wp_unslash( $_POST['path_id'] ) ) : 0;
+
+		if ( ! $path_id ) {
+			wp_send_json_error( array( 'message' => 'Parcours manquant.' ), 400 );
+		}
+
+		$result = Secura_Certificate::issue( get_current_user_id(), $path_id );
+
+		if ( ! $result['ok'] ) {
+			wp_send_json_error( $result, 400 );
+		}
+
+		wp_send_json_success( $result );
+	}
+
+	/**
+	 * Liste les certificats de l'utilisateur connecté.
+	 */
+	public static function certificate_list() {
+		self::check_request();
+
+		$certs = Secura_Certificate::list_user_certificates( get_current_user_id() );
+
+		wp_send_json_success( array( 'certificates' => $certs ) );
 	}
 }

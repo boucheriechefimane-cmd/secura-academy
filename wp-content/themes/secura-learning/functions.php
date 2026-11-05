@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_LEARNING_VERSION', '0.8.3' );
+define( 'SECURA_LEARNING_VERSION', '0.8.4' );
 
 /**
  * Déclare les fonctionnalités du thème.

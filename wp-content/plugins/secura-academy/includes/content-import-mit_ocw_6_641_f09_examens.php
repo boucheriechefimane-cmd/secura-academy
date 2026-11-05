@@ -45,71 +45,7 @@ Write this square wave of potential as a Fourier series.
 potential.
 PS#6, p.1
 Problem 6.2
-We wish to find solutions to Laplace’s equation in cylindrical coordinates that have
-azimuthal symmetry so that the potential is independent of the angle φ , Φ(r , z ) .
-(a) Guess a product solution of the form
-Φ (r , z ) = R (r ) Z ( z )
-and find the zero separation constant solutions only. For these solutions of R(r) and
-Z(z) write down the general form for the potential.
-(b)
-An Ohmic conducting cylinder
-with conductivity σ , permittivity
-ε , radius a, and height A is
-surrounded by free space and a
-grounded perfectly conducting
-cylindrical can of radius b open at
-one end. A voltage V0 is applied at
-the top of the resistive cylinder.
-What are the boundary conditions
-on the potential at z=0, at z= A for
-r<a, and at r=b? What does
-[Φ (r = a+ , z = A) − Φ (r = a− , z = A)]
-equal?
-(c) Use the general solutions from part (a) in each region for 0 ≤ r ≤ a and a ≤ r ≤ b
-together with the boundary conditions in part (b) to find the potential distribution
-everywhere for 0<r<b and 0 < z < A .
-(d) What is the electric field distribution?
-(e) What is the free surface charge distribution and total charge on the interface at r=a?
-(f) What is the equation of the equipotential line and of the electric field line in the free
-space region that passes through the coordinate (r0, z0) where a< r0<b and 0 < z < A .
-Prove that the equipotential line and the electric field line cross perpendicularly.
-dr E r                 r2        r2
-Hint:    =     ; ∫ r ln rdr = ln r −
-dz E z                  2        4
-PS#6, p.2
-Problem 6.3
-An electric dipole having a z-directed moment p(t) is situated at the origin and at the center
-of a spherical cavity of free space having a radius R in a material having uniform ε and σ .
-When t < 0, p = 0 and there is no free charge anywhere. The dipole is a step function of
-time, instantaneously assuming a moment p0 when t = 0.
-(a) An instant after the dipole is established, what is the distribution of Φ inside and
-outside the cavity?
-(b) Long after the electric dipole is turned on and the fields have reached a steady state,
-what is the distribution of Φ ?
-(c) Determine Φ (r ,θ , t ) .
-(d) What is the free surface charge density at r = R?
-Problem 6.4
-z
-R
-x
-M = M 0 iz               μ0
-A sphere of radius R is permanently magnetized as M = M 0 iz and is surrounded by free
-space with magnetic permeability μ0 .
-Find the magnetic scalar potential χ and the magnetic field H everywhere, where
-H = −∇χ .
-PS#6, p.3
-Problem 6.5
-y
-a               φ
-x
-P = P0 iy              ε0
-A dielectric cylinder of infinite length and radius a is permanently polarized as P = P0 iy and
-is surrounded by free space with dielectric permittivity ε 0 . There is no free surface charge at
-r = a.
-(a) What is the polarization surface charge distribution at r = a?
-Hint: iy = sin φ ir + cos φ iφ
-(b) What are the electric scalar potential Φ (r , φ ) and electric field E = −∇Φ .
-PS#6, p.4', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : A
+We wish to find', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : A
 1 ∂2Φ ∂2Φ
 �            �
 1 ∂            ∂Φ
@@ -460,7 +396,263 @@ Ē = −       (sin φīr + cos φīφ )   r<a
 P0 a2             P0 a 2
 =          sin φīr −        cos φīφ   r>a
 2ε0 r2            2ε0 r2
-10', 'source' => 'MIT OpenCourseWare, 6.641 Electromagnetic Fields Forces And Motion, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+10', 'source' => 'MIT OpenCourseWare, 6.641 Electromagnetic Fields Forces And Motion, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('L\'inverse de s to laplace’s equation in cylindrical coordinates that have
+azimuthal symmetry so that the potential is independent of the angle φ , φ(r , z ) .
+(a) guess a product solution of the form
+φ (r , z ) = r (r ) z ( z )
+and find the zero separation constant solutions only. for these solutions of r(r) and
+z(z) write down the general form for the potential.
+(b)
+an ohmic conducting cylinder
+with conductivity σ , permittivity
+ε , radius a, and height a is
+surrounded by free space and a
+grounded perfectly conducting
+cylindrical can of radius b open at
+one end. a voltage v0 is applied at
+the top of the resistive cylinder.
+what are the boundary conditions
+on the potential at z=0, at z= a for
+r<a, and at r=b? what does
+[φ (r = a+ , z = a) − φ (r = a− , z = a)]
+equal?
+(c) use the general solutions from part (a) in each region for 0 ≤ r ≤ a and a ≤ r ≤ b
+together with the boundary conditions in part (b) to find the potential distribution
+everywhere for 0<r<b and 0 < z < a .
+(d) what is the electric field distribution?
+(e) what is the free surface charge distribution and total charge on the interface at r=a?
+(f) what is the equation of the equipotential line and of the electric field line in the free
+space region that passes through the coordinate (r0, z0) where a< r0<b and 0 < z < a .
+prove that the equipotential line and the electric field line cross perpendicularly.
+dr e r                 r2        r2
+hint:    =     ; ∫ r ln rdr = ln r −
+dz e z                  2        4
+ps#6, p.2
+problem 6.3
+an electric dipole having a z-directed moment p(t) is situated at the origin and at the center
+of a spherical cavity of free space having a radius r in a material having uniform ε and σ .
+when t < 0, p = 0 and there is no free charge anywhere. the dipole is a step function of
+time, instantaneously assuming a moment p0 when t = 0.
+(a) an instant after the dipole is established, what is the distribution of φ inside and
+outside the cavity?
+(b) long after the electric dipole is turned on and the fields have reached a steady state,
+what is the distribution of φ ?
+(c) determine φ (r ,θ , t ) .
+(d) what is the free surface charge density at r = r?
+problem 6.4
+z
+r
+x
+m = m 0 iz               μ0
+a sphere of radius r is permanently magnetized as m = m 0 iz and is surrounded by free
+space with magnetic permeability μ0 .
+find the magnetic scalar potential χ and the magnetic field h everywhere, where
+h = −∇χ .
+ps#6, p.3
+problem 6.5
+y
+a               φ
+x
+p = p0 iy              ε0
+a dielectric cylinder of infinite length and radius a is permanently polarized as p = p0 iy and
+is surrounded by free space with dielectric permittivity ε 0 . there is no free surface charge at
+r = a.
+(a) what is the polarization surface charge distribution at r = a?
+hint: iy = sin φ ir + cos φ iφ
+(b) what are the electric scalar potential φ (r , φ ) and electric field e = −∇φ .
+ps#6, p.4', 'Impossible à déterminer', 's to Laplace’s equation in cylindrical coordinates that have
+azimuthal symmetry so that the potential is independent of the angle φ , Φ(r , z ) .
+(a) Guess a product solution of the form
+Φ (r , z ) = R (r ) Z ( z )
+and find the zero separation constant solutions only. For these solutions of R(r) and
+Z(z) write down the general form for the potential.
+(b)
+An Ohmic conducting cylinder
+with conductivity σ , permittivity
+ε , radius a, and height A is
+surrounded by free space and a
+grounded perfectly conducting
+cylindrical can of radius b open at
+one end. A voltage V0 is applied at
+the top of the resistive cylinder.
+What are the boundary conditions
+on the potential at z=0, at z= A for
+r<a, and at r=b? What does
+[Φ (r = a+ , z = A) − Φ (r = a− , z = A)]
+equal?
+(c) Use the general solutions from part (a) in each region for 0 ≤ r ≤ a and a ≤ r ≤ b
+together with the boundary conditions in part (b) to find the potential distribution
+everywhere for 0<r<b and 0 < z < A .
+(d) What is the electric field distribution?
+(e) What is the free surface charge distribution and total charge on the interface at r=a?
+(f) What is the equation of the equipotential line and of the electric field line in the free
+space region that passes through the coordinate (r0, z0) where a< r0<b and 0 < z < A .
+Prove that the equipotential line and the electric field line cross perpendicularly.
+dr E r                 r2        r2
+Hint:    =     ; ∫ r ln rdr = ln r −
+dz E z                  2        4
+PS#6, p.2
+Problem 6.3
+An electric dipole having a z-directed moment p(t) is situated at the origin and at the center
+of a spherical cavity of free space having a radius R in a material having uniform ε and σ .
+When t < 0, p = 0 and there is no free charge anywhere. The dipole is a step function of
+time, instantaneously assuming a moment p0 when t = 0.
+(a) An instant after the dipole is established, what is the distribution of Φ inside and
+outside the cavity?
+(b) Long after the electric dipole is turned on and the fields have reached a steady state,
+what is the distribution of Φ ?
+(c) Determine Φ (r ,θ , t ) .
+(d) What is the free surface charge density at r = R?
+Problem 6.4
+z
+R
+x
+M = M 0 iz               μ0
+A sphere of radius R is permanently magnetized as M = M 0 iz and is surrounded by free
+space with magnetic permeability μ0 .
+Find the magnetic scalar potential χ and the magnetic field H everywhere, where
+H = −∇χ .
+PS#6, p.3
+Problem 6.5
+y
+a               φ
+x
+P = P0 iy              ε0
+A dielectric cylinder of infinite length and radius a is permanently polarized as P = P0 iy and
+is surrounded by free space with dielectric permittivity ε 0 . There is no free surface charge at
+r = a.
+(a) What is the polarization surface charge distribution at r = a?
+Hint: iy = sin φ ir + cos φ iφ
+(b) What are the electric scalar potential Φ (r , φ ) and electric field E = −∇Φ .
+PS#6, p.4', 'Pas s to laplace’s equation in cylindrical coordinates that have
+azimuthal symmetry so that the potential is independent of the angle φ , φ(r , z ) .
+(a) guess a product solution of the form
+φ (r , z ) = r (r ) z ( z )
+and find the zero separation constant solutions only. for these solutions of r(r) and
+z(z) write down the general form for the potential.
+(b)
+an ohmic conducting cylinder
+with conductivity σ , permittivity
+ε , radius a, and height a is
+surrounded by free space and a
+grounded perfectly conducting
+cylindrical can of radius b open at
+one end. a voltage v0 is applied at
+the top of the resistive cylinder.
+what are the boundary conditions
+on the potential at z=0, at z= a for
+r<a, and at r=b? what does
+[φ (r = a+ , z = a) − φ (r = a− , z = a)]
+equal?
+(c) use the general solutions from part (a) in each region for 0 ≤ r ≤ a and a ≤ r ≤ b
+together with the boundary conditions in part (b) to find the potential distribution
+everywhere for 0<r<b and 0 < z < a .
+(d) what is the electric field distribution?
+(e) what is the free surface charge distribution and total charge on the interface at r=a?
+(f) what is the equation of the equipotential line and of the electric field line in the free
+space region that passes through the coordinate (r0, z0) where a< r0<b and 0 < z < a .
+prove that the equipotential line and the electric field line cross perpendicularly.
+dr e r                 r2        r2
+hint:    =     ; ∫ r ln rdr = ln r −
+dz e z                  2        4
+ps#6, p.2
+problem 6.3
+an electric dipole having a z-directed moment p(t) is situated at the origin and at the center
+of a spherical cavity of free space having a radius r in a material having uniform ε and σ .
+when t < 0, p = 0 and there is no free charge anywhere. the dipole is a step function of
+time, instantaneously assuming a moment p0 when t = 0.
+(a) an instant after the dipole is established, what is the distribution of φ inside and
+outside the cavity?
+(b) long after the electric dipole is turned on and the fields have reached a steady state,
+what is the distribution of φ ?
+(c) determine φ (r ,θ , t ) .
+(d) what is the free surface charge density at r = r?
+problem 6.4
+z
+r
+x
+m = m 0 iz               μ0
+a sphere of radius r is permanently magnetized as m = m 0 iz and is surrounded by free
+space with magnetic permeability μ0 .
+find the magnetic scalar potential χ and the magnetic field h everywhere, where
+h = −∇χ .
+ps#6, p.3
+problem 6.5
+y
+a               φ
+x
+p = p0 iy              ε0
+a dielectric cylinder of infinite length and radius a is permanently polarized as p = p0 iy and
+is surrounded by free space with dielectric permittivity ε 0 . there is no free surface charge at
+r = a.
+(a) what is the polarization surface charge distribution at r = a?
+hint: iy = sin φ ir + cos φ iφ
+(b) what are the electric scalar potential φ (r , φ ) and electric field e = −∇φ .
+ps#6, p.4'), 'correct' => 2, 'answer' => 's to Laplace’s equation in cylindrical coordinates that have
+azimuthal symmetry so that the potential is independent of the angle φ , Φ(r , z ) .
+(a) Guess a product solution of the form
+Φ (r , z ) = R (r ) Z ( z )
+and find the zero separation constant solutions only. For these solutions of R(r) and
+Z(z) write down the general form for the potential.
+(b)
+An Ohmic conducting cylinder
+with conductivity σ , permittivity
+ε , radius a, and height A is
+surrounded by free space and a
+grounded perfectly conducting
+cylindrical can of radius b open at
+one end. A voltage V0 is applied at
+the top of the resistive cylinder.
+What are the boundary conditions
+on the potential at z=0, at z= A for
+r<a, and at r=b? What does
+[Φ (r = a+ , z = A) − Φ (r = a− , z = A)]
+equal?
+(c) Use the general solutions from part (a) in each region for 0 ≤ r ≤ a and a ≤ r ≤ b
+together with the boundary conditions in part (b) to find the potential distribution
+everywhere for 0<r<b and 0 < z < A .
+(d) What is the electric field distribution?
+(e) What is the free surface charge distribution and total charge on the interface at r=a?
+(f) What is the equation of the equipotential line and of the electric field line in the free
+space region that passes through the coordinate (r0, z0) where a< r0<b and 0 < z < A .
+Prove that the equipotential line and the electric field line cross perpendicularly.
+dr E r                 r2        r2
+Hint:    =     ; ∫ r ln rdr = ln r −
+dz E z                  2        4
+PS#6, p.2
+Problem 6.3
+An electric dipole having a z-directed moment p(t) is situated at the origin and at the center
+of a spherical cavity of free space having a radius R in a material having uniform ε and σ .
+When t < 0, p = 0 and there is no free charge anywhere. The dipole is a step function of
+time, instantaneously assuming a moment p0 when t = 0.
+(a) An instant after the dipole is established, what is the distribution of Φ inside and
+outside the cavity?
+(b) Long after the electric dipole is turned on and the fields have reached a steady state,
+what is the distribution of Φ ?
+(c) Determine Φ (r ,θ , t ) .
+(d) What is the free surface charge density at r = R?
+Problem 6.4
+z
+R
+x
+M = M 0 iz               μ0
+A sphere of radius R is permanently magnetized as M = M 0 iz and is surrounded by free
+space with magnetic permeability μ0 .
+Find the magnetic scalar potential χ and the magnetic field H everywhere, where
+H = −∇χ .
+PS#6, p.3
+Problem 6.5
+y
+a               φ
+x
+P = P0 iy              ε0
+A dielectric cylinder of infinite length and radius a is permanently polarized as P = P0 iy and
+is surrounded by free space with dielectric permittivity ε 0 . There is no free surface charge at
+r = a.
+(a) What is the polarization surface charge distribution at r = a?
+Hint: iy = sin φ ir + cos φ iφ
+(b) What are the electric scalar potential Φ (r , φ ) and electric field E = −∇Φ .
+PS#6, p.4', '_recupere_le' => '2026-11-04T19:55:22.744016+00:00Z', '_strategie' => 'separation_enum_solution'),
 						),
 					),
 				),

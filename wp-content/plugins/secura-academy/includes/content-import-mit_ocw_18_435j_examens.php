@@ -20,7 +20,7 @@ if ( ! function_exists( 'seca_import_mit_ocw_18_435j_examens' ) ) {
 In NMR quantum computing, a Hadamard gate is implemented by rotating
                  G G
 around the axis (x + z )/ 2 . Compute the matrix obtained by rotation around this axis
-by π radians, and compare to a Hadamard gate.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : If we denote the rotation by angle θ about (x + z )/ 2 by R(θ) , we have
+by π radians, and compare to a Hadamard gate.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : If we denote the rotation by angle θ about (x + z )/ 2 by R(θ) , we have
 R(θ) = exp[−i(θ / 2)(σX + σZ )/ 2}
 θ           θ
 = cos I − i sin (σX + σZ )/ 2
@@ -34,28 +34,80 @@ R(π) = −i(σX + σZ )/ 2
 =
 2  1 −1 
 = −iH
-where H is the Hadamard gate.', 'source' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)'),
+where H is the Hadamard gate.
+
+[Correction officielle MIT : [MIT 18.435J — question d’examen, en anglais]
+In NMR quantum computing, a Hadamard gate is implemented by rotating
+                 G G
+around the axis (x + z )/ 2 . Compute the matrix obtained by rotation around this axis
+by π radians, and compare to a Hadamard gate.]', 'source' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'answer' => '[MIT 18.435J — question d’examen, en anglais]
+In NMR quantum computing, a Hadamard gate is implemented by rotating
+                 G G
+around the axis (x + z )/ 2 . Compute the matrix obtained by rotation around this axis
+by π radians, and compare to a Hadamard gate.', '_recupere_le' => '2026-11-04T19:55:22.581039+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : If we denote the rotation by angle θ about (x + z )/ 2 by R(θ) , we have
+R(θ) = exp[−i(θ / 2)(σX + σZ )/ 2}
+θ           θ
+= cos I − i sin (σX + σZ )/ 2
+2           2
+⇒
+R(π) =')),
 							array('question' => '[MIT 18.435J — question d’examen, en anglais]
 Let
 1
 H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
 2
 be an operator on two qubits.
-Using (a), find exp(−i πH / 4) and exp(−i πH / 2) .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using equation (4.7) of N&C, we have
+Using (a), find exp(−i πH / 4) and exp(−i πH / 2) .', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using equation (4.7) of N&C, we have
 exp(i θH ) = cos(θ)I ⊗ I + i sin(θ)H
 ⇒
 exp(−i πH / 4) =     2I ⊗ I / 2 − i 2H / 2
 and
-exp(−i πH / 2) = −iH .', 'source' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)'),
+exp(−i πH / 2) = −iH .
+
+[Correction officielle MIT : [MIT 18.435J — question d’examen, en anglais]
+Let
+1
+H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
+2
+be an operator on two qubits.
+Using (a), find exp(−i πH / 4) and exp(−i πH / 2) .]', 'source' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'answer' => '[MIT 18.435J — question d’examen, en anglais]
+Let
+1
+H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
+2
+be an operator on two qubits.
+Using (a), find exp(−i πH / 4) and exp(−i πH / 2) .', '_recupere_le' => '2026-11-04T19:55:22.581126+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Using equation (4.7) of N&C, we have
+exp(i θH ) = cos(θ)I ⊗ I + i sin(θ)H
+⇒
+exp(−i πH / 4) =     2I ⊗ I / 2 − i 2H / 2
+and
+exp(−i πH / 2) = −iH .
+
+[Correction officielle MIT')),
 							array('question' => '[MIT 18.435J — question d’examen, en anglais]
 Let
 1
 H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
 2
 be an operator on two qubits.
-Find a set of orthonormal eigenstates of H .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : You can easily verify that the Bell states, described in the first problem of Problem Set 3, are
+Find a set of orthonormal eigenstates of H .', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : You can easily verify that the Bell states, described in the first problem of Problem Set 3, are
 one possible set of eigenstates. (In fact, H = Ι2AB − I ⊗ I .) The first state in that problem, the
-singlet sate, has eigenvalue –1 and the other three have eigenvalues +1.', 'source' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)'),
+singlet sate, has eigenvalue –1 and the other three have eigenvalues +1.
+
+[Correction officielle MIT : [MIT 18.435J — question d’examen, en anglais]
+Let
+1
+H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
+2
+be an operator on two qubits.
+Find a set of orthonormal eigenstates of H .]', 'source' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'answer' => '[MIT 18.435J — question d’examen, en anglais]
+Let
+1
+H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
+2
+be an operator on two qubits.
+Find a set of orthonormal eigenstates of H .', '_recupere_le' => '2026-11-04T19:55:22.581199+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : You can easily verify that the Bell states, described in the first problem of Problem Set 3, are
+one possible set of eigenstates. (In fact, H = Ι2AB − I ⊗ I .) The first stat')),
 						),
 					),
 				),
@@ -69,7 +121,7 @@ Let
 H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
 2
 be an operator on two qubits.
-Find H 2 and write it in a simple form.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have
+Find H 2 and write it in a simple form.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : We have
 1
 H 2 = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )H .
 2
@@ -97,15 +149,54 @@ Similarly,
 (I ⊗ I )H = .
 2            2
 Adding up these four relations, one can obtain
-H2 = I ⊗ I .', 'source' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)'),
+H2 = I ⊗ I .
+
+[Correction officielle MIT : [MIT 18.435J — question d’examen, en anglais]
+Let
+1
+H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
+2
+be an operator on two qubits.
+Find H 2 and write it in a simple form.]', 'source' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'answer' => '[MIT 18.435J — question d’examen, en anglais]
+Let
+1
+H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
+2
+be an operator on two qubits.
+Find H 2 and write it in a simple form.', '_recupere_le' => '2026-11-04T19:55:22.581272+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : We have
+1
+H 2 = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )H .
+2
+Note that
+1                 1
+(σX ⊗ σX )H = (σX ⊗ σX )(σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
+2                 4
+1')),
 							array('question' => '[MIT 18.435J — question d’examen, en anglais]
 Let
 1
 H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
 2
 be an operator on two qubits.
-Find the eigenvalues of H .', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using Problem 1(b) in Problem Set 2, it can be seen that the only possible values for the
-eigenvalues are +1 and –1.', 'source' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)'),
+Find the eigenvalues of H .', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : Using Problem 1(b) in Problem Set 2, it can be seen that the only possible values for the
+eigenvalues are +1 and –1.
+
+[Correction officielle MIT : [MIT 18.435J — question d’examen, en anglais]
+Let
+1
+H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
+2
+be an operator on two qubits.
+Find the eigenvalues of H .]', 'source' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 18.435j Quantum Computation, Fall 2003 — examen et corrigé officiel (MIT EECS)', 'answer' => '[MIT 18.435J — question d’examen, en anglais]
+Let
+1
+H = (σX ⊗ σX + σY ⊗ σY + σZ ⊗ σZ + I ⊗ I )
+2
+be an operator on two qubits.
+Find the eigenvalues of H .', '_recupere_le' => '2026-11-04T19:55:22.581338+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Using Problem 1(b) in Problem Set 2, it can be seen that the only possible values for the
+eigenvalues are +1 and –1.
+
+[Correction officielle MIT : [MIT 18.435J — question d’e')),
 						),
 					),
 				),

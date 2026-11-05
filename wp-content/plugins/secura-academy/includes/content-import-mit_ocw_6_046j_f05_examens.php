@@ -16,286 +16,7 @@ if ( ! function_exists( 'seca_import_mit_ocw_6_046j_f05_examens' ) ) {
 					'title' => 'comment-marche-un-ordinateur-de-la-donnee-au-programme',
 					'tasks' => array(
 						'test' => array(
-							array('question' => '[MIT 6.046J — question d’examen, en anglais] Give a tight asymptotic upper bound ( � notation) on the solution to each of the following recur­ rences. You need not justify your answers. (a)               . (b)                           $# %\'& (c)               %  !"  if  $(  )%+* if  % where           is a variable independent from  . 6.046J/18.410J Final Exam                    Name                                                     4 Problem 2. Algorithms and running times [9 points] Match each algorithm below with the tightest asymptotic upper bound for its worst-case running time by inserting one of the letters A, B, ��� , I into the
-Give a tight asymptotic upper bound ( � notation) on the solution to each of the following recur­
-rences. You need not justify your answers.
-(a)               .
-(b)  
-                        $# %\'&
-(c)               %  !" 
-if  $(
- )%+*
-if 
-%
-where           is a variable independent from  .
-6.046J/18.410J Final Exam                    Name                                                     4
-Problem 2. Algorithms and running times [9 points]
-Match each algorithm below with the tightest asymptotic upper bound for its worst-case running
-time by inserting one of the letters A, B, ��� , I into the corresponding box. For sorting algorithms,
- is the number of input elements. For matrix algorithms, the input matrix has size    . For
-graph algorithms, the number of vertices is  , and the number of edges is !" .
-You need not justify your answers. Some running times may be used multiple times or not at all.
-Because points will be deducted for wrong answers, do not guess unless you are reasonably sure.
-Insertion sort                                          A: �       
-Heapsort                                                B: �    
-B UILD -H EAP                                           C: �      
-
-Strassen’s                                              D: �      
- 
-Bellman-Ford                                            E: �               
- 
-Depth-ﬁrst search                                       F: �    
-Floyd-Warshall                                          G: �       
-Johnson’s                                               H: �      
-Prim’s                                                  I: �     
-6.046J/18.410J Final Exam                 Name                                                5
-Problem 3. Substitution method [10 points]
-Use the substitution method to prove a tight asymptotic lower bound ( -notation) on the solution
-�
-to the recurrence
-
- )        �
-6.046J/18.410J Final Exam                   Name                                                      6
-Problem 4. True or False, and Justify [35 points] (7 parts)
-Circle T or F for each of the following statements to indicate whether the statement is true or
-false, respectively. If the statement is correct, brieﬂy state why. If the statement is wrong, explain
-why. The more content you provide in your justiﬁcation, the higher your grade, but be brief. Your
-justiﬁcation is worth more points than your true-or-false designation.
-T F Let �  , �  , and � be three sorted arrays of  real numbers (all distinct). In the comparison
-                                                                    
-model, constructing a balanced binary search tree of the set �  �   � requires         
-
-�
-time.
-T F Let  be a complete binary tree with  nodes. Finding a path from the root of  to a given
-
-vertex   using breadth-ﬁrst search takes �   time.
-6.046J/18.410J Final Exam                 Name                                                  7
-T F Given an unsorted array �
-�  ��  of  integers, building a max-heap out of the elements of
-� can be performed asymptotically faster than building a red-black tree out of the elements
-of � .
-T F Suppose we use a hash function  to hash  distinct keys into an array  of length  .
-
-Assuming     simple uniform hashing, the expected number of colliding pairs of elements is
-!    .
-6.046J/18.410J Final Exam               Name                                                8
-T F Every sorting network with  inputs has depth   �      .
-T F If a dynamic-programming problem satisﬁes the optimal-substructure property, then a lo­
-cally optimal solution is globally optimal.
-6.046J/18.410J Final Exam               Name                                                 9
-&
-T F Let �       be a directed graph with negative-weight edges, but no negative-weight
-
-
-cycles. Then, one can compute all shortest paths from a source     to all   faster
-than Bellman-Ford using the technique of reweighting.
-6.046J/18.410J Final Exam                  Name                                                 10
-Problem 5. Red-black trees [15 points] (3 parts)
-& & �& & & & � &
-(a) Assign the keys                     to the nodes of the binary search tree below so
-that they satisfy the binary-search-tree property.
-nil      nil
-nil         nil
-nil        nil               nil
-nil         nil
-(b) Explain why this binary search tree cannot be colored to form a legal red-black tree.
-6.046J/18.410J Final Exam                  Name                                                   11
-(c) The binary search tree can be transformed into a red-black tree by performing a single
-rotation. Draw the red-black tree that results, labeling each node with “red” or “black.”
-Include the keys from part (a).
-6.046J/18.410J Final Exam                  Name                                                  12
-Problem 6. Wiggly arrays [10 points]
-(                (              (
-An array � � ��    is wiggly if � �     �� � � �  ��  � ��� � � � � �    .
-Given an unsorted array  � ��    of real numbers, describe an efﬁcient algorithm that outputs
-a permutation � � � �    of  such that � is a wiggly array.
-6.046J/18.410J Final Exam                             Name                                       13
-Problem 7. Difference constraints [12 points] (2 parts)
-Consider the following linear-programming system of difference constraints (note that one con­
-straint is an equality):
-�           �       ( 
-�          �         (
-�         �        (  
-
-�        �       (  
-
-�        � 
-�               �  (
-�             � (  
-�         �  (
-�         � (
-(a) Draw the constraint graph for these constraints.
-(b) Solve for the unknowns �  , �  , � , � , and �  , or explain why no solution exists.
-
-6.046J/18.410J Final Exam                     Name                                                          14
-Problem 8. Amortized increment [12 points]
-
-
-           
-An array             of bits (each array element is or ) stores a binary number                      .
-
-
-To add (modulo           ) to , we use the following procedure:
-&
-I NCREMENT       
-1 
-2 while  and   
-3      do  
-4               
-5 if 
-6    then  
-Given a number , define the potential    of to be the number of ’s in the binary representation
-of . For example,       , because  
-    . Use a potential-function argument to prove
-that the amortized cost of an increment is   , where the initial value in the counter is  .
-6.046J/18.410J Final Exam                     Name                                                          15
-�     , and
-Problem 9. Minimum spanning trees [12 points]
-&
-Let �             be a connected, undirected graph with &edge-weight
-
-                 
-& & & function
-assume all & edge weights are distinct. Consider a cycle     ���      in � , where&  
-                                                                                  does,
-and let        be the edge in the cycle with the largest edge weight. Prove that     
-
-not belong to the minimum spanning tree  of � .
-6.046J/18.410J Final Exam                 Name                                                 16
-Problem 10. Multithreaded scheduling [10 points]
-A greedy scheduler runs a multithreaded computation in � seconds on  processors and in 
-�                                   �
-seconds on  processors. Is it possible that the computation has work       and critical-path
-�
- �
-length    ? Justify your answer.
-6.046J/18.410J Final Exam                              Name                                                                  17
-Problem 11. Transposing a matrix [40 points] (4 parts)
- � � be: an    matrix, where  is an exact power of . The following code computes
-Let
-T
- � &  &  
-to 
-T
-RANS
-
-do for 
- to& 
-1 for
-
-&
-do �   � �  
-2
-3                                    
-%
-
-& & & � and
-Consider the cache-oblivious two-level memory model with a cache of                           elements and blocks of
- elements. Assume that both& matrices               & & are & stored& in& row-major
-& & order,  & & that& is, &the linear        & &
-order& of & � in& memory        � �   �   �           �   �   � �       � �              �  �               �   �     
-� �  � �� � � &   , and similarly for  .
-is                
-� �  �                               �
-   � �              �  � �
-%
-(a) Analyze the number MT    of memory transfers incurred by T                      RANS when                .
-6.046J/18.410J Final Exam                    Name                                                            18
-Now, consider the following divide-and-conquer algorithm for computing the transpose:
-� & &
-R-T RANS          
-1 if        &          &
-then �     � � 
-�                            "  submatrices  �   , �    , �   , and �   .
-2
-else Partition into four  "  
-                 submatrices   ,   ,   , and   .
-3
-Partition into& four&  "        "
-�
-4
-R-T RANS    &   & " 
-5
-�           
-R-T RANS    &   & " 
-6
-�            
-R-T RANS    &   & " 
-7
-8                  �
-R-T RANS      " 
- 
-Assume that the cost of partitioning is �    .
-% for the number MT               of memory transfers incurred by
-
-(b) Give and solve a recurrence
-R-T RANS when            .
-6.046J/18.410J Final Exam                     Name                                                                    19
-The following multithreaded algorithm computes the transpose in parallel:
-� &  & 
-P-T RANS          
-1 if        &         &
-then �       �
- � 
-�                                submatrices  �   , �    , �   , and �   .
-2
-else Partition into four  "    "
-         
-3
-Partition into four  "&   &   "       submatrices   ,   ,   , and   .
-�        
-4
-spawn P-T RANS       & &" 
-�
-5
-spawn P-T RANS    &   & " 
-�        
- 
-6
-spawn P-T RANS    &   & " 
-�
-7
-8          spawn P-T RANS      " 
-9          sync
-
-(c) Give and solve recurrences describing the work     and critical-path length "                      
-of P-T RANS . What is the asymptotic parallelism of the algorithm?
-6.046J/18.410J Final Exam                       Name                                                             20
-Professor Kellogg inadvertantly places two additional sync statements into his code as follows:
-& &
-K-T RANS              
-1 if       &         &
-     
-               
-2    then
-else Partition into four  "    "
-                            submatrices    ,    ,   , and   .
-          
-3
-Partition into four  " &   &   "         submatrices   ,   ,   , and   .
-          
-4
-5         spawn K-T RANS                " 
-6
-7
-sync
-  & &
-spawn K-T RANS      " 
- 
-8         sync
-   & &  
-spawn K-T RANS    &   & " 
-9
-10                               
-spawn K-T RANS      " 
- 
-11         sync
-
-(d) Give and solve recurrences describing the work     and critical-path length "                  
-of K-T RANS . What is the asymptotic parallelism of this algorithm?
-SCRATCH PAPER — Please detach this page before handing in your exam.
-SCRATCH PAPER — Please detach this page before handing in your exam.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Give a tight asymptotic upper bound (O notation) on the solution to each of the following recur­
+							array('question' => '[MIT 6.046J — question d’examen, en anglais] Give a tight asymptotic upper bound ( � notation) on the', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Give a tight asymptotic upper bound (O notation) on the solution to each of the following recur­
 rences. You need not justify your answers.
 ∈
 (a) T (n) = 2T (n/8) + 3 n.
@@ -675,7 +396,1123 @@ T� (N ) = 3T�         + O(1)
 = �(N lg 3 ).
 The parallelism of the algorithm is T1 /T� , or �(N 2−lg 3 ).
 SCRATCH PAPER — Please detach this page before handing in your exam.
-SCRATCH PAPER — Please detach this page before handing in your exam.', 'source' => 'MIT OpenCourseWare, 6.046j Introduction To Algorithms Sma 5503, Fall 2005 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+SCRATCH PAPER — Please detach this page before handing in your exam.', 'source' => 'MIT OpenCourseWare, 6.046j Introduction To Algorithms Sma 5503, Fall 2005 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('L\'inverse de to each of the following recur­ rences. you need not justify your answers. (a)               . (b)                           $# %\'& (c)               %  !"  if  $(  )%+* if  % where           is a variable independent from  . 6.046j/18.410j final exam                    name                                                     4 problem 2. algorithms and running times [9 points] match each algorithm below with the tightest asymptotic upper bound for its worst-case running time by inserting one of the letters a, b, ��� , i into the
+give a tight asymptotic upper bound ( � notation) on the solution to each of the following recur­
+rences. you need not justify your answers.
+(a)               .
+(b)  
+                        $# %\'&
+(c)               %  !" 
+if  $(
+ )%+*
+if 
+%
+where           is a variable independent from  .
+6.046j/18.410j final exam                    name                                                     4
+problem 2. algorithms and running times [9 points]
+match each algorithm below with the tightest asymptotic upper bound for its worst-case running
+time by inserting one of the letters a, b, ��� , i into the corresponding box. for sorting algorithms,
+ is the number of input elements. for matrix algorithms, the input matrix has size    . for
+graph algorithms, the number of vertices is  , and the number of edges is !" .
+you need not justify your answers. some running times may be used multiple times or not at all.
+because points will be deducted for wrong answers, do not guess unless you are reasonably sure.
+insertion sort                                          a: �       
+heapsort                                                b: �    
+b uild -h eap                                           c: �      
+
+strassen’s                                              d: �      
+ 
+bellman-ford                                            e: �               
+ 
+depth-ﬁrst search                                       f: �    
+floyd-warshall                                          g: �       
+johnson’s                                               h: �      
+prim’s                                                  i: �     
+6.046j/18.410j final exam                 name                                                5
+problem 3. substitution method [10 points]
+use the substitution method to prove a tight asymptotic lower bound ( -notation) on the solution
+�
+to the recurrence
+
+ )        �
+6.046j/18.410j final exam                   name                                                      6
+problem 4. true or false, and justify [35 points] (7 parts)
+circle t or f for each of the following statements to indicate whether the statement is true or
+false, respectively. if the statement is correct, brieﬂy state why. if the statement is wrong, explain
+why. the more content you provide in your justiﬁcation, the higher your grade, but be brief. your
+justiﬁcation is worth more points than your true-or-false designation.
+t f let �  , �  , and � be three sorted arrays of  real numbers (all distinct). in the comparison
+                                                                    
+model, constructing a balanced binary search tree of the set �  �   � requires         
+
+�
+time.
+t f let  be a complete binary tree with  nodes. finding a path from the root of  to a given
+
+vertex   using breadth-ﬁrst search takes �   time.
+6.046j/18.410j final exam                 name                                                  7
+t f given an unsorted array �
+�  ��  of  integers, building a max-heap out of the elements of
+� can be performed asymptotically faster than building a red-black tree out of the elements
+of � .
+t f suppose we use a hash function  to hash  distinct keys into an array  of length  .
+
+assuming     simple uniform hashing, the expected number of colliding pairs of elements is
+!    .
+6.046j/18.410j final exam               name                                                8
+t f every sorting network with  inputs has depth   �      .
+t f if a dynamic-programming problem satisﬁes the optimal-substructure property, then a lo­
+cally optimal solution is globally optimal.
+6.046j/18.410j final exam               name                                                 9
+&
+t f let �       be a directed graph with negative-weight edges, but no negative-weight
+
+
+cycles. then, one can compute all shortest paths from a source     to all   faster
+than bellman-ford using the technique of reweighting.
+6.046j/18.410j final exam                  name                                                 10
+problem 5. red-black trees [15 points] (3 parts)
+& & �& & & & � &
+(a) assign the keys                     to the nodes of the binary search tree below so
+that they satisfy the binary-search-tree property.
+nil      nil
+nil         nil
+nil        nil               nil
+nil         nil
+(b) explain why this binary search tree cannot be colored to form a legal red-black tree.
+6.046j/18.410j final exam                  name                                                   11
+(c) the binary search tree can be transformed into a red-black tree by performing a single
+rotation. draw the red-black tree that results, labeling each node with “red” or “black.”
+include the keys from part (a).
+6.046j/18.410j final exam                  name                                                  12
+problem 6. wiggly arrays [10 points]
+(                (              (
+an array � � ��    is wiggly if � �     �� � � �  ��  � ��� � � � � �    .
+given an unsorted array  � ��    of real numbers, describe an efﬁcient algorithm that outputs
+a permutation � � � �    of  such that � is a wiggly array.
+6.046j/18.410j final exam                             name                                       13
+problem 7. difference constraints [12 points] (2 parts)
+consider the following linear-programming system of difference constraints (note that one con­
+straint is an equality):
+�           �       ( 
+�          �         (
+�         �        (  
+
+�        �       (  
+
+�        � 
+�               �  (
+�             � (  
+�         �  (
+�         � (
+(a) draw the constraint graph for these constraints.
+(b) solve for the unknowns �  , �  , � , � , and �  , or explain why no solution exists.
+
+6.046j/18.410j final exam                     name                                                          14
+problem 8. amortized increment [12 points]
+
+
+           
+an array             of bits (each array element is or ) stores a binary number                      .
+
+
+to add (modulo           ) to , we use the following procedure:
+&
+i ncrement       
+1 
+2 while  and   
+3      do  
+4               
+5 if 
+6    then  
+given a number , define the potential    of to be the number of ’s in the binary representation
+of . for example,       , because  
+    . use a potential-function argument to prove
+that the amortized cost of an increment is   , where the initial value in the counter is  .
+6.046j/18.410j final exam                     name                                                          15
+�     , and
+problem 9. minimum spanning trees [12 points]
+&
+let �             be a connected, undirected graph with &edge-weight
+
+                 
+& & & function
+assume all & edge weights are distinct. consider a cycle     ���      in � , where&  
+                                                                                  does,
+and let        be the edge in the cycle with the largest edge weight. prove that     
+
+not belong to the minimum spanning tree  of � .
+6.046j/18.410j final exam                 name                                                 16
+problem 10. multithreaded scheduling [10 points]
+a greedy scheduler runs a multithreaded computation in � seconds on  processors and in 
+�                                   �
+seconds on  processors. is it possible that the computation has work       and critical-path
+�
+ �
+length    ? justify your answer.
+6.046j/18.410j final exam                              name                                                                  17
+problem 11. transposing a matrix [40 points] (4 parts)
+ � � be: an    matrix, where  is an exact power of . the following code computes
+let
+t
+ � &  &  
+to 
+t
+rans
+
+do for 
+ to& 
+1 for
+
+&
+do �   � �  
+2
+3                                    
+%
+
+& & & � and
+consider the cache-oblivious two-level memory model with a cache of                           elements and blocks of
+ elements. assume that both& matrices               & & are & stored& in& row-major
+& & order,  & & that& is, &the linear        & &
+order& of & � in& memory        � �   �   �           �   �   � �       � �              �  �               �   �     
+� �  � �� � � &   , and similarly for  .
+is                
+� �  �                               �
+   � �              �  � �
+%
+(a) analyze the number mt    of memory transfers incurred by t                      rans when                .
+6.046j/18.410j final exam                    name                                                            18
+now, consider the following divide-and-conquer algorithm for computing the transpose:
+� & &
+r-t rans          
+1 if        &          &
+then �     � � 
+�                            "  submatrices  �   , �    , �   , and �   .
+2
+else partition into four  "  
+                 submatrices   ,   ,   , and   .
+3
+partition into& four&  "        "
+�
+4
+r-t rans    &   & " 
+5
+�           
+r-t rans    &   & " 
+6
+�            
+r-t rans    &   & " 
+7
+8                  �
+r-t rans      " 
+ 
+assume that the cost of partitioning is �    .
+% for the number mt               of memory transfers incurred by
+
+(b) give and solve a recurrence
+r-t rans when            .
+6.046j/18.410j final exam                     name                                                                    19
+the following multithreaded algorithm computes the transpose in parallel:
+� &  & 
+p-t rans          
+1 if        &         &
+then �       �
+ � 
+�                                submatrices  �   , �    , �   , and �   .
+2
+else partition into four  "    "
+         
+3
+partition into four  "&   &   "       submatrices   ,   ,   , and   .
+�        
+4
+spawn p-t rans       & &" 
+�
+5
+spawn p-t rans    &   & " 
+�        
+ 
+6
+spawn p-t rans    &   & " 
+�
+7
+8          spawn p-t rans      " 
+9          sync
+
+(c) give and solve recurrences describing the work     and critical-path length "                      
+of p-t rans . what is the asymptotic parallelism of the algorithm?
+6.046j/18.410j final exam                       name                                                             20
+professor kellogg inadvertantly places two additional sync statements into his code as follows:
+& &
+k-t rans              
+1 if       &         &
+     
+               
+2    then
+else partition into four  "    "
+                            submatrices    ,    ,   , and   .
+          
+3
+partition into four  " &   &   "         submatrices   ,   ,   , and   .
+          
+4
+5         spawn k-t rans                " 
+6
+7
+sync
+  & &
+spawn k-t rans      " 
+ 
+8         sync
+   & &  
+spawn k-t rans    &   & " 
+9
+10                               
+spawn k-t rans      " 
+ 
+11         sync
+
+(d) give and solve recurrences describing the work     and critical-path length "                  
+of k-t rans . what is the asymptotic parallelism of this algorithm?
+scratch paper — please detach this page before handing in your exam.
+scratch paper — please detach this page before handing in your exam.', 'to each of the following recur­ rences. You need not justify your answers. (a)               . (b)                           $# %\'& (c)               %  !"  if  $(  )%+* if  % where           is a variable independent from  . 6.046J/18.410J Final Exam                    Name                                                     4 Problem 2. Algorithms and running times [9 points] Match each algorithm below with the tightest asymptotic upper bound for its worst-case running time by inserting one of the letters A, B, ��� , I into the
+Give a tight asymptotic upper bound ( � notation) on the solution to each of the following recur­
+rences. You need not justify your answers.
+(a)               .
+(b)  
+                        $# %\'&
+(c)               %  !" 
+if  $(
+ )%+*
+if 
+%
+where           is a variable independent from  .
+6.046J/18.410J Final Exam                    Name                                                     4
+Problem 2. Algorithms and running times [9 points]
+Match each algorithm below with the tightest asymptotic upper bound for its worst-case running
+time by inserting one of the letters A, B, ��� , I into the corresponding box. For sorting algorithms,
+ is the number of input elements. For matrix algorithms, the input matrix has size    . For
+graph algorithms, the number of vertices is  , and the number of edges is !" .
+You need not justify your answers. Some running times may be used multiple times or not at all.
+Because points will be deducted for wrong answers, do not guess unless you are reasonably sure.
+Insertion sort                                          A: �       
+Heapsort                                                B: �    
+B UILD -H EAP                                           C: �      
+
+Strassen’s                                              D: �      
+ 
+Bellman-Ford                                            E: �               
+ 
+Depth-ﬁrst search                                       F: �    
+Floyd-Warshall                                          G: �       
+Johnson’s                                               H: �      
+Prim’s                                                  I: �     
+6.046J/18.410J Final Exam                 Name                                                5
+Problem 3. Substitution method [10 points]
+Use the substitution method to prove a tight asymptotic lower bound ( -notation) on the solution
+�
+to the recurrence
+
+ )        �
+6.046J/18.410J Final Exam                   Name                                                      6
+Problem 4. True or False, and Justify [35 points] (7 parts)
+Circle T or F for each of the following statements to indicate whether the statement is true or
+false, respectively. If the statement is correct, brieﬂy state why. If the statement is wrong, explain
+why. The more content you provide in your justiﬁcation, the higher your grade, but be brief. Your
+justiﬁcation is worth more points than your true-or-false designation.
+T F Let �  , �  , and � be three sorted arrays of  real numbers (all distinct). In the comparison
+                                                                    
+model, constructing a balanced binary search tree of the set �  �   � requires         
+
+�
+time.
+T F Let  be a complete binary tree with  nodes. Finding a path from the root of  to a given
+
+vertex   using breadth-ﬁrst search takes �   time.
+6.046J/18.410J Final Exam                 Name                                                  7
+T F Given an unsorted array �
+�  ��  of  integers, building a max-heap out of the elements of
+� can be performed asymptotically faster than building a red-black tree out of the elements
+of � .
+T F Suppose we use a hash function  to hash  distinct keys into an array  of length  .
+
+Assuming     simple uniform hashing, the expected number of colliding pairs of elements is
+!    .
+6.046J/18.410J Final Exam               Name                                                8
+T F Every sorting network with  inputs has depth   �      .
+T F If a dynamic-programming problem satisﬁes the optimal-substructure property, then a lo­
+cally optimal solution is globally optimal.
+6.046J/18.410J Final Exam               Name                                                 9
+&
+T F Let �       be a directed graph with negative-weight edges, but no negative-weight
+
+
+cycles. Then, one can compute all shortest paths from a source     to all   faster
+than Bellman-Ford using the technique of reweighting.
+6.046J/18.410J Final Exam                  Name                                                 10
+Problem 5. Red-black trees [15 points] (3 parts)
+& & �& & & & � &
+(a) Assign the keys                     to the nodes of the binary search tree below so
+that they satisfy the binary-search-tree property.
+nil      nil
+nil         nil
+nil        nil               nil
+nil         nil
+(b) Explain why this binary search tree cannot be colored to form a legal red-black tree.
+6.046J/18.410J Final Exam                  Name                                                   11
+(c) The binary search tree can be transformed into a red-black tree by performing a single
+rotation. Draw the red-black tree that results, labeling each node with “red” or “black.”
+Include the keys from part (a).
+6.046J/18.410J Final Exam                  Name                                                  12
+Problem 6. Wiggly arrays [10 points]
+(                (              (
+An array � � ��    is wiggly if � �     �� � � �  ��  � ��� � � � � �    .
+Given an unsorted array  � ��    of real numbers, describe an efﬁcient algorithm that outputs
+a permutation � � � �    of  such that � is a wiggly array.
+6.046J/18.410J Final Exam                             Name                                       13
+Problem 7. Difference constraints [12 points] (2 parts)
+Consider the following linear-programming system of difference constraints (note that one con­
+straint is an equality):
+�           �       ( 
+�          �         (
+�         �        (  
+
+�        �       (  
+
+�        � 
+�               �  (
+�             � (  
+�         �  (
+�         � (
+(a) Draw the constraint graph for these constraints.
+(b) Solve for the unknowns �  , �  , � , � , and �  , or explain why no solution exists.
+
+6.046J/18.410J Final Exam                     Name                                                          14
+Problem 8. Amortized increment [12 points]
+
+
+           
+An array             of bits (each array element is or ) stores a binary number                      .
+
+
+To add (modulo           ) to , we use the following procedure:
+&
+I NCREMENT       
+1 
+2 while  and   
+3      do  
+4               
+5 if 
+6    then  
+Given a number , define the potential    of to be the number of ’s in the binary representation
+of . For example,       , because  
+    . Use a potential-function argument to prove
+that the amortized cost of an increment is   , where the initial value in the counter is  .
+6.046J/18.410J Final Exam                     Name                                                          15
+�     , and
+Problem 9. Minimum spanning trees [12 points]
+&
+Let �             be a connected, undirected graph with &edge-weight
+
+                 
+& & & function
+assume all & edge weights are distinct. Consider a cycle     ���      in � , where&  
+                                                                                  does,
+and let        be the edge in the cycle with the largest edge weight. Prove that     
+
+not belong to the minimum spanning tree  of � .
+6.046J/18.410J Final Exam                 Name                                                 16
+Problem 10. Multithreaded scheduling [10 points]
+A greedy scheduler runs a multithreaded computation in � seconds on  processors and in 
+�                                   �
+seconds on  processors. Is it possible that the computation has work       and critical-path
+�
+ �
+length    ? Justify your answer.
+6.046J/18.410J Final Exam                              Name                                                                  17
+Problem 11. Transposing a matrix [40 points] (4 parts)
+ � � be: an    matrix, where  is an exact power of . The following code computes
+Let
+T
+ � &  &  
+to 
+T
+RANS
+
+do for 
+ to& 
+1 for
+
+&
+do �   � �  
+2
+3                                    
+%
+
+& & & � and
+Consider the cache-oblivious two-level memory model with a cache of                           elements and blocks of
+ elements. Assume that both& matrices               & & are & stored& in& row-major
+& & order,  & & that& is, &the linear        & &
+order& of & � in& memory        � �   �   �           �   �   � �       � �              �  �               �   �     
+� �  � �� � � &   , and similarly for  .
+is                
+� �  �                               �
+   � �              �  � �
+%
+(a) Analyze the number MT    of memory transfers incurred by T                      RANS when                .
+6.046J/18.410J Final Exam                    Name                                                            18
+Now, consider the following divide-and-conquer algorithm for computing the transpose:
+� & &
+R-T RANS          
+1 if        &          &
+then �     � � 
+�                            "  submatrices  �   , �    , �   , and �   .
+2
+else Partition into four  "  
+                 submatrices   ,   ,   , and   .
+3
+Partition into& four&  "        "
+�
+4
+R-T RANS    &   & " 
+5
+�           
+R-T RANS    &   & " 
+6
+�            
+R-T RANS    &   & " 
+7
+8                  �
+R-T RANS      " 
+ 
+Assume that the cost of partitioning is �    .
+% for the number MT               of memory transfers incurred by
+
+(b) Give and solve a recurrence
+R-T RANS when            .
+6.046J/18.410J Final Exam                     Name                                                                    19
+The following multithreaded algorithm computes the transpose in parallel:
+� &  & 
+P-T RANS          
+1 if        &         &
+then �       �
+ � 
+�                                submatrices  �   , �    , �   , and �   .
+2
+else Partition into four  "    "
+         
+3
+Partition into four  "&   &   "       submatrices   ,   ,   , and   .
+�        
+4
+spawn P-T RANS       & &" 
+�
+5
+spawn P-T RANS    &   & " 
+�        
+ 
+6
+spawn P-T RANS    &   & " 
+�
+7
+8          spawn P-T RANS      " 
+9          sync
+
+(c) Give and solve recurrences describing the work     and critical-path length "                      
+of P-T RANS . What is the asymptotic parallelism of the algorithm?
+6.046J/18.410J Final Exam                       Name                                                             20
+Professor Kellogg inadvertantly places two additional sync statements into his code as follows:
+& &
+K-T RANS              
+1 if       &         &
+     
+               
+2    then
+else Partition into four  "    "
+                            submatrices    ,    ,   , and   .
+          
+3
+Partition into four  " &   &   "         submatrices   ,   ,   , and   .
+          
+4
+5         spawn K-T RANS                " 
+6
+7
+sync
+  & &
+spawn K-T RANS      " 
+ 
+8         sync
+   & &  
+spawn K-T RANS    &   & " 
+9
+10                               
+spawn K-T RANS      " 
+ 
+11         sync
+
+(d) Give and solve recurrences describing the work     and critical-path length "                  
+of K-T RANS . What is the asymptotic parallelism of this algorithm?
+SCRATCH PAPER — Please detach this page before handing in your exam.
+SCRATCH PAPER — Please detach this page before handing in your exam.', 'Pas to each of the following recur­ rences. you need not justify your answers. (a)               . (b)                           $# %\'& (c)               %  !"  if  $(  )%+* if  % where           is a variable independent from  . 6.046j/18.410j final exam                    name                                                     4 problem 2. algorithms and running times [9 points] match each algorithm below with the tightest asymptotic upper bound for its worst-case running time by inserting one of the letters a, b, ��� , i into the
+give a tight asymptotic upper bound ( � notation) on the solution to each of the following recur­
+rences. you need not justify your answers.
+(a)               .
+(b)  
+                        $# %\'&
+(c)               %  !" 
+if  $(
+ )%+*
+if 
+%
+where           is a variable independent from  .
+6.046j/18.410j final exam                    name                                                     4
+problem 2. algorithms and running times [9 points]
+match each algorithm below with the tightest asymptotic upper bound for its worst-case running
+time by inserting one of the letters a, b, ��� , i into the corresponding box. for sorting algorithms,
+ is the number of input elements. for matrix algorithms, the input matrix has size    . for
+graph algorithms, the number of vertices is  , and the number of edges is !" .
+you need not justify your answers. some running times may be used multiple times or not at all.
+because points will be deducted for wrong answers, do not guess unless you are reasonably sure.
+insertion sort                                          a: �       
+heapsort                                                b: �    
+b uild -h eap                                           c: �      
+
+strassen’s                                              d: �      
+ 
+bellman-ford                                            e: �               
+ 
+depth-ﬁrst search                                       f: �    
+floyd-warshall                                          g: �       
+johnson’s                                               h: �      
+prim’s                                                  i: �     
+6.046j/18.410j final exam                 name                                                5
+problem 3. substitution method [10 points]
+use the substitution method to prove a tight asymptotic lower bound ( -notation) on the solution
+�
+to the recurrence
+
+ )        �
+6.046j/18.410j final exam                   name                                                      6
+problem 4. true or false, and justify [35 points] (7 parts)
+circle t or f for each of the following statements to indicate whether the statement is true or
+false, respectively. if the statement is correct, brieﬂy state why. if the statement is wrong, explain
+why. the more content you provide in your justiﬁcation, the higher your grade, but be brief. your
+justiﬁcation is worth more points than your true-or-false designation.
+t f let �  , �  , and � be three sorted arrays of  real numbers (all distinct). in the comparison
+                                                                    
+model, constructing a balanced binary search tree of the set �  �   � requires         
+
+�
+time.
+t f let  be a complete binary tree with  nodes. finding a path from the root of  to a given
+
+vertex   using breadth-ﬁrst search takes �   time.
+6.046j/18.410j final exam                 name                                                  7
+t f given an unsorted array �
+�  ��  of  integers, building a max-heap out of the elements of
+� can be performed asymptotically faster than building a red-black tree out of the elements
+of � .
+t f suppose we use a hash function  to hash  distinct keys into an array  of length  .
+
+assuming     simple uniform hashing, the expected number of colliding pairs of elements is
+!    .
+6.046j/18.410j final exam               name                                                8
+t f every sorting network with  inputs has depth   �      .
+t f if a dynamic-programming problem satisﬁes the optimal-substructure property, then a lo­
+cally optimal solution is globally optimal.
+6.046j/18.410j final exam               name                                                 9
+&
+t f let �       be a directed graph with negative-weight edges, but no negative-weight
+
+
+cycles. then, one can compute all shortest paths from a source     to all   faster
+than bellman-ford using the technique of reweighting.
+6.046j/18.410j final exam                  name                                                 10
+problem 5. red-black trees [15 points] (3 parts)
+& & �& & & & � &
+(a) assign the keys                     to the nodes of the binary search tree below so
+that they satisfy the binary-search-tree property.
+nil      nil
+nil         nil
+nil        nil               nil
+nil         nil
+(b) explain why this binary search tree cannot be colored to form a legal red-black tree.
+6.046j/18.410j final exam                  name                                                   11
+(c) the binary search tree can be transformed into a red-black tree by performing a single
+rotation. draw the red-black tree that results, labeling each node with “red” or “black.”
+include the keys from part (a).
+6.046j/18.410j final exam                  name                                                  12
+problem 6. wiggly arrays [10 points]
+(                (              (
+an array � � ��    is wiggly if � �     �� � � �  ��  � ��� � � � � �    .
+given an unsorted array  � ��    of real numbers, describe an efﬁcient algorithm that outputs
+a permutation � � � �    of  such that � is a wiggly array.
+6.046j/18.410j final exam                             name                                       13
+problem 7. difference constraints [12 points] (2 parts)
+consider the following linear-programming system of difference constraints (note that one con­
+straint is an equality):
+�           �       ( 
+�          �         (
+�         �        (  
+
+�        �       (  
+
+�        � 
+�               �  (
+�             � (  
+�         �  (
+�         � (
+(a) draw the constraint graph for these constraints.
+(b) solve for the unknowns �  , �  , � , � , and �  , or explain why no solution exists.
+
+6.046j/18.410j final exam                     name                                                          14
+problem 8. amortized increment [12 points]
+
+
+           
+an array             of bits (each array element is or ) stores a binary number                      .
+
+
+to add (modulo           ) to , we use the following procedure:
+&
+i ncrement       
+1 
+2 while  and   
+3      do  
+4               
+5 if 
+6    then  
+given a number , define the potential    of to be the number of ’s in the binary representation
+of . for example,       , because  
+    . use a potential-function argument to prove
+that the amortized cost of an increment is   , where the initial value in the counter is  .
+6.046j/18.410j final exam                     name                                                          15
+�     , and
+problem 9. minimum spanning trees [12 points]
+&
+let �             be a connected, undirected graph with &edge-weight
+
+                 
+& & & function
+assume all & edge weights are distinct. consider a cycle     ���      in � , where&  
+                                                                                  does,
+and let        be the edge in the cycle with the largest edge weight. prove that     
+
+not belong to the minimum spanning tree  of � .
+6.046j/18.410j final exam                 name                                                 16
+problem 10. multithreaded scheduling [10 points]
+a greedy scheduler runs a multithreaded computation in � seconds on  processors and in 
+�                                   �
+seconds on  processors. is it possible that the computation has work       and critical-path
+�
+ �
+length    ? justify your answer.
+6.046j/18.410j final exam                              name                                                                  17
+problem 11. transposing a matrix [40 points] (4 parts)
+ � � be: an    matrix, where  is an exact power of . the following code computes
+let
+t
+ � &  &  
+to 
+t
+rans
+
+do for 
+ to& 
+1 for
+
+&
+do �   � �  
+2
+3                                    
+%
+
+& & & � and
+consider the cache-oblivious two-level memory model with a cache of                           elements and blocks of
+ elements. assume that both& matrices               & & are & stored& in& row-major
+& & order,  & & that& is, &the linear        & &
+order& of & � in& memory        � �   �   �           �   �   � �       � �              �  �               �   �     
+� �  � �� � � &   , and similarly for  .
+is                
+� �  �                               �
+   � �              �  � �
+%
+(a) analyze the number mt    of memory transfers incurred by t                      rans when                .
+6.046j/18.410j final exam                    name                                                            18
+now, consider the following divide-and-conquer algorithm for computing the transpose:
+� & &
+r-t rans          
+1 if        &          &
+then �     � � 
+�                            "  submatrices  �   , �    , �   , and �   .
+2
+else partition into four  "  
+                 submatrices   ,   ,   , and   .
+3
+partition into& four&  "        "
+�
+4
+r-t rans    &   & " 
+5
+�           
+r-t rans    &   & " 
+6
+�            
+r-t rans    &   & " 
+7
+8                  �
+r-t rans      " 
+ 
+assume that the cost of partitioning is �    .
+% for the number mt               of memory transfers incurred by
+
+(b) give and solve a recurrence
+r-t rans when            .
+6.046j/18.410j final exam                     name                                                                    19
+the following multithreaded algorithm computes the transpose in parallel:
+� &  & 
+p-t rans          
+1 if        &         &
+then �       �
+ � 
+�                                submatrices  �   , �    , �   , and �   .
+2
+else partition into four  "    "
+         
+3
+partition into four  "&   &   "       submatrices   ,   ,   , and   .
+�        
+4
+spawn p-t rans       & &" 
+�
+5
+spawn p-t rans    &   & " 
+�        
+ 
+6
+spawn p-t rans    &   & " 
+�
+7
+8          spawn p-t rans      " 
+9          sync
+
+(c) give and solve recurrences describing the work     and critical-path length "                      
+of p-t rans . what is the asymptotic parallelism of the algorithm?
+6.046j/18.410j final exam                       name                                                             20
+professor kellogg inadvertantly places two additional sync statements into his code as follows:
+& &
+k-t rans              
+1 if       &         &
+     
+               
+2    then
+else partition into four  "    "
+                            submatrices    ,    ,   , and   .
+          
+3
+partition into four  " &   &   "         submatrices   ,   ,   , and   .
+          
+4
+5         spawn k-t rans                " 
+6
+7
+sync
+  & &
+spawn k-t rans      " 
+ 
+8         sync
+   & &  
+spawn k-t rans    &   & " 
+9
+10                               
+spawn k-t rans      " 
+ 
+11         sync
+
+(d) give and solve recurrences describing the work     and critical-path length "                  
+of k-t rans . what is the asymptotic parallelism of this algorithm?
+scratch paper — please detach this page before handing in your exam.
+scratch paper — please detach this page before handing in your exam.', 'Impossible à déterminer'), 'correct' => 1, 'answer' => 'to each of the following recur­ rences. You need not justify your answers. (a)               . (b)                           $# %\'& (c)               %  !"  if  $(  )%+* if  % where           is a variable independent from  . 6.046J/18.410J Final Exam                    Name                                                     4 Problem 2. Algorithms and running times [9 points] Match each algorithm below with the tightest asymptotic upper bound for its worst-case running time by inserting one of the letters A, B, ��� , I into the
+Give a tight asymptotic upper bound ( � notation) on the solution to each of the following recur­
+rences. You need not justify your answers.
+(a)               .
+(b)  
+                        $# %\'&
+(c)               %  !" 
+if  $(
+ )%+*
+if 
+%
+where           is a variable independent from  .
+6.046J/18.410J Final Exam                    Name                                                     4
+Problem 2. Algorithms and running times [9 points]
+Match each algorithm below with the tightest asymptotic upper bound for its worst-case running
+time by inserting one of the letters A, B, ��� , I into the corresponding box. For sorting algorithms,
+ is the number of input elements. For matrix algorithms, the input matrix has size    . For
+graph algorithms, the number of vertices is  , and the number of edges is !" .
+You need not justify your answers. Some running times may be used multiple times or not at all.
+Because points will be deducted for wrong answers, do not guess unless you are reasonably sure.
+Insertion sort                                          A: �       
+Heapsort                                                B: �    
+B UILD -H EAP                                           C: �      
+
+Strassen’s                                              D: �      
+ 
+Bellman-Ford                                            E: �               
+ 
+Depth-ﬁrst search                                       F: �    
+Floyd-Warshall                                          G: �       
+Johnson’s                                               H: �      
+Prim’s                                                  I: �     
+6.046J/18.410J Final Exam                 Name                                                5
+Problem 3. Substitution method [10 points]
+Use the substitution method to prove a tight asymptotic lower bound ( -notation) on the solution
+�
+to the recurrence
+
+ )        �
+6.046J/18.410J Final Exam                   Name                                                      6
+Problem 4. True or False, and Justify [35 points] (7 parts)
+Circle T or F for each of the following statements to indicate whether the statement is true or
+false, respectively. If the statement is correct, brieﬂy state why. If the statement is wrong, explain
+why. The more content you provide in your justiﬁcation, the higher your grade, but be brief. Your
+justiﬁcation is worth more points than your true-or-false designation.
+T F Let �  , �  , and � be three sorted arrays of  real numbers (all distinct). In the comparison
+                                                                    
+model, constructing a balanced binary search tree of the set �  �   � requires         
+
+�
+time.
+T F Let  be a complete binary tree with  nodes. Finding a path from the root of  to a given
+
+vertex   using breadth-ﬁrst search takes �   time.
+6.046J/18.410J Final Exam                 Name                                                  7
+T F Given an unsorted array �
+�  ��  of  integers, building a max-heap out of the elements of
+� can be performed asymptotically faster than building a red-black tree out of the elements
+of � .
+T F Suppose we use a hash function  to hash  distinct keys into an array  of length  .
+
+Assuming     simple uniform hashing, the expected number of colliding pairs of elements is
+!    .
+6.046J/18.410J Final Exam               Name                                                8
+T F Every sorting network with  inputs has depth   �      .
+T F If a dynamic-programming problem satisﬁes the optimal-substructure property, then a lo­
+cally optimal solution is globally optimal.
+6.046J/18.410J Final Exam               Name                                                 9
+&
+T F Let �       be a directed graph with negative-weight edges, but no negative-weight
+
+
+cycles. Then, one can compute all shortest paths from a source     to all   faster
+than Bellman-Ford using the technique of reweighting.
+6.046J/18.410J Final Exam                  Name                                                 10
+Problem 5. Red-black trees [15 points] (3 parts)
+& & �& & & & � &
+(a) Assign the keys                     to the nodes of the binary search tree below so
+that they satisfy the binary-search-tree property.
+nil      nil
+nil         nil
+nil        nil               nil
+nil         nil
+(b) Explain why this binary search tree cannot be colored to form a legal red-black tree.
+6.046J/18.410J Final Exam                  Name                                                   11
+(c) The binary search tree can be transformed into a red-black tree by performing a single
+rotation. Draw the red-black tree that results, labeling each node with “red” or “black.”
+Include the keys from part (a).
+6.046J/18.410J Final Exam                  Name                                                  12
+Problem 6. Wiggly arrays [10 points]
+(                (              (
+An array � � ��    is wiggly if � �     �� � � �  ��  � ��� � � � � �    .
+Given an unsorted array  � ��    of real numbers, describe an efﬁcient algorithm that outputs
+a permutation � � � �    of  such that � is a wiggly array.
+6.046J/18.410J Final Exam                             Name                                       13
+Problem 7. Difference constraints [12 points] (2 parts)
+Consider the following linear-programming system of difference constraints (note that one con­
+straint is an equality):
+�           �       ( 
+�          �         (
+�         �        (  
+
+�        �       (  
+
+�        � 
+�               �  (
+�             � (  
+�         �  (
+�         � (
+(a) Draw the constraint graph for these constraints.
+(b) Solve for the unknowns �  , �  , � , � , and �  , or explain why no solution exists.
+
+6.046J/18.410J Final Exam                     Name                                                          14
+Problem 8. Amortized increment [12 points]
+
+
+           
+An array             of bits (each array element is or ) stores a binary number                      .
+
+
+To add (modulo           ) to , we use the following procedure:
+&
+I NCREMENT       
+1 
+2 while  and   
+3      do  
+4               
+5 if 
+6    then  
+Given a number , define the potential    of to be the number of ’s in the binary representation
+of . For example,       , because  
+    . Use a potential-function argument to prove
+that the amortized cost of an increment is   , where the initial value in the counter is  .
+6.046J/18.410J Final Exam                     Name                                                          15
+�     , and
+Problem 9. Minimum spanning trees [12 points]
+&
+Let �             be a connected, undirected graph with &edge-weight
+
+                 
+& & & function
+assume all & edge weights are distinct. Consider a cycle     ���      in � , where&  
+                                                                                  does,
+and let        be the edge in the cycle with the largest edge weight. Prove that     
+
+not belong to the minimum spanning tree  of � .
+6.046J/18.410J Final Exam                 Name                                                 16
+Problem 10. Multithreaded scheduling [10 points]
+A greedy scheduler runs a multithreaded computation in � seconds on  processors and in 
+�                                   �
+seconds on  processors. Is it possible that the computation has work       and critical-path
+�
+ �
+length    ? Justify your answer.
+6.046J/18.410J Final Exam                              Name                                                                  17
+Problem 11. Transposing a matrix [40 points] (4 parts)
+ � � be: an    matrix, where  is an exact power of . The following code computes
+Let
+T
+ � &  &  
+to 
+T
+RANS
+
+do for 
+ to& 
+1 for
+
+&
+do �   � �  
+2
+3                                    
+%
+
+& & & � and
+Consider the cache-oblivious two-level memory model with a cache of                           elements and blocks of
+ elements. Assume that both& matrices               & & are & stored& in& row-major
+& & order,  & & that& is, &the linear        & &
+order& of & � in& memory        � �   �   �           �   �   � �       � �              �  �               �   �     
+� �  � �� � � &   , and similarly for  .
+is                
+� �  �                               �
+   � �              �  � �
+%
+(a) Analyze the number MT    of memory transfers incurred by T                      RANS when                .
+6.046J/18.410J Final Exam                    Name                                                            18
+Now, consider the following divide-and-conquer algorithm for computing the transpose:
+� & &
+R-T RANS          
+1 if        &          &
+then �     � � 
+�                            "  submatrices  �   , �    , �   , and �   .
+2
+else Partition into four  "  
+                 submatrices   ,   ,   , and   .
+3
+Partition into& four&  "        "
+�
+4
+R-T RANS    &   & " 
+5
+�           
+R-T RANS    &   & " 
+6
+�            
+R-T RANS    &   & " 
+7
+8                  �
+R-T RANS      " 
+ 
+Assume that the cost of partitioning is �    .
+% for the number MT               of memory transfers incurred by
+
+(b) Give and solve a recurrence
+R-T RANS when            .
+6.046J/18.410J Final Exam                     Name                                                                    19
+The following multithreaded algorithm computes the transpose in parallel:
+� &  & 
+P-T RANS          
+1 if        &         &
+then �       �
+ � 
+�                                submatrices  �   , �    , �   , and �   .
+2
+else Partition into four  "    "
+         
+3
+Partition into four  "&   &   "       submatrices   ,   ,   , and   .
+�        
+4
+spawn P-T RANS       & &" 
+�
+5
+spawn P-T RANS    &   & " 
+�        
+ 
+6
+spawn P-T RANS    &   & " 
+�
+7
+8          spawn P-T RANS      " 
+9          sync
+
+(c) Give and solve recurrences describing the work     and critical-path length "                      
+of P-T RANS . What is the asymptotic parallelism of the algorithm?
+6.046J/18.410J Final Exam                       Name                                                             20
+Professor Kellogg inadvertantly places two additional sync statements into his code as follows:
+& &
+K-T RANS              
+1 if       &         &
+     
+               
+2    then
+else Partition into four  "    "
+                            submatrices    ,    ,   , and   .
+          
+3
+Partition into four  " &   &   "         submatrices   ,   ,   , and   .
+          
+4
+5         spawn K-T RANS                " 
+6
+7
+sync
+  & &
+spawn K-T RANS      " 
+ 
+8         sync
+   & &  
+spawn K-T RANS    &   & " 
+9
+10                               
+spawn K-T RANS      " 
+ 
+11         sync
+
+(d) Give and solve recurrences describing the work     and critical-path length "                  
+of K-T RANS . What is the asymptotic parallelism of this algorithm?
+SCRATCH PAPER — Please detach this page before handing in your exam.
+SCRATCH PAPER — Please detach this page before handing in your exam.', '_recupere_le' => '2026-11-04T19:55:22.724408+00:00Z', '_strategie' => 'separation_enum_solution'),
 						),
 					),
 				),
@@ -683,139 +1520,7 @@ SCRATCH PAPER — Please detach this page before handing in your exam.', 'source
 					'title' => 'donnees-et-systemes-organiser-linformation',
 					'tasks' => array(
 						'test' => array(
-							array('question' => '[MIT 6.046J — question d’examen, en anglais] For each algorithm listed below, �   give a recurrence that describes its worst-case running time, and �   give its worst-case running time using   �   -notation. You need not justify your answers. (a) Binary search (b) Insertion sort 6.046J/18.410J Quiz 1        Name   3 (c) Randomized quicksort (d) Strassen’s algorithm (e) Merge sort 6.046J/18.410J Quiz 1               Name                                                     4 Problem 2. Substitution Method [7 points] Consider the recurrence            -notation. Use the substitution method to give a tight upper bound on the solution to the recurrence using 6.046J/18.410J Quiz 1                    Name
-For each algorithm listed below,
-�   give a recurrence that describes its worst-case running time, and
-�   give its worst-case running time using   �   -notation.
-You need not justify your answers.
-(a) Binary search
-(b) Insertion sort
-6.046J/18.410J Quiz 1        Name   3
-(c) Randomized quicksort
-(d) Strassen’s algorithm
-(e) Merge sort
-6.046J/18.410J Quiz 1               Name                                                     4
-Problem 2. Substitution Method [7 points]
-Consider the recurrence          
- -notation.
-Use the substitution method to give a tight upper bound on the solution to the recurrence using
-6.046J/18.410J Quiz 1                    Name                                                                  5
-Problem 3. True or False, and Justify [48 points] (12 parts)
-Circle T or F for each of the following statements to indicate whether the statement is true or
-false, respectively. If the statement is correct, briefly state why. If the statement is wrong, explain
-why. The more content you provide in your justification, the higher your grade, but be brief. Your
-justification is worth more points than your true-or-false designation.
-T F Let
-   be  asymptotically
-  and 
-and 
-   nonnegative
-       functions. Then, at least one relationship of
-must always hold.
-                
-T F The solution to the recurrence                                          is                           .
-6.046J/18.410J Quiz 1               Name                                                           6
-
-
-   th Fibonacci number. Then, the
-T F Let � denote the                                           th Fibonacci number � can be
-computed in              time.
-
-can be sorted in
-  time
-T F Suppose that an array    contains numbers, each of which is 
-in the worst case.
-,  , or . Then, the array
-6.046J/18.410J Quiz 1                         Name                                                    7
-
-
-T F An adversary can provide randomized
-      quicksort with an input array of length       that forces
-the algorithm to run in �           time on that input.
-T F The array
-       
-
-                
-forms a max-heap.
-6.046J/18.410J Quiz 1               Name                                                       8
-T F Heapsort can be used as the auxiliary sorting routine in radix sort, because it operates in
-place.
-
-T F There exists a comparison sort of  numbers that uses at most comparisons in the worst
-case.
-6.046J/18.410J Quiz 1               Name                                                       9
-
-
- table with collisions resolved by chaining contains items and has a
-
-T F Suppose that a hash
-load factor of �                  simple uniform hashing, the expected time to search
-. Assuming
-for an item in the table is           .
-                                              
-                               
-T F Let be an indicator random variable such that              . Then, we have 
- 
- .
-6.046J/18.410J Quiz 1                   Name                                                  10
-T F Suppose that a hash table of slots contains a single element with key  and the rest of
-�
-the slots are empty. Suppose further that we search times in the table for various other
-
-keys not equal to  . Assuming simple uniform hashing, the probability is     �that one of
-the searches probes the slot containing the single element stored in the table.
-
-
-
-   for so that determining
-T F Let be a set of integers. One can create a data structure
-
-
-whether an integer belongs to can be performed in
-                              time in the worst case.
-6.046J/18.410J Quiz 1                             Name                                                              11
-�
-Problem 4. Close  Numbers [15 points] (2 parts)
-Consider a set
-
-of        distinct numbers. Call a pair of distinct numbers           
-close in
-
-if
- 
-
-   
-
-         
-       
-that is, if the distance between and is at most the average distance between consecutive numbers
-in the sorted order.
-
- �
-(a) Explain brieﬂy why every set                 of           distinct numbers contains a pair of close
-elements.
-6.046J/18.410J Quiz 1                           Name                                                          12
-                                            �                  � �
-                                           �
-                                               
-(b) Suppose that we partition    around a pivot element        , organizing the result into
-two subsets of :                       and                                
- 
-                                                                 
-. Prove that, for
-                                            
-                                                          
-some                                         of numbers that are close in (not just
-                                      
-, there exists a pair                
-in  ).
-
-6.046J/18.410J Quiz 1               Name                                                     13
-                                                 
-(c) Describe an         -time algorithm to ﬁnd a close pair of numbers in . Analyze your
-algorithm. (Hint: Use divide and conquer.)
-SCRATCH PAPER — Please detach this page before handing in your exam.
-SCRATCH PAPER — Please detach this page before handing in your exam.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : For each algorithm listed below,
+							array('question' => '[MIT 6.046J — question d’examen, en anglais] For each algorithm listed below, �   give a recurrence that describes its worst-case running time, and �   give its worst-case running time using   �   -notation. You need not justify your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : For each algorithm listed below,
 • give a recurrence that describes its worst-case running time, and
 • give its worst-case running time using �-notation.
 You need not justify your answers.
@@ -1012,7 +1717,535 @@ running time of the algorithm is given by the following recurrence:
 T (n) = T (n/2) + O(n),
 with the solution T (n) = O(n) according to the master theorem.
 SCRATCH PAPER — Please detach this page before handing in your exam.
-SCRATCH PAPER — Please detach this page before handing in your exam.', 'source' => 'MIT OpenCourseWare, 6.046j Introduction To Algorithms Sma 5503, Fall 2005 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+SCRATCH PAPER — Please detach this page before handing in your exam.', 'source' => 'MIT OpenCourseWare, 6.046j Introduction To Algorithms Sma 5503, Fall 2005 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas s. (a) binary search (b) insertion sort 6.046j/18.410j quiz 1        name   3 (c) randomized quicksort (d) strassen’s algorithm (e) merge sort 6.046j/18.410j quiz 1               name                                                     4 problem 2. substitution method [7 points] consider the recurrence            -notation. use the substitution method to give a tight upper bound on the solution to the recurrence using 6.046j/18.410j quiz 1                    name
+for each algorithm listed below,
+�   give a recurrence that describes its worst-case running time, and
+�   give its worst-case running time using   �   -notation.
+you need not justify your answers.
+(a) binary search
+(b) insertion sort
+6.046j/18.410j quiz 1        name   3
+(c) randomized quicksort
+(d) strassen’s algorithm
+(e) merge sort
+6.046j/18.410j quiz 1               name                                                     4
+problem 2. substitution method [7 points]
+consider the recurrence          
+ -notation.
+use the substitution method to give a tight upper bound on the solution to the recurrence using
+6.046j/18.410j quiz 1                    name                                                                  5
+problem 3. true or false, and justify [48 points] (12 parts)
+circle t or f for each of the following statements to indicate whether the statement is true or
+false, respectively. if the statement is correct, briefly state why. if the statement is wrong, explain
+why. the more content you provide in your justification, the higher your grade, but be brief. your
+justification is worth more points than your true-or-false designation.
+t f let
+   be  asymptotically
+  and 
+and 
+   nonnegative
+       functions. then, at least one relationship of
+must always hold.
+                
+t f the solution to the recurrence                                          is                           .
+6.046j/18.410j quiz 1               name                                                           6
+
+
+   th fibonacci number. then, the
+t f let � denote the                                           th fibonacci number � can be
+computed in              time.
+
+can be sorted in
+  time
+t f suppose that an array    contains numbers, each of which is 
+in the worst case.
+,  , or . then, the array
+6.046j/18.410j quiz 1                         name                                                    7
+
+
+t f an adversary can provide randomized
+      quicksort with an input array of length       that forces
+the algorithm to run in �           time on that input.
+t f the array
+       
+
+                
+forms a max-heap.
+6.046j/18.410j quiz 1               name                                                       8
+t f heapsort can be used as the auxiliary sorting routine in radix sort, because it operates in
+place.
+
+t f there exists a comparison sort of  numbers that uses at most comparisons in the worst
+case.
+6.046j/18.410j quiz 1               name                                                       9
+
+
+ table with collisions resolved by chaining contains items and has a
+
+t f suppose that a hash
+load factor of �                  simple uniform hashing, the expected time to search
+. assuming
+for an item in the table is           .
+                                              
+                               
+t f let be an indicator random variable such that              . then, we have 
+ 
+ .
+6.046j/18.410j quiz 1                   name                                                  10
+t f suppose that a hash table of slots contains a single element with key  and the rest of
+�
+the slots are empty. suppose further that we search times in the table for various other
+
+keys not equal to  . assuming simple uniform hashing, the probability is     �that one of
+the searches probes the slot containing the single element stored in the table.
+
+
+
+   for so that determining
+t f let be a set of integers. one can create a data structure
+
+
+whether an integer belongs to can be performed in
+                              time in the worst case.
+6.046j/18.410j quiz 1                             name                                                              11
+�
+problem 4. close  numbers [15 points] (2 parts)
+consider a set
+
+of        distinct numbers. call a pair of distinct numbers           
+close in
+
+if
+ 
+
+   
+
+         
+       
+that is, if the distance between and is at most the average distance between consecutive numbers
+in the sorted order.
+
+ �
+(a) explain brieﬂy why every set                 of           distinct numbers contains a pair of close
+elements.
+6.046j/18.410j quiz 1                           name                                                          12
+                                            �                  � �
+                                           �
+                                               
+(b) suppose that we partition    around a pivot element        , organizing the result into
+two subsets of :                       and                                
+ 
+                                                                 
+. prove that, for
+                                            
+                                                          
+some                                         of numbers that are close in (not just
+                                      
+, there exists a pair                
+in  ).
+
+6.046j/18.410j quiz 1               name                                                     13
+                                                 
+(c) describe an         -time algorithm to ﬁnd a close pair of numbers in . analyze your
+algorithm. (hint: use divide and conquer.)
+scratch paper — please detach this page before handing in your exam.
+scratch paper — please detach this page before handing in your exam.', 'L\'inverse de s. (a) binary search (b) insertion sort 6.046j/18.410j quiz 1        name   3 (c) randomized quicksort (d) strassen’s algorithm (e) merge sort 6.046j/18.410j quiz 1               name                                                     4 problem 2. substitution method [7 points] consider the recurrence            -notation. use the substitution method to give a tight upper bound on the solution to the recurrence using 6.046j/18.410j quiz 1                    name
+for each algorithm listed below,
+�   give a recurrence that describes its worst-case running time, and
+�   give its worst-case running time using   �   -notation.
+you need not justify your answers.
+(a) binary search
+(b) insertion sort
+6.046j/18.410j quiz 1        name   3
+(c) randomized quicksort
+(d) strassen’s algorithm
+(e) merge sort
+6.046j/18.410j quiz 1               name                                                     4
+problem 2. substitution method [7 points]
+consider the recurrence          
+ -notation.
+use the substitution method to give a tight upper bound on the solution to the recurrence using
+6.046j/18.410j quiz 1                    name                                                                  5
+problem 3. true or false, and justify [48 points] (12 parts)
+circle t or f for each of the following statements to indicate whether the statement is true or
+false, respectively. if the statement is correct, briefly state why. if the statement is wrong, explain
+why. the more content you provide in your justification, the higher your grade, but be brief. your
+justification is worth more points than your true-or-false designation.
+t f let
+   be  asymptotically
+  and 
+and 
+   nonnegative
+       functions. then, at least one relationship of
+must always hold.
+                
+t f the solution to the recurrence                                          is                           .
+6.046j/18.410j quiz 1               name                                                           6
+
+
+   th fibonacci number. then, the
+t f let � denote the                                           th fibonacci number � can be
+computed in              time.
+
+can be sorted in
+  time
+t f suppose that an array    contains numbers, each of which is 
+in the worst case.
+,  , or . then, the array
+6.046j/18.410j quiz 1                         name                                                    7
+
+
+t f an adversary can provide randomized
+      quicksort with an input array of length       that forces
+the algorithm to run in �           time on that input.
+t f the array
+       
+
+                
+forms a max-heap.
+6.046j/18.410j quiz 1               name                                                       8
+t f heapsort can be used as the auxiliary sorting routine in radix sort, because it operates in
+place.
+
+t f there exists a comparison sort of  numbers that uses at most comparisons in the worst
+case.
+6.046j/18.410j quiz 1               name                                                       9
+
+
+ table with collisions resolved by chaining contains items and has a
+
+t f suppose that a hash
+load factor of �                  simple uniform hashing, the expected time to search
+. assuming
+for an item in the table is           .
+                                              
+                               
+t f let be an indicator random variable such that              . then, we have 
+ 
+ .
+6.046j/18.410j quiz 1                   name                                                  10
+t f suppose that a hash table of slots contains a single element with key  and the rest of
+�
+the slots are empty. suppose further that we search times in the table for various other
+
+keys not equal to  . assuming simple uniform hashing, the probability is     �that one of
+the searches probes the slot containing the single element stored in the table.
+
+
+
+   for so that determining
+t f let be a set of integers. one can create a data structure
+
+
+whether an integer belongs to can be performed in
+                              time in the worst case.
+6.046j/18.410j quiz 1                             name                                                              11
+�
+problem 4. close  numbers [15 points] (2 parts)
+consider a set
+
+of        distinct numbers. call a pair of distinct numbers           
+close in
+
+if
+ 
+
+   
+
+         
+       
+that is, if the distance between and is at most the average distance between consecutive numbers
+in the sorted order.
+
+ �
+(a) explain brieﬂy why every set                 of           distinct numbers contains a pair of close
+elements.
+6.046j/18.410j quiz 1                           name                                                          12
+                                            �                  � �
+                                           �
+                                               
+(b) suppose that we partition    around a pivot element        , organizing the result into
+two subsets of :                       and                                
+ 
+                                                                 
+. prove that, for
+                                            
+                                                          
+some                                         of numbers that are close in (not just
+                                      
+, there exists a pair                
+in  ).
+
+6.046j/18.410j quiz 1               name                                                     13
+                                                 
+(c) describe an         -time algorithm to ﬁnd a close pair of numbers in . analyze your
+algorithm. (hint: use divide and conquer.)
+scratch paper — please detach this page before handing in your exam.
+scratch paper — please detach this page before handing in your exam.', 's. (a) Binary search (b) Insertion sort 6.046J/18.410J Quiz 1        Name   3 (c) Randomized quicksort (d) Strassen’s algorithm (e) Merge sort 6.046J/18.410J Quiz 1               Name                                                     4 Problem 2. Substitution Method [7 points] Consider the recurrence            -notation. Use the substitution method to give a tight upper bound on the solution to the recurrence using 6.046J/18.410J Quiz 1                    Name
+For each algorithm listed below,
+�   give a recurrence that describes its worst-case running time, and
+�   give its worst-case running time using   �   -notation.
+You need not justify your answers.
+(a) Binary search
+(b) Insertion sort
+6.046J/18.410J Quiz 1        Name   3
+(c) Randomized quicksort
+(d) Strassen’s algorithm
+(e) Merge sort
+6.046J/18.410J Quiz 1               Name                                                     4
+Problem 2. Substitution Method [7 points]
+Consider the recurrence          
+ -notation.
+Use the substitution method to give a tight upper bound on the solution to the recurrence using
+6.046J/18.410J Quiz 1                    Name                                                                  5
+Problem 3. True or False, and Justify [48 points] (12 parts)
+Circle T or F for each of the following statements to indicate whether the statement is true or
+false, respectively. If the statement is correct, briefly state why. If the statement is wrong, explain
+why. The more content you provide in your justification, the higher your grade, but be brief. Your
+justification is worth more points than your true-or-false designation.
+T F Let
+   be  asymptotically
+  and 
+and 
+   nonnegative
+       functions. Then, at least one relationship of
+must always hold.
+                
+T F The solution to the recurrence                                          is                           .
+6.046J/18.410J Quiz 1               Name                                                           6
+
+
+   th Fibonacci number. Then, the
+T F Let � denote the                                           th Fibonacci number � can be
+computed in              time.
+
+can be sorted in
+  time
+T F Suppose that an array    contains numbers, each of which is 
+in the worst case.
+,  , or . Then, the array
+6.046J/18.410J Quiz 1                         Name                                                    7
+
+
+T F An adversary can provide randomized
+      quicksort with an input array of length       that forces
+the algorithm to run in �           time on that input.
+T F The array
+       
+
+                
+forms a max-heap.
+6.046J/18.410J Quiz 1               Name                                                       8
+T F Heapsort can be used as the auxiliary sorting routine in radix sort, because it operates in
+place.
+
+T F There exists a comparison sort of  numbers that uses at most comparisons in the worst
+case.
+6.046J/18.410J Quiz 1               Name                                                       9
+
+
+ table with collisions resolved by chaining contains items and has a
+
+T F Suppose that a hash
+load factor of �                  simple uniform hashing, the expected time to search
+. Assuming
+for an item in the table is           .
+                                              
+                               
+T F Let be an indicator random variable such that              . Then, we have 
+ 
+ .
+6.046J/18.410J Quiz 1                   Name                                                  10
+T F Suppose that a hash table of slots contains a single element with key  and the rest of
+�
+the slots are empty. Suppose further that we search times in the table for various other
+
+keys not equal to  . Assuming simple uniform hashing, the probability is     �that one of
+the searches probes the slot containing the single element stored in the table.
+
+
+
+   for so that determining
+T F Let be a set of integers. One can create a data structure
+
+
+whether an integer belongs to can be performed in
+                              time in the worst case.
+6.046J/18.410J Quiz 1                             Name                                                              11
+�
+Problem 4. Close  Numbers [15 points] (2 parts)
+Consider a set
+
+of        distinct numbers. Call a pair of distinct numbers           
+close in
+
+if
+ 
+
+   
+
+         
+       
+that is, if the distance between and is at most the average distance between consecutive numbers
+in the sorted order.
+
+ �
+(a) Explain brieﬂy why every set                 of           distinct numbers contains a pair of close
+elements.
+6.046J/18.410J Quiz 1                           Name                                                          12
+                                            �                  � �
+                                           �
+                                               
+(b) Suppose that we partition    around a pivot element        , organizing the result into
+two subsets of :                       and                                
+ 
+                                                                 
+. Prove that, for
+                                            
+                                                          
+some                                         of numbers that are close in (not just
+                                      
+, there exists a pair                
+in  ).
+
+6.046J/18.410J Quiz 1               Name                                                     13
+                                                 
+(c) Describe an         -time algorithm to ﬁnd a close pair of numbers in . Analyze your
+algorithm. (Hint: Use divide and conquer.)
+SCRATCH PAPER — Please detach this page before handing in your exam.
+SCRATCH PAPER — Please detach this page before handing in your exam.', 'Impossible à déterminer'), 'correct' => 2, 'answer' => 's. (a) Binary search (b) Insertion sort 6.046J/18.410J Quiz 1        Name   3 (c) Randomized quicksort (d) Strassen’s algorithm (e) Merge sort 6.046J/18.410J Quiz 1               Name                                                     4 Problem 2. Substitution Method [7 points] Consider the recurrence            -notation. Use the substitution method to give a tight upper bound on the solution to the recurrence using 6.046J/18.410J Quiz 1                    Name
+For each algorithm listed below,
+�   give a recurrence that describes its worst-case running time, and
+�   give its worst-case running time using   �   -notation.
+You need not justify your answers.
+(a) Binary search
+(b) Insertion sort
+6.046J/18.410J Quiz 1        Name   3
+(c) Randomized quicksort
+(d) Strassen’s algorithm
+(e) Merge sort
+6.046J/18.410J Quiz 1               Name                                                     4
+Problem 2. Substitution Method [7 points]
+Consider the recurrence          
+ -notation.
+Use the substitution method to give a tight upper bound on the solution to the recurrence using
+6.046J/18.410J Quiz 1                    Name                                                                  5
+Problem 3. True or False, and Justify [48 points] (12 parts)
+Circle T or F for each of the following statements to indicate whether the statement is true or
+false, respectively. If the statement is correct, briefly state why. If the statement is wrong, explain
+why. The more content you provide in your justification, the higher your grade, but be brief. Your
+justification is worth more points than your true-or-false designation.
+T F Let
+   be  asymptotically
+  and 
+and 
+   nonnegative
+       functions. Then, at least one relationship of
+must always hold.
+                
+T F The solution to the recurrence                                          is                           .
+6.046J/18.410J Quiz 1               Name                                                           6
+
+
+   th Fibonacci number. Then, the
+T F Let � denote the                                           th Fibonacci number � can be
+computed in              time.
+
+can be sorted in
+  time
+T F Suppose that an array    contains numbers, each of which is 
+in the worst case.
+,  , or . Then, the array
+6.046J/18.410J Quiz 1                         Name                                                    7
+
+
+T F An adversary can provide randomized
+      quicksort with an input array of length       that forces
+the algorithm to run in �           time on that input.
+T F The array
+       
+
+                
+forms a max-heap.
+6.046J/18.410J Quiz 1               Name                                                       8
+T F Heapsort can be used as the auxiliary sorting routine in radix sort, because it operates in
+place.
+
+T F There exists a comparison sort of  numbers that uses at most comparisons in the worst
+case.
+6.046J/18.410J Quiz 1               Name                                                       9
+
+
+ table with collisions resolved by chaining contains items and has a
+
+T F Suppose that a hash
+load factor of �                  simple uniform hashing, the expected time to search
+. Assuming
+for an item in the table is           .
+                                              
+                               
+T F Let be an indicator random variable such that              . Then, we have 
+ 
+ .
+6.046J/18.410J Quiz 1                   Name                                                  10
+T F Suppose that a hash table of slots contains a single element with key  and the rest of
+�
+the slots are empty. Suppose further that we search times in the table for various other
+
+keys not equal to  . Assuming simple uniform hashing, the probability is     �that one of
+the searches probes the slot containing the single element stored in the table.
+
+
+
+   for so that determining
+T F Let be a set of integers. One can create a data structure
+
+
+whether an integer belongs to can be performed in
+                              time in the worst case.
+6.046J/18.410J Quiz 1                             Name                                                              11
+�
+Problem 4. Close  Numbers [15 points] (2 parts)
+Consider a set
+
+of        distinct numbers. Call a pair of distinct numbers           
+close in
+
+if
+ 
+
+   
+
+         
+       
+that is, if the distance between and is at most the average distance between consecutive numbers
+in the sorted order.
+
+ �
+(a) Explain brieﬂy why every set                 of           distinct numbers contains a pair of close
+elements.
+6.046J/18.410J Quiz 1                           Name                                                          12
+                                            �                  � �
+                                           �
+                                               
+(b) Suppose that we partition    around a pivot element        , organizing the result into
+two subsets of :                       and                                
+ 
+                                                                 
+. Prove that, for
+                                            
+                                                          
+some                                         of numbers that are close in (not just
+                                      
+, there exists a pair                
+in  ).
+
+6.046J/18.410J Quiz 1               Name                                                     13
+                                                 
+(c) Describe an         -time algorithm to ﬁnd a close pair of numbers in . Analyze your
+algorithm. (Hint: Use divide and conquer.)
+SCRATCH PAPER — Please detach this page before handing in your exam.
+SCRATCH PAPER — Please detach this page before handing in your exam.', '_recupere_le' => '2026-11-04T19:55:22.726679+00:00Z', '_strategie' => 'separation_enum_solution'),
 						),
 					),
 				),

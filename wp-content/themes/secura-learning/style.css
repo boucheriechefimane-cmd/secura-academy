@@ -4,7 +4,7 @@ Theme URI: https://github.com/boucheriechefimane-cmd/secura-academy
 Author: Secura Academy
 Author URI: https://github.com/boucheriechefimane-cmd
 Description: Thème sombre et responsive pour Secura Academy. Il expose une palette personnalisable (Apparence → Personnaliser → Palette Secura) et fournit les jetons de couleur consommés par le plugin Secura Academy. Compatible RTL (arabe) et adaptés à une expérience de jeu.
-Version: 0.8.3
+Version: 0.8.4
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -359,4 +359,43 @@ img {
 	border-color: var(--secura-accent);
 	color: #07131f;
 	font-weight: 700;
+}
+
+/* ============================================================
+   Section licence et attribution (rooms)
+   ============================================================ */
+.seca-room-licence {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--secura-bg-muted, #f8fafc);
+    border: 1px solid var(--secura-border, #e2e8f0);
+    border-left: 4px solid var(--secura-accent, #2563eb);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.seca-room-licence h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: var(--secura-text, #1a1a2e);
+    border-bottom: 1px solid var(--secura-border, #e2e8f0);
+    padding-bottom: 0.5rem;
+}
+
+.seca-room-licence ul {
+    margin: 0 0 0.75rem 0;
+    padding-left: 1.2rem;
+}
+
+.seca-room-licence li {
+    margin-bottom: 0.4rem;
+    color: var(--secura-text-muted, #475569);
+}
+
+.seca-room-licence-note {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--secura-muted, #64748b);
+    font-style: italic;
 }
