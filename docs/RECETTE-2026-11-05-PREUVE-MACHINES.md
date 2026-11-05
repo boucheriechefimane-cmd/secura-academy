@@ -83,3 +83,28 @@ ignorer : `docker run` demarre, puis le contenu web est verifie.
   l'application repond, pas qu'un apprenant resout chaque defi.
 - Les 3 rooms sans machine sont des cours sans lab : rien a prouver par une
   image.
+
+## Repondre a « est-ce que je dois passer le CI a chaque essai ? »
+
+Non. Deux chemins existent maintenant, et ils executent exactement le meme
+code :
+
+1. **Mesurer sans toucher au CI** — onglet *Actions* du depot, workflow
+   **« Machines — mesurer sans lancer le CI »**, bouton *Run workflow*, en
+   choisissant la branche. Il monte un vrai MySQL (conteneur), un vrai
+   WordPress, construit les vraies images Docker et produit le rapport dans
+   la branche `preuve-machines` (`docs/preuves/`). Il ne pousse rien dans la
+   branche de travail et ne modifie pas la demande de fusion.
+2. **Le CI, une seule fois, avant de fusionner** — le workflow
+   *« WordPress — recette et compatibilité »* exécute la meme action
+   `.github/actions/preuves-machines`, plus la matrice de compatibilite des
+   plugins. C'est lui qui doit etre vert pour fusionner.
+
+Les deux appellent la **meme** action composite : impossible que les deux
+chemins divergent. Si le bouton dit OK et que le CI dit KO, c'est la
+matrice de compatibilite (plugins tiers), pas les machines.
+
+Ce qui n'est pas possible : supprimer totalement le CI par poussee tant que
+la demande de fusion est ouverte, parce que la protection de branche de
+`main` l'exige. Ce qui est possible, et fait ici : ne plus s'en servir comme
+outil de mesure.
