@@ -21,7 +21,21 @@ sense (if you are doing p = 2 it is already the usual sense) and hence, this cut
 sequence converges. Use this to ﬁnd a putative limit of the Cauchy sequence and
 then check that it works.
 1
-2                                RICHARD MELROSE', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : - So, suppose we are given a Cauchy sequence a(n) in lp . Thus, each
+2                                RICHARD MELROSE
+4. Problem 1.4
+Consider the ‘unit sphere’ in lp – where if you want you can set p = 2. This is
+the set of vectors of length 1 :
+S = {a ∈ lp ; �a�p = 1}.
+(1) Show that S is closed.
+(2) Recall the sequential (so not the open covering deﬁnition) characterization
+of compactness of a set in a metric space (e.g. by checking in Rudin).
+(3) Show that S is not compact by considering the sequence in lp with kth
+element the sequence which is all zeros except for a 1 in the kth slot. Note
+that the main problem is not to get yourself confused about sequences of
+sequences!
+5. Problem 1.5
+Show that the norm on any normed space is continuous.
+Department of Mathematics, Massachusetts Institute of Technology', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : - So, suppose we are given a Cauchy sequence a(n) in lp . Thus, each
 (n)
 element is a sequence {aj }∞           p
 j=1 in l . From the continuity of the norm in Problem
@@ -108,60 +122,182 @@ The triangle inequality shows that for any u, v in a normed space
 which implies that
 (2)                           |�u� − �v�| ≤ �u − v�.
 This shows that � · � is continuous, indeed it is Lipschitz continuous.
-Department of Mathematics, Massachusetts Institute of Technology', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Problem 1.4
-Consider the ‘unit sphere’ in lp – where if you want you can set p = 2. This is
-the set of vectors of length 1 :
-S = {a ∈ lp ; �a�p = 1}.
-(1) Show that S is closed.
-(2) Recall the sequential (so not the open covering deﬁnition) characterization
-of compactness of a set in a metric space (e.g. by checking in Rudin).
-(3) Show that S is not compact by considering the sequence in lp with kth
-element the sequence which is all zeros except for a 1 in the kth slot. Note
-that the main problem is not to get yourself confused about sequences of
-sequences!
-5. Problem 1.5
-Show that the norm on any normed space is continuous.
-Department of Mathematics, Massachusetts Institute of Technology', 'L\'inverse de problem 1.4
-consider the ‘unit sphere’ in lp – where if you want you can set p = 2. this is
-the set of vectors of length 1 :
-s = {a ∈ lp ; �a�p = 1}.
-(1) show that s is closed.
-(2) recall the sequential (so not the open covering deﬁnition) characterization
-of compactness of a set in a metric space (e.g. by checking in rudin).
-(3) show that s is not compact by considering the sequence in lp with kth
-element the sequence which is all zeros except for a 1 in the kth slot. note
-that the main problem is not to get yourself confused about sequences of
-sequences!
-5. problem 1.5
-show that the norm on any normed space is continuous.
-department of mathematics, massachusetts institute of technology', 'Impossible à déterminer', 'Pas problem 1.4
-consider the ‘unit sphere’ in lp – where if you want you can set p = 2. this is
-the set of vectors of length 1 :
-s = {a ∈ lp ; �a�p = 1}.
-(1) show that s is closed.
-(2) recall the sequential (so not the open covering deﬁnition) characterization
-of compactness of a set in a metric space (e.g. by checking in rudin).
-(3) show that s is not compact by considering the sequence in lp with kth
-element the sequence which is all zeros except for a 1 in the kth slot. note
-that the main problem is not to get yourself confused about sequences of
-sequences!
-5. problem 1.5
-show that the norm on any normed space is continuous.
-department of mathematics, massachusetts institute of technology'), 'correct' => 0, 'answer' => 'Problem 1.4
-Consider the ‘unit sphere’ in lp – where if you want you can set p = 2. This is
-the set of vectors of length 1 :
-S = {a ∈ lp ; �a�p = 1}.
-(1) Show that S is closed.
-(2) Recall the sequential (so not the open covering deﬁnition) characterization
-of compactness of a set in a metric space (e.g. by checking in Rudin).
-(3) Show that S is not compact by considering the sequence in lp with kth
-element the sequence which is all zeros except for a 1 in the kth slot. Note
-that the main problem is not to get yourself confused about sequences of
-sequences!
-5. Problem 1.5
-Show that the norm on any normed space is continuous.
-Department of Mathematics, Massachusetts Institute of Technology', '_recupere_le' => '2026-11-04T19:55:22.565696+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 18.102 — question d’examen, en anglais] PROBLEM SET 9 FOR 18.102, SPRING 2009 DUE 11AM TUESDAY 28 APR. RICHARD MELROSE', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Solutions to Problem set 9
+Department of Mathematics, Massachusetts Institute of Technology', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT 18.102 — question d’examen, en anglais] PROBLEM SET 9 FOR 18.102, SPRING 2009 DUE 11AM TUESDAY 28 APR. RICHARD MELROSE Corrections to earlier versions My apologies for all these errors. Here is a list – they are ﬁxed below (I hope). (1) In P9.2 (2), and elsewhere, C ∞ (S) should be C 0 (S), the space of continuous functions on the circle – with supremum norm. (2) In (P9.2.9) it should be u = F v, not u = Sv. (3) Similarly, before (P9.2.10) it should be u = F v. (4) Discussion around (P9.2.12) clariﬁed. (5) Last part of P10.2 clariﬁed. This week I want you to go through the invertibility theory for the operator d2 (P9.1)                         Qu = (−    + V (x))u(x) dx2 acting on periodic functions. Since we have not developed
+PROBLEM SET 9 FOR 18.102, SPRING 2009
+DUE 11AM TUESDAY 28 APR.
+RICHARD MELROSE
+Corrections to earlier versions
+My apologies for all these errors. Here is a list – they are ﬁxed below (I hope).
+(1) In P9.2 (2), and elsewhere, C ∞ (S) should be C 0 (S), the space of continuous
+functions on the circle – with supremum norm.
+(2) In (P9.2.9) it should be u = F v, not u = Sv.
+(3) Similarly, before (P9.2.10) it should be u = F v.
+(4) Discussion around (P9.2.12) clariﬁed.
+(5) Last part of P10.2 clariﬁed.
+This week I want you to go through the invertibility theory for the operator
+d2
+(P9.1)                         Qu = (−    + V (x))u(x)
+dx2
+acting on periodic functions. Since we have not developed the theory to handle this
+directly we need to approach it through integral operators.
+Before beginning, we need to consider periodic functions.
+1. P9.1: Periodic functions
+Let S be the circle of radius 1 in the complex plane, centered at the origin,
+S = {z; |z| = 1}.
+(1) Show that there is a 1-1 correspondence
+(P9.1.1) C 0 (S) = {u : S −→ C, continuous} −→
+{u : R −→ C; continuous and satisfying u(x + 2π) = u(x) ∀ x ∈ R}.
+(2) Show that there is a 1-1 correspondence
+(P9.1.2) L2 (0, 2π) ←→ {u ∈ L1loc (R); u�(0,2π) ∈ L2 (0, 2π)
+�
+and u(x + 2π) = u(x) ∀ x ∈ R}/NP
+where NP is the space of null functions on R satisfying u(x + 2π) = u(x)
+for all x ∈ R.
+(3) If we denote by L2 (S) the space on the left in (P9.1.2) show that there is a
+dense inclusion
+(P9.1.3)                            C 0 (S) −→ L2 (S).
+So, the idea is that we can think of functions on S as 2π-periodic functions on
+R.
+1
+2                                     RICHARD MELROSE
+2. P9.2: Schrödinger’s operator
+Since that is what it is, or at least it is an example thereof:
+d2 u(x)
+(P9.2.1)                  −       + V (x)u(x) = f (x), x ∈ R,
+dx2
+(1) First we will consider the special case V = 1. Why not V = 0? – Don’t try
+to answer this until the end!
+(2) Recall how to solve the diﬀerential equation
+d2 u(x)
+(P9.2.2)                      −       + u(x) = f (x), x ∈ R,
+dx2
+where f (x) ∈ C 0 (S) is a continuous, 2π-periodic function on the line. Show
+that there is a unique 2π-periodic and twice continuously diﬀerentiable
+function, u, on R satisfying (P9.2.2) and that this solution can be written
+in the form
+�
+(P9.2.3)                 u(x) = (Sf )(x) =        A(x, y)f (y)
+0,2π
+0   2
+where A(x, y) ∈ C (R ) satisﬁes A(x + 2π, y + 2π) = A(x, y) for all (x, y) ∈
+R.
+Extended hint: In case you managed to avoid a course on diﬀerential
+equations! First try to ﬁnd a solution, igonoring the periodicity issue. To
+do so one can (for example, there are other ways) factorize the diﬀerential
+operator involved, checking that
+d2 u(x)               dv              du
+(P9.2.4)              −    2
++ u(x) = −(      + v) if v =    −u
+dx                  dx              dx
+since the cross terms cancel. Then recall the idea of integrating factors to
+see that
+du           dφ
+− u = ex , φ = e−x u,
+(P9.2.5)                      dx           dx
+dv        −x dψ
++v =e          , ψ = ex v.
+dx            dx
+Now, solve the problem by integrating twice from the origin (say) and hence
+get a solution to the diﬀerential equation (P9.2.2). Write this out explicitly
+as a double integral, and then change the order of integration to write the
+solution as
+�
+�
+(P9.2.6)                     u (x) =       A� (x, y)f (y)dy
+0,2π
+where A is continuous on R × [0, 2π]. Compute the diﬀerence u� (2π) − u� (0)
+�
+�
+du�                                            �
+and dudx (2π) − dx (0) as integrals involving f. Now, add to u as solution
+x      −x
+to the homogeneous equation, for f = 0, namely c1 e + c2 e , so that the
+new solution to (P9.2.2) satisﬁes u(2π) = u(0) and du            du
+dx (2π) = dx (0). Now,
+check that u is given by an integral of the form (P9.2.3) with A as stated.
+(3) Check, either directly or indirectly, that A(y, x) = A(x, y) and that A is
+real.
+(4) Conclude that the operator S extends by continuity to a bounded operator
+on L2 (S).
+PROBLEMS 9                                      3
+(5) Check, probably indirectly rather than directly, that
+(P9.2.7)                  S(eikx ) = (k 2 + 1)−1 eikx , k ∈ Z.
+(6) Conclude, either from the previous result or otherwise that S is a compact
+self-adjoint operator on L2 (S).
+(7) Show that if g ∈ C 0 (S)) then Sg is twice continuously diﬀerentiable. Hint:
+Proceed directly by diﬀerentiating the integral.
+(8) From (P9.2.7) conclude that S = F 2 where F is also a compact self-adjoint
+1
+operator on L2 (S) with eigenvalues (k 2 + 1)− 2 .
+(9) Show that F : L2 (S) −→ C 0 (S).
+(10) Now, going back to the real equation (P9.2.1), we assume that V is contin­
+uous, real-valued and 2π-periodic. Show that if u is a twice-diﬀerentiable
+2π-periodic function satisfying (P9.2.1) for a given f ∈ C 0 (S) then
+(P9.2.8)      u + S((V − 1)u) = Sf and hence u = −F 2 ((V − 1)u) + F 2 f
+and hence conclude that
+(P9.2.9)       u = F v where v ∈ L2 (S) satisﬁes v + (F (V − 1)F )v = F f
+where V − 1 is the operator deﬁned by multiplication by V − 1.
+(11) Show the converse, that if v ∈ L2 (S) satisﬁes
+(P9.2.10)               v + (F (V − 1)F )v = F f, f ∈ C 0 (S)
+then u = F v is 2π-periodic and twice-diﬀerentiable on R and satisﬁes
+(P9.2.1).
+(12) Apply the Spectral theorem to F (V − 1)F (including why it applies) and
+show that there is a sequence λj in R \\ {0} with |λj | → 0 such that for all
+λ ∈ C \\ {0}, the equation
+(P9.2.11)               λv + (F (V − 1)F )v = g, g ∈ L2 (S)
+has a unique solution for every g ∈ L2 (S) if and only if λ =
+� λj for any j.
+(13) Show that for the λj the solutions of
+(P9.2.12)               λj v + (F (V − 1)F )v = 0, v ∈ L2 (S),
+are all continuous 2π-periodic functions on R.
+(14) Show that the corresponding functions u = F v where v satisﬁes (P9.2.12)
+are all twice continuously diﬀerentiable, 2π-periodic functions on R satis­
+fying
+d2 u
+(P9.2.13)             −      + (1 − sj + sj V (x))u(x) = 0, sj = 1/λj .
+dx2
+(15) Conversely, show that if u is a twice continuously diﬀerentiable, 2π-periodic
+function satisfying
+d2 u
+(P9.2.14)           −      + (1 − s + sV (x))u(x) = 0, s ∈ C,
+dx2
+and u is not identically 0 then s = sj for some j.
+(16) Finally, conclude that Fredholm’s alternative holds for the equation (P9.2.1)
+Theorem 1. For a given real-valued, continuous 2π-periodic function V
+on R, either (P9.2.1) has a unique twice continuously diﬀerentiable, 2π­
+periodic, solution for each f which is continuous and 2π-periodic or else
+4                                RICHARD MELROSE
+there exists a ﬁnite, but positive, dimensional space of twice continuously
+diﬀerentiable 2π-periodic solutions to the homogeneous equation
+d2 w(x)
+(P9.2.15)                −          + V (x)w(x) = 0, x ∈ R,
+dx2
+�
+and (P9.2.1) has a solution if and only if (0,2π) f w = 0 for every 2π­
+periodic solution, w, to (P9.2.15).
+3. Not to be handed in, just for the enthusiastic
+Check that we really can understand all the 2π periodic eigenfunctions of the
+Schrödinger operator using the discussion above. First of all, there was nothing
+sacred about the addition of 1 to −d2 /dx2 , we could add any positive number
+and get a similar result – the problem with 0 is that the constants satisfy the
+homogeneous equation d2 u/dx2 = 0. What we have shown is that the operator
+d2 u
+(P9.2.1)                     u �−→ Qu = −         u+Vu
+dx2
+applied to twice continuously diﬀerentiable functions has at least a left inverse
+unless there is a non-trivial solution of
+d2 u
+(P9.2.2)                          − 2 u + V u = 0.
+dx
+Namely, the left inverse is R = F (Id +F (V −1)F )−1 F. This is a compact self-adjoint
+operator. Show – and there is still a bit of work to do – that (twice continuously
+diﬀerentiable) eigenfunctions of Q, meaning solutions of Qu = τ u are precisely the
+non-trivial solutions of Ru = τ −1 u.
+What to do in case (P9.2.2) does have a non-trivial solution? Show that the
+space of these is ﬁnite dimensional and conclude that essentially the same result
+holds by working on the orthocomplement in L2 (S).
+Department of Mathematics, Massachusetts Institute of Technology', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Solutions to Problem set 9
 P9.1: Periodic functions
 Let S be the circle of radius 1 in the complex plane, centered at the origin,
 S = {z; |z| = 1}.
@@ -445,703 +581,7 @@ diﬀerentiable) eigenfunctions of Q, meaning solutions of Qu = τ u are precise
 non-trivial solutions of Ru = τ −1 u.
 What to do in case (21.72) does have a non-trivial solution? Show that the space
 of these is ﬁnite dimensional and conclude that essentially the same result holds by
-working on the orthocomplement in L2 (S).', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'L\'inverse de s to earlier versions my apologies for all these errors. here is a list – they are ﬁxed below (i hope). (1) in p9.2 (2), and elsewhere, c ∞ (s) should be c 0 (s), the space of continuous functions on the circle – with supremum norm. (2) in (p9.2.9) it should be u = f v, not u = sv. (3) similarly, before (p9.2.10) it should be u = f v. (4) discussion around (p9.2.12) clariﬁed. (5) last part of p10.2 clariﬁed. this week i want you to go through the invertibility theory for the operator d2 (p9.1)                         qu = (−    + v (x))u(x) dx2 acting on periodic functions. since we have not developed
-problem set 9 for 18.102, spring 2009
-due 11am tuesday 28 apr.
-richard melrose
-corrections to earlier versions
-my apologies for all these errors. here is a list – they are ﬁxed below (i hope).
-(1) in p9.2 (2), and elsewhere, c ∞ (s) should be c 0 (s), the space of continuous
-functions on the circle – with supremum norm.
-(2) in (p9.2.9) it should be u = f v, not u = sv.
-(3) similarly, before (p9.2.10) it should be u = f v.
-(4) discussion around (p9.2.12) clariﬁed.
-(5) last part of p10.2 clariﬁed.
-this week i want you to go through the invertibility theory for the operator
-d2
-(p9.1)                         qu = (−    + v (x))u(x)
-dx2
-acting on periodic functions. since we have not developed the theory to handle this
-directly we need to approach it through integral operators.
-before beginning, we need to consider periodic functions.
-1. p9.1: periodic functions
-let s be the circle of radius 1 in the complex plane, centered at the origin,
-s = {z; |z| = 1}.
-(1) show that there is a 1-1 correspondence
-(p9.1.1) c 0 (s) = {u : s −→ c, continuous} −→
-{u : r −→ c; continuous and satisfying u(x + 2π) = u(x) ∀ x ∈ r}.
-(2) show that there is a 1-1 correspondence
-(p9.1.2) l2 (0, 2π) ←→ {u ∈ l1loc (r); u�(0,2π) ∈ l2 (0, 2π)
-�
-and u(x + 2π) = u(x) ∀ x ∈ r}/np
-where np is the space of null functions on r satisfying u(x + 2π) = u(x)
-for all x ∈ r.
-(3) if we denote by l2 (s) the space on the left in (p9.1.2) show that there is a
-dense inclusion
-(p9.1.3)                            c 0 (s) −→ l2 (s).
-so, the idea is that we can think of functions on s as 2π-periodic functions on
-r.
-1
-2                                     richard melrose
-2. p9.2: schrödinger’s operator
-since that is what it is, or at least it is an example thereof:
-d2 u(x)
-(p9.2.1)                  −       + v (x)u(x) = f (x), x ∈ r,
-dx2
-(1) first we will consider the special case v = 1. why not v = 0? – don’t try
-to answer this until the end!
-(2) recall how to solve the diﬀerential equation
-d2 u(x)
-(p9.2.2)                      −       + u(x) = f (x), x ∈ r,
-dx2
-where f (x) ∈ c 0 (s) is a continuous, 2π-periodic function on the line. show
-that there is a unique 2π-periodic and twice continuously diﬀerentiable
-function, u, on r satisfying (p9.2.2) and that this solution can be written
-in the form
-�
-(p9.2.3)                 u(x) = (sf )(x) =        a(x, y)f (y)
-0,2π
-0   2
-where a(x, y) ∈ c (r ) satisﬁes a(x + 2π, y + 2π) = a(x, y) for all (x, y) ∈
-r.
-extended hint: in case you managed to avoid a course on diﬀerential
-equations! first try to ﬁnd a solution, igonoring the periodicity issue. to
-do so one can (for example, there are other ways) factorize the diﬀerential
-operator involved, checking that
-d2 u(x)               dv              du
-(p9.2.4)              −    2
-+ u(x) = −(      + v) if v =    −u
-dx                  dx              dx
-since the cross terms cancel. then recall the idea of integrating factors to
-see that
-du           dφ
-− u = ex , φ = e−x u,
-(p9.2.5)                      dx           dx
-dv        −x dψ
-+v =e          , ψ = ex v.
-dx            dx
-now, solve the problem by integrating twice from the origin (say) and hence
-get a solution to the diﬀerential equation (p9.2.2). write this out explicitly
-as a double integral, and then change the order of integration to write the
-solution as
-�
-�
-(p9.2.6)                     u (x) =       a� (x, y)f (y)dy
-0,2π
-where a is continuous on r × [0, 2π]. compute the diﬀerence u� (2π) − u� (0)
-�
-�
-du�                                            �
-and dudx (2π) − dx (0) as integrals involving f. now, add to u as solution
-x      −x
-to the homogeneous equation, for f = 0, namely c1 e + c2 e , so that the
-new solution to (p9.2.2) satisﬁes u(2π) = u(0) and du            du
-dx (2π) = dx (0). now,
-check that u is given by an integral of the form (p9.2.3) with a as stated.
-(3) check, either directly or indirectly, that a(y, x) = a(x, y) and that a is
-real.
-(4) conclude that the operator s extends by continuity to a bounded operator
-on l2 (s).
-problems 9                                      3
-(5) check, probably indirectly rather than directly, that
-(p9.2.7)                  s(eikx ) = (k 2 + 1)−1 eikx , k ∈ z.
-(6) conclude, either from the previous result or otherwise that s is a compact
-self-adjoint operator on l2 (s).
-(7) show that if g ∈ c 0 (s)) then sg is twice continuously diﬀerentiable. hint:
-proceed directly by diﬀerentiating the integral.
-(8) from (p9.2.7) conclude that s = f 2 where f is also a compact self-adjoint
-1
-operator on l2 (s) with eigenvalues (k 2 + 1)− 2 .
-(9) show that f : l2 (s) −→ c 0 (s).
-(10) now, going back to the real equation (p9.2.1), we assume that v is contin­
-uous, real-valued and 2π-periodic. show that if u is a twice-diﬀerentiable
-2π-periodic function satisfying (p9.2.1) for a given f ∈ c 0 (s) then
-(p9.2.8)      u + s((v − 1)u) = sf and hence u = −f 2 ((v − 1)u) + f 2 f
-and hence conclude that
-(p9.2.9)       u = f v where v ∈ l2 (s) satisﬁes v + (f (v − 1)f )v = f f
-where v − 1 is the operator deﬁned by multiplication by v − 1.
-(11) show the converse, that if v ∈ l2 (s) satisﬁes
-(p9.2.10)               v + (f (v − 1)f )v = f f, f ∈ c 0 (s)
-then u = f v is 2π-periodic and twice-diﬀerentiable on r and satisﬁes
-(p9.2.1).
-(12) apply the spectral theorem to f (v − 1)f (including why it applies) and
-show that there is a sequence λj in r \\ {0} with |λj | → 0 such that for all
-λ ∈ c \\ {0}, the equation
-(p9.2.11)               λv + (f (v − 1)f )v = g, g ∈ l2 (s)
-has a unique solution for every g ∈ l2 (s) if and only if λ =
-� λj for any j.
-(13) show that for the λj the solutions of
-(p9.2.12)               λj v + (f (v − 1)f )v = 0, v ∈ l2 (s),
-are all continuous 2π-periodic functions on r.
-(14) show that the corresponding functions u = f v where v satisﬁes (p9.2.12)
-are all twice continuously diﬀerentiable, 2π-periodic functions on r satis­
-fying
-d2 u
-(p9.2.13)             −      + (1 − sj + sj v (x))u(x) = 0, sj = 1/λj .
-dx2
-(15) conversely, show that if u is a twice continuously diﬀerentiable, 2π-periodic
-function satisfying
-d2 u
-(p9.2.14)           −      + (1 − s + sv (x))u(x) = 0, s ∈ c,
-dx2
-and u is not identically 0 then s = sj for some j.
-(16) finally, conclude that fredholm’s alternative holds for the equation (p9.2.1)
-theorem 1. for a given real-valued, continuous 2π-periodic function v
-on r, either (p9.2.1) has a unique twice continuously diﬀerentiable, 2π­
-periodic, solution for each f which is continuous and 2π-periodic or else
-4                                richard melrose
-there exists a ﬁnite, but positive, dimensional space of twice continuously
-diﬀerentiable 2π-periodic solutions to the homogeneous equation
-d2 w(x)
-(p9.2.15)                −          + v (x)w(x) = 0, x ∈ r,
-dx2
-�
-and (p9.2.1) has a solution if and only if (0,2π) f w = 0 for every 2π­
-periodic solution, w, to (p9.2.15).
-3. not to be handed in, just for the enthusiastic
-check that we really can understand all the 2π periodic eigenfunctions of the
-schrödinger operator using the discussion above. first of all, there was nothing
-sacred about the addition of 1 to −d2 /dx2 , we could add any positive number
-and get a similar result – the problem with 0 is that the constants satisfy the
-homogeneous equation d2 u/dx2 = 0. what we have shown is that the operator
-d2 u
-(p9.2.1)                     u �−→ qu = −         u+vu
-dx2
-applied to twice continuously diﬀerentiable functions has at least a left inverse
-unless there is a non-trivial solution of
-d2 u
-(p9.2.2)                          − 2 u + v u = 0.
-dx
-namely, the left inverse is r = f (id +f (v −1)f )−1 f. this is a compact self-adjoint
-operator. show – and there is still a bit of work to do – that (twice continuously
-diﬀerentiable) eigenfunctions of q, meaning solutions of qu = τ u are precisely the
-non-trivial solutions of ru = τ −1 u.
-what to do in case (p9.2.2) does have a non-trivial solution? show that the
-space of these is ﬁnite dimensional and conclude that essentially the same result
-holds by working on the orthocomplement in l2 (s).
-department of mathematics, massachusetts institute of technology', 's to earlier versions My apologies for all these errors. Here is a list – they are ﬁxed below (I hope). (1) In P9.2 (2), and elsewhere, C ∞ (S) should be C 0 (S), the space of continuous functions on the circle – with supremum norm. (2) In (P9.2.9) it should be u = F v, not u = Sv. (3) Similarly, before (P9.2.10) it should be u = F v. (4) Discussion around (P9.2.12) clariﬁed. (5) Last part of P10.2 clariﬁed. This week I want you to go through the invertibility theory for the operator d2 (P9.1)                         Qu = (−    + V (x))u(x) dx2 acting on periodic functions. Since we have not developed
-PROBLEM SET 9 FOR 18.102, SPRING 2009
-DUE 11AM TUESDAY 28 APR.
-RICHARD MELROSE
-Corrections to earlier versions
-My apologies for all these errors. Here is a list – they are ﬁxed below (I hope).
-(1) In P9.2 (2), and elsewhere, C ∞ (S) should be C 0 (S), the space of continuous
-functions on the circle – with supremum norm.
-(2) In (P9.2.9) it should be u = F v, not u = Sv.
-(3) Similarly, before (P9.2.10) it should be u = F v.
-(4) Discussion around (P9.2.12) clariﬁed.
-(5) Last part of P10.2 clariﬁed.
-This week I want you to go through the invertibility theory for the operator
-d2
-(P9.1)                         Qu = (−    + V (x))u(x)
-dx2
-acting on periodic functions. Since we have not developed the theory to handle this
-directly we need to approach it through integral operators.
-Before beginning, we need to consider periodic functions.
-1. P9.1: Periodic functions
-Let S be the circle of radius 1 in the complex plane, centered at the origin,
-S = {z; |z| = 1}.
-(1) Show that there is a 1-1 correspondence
-(P9.1.1) C 0 (S) = {u : S −→ C, continuous} −→
-{u : R −→ C; continuous and satisfying u(x + 2π) = u(x) ∀ x ∈ R}.
-(2) Show that there is a 1-1 correspondence
-(P9.1.2) L2 (0, 2π) ←→ {u ∈ L1loc (R); u�(0,2π) ∈ L2 (0, 2π)
-�
-and u(x + 2π) = u(x) ∀ x ∈ R}/NP
-where NP is the space of null functions on R satisfying u(x + 2π) = u(x)
-for all x ∈ R.
-(3) If we denote by L2 (S) the space on the left in (P9.1.2) show that there is a
-dense inclusion
-(P9.1.3)                            C 0 (S) −→ L2 (S).
-So, the idea is that we can think of functions on S as 2π-periodic functions on
-R.
-1
-2                                     RICHARD MELROSE
-2. P9.2: Schrödinger’s operator
-Since that is what it is, or at least it is an example thereof:
-d2 u(x)
-(P9.2.1)                  −       + V (x)u(x) = f (x), x ∈ R,
-dx2
-(1) First we will consider the special case V = 1. Why not V = 0? – Don’t try
-to answer this until the end!
-(2) Recall how to solve the diﬀerential equation
-d2 u(x)
-(P9.2.2)                      −       + u(x) = f (x), x ∈ R,
-dx2
-where f (x) ∈ C 0 (S) is a continuous, 2π-periodic function on the line. Show
-that there is a unique 2π-periodic and twice continuously diﬀerentiable
-function, u, on R satisfying (P9.2.2) and that this solution can be written
-in the form
-�
-(P9.2.3)                 u(x) = (Sf )(x) =        A(x, y)f (y)
-0,2π
-0   2
-where A(x, y) ∈ C (R ) satisﬁes A(x + 2π, y + 2π) = A(x, y) for all (x, y) ∈
-R.
-Extended hint: In case you managed to avoid a course on diﬀerential
-equations! First try to ﬁnd a solution, igonoring the periodicity issue. To
-do so one can (for example, there are other ways) factorize the diﬀerential
-operator involved, checking that
-d2 u(x)               dv              du
-(P9.2.4)              −    2
-+ u(x) = −(      + v) if v =    −u
-dx                  dx              dx
-since the cross terms cancel. Then recall the idea of integrating factors to
-see that
-du           dφ
-− u = ex , φ = e−x u,
-(P9.2.5)                      dx           dx
-dv        −x dψ
-+v =e          , ψ = ex v.
-dx            dx
-Now, solve the problem by integrating twice from the origin (say) and hence
-get a solution to the diﬀerential equation (P9.2.2). Write this out explicitly
-as a double integral, and then change the order of integration to write the
-solution as
-�
-�
-(P9.2.6)                     u (x) =       A� (x, y)f (y)dy
-0,2π
-where A is continuous on R × [0, 2π]. Compute the diﬀerence u� (2π) − u� (0)
-�
-�
-du�                                            �
-and dudx (2π) − dx (0) as integrals involving f. Now, add to u as solution
-x      −x
-to the homogeneous equation, for f = 0, namely c1 e + c2 e , so that the
-new solution to (P9.2.2) satisﬁes u(2π) = u(0) and du            du
-dx (2π) = dx (0). Now,
-check that u is given by an integral of the form (P9.2.3) with A as stated.
-(3) Check, either directly or indirectly, that A(y, x) = A(x, y) and that A is
-real.
-(4) Conclude that the operator S extends by continuity to a bounded operator
-on L2 (S).
-PROBLEMS 9                                      3
-(5) Check, probably indirectly rather than directly, that
-(P9.2.7)                  S(eikx ) = (k 2 + 1)−1 eikx , k ∈ Z.
-(6) Conclude, either from the previous result or otherwise that S is a compact
-self-adjoint operator on L2 (S).
-(7) Show that if g ∈ C 0 (S)) then Sg is twice continuously diﬀerentiable. Hint:
-Proceed directly by diﬀerentiating the integral.
-(8) From (P9.2.7) conclude that S = F 2 where F is also a compact self-adjoint
-1
-operator on L2 (S) with eigenvalues (k 2 + 1)− 2 .
-(9) Show that F : L2 (S) −→ C 0 (S).
-(10) Now, going back to the real equation (P9.2.1), we assume that V is contin­
-uous, real-valued and 2π-periodic. Show that if u is a twice-diﬀerentiable
-2π-periodic function satisfying (P9.2.1) for a given f ∈ C 0 (S) then
-(P9.2.8)      u + S((V − 1)u) = Sf and hence u = −F 2 ((V − 1)u) + F 2 f
-and hence conclude that
-(P9.2.9)       u = F v where v ∈ L2 (S) satisﬁes v + (F (V − 1)F )v = F f
-where V − 1 is the operator deﬁned by multiplication by V − 1.
-(11) Show the converse, that if v ∈ L2 (S) satisﬁes
-(P9.2.10)               v + (F (V − 1)F )v = F f, f ∈ C 0 (S)
-then u = F v is 2π-periodic and twice-diﬀerentiable on R and satisﬁes
-(P9.2.1).
-(12) Apply the Spectral theorem to F (V − 1)F (including why it applies) and
-show that there is a sequence λj in R \\ {0} with |λj | → 0 such that for all
-λ ∈ C \\ {0}, the equation
-(P9.2.11)               λv + (F (V − 1)F )v = g, g ∈ L2 (S)
-has a unique solution for every g ∈ L2 (S) if and only if λ =
-� λj for any j.
-(13) Show that for the λj the solutions of
-(P9.2.12)               λj v + (F (V − 1)F )v = 0, v ∈ L2 (S),
-are all continuous 2π-periodic functions on R.
-(14) Show that the corresponding functions u = F v where v satisﬁes (P9.2.12)
-are all twice continuously diﬀerentiable, 2π-periodic functions on R satis­
-fying
-d2 u
-(P9.2.13)             −      + (1 − sj + sj V (x))u(x) = 0, sj = 1/λj .
-dx2
-(15) Conversely, show that if u is a twice continuously diﬀerentiable, 2π-periodic
-function satisfying
-d2 u
-(P9.2.14)           −      + (1 − s + sV (x))u(x) = 0, s ∈ C,
-dx2
-and u is not identically 0 then s = sj for some j.
-(16) Finally, conclude that Fredholm’s alternative holds for the equation (P9.2.1)
-Theorem 1. For a given real-valued, continuous 2π-periodic function V
-on R, either (P9.2.1) has a unique twice continuously diﬀerentiable, 2π­
-periodic, solution for each f which is continuous and 2π-periodic or else
-4                                RICHARD MELROSE
-there exists a ﬁnite, but positive, dimensional space of twice continuously
-diﬀerentiable 2π-periodic solutions to the homogeneous equation
-d2 w(x)
-(P9.2.15)                −          + V (x)w(x) = 0, x ∈ R,
-dx2
-�
-and (P9.2.1) has a solution if and only if (0,2π) f w = 0 for every 2π­
-periodic solution, w, to (P9.2.15).
-3. Not to be handed in, just for the enthusiastic
-Check that we really can understand all the 2π periodic eigenfunctions of the
-Schrödinger operator using the discussion above. First of all, there was nothing
-sacred about the addition of 1 to −d2 /dx2 , we could add any positive number
-and get a similar result – the problem with 0 is that the constants satisfy the
-homogeneous equation d2 u/dx2 = 0. What we have shown is that the operator
-d2 u
-(P9.2.1)                     u �−→ Qu = −         u+Vu
-dx2
-applied to twice continuously diﬀerentiable functions has at least a left inverse
-unless there is a non-trivial solution of
-d2 u
-(P9.2.2)                          − 2 u + V u = 0.
-dx
-Namely, the left inverse is R = F (Id +F (V −1)F )−1 F. This is a compact self-adjoint
-operator. Show – and there is still a bit of work to do – that (twice continuously
-diﬀerentiable) eigenfunctions of Q, meaning solutions of Qu = τ u are precisely the
-non-trivial solutions of Ru = τ −1 u.
-What to do in case (P9.2.2) does have a non-trivial solution? Show that the
-space of these is ﬁnite dimensional and conclude that essentially the same result
-holds by working on the orthocomplement in L2 (S).
-Department of Mathematics, Massachusetts Institute of Technology', 'Pas s to earlier versions my apologies for all these errors. here is a list – they are ﬁxed below (i hope). (1) in p9.2 (2), and elsewhere, c ∞ (s) should be c 0 (s), the space of continuous functions on the circle – with supremum norm. (2) in (p9.2.9) it should be u = f v, not u = sv. (3) similarly, before (p9.2.10) it should be u = f v. (4) discussion around (p9.2.12) clariﬁed. (5) last part of p10.2 clariﬁed. this week i want you to go through the invertibility theory for the operator d2 (p9.1)                         qu = (−    + v (x))u(x) dx2 acting on periodic functions. since we have not developed
-problem set 9 for 18.102, spring 2009
-due 11am tuesday 28 apr.
-richard melrose
-corrections to earlier versions
-my apologies for all these errors. here is a list – they are ﬁxed below (i hope).
-(1) in p9.2 (2), and elsewhere, c ∞ (s) should be c 0 (s), the space of continuous
-functions on the circle – with supremum norm.
-(2) in (p9.2.9) it should be u = f v, not u = sv.
-(3) similarly, before (p9.2.10) it should be u = f v.
-(4) discussion around (p9.2.12) clariﬁed.
-(5) last part of p10.2 clariﬁed.
-this week i want you to go through the invertibility theory for the operator
-d2
-(p9.1)                         qu = (−    + v (x))u(x)
-dx2
-acting on periodic functions. since we have not developed the theory to handle this
-directly we need to approach it through integral operators.
-before beginning, we need to consider periodic functions.
-1. p9.1: periodic functions
-let s be the circle of radius 1 in the complex plane, centered at the origin,
-s = {z; |z| = 1}.
-(1) show that there is a 1-1 correspondence
-(p9.1.1) c 0 (s) = {u : s −→ c, continuous} −→
-{u : r −→ c; continuous and satisfying u(x + 2π) = u(x) ∀ x ∈ r}.
-(2) show that there is a 1-1 correspondence
-(p9.1.2) l2 (0, 2π) ←→ {u ∈ l1loc (r); u�(0,2π) ∈ l2 (0, 2π)
-�
-and u(x + 2π) = u(x) ∀ x ∈ r}/np
-where np is the space of null functions on r satisfying u(x + 2π) = u(x)
-for all x ∈ r.
-(3) if we denote by l2 (s) the space on the left in (p9.1.2) show that there is a
-dense inclusion
-(p9.1.3)                            c 0 (s) −→ l2 (s).
-so, the idea is that we can think of functions on s as 2π-periodic functions on
-r.
-1
-2                                     richard melrose
-2. p9.2: schrödinger’s operator
-since that is what it is, or at least it is an example thereof:
-d2 u(x)
-(p9.2.1)                  −       + v (x)u(x) = f (x), x ∈ r,
-dx2
-(1) first we will consider the special case v = 1. why not v = 0? – don’t try
-to answer this until the end!
-(2) recall how to solve the diﬀerential equation
-d2 u(x)
-(p9.2.2)                      −       + u(x) = f (x), x ∈ r,
-dx2
-where f (x) ∈ c 0 (s) is a continuous, 2π-periodic function on the line. show
-that there is a unique 2π-periodic and twice continuously diﬀerentiable
-function, u, on r satisfying (p9.2.2) and that this solution can be written
-in the form
-�
-(p9.2.3)                 u(x) = (sf )(x) =        a(x, y)f (y)
-0,2π
-0   2
-where a(x, y) ∈ c (r ) satisﬁes a(x + 2π, y + 2π) = a(x, y) for all (x, y) ∈
-r.
-extended hint: in case you managed to avoid a course on diﬀerential
-equations! first try to ﬁnd a solution, igonoring the periodicity issue. to
-do so one can (for example, there are other ways) factorize the diﬀerential
-operator involved, checking that
-d2 u(x)               dv              du
-(p9.2.4)              −    2
-+ u(x) = −(      + v) if v =    −u
-dx                  dx              dx
-since the cross terms cancel. then recall the idea of integrating factors to
-see that
-du           dφ
-− u = ex , φ = e−x u,
-(p9.2.5)                      dx           dx
-dv        −x dψ
-+v =e          , ψ = ex v.
-dx            dx
-now, solve the problem by integrating twice from the origin (say) and hence
-get a solution to the diﬀerential equation (p9.2.2). write this out explicitly
-as a double integral, and then change the order of integration to write the
-solution as
-�
-�
-(p9.2.6)                     u (x) =       a� (x, y)f (y)dy
-0,2π
-where a is continuous on r × [0, 2π]. compute the diﬀerence u� (2π) − u� (0)
-�
-�
-du�                                            �
-and dudx (2π) − dx (0) as integrals involving f. now, add to u as solution
-x      −x
-to the homogeneous equation, for f = 0, namely c1 e + c2 e , so that the
-new solution to (p9.2.2) satisﬁes u(2π) = u(0) and du            du
-dx (2π) = dx (0). now,
-check that u is given by an integral of the form (p9.2.3) with a as stated.
-(3) check, either directly or indirectly, that a(y, x) = a(x, y) and that a is
-real.
-(4) conclude that the operator s extends by continuity to a bounded operator
-on l2 (s).
-problems 9                                      3
-(5) check, probably indirectly rather than directly, that
-(p9.2.7)                  s(eikx ) = (k 2 + 1)−1 eikx , k ∈ z.
-(6) conclude, either from the previous result or otherwise that s is a compact
-self-adjoint operator on l2 (s).
-(7) show that if g ∈ c 0 (s)) then sg is twice continuously diﬀerentiable. hint:
-proceed directly by diﬀerentiating the integral.
-(8) from (p9.2.7) conclude that s = f 2 where f is also a compact self-adjoint
-1
-operator on l2 (s) with eigenvalues (k 2 + 1)− 2 .
-(9) show that f : l2 (s) −→ c 0 (s).
-(10) now, going back to the real equation (p9.2.1), we assume that v is contin­
-uous, real-valued and 2π-periodic. show that if u is a twice-diﬀerentiable
-2π-periodic function satisfying (p9.2.1) for a given f ∈ c 0 (s) then
-(p9.2.8)      u + s((v − 1)u) = sf and hence u = −f 2 ((v − 1)u) + f 2 f
-and hence conclude that
-(p9.2.9)       u = f v where v ∈ l2 (s) satisﬁes v + (f (v − 1)f )v = f f
-where v − 1 is the operator deﬁned by multiplication by v − 1.
-(11) show the converse, that if v ∈ l2 (s) satisﬁes
-(p9.2.10)               v + (f (v − 1)f )v = f f, f ∈ c 0 (s)
-then u = f v is 2π-periodic and twice-diﬀerentiable on r and satisﬁes
-(p9.2.1).
-(12) apply the spectral theorem to f (v − 1)f (including why it applies) and
-show that there is a sequence λj in r \\ {0} with |λj | → 0 such that for all
-λ ∈ c \\ {0}, the equation
-(p9.2.11)               λv + (f (v − 1)f )v = g, g ∈ l2 (s)
-has a unique solution for every g ∈ l2 (s) if and only if λ =
-� λj for any j.
-(13) show that for the λj the solutions of
-(p9.2.12)               λj v + (f (v − 1)f )v = 0, v ∈ l2 (s),
-are all continuous 2π-periodic functions on r.
-(14) show that the corresponding functions u = f v where v satisﬁes (p9.2.12)
-are all twice continuously diﬀerentiable, 2π-periodic functions on r satis­
-fying
-d2 u
-(p9.2.13)             −      + (1 − sj + sj v (x))u(x) = 0, sj = 1/λj .
-dx2
-(15) conversely, show that if u is a twice continuously diﬀerentiable, 2π-periodic
-function satisfying
-d2 u
-(p9.2.14)           −      + (1 − s + sv (x))u(x) = 0, s ∈ c,
-dx2
-and u is not identically 0 then s = sj for some j.
-(16) finally, conclude that fredholm’s alternative holds for the equation (p9.2.1)
-theorem 1. for a given real-valued, continuous 2π-periodic function v
-on r, either (p9.2.1) has a unique twice continuously diﬀerentiable, 2π­
-periodic, solution for each f which is continuous and 2π-periodic or else
-4                                richard melrose
-there exists a ﬁnite, but positive, dimensional space of twice continuously
-diﬀerentiable 2π-periodic solutions to the homogeneous equation
-d2 w(x)
-(p9.2.15)                −          + v (x)w(x) = 0, x ∈ r,
-dx2
-�
-and (p9.2.1) has a solution if and only if (0,2π) f w = 0 for every 2π­
-periodic solution, w, to (p9.2.15).
-3. not to be handed in, just for the enthusiastic
-check that we really can understand all the 2π periodic eigenfunctions of the
-schrödinger operator using the discussion above. first of all, there was nothing
-sacred about the addition of 1 to −d2 /dx2 , we could add any positive number
-and get a similar result – the problem with 0 is that the constants satisfy the
-homogeneous equation d2 u/dx2 = 0. what we have shown is that the operator
-d2 u
-(p9.2.1)                     u �−→ qu = −         u+vu
-dx2
-applied to twice continuously diﬀerentiable functions has at least a left inverse
-unless there is a non-trivial solution of
-d2 u
-(p9.2.2)                          − 2 u + v u = 0.
-dx
-namely, the left inverse is r = f (id +f (v −1)f )−1 f. this is a compact self-adjoint
-operator. show – and there is still a bit of work to do – that (twice continuously
-diﬀerentiable) eigenfunctions of q, meaning solutions of qu = τ u are precisely the
-non-trivial solutions of ru = τ −1 u.
-what to do in case (p9.2.2) does have a non-trivial solution? show that the
-space of these is ﬁnite dimensional and conclude that essentially the same result
-holds by working on the orthocomplement in l2 (s).
-department of mathematics, massachusetts institute of technology'), 'correct' => 2, 'answer' => 's to earlier versions My apologies for all these errors. Here is a list – they are ﬁxed below (I hope). (1) In P9.2 (2), and elsewhere, C ∞ (S) should be C 0 (S), the space of continuous functions on the circle – with supremum norm. (2) In (P9.2.9) it should be u = F v, not u = Sv. (3) Similarly, before (P9.2.10) it should be u = F v. (4) Discussion around (P9.2.12) clariﬁed. (5) Last part of P10.2 clariﬁed. This week I want you to go through the invertibility theory for the operator d2 (P9.1)                         Qu = (−    + V (x))u(x) dx2 acting on periodic functions. Since we have not developed
-PROBLEM SET 9 FOR 18.102, SPRING 2009
-DUE 11AM TUESDAY 28 APR.
-RICHARD MELROSE
-Corrections to earlier versions
-My apologies for all these errors. Here is a list – they are ﬁxed below (I hope).
-(1) In P9.2 (2), and elsewhere, C ∞ (S) should be C 0 (S), the space of continuous
-functions on the circle – with supremum norm.
-(2) In (P9.2.9) it should be u = F v, not u = Sv.
-(3) Similarly, before (P9.2.10) it should be u = F v.
-(4) Discussion around (P9.2.12) clariﬁed.
-(5) Last part of P10.2 clariﬁed.
-This week I want you to go through the invertibility theory for the operator
-d2
-(P9.1)                         Qu = (−    + V (x))u(x)
-dx2
-acting on periodic functions. Since we have not developed the theory to handle this
-directly we need to approach it through integral operators.
-Before beginning, we need to consider periodic functions.
-1. P9.1: Periodic functions
-Let S be the circle of radius 1 in the complex plane, centered at the origin,
-S = {z; |z| = 1}.
-(1) Show that there is a 1-1 correspondence
-(P9.1.1) C 0 (S) = {u : S −→ C, continuous} −→
-{u : R −→ C; continuous and satisfying u(x + 2π) = u(x) ∀ x ∈ R}.
-(2) Show that there is a 1-1 correspondence
-(P9.1.2) L2 (0, 2π) ←→ {u ∈ L1loc (R); u�(0,2π) ∈ L2 (0, 2π)
-�
-and u(x + 2π) = u(x) ∀ x ∈ R}/NP
-where NP is the space of null functions on R satisfying u(x + 2π) = u(x)
-for all x ∈ R.
-(3) If we denote by L2 (S) the space on the left in (P9.1.2) show that there is a
-dense inclusion
-(P9.1.3)                            C 0 (S) −→ L2 (S).
-So, the idea is that we can think of functions on S as 2π-periodic functions on
-R.
-1
-2                                     RICHARD MELROSE
-2. P9.2: Schrödinger’s operator
-Since that is what it is, or at least it is an example thereof:
-d2 u(x)
-(P9.2.1)                  −       + V (x)u(x) = f (x), x ∈ R,
-dx2
-(1) First we will consider the special case V = 1. Why not V = 0? – Don’t try
-to answer this until the end!
-(2) Recall how to solve the diﬀerential equation
-d2 u(x)
-(P9.2.2)                      −       + u(x) = f (x), x ∈ R,
-dx2
-where f (x) ∈ C 0 (S) is a continuous, 2π-periodic function on the line. Show
-that there is a unique 2π-periodic and twice continuously diﬀerentiable
-function, u, on R satisfying (P9.2.2) and that this solution can be written
-in the form
-�
-(P9.2.3)                 u(x) = (Sf )(x) =        A(x, y)f (y)
-0,2π
-0   2
-where A(x, y) ∈ C (R ) satisﬁes A(x + 2π, y + 2π) = A(x, y) for all (x, y) ∈
-R.
-Extended hint: In case you managed to avoid a course on diﬀerential
-equations! First try to ﬁnd a solution, igonoring the periodicity issue. To
-do so one can (for example, there are other ways) factorize the diﬀerential
-operator involved, checking that
-d2 u(x)               dv              du
-(P9.2.4)              −    2
-+ u(x) = −(      + v) if v =    −u
-dx                  dx              dx
-since the cross terms cancel. Then recall the idea of integrating factors to
-see that
-du           dφ
-− u = ex , φ = e−x u,
-(P9.2.5)                      dx           dx
-dv        −x dψ
-+v =e          , ψ = ex v.
-dx            dx
-Now, solve the problem by integrating twice from the origin (say) and hence
-get a solution to the diﬀerential equation (P9.2.2). Write this out explicitly
-as a double integral, and then change the order of integration to write the
-solution as
-�
-�
-(P9.2.6)                     u (x) =       A� (x, y)f (y)dy
-0,2π
-where A is continuous on R × [0, 2π]. Compute the diﬀerence u� (2π) − u� (0)
-�
-�
-du�                                            �
-and dudx (2π) − dx (0) as integrals involving f. Now, add to u as solution
-x      −x
-to the homogeneous equation, for f = 0, namely c1 e + c2 e , so that the
-new solution to (P9.2.2) satisﬁes u(2π) = u(0) and du            du
-dx (2π) = dx (0). Now,
-check that u is given by an integral of the form (P9.2.3) with A as stated.
-(3) Check, either directly or indirectly, that A(y, x) = A(x, y) and that A is
-real.
-(4) Conclude that the operator S extends by continuity to a bounded operator
-on L2 (S).
-PROBLEMS 9                                      3
-(5) Check, probably indirectly rather than directly, that
-(P9.2.7)                  S(eikx ) = (k 2 + 1)−1 eikx , k ∈ Z.
-(6) Conclude, either from the previous result or otherwise that S is a compact
-self-adjoint operator on L2 (S).
-(7) Show that if g ∈ C 0 (S)) then Sg is twice continuously diﬀerentiable. Hint:
-Proceed directly by diﬀerentiating the integral.
-(8) From (P9.2.7) conclude that S = F 2 where F is also a compact self-adjoint
-1
-operator on L2 (S) with eigenvalues (k 2 + 1)− 2 .
-(9) Show that F : L2 (S) −→ C 0 (S).
-(10) Now, going back to the real equation (P9.2.1), we assume that V is contin­
-uous, real-valued and 2π-periodic. Show that if u is a twice-diﬀerentiable
-2π-periodic function satisfying (P9.2.1) for a given f ∈ C 0 (S) then
-(P9.2.8)      u + S((V − 1)u) = Sf and hence u = −F 2 ((V − 1)u) + F 2 f
-and hence conclude that
-(P9.2.9)       u = F v where v ∈ L2 (S) satisﬁes v + (F (V − 1)F )v = F f
-where V − 1 is the operator deﬁned by multiplication by V − 1.
-(11) Show the converse, that if v ∈ L2 (S) satisﬁes
-(P9.2.10)               v + (F (V − 1)F )v = F f, f ∈ C 0 (S)
-then u = F v is 2π-periodic and twice-diﬀerentiable on R and satisﬁes
-(P9.2.1).
-(12) Apply the Spectral theorem to F (V − 1)F (including why it applies) and
-show that there is a sequence λj in R \\ {0} with |λj | → 0 such that for all
-λ ∈ C \\ {0}, the equation
-(P9.2.11)               λv + (F (V − 1)F )v = g, g ∈ L2 (S)
-has a unique solution for every g ∈ L2 (S) if and only if λ =
-� λj for any j.
-(13) Show that for the λj the solutions of
-(P9.2.12)               λj v + (F (V − 1)F )v = 0, v ∈ L2 (S),
-are all continuous 2π-periodic functions on R.
-(14) Show that the corresponding functions u = F v where v satisﬁes (P9.2.12)
-are all twice continuously diﬀerentiable, 2π-periodic functions on R satis­
-fying
-d2 u
-(P9.2.13)             −      + (1 − sj + sj V (x))u(x) = 0, sj = 1/λj .
-dx2
-(15) Conversely, show that if u is a twice continuously diﬀerentiable, 2π-periodic
-function satisfying
-d2 u
-(P9.2.14)           −      + (1 − s + sV (x))u(x) = 0, s ∈ C,
-dx2
-and u is not identically 0 then s = sj for some j.
-(16) Finally, conclude that Fredholm’s alternative holds for the equation (P9.2.1)
-Theorem 1. For a given real-valued, continuous 2π-periodic function V
-on R, either (P9.2.1) has a unique twice continuously diﬀerentiable, 2π­
-periodic, solution for each f which is continuous and 2π-periodic or else
-4                                RICHARD MELROSE
-there exists a ﬁnite, but positive, dimensional space of twice continuously
-diﬀerentiable 2π-periodic solutions to the homogeneous equation
-d2 w(x)
-(P9.2.15)                −          + V (x)w(x) = 0, x ∈ R,
-dx2
-�
-and (P9.2.1) has a solution if and only if (0,2π) f w = 0 for every 2π­
-periodic solution, w, to (P9.2.15).
-3. Not to be handed in, just for the enthusiastic
-Check that we really can understand all the 2π periodic eigenfunctions of the
-Schrödinger operator using the discussion above. First of all, there was nothing
-sacred about the addition of 1 to −d2 /dx2 , we could add any positive number
-and get a similar result – the problem with 0 is that the constants satisfy the
-homogeneous equation d2 u/dx2 = 0. What we have shown is that the operator
-d2 u
-(P9.2.1)                     u �−→ Qu = −         u+Vu
-dx2
-applied to twice continuously diﬀerentiable functions has at least a left inverse
-unless there is a non-trivial solution of
-d2 u
-(P9.2.2)                          − 2 u + V u = 0.
-dx
-Namely, the left inverse is R = F (Id +F (V −1)F )−1 F. This is a compact self-adjoint
-operator. Show – and there is still a bit of work to do – that (twice continuously
-diﬀerentiable) eigenfunctions of Q, meaning solutions of Qu = τ u are precisely the
-non-trivial solutions of Ru = τ −1 u.
-What to do in case (P9.2.2) does have a non-trivial solution? Show that the
-space of these is ﬁnite dimensional and conclude that essentially the same result
-holds by working on the orthocomplement in L2 (S).
-Department of Mathematics, Massachusetts Institute of Technology', '_recupere_le' => '2026-11-04T19:55:22.568343+00:00Z', '_strategie' => 'separation_enum_solution'),
+working on the orthocomplement in L2 (S).', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.102 — question d’examen, en anglais] PROBLEM SET 3 FOR 18.102, SPRING 2009 DUE 11AM TUESDAY 3 MAR. RICHARD MELROSE This problem set is also intended to be a guide to what will be on the in-class test on March 5. In particular I will ask you to prove some of the properties of the Lebesgue integral, as below, plus one more abstract proof. Recall that equality a.e (almost everywhere) means equality on the complement of a set of measure zero. 1. Problem 3.1 If f and g ∈ L1 (R) are Lebesgue integrable functions on the line show that � (1) If f (x) ≥ 0 a.e. then f �≥ 0. � (2) If f (x) ≤ g(x) a.e. then f ≤ g. (3) If� f is complex �     valued then its real part, Re f, is Lebesgue integrable and | Re f | ≤ |f |. (4) For a general
 PROBLEM SET 3 FOR 18.102, SPRING 2009
 DUE 11AM TUESDAY 3 MAR.
@@ -1149,7 +589,113 @@ RICHARD MELROSE
 This problem set is also intended to be a guide to what will be on the in-class
 test on March 5. In particular I will ask you to prove some of the properties of the
 Lebesgue integral, as below, plus one more abstract proof. Recall that equality a.e
-(almost everywhere) means equality on the complement of a set of measure zero.', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : PROBLEM SET 3 FOR 18.102, SPRING 2009
+(almost everywhere) means equality on the complement of a set of measure zero.
+1. Problem 3.1
+If f and g ∈ L1 (R) are Lebesgue integrable functions on the line show that
+�
+(1) If f (x) ≥ 0 a.e. then f �≥ 0. �
+(2) If f (x) ≤ g(x) a.e. then f ≤ g.
+(3) If� f is complex
+�     valued then its real part, Re f, is Lebesgue integrable and
+| Re f | ≤ |f |.
+(4) For a general complex-valued Lebesgue integrable function
+�       �
+(1)                                 | f | ≤ |f |.
+Hint: You can look up a proof� of this
+� easily enough, but the usual trick is to
+choose θ ∈ [0, 2π) so that eiθ f = (eiθ f ) ≥ 0. Then apply the preceeding
+estimate to g = eiθ f.
+(5) Show that the integral is a continuous linear functional
+�
+(2)                                  : L1 (R) −→ C.
+2. Problem 3.2
+If I ⊂ R is an interval, including possibly (−∞, a) or (a, ∞), we deﬁne Lebesgue
+integrability of a function f : I −→ C to mean the Lebesgue integrability of
+�
+f (x) x ∈ I
+(1)                    f˜ : R −→ C, f˜(x) =
+0     x ∈ R \\ I.
+The integral of f on I is then deﬁned to be
+�      �
+(2)                                   f = f˜.
+I
+(1) Show that the space of such integrable functions on I is linear, denote it
+L1 (I).
+(2) Show that is f is integrable on I then� so is |f |.
+(3) Show that if f is integrable on I and I |f | = 0 then f = 0 a.e. in the sense
+that f (x) = 0 for all x ∈ I \\ E where E ⊂ I is of measure zero as a subset
+of R.
+1
+2                                   RICHARD MELROSE
+(4) Show that the set of null functions as in the preceeding question is a linear
+� it N (I).
+space, denote
+(5) Show that I |f | deﬁnes a norm on L1 (I) = L1 (I)/N (I).
+(6) Show that if f ∈ L1 (R) then
+�
+f (x) x ∈ I
+(3)                   g : I −→ C, g(x) =
+0      x∈R\\I
+is integrable on I.
+(7) Show that the preceeding construction gives a surjective and continuous
+linear map ‘restriction to I’
+(4)                                 L1 (R) −→ L1 (I).
+(Notice that these are the quotient spaces of integrable functions modulo
+equality a.e.)
+3. Problem 3.3
+Really continuing the previous one.
+(1) Show that if I = [a, b) and f ∈ L1 (I) then the restriction of f to Ix = [x, b)
+is an element of L1 (Ix ) for all a ≤ x < b.
+(2) Show that the function
+�
+(1)                          F (x) =       f : [a, b) −→ C
+Ix
+is continuous.
+(3) Prove that the function x−1 cos(1/x) is not Lebesgue integrable on the
+interval (0, 1]. Hint: Think about it a bit and use what you have shown
+above.
+4. Problem 3.4
+[Harder but still doable] Suppose f ∈ L1 (R).
+(1) Show that for each t ∈ R the translates
+(1)                            ft (x) = f (x − t) : R −→ C
+are elements of L1 (R).
+(2) Show that
+�
+(2)                                 lim        |ft − f | = 0.
+t→0
+This is called ‘Continuity in the mean for integrable functions’. Hint: I will
+add one!
+(3) Conclude that for each f ∈ L1 (R) the map (it is a ‘curve’)
+(3)                              R � t �−→ [ft ] ∈ L1 (R)
+is continuous.
+PROBLEMS 3                                    3
+5. Problem 3.5
+In the last problem set you showed that a continuous function on a compact
+interval, extended to be zero outside, is Lebesgue integrable. Using this, and the
+fact that step functions are dense in L1 (R) show that the linear space of continuous
+functions on R each of which vanishes outside a compact set (which depends on the
+function) form a dense subset of L1 (R).
+6. Problem 3.6
+(1) If g : R −→ C is bounded and continuous and f ∈ L1 (R) show that
+gf ∈ L1 (R) and that
+�                  �
+(1)                            |gf | ≤ sup |g| · |f |.
+R
+(2) Suppose now that G ∈ C([0, 1] × [0, 1]) is a continuous function (I use C(K)
+to denote the continuous functions on a compact metric space). Recall from
+the preceeding discussion that we have deﬁned L1 ([0, 1]). Now, using the
+ﬁrst part show that if f ∈ L1 ([0, 1]) then
+�
+(2)                         F (x) =       G(x, ·)f (·) ∈ C
+[0,1]
+(where · is the variable in which the integral is taken) is well-deﬁned for
+each x ∈ [0, 1].
+(3) Show that for each f ∈ L1 ([0, 1]), F is a continuous function on [0, 1].
+(4) Show that
+(3)                         L1 ([0, 1]) � f �−→ F ∈ C([0, 1])
+is a bounded (i.e. continuous) linear map into the Banach space of contin­
+uous functions, with supremum norm, on [0, 1].
+Department of Mathematics, Massachusetts Institute of Technology', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : PROBLEM SET 3 FOR 18.102, SPRING 2009
 MY SOLUTIONS.
 RICHARD MELROSE
 This problem set is also intended to be a guide to what will be on the in-class
@@ -1561,427 +1107,7 @@ which is the desired boundedness, or continuity, of the map
 �
 (13) I : L1 ([0, 1]) −→ C([0, 1]), F (f )(x) = G(x, ·)f (·),
 �I(f )�sup ≤ sup |G|�f �L1 .
-Department of Mathematics, Massachusetts Institute of Technology', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas problem 3.1
-if f and g ∈ l1 (r) are lebesgue integrable functions on the line show that
-�
-(1) if f (x) ≥ 0 a.e. then f �≥ 0. �
-(2) if f (x) ≤ g(x) a.e. then f ≤ g.
-(3) if� f is complex
-�     valued then its real part, re f, is lebesgue integrable and
-| re f | ≤ |f |.
-(4) for a general complex-valued lebesgue integrable function
-�       �
-(1)                                 | f | ≤ |f |.
-hint: you can look up a proof� of this
-� easily enough, but the usual trick is to
-choose θ ∈ [0, 2π) so that eiθ f = (eiθ f ) ≥ 0. then apply the preceeding
-estimate to g = eiθ f.
-(5) show that the integral is a continuous linear functional
-�
-(2)                                  : l1 (r) −→ c.
-2. problem 3.2
-if i ⊂ r is an interval, including possibly (−∞, a) or (a, ∞), we deﬁne lebesgue
-integrability of a function f : i −→ c to mean the lebesgue integrability of
-�
-f (x) x ∈ i
-(1)                    f˜ : r −→ c, f˜(x) =
-0     x ∈ r \\ i.
-the integral of f on i is then deﬁned to be
-�      �
-(2)                                   f = f˜.
-i
-(1) show that the space of such integrable functions on i is linear, denote it
-l1 (i).
-(2) show that is f is integrable on i then� so is |f |.
-(3) show that if f is integrable on i and i |f | = 0 then f = 0 a.e. in the sense
-that f (x) = 0 for all x ∈ i \\ e where e ⊂ i is of measure zero as a subset
-of r.
-1
-2                                   richard melrose
-(4) show that the set of null functions as in the preceeding question is a linear
-� it n (i).
-space, denote
-(5) show that i |f | deﬁnes a norm on l1 (i) = l1 (i)/n (i).
-(6) show that if f ∈ l1 (r) then
-�
-f (x) x ∈ i
-(3)                   g : i −→ c, g(x) =
-0      x∈r\\i
-is integrable on i.
-(7) show that the preceeding construction gives a surjective and continuous
-linear map ‘restriction to i’
-(4)                                 l1 (r) −→ l1 (i).
-(notice that these are the quotient spaces of integrable functions modulo
-equality a.e.)
-3. problem 3.3
-really continuing the previous one.
-(1) show that if i = [a, b) and f ∈ l1 (i) then the restriction of f to ix = [x, b)
-is an element of l1 (ix ) for all a ≤ x < b.
-(2) show that the function
-�
-(1)                          f (x) =       f : [a, b) −→ c
-ix
-is continuous.
-(3) prove that the function x−1 cos(1/x) is not lebesgue integrable on the
-interval (0, 1]. hint: think about it a bit and use what you have shown
-above.
-4. problem 3.4
-[harder but still doable] suppose f ∈ l1 (r).
-(1) show that for each t ∈ r the translates
-(1)                            ft (x) = f (x − t) : r −→ c
-are elements of l1 (r).
-(2) show that
-�
-(2)                                 lim        |ft − f | = 0.
-t→0
-this is called ‘continuity in the mean for integrable functions’. hint: i will
-add one!
-(3) conclude that for each f ∈ l1 (r) the map (it is a ‘curve’)
-(3)                              r � t �−→ [ft ] ∈ l1 (r)
-is continuous.
-problems 3                                    3
-5. problem 3.5
-in the last problem set you showed that a continuous function on a compact
-interval, extended to be zero outside, is lebesgue integrable. using this, and the
-fact that step functions are dense in l1 (r) show that the linear space of continuous
-functions on r each of which vanishes outside a compact set (which depends on the
-function) form a dense subset of l1 (r).
-6. problem 3.6
-(1) if g : r −→ c is bounded and continuous and f ∈ l1 (r) show that
-gf ∈ l1 (r) and that
-�                  �
-(1)                            |gf | ≤ sup |g| · |f |.
-r
-(2) suppose now that g ∈ c([0, 1] × [0, 1]) is a continuous function (i use c(k)
-to denote the continuous functions on a compact metric space). recall from
-the preceeding discussion that we have deﬁned l1 ([0, 1]). now, using the
-ﬁrst part show that if f ∈ l1 ([0, 1]) then
-�
-(2)                         f (x) =       g(x, ·)f (·) ∈ c
-[0,1]
-(where · is the variable in which the integral is taken) is well-deﬁned for
-each x ∈ [0, 1].
-(3) show that for each f ∈ l1 ([0, 1]), f is a continuous function on [0, 1].
-(4) show that
-(3)                         l1 ([0, 1]) � f �−→ f ∈ c([0, 1])
-is a bounded (i.e. continuous) linear map into the banach space of contin­
-uous functions, with supremum norm, on [0, 1].
-department of mathematics, massachusetts institute of technology', 'L\'inverse de problem 3.1
-if f and g ∈ l1 (r) are lebesgue integrable functions on the line show that
-�
-(1) if f (x) ≥ 0 a.e. then f �≥ 0. �
-(2) if f (x) ≤ g(x) a.e. then f ≤ g.
-(3) if� f is complex
-�     valued then its real part, re f, is lebesgue integrable and
-| re f | ≤ |f |.
-(4) for a general complex-valued lebesgue integrable function
-�       �
-(1)                                 | f | ≤ |f |.
-hint: you can look up a proof� of this
-� easily enough, but the usual trick is to
-choose θ ∈ [0, 2π) so that eiθ f = (eiθ f ) ≥ 0. then apply the preceeding
-estimate to g = eiθ f.
-(5) show that the integral is a continuous linear functional
-�
-(2)                                  : l1 (r) −→ c.
-2. problem 3.2
-if i ⊂ r is an interval, including possibly (−∞, a) or (a, ∞), we deﬁne lebesgue
-integrability of a function f : i −→ c to mean the lebesgue integrability of
-�
-f (x) x ∈ i
-(1)                    f˜ : r −→ c, f˜(x) =
-0     x ∈ r \\ i.
-the integral of f on i is then deﬁned to be
-�      �
-(2)                                   f = f˜.
-i
-(1) show that the space of such integrable functions on i is linear, denote it
-l1 (i).
-(2) show that is f is integrable on i then� so is |f |.
-(3) show that if f is integrable on i and i |f | = 0 then f = 0 a.e. in the sense
-that f (x) = 0 for all x ∈ i \\ e where e ⊂ i is of measure zero as a subset
-of r.
-1
-2                                   richard melrose
-(4) show that the set of null functions as in the preceeding question is a linear
-� it n (i).
-space, denote
-(5) show that i |f | deﬁnes a norm on l1 (i) = l1 (i)/n (i).
-(6) show that if f ∈ l1 (r) then
-�
-f (x) x ∈ i
-(3)                   g : i −→ c, g(x) =
-0      x∈r\\i
-is integrable on i.
-(7) show that the preceeding construction gives a surjective and continuous
-linear map ‘restriction to i’
-(4)                                 l1 (r) −→ l1 (i).
-(notice that these are the quotient spaces of integrable functions modulo
-equality a.e.)
-3. problem 3.3
-really continuing the previous one.
-(1) show that if i = [a, b) and f ∈ l1 (i) then the restriction of f to ix = [x, b)
-is an element of l1 (ix ) for all a ≤ x < b.
-(2) show that the function
-�
-(1)                          f (x) =       f : [a, b) −→ c
-ix
-is continuous.
-(3) prove that the function x−1 cos(1/x) is not lebesgue integrable on the
-interval (0, 1]. hint: think about it a bit and use what you have shown
-above.
-4. problem 3.4
-[harder but still doable] suppose f ∈ l1 (r).
-(1) show that for each t ∈ r the translates
-(1)                            ft (x) = f (x − t) : r −→ c
-are elements of l1 (r).
-(2) show that
-�
-(2)                                 lim        |ft − f | = 0.
-t→0
-this is called ‘continuity in the mean for integrable functions’. hint: i will
-add one!
-(3) conclude that for each f ∈ l1 (r) the map (it is a ‘curve’)
-(3)                              r � t �−→ [ft ] ∈ l1 (r)
-is continuous.
-problems 3                                    3
-5. problem 3.5
-in the last problem set you showed that a continuous function on a compact
-interval, extended to be zero outside, is lebesgue integrable. using this, and the
-fact that step functions are dense in l1 (r) show that the linear space of continuous
-functions on r each of which vanishes outside a compact set (which depends on the
-function) form a dense subset of l1 (r).
-6. problem 3.6
-(1) if g : r −→ c is bounded and continuous and f ∈ l1 (r) show that
-gf ∈ l1 (r) and that
-�                  �
-(1)                            |gf | ≤ sup |g| · |f |.
-r
-(2) suppose now that g ∈ c([0, 1] × [0, 1]) is a continuous function (i use c(k)
-to denote the continuous functions on a compact metric space). recall from
-the preceeding discussion that we have deﬁned l1 ([0, 1]). now, using the
-ﬁrst part show that if f ∈ l1 ([0, 1]) then
-�
-(2)                         f (x) =       g(x, ·)f (·) ∈ c
-[0,1]
-(where · is the variable in which the integral is taken) is well-deﬁned for
-each x ∈ [0, 1].
-(3) show that for each f ∈ l1 ([0, 1]), f is a continuous function on [0, 1].
-(4) show that
-(3)                         l1 ([0, 1]) � f �−→ f ∈ c([0, 1])
-is a bounded (i.e. continuous) linear map into the banach space of contin­
-uous functions, with supremum norm, on [0, 1].
-department of mathematics, massachusetts institute of technology', 'Problem 3.1
-If f and g ∈ L1 (R) are Lebesgue integrable functions on the line show that
-�
-(1) If f (x) ≥ 0 a.e. then f �≥ 0. �
-(2) If f (x) ≤ g(x) a.e. then f ≤ g.
-(3) If� f is complex
-�     valued then its real part, Re f, is Lebesgue integrable and
-| Re f | ≤ |f |.
-(4) For a general complex-valued Lebesgue integrable function
-�       �
-(1)                                 | f | ≤ |f |.
-Hint: You can look up a proof� of this
-� easily enough, but the usual trick is to
-choose θ ∈ [0, 2π) so that eiθ f = (eiθ f ) ≥ 0. Then apply the preceeding
-estimate to g = eiθ f.
-(5) Show that the integral is a continuous linear functional
-�
-(2)                                  : L1 (R) −→ C.
-2. Problem 3.2
-If I ⊂ R is an interval, including possibly (−∞, a) or (a, ∞), we deﬁne Lebesgue
-integrability of a function f : I −→ C to mean the Lebesgue integrability of
-�
-f (x) x ∈ I
-(1)                    f˜ : R −→ C, f˜(x) =
-0     x ∈ R \\ I.
-The integral of f on I is then deﬁned to be
-�      �
-(2)                                   f = f˜.
-I
-(1) Show that the space of such integrable functions on I is linear, denote it
-L1 (I).
-(2) Show that is f is integrable on I then� so is |f |.
-(3) Show that if f is integrable on I and I |f | = 0 then f = 0 a.e. in the sense
-that f (x) = 0 for all x ∈ I \\ E where E ⊂ I is of measure zero as a subset
-of R.
-1
-2                                   RICHARD MELROSE
-(4) Show that the set of null functions as in the preceeding question is a linear
-� it N (I).
-space, denote
-(5) Show that I |f | deﬁnes a norm on L1 (I) = L1 (I)/N (I).
-(6) Show that if f ∈ L1 (R) then
-�
-f (x) x ∈ I
-(3)                   g : I −→ C, g(x) =
-0      x∈R\\I
-is integrable on I.
-(7) Show that the preceeding construction gives a surjective and continuous
-linear map ‘restriction to I’
-(4)                                 L1 (R) −→ L1 (I).
-(Notice that these are the quotient spaces of integrable functions modulo
-equality a.e.)
-3. Problem 3.3
-Really continuing the previous one.
-(1) Show that if I = [a, b) and f ∈ L1 (I) then the restriction of f to Ix = [x, b)
-is an element of L1 (Ix ) for all a ≤ x < b.
-(2) Show that the function
-�
-(1)                          F (x) =       f : [a, b) −→ C
-Ix
-is continuous.
-(3) Prove that the function x−1 cos(1/x) is not Lebesgue integrable on the
-interval (0, 1]. Hint: Think about it a bit and use what you have shown
-above.
-4. Problem 3.4
-[Harder but still doable] Suppose f ∈ L1 (R).
-(1) Show that for each t ∈ R the translates
-(1)                            ft (x) = f (x − t) : R −→ C
-are elements of L1 (R).
-(2) Show that
-�
-(2)                                 lim        |ft − f | = 0.
-t→0
-This is called ‘Continuity in the mean for integrable functions’. Hint: I will
-add one!
-(3) Conclude that for each f ∈ L1 (R) the map (it is a ‘curve’)
-(3)                              R � t �−→ [ft ] ∈ L1 (R)
-is continuous.
-PROBLEMS 3                                    3
-5. Problem 3.5
-In the last problem set you showed that a continuous function on a compact
-interval, extended to be zero outside, is Lebesgue integrable. Using this, and the
-fact that step functions are dense in L1 (R) show that the linear space of continuous
-functions on R each of which vanishes outside a compact set (which depends on the
-function) form a dense subset of L1 (R).
-6. Problem 3.6
-(1) If g : R −→ C is bounded and continuous and f ∈ L1 (R) show that
-gf ∈ L1 (R) and that
-�                  �
-(1)                            |gf | ≤ sup |g| · |f |.
-R
-(2) Suppose now that G ∈ C([0, 1] × [0, 1]) is a continuous function (I use C(K)
-to denote the continuous functions on a compact metric space). Recall from
-the preceeding discussion that we have deﬁned L1 ([0, 1]). Now, using the
-ﬁrst part show that if f ∈ L1 ([0, 1]) then
-�
-(2)                         F (x) =       G(x, ·)f (·) ∈ C
-[0,1]
-(where · is the variable in which the integral is taken) is well-deﬁned for
-each x ∈ [0, 1].
-(3) Show that for each f ∈ L1 ([0, 1]), F is a continuous function on [0, 1].
-(4) Show that
-(3)                         L1 ([0, 1]) � f �−→ F ∈ C([0, 1])
-is a bounded (i.e. continuous) linear map into the Banach space of contin­
-uous functions, with supremum norm, on [0, 1].
-Department of Mathematics, Massachusetts Institute of Technology', 'Impossible à déterminer'), 'correct' => 2, 'answer' => 'Problem 3.1
-If f and g ∈ L1 (R) are Lebesgue integrable functions on the line show that
-�
-(1) If f (x) ≥ 0 a.e. then f �≥ 0. �
-(2) If f (x) ≤ g(x) a.e. then f ≤ g.
-(3) If� f is complex
-�     valued then its real part, Re f, is Lebesgue integrable and
-| Re f | ≤ |f |.
-(4) For a general complex-valued Lebesgue integrable function
-�       �
-(1)                                 | f | ≤ |f |.
-Hint: You can look up a proof� of this
-� easily enough, but the usual trick is to
-choose θ ∈ [0, 2π) so that eiθ f = (eiθ f ) ≥ 0. Then apply the preceeding
-estimate to g = eiθ f.
-(5) Show that the integral is a continuous linear functional
-�
-(2)                                  : L1 (R) −→ C.
-2. Problem 3.2
-If I ⊂ R is an interval, including possibly (−∞, a) or (a, ∞), we deﬁne Lebesgue
-integrability of a function f : I −→ C to mean the Lebesgue integrability of
-�
-f (x) x ∈ I
-(1)                    f˜ : R −→ C, f˜(x) =
-0     x ∈ R \\ I.
-The integral of f on I is then deﬁned to be
-�      �
-(2)                                   f = f˜.
-I
-(1) Show that the space of such integrable functions on I is linear, denote it
-L1 (I).
-(2) Show that is f is integrable on I then� so is |f |.
-(3) Show that if f is integrable on I and I |f | = 0 then f = 0 a.e. in the sense
-that f (x) = 0 for all x ∈ I \\ E where E ⊂ I is of measure zero as a subset
-of R.
-1
-2                                   RICHARD MELROSE
-(4) Show that the set of null functions as in the preceeding question is a linear
-� it N (I).
-space, denote
-(5) Show that I |f | deﬁnes a norm on L1 (I) = L1 (I)/N (I).
-(6) Show that if f ∈ L1 (R) then
-�
-f (x) x ∈ I
-(3)                   g : I −→ C, g(x) =
-0      x∈R\\I
-is integrable on I.
-(7) Show that the preceeding construction gives a surjective and continuous
-linear map ‘restriction to I’
-(4)                                 L1 (R) −→ L1 (I).
-(Notice that these are the quotient spaces of integrable functions modulo
-equality a.e.)
-3. Problem 3.3
-Really continuing the previous one.
-(1) Show that if I = [a, b) and f ∈ L1 (I) then the restriction of f to Ix = [x, b)
-is an element of L1 (Ix ) for all a ≤ x < b.
-(2) Show that the function
-�
-(1)                          F (x) =       f : [a, b) −→ C
-Ix
-is continuous.
-(3) Prove that the function x−1 cos(1/x) is not Lebesgue integrable on the
-interval (0, 1]. Hint: Think about it a bit and use what you have shown
-above.
-4. Problem 3.4
-[Harder but still doable] Suppose f ∈ L1 (R).
-(1) Show that for each t ∈ R the translates
-(1)                            ft (x) = f (x − t) : R −→ C
-are elements of L1 (R).
-(2) Show that
-�
-(2)                                 lim        |ft − f | = 0.
-t→0
-This is called ‘Continuity in the mean for integrable functions’. Hint: I will
-add one!
-(3) Conclude that for each f ∈ L1 (R) the map (it is a ‘curve’)
-(3)                              R � t �−→ [ft ] ∈ L1 (R)
-is continuous.
-PROBLEMS 3                                    3
-5. Problem 3.5
-In the last problem set you showed that a continuous function on a compact
-interval, extended to be zero outside, is Lebesgue integrable. Using this, and the
-fact that step functions are dense in L1 (R) show that the linear space of continuous
-functions on R each of which vanishes outside a compact set (which depends on the
-function) form a dense subset of L1 (R).
-6. Problem 3.6
-(1) If g : R −→ C is bounded and continuous and f ∈ L1 (R) show that
-gf ∈ L1 (R) and that
-�                  �
-(1)                            |gf | ≤ sup |g| · |f |.
-R
-(2) Suppose now that G ∈ C([0, 1] × [0, 1]) is a continuous function (I use C(K)
-to denote the continuous functions on a compact metric space). Recall from
-the preceeding discussion that we have deﬁned L1 ([0, 1]). Now, using the
-ﬁrst part show that if f ∈ L1 ([0, 1]) then
-�
-(2)                         F (x) =       G(x, ·)f (·) ∈ C
-[0,1]
-(where · is the variable in which the integral is taken) is well-deﬁned for
-each x ∈ [0, 1].
-(3) Show that for each f ∈ L1 ([0, 1]), F is a continuous function on [0, 1].
-(4) Show that
-(3)                         L1 ([0, 1]) � f �−→ F ∈ C([0, 1])
-is a bounded (i.e. continuous) linear map into the Banach space of contin­
-uous functions, with supremum norm, on [0, 1].
-Department of Mathematics, Massachusetts Institute of Technology', '_recupere_le' => '2026-11-04T19:55:22.570475+00:00Z', '_strategie' => 'separation_enum_solution'),
+Department of Mathematics, Massachusetts Institute of Technology', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.102 — question d’examen, en anglais] PROBLEM SET 10 (AND LAST) FOR 18.102, SPRING 2009 DUE 11AM TUESDAY 5 MAY. RICHARD MELROSE By now you should have become reasonably comfortable with a separable Hilbert space such as l2 . However, it is worthwhile checking once again that it is rather large – if you like, let me try to make you uncomfortable for one last time. An important result in this direction is Kuiper’s theorem, which I will not ask you to prove1. However, I want you to go through the closely related result sometimes known as Eilenberg’s swindle. Perhaps you will appreciate the little bit of trickery. First some preliminary results. Note that everything below is a closed curve in the x ∈ [0, 1] variable – you might
 PROBLEM SET 10 (AND LAST) FOR 18.102, SPRING 2009
 DUE 11AM TUESDAY 5 MAY.
@@ -2090,7 +1216,7 @@ H ⊕ l2 (H), ‘renumbering’ allows you to regard this as l2 (H) again and wh
 do so your curve has become alternate multiplication by exp(±4πix) (with + ﬁrst).
 Finally then, apply the preceding problem again, to deform to the identity (always
 of course through closed curves). Presto, Eilenberg’s swindle!
-Department of Mathematics, Massachusetts Institute of Technology', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Solutions to Problem set 10
+Department of Mathematics, Massachusetts Institute of Technology', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Solutions to Problem set 10
 Problem P10.1 Let H be a separable, inﬁnite dimensional Hilbert space. Show
 that the direct sum of two copies of H is a Hilbert space with the norm
 1
@@ -2269,227 +1395,7 @@ This turns the matrix of operators in (23.41) into G̃(0, x)−1 . Now, we can a
 the same construction to deform this curve to the identity. Notice that this really
 does ultimately give an homotopy, which we can renormalize to be on [0, 1] if you
 insist, of curves of operators on H – at each stage we transfer the homotopy back
-to H.
-
-[Correction officielle MIT : [MIT 18.102 — question d’examen, en anglais] PROBLEM SET 10 (AND LAST) FOR 18.102, SPRING 2009 DUE 11AM TUESDAY 5 MAY. RICHARD MELROSE By now you should have become reasonably comfortable with a separable Hilbert space such as l2 . However, it is worthwhile checking once again that it is rather large – if you like, let me try to make you uncomfortable for one last time. An important result in this direction is Kuiper’s theorem, which I will not ask you to prove1. However, I want you to go through the closely related result sometimes known as Eilenberg’s swindle. Perhaps you will appreciate the little bit of trickery. First some preliminary results. Note that everything below is a closed curve in the x ∈ [0, 1] variable – you might
-PROBLEM SET 10 (AND LAST) FOR 18.102, SPRING 2009
-DUE 11AM TUESDAY 5 MAY.
-RICHARD MELROSE
-By now you should have become reasonably comfortable with a separable Hilbert
-space such as l2 . However, it is worthwhile checking once again that it is rather large
-– if you like, let me try to make you uncomfortable for one last time. An important
-result in this direction is Kuiper’s theorem, which I will not ask you to prove1.
-However, I want you to go through the closely related result sometimes known as
-Eilenberg’s swindle. Perhaps you will appreciate the little bit of trickery. First some
-preliminary results. Note that everything below is a closed curve in the x ∈ [0, 1]
-variable – you might want to identify this with a circle instead, I just did it the
-primitive way.
-Problem P10.1
-Let H be a separable, inﬁnite dimensional Hilbert space. Show that the direct
-sum of two copies of H is a Hilbert space with the norm
-1
-(P10.1)                 H ⊕ H � (u1 , u2 ) �−→ (�u1 �2H + �u2 �2H ) 2
-either by constructing an isometric isomorphism
-(P10.2)          T : H −→ H ⊕ H, 1-1 and onto, �u�H = �T u�H⊕H
-or otherwise. In any case, construct a map as in (P10.2).
-Problem P10.2
-One can repeat the preceding construction any ﬁnite number of times. Show
-that it can be done ‘countably often’ in the sense that if H is a separable, inﬁnite
-dimensional, Hilbert space then
-�
-(P10.3)         l2 (H) = {u : N −→ H; �u�2l2 (H) =    �ui �2H < ∞}
-i
-has a Hilbert space structure and construct an explicit isometric isomorphism from
-l2 (H) to H.
-1Kuiper’s theorem says that for any (norm) continuous map, say from any compact metric
-space, g : M −→ GL(H) with values in the invertible operators on a separable inﬁnite-dimensional
-Hilbert space there exists a continuous map, an homotopy, h : M × [0, 1] −→ GL(H) such that
-h(m, 0) = g(m) and h(m, 1) = IdH for all m ∈ M.
-1
-2                                      RICHARD MELROSE
-Problem P10.3
-Recall, or perhaps learn about, the winding number of a closed curve with values
-in C∗ = C\\{0}. We take as given the following fact:2 If Q = [0, 1]N and f : Q −→ C∗
-is continuous then for each choice of b ∈ C satisfying exp(2πib) = f (0), there exists
-a unique continuous function F : Q −→ C satisfying
-(P10.4)                exp(2πiF (q)) = f (q), ∀ q ∈ Q and F (0) = b.
-Of course, you are free to change b to b + n for any n ∈ Z but then F changes to
-F + n, just shifting by the same integer.
-(1) Now, suppose c : [0, 1] −→ C∗ is a closed curve – meaning it is continuous
-and c(1) = c(0). Let C : [0, 1] −→ C be a choice of F for N = 1 and
-f = c. Show that the winding number of the closed curve c may be deﬁned
-unambiguously as
-(P10.5)                            wn(c) = F (1) − F (0) ∈ Z.
-(2) Show that wn(c) is constant under homotopy. That is if ci : [0, 1] −→ C∗ ,
-i = 1, 2, are two closed curves so ci (1) = ci (0), i = 1, 2, which are homotopic
-through closed curves in the sense that there exists f : [0, 1]2 −→ C∗
-continuous and such that f (0, x) = c1 (x), f (1, x) = c2 (x) for all x ∈ [0, 1]
-and f (y, 0) = f (y, 1) for all y ∈ [0, 1], then wn(c1 ) = wn(c2 ).
-(3) Consider the closed curve Ln : [0, 1] � x �−→ e2πix Idn×n of n × n matrices.
-Using the standard properties of the determinant, show that this curve is
-not homotopic to the identity through closed curves in the sense that there
-does not exist a continuous map G : [0, 1]2 −→ GL(n), with values in the
-invertible n × n matrices, such that G(0, x) = Ln (x), G(1, x) ≡ Idn×n for
-all x ∈ [0, 1], G(y, 0) = G(y, 1) for all y ∈ [0, 1].
-Problem P10.4
-Consider the closed curve corresponding to Ln above in the case of a separable
-but now inﬁnite dimensional Hilbert space:
-(P10.6)                L : [0, 1] � x �−→ e2πix IdH ∈ GL(H) ⊂ B(H)
-taking values in the invertible operators on H. Show that after identifying H with
-H ⊕ H as above, there is a continuous map
-(P10.7)                           M : [0, 1]2 −→ GL(H ⊕ H)
-with values in the invertible operators and satisfying
-(P10.8)
-M (0, x) = L(x), M (1, x)(u1 , u2 ) = (e4πix u1 , u2 ), M (y, 0) = M (y, 1), ∀ x, y ∈ [0, 1].
-Hint: So, think of H ⊕ H as being 2-vectors (u1 , u2 ) with entries in H. This allows
-one to think of ‘rotation’ between the two factors. Indeed, show that
-(P10.9) U (y)(u1 , u2 ) = (cos(πy/2)u1 + sin(πy/2)u2 , − sin(πy/2)u1 + cos(πy/2)u2 )
-deﬁnes a continuous map [0, 1] � y �−→ U (y) ∈ GL(H ⊕ H) such that U (0) = Id,
-U (1)(u1 , u2 ) = (u2 , −u1 ). Now, consider the 2-parameter family of maps
-(P10.10)                             U −1 (y)V2 (x)U (y)V1 (x)
-2Of course, you are free to give a proof – it is not hard.
-PROBLEMS 10                                            3
-where V1 (x) and V2 (x) are deﬁned on H ⊕ H as multiplication by exp(2πix) on the
-ﬁrst and the second component respectively, leaving the other ﬁxed.
-Problem P10.5
-Using a rotation similar to the one in the preceeding problem (or otherwise)
-show that there is a continuous map
-(P10.11)                       G : [0, 1]2 −→ GL(H ⊕ H)
-such that
-(P10.12) G(0, x)(u1 , u2 ) = (e2πix u1 , e−2πix u2 ),
-G(1, x)(u1 , u2 ) = (u1 , u2 ), G(y, 0) = G(y, 1) ∀ x, y ∈ [0, 1].
-Problem P10.6
-Now, think about combining the various constructions above in the following way.
-Show that on l2 (H) there is an homotopy like (P10.11), G̃ : [0, 1]2 −→ GL(l2 (H)),
-(very like in fact) such that
-∞                      �∞
-(P10.13) G̃(0, x) {uk }k=1 = exp((−1)k 2πix)uk k=1 ,
-�
-G̃(1, x) = Id, G̃(y, 0) = G̃(y, 1) ∀ x, y ∈ [0, 1].
-Problem P10.7: Eilenberg’s swindle
-For an inﬁnite dimenisonal separable Hilbert space, construct an homotopy –
-meaning a continuous map G : [0, 1]2 −→ GL(H) – with G(0, x) = L(x) in (P10.6)
-and G(1, x) = Id and of course G(y, 0) = G(y, 1) for all x, y ∈ [0, 1].
-Hint: Just put things together – of course you can rescale the interval at the end
-to make it all happen over [0, 1]. First ‘divide H into 2 copies of itself’ and deform
-from L to M (1, x) in (P10.8). Now, ‘divide the second H up into l2 (H)’ and apply
-an argument just like the preceding problem to turn the identity on this factor into
-alternating terms multiplying by exp(±4πix) – starting with −. Now, you are on
-H ⊕ l2 (H), ‘renumbering’ allows you to regard this as l2 (H) again and when you
-do so your curve has become alternate multiplication by exp(±4πix) (with + ﬁrst).
-Finally then, apply the preceding problem again, to deform to the identity (always
-of course through closed curves). Presto, Eilenberg’s swindle!
-Department of Mathematics, Massachusetts Institute of Technology]', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.102 — question d’examen, en anglais] PROBLEM SET 10 (AND LAST) FOR 18.102, SPRING 2009 DUE 11AM TUESDAY 5 MAY. RICHARD MELROSE By now you should have become reasonably comfortable with a separable Hilbert space such as l2 . However, it is worthwhile checking once again that it is rather large – if you like, let me try to make you uncomfortable for one last time. An important result in this direction is Kuiper’s theorem, which I will not ask you to prove1. However, I want you to go through the closely related result sometimes known as Eilenberg’s swindle. Perhaps you will appreciate the little bit of trickery. First some preliminary results. Note that everything below is a closed curve in the x ∈ [0, 1] variable – you might
-PROBLEM SET 10 (AND LAST) FOR 18.102, SPRING 2009
-DUE 11AM TUESDAY 5 MAY.
-RICHARD MELROSE
-By now you should have become reasonably comfortable with a separable Hilbert
-space such as l2 . However, it is worthwhile checking once again that it is rather large
-– if you like, let me try to make you uncomfortable for one last time. An important
-result in this direction is Kuiper’s theorem, which I will not ask you to prove1.
-However, I want you to go through the closely related result sometimes known as
-Eilenberg’s swindle. Perhaps you will appreciate the little bit of trickery. First some
-preliminary results. Note that everything below is a closed curve in the x ∈ [0, 1]
-variable – you might want to identify this with a circle instead, I just did it the
-primitive way.
-Problem P10.1
-Let H be a separable, inﬁnite dimensional Hilbert space. Show that the direct
-sum of two copies of H is a Hilbert space with the norm
-1
-(P10.1)                 H ⊕ H � (u1 , u2 ) �−→ (�u1 �2H + �u2 �2H ) 2
-either by constructing an isometric isomorphism
-(P10.2)          T : H −→ H ⊕ H, 1-1 and onto, �u�H = �T u�H⊕H
-or otherwise. In any case, construct a map as in (P10.2).
-Problem P10.2
-One can repeat the preceding construction any ﬁnite number of times. Show
-that it can be done ‘countably often’ in the sense that if H is a separable, inﬁnite
-dimensional, Hilbert space then
-�
-(P10.3)         l2 (H) = {u : N −→ H; �u�2l2 (H) =    �ui �2H < ∞}
-i
-has a Hilbert space structure and construct an explicit isometric isomorphism from
-l2 (H) to H.
-1Kuiper’s theorem says that for any (norm) continuous map, say from any compact metric
-space, g : M −→ GL(H) with values in the invertible operators on a separable inﬁnite-dimensional
-Hilbert space there exists a continuous map, an homotopy, h : M × [0, 1] −→ GL(H) such that
-h(m, 0) = g(m) and h(m, 1) = IdH for all m ∈ M.
-1
-2                                      RICHARD MELROSE
-Problem P10.3
-Recall, or perhaps learn about, the winding number of a closed curve with values
-in C∗ = C\\{0}. We take as given the following fact:2 If Q = [0, 1]N and f : Q −→ C∗
-is continuous then for each choice of b ∈ C satisfying exp(2πib) = f (0), there exists
-a unique continuous function F : Q −→ C satisfying
-(P10.4)                exp(2πiF (q)) = f (q), ∀ q ∈ Q and F (0) = b.
-Of course, you are free to change b to b + n for any n ∈ Z but then F changes to
-F + n, just shifting by the same integer.
-(1) Now, suppose c : [0, 1] −→ C∗ is a closed curve – meaning it is continuous
-and c(1) = c(0). Let C : [0, 1] −→ C be a choice of F for N = 1 and
-f = c. Show that the winding number of the closed curve c may be deﬁned
-unambiguously as
-(P10.5)                            wn(c) = F (1) − F (0) ∈ Z.
-(2) Show that wn(c) is constant under homotopy. That is if ci : [0, 1] −→ C∗ ,
-i = 1, 2, are two closed curves so ci (1) = ci (0), i = 1, 2, which are homotopic
-through closed curves in the sense that there exists f : [0, 1]2 −→ C∗
-continuous and such that f (0, x) = c1 (x), f (1, x) = c2 (x) for all x ∈ [0, 1]
-and f (y, 0) = f (y, 1) for all y ∈ [0, 1], then wn(c1 ) = wn(c2 ).
-(3) Consider the closed curve Ln : [0, 1] � x �−→ e2πix Idn×n of n × n matrices.
-Using the standard properties of the determinant, show that this curve is
-not homotopic to the identity through closed curves in the sense that there
-does not exist a continuous map G : [0, 1]2 −→ GL(n), with values in the
-invertible n × n matrices, such that G(0, x) = Ln (x), G(1, x) ≡ Idn×n for
-all x ∈ [0, 1], G(y, 0) = G(y, 1) for all y ∈ [0, 1].
-Problem P10.4
-Consider the closed curve corresponding to Ln above in the case of a separable
-but now inﬁnite dimensional Hilbert space:
-(P10.6)                L : [0, 1] � x �−→ e2πix IdH ∈ GL(H) ⊂ B(H)
-taking values in the invertible operators on H. Show that after identifying H with
-H ⊕ H as above, there is a continuous map
-(P10.7)                           M : [0, 1]2 −→ GL(H ⊕ H)
-with values in the invertible operators and satisfying
-(P10.8)
-M (0, x) = L(x), M (1, x)(u1 , u2 ) = (e4πix u1 , u2 ), M (y, 0) = M (y, 1), ∀ x, y ∈ [0, 1].
-Hint: So, think of H ⊕ H as being 2-vectors (u1 , u2 ) with entries in H. This allows
-one to think of ‘rotation’ between the two factors. Indeed, show that
-(P10.9) U (y)(u1 , u2 ) = (cos(πy/2)u1 + sin(πy/2)u2 , − sin(πy/2)u1 + cos(πy/2)u2 )
-deﬁnes a continuous map [0, 1] � y �−→ U (y) ∈ GL(H ⊕ H) such that U (0) = Id,
-U (1)(u1 , u2 ) = (u2 , −u1 ). Now, consider the 2-parameter family of maps
-(P10.10)                             U −1 (y)V2 (x)U (y)V1 (x)
-2Of course, you are free to give a proof – it is not hard.
-PROBLEMS 10                                            3
-where V1 (x) and V2 (x) are deﬁned on H ⊕ H as multiplication by exp(2πix) on the
-ﬁrst and the second component respectively, leaving the other ﬁxed.
-Problem P10.5
-Using a rotation similar to the one in the preceeding problem (or otherwise)
-show that there is a continuous map
-(P10.11)                       G : [0, 1]2 −→ GL(H ⊕ H)
-such that
-(P10.12) G(0, x)(u1 , u2 ) = (e2πix u1 , e−2πix u2 ),
-G(1, x)(u1 , u2 ) = (u1 , u2 ), G(y, 0) = G(y, 1) ∀ x, y ∈ [0, 1].
-Problem P10.6
-Now, think about combining the various constructions above in the following way.
-Show that on l2 (H) there is an homotopy like (P10.11), G̃ : [0, 1]2 −→ GL(l2 (H)),
-(very like in fact) such that
-∞                      �∞
-(P10.13) G̃(0, x) {uk }k=1 = exp((−1)k 2πix)uk k=1 ,
-�
-G̃(1, x) = Id, G̃(y, 0) = G̃(y, 1) ∀ x, y ∈ [0, 1].
-Problem P10.7: Eilenberg’s swindle
-For an inﬁnite dimenisonal separable Hilbert space, construct an homotopy –
-meaning a continuous map G : [0, 1]2 −→ GL(H) – with G(0, x) = L(x) in (P10.6)
-and G(1, x) = Id and of course G(y, 0) = G(y, 1) for all x, y ∈ [0, 1].
-Hint: Just put things together – of course you can rescale the interval at the end
-to make it all happen over [0, 1]. First ‘divide H into 2 copies of itself’ and deform
-from L to M (1, x) in (P10.8). Now, ‘divide the second H up into l2 (H)’ and apply
-an argument just like the preceding problem to turn the identity on this factor into
-alternating terms multiplying by exp(±4πix) – starting with −. Now, you are on
-H ⊕ l2 (H), ‘renumbering’ allows you to regard this as l2 (H) again and when you
-do so your curve has become alternate multiplication by exp(±4πix) (with + ﬁrst).
-Finally then, apply the preceding problem again, to deform to the identity (always
-of course through closed curves). Presto, Eilenberg’s swindle!
-Department of Mathematics, Massachusetts Institute of Technology', '_recupere_le' => '2026-11-04T19:55:22.573195+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Solutions to Problem set 10
-Problem P10.1 Let H be a separable, inﬁnite dimensional Hilbert space. Show
-that the direct sum of two copies of H is a Hilbert space with the nor')),
+to H.', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 						),
 					),
 				),
@@ -2601,7 +1507,7 @@ PROBLEMS 5                        3
 i
 (3) Show that
 (5.13)             T (u) = �u, w�H ∀ u ∈ H and �T � = �w�H .
-Department of Mathematics, Massachusetts Institute of Technology', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : SOLUTIONS TO PROBLEM SET 5 FOR 18.102, SPRING 2009
+Department of Mathematics, Massachusetts Institute of Technology', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : SOLUTIONS TO PROBLEM SET 5 FOR 18.102, SPRING 2009
 WAS DUE l l A M TUESDAY 17 MAR.
 RICHARD MELROSE
 You should be thinking about using Lebesgue\'s dominated convergence a t several
@@ -2808,227 +1714,79 @@ i=l
 where the continuity of the inner product has been used. From this and
 Cauchy\'s inequality it follows that IlTll = supll,l,=,          IT(u)l     <
 IIwII. The
-converse follows from the fact that T ( w ) = I I W I I & .
-
-[Correction officielle MIT : [MIT 18.102 — question d’examen, en anglais] Let f : R −→ C be an element of L1 (R). Deﬁne � f (x) x ∈ [−L, L] (5.1)                     fL (x) = 0      otherwise. Show that fL ∈ L1 (R) and that |fL − f | → 0 as L → ∞. � Problem 5.2 Consider a real-valued function f : R −→ R which is locally integrable in the sense that � f (x) x ∈ [−L, L] (5.2)                    gL (x) = 0     x ∈ R \\ [−L, L] is Lebesgue integrable of each L ∈ N. (1) Show that for each ﬁxed L the function ⎧ ⎨gL (x) if gL (x) ∈ [−N, N ] ⎪ (N ) (5.3)               gL (x) = N           if gL (x) > N ⎪ −N       if gL (x) < −N ⎩ is Lebesgue integrable. � (N ) (2) Show that |gL − gL | → 0 as N → ∞. (3) Show that there is a sequence, hn , of step functions such that (5.4)
-Let f : R −→ C be an element of L1 (R). Deﬁne
-�
-f (x) x ∈ [−L, L]
-(5.1)                     fL (x) =
-0      otherwise.
-Show that fL ∈ L1 (R) and that |fL − f | → 0 as L → ∞.
-�
-Problem 5.2
-Consider a real-valued function f : R −→ R which is locally integrable in the
-sense that
-�
-f (x) x ∈ [−L, L]
-(5.2)                    gL (x) =
-0     x ∈ R \\ [−L, L]
-is Lebesgue integrable of each L ∈ N.
-(1) Show that for each ﬁxed L the function
-⎧
-⎨gL (x) if gL (x) ∈ [−N, N ]
-⎪
-(N )
-(5.3)               gL (x) = N           if gL (x) > N
-⎪
-−N       if gL (x) < −N
-⎩
-is Lebesgue integrable.
-� (N )
-(2) Show that |gL − gL | → 0 as N → ∞.
-(3) Show that there is a sequence, hn , of step functions such that
-(5.4)                        hn (x) → f (x) a.e. in R.
-(4) Deﬁning
-⎧
-⎪
-⎪0        x �∈ [−L, L]
-⎪
-⎨h (x) if h (x) ∈ [−N, N ], x ∈ [−L, L]
-(N )     n           n
-(5.5)          hn,L =                                         .
-⎪
-⎪
-⎪N         if hn (x) > N, x ∈ [−L, L]
-−N        if hn (x) < −N, x ∈ [−L, L]
-⎩
-� (N )   (N )
-Show that |hn,L − gL | → 0 as n → ∞.
-1
-2                                RICHARD MELROSE
-Problem 5.3
-Show that L2 (R) is a Hilbert space.
-First working with real functions, deﬁne L2 (R) as the set of functions f : R −→ R
-which are locally integrable and such that |f |2 is integrable.
-(N )          (N )
-(1) For such f choose hn and deﬁne gL , gL and hn by (5.2), (5.3) and (5.5).
-(N )                      (N )     (N )
-(2) Show using the sequence hn,L for ﬁxed N and L that gL and (gL )2 are
-(N )     (N )
-in L1 (R) and that |(hn,L )2 − (gL )2 | → 0 as n → ∞.
-�
-(N )
-(3) Show that (�gL )2 ∈ L1 (R) and that |(gL )2 − (gL )2 | → 0 as N → ∞.
-�
-2    2
-(4) Show that |(gL ) − f | → 0 as L → ∞.
-(5) Show that f, g ∈ L2 (R) then f g ∈ L1 (R) and that
-�          �                             �
-(5.6)            | f g| ≤ |f g| ≤ �f �L2 �g�L2 , �f �2L2 = |f |2 .
-(6) Use these constructions to show that L2 (R) is a linear space.
-(7) Conclude that the quotient space L2 (R) = L2 (R)/N , where N is the space
-of null functions, is a real Hilbert space.
-(8) Extend the arguments to the case of complex-valued functions.
-Problem 5.4
-Consider the sequence space
-⎧                                          ⎫
-⎨                     �                    ⎬
-(5.7)         h2,1 = c : N � j �−→ cj ∈ C;  (1 + j 2 )|cj |2 < ∞ .
-⎩                                          ⎭
-j
-(1) Show that
-�
-(5.8)             h2,1 × h2,1 � (c, d) �−→ �c, d� =        (1 + j 2 )cj dj
-j
-2,1
-is an Hermitian inner form which turns h into a Hilbert space.
-(2) Denoting the norm on this space by � · �2,1 and the norm on l2 by � · �2 ,
-show that
-(5.9)                   h2,1 ⊂ l2 , �c�2 ≤ �c�2,1 ∀ c ∈ h2,1 .
-Problem 5.5
-In the separable case, prove Riesz Representation Theorem directly.
-Choose an orthonormal basis {ei } of the separable Hilbert space H. Suppose
-T : H −→ C is a bounded linear functional. Deﬁne a sequence
-(5.10)                           wi = T (ei ), i ∈ N.
-(1) Now, recall that |T u| ≤ C�u�H for some constant C. Show that for every
-ﬁnite N,
-N
-�
-(5.11)                                   |wi |2 ≤ C 2 .
-j=1
-PROBLEMS 5                        3
-(2) Conclude that {wi } ∈ l2 and that
-�
-(5.12)                          w=      wi ei ∈ H.
-i
-(3) Show that
-(5.13)             T (u) = �u, w�H ∀ u ∈ H and �T � = �w�H .
-Department of Mathematics, Massachusetts Institute of Technology]', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.102 — question d’examen, en anglais] Let f : R −→ C be an element of L1 (R). Deﬁne � f (x) x ∈ [−L, L] (5.1)                     fL (x) = 0      otherwise. Show that fL ∈ L1 (R) and that |fL − f | → 0 as L → ∞. � Problem 5.2 Consider a real-valued function f : R −→ R which is locally integrable in the sense that � f (x) x ∈ [−L, L] (5.2)                    gL (x) = 0     x ∈ R \\ [−L, L] is Lebesgue integrable of each L ∈ N. (1) Show that for each ﬁxed L the function ⎧ ⎨gL (x) if gL (x) ∈ [−N, N ] ⎪ (N ) (5.3)               gL (x) = N           if gL (x) > N ⎪ −N       if gL (x) < −N ⎩ is Lebesgue integrable. � (N ) (2) Show that |gL − gL | → 0 as N → ∞. (3) Show that there is a sequence, hn , of step functions such that (5.4)
-Let f : R −→ C be an element of L1 (R). Deﬁne
-�
-f (x) x ∈ [−L, L]
-(5.1)                     fL (x) =
-0      otherwise.
-Show that fL ∈ L1 (R) and that |fL − f | → 0 as L → ∞.
-�
-Problem 5.2
-Consider a real-valued function f : R −→ R which is locally integrable in the
-sense that
-�
-f (x) x ∈ [−L, L]
-(5.2)                    gL (x) =
-0     x ∈ R \\ [−L, L]
-is Lebesgue integrable of each L ∈ N.
-(1) Show that for each ﬁxed L the function
-⎧
-⎨gL (x) if gL (x) ∈ [−N, N ]
-⎪
-(N )
-(5.3)               gL (x) = N           if gL (x) > N
-⎪
-−N       if gL (x) < −N
-⎩
-is Lebesgue integrable.
-� (N )
-(2) Show that |gL − gL | → 0 as N → ∞.
-(3) Show that there is a sequence, hn , of step functions such that
-(5.4)                        hn (x) → f (x) a.e. in R.
-(4) Deﬁning
-⎧
-⎪
-⎪0        x �∈ [−L, L]
-⎪
-⎨h (x) if h (x) ∈ [−N, N ], x ∈ [−L, L]
-(N )     n           n
-(5.5)          hn,L =                                         .
-⎪
-⎪
-⎪N         if hn (x) > N, x ∈ [−L, L]
-−N        if hn (x) < −N, x ∈ [−L, L]
-⎩
-� (N )   (N )
-Show that |hn,L − gL | → 0 as n → ∞.
-1
-2                                RICHARD MELROSE
-Problem 5.3
-Show that L2 (R) is a Hilbert space.
-First working with real functions, deﬁne L2 (R) as the set of functions f : R −→ R
-which are locally integrable and such that |f |2 is integrable.
-(N )          (N )
-(1) For such f choose hn and deﬁne gL , gL and hn by (5.2), (5.3) and (5.5).
-(N )                      (N )     (N )
-(2) Show using the sequence hn,L for ﬁxed N and L that gL and (gL )2 are
-(N )     (N )
-in L1 (R) and that |(hn,L )2 − (gL )2 | → 0 as n → ∞.
-�
-(N )
-(3) Show that (�gL )2 ∈ L1 (R) and that |(gL )2 − (gL )2 | → 0 as N → ∞.
-�
-2    2
-(4) Show that |(gL ) − f | → 0 as L → ∞.
-(5) Show that f, g ∈ L2 (R) then f g ∈ L1 (R) and that
-�          �                             �
-(5.6)            | f g| ≤ |f g| ≤ �f �L2 �g�L2 , �f �2L2 = |f |2 .
-(6) Use these constructions to show that L2 (R) is a linear space.
-(7) Conclude that the quotient space L2 (R) = L2 (R)/N , where N is the space
-of null functions, is a real Hilbert space.
-(8) Extend the arguments to the case of complex-valued functions.
-Problem 5.4
-Consider the sequence space
-⎧                                          ⎫
-⎨                     �                    ⎬
-(5.7)         h2,1 = c : N � j �−→ cj ∈ C;  (1 + j 2 )|cj |2 < ∞ .
-⎩                                          ⎭
-j
-(1) Show that
-�
-(5.8)             h2,1 × h2,1 � (c, d) �−→ �c, d� =        (1 + j 2 )cj dj
-j
-2,1
-is an Hermitian inner form which turns h into a Hilbert space.
-(2) Denoting the norm on this space by � · �2,1 and the norm on l2 by � · �2 ,
-show that
-(5.9)                   h2,1 ⊂ l2 , �c�2 ≤ �c�2,1 ∀ c ∈ h2,1 .
-Problem 5.5
-In the separable case, prove Riesz Representation Theorem directly.
-Choose an orthonormal basis {ei } of the separable Hilbert space H. Suppose
-T : H −→ C is a bounded linear functional. Deﬁne a sequence
-(5.10)                           wi = T (ei ), i ∈ N.
-(1) Now, recall that |T u| ≤ C�u�H for some constant C. Show that for every
-ﬁnite N,
-N
-�
-(5.11)                                   |wi |2 ≤ C 2 .
-j=1
-PROBLEMS 5                        3
-(2) Conclude that {wi } ∈ l2 and that
-�
-(5.12)                          w=      wi ei ∈ H.
-i
-(3) Show that
-(5.13)             T (u) = �u, w�H ∀ u ∈ H and �T � = �w�H .
-Department of Mathematics, Massachusetts Institute of Technology', '_recupere_le' => '2026-11-04T19:55:22.574993+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : SOLUTIONS TO PROBLEM SET 5 FOR 18.102, SPRING 2009
-WAS DUE l l A M TUESDAY 17 MAR.
-RICHARD MELROSE
-You should be thinking about using Lebesgue\'s dominated convergence a t sev')),
+converse follows from the fact that T ( w ) = I I W I I & .', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.102 — question d’examen, en anglais] PROBLEM SET 2 FOR 18.102, SPRING 2009 DUE 11AM TUESDAY 24 FEB. RICHARD MELROSE I was originally going to make this problem set longer, since there is a missing Tuesday. However, I would prefer you to concentrate on getting all four of these questions really right! 1. Problem 2.1 Finish the proof of the completeness of the space B constructed in lecture on February 10. The description of that construction can be found in the notes to Lecture 3 as well as an indication of one way to proceed. 2. Problem 2.2 Let’s consider an example of an absolutely summable sequence of step functions. For the interval [0, 1) (remember there is a strong preference for left-closed but right-open intervals for
 PROBLEM SET 2 FOR 18.102, SPRING 2009
 DUE 11AM TUESDAY 24 FEB.
 RICHARD MELROSE
 I was originally going to make this problem set longer, since there is a missing
 Tuesday. However, I would prefer you to concentrate on getting all four of these
-questions really right!', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The proof could be shorter than this, I have tried to be fairly complete.
+questions really right!
+1. Problem 2.1
+Finish the proof of the completeness of the space B constructed in lecture on
+February 10. The description of that construction can be found in the notes to
+Lecture 3 as well as an indication of one way to proceed.
+2. Problem 2.2
+Let’s consider an example of an absolutely summable sequence of step functions.
+For the interval [0, 1) (remember there is a strong preference for left-closed but
+right-open intervals for the moment) consider a variant of the construction of the
+standard Cantor subset based on 3 proceeding in steps. Thus, remove the ‘central
+interval [1/3, 2/3). This leave C1 = [0, 1/3) ∪ [2/3, 1). Then remove the central
+interval from each of the remaining two intervals to get C2 = [0, 1/9) ∪ [2/9, 1/3) ∪
+[2/3, 7/9) ∪ [8/9, 1). Carry on in this way to deﬁne successive sets Ck ⊂ Ck−1 , each
+consisting of a ﬁnite union of semi-open intervals. Now, consider the series of step
+functions fk where fk (x) = 1 on Ck and 0 otherwise.
+(1) Check that this is an absolutely
+�       summable series.
+(2) For which x ∈ [0, 1) does      |fk (x)| converge?
+k
+(3) Describe a function on [0, 1) which is shown to be Lebesgue integrable
+(as deﬁned in Lecture 4) by the existence of this series and compute its
+Lebesgue integral.
+(4) Is this function Riemann integrable (this is easy, not hard, if you check the
+deﬁnition of Riemann integrability)?
+(5) Finally consider the function g which is equal to one on the union of all the
+intervals which are removed in the construction and zero elsewhere. Show
+that g is Lebesgue integrable and compute its integral.
+3. Problem 2.3
+2
+The covering lemma for R . By a rectangle we will mean a set of the form
+[a1 , b1 ) × [a2 , b2 ) in R2 . The area of a rectangle is (b1 − a1 ) × (b2 − a2 ).
+(1) We may subdivide a rectangle by subdividing either of the intervals – re­
+placing [a1 , b1 ) by [a1 , c1 ) ∪ [c1 , b1 ). Show that the sum of the areas of
+rectangles made by any repeated subdivision is always the same as that of
+the original.
+1
+2                                 RICHARD MELROSE
+(2) Suppose that a ﬁnite collection of disjoint rectangles has union a rectangle
+(always in this same half-open sense). Show, and I really mean prove, that
+the sum of the areas is the area of the whole rectange. Hint:- proceed by
+subdivision.
+(3) Now show that for any countable collection of disjoint rectangles contained
+in a given rectange the sum of the areas is less than or equal to that of the
+containing rectangle.
+(4) Show that if a ﬁnite collection of rectangles has union containing a given
+rectange then the sum of the areas of the rectangles is at least as large of
+that of the rectangle contained in the union.
+(5) Prove the extension of the preceeding result to a countable collection of
+rectangles with union containing a given rectangle.
+4. Problem 2.4
+(1) Show that any continuous function on [0, 1] is the uniform limit on [0, 1)
+of a sequence of step functions. Hint:- Reduce to the real case, divide the
+interval into 2n equal pieces and deﬁne the step functions to take inﬁmim
+of the continuous function on the corresponding interval. Then use uniform
+convergence.
+(2) By using the ‘telescoping trick’ show that any continuous function on [0, 1)
+can be written as the sum
+�
+(1)                                fj (x) ∀ x ∈ [0, 1)
+i
+�
+where the fj are step functions and       |fj (x)| < ∞ for all x ∈ [0, 1).
+j
+(3) Conclude that any continuous function on [0, 1], extended to be 0 outside
+this interval, is a Lebesgue integrable function on R.
+Department of Mathematics, Massachusetts Institute of Technology', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The proof could be shorter than this, I have tried to be fairly complete.
 To recap. We start of with a normed space V. From this normed space we
 construct the new linear space Ṽ with points the absolutely summable series in V.
 Then we consider the subspace S ⊂ Ṽ of those absolutely summable series which
@@ -3356,269 +2114,41 @@ n→∞
 and the integral of the step function is between the Riemann upper and
 lower sums for the corresponding partition of [0, 1].
 �
-Department of Mathematics, Massachusetts Institute of Technology', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas problem 2.1
-finish the proof of the completeness of the space b constructed in lecture on
-february 10. the description of that construction can be found in the notes to
-lecture 3 as well as an indication of one way to proceed.
-2. problem 2.2
-let’s consider an example of an absolutely summable sequence of step functions.
-for the interval [0, 1) (remember there is a strong preference for left-closed but
-right-open intervals for the moment) consider a variant of the construction of the
-standard cantor subset based on 3 proceeding in steps. thus, remove the ‘central
-interval [1/3, 2/3). this leave c1 = [0, 1/3) ∪ [2/3, 1). then remove the central
-interval from each of the remaining two intervals to get c2 = [0, 1/9) ∪ [2/9, 1/3) ∪
-[2/3, 7/9) ∪ [8/9, 1). carry on in this way to deﬁne successive sets ck ⊂ ck−1 , each
-consisting of a ﬁnite union of semi-open intervals. now, consider the series of step
-functions fk where fk (x) = 1 on ck and 0 otherwise.
-(1) check that this is an absolutely
-�       summable series.
-(2) for which x ∈ [0, 1) does      |fk (x)| converge?
-k
-(3) describe a function on [0, 1) which is shown to be lebesgue integrable
-(as deﬁned in lecture 4) by the existence of this series and compute its
-lebesgue integral.
-(4) is this function riemann integrable (this is easy, not hard, if you check the
-deﬁnition of riemann integrability)?
-(5) finally consider the function g which is equal to one on the union of all the
-intervals which are removed in the construction and zero elsewhere. show
-that g is lebesgue integrable and compute its integral.
-3. problem 2.3
-2
-the covering lemma for r . by a rectangle we will mean a set of the form
-[a1 , b1 ) × [a2 , b2 ) in r2 . the area of a rectangle is (b1 − a1 ) × (b2 − a2 ).
-(1) we may subdivide a rectangle by subdividing either of the intervals – re­
-placing [a1 , b1 ) by [a1 , c1 ) ∪ [c1 , b1 ). show that the sum of the areas of
-rectangles made by any repeated subdivision is always the same as that of
-the original.
-1
-2                                 richard melrose
-(2) suppose that a ﬁnite collection of disjoint rectangles has union a rectangle
-(always in this same half-open sense). show, and i really mean prove, that
-the sum of the areas is the area of the whole rectange. hint:- proceed by
-subdivision.
-(3) now show that for any countable collection of disjoint rectangles contained
-in a given rectange the sum of the areas is less than or equal to that of the
-containing rectangle.
-(4) show that if a ﬁnite collection of rectangles has union containing a given
-rectange then the sum of the areas of the rectangles is at least as large of
-that of the rectangle contained in the union.
-(5) prove the extension of the preceeding result to a countable collection of
-rectangles with union containing a given rectangle.
-4. problem 2.4
-(1) show that any continuous function on [0, 1] is the uniform limit on [0, 1)
-of a sequence of step functions. hint:- reduce to the real case, divide the
-interval into 2n equal pieces and deﬁne the step functions to take inﬁmim
-of the continuous function on the corresponding interval. then use uniform
-convergence.
-(2) by using the ‘telescoping trick’ show that any continuous function on [0, 1)
-can be written as the sum
-�
-(1)                                fj (x) ∀ x ∈ [0, 1)
-i
-�
-where the fj are step functions and       |fj (x)| < ∞ for all x ∈ [0, 1).
-j
-(3) conclude that any continuous function on [0, 1], extended to be 0 outside
-this interval, is a lebesgue integrable function on r.
-department of mathematics, massachusetts institute of technology', 'L\'inverse de problem 2.1
-finish the proof of the completeness of the space b constructed in lecture on
-february 10. the description of that construction can be found in the notes to
-lecture 3 as well as an indication of one way to proceed.
-2. problem 2.2
-let’s consider an example of an absolutely summable sequence of step functions.
-for the interval [0, 1) (remember there is a strong preference for left-closed but
-right-open intervals for the moment) consider a variant of the construction of the
-standard cantor subset based on 3 proceeding in steps. thus, remove the ‘central
-interval [1/3, 2/3). this leave c1 = [0, 1/3) ∪ [2/3, 1). then remove the central
-interval from each of the remaining two intervals to get c2 = [0, 1/9) ∪ [2/9, 1/3) ∪
-[2/3, 7/9) ∪ [8/9, 1). carry on in this way to deﬁne successive sets ck ⊂ ck−1 , each
-consisting of a ﬁnite union of semi-open intervals. now, consider the series of step
-functions fk where fk (x) = 1 on ck and 0 otherwise.
-(1) check that this is an absolutely
-�       summable series.
-(2) for which x ∈ [0, 1) does      |fk (x)| converge?
-k
-(3) describe a function on [0, 1) which is shown to be lebesgue integrable
-(as deﬁned in lecture 4) by the existence of this series and compute its
-lebesgue integral.
-(4) is this function riemann integrable (this is easy, not hard, if you check the
-deﬁnition of riemann integrability)?
-(5) finally consider the function g which is equal to one on the union of all the
-intervals which are removed in the construction and zero elsewhere. show
-that g is lebesgue integrable and compute its integral.
-3. problem 2.3
-2
-the covering lemma for r . by a rectangle we will mean a set of the form
-[a1 , b1 ) × [a2 , b2 ) in r2 . the area of a rectangle is (b1 − a1 ) × (b2 − a2 ).
-(1) we may subdivide a rectangle by subdividing either of the intervals – re­
-placing [a1 , b1 ) by [a1 , c1 ) ∪ [c1 , b1 ). show that the sum of the areas of
-rectangles made by any repeated subdivision is always the same as that of
-the original.
-1
-2                                 richard melrose
-(2) suppose that a ﬁnite collection of disjoint rectangles has union a rectangle
-(always in this same half-open sense). show, and i really mean prove, that
-the sum of the areas is the area of the whole rectange. hint:- proceed by
-subdivision.
-(3) now show that for any countable collection of disjoint rectangles contained
-in a given rectange the sum of the areas is less than or equal to that of the
-containing rectangle.
-(4) show that if a ﬁnite collection of rectangles has union containing a given
-rectange then the sum of the areas of the rectangles is at least as large of
-that of the rectangle contained in the union.
-(5) prove the extension of the preceeding result to a countable collection of
-rectangles with union containing a given rectangle.
-4. problem 2.4
-(1) show that any continuous function on [0, 1] is the uniform limit on [0, 1)
-of a sequence of step functions. hint:- reduce to the real case, divide the
-interval into 2n equal pieces and deﬁne the step functions to take inﬁmim
-of the continuous function on the corresponding interval. then use uniform
-convergence.
-(2) by using the ‘telescoping trick’ show that any continuous function on [0, 1)
-can be written as the sum
-�
-(1)                                fj (x) ∀ x ∈ [0, 1)
-i
-�
-where the fj are step functions and       |fj (x)| < ∞ for all x ∈ [0, 1).
-j
-(3) conclude that any continuous function on [0, 1], extended to be 0 outside
-this interval, is a lebesgue integrable function on r.
-department of mathematics, massachusetts institute of technology', 'Impossible à déterminer', 'Problem 2.1
-Finish the proof of the completeness of the space B constructed in lecture on
-February 10. The description of that construction can be found in the notes to
-Lecture 3 as well as an indication of one way to proceed.
-2. Problem 2.2
-Let’s consider an example of an absolutely summable sequence of step functions.
-For the interval [0, 1) (remember there is a strong preference for left-closed but
-right-open intervals for the moment) consider a variant of the construction of the
-standard Cantor subset based on 3 proceeding in steps. Thus, remove the ‘central
-interval [1/3, 2/3). This leave C1 = [0, 1/3) ∪ [2/3, 1). Then remove the central
-interval from each of the remaining two intervals to get C2 = [0, 1/9) ∪ [2/9, 1/3) ∪
-[2/3, 7/9) ∪ [8/9, 1). Carry on in this way to deﬁne successive sets Ck ⊂ Ck−1 , each
-consisting of a ﬁnite union of semi-open intervals. Now, consider the series of step
-functions fk where fk (x) = 1 on Ck and 0 otherwise.
-(1) Check that this is an absolutely
-�       summable series.
-(2) For which x ∈ [0, 1) does      |fk (x)| converge?
-k
-(3) Describe a function on [0, 1) which is shown to be Lebesgue integrable
-(as deﬁned in Lecture 4) by the existence of this series and compute its
-Lebesgue integral.
-(4) Is this function Riemann integrable (this is easy, not hard, if you check the
-deﬁnition of Riemann integrability)?
-(5) Finally consider the function g which is equal to one on the union of all the
-intervals which are removed in the construction and zero elsewhere. Show
-that g is Lebesgue integrable and compute its integral.
-3. Problem 2.3
-2
-The covering lemma for R . By a rectangle we will mean a set of the form
-[a1 , b1 ) × [a2 , b2 ) in R2 . The area of a rectangle is (b1 − a1 ) × (b2 − a2 ).
-(1) We may subdivide a rectangle by subdividing either of the intervals – re­
-placing [a1 , b1 ) by [a1 , c1 ) ∪ [c1 , b1 ). Show that the sum of the areas of
-rectangles made by any repeated subdivision is always the same as that of
-the original.
-1
-2                                 RICHARD MELROSE
-(2) Suppose that a ﬁnite collection of disjoint rectangles has union a rectangle
-(always in this same half-open sense). Show, and I really mean prove, that
-the sum of the areas is the area of the whole rectange. Hint:- proceed by
-subdivision.
-(3) Now show that for any countable collection of disjoint rectangles contained
-in a given rectange the sum of the areas is less than or equal to that of the
-containing rectangle.
-(4) Show that if a ﬁnite collection of rectangles has union containing a given
-rectange then the sum of the areas of the rectangles is at least as large of
-that of the rectangle contained in the union.
-(5) Prove the extension of the preceeding result to a countable collection of
-rectangles with union containing a given rectangle.
-4. Problem 2.4
-(1) Show that any continuous function on [0, 1] is the uniform limit on [0, 1)
-of a sequence of step functions. Hint:- Reduce to the real case, divide the
-interval into 2n equal pieces and deﬁne the step functions to take inﬁmim
-of the continuous function on the corresponding interval. Then use uniform
-convergence.
-(2) By using the ‘telescoping trick’ show that any continuous function on [0, 1)
-can be written as the sum
-�
-(1)                                fj (x) ∀ x ∈ [0, 1)
-i
-�
-where the fj are step functions and       |fj (x)| < ∞ for all x ∈ [0, 1).
-j
-(3) Conclude that any continuous function on [0, 1], extended to be 0 outside
-this interval, is a Lebesgue integrable function on R.
-Department of Mathematics, Massachusetts Institute of Technology'), 'correct' => 3, 'answer' => 'Problem 2.1
-Finish the proof of the completeness of the space B constructed in lecture on
-February 10. The description of that construction can be found in the notes to
-Lecture 3 as well as an indication of one way to proceed.
-2. Problem 2.2
-Let’s consider an example of an absolutely summable sequence of step functions.
-For the interval [0, 1) (remember there is a strong preference for left-closed but
-right-open intervals for the moment) consider a variant of the construction of the
-standard Cantor subset based on 3 proceeding in steps. Thus, remove the ‘central
-interval [1/3, 2/3). This leave C1 = [0, 1/3) ∪ [2/3, 1). Then remove the central
-interval from each of the remaining two intervals to get C2 = [0, 1/9) ∪ [2/9, 1/3) ∪
-[2/3, 7/9) ∪ [8/9, 1). Carry on in this way to deﬁne successive sets Ck ⊂ Ck−1 , each
-consisting of a ﬁnite union of semi-open intervals. Now, consider the series of step
-functions fk where fk (x) = 1 on Ck and 0 otherwise.
-(1) Check that this is an absolutely
-�       summable series.
-(2) For which x ∈ [0, 1) does      |fk (x)| converge?
-k
-(3) Describe a function on [0, 1) which is shown to be Lebesgue integrable
-(as deﬁned in Lecture 4) by the existence of this series and compute its
-Lebesgue integral.
-(4) Is this function Riemann integrable (this is easy, not hard, if you check the
-deﬁnition of Riemann integrability)?
-(5) Finally consider the function g which is equal to one on the union of all the
-intervals which are removed in the construction and zero elsewhere. Show
-that g is Lebesgue integrable and compute its integral.
-3. Problem 2.3
-2
-The covering lemma for R . By a rectangle we will mean a set of the form
-[a1 , b1 ) × [a2 , b2 ) in R2 . The area of a rectangle is (b1 − a1 ) × (b2 − a2 ).
-(1) We may subdivide a rectangle by subdividing either of the intervals – re­
-placing [a1 , b1 ) by [a1 , c1 ) ∪ [c1 , b1 ). Show that the sum of the areas of
-rectangles made by any repeated subdivision is always the same as that of
-the original.
-1
-2                                 RICHARD MELROSE
-(2) Suppose that a ﬁnite collection of disjoint rectangles has union a rectangle
-(always in this same half-open sense). Show, and I really mean prove, that
-the sum of the areas is the area of the whole rectange. Hint:- proceed by
-subdivision.
-(3) Now show that for any countable collection of disjoint rectangles contained
-in a given rectange the sum of the areas is less than or equal to that of the
-containing rectangle.
-(4) Show that if a ﬁnite collection of rectangles has union containing a given
-rectange then the sum of the areas of the rectangles is at least as large of
-that of the rectangle contained in the union.
-(5) Prove the extension of the preceeding result to a countable collection of
-rectangles with union containing a given rectangle.
-4. Problem 2.4
-(1) Show that any continuous function on [0, 1] is the uniform limit on [0, 1)
-of a sequence of step functions. Hint:- Reduce to the real case, divide the
-interval into 2n equal pieces and deﬁne the step functions to take inﬁmim
-of the continuous function on the corresponding interval. Then use uniform
-convergence.
-(2) By using the ‘telescoping trick’ show that any continuous function on [0, 1)
-can be written as the sum
-�
-(1)                                fj (x) ∀ x ∈ [0, 1)
-i
-�
-where the fj are step functions and       |fj (x)| < ∞ for all x ∈ [0, 1).
-j
-(3) Conclude that any continuous function on [0, 1], extended to be 0 outside
-this interval, is a Lebesgue integrable function on R.
-Department of Mathematics, Massachusetts Institute of Technology', '_recupere_le' => '2026-11-04T19:55:22.576633+00:00Z', '_strategie' => 'separation_enum_solution'),
+Department of Mathematics, Massachusetts Institute of Technology', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.102 — question d’examen, en anglais] PROBLEM SET 4 FOR 18.102, SPRING 2009 DUE 11AM TUESDAY 10 MAR. RICHARD MELROSE Just to compensate for last week, I will make this problem set too short and easy! 1. Problem 4.1 Let H be a normed space in which the norm satisﬁes the parallelogram law: (1)             �u + v�2 + �u − v�2 = 2(�u�2 + �v�2 ) ∀ u, v ∈ H. Show that the norm comes from a positive deﬁnite sesquilinear (i.e. Hermitian) inner product. Big Hint:- Try 1� �u + v�2 − �u − v�2 + i�u + iv�2 − i�u − iv�2 ! � (2)        (u, v) = 4 2. Problem 4.2 Let H be a ﬁnite dimensional (pre)Hilbert space. So, by deﬁnition H has a basis {vi }ni=1 , meaning that any element of H can be written � (1)                                  v=
 PROBLEM SET 4 FOR 18.102, SPRING 2009
 DUE 11AM TUESDAY 10 MAR.
 RICHARD MELROSE
 Just to compensate for last week, I will make this problem set too short and
-easy!', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : SOLUTIONS TO PROBLEM SET 4 FOR 18.102, SPRING 2009
+easy!
+1. Problem 4.1
+Let H be a normed space in which the norm satisﬁes the parallelogram law:
+(1)             �u + v�2 + �u − v�2 = 2(�u�2 + �v�2 ) ∀ u, v ∈ H.
+Show that the norm comes from a positive deﬁnite sesquilinear (i.e. Hermitian)
+inner product. Big Hint:- Try
+1�
+�u + v�2 − �u − v�2 + i�u + iv�2 − i�u − iv�2 !
+�
+(2)        (u, v) =
+4
+2. Problem 4.2
+Let H be a ﬁnite dimensional (pre)Hilbert space. So, by deﬁnition H has a basis
+{vi }ni=1 , meaning that any element of H can be written
+�
+(1)                                  v=     ci vi
+i
+and there is no dependence relation between the vi ’s – the presentation of v = 0 in
+the form (1) is unique. Show that H has an orthonormal basis, {ei }ni=1 satisfying
+(ei , ej ) = δij (= 1 if i = j and 0 otherwise). Check that for the orthonormal basis
+the coeﬃcients in (1) are ci = (v, ei ) and that the map
+(2)                          T : H � v �−→ ((v, ei )) ∈ Cn
+is a linear isomorphism with the properties
+�
+(3)             (u, v) =   (T u)i (T v)i , �u�H = �T u�Cn ∀ u, v ∈ H.
+i
+Why is a ﬁnite dimensional preHilbert space a Hilbert space?
+Department of Mathematics, Massachusetts Institute of Technology
+1', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : SOLUTIONS TO PROBLEM SET 4 FOR 18.102, SPRING 2009
 WAS DUE 11AM TUESDAY 10 MAR.
 RICHARD MELROSE
 Just to compensate for last week, I will make this problem set too short and
@@ -3746,115 +2276,7 @@ Now, we know that Cn is complete with its standard norm. Since T is an
 isomorphism, it carries Cauchy sequences in H to Cauchy sequences in Cn and T −1
 carries convergent sequences in Cn to convergent sequences in H, so every Cauchy
 sequence in H is convergent. Thus H is complete.
-Department of Mathematics, Massachusetts Institute of Technology', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'Problem 4.1
-Let H be a normed space in which the norm satisﬁes the parallelogram law:
-(1)             �u + v�2 + �u − v�2 = 2(�u�2 + �v�2 ) ∀ u, v ∈ H.
-Show that the norm comes from a positive deﬁnite sesquilinear (i.e. Hermitian)
-inner product. Big Hint:- Try
-1�
-�u + v�2 − �u − v�2 + i�u + iv�2 − i�u − iv�2 !
-�
-(2)        (u, v) =
-4
-2. Problem 4.2
-Let H be a ﬁnite dimensional (pre)Hilbert space. So, by deﬁnition H has a basis
-{vi }ni=1 , meaning that any element of H can be written
-�
-(1)                                  v=     ci vi
-i
-and there is no dependence relation between the vi ’s – the presentation of v = 0 in
-the form (1) is unique. Show that H has an orthonormal basis, {ei }ni=1 satisfying
-(ei , ej ) = δij (= 1 if i = j and 0 otherwise). Check that for the orthonormal basis
-the coeﬃcients in (1) are ci = (v, ei ) and that the map
-(2)                          T : H � v �−→ ((v, ei )) ∈ Cn
-is a linear isomorphism with the properties
-�
-(3)             (u, v) =   (T u)i (T v)i , �u�H = �T u�Cn ∀ u, v ∈ H.
-i
-Why is a ﬁnite dimensional preHilbert space a Hilbert space?
-Department of Mathematics, Massachusetts Institute of Technology
-1', 'Pas problem 4.1
-let h be a normed space in which the norm satisﬁes the parallelogram law:
-(1)             �u + v�2 + �u − v�2 = 2(�u�2 + �v�2 ) ∀ u, v ∈ h.
-show that the norm comes from a positive deﬁnite sesquilinear (i.e. hermitian)
-inner product. big hint:- try
-1�
-�u + v�2 − �u − v�2 + i�u + iv�2 − i�u − iv�2 !
-�
-(2)        (u, v) =
-4
-2. problem 4.2
-let h be a ﬁnite dimensional (pre)hilbert space. so, by deﬁnition h has a basis
-{vi }ni=1 , meaning that any element of h can be written
-�
-(1)                                  v=     ci vi
-i
-and there is no dependence relation between the vi ’s – the presentation of v = 0 in
-the form (1) is unique. show that h has an orthonormal basis, {ei }ni=1 satisfying
-(ei , ej ) = δij (= 1 if i = j and 0 otherwise). check that for the orthonormal basis
-the coeﬃcients in (1) are ci = (v, ei ) and that the map
-(2)                          t : h � v �−→ ((v, ei )) ∈ cn
-is a linear isomorphism with the properties
-�
-(3)             (u, v) =   (t u)i (t v)i , �u�h = �t u�cn ∀ u, v ∈ h.
-i
-why is a ﬁnite dimensional prehilbert space a hilbert space?
-department of mathematics, massachusetts institute of technology
-1', 'L\'inverse de problem 4.1
-let h be a normed space in which the norm satisﬁes the parallelogram law:
-(1)             �u + v�2 + �u − v�2 = 2(�u�2 + �v�2 ) ∀ u, v ∈ h.
-show that the norm comes from a positive deﬁnite sesquilinear (i.e. hermitian)
-inner product. big hint:- try
-1�
-�u + v�2 − �u − v�2 + i�u + iv�2 − i�u − iv�2 !
-�
-(2)        (u, v) =
-4
-2. problem 4.2
-let h be a ﬁnite dimensional (pre)hilbert space. so, by deﬁnition h has a basis
-{vi }ni=1 , meaning that any element of h can be written
-�
-(1)                                  v=     ci vi
-i
-and there is no dependence relation between the vi ’s – the presentation of v = 0 in
-the form (1) is unique. show that h has an orthonormal basis, {ei }ni=1 satisfying
-(ei , ej ) = δij (= 1 if i = j and 0 otherwise). check that for the orthonormal basis
-the coeﬃcients in (1) are ci = (v, ei ) and that the map
-(2)                          t : h � v �−→ ((v, ei )) ∈ cn
-is a linear isomorphism with the properties
-�
-(3)             (u, v) =   (t u)i (t v)i , �u�h = �t u�cn ∀ u, v ∈ h.
-i
-why is a ﬁnite dimensional prehilbert space a hilbert space?
-department of mathematics, massachusetts institute of technology
-1'), 'correct' => 1, 'answer' => 'Problem 4.1
-Let H be a normed space in which the norm satisﬁes the parallelogram law:
-(1)             �u + v�2 + �u − v�2 = 2(�u�2 + �v�2 ) ∀ u, v ∈ H.
-Show that the norm comes from a positive deﬁnite sesquilinear (i.e. Hermitian)
-inner product. Big Hint:- Try
-1�
-�u + v�2 − �u − v�2 + i�u + iv�2 − i�u − iv�2 !
-�
-(2)        (u, v) =
-4
-2. Problem 4.2
-Let H be a ﬁnite dimensional (pre)Hilbert space. So, by deﬁnition H has a basis
-{vi }ni=1 , meaning that any element of H can be written
-�
-(1)                                  v=     ci vi
-i
-and there is no dependence relation between the vi ’s – the presentation of v = 0 in
-the form (1) is unique. Show that H has an orthonormal basis, {ei }ni=1 satisfying
-(ei , ej ) = δij (= 1 if i = j and 0 otherwise). Check that for the orthonormal basis
-the coeﬃcients in (1) are ci = (v, ei ) and that the map
-(2)                          T : H � v �−→ ((v, ei )) ∈ Cn
-is a linear isomorphism with the properties
-�
-(3)             (u, v) =   (T u)i (T v)i , �u�H = �T u�Cn ∀ u, v ∈ H.
-i
-Why is a ﬁnite dimensional preHilbert space a Hilbert space?
-Department of Mathematics, Massachusetts Institute of Technology
-1', '_recupere_le' => '2026-11-04T19:55:22.577461+00:00Z', '_strategie' => 'separation_enum_solution'),
+Department of Mathematics, Massachusetts Institute of Technology', 'source' => 'MIT OpenCourseWare, 18.102 Introduction To Functional Analysis, Spring 2009 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 						),
 					),
 				),

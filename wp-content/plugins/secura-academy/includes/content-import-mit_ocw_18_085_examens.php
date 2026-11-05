@@ -22,31 +22,25 @@ interval (−L, L)? Here n is an integer. Select all that applies
 A. sin(nx/L), cos(nx/L)
 B. sin(nπx/L), cos(nπx/L)
 C. e±inx/L
-D. e±inπx/L', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (4 points) Which of the following are the appropriate Fourier basis functions over the
+D. e±inπx/L', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (4 points) Which of the following are the appropriate Fourier basis functions over the
 interval (−L, L)? Here n is an integer. Select all that applies
 A. sin(nx/L), cos(nx/L). INCORRECT
 B. sin(nπx/L), cos(nπx/L). CORRECT
 C. e±inx/L . INCORRECT
-D. e±inπx/L . CORRECT
-
-[Correction officielle MIT : [MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
-(4 points) Which of the following are the appropriate Fourier basis functions over the
-interval (−L, L)? Here n is an integer. Select all that applies
-A. sin(nx/L), cos(nx/L)
-B. sin(nπx/L), cos(nπx/L)
-C. e±inx/L
-D. e±inπx/L]', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
-(4 points) Which of the following are the appropriate Fourier basis functions over the
-interval (−L, L)? Here n is an integer. Select all that applies
-A. sin(nx/L), cos(nx/L)
-B. sin(nπx/L), cos(nπx/L)
-C. e±inx/L
-D. e±inπx/L', '_recupere_le' => '2026-11-04T19:55:22.560260+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : (4 points) Which of the following are the appropriate Fourier basis functions over the
-interval (−L, L)? Here n is an integer. Select all that applies
-A. sin(nx/L), cos(nx/L)')),
+D. e±inπx/L . CORRECT', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
 (5 points) Circle all true statements
-A. The', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (5 points) Circle all true statements
+A. The solution to the heat equation in R can be discontinuous, depending on
+the initial condition.
+B. The non-smoothness of the boundary condition of the Laplace’s equation can
+chip away the convergence rate of the ﬁnite diﬀerence approximation
+C. In an under-damped system, the damping eﬀect is dominated by the inertia
+and/or the stiﬀness of the spring
+D. There should not be any terms involving rm for m > 0 in the solution to the
+interior domain of the Laplace’s equation. Here r is the radial coordinate in
+the polar system.
+E. The ﬁnite element method via mesh generation is less ﬂexible in adapting a
+complex geometry of the domain compared with the ﬁnite diﬀerence method.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (5 points) Circle all true statements
 A. The solution to the heat equation in R can be discontinuous, depending on
 the initial condition. INCORRECT
 B. The non-smoothness of the boundary condition of the Laplace’s equation can
@@ -59,47 +53,7 @@ interior domain of the Laplace’s equation. Here r is the radial coordinate in
 the polar system. INCORRECT
 E. The ﬁnite element method via mesh generation is less ﬂexible in adapting a
 complex geometry of the domain compared with the ﬁnite diﬀerence method.
-INCORRECT', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('L\'inverse de to the heat equation in r can be discontinuous, depending on
-the initial condition.
-b. the non-smoothness of the boundary condition of the laplace’s equation can
-chip away the convergence rate of the ﬁnite diﬀerence approximation
-c. in an under-damped system, the damping eﬀect is dominated by the inertia
-and/or the stiﬀness of the spring
-d. there should not be any terms involving rm for m > 0 in the solution to the
-interior domain of the laplace’s equation. here r is the radial coordinate in
-the polar system.
-e. the ﬁnite element method via mesh generation is less ﬂexible in adapting a
-complex geometry of the domain compared with the ﬁnite diﬀerence method.', 'Impossible à déterminer', 'to the heat equation in R can be discontinuous, depending on
-the initial condition.
-B. The non-smoothness of the boundary condition of the Laplace’s equation can
-chip away the convergence rate of the ﬁnite diﬀerence approximation
-C. In an under-damped system, the damping eﬀect is dominated by the inertia
-and/or the stiﬀness of the spring
-D. There should not be any terms involving rm for m > 0 in the solution to the
-interior domain of the Laplace’s equation. Here r is the radial coordinate in
-the polar system.
-E. The ﬁnite element method via mesh generation is less ﬂexible in adapting a
-complex geometry of the domain compared with the ﬁnite diﬀerence method.', 'Pas to the heat equation in r can be discontinuous, depending on
-the initial condition.
-b. the non-smoothness of the boundary condition of the laplace’s equation can
-chip away the convergence rate of the ﬁnite diﬀerence approximation
-c. in an under-damped system, the damping eﬀect is dominated by the inertia
-and/or the stiﬀness of the spring
-d. there should not be any terms involving rm for m > 0 in the solution to the
-interior domain of the laplace’s equation. here r is the radial coordinate in
-the polar system.
-e. the ﬁnite element method via mesh generation is less ﬂexible in adapting a
-complex geometry of the domain compared with the ﬁnite diﬀerence method.'), 'correct' => 2, 'answer' => 'to the heat equation in R can be discontinuous, depending on
-the initial condition.
-B. The non-smoothness of the boundary condition of the Laplace’s equation can
-chip away the convergence rate of the ﬁnite diﬀerence approximation
-C. In an under-damped system, the damping eﬀect is dominated by the inertia
-and/or the stiﬀness of the spring
-D. There should not be any terms involving rm for m > 0 in the solution to the
-interior domain of the Laplace’s equation. Here r is the radial coordinate in
-the polar system.
-E. The ﬁnite element method via mesh generation is less ﬂexible in adapting a
-complex geometry of the domain compared with the ﬁnite diﬀerence method.', '_recupere_le' => '2026-11-04T19:55:22.560748+00:00Z', '_strategie' => 'separation_enum_solution'),
+INCORRECT', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
 (10 points) Solve the following diﬀerential equation using Laplace transform
 ⎧ 2
@@ -110,7 +64,7 @@ u(0) = 0                                     (2)
 ⎪
 u0 (0) = 1
 ⎩
-18.085/18.0851               Final Examination - Page 4 of 8                     8/10/2020', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (10 points) Solve the following diﬀerential equation for t > 0 using Laplace transform
+18.085/18.0851               Final Examination - Page 4 of 8                     8/10/2020', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (10 points) Solve the following diﬀerential equation for t > 0 using Laplace transform
 ⎧ 2
 d u    du
 ⎨ dt2 − dt = 0
@@ -161,36 +115,7 @@ U (s) =       −                     (12)
 s−1 s
 To get u(t), we check the Laplace transform table for the inverse Laplace transform of
 1/s and 1/(s − 1) and realize that u(t) = et − 1
-18.085/18.0851              Final Examination - Page 5 of 11                     8/10/2020
-
-[Correction officielle MIT : [MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
-(10 points) Solve the following diﬀerential equation using Laplace transform
-⎧ 2
-d u    du
-⎨ dt2 − dt = 0
-⎪
-u(0) = 0                                     (2)
-⎪
-u0 (0) = 1
-⎩
-18.085/18.0851               Final Examination - Page 4 of 8                     8/10/2020]', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
-(10 points) Solve the following diﬀerential equation using Laplace transform
-⎧ 2
-d u    du
-⎨ dt2 − dt = 0
-⎪
-u(0) = 0                                     (2)
-⎪
-u0 (0) = 1
-⎩
-18.085/18.0851               Final Examination - Page 4 of 8                     8/10/2020', '_recupere_le' => '2026-11-04T19:55:22.561104+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : (10 points) Solve the following diﬀerential equation for t > 0 using Laplace transform
-⎧ 2
-d u    du
-⎨ dt2 − dt = 0
-⎪
-u(0) = 0                                     (2)
-⎪
-u0 (0')),
+18.085/18.0851              Final Examination - Page 5 of 11                     8/10/2020', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
 (10 points) Compute the Fourier transform of the following function (factor of 2π would
 be forgiven)
@@ -202,7 +127,7 @@ e−x , x ≥ 0
 (Bonus) Please summarize your understandings of the research talks on Wednesday,
 August 12th, 2020. A reasonable summary of each research talk will be worth 2 points,
 and up to 8 points will be granted. This part is optional and is due by 11:59pm of
-August 12, 2020.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (10 points) Compute the Fourier transform of the following function (factor of 2π would
+August 12, 2020.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (10 points) Compute the Fourier transform of the following function (factor of 2π would
 be forgiven)
 (
 0,    x<0
@@ -228,36 +153,7 @@ Alternative forms of the same answer will be accepted.
 (Bonus) Please summarize your understandings of the research talks on Wednesday,
 August 12th, 2020. A reasonable summary of each research talk will be worth 2 points,
 and up to 8 points will be granted. This part is optional and is due by 11:59pm of
-August 12, 2020.
-
-[Correction officielle MIT : [MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
-(10 points) Compute the Fourier transform of the following function (factor of 2π would
-be forgiven)
-(
-0,    x<0
-f (x) =                                              (5)
-e−x , x ≥ 0
-18.085/18.0851             Final Examination - Page 8 of 8                   8/10/2020
-(Bonus) Please summarize your understandings of the research talks on Wednesday,
-August 12th, 2020. A reasonable summary of each research talk will be worth 2 points,
-and up to 8 points will be granted. This part is optional and is due by 11:59pm of
-August 12, 2020.]', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
-(10 points) Compute the Fourier transform of the following function (factor of 2π would
-be forgiven)
-(
-0,    x<0
-f (x) =                                              (5)
-e−x , x ≥ 0
-18.085/18.0851             Final Examination - Page 8 of 8                   8/10/2020
-(Bonus) Please summarize your understandings of the research talks on Wednesday,
-August 12th, 2020. A reasonable summary of each research talk will be worth 2 points,
-and up to 8 points will be granted. This part is optional and is due by 11:59pm of
-August 12, 2020.', '_recupere_le' => '2026-11-04T19:55:22.561537+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : (10 points) Compute the Fourier transform of the following function (factor of 2π would
-be forgiven)
-(
-0,    x<0
-f (x) =                                             (24)
-e−x')),
+August 12, 2020.', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 						),
 					),
 				),
@@ -277,7 +173,7 @@ that applies
 A. u(t) = α cos(bt) + β sin(bt), with α, β, b ∈ R to be solved
 B. u(t) = A exp(bt), with A, b ∈ C to be solved
 C. u(t) = A exp(ibt2 ), with A, b ∈ C to be solved
-D. u(t) = A exp(ibt), with A, b ∈ C to be solved', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (4 points) Which of the following are suitable Ansatz to the damped harmonic oscillator,
+D. u(t) = A exp(ibt), with A, b ∈ C to be solved', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (4 points) Which of the following are suitable Ansatz to the damped harmonic oscillator,
 d2 u     du
 m         + ν    + cu = 0                            (1)
 dt2      dt
@@ -288,37 +184,7 @@ that applies
 A. u(t) = α cos(bt) + β sin(bt), with α, β, b ∈ R to be solved. INCORRECT
 B. u(t) = A exp(bt), with A, b ∈ C to be solved. CORRECT
 C. u(t) = A exp(ibt2 ), with A, b ∈ C to be solved. INCORRECT
-D. u(t) = A exp(ibt), with A, b ∈ C to be solved. CORRECT
-
-[Correction officielle MIT : [MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
-(4 points) Which of the following are suitable Ansatz to the damped harmonic oscillator,
-d2 u     du
-m         + ν    + cu = 0                            (1)
-dt2      dt
-where u describes the displacement from equilibrium a ball of mass m connected to a
-spring with Hooke’s constant c and experiencing a friction with coeﬃcient ν. Circle all
-that applies
-18.085/18.0851                Final Examination - Page 2 of 8                        8/10/2020
-A. u(t) = α cos(bt) + β sin(bt), with α, β, b ∈ R to be solved
-B. u(t) = A exp(bt), with A, b ∈ C to be solved
-C. u(t) = A exp(ibt2 ), with A, b ∈ C to be solved
-D. u(t) = A exp(ibt), with A, b ∈ C to be solved]', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
-(4 points) Which of the following are suitable Ansatz to the damped harmonic oscillator,
-d2 u     du
-m         + ν    + cu = 0                            (1)
-dt2      dt
-where u describes the displacement from equilibrium a ball of mass m connected to a
-spring with Hooke’s constant c and experiencing a friction with coeﬃcient ν. Circle all
-that applies
-18.085/18.0851                Final Examination - Page 2 of 8                        8/10/2020
-A. u(t) = α cos(bt) + β sin(bt), with α, β, b ∈ R to be solved
-B. u(t) = A exp(bt), with A, b ∈ C to be solved
-C. u(t) = A exp(ibt2 ), with A, b ∈ C to be solved
-D. u(t) = A exp(ibt), with A, b ∈ C to be solved', '_recupere_le' => '2026-11-04T19:55:22.562053+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : (4 points) Which of the following are suitable Ansatz to the damped harmonic oscillator,
-d2 u     du
-m         + ν    + cu = 0                            (1)
-dt2      dt
-wher')),
+D. u(t) = A exp(ibt), with A, b ∈ C to be solved. CORRECT', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
 (5 points) Suppose I perform the FFT on a 128 data points, originally generated by the
 signal sin(2π ∗ 3t), where t ∈ [0.5362, 3.5345]. Then when I plot k vs. the magnitudes of
@@ -329,7 +195,7 @@ B. k = 3
 C. k = 124
 D. k = 125
 E. k = 127.
-18.085/18.0851               Final Examination - Page 3 of 8                       8/10/2020', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (5 points) Suppose I perform the FFT on a 128 data points, originally generated by the
+18.085/18.0851               Final Examination - Page 3 of 8                       8/10/2020', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (5 points) Suppose I perform the FFT on a 128 data points, originally generated by the
 signal sin(2π ∗ 3t), where t ∈ [0.5362, 3.5345]. Then when I plot k vs. the magnitudes of
 discrete Fourier transform coeﬃcients, ûdk , for k = 0, ...127, for what value(s) of k should
 I anticipate the plot to peak? Circle all that applies
@@ -338,30 +204,7 @@ B. k = 3. CORRECT
 C. k = 124. INCORRECT
 D. k = 125. CORRECT
 E. k = 127. INCORRECT
-18.085/18.0851               Final Examination - Page 3 of 11                    8/10/2020
-
-[Correction officielle MIT : [MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
-(5 points) Suppose I perform the FFT on a 128 data points, originally generated by the
-signal sin(2π ∗ 3t), where t ∈ [0.5362, 3.5345]. Then when I plot k vs. the magnitudes of
-discrete Fourier transform coeﬃcients, ûdk , for k = 0, ...127, for what values of k should
-I anticipate the plot to peak? Circle all that applies
-A. k = 0
-B. k = 3
-C. k = 124
-D. k = 125
-E. k = 127.
-18.085/18.0851               Final Examination - Page 3 of 8                       8/10/2020]', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
-(5 points) Suppose I perform the FFT on a 128 data points, originally generated by the
-signal sin(2π ∗ 3t), where t ∈ [0.5362, 3.5345]. Then when I plot k vs. the magnitudes of
-discrete Fourier transform coeﬃcients, ûdk , for k = 0, ...127, for what values of k should
-I anticipate the plot to peak? Circle all that applies
-A. k = 0
-B. k = 3
-C. k = 124
-D. k = 125
-E. k = 127.
-18.085/18.0851               Final Examination - Page 3 of 8                       8/10/2020', '_recupere_le' => '2026-11-04T19:55:22.562468+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : (5 points) Suppose I perform the FFT on a 128 data points, originally generated by the
-signal sin(2π ∗ 3t), where t ∈ [0.5362, 3.5345]. Then when I plot k vs. the magnitudes')),
+18.085/18.0851               Final Examination - Page 3 of 11                    8/10/2020', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.085 — question d’examen, en anglais] 18.085/18.0851 Comp. Science. Engineering I                               Name: Summer 2020 Final Examination 8/10/2020 Time Limit: Unlimited This exam contains 8 pages (including this cover page) and 7 questions plus 1 bonus questions. Total of points is 63. You are allowed all your written notes for the course. There will be no use of electronic devices except for looking up speciﬁc MATLAB commands online Grade Table (for instructor use only) Question Points Score 1           4 2           4 3           5 4           5 5          10 6          25 7          10 Total:        63
 (25 points) Suppose we have the Laplace’s equation Δu = 0 INSIDE a square deﬁned
 by x = 0, x = 1, y = 0, and y = 1, subject to the following boundary condition
@@ -385,7 +228,60 @@ orthogonality, you should not have to do any Fourier integrals explicitly
 dummy index.
 18.085/18.0851                  Final Examination - Page 5 of 8                         8/10/2020
 b)(10 points) We set up the rectangular grid by dividing up the x−axis and y −axis into
-N − by − N grids and run the ﬁnite diﬀerence scheme to obtain the numerical', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (25 points) Suppose we have the Laplace’s equation Δu = 0 INSIDE a square deﬁned
+N − by − N grids and run the ﬁnite diﬀerence scheme to obtain the numerical solution at
+each inner node (xi , yj ), where i = 1, ..., N and j = 1, ..., N . Note that x0 = 0, xN +1 = 1,
+y0 = 0 and yN +1 = 1. Let l be the linearized index (aka. global index in my notes) of
+all inner nodes. Note that l = 1, 2, ..., N 2 .
+Suppose the MATLAB function ”laplace1(N )” implements the second-order ﬁnite dif-
+ference scheme on the N − by − N grid and spits out the numerical solution at each inner
+node (l = 1, ..., N 2 ) . On the other hand, suppose the MATLAB function laplace2(N )”
+implements the formula in part a) and spits out the analytic solution at the same inner
+nodes.
+Now we want to evaluate the order of convergence, measured by the L2 − error, as N
+gets large. Below you can ﬁnd some incomplete code. You are welcome to look up
+MATLAB commands online, but please do not open any codes on Stellar:
+i) Fill up the missing line (denoted as ”......”)
+ii) Describe the output of the code. Here is the instruction for your answer:
+• Is the output a number, an array, a plot, or something else?
+• If it is a number or array, explicitly write it out or describe what each entry is.
+• If it is a plot, indicate key features of the plot ( x-axis, y-axis, slope (if it’s a line),
+period (if it’s a sine function), etc).
+———————————————
+N max = 1 0 0 ;
+e r r o r L 2 = zeros ( N max , 1 ) ;
+for N=1:N max
+u = l a p l a c e 1 (N ) ;
+v = l a p l a c e 2 (N ) ;
+error val = 0;
+for n=1:Nˆ2
+error val = . . . . . .
+end
+e r r o r v a l = sqrt ( 1/N ∗ e r r o r v a l ) ;
+e r r o r L 2 (N) = e r r o r v a l ;
+end
+N array = 1 : 1 : N max ;
+loglog ( N array , e r r o r L 2 )
+18.085/18.0851                Final Examination - Page 6 of 8                         8/10/2020
+c) (5 points) Suppose now we try to use the same machinery in part a) and the code in
+part b) for the problem with the following boundary condition:
+⎧
+⎪
+⎪ u(x, 0) = 1
+⎪
+⎨u(x, 1) = 1
+(4)
+⎪
+⎪
+⎪ u(0, y) = 1
+⎩
+u(1, y) = sin (nπy)
+How and why would the output of the code in part b) change? Here’s the instruction
+for your answer:
+• If it is a number or array, explicitly write them out or describe how each entry
+changes.
+• If it is a plot, indicate how certain key features of the plot ( x-axis, y-axis, slope (if
+it’s a line), period (if it’s a sine function), etc).
+18.085/18.0851               Final Examination - Page 7 of 8                    8/10/2020', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (25 points) Suppose we have the Laplace’s equation Δu = 0 INSIDE a square deﬁned
 by x = 0, x = 1, y = 0, and y = 1, subject to the following boundary condition
 ⎧
 ⎪u(x, 0) = 0
@@ -512,219 +408,7 @@ Solution:
 The plot will have a slope that is much more diﬀerent from −2. The absolute value of
 the slope would be smaller than 2 and/or close to 1. This is due to the discontinuity in
 the boundary data, which shakes the validity of the ﬁnite diﬀerence approximation.
-18.085/18.0851              Final Examination - Page 10 of 11                   8/10/2020', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('L\'inverse de at
-each inner node (xi , yj ), where i = 1, ..., n and j = 1, ..., n . note that x0 = 0, xn +1 = 1,
-y0 = 0 and yn +1 = 1. let l be the linearized index (aka. global index in my notes) of
-all inner nodes. note that l = 1, 2, ..., n 2 .
-suppose the matlab function ”laplace1(n )” implements the second-order ﬁnite dif-
-ference scheme on the n − by − n grid and spits out the numerical solution at each inner
-node (l = 1, ..., n 2 ) . on the other hand, suppose the matlab function laplace2(n )”
-implements the formula in part a) and spits out the analytic solution at the same inner
-nodes.
-now we want to evaluate the order of convergence, measured by the l2 − error, as n
-gets large. below you can ﬁnd some incomplete code. you are welcome to look up
-matlab commands online, but please do not open any codes on stellar:
-i) fill up the missing line (denoted as ”......”)
-ii) describe the output of the code. here is the instruction for your answer:
-• is the output a number, an array, a plot, or something else?
-• if it is a number or array, explicitly write it out or describe what each entry is.
-• if it is a plot, indicate key features of the plot ( x-axis, y-axis, slope (if it’s a line),
-period (if it’s a sine function), etc).
-———————————————
-n max = 1 0 0 ;
-e r r o r l 2 = zeros ( n max , 1 ) ;
-for n=1:n max
-u = l a p l a c e 1 (n ) ;
-v = l a p l a c e 2 (n ) ;
-error val = 0;
-for n=1:nˆ2
-error val = . . . . . .
-end
-e r r o r v a l = sqrt ( 1/n ∗ e r r o r v a l ) ;
-e r r o r l 2 (n) = e r r o r v a l ;
-end
-n array = 1 : 1 : n max ;
-loglog ( n array , e r r o r l 2 )
-18.085/18.0851                final examination - page 6 of 8                         8/10/2020
-c) (5 points) suppose now we try to use the same machinery in part a) and the code in
-part b) for the problem with the following boundary condition:
-⎧
-⎪
-⎪ u(x, 0) = 1
-⎪
-⎨u(x, 1) = 1
-(4)
-⎪
-⎪
-⎪ u(0, y) = 1
-⎩
-u(1, y) = sin (nπy)
-how and why would the output of the code in part b) change? here’s the instruction
-for your answer:
-• if it is a number or array, explicitly write them out or describe how each entry
-changes.
-• if it is a plot, indicate how certain key features of the plot ( x-axis, y-axis, slope (if
-it’s a line), period (if it’s a sine function), etc).
-18.085/18.0851               final examination - page 7 of 8                    8/10/2020', 'Pas at
-each inner node (xi , yj ), where i = 1, ..., n and j = 1, ..., n . note that x0 = 0, xn +1 = 1,
-y0 = 0 and yn +1 = 1. let l be the linearized index (aka. global index in my notes) of
-all inner nodes. note that l = 1, 2, ..., n 2 .
-suppose the matlab function ”laplace1(n )” implements the second-order ﬁnite dif-
-ference scheme on the n − by − n grid and spits out the numerical solution at each inner
-node (l = 1, ..., n 2 ) . on the other hand, suppose the matlab function laplace2(n )”
-implements the formula in part a) and spits out the analytic solution at the same inner
-nodes.
-now we want to evaluate the order of convergence, measured by the l2 − error, as n
-gets large. below you can ﬁnd some incomplete code. you are welcome to look up
-matlab commands online, but please do not open any codes on stellar:
-i) fill up the missing line (denoted as ”......”)
-ii) describe the output of the code. here is the instruction for your answer:
-• is the output a number, an array, a plot, or something else?
-• if it is a number or array, explicitly write it out or describe what each entry is.
-• if it is a plot, indicate key features of the plot ( x-axis, y-axis, slope (if it’s a line),
-period (if it’s a sine function), etc).
-———————————————
-n max = 1 0 0 ;
-e r r o r l 2 = zeros ( n max , 1 ) ;
-for n=1:n max
-u = l a p l a c e 1 (n ) ;
-v = l a p l a c e 2 (n ) ;
-error val = 0;
-for n=1:nˆ2
-error val = . . . . . .
-end
-e r r o r v a l = sqrt ( 1/n ∗ e r r o r v a l ) ;
-e r r o r l 2 (n) = e r r o r v a l ;
-end
-n array = 1 : 1 : n max ;
-loglog ( n array , e r r o r l 2 )
-18.085/18.0851                final examination - page 6 of 8                         8/10/2020
-c) (5 points) suppose now we try to use the same machinery in part a) and the code in
-part b) for the problem with the following boundary condition:
-⎧
-⎪
-⎪ u(x, 0) = 1
-⎪
-⎨u(x, 1) = 1
-(4)
-⎪
-⎪
-⎪ u(0, y) = 1
-⎩
-u(1, y) = sin (nπy)
-how and why would the output of the code in part b) change? here’s the instruction
-for your answer:
-• if it is a number or array, explicitly write them out or describe how each entry
-changes.
-• if it is a plot, indicate how certain key features of the plot ( x-axis, y-axis, slope (if
-it’s a line), period (if it’s a sine function), etc).
-18.085/18.0851               final examination - page 7 of 8                    8/10/2020', 'at
-each inner node (xi , yj ), where i = 1, ..., N and j = 1, ..., N . Note that x0 = 0, xN +1 = 1,
-y0 = 0 and yN +1 = 1. Let l be the linearized index (aka. global index in my notes) of
-all inner nodes. Note that l = 1, 2, ..., N 2 .
-Suppose the MATLAB function ”laplace1(N )” implements the second-order ﬁnite dif-
-ference scheme on the N − by − N grid and spits out the numerical solution at each inner
-node (l = 1, ..., N 2 ) . On the other hand, suppose the MATLAB function laplace2(N )”
-implements the formula in part a) and spits out the analytic solution at the same inner
-nodes.
-Now we want to evaluate the order of convergence, measured by the L2 − error, as N
-gets large. Below you can ﬁnd some incomplete code. You are welcome to look up
-MATLAB commands online, but please do not open any codes on Stellar:
-i) Fill up the missing line (denoted as ”......”)
-ii) Describe the output of the code. Here is the instruction for your answer:
-• Is the output a number, an array, a plot, or something else?
-• If it is a number or array, explicitly write it out or describe what each entry is.
-• If it is a plot, indicate key features of the plot ( x-axis, y-axis, slope (if it’s a line),
-period (if it’s a sine function), etc).
-———————————————
-N max = 1 0 0 ;
-e r r o r L 2 = zeros ( N max , 1 ) ;
-for N=1:N max
-u = l a p l a c e 1 (N ) ;
-v = l a p l a c e 2 (N ) ;
-error val = 0;
-for n=1:Nˆ2
-error val = . . . . . .
-end
-e r r o r v a l = sqrt ( 1/N ∗ e r r o r v a l ) ;
-e r r o r L 2 (N) = e r r o r v a l ;
-end
-N array = 1 : 1 : N max ;
-loglog ( N array , e r r o r L 2 )
-18.085/18.0851                Final Examination - Page 6 of 8                         8/10/2020
-c) (5 points) Suppose now we try to use the same machinery in part a) and the code in
-part b) for the problem with the following boundary condition:
-⎧
-⎪
-⎪ u(x, 0) = 1
-⎪
-⎨u(x, 1) = 1
-(4)
-⎪
-⎪
-⎪ u(0, y) = 1
-⎩
-u(1, y) = sin (nπy)
-How and why would the output of the code in part b) change? Here’s the instruction
-for your answer:
-• If it is a number or array, explicitly write them out or describe how each entry
-changes.
-• If it is a plot, indicate how certain key features of the plot ( x-axis, y-axis, slope (if
-it’s a line), period (if it’s a sine function), etc).
-18.085/18.0851               Final Examination - Page 7 of 8                    8/10/2020', 'Impossible à déterminer'), 'correct' => 2, 'answer' => 'at
-each inner node (xi , yj ), where i = 1, ..., N and j = 1, ..., N . Note that x0 = 0, xN +1 = 1,
-y0 = 0 and yN +1 = 1. Let l be the linearized index (aka. global index in my notes) of
-all inner nodes. Note that l = 1, 2, ..., N 2 .
-Suppose the MATLAB function ”laplace1(N )” implements the second-order ﬁnite dif-
-ference scheme on the N − by − N grid and spits out the numerical solution at each inner
-node (l = 1, ..., N 2 ) . On the other hand, suppose the MATLAB function laplace2(N )”
-implements the formula in part a) and spits out the analytic solution at the same inner
-nodes.
-Now we want to evaluate the order of convergence, measured by the L2 − error, as N
-gets large. Below you can ﬁnd some incomplete code. You are welcome to look up
-MATLAB commands online, but please do not open any codes on Stellar:
-i) Fill up the missing line (denoted as ”......”)
-ii) Describe the output of the code. Here is the instruction for your answer:
-• Is the output a number, an array, a plot, or something else?
-• If it is a number or array, explicitly write it out or describe what each entry is.
-• If it is a plot, indicate key features of the plot ( x-axis, y-axis, slope (if it’s a line),
-period (if it’s a sine function), etc).
-———————————————
-N max = 1 0 0 ;
-e r r o r L 2 = zeros ( N max , 1 ) ;
-for N=1:N max
-u = l a p l a c e 1 (N ) ;
-v = l a p l a c e 2 (N ) ;
-error val = 0;
-for n=1:Nˆ2
-error val = . . . . . .
-end
-e r r o r v a l = sqrt ( 1/N ∗ e r r o r v a l ) ;
-e r r o r L 2 (N) = e r r o r v a l ;
-end
-N array = 1 : 1 : N max ;
-loglog ( N array , e r r o r L 2 )
-18.085/18.0851                Final Examination - Page 6 of 8                         8/10/2020
-c) (5 points) Suppose now we try to use the same machinery in part a) and the code in
-part b) for the problem with the following boundary condition:
-⎧
-⎪
-⎪ u(x, 0) = 1
-⎪
-⎨u(x, 1) = 1
-(4)
-⎪
-⎪
-⎪ u(0, y) = 1
-⎩
-u(1, y) = sin (nπy)
-How and why would the output of the code in part b) change? Here’s the instruction
-for your answer:
-• If it is a number or array, explicitly write them out or describe how each entry
-changes.
-• If it is a plot, indicate how certain key features of the plot ( x-axis, y-axis, slope (if
-it’s a line), period (if it’s a sine function), etc).
-18.085/18.0851               Final Examination - Page 7 of 8                    8/10/2020', '_recupere_le' => '2026-11-04T19:55:22.563872+00:00Z', '_strategie' => 'separation_enum_solution'),
+18.085/18.0851              Final Examination - Page 10 of 11                   8/10/2020', 'source' => 'MIT OpenCourseWare, 18.085 Computational Science And Engineering I, Summer 2020 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 						),
 					),
 				),

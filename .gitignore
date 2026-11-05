@@ -66,3 +66,8 @@ labs/**/.seca*
 # Python
 __pycache__/
 *.pyc
+
+# Artefacts produits par les outils de recolte : sources seulement, pas leurs sorties
+tools/lots/cleaned/
+tools/lots/recovered/
+tools/lots-origine-sauvegarde/

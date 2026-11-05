@@ -20,7 +20,34 @@ if ( ! function_exists( 'seca_import_mit_ocw_6_973_examens' ) ) {
 – Minimal orthonormalization (from prof. Cioffi) (10pts)
    Each column of A given below is a data symbol that is used to construct its corresponding modulated
    waveform from the set of orthonormal basis functions {φ1 (t ), φ2 (t ),..., φ6 (t )} . The set of modulated
-   waveforms described by the columns of A can be represented with a smaller number of basis functions.', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : ⎡ -3.3941e-01 3.2336e-02 -1.1243e-01 ⎤
+   waveforms described by the columns of A can be represented with a smaller number of basis functions.
+
+
+
+
+   The transmitted signals ai(t) are represented (with a superscript of * meaning matrix or vector transpose)
+   as
+
+
+
+
+                                                  A(t ) = A*φ (t )
+
+   Thus, each row of A(t) is a possible transmitted signal.
+   1) Use MATLAB to find an orthonormal basis for the columns of A. Record the matrix of basis vectors.
+   The MATLAB commands help and orth will be useful. In particular, if one executes Q = orth(A) in
+   MATLAB, a 6 × 3 orthogonal matrix Q is produced such that Q*Q = I and A* = [A*Q]Q*. The columns of Q
+   can be thought of as a new basis – thus try writing A(t) and interpetting to get a new set of basis functions
+   and description of the 7 possible transmit waveforms. Note that help orth will give a summary of the orth
+   command. To enter the matrix B in MATLAB (for example) shown below, simply type B=[1 2; 3 4];
+
+
+
+   2) How many basis functions are actually needed to represent our signal set? What are the new basis
+   functions in terms of {φ1 (t ), φ2 (t ),..., φ6 (t )} ?
+   3) Find the new matrix Â which gives the data symbol representation for the original modulated
+   waveforms using the smaller set of basis functions found in (2). Â will have 8 columns, one for each data
+   symbol. The number of rows in Â will be the number of basis functions you found in (2).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : ⎡ -3.3941e-01 3.2336e-02 -1.1243e-01 ⎤
 ⎢ -6.1902e-01 2.2144e-01 3.5120e-01 ⎥
 ⎢                                    ⎥
 ⎢ -6.7883e-01 6.4671e-02 -2.2486e-01⎥
@@ -43,75 +70,7 @@ symbol. The number of rows in Â will be the number of basis functions you foun
 ⎡-2.6907e+00 -6.1696e+00 -8.5609e+00 -1.2040e+01 -1.4431e+01 -1.7910e+01 -2.0301e+01 -2.3780e+01⎤
 Â = ⎢⎢-1.2239e+00 -3.4513e+00 -1.4804e-02 - 2.2422e+00 1.1943e+00 -1.0331e+00 2.4034e+00 1.7598e-01 ⎥⎥
 ⎢-1.1235e+00
-⎣            -1.5609e-01 -8.4300e-01 1.2439e-01 -5.6252e-01 4.0486e-01 -2.8204e-01 6.8534e-01 ⎦⎥', 'source' => 'MIT OpenCourseWare, 6.973 Communication System Design, Spring 2006 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.973 Communication System Design, Spring 2006 — examen et corrigé officiel (MIT EECS)', 'choices' => array('Impossible à déterminer', 'L\'inverse de the transmitted signals ai(t) are represented (with a superscript of * meaning matrix or vector transpose)
-   as
-
-                                                  a(t ) = a*φ (t )
-
-   thus, each row of a(t) is a possible transmitted signal.
-   1) use matlab to find an orthonormal basis for the columns of a. record the matrix of basis vectors.
-   the matlab commands help and orth will be useful. in particular, if one executes q = orth(a) in
-   matlab, a 6 × 3 orthogonal matrix q is produced such that q*q = i and a* = [a*q]q*. the columns of q
-   can be thought of as a new basis – thus try writing a(t) and interpetting to get a new set of basis functions
-   and description of the 7 possible transmit waveforms. note that help orth will give a summary of the orth
-   command. to enter the matrix b in matlab (for example) shown below, simply type b=[1 2; 3 4];
-
-   2) how many basis functions are actually needed to represent our signal set? what are the new basis
-   functions in terms of {φ1 (t ), φ2 (t ),..., φ6 (t )} ?
-   3) find the new matrix â which gives the data symbol representation for the original modulated
-   waveforms using the smaller set of basis functions found in (2). â will have 8 columns, one for each data
-   symbol. the number of rows in â will be the number of basis functions you found in (2).', 'The transmitted signals ai(t) are represented (with a superscript of * meaning matrix or vector transpose)
-   as
-
-                                                  A(t ) = A*φ (t )
-
-   Thus, each row of A(t) is a possible transmitted signal.
-   1) Use MATLAB to find an orthonormal basis for the columns of A. Record the matrix of basis vectors.
-   The MATLAB commands help and orth will be useful. In particular, if one executes Q = orth(A) in
-   MATLAB, a 6 × 3 orthogonal matrix Q is produced such that Q*Q = I and A* = [A*Q]Q*. The columns of Q
-   can be thought of as a new basis – thus try writing A(t) and interpetting to get a new set of basis functions
-   and description of the 7 possible transmit waveforms. Note that help orth will give a summary of the orth
-   command. To enter the matrix B in MATLAB (for example) shown below, simply type B=[1 2; 3 4];
-
-   2) How many basis functions are actually needed to represent our signal set? What are the new basis
-   functions in terms of {φ1 (t ), φ2 (t ),..., φ6 (t )} ?
-   3) Find the new matrix Â which gives the data symbol representation for the original modulated
-   waveforms using the smaller set of basis functions found in (2). Â will have 8 columns, one for each data
-   symbol. The number of rows in Â will be the number of basis functions you found in (2).', 'Pas the transmitted signals ai(t) are represented (with a superscript of * meaning matrix or vector transpose)
-   as
-
-                                                  a(t ) = a*φ (t )
-
-   thus, each row of a(t) is a possible transmitted signal.
-   1) use matlab to find an orthonormal basis for the columns of a. record the matrix of basis vectors.
-   the matlab commands help and orth will be useful. in particular, if one executes q = orth(a) in
-   matlab, a 6 × 3 orthogonal matrix q is produced such that q*q = i and a* = [a*q]q*. the columns of q
-   can be thought of as a new basis – thus try writing a(t) and interpetting to get a new set of basis functions
-   and description of the 7 possible transmit waveforms. note that help orth will give a summary of the orth
-   command. to enter the matrix b in matlab (for example) shown below, simply type b=[1 2; 3 4];
-
-   2) how many basis functions are actually needed to represent our signal set? what are the new basis
-   functions in terms of {φ1 (t ), φ2 (t ),..., φ6 (t )} ?
-   3) find the new matrix â which gives the data symbol representation for the original modulated
-   waveforms using the smaller set of basis functions found in (2). â will have 8 columns, one for each data
-   symbol. the number of rows in â will be the number of basis functions you found in (2).'), 'correct' => 2, 'answer' => 'The transmitted signals ai(t) are represented (with a superscript of * meaning matrix or vector transpose)
-   as
-
-                                                  A(t ) = A*φ (t )
-
-   Thus, each row of A(t) is a possible transmitted signal.
-   1) Use MATLAB to find an orthonormal basis for the columns of A. Record the matrix of basis vectors.
-   The MATLAB commands help and orth will be useful. In particular, if one executes Q = orth(A) in
-   MATLAB, a 6 × 3 orthogonal matrix Q is produced such that Q*Q = I and A* = [A*Q]Q*. The columns of Q
-   can be thought of as a new basis – thus try writing A(t) and interpetting to get a new set of basis functions
-   and description of the 7 possible transmit waveforms. Note that help orth will give a summary of the orth
-   command. To enter the matrix B in MATLAB (for example) shown below, simply type B=[1 2; 3 4];
-
-   2) How many basis functions are actually needed to represent our signal set? What are the new basis
-   functions in terms of {φ1 (t ), φ2 (t ),..., φ6 (t )} ?
-   3) Find the new matrix Â which gives the data symbol representation for the original modulated
-   waveforms using the smaller set of basis functions found in (2). Â will have 8 columns, one for each data
-   symbol. The number of rows in Â will be the number of basis functions you found in (2).', '_recupere_le' => '2026-11-04T19:55:22.775252+00:00Z', '_strategie' => 'separation_enum_solution'),
+⎣            -1.5609e-01 -8.4300e-01 1.2439e-01 -5.6252e-01 4.0486e-01 -2.8204e-01 6.8534e-01 ⎦⎥', 'source' => 'MIT OpenCourseWare, 6.973 Communication System Design, Spring 2006 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.973 Communication System Design, Spring 2006 — examen et corrigé officiel (MIT EECS)'),
 							array('question' => '[MIT 6.973 — question d’examen, en anglais]
 - Water-filling (40pts)
  Our example channel is 0.9D-1+1. The script waterfill.m contains basic channel and noise information.
@@ -122,7 +81,17 @@ Â = ⎢⎢-1.2239e+00 -3.4513e+00 -1.4804e-02 - 2.2422e+00 1.1943e+00 -1.0331e
  Assuming a Pe=10-4, find the Gap for the QAM modulation and find the achievable bit rate for this channel
  using the algorithm in 1) modified to include the Gap for QAM at Pe=10-4.
  3) PSK (10pts)
- Find the Gap for the PSK modulation at Pe=10-4 and calculate the bit rate.', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (waterfilling code is shown in waterfill_soln.m function and by running ps1_problem3_soln.m,
+ Find the Gap for the PSK modulation at Pe=10-4 and calculate the bit rate.
+
+ Plot the energy and bit distributions for 1-3. Try increasing the number of dimensions (decrease tone
+ spacing). Plot the capacity, bitQAM, bitPSK vs. number of dimensions. Explain the plots.
+
+
+
+
+Cite as: Vladimir Stojanovic, course materials for 6.973 Communication System Design, Spring 2006.
+
+                                   Downloaded on [DD Month YYYY].', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Corrigé officiel du MIT : (waterfilling code is shown in waterfill_soln.m function and by running ps1_problem3_soln.m,
 for this part of the problem we get (by setting the gap to 0dB):
 c_bar = 1.5541e+00 % total channel capacity per dimension
 cn_bar = 9.6934e-01 1.8456e+00 2.2297e+00 2.3436e+00 2.2297e+00 1.8456e+00 9.6934e-01 0
@@ -192,27 +161,7 @@ Since the channel in Fig. 3.1 a) is pretty smooth, not many dimensions (>4) are 
 capacity of the channel. On the other hand, in a heavily non-line of site (multi-path) channel significant notching occurs
 in frequency domain hence many points (dimensions) are needed to accurately estimate the channel capacity.
 Cite as: Vladimir Stojanovic, course materials for 6.973 Communication System Design, Spring 2006.
-Downloaded on [DD Month YYYY].', 'source' => 'MIT OpenCourseWare, 6.973 Communication System Design, Spring 2006 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.973 Communication System Design, Spring 2006 — examen et corrigé officiel (MIT EECS)', 'choices' => array('L\'inverse de plot the energy and bit distributions for 1-3. try increasing the number of dimensions (decrease tone
- spacing). plot the capacity, bitqam, bitpsk vs. number of dimensions. explain the plots.
-
-cite as: vladimir stojanovic, course materials for 6.973 communication system design, spring 2006.
-
-                                   downloaded on [dd month yyyy].', 'Pas plot the energy and bit distributions for 1-3. try increasing the number of dimensions (decrease tone
- spacing). plot the capacity, bitqam, bitpsk vs. number of dimensions. explain the plots.
-
-cite as: vladimir stojanovic, course materials for 6.973 communication system design, spring 2006.
-
-                                   downloaded on [dd month yyyy].', 'Impossible à déterminer', 'Plot the energy and bit distributions for 1-3. Try increasing the number of dimensions (decrease tone
- spacing). Plot the capacity, bitQAM, bitPSK vs. number of dimensions. Explain the plots.
-
-Cite as: Vladimir Stojanovic, course materials for 6.973 Communication System Design, Spring 2006.
-
-                                   Downloaded on [DD Month YYYY].'), 'correct' => 3, 'answer' => 'Plot the energy and bit distributions for 1-3. Try increasing the number of dimensions (decrease tone
- spacing). Plot the capacity, bitQAM, bitPSK vs. number of dimensions. Explain the plots.
-
-Cite as: Vladimir Stojanovic, course materials for 6.973 Communication System Design, Spring 2006.
-
-                                   Downloaded on [DD Month YYYY].', '_recupere_le' => '2026-11-04T19:55:22.775666+00:00Z', '_strategie' => 'separation_enum_solution'),
+Downloaded on [DD Month YYYY].', 'source' => 'MIT OpenCourseWare, 6.973 Communication System Design, Spring 2006 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.973 Communication System Design, Spring 2006 — examen et corrigé officiel (MIT EECS)'),
 						),
 					),
 				),

@@ -18,37 +18,33 @@ if ( ! function_exists( 'seca_import_mit_ocw_6_046j_examens' ) ) {
 						'test' => array(
 							array('question' => '[MIT 6.046J — question d’examen, en anglais]
 
-If a problem has a randomized algorithm that runs in time t and returns the', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. Sublinear time algorithms are counterexamples, as a determin-
+If a problem has a randomized algorithm that runs in time t and returns the correct
+answer with probability at least 2/3, then the problem also has a deterministic
+algorithm that runs in time t and always returns the correct answer.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. Sublinear time algorithms are counterexamples, as a determin-
 istic algorithm would not be able to read all of the input in the time it would take
-for the sublinear time algorithm to return an answer.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Impossible à déterminer', 'Pas answer with probability at least 2/3, then the problem also has a deterministic
-algorithm that runs in time t and always returns the correct answer.', 'L\'inverse de answer with probability at least 2/3, then the problem also has a deterministic
-algorithm that runs in time t and always returns the correct answer.', 'answer with probability at least 2/3, then the problem also has a deterministic
-algorithm that runs in time t and always returns the correct answer.'), 'correct' => 3, 'answer' => 'answer with probability at least 2/3, then the problem also has a deterministic
-algorithm that runs in time t and always returns the correct answer.', '_recupere_le' => '2026-11-04T19:55:22.713332+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : True. By definition, the amortized cost cˆi = ci + Φ(Di ) - Φ(Di-1 ).
+for the sublinear time algorithm to return an answer.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+If Φ is a potential function associated with a data structure S, then 2Φ is also a
+potential function that can be associated with S. Moreover, the amortized running
+time of each operation with respect to 2Φ is at most twice the amortized running
+time of the operation with respect to Φ.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : True. By definition, the amortized cost cˆi = ci + Φ(Di ) - Φ(Di-1 ).
 If we use the potential function 2Φ, then because the actual cost is positive (and
-the same), the new amortized cost is bounded by 2 times the original.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas if φ is a potential function associated with a data structure s, then 2φ is also a
-potential function that can be associated with s. moreover, the amortized running
-time of each operation with respect to 2φ is at most twice the amortized running
-time of the operation with respect to φ.', 'If Φ is a potential function associated with a data structure S, then 2Φ is also a
-potential function that can be associated with S. Moreover, the amortized running
-time of each operation with respect to 2Φ is at most twice the amortized running
-time of the operation with respect to Φ.', 'Impossible à déterminer', 'L\'inverse de if φ is a potential function associated with a data structure s, then 2φ is also a
-potential function that can be associated with s. moreover, the amortized running
-time of each operation with respect to 2φ is at most twice the amortized running
-time of the operation with respect to φ.'), 'correct' => 1, 'answer' => 'If Φ is a potential function associated with a data structure S, then 2Φ is also a
-potential function that can be associated with S. Moreover, the amortized running
-time of each operation with respect to 2Φ is at most twice the amortized running
-time of the operation with respect to Φ.', '_recupere_le' => '2026-11-04T19:55:22.713466+00:00Z', '_strategie' => 'separation_enum_solution'),
+the same), the new amortized cost is bounded by 2 times the original.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
 							array('question' => '[MIT 6.046J — question d’examen, en anglais]
 
 There is an NP-hard problem with a known polynomial time randomized algo-
-rithm that returns the', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. We currently don\'t know whether there are NP-hard problems
+rithm that returns the correct answer with probability 2/3 on all inputs.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. We currently don\'t know whether there are NP-hard problems
 that can be solved by polynomial time randomized algorithms, and conjecture
-that these do not exist.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas with probability 2/3 on all inputs.', 'with probability 2/3 on all inputs.', 'Impossible à déterminer', 'L\'inverse de with probability 2/3 on all inputs.'), 'correct' => 1, 'answer' => 'with probability 2/3 on all inputs.', '_recupere_le' => '2026-11-04T19:55:22.713552+00:00Z', '_strategie' => 'separation_enum_solution'),
+that these do not exist.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
 							array('question' => '[MIT 6.046J — question d’examen, en anglais]
 
-Problem 2. Short', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : No, it is not asymptotically worse. The way that heuristics affect the
+Problem 2. Short Answer [20 points] (4 parts)
+Recall the forest-of-trees solution to the disjoint-set problem. Suppose that the only
+heuristic we use is a variant of the union-by-rank heuristic: when merging two roots
+u and v, we compare the number of descendants (rather than the rank), and make u a
+child of v if and only if u has fewer descendants. Is this asymptotically worse than the
+original union-by-rank heuristic? Explain why or why not.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : No, it is not asymptotically worse. The way that heuristics affect the
 runtime is by affecting the height of the trees in the data structure. Consider some
 item x in the data structure. When will the path from x to the root increase in length?
 Well, it can only increase in length when the root of x changes. Let u be the old root
@@ -58,60 +54,28 @@ Because of the union-by-descendants heuristic, the root could only change from u
 v if dold (u) ≤ dold (v). This means that dnew (v) = dold (v) + dold (u) ≥ 2dold (u). So
 every time the path from x to the root increases by 1, the number of descendants of the
 root at least doubles. This means that the depth of x is at most O(lg n), just as with
-the union-by-rank heuristic.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Impossible à déterminer', 'Pas [20 points] (4 parts)
-recall the forest-of-trees solution to the disjoint-set problem. suppose that the only
-heuristic we use is a variant of the union-by-rank heuristic: when merging two roots
-u and v, we compare the number of descendants (rather than the rank), and make u a
-child of v if and only if u has fewer descendants. is this asymptotically worse than the
-original union-by-rank heuristic? explain why or why not.', '[20 points] (4 parts)
-Recall the forest-of-trees solution to the disjoint-set problem. Suppose that the only
-heuristic we use is a variant of the union-by-rank heuristic: when merging two roots
-u and v, we compare the number of descendants (rather than the rank), and make u a
-child of v if and only if u has fewer descendants. Is this asymptotically worse than the
-original union-by-rank heuristic? Explain why or why not.', 'L\'inverse de [20 points] (4 parts)
-recall the forest-of-trees solution to the disjoint-set problem. suppose that the only
-heuristic we use is a variant of the union-by-rank heuristic: when merging two roots
-u and v, we compare the number of descendants (rather than the rank), and make u a
-child of v if and only if u has fewer descendants. is this asymptotically worse than the
-original union-by-rank heuristic? explain why or why not.'), 'correct' => 2, 'answer' => '[20 points] (4 parts)
-Recall the forest-of-trees solution to the disjoint-set problem. Suppose that the only
-heuristic we use is a variant of the union-by-rank heuristic: when merging two roots
-u and v, we compare the number of descendants (rather than the rank), and make u a
-child of v if and only if u has fewer descendants. Is this asymptotically worse than the
-original union-by-rank heuristic? Explain why or why not.', '_recupere_le' => '2026-11-04T19:55:22.713741+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Given arbitrary values of k and r, we can set up a counterexample in
+the union-by-rank heuristic.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+In lecture, we saw min-radius clustering, in which the goal was to pick a subset of k
+points such that each point formed the center of a cluster of radius r. Suppose instead
+that the center of the cluster can be a point not in the original set.
+Give an example set of points where it is possible to find k clusters of radius r centered
+around arbitrary points, but impossible to find k clusters of radius r centered around
+points in the set.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Given arbitrary values of k and r, we can set up a counterexample in
 R2 as follows. For each i ∈ {1, . . . , k}, create two points: pi,1 = (4ri, 0.9r) and
 pi,2 = (4ri, -0.9r). For any pair pi,1 and pi,2 the distance is equal to 1.8r, so any
 cluster centered on one of the points cannot contain the other. For all other pairs of
 points, their x-coordinates must differ by at least 4r, and so they cannot belong to the
 same cluster. So there\'s no way to create k clusters centered on k points in the set.
 However, there is a way to create k clusters centered on k arbitrary points: for each
-i ∈ {1, . . . , k}, the point (4ri, 0) has distance ≤ r to both pi,1 and pi,2 .', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Impossible à déterminer', 'In lecture, we saw min-radius clustering, in which the goal was to pick a subset of k
-points such that each point formed the center of a cluster of radius r. Suppose instead
-that the center of the cluster can be a point not in the original set.
-Give an example set of points where it is possible to find k clusters of radius r centered
-around arbitrary points, but impossible to find k clusters of radius r centered around
-points in the set.', 'Pas in lecture, we saw min-radius clustering, in which the goal was to pick a subset of k
-points such that each point formed the center of a cluster of radius r. suppose instead
-that the center of the cluster can be a point not in the original set.
-give an example set of points where it is possible to find k clusters of radius r centered
-around arbitrary points, but impossible to find k clusters of radius r centered around
-points in the set.', 'L\'inverse de in lecture, we saw min-radius clustering, in which the goal was to pick a subset of k
-points such that each point formed the center of a cluster of radius r. suppose instead
-that the center of the cluster can be a point not in the original set.
-give an example set of points where it is possible to find k clusters of radius r centered
-around arbitrary points, but impossible to find k clusters of radius r centered around
-points in the set.'), 'correct' => 1, 'answer' => 'In lecture, we saw min-radius clustering, in which the goal was to pick a subset of k
-points such that each point formed the center of a cluster of radius r. Suppose instead
-that the center of the cluster can be a point not in the original set.
-Give an example set of points where it is possible to find k clusters of radius r centered
-around arbitrary points, but impossible to find k clusters of radius r centered around
-points in the set.', '_recupere_le' => '2026-11-04T19:55:22.713923+00:00Z', '_strategie' => 'separation_enum_solution'),
+i ∈ {1, . . . , k}, the point (4ri, 0) has distance ≤ r to both pi,1 and pi,2 .', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
 							array('question' => '[MIT 6.046J — question d’examen, en anglais]
 
 Rather than using shortest paths, you think that perhaps you can formulate this as a
 flow problem. Find an algorithm to find k paths ai ❀ bj that start and end at different
-vertices and that share no edges, and briefly justify the', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The algorithm is as follows:
+vertices and that share no edges, and briefly justify the correctness and running time
+of your algorithm.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The algorithm is as follows:
 1. Create a flow network G′ containing all vertices in V , all directed edges in E
 with capacity 1, and additionally a source vertex s and a sink vertex t. Connect
 the source to each starting location with a directed edge (s, ai ) and each ending
@@ -139,12 +103,14 @@ Proof. Pick any simple path p : s ❀ t over edges with non-zero flow. One must 
 (otherwise, we would have a cut with no flow). In the residual graph, that path has
 capacity 1; send an augmenting flow of -1 over that path. We then have a resulting
 flow of size f - 1, and the flow on each of the edges of p is 0.
-(←)If there is a set of k disjoint paths [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas ness and running time
-of your algorithm.', 'L\'inverse de ness and running time
-of your algorithm.', 'Impossible à déterminer', 'ness and running time
-of your algorithm.'), 'correct' => 3, 'answer' => 'ness and running time
-of your algorithm.', '_recupere_le' => '2026-11-04T19:55:22.714049+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : First, we show that the following loop invariant holds. At no point are there two
+(←)If there is a set of k disjoint paths [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Show that Zelda\'s algorithm gives a 2-approximation for the number of credit cards.
+HINT: Let OP T be the optimal number of credit cards. In order for the algorithm to
+add a new credit card j > OP T , it must reach xi such that xi + ′ min L[j ′ ] > ℓ.
+j ∈{1,...,OP T }
+It will then set L[j] = xi .', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : First, we show that the following loop invariant holds. At no point are there two
 distinct cards i and j, where i < j such that the balance on each card L[j] ≤ 2l and
 L[i] ≤ 2l . Suppose to the contrary that there are two such cards. Then the remaining
 credit on card i was sufficient to transfer all of the purchases xi from the new credit
@@ -156,24 +122,12 @@ that there are no zero purchase charges, the total amount of purchases must be m
 than 2OP T · 2l , which is the maximum amount that the OP T cards in the optimal
 solution can hold. This is a contradiction. So, we can always find at most 2OP T
 cards to pay for all of the purchases.
-This problem part was worth 10 points.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Show that Zelda\'s algorithm gives a 2-approximation for the number of credit cards.
-HINT: Let OP T be the optimal number of credit cards. In order for the algorithm to
-add a new credit card j > OP T , it must reach xi such that xi + ′ min L[j ′ ] > ℓ.
-j ∈{1,...,OP T }
-It will then set L[j] = xi .', 'Impossible à déterminer', 'Pas show that zelda\'s algorithm gives a 2-approximation for the number of credit cards.
-hint: let op t be the optimal number of credit cards. in order for the algorithm to
-add a new credit card j > op t , it must reach xi such that xi + ′ min l[j ′ ] > ℓ.
-j ∈{1,...,op t }
-it will then set l[j] = xi .', 'L\'inverse de show that zelda\'s algorithm gives a 2-approximation for the number of credit cards.
-hint: let op t be the optimal number of credit cards. in order for the algorithm to
-add a new credit card j > op t , it must reach xi such that xi + ′ min l[j ′ ] > ℓ.
-j ∈{1,...,op t }
-it will then set l[j] = xi .'), 'correct' => 0, 'answer' => 'Show that Zelda\'s algorithm gives a 2-approximation for the number of credit cards.
-HINT: Let OP T be the optimal number of credit cards. In order for the algorithm to
-add a new credit card j > OP T , it must reach xi such that xi + ′ min L[j ′ ] > ℓ.
-j ∈{1,...,OP T }
-It will then set L[j] = xi .', '_recupere_le' => '2026-11-04T19:55:22.714198+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Solution The number of points in Ci is at least ǫn, so the probability that a point
+This problem part was worth 10 points.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Given a particular cluster Ci , if you sample t points uniformly at random (with re-
+placement), give an upper bound in terms of ǫ for the probability that none of these
+points are in Ci .', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Solution The number of points in Ci is at least ǫn, so the probability that a point
 sampled u.a.r. lies within Ci is at least ǫn/n = ǫ. Therefore the probability that a
 point sampled u.a.r. doesn\'t lie within Ci is at most 1 - ǫ. Since the points are chosen
 independently, the probability that t points sampled u.a.r. don\'t lie within Ci is at most
@@ -182,16 +136,13 @@ Grading comments This problem was relatively straightforward; the full 8 marks
 were given for the correct answer. An alternative (slightly weaker) bound using Cher-
 noff was also given full credit as long as it was computed correctly. When the answer
 was incorrect, part marks were allotted for similarity to the solution and evidence of
-work.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas given a particular cluster ci , if you sample t points uniformly at random (with re-
-placement), give an upper bound in terms of ǫ for the probability that none of these
-points are in ci .', 'Given a particular cluster Ci , if you sample t points uniformly at random (with re-
-placement), give an upper bound in terms of ǫ for the probability that none of these
-points are in Ci .', 'Impossible à déterminer', 'L\'inverse de given a particular cluster ci , if you sample t points uniformly at random (with re-
-placement), give an upper bound in terms of ǫ for the probability that none of these
-points are in ci .'), 'correct' => 1, 'answer' => 'Given a particular cluster Ci , if you sample t points uniformly at random (with re-
-placement), give an upper bound in terms of ǫ for the probability that none of these
-points are in Ci .', '_recupere_le' => '2026-11-04T19:55:22.714298+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Executive Summary We borrow our idea from the vEB data structure. We will
+work.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Give a set of microscopes and an algorithm to find the bacterium with total cost
+O(n lg lg n).
+SCRATCH PAPER
+SCRATCH PAPER', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Executive Summary We borrow our idea from the vEB data structure. We will
 i
 purchase microscopes of resolutions n1/2 ,n1/4 ,n1/8 , ..., n1/2 = 2. Clearly, i = lg lg n.
 So we spend n lg lg n for buying microscopes. We do a linear search at each level, and
@@ -217,54 +168,33 @@ Grading comments The maximum points for this part is 20. 2 points are given
 for some very vague mentioning of vEB, demonstrating some level of understanding.
 5 points are given for the correct choice of microscope resolutions (but not how to
 use them to search for the bacterium). 10 points are given if the algorithm is correct
-(correct choice of resolutions as well as a description of how to use them [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Impossible à déterminer', 'Give a set of microscopes and an algorithm to find the bacterium with total cost
-O(n lg lg n).
-SCRATCH PAPER
-SCRATCH PAPER', 'Pas give a set of microscopes and an algorithm to find the bacterium with total cost
-o(n lg lg n).
-scratch paper
-scratch paper', 'L\'inverse de give a set of microscopes and an algorithm to find the bacterium with total cost
-o(n lg lg n).
-scratch paper
-scratch paper'), 'correct' => 1, 'answer' => 'Give a set of microscopes and an algorithm to find the bacterium with total cost
-O(n lg lg n).
-SCRATCH PAPER
-SCRATCH PAPER', '_recupere_le' => '2026-11-04T19:55:22.714372+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. If the heaviest edge in the graph is the only edge
+(correct choice of resolutions as well as a description of how to use them [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+In a simple, undirected, connected, weighted graph with at least three vertices and
+unique edge weights, the heaviest edge in the graph is in no minimum spanning
+tree.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. If the heaviest edge in the graph is the only edge
 connecting some vertex to the rest of the graph, then it must be in every minimum
-spanning tree.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas in a simple, undirected, connected, weighted graph with at least three vertices and
-unique edge weights, the heaviest edge in the graph is in no minimum spanning
-tree.', 'L\'inverse de in a simple, undirected, connected, weighted graph with at least three vertices and
-unique edge weights, the heaviest edge in the graph is in no minimum spanning
-tree.', 'Impossible à déterminer', 'In a simple, undirected, connected, weighted graph with at least three vertices and
-unique edge weights, the heaviest edge in the graph is in no minimum spanning
-tree.'), 'correct' => 3, 'answer' => 'In a simple, undirected, connected, weighted graph with at least three vertices and
-unique edge weights, the heaviest edge in the graph is in no minimum spanning
-tree.', '_recupere_le' => '2026-11-04T19:55:22.714460+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. We need at least Θ(n) time to evaluate each poly-
+spanning tree.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Two polynomials p, q of degree at most n - 1 are given by their coefficients, and
+a number x is given. Then one can compute the multiplication p(x) · q(x) in time
+O(log n).', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. We need at least Θ(n) time to evaluate each poly-
 nomial on x and to multiply the results. Some students argued incorrectly that
 it must take O(n log n) using FFT, but FFT overkills because it computes all
-coefficients, not just one.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Two polynomials p, q of degree at most n - 1 are given by their coefficients, and
-a number x is given. Then one can compute the multiplication p(x) · q(x) in time
-O(log n).', 'L\'inverse de two polynomials p, q of degree at most n - 1 are given by their coefficients, and
-a number x is given. then one can compute the multiplication p(x) · q(x) in time
-o(log n).', 'Pas two polynomials p, q of degree at most n - 1 are given by their coefficients, and
-a number x is given. then one can compute the multiplication p(x) · q(x) in time
-o(log n).', 'Impossible à déterminer'), 'correct' => 0, 'answer' => 'Two polynomials p, q of degree at most n - 1 are given by their coefficients, and
-a number x is given. Then one can compute the multiplication p(x) · q(x) in time
-O(log n).', '_recupere_le' => '2026-11-04T19:55:22.714557+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. The asymptotic running time of Floyd-Warshall is
+coefficients, not just one.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+There is a density 0 < ρ < 1 such that the asymptotic running time of the Floyd-
+Warshall algorithm on graphs G = (V, E) where |E| = ρ |V |2 is better than that
+of Johnson\'s algorithm.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. The asymptotic running time of Floyd-Warshall is
 O(V 3 ), which is at best the same asymptotic running time of Johnson\'s (which
-runs in O(V E + V log V ) time), since E = O(V 2 )', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('L\'inverse de there is a density 0 < ρ < 1 such that the asymptotic running time of the floyd-
-warshall algorithm on graphs g = (v, e) where |e| = ρ |v |2 is better than that
-of johnson\'s algorithm.', 'Pas there is a density 0 < ρ < 1 such that the asymptotic running time of the floyd-
-warshall algorithm on graphs g = (v, e) where |e| = ρ |v |2 is better than that
-of johnson\'s algorithm.', 'Impossible à déterminer', 'There is a density 0 < ρ < 1 such that the asymptotic running time of the Floyd-
-Warshall algorithm on graphs G = (V, E) where |E| = ρ |V |2 is better than that
-of Johnson\'s algorithm.'), 'correct' => 3, 'answer' => 'There is a density 0 < ρ < 1 such that the asymptotic running time of the Floyd-
-Warshall algorithm on graphs G = (V, E) where |E| = ρ |V |2 is better than that
-of Johnson\'s algorithm.', '_recupere_le' => '2026-11-04T19:55:22.714687+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : If the graph of translators contains a cycle of translators all
+runs in O(V E + V log V ) time), since E = O(V 2 )', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Give an example of a minimum-cost translation network that is not a minimum span-
+ning tree of G.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : If the graph of translators contains a cycle of translators all
 willing to work for $0, then it is possible to hire all of the translators in the cycle
 without increasing the overall cost of the translation network. The smallest example
 of this is the following:
@@ -273,12 +203,12 @@ $0 $0
 $0
 All three MSTs of the graph have total cost $0, so any translation network of cost $0
 has minimum cost. Hence, we can take all translators in the cycle to get a minimum-
-cost translation network that is not an MST.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('L\'inverse de give an example of a minimum-cost translation network that is not a minimum span-
-ning tree of g.', 'Give an example of a minimum-cost translation network that is not a minimum span-
-ning tree of G.', 'Pas give an example of a minimum-cost translation network that is not a minimum span-
-ning tree of g.', 'Impossible à déterminer'), 'correct' => 1, 'answer' => 'Give an example of a minimum-cost translation network that is not a minimum span-
-ning tree of G.', '_recupere_le' => '2026-11-04T19:55:22.714758+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Let Si∗ be a minimum-cost translation network for Ci . Because
+cost translation network that is not an MST.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Suppose that S is a minimum-cost high-quality translation network. Let Si = S ∩
+(Ci × Ci ) be the part of the network S that lies within the cluster Ci . Show that Si is
+a minimum-cost translation network for the cluster Ci .', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Let Si∗ be a minimum-cost translation network for Ci . Because
 S is a high-quality translation network, Si must contain a path between every pair
 of nodes in Ci , so Si is a translation network for Ci . For the sake of contradiction,
 assume that Si is not minimum-cost. Then w(Si ) > w(Si∗).
@@ -288,28 +218,24 @@ not disconnect any pair of vertices in the graph. Furthermore, any pair of verti
 connected by a path in S that lay inside a particular cluster will be connected by a
 path in S ∗ that lies within the same cluster. Hence, S ∗ is a high-quality translation
 network with cost strictly less than S. This contradicts the definition of S, so Si must
-be a minimum-cost translation network.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Impossible à déterminer', 'L\'inverse de suppose that s is a minimum-cost high-quality translation network. let si = s ∩
-(ci × ci ) be the part of the network s that lies within the cluster ci . show that si is
-a minimum-cost translation network for the cluster ci .', 'Pas suppose that s is a minimum-cost high-quality translation network. let si = s ∩
-(ci × ci ) be the part of the network s that lies within the cluster ci . show that si is
-a minimum-cost translation network for the cluster ci .', 'Suppose that S is a minimum-cost high-quality translation network. Let Si = S ∩
-(Ci × Ci ) be the part of the network S that lies within the cluster Ci . Show that Si is
-a minimum-cost translation network for the cluster Ci .'), 'correct' => 3, 'answer' => 'Suppose that S is a minimum-cost high-quality translation network. Let Si = S ∩
-(Ci × Ci ) be the part of the network S that lies within the cluster Ci . Show that Si is
-a minimum-cost translation network for the cluster Ci .', '_recupere_le' => '2026-11-04T19:55:22.714869+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : In order to find shortest paths going through only blue edges, it
+be a minimum-cost translation network.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+(k-1) (k-1) (k-1)
+7 dij = min(dij , dik + dkj )
+8 return D (n)', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : In order to find shortest paths going through only blue edges, it
 suffices to ignore the red edges and run Floyd-Warshall on only the blue edges of the
 graph. We make the following changes:
-• Replace each occurrence of W with Wb in lines 1 and 2.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas (k-1) (k-1) (k-1)
-7 dij = min(dij , dik + dkj )
-8 return d (n)', '(k-1) (k-1) (k-1)
-7 dij = min(dij , dik + dkj )
-8 return D (n)', 'Impossible à déterminer', 'L\'inverse de (k-1) (k-1) (k-1)
-7 dij = min(dij , dik + dkj )
-8 return d (n)'), 'correct' => 1, 'answer' => '(k-1) (k-1) (k-1)
-7 dij = min(dij , dik + dkj )
-8 return D (n)', '_recupere_le' => '2026-11-04T19:55:22.714941+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Executive Summary. We sample four users at random until we find four who are all friends.
+• Replace each occurrence of W with Wb in lines 1 and 2.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Not long after the original blog post, the founders updated their numbers. Apparently,
+the original claim spurred a large number of non-MIT users to friend more MIT stu-
+dents. Now, after this friending spree, every user on MITbook+ who did not attend
+MIT is friends with at most 2N/5 users who did attend MIT. This also had the effect
+of raising the average number of friends per user to exactly 2N/3. Given this updated
+information, devise an efficient algorithm that checks whether user 60461337 went to
+school at MIT.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Executive Summary. We sample four users at random until we find four who are all friends.
 They are more likely than not to all be MIT students, so we check whether they are friends with
 60461337 to determine whether 60461337 is also an MIT student. This algorithm has runtime O(1)
 and correctness probability at least 0.51.
@@ -338,31 +264,7 @@ N 2 9 3N
 By symmetry, Pr[Fcd ∧ ¬Mcd ] = Pr[Fab ∧ ¬Mab ]. We can use this information to analyze cases as
 follows:
 • Case 1: We want to figure out Pr[Fall ∧ Mab ∧ Mcd ]. This is equal to the probability that a,
-b, c, and d are all unique MIT students. [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('L\'inverse de not long after the original blog post, the founders updated their numbers. apparently,
-the original claim spurred a large number of non-mit users to friend more mit stu-
-dents. now, after this friending spree, every user on mitbook+ who did not attend
-mit is friends with at most 2n/5 users who did attend mit. this also had the effect
-of raising the average number of friends per user to exactly 2n/3. given this updated
-information, devise an efficient algorithm that checks whether user 60461337 went to
-school at mit.', 'Not long after the original blog post, the founders updated their numbers. Apparently,
-the original claim spurred a large number of non-MIT users to friend more MIT stu-
-dents. Now, after this friending spree, every user on MITbook+ who did not attend
-MIT is friends with at most 2N/5 users who did attend MIT. This also had the effect
-of raising the average number of friends per user to exactly 2N/3. Given this updated
-information, devise an efficient algorithm that checks whether user 60461337 went to
-school at MIT.', 'Impossible à déterminer', 'Pas not long after the original blog post, the founders updated their numbers. apparently,
-the original claim spurred a large number of non-mit users to friend more mit stu-
-dents. now, after this friending spree, every user on mitbook+ who did not attend
-mit is friends with at most 2n/5 users who did attend mit. this also had the effect
-of raising the average number of friends per user to exactly 2n/3. given this updated
-information, devise an efficient algorithm that checks whether user 60461337 went to
-school at mit.'), 'correct' => 1, 'answer' => 'Not long after the original blog post, the founders updated their numbers. Apparently,
-the original claim spurred a large number of non-MIT users to friend more MIT stu-
-dents. Now, after this friending spree, every user on MITbook+ who did not attend
-MIT is friends with at most 2N/5 users who did attend MIT. This also had the effect
-of raising the average number of friends per user to exactly 2N/3. Given this updated
-information, devise an efficient algorithm that checks whether user 60461337 went to
-school at MIT.', '_recupere_le' => '2026-11-04T19:55:22.715136+00:00Z', '_strategie' => 'separation_enum_solution'),
+b, c, and d are all unique MIT students. [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
 						),
 					),
 				),
@@ -370,32 +272,30 @@ school at MIT.', '_recupere_le' => '2026-11-04T19:55:22.715136+00:00Z', '_strate
 					'title' => 'donnees-et-systemes-organiser-linformation',
 					'tasks' => array(
 						'test' => array(
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. In the implementation of perfect hashing which we discussed in
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+A perfect hash table that is already built requires 2 hash functions, one for the
+first level hash, and another for the second level hash.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. In the implementation of perfect hashing which we discussed in
 recitation, the second level hash table requires a different hash function for every
 bucket. Note that if we relax the requirement for taking only O(n) space and
 allow the hash table to instead take O(n2 ) space, then we can use just one hash
-function.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas a perfect hash table that is already built requires 2 hash functions, one for the
-first level hash, and another for the second level hash.', 'Impossible à déterminer', 'L\'inverse de a perfect hash table that is already built requires 2 hash functions, one for the
-first level hash, and another for the second level hash.', 'A perfect hash table that is already built requires 2 hash functions, one for the
-first level hash, and another for the second level hash.'), 'correct' => 3, 'answer' => 'A perfect hash table that is already built requires 2 hash functions, one for the
-first level hash, and another for the second level hash.', '_recupere_le' => '2026-11-04T19:55:22.715229+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. In order to use van Emde Boas, we must have a restriction on
-the input (it is within a universe of integers size 1 through n).', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('If we use van Emde Boas (vEB) to sort n elements, it is possible to achieve
+function.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+If we use van Emde Boas (vEB) to sort n elements, it is possible to achieve
 O(n lg lg n) running time. Thus, whenever we need to use traditional O(n lg n)
 sorting, we can replace it with vEB sort and achieve a better asymptotic running
-time (ignore setup time).', 'L\'inverse de if we use van emde boas (veb) to sort n elements, it is possible to achieve
-o(n lg lg n) running time. thus, whenever we need to use traditional o(n lg n)
-sorting, we can replace it with veb sort and achieve a better asymptotic running
-time (ignore setup time).', 'Pas if we use van emde boas (veb) to sort n elements, it is possible to achieve
-o(n lg lg n) running time. thus, whenever we need to use traditional o(n lg n)
-sorting, we can replace it with veb sort and achieve a better asymptotic running
-time (ignore setup time).', 'Impossible à déterminer'), 'correct' => 0, 'answer' => 'If we use van Emde Boas (vEB) to sort n elements, it is possible to achieve
-O(n lg lg n) running time. Thus, whenever we need to use traditional O(n lg n)
-sorting, we can replace it with vEB sort and achieve a better asymptotic running
-time (ignore setup time).', '_recupere_le' => '2026-11-04T19:55:22.715352+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. Consider the MST problem, which is a special case of the
-Steiner Tree problem.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Impossible à déterminer', 'Pas every special case of an np-hard problem is also np-hard.', 'L\'inverse de every special case of an np-hard problem is also np-hard.', 'Every special case of an NP-hard problem is also NP-hard.'), 'correct' => 3, 'answer' => 'Every special case of an NP-hard problem is also NP-hard.', '_recupere_le' => '2026-11-04T19:55:22.715405+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The maximum frequency of any letter is 2/5. To see why, we must prove
+time (ignore setup time).', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. In order to use van Emde Boas, we must have a restriction on
+the input (it is within a universe of integers size 1 through n).', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Every special case of an NP-hard problem is also NP-hard.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. Consider the MST problem, which is a special case of the
+Steiner Tree problem.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Suppose we apply Huffman coding to an alphabet of size 4, and the resulting tree is
+a perfectly balanced binary tree (one root with two children, each of which has two
+children of its own). Find the maximum frequency of any letter.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The maximum frequency of any letter is 2/5. To see why, we must prove
 that this is both feasible, and as large as possible.
 1. Suppose that we have four characters a, b, c, d with frequencies fa = 2/5 and fb =
 fc = fd = 1/5. Without loss of generality, suppose that Huffman\'s algorithm
@@ -409,16 +309,26 @@ This means that fb + fc + fd < 3/5. Because fb > fc , fd , we can conclude that
 fc + fd < 2/5. But this means that when c and d are merged, their combined
 frequency will be strictly less than fa , so we will not get a perfectly balanced
 tree.
-To avoid a tie, we must use 2/5 - ǫ as the maximum frequency instead.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas suppose we apply huffman coding to an alphabet of size 4, and the resulting tree is
-a perfectly balanced binary tree (one root with two children, each of which has two
-children of its own). find the maximum frequency of any letter.', 'Impossible à déterminer', 'L\'inverse de suppose we apply huffman coding to an alphabet of size 4, and the resulting tree is
-a perfectly balanced binary tree (one root with two children, each of which has two
-children of its own). find the maximum frequency of any letter.', 'Suppose we apply Huffman coding to an alphabet of size 4, and the resulting tree is
-a perfectly balanced binary tree (one root with two children, each of which has two
-children of its own). Find the maximum frequency of any letter.'), 'correct' => 3, 'answer' => 'Suppose we apply Huffman coding to an alphabet of size 4, and the resulting tree is
-a perfectly balanced binary tree (one root with two children, each of which has two
-children of its own). Find the maximum frequency of any letter.', '_recupere_le' => '2026-11-04T19:55:22.715511+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Consider this graph:
+To avoid a tie, we must use 2/5 - ǫ as the maximum frequency instead.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Problem 3. Estate Showing. [30 points] (3 parts)
+Trip Trillionaire is planning to give potential buyers private showings of his estate, which can
+be modeled as a weighted, directed graph G containing locations V connected by one-way roads
+E. To save time, he decides to do k of these showings at the same time, but because they were
+supposed to be private, he doesn\'t want any of his clients to see each other as they are being driven
+through the estate.
+Trip has k grand entrances to his estate, A = {a1 , a2 , . . . , ak } ⊂ V . He wants to take each of
+his buyers on a path through G from their starting location ai to some ending location in B =
+{b1 , b2 , . . . , bk } ⊂ V , where there are spectacular views of his private mountain range.
+Because of your prowess with algorithms, he hires you to help him plan his buyers\' visits. His goal
+is to find a path for each buyer i from the entrance they take, ai , to any ending location bj such that
+no two paths share any edges, and no two buyers end in the same location bj .
+Trip tells you his idea: find all-pairs shortest paths on G, and then try to select k of
+those shortest paths ai ❀ bj such that all k paths start and end at different vertices and
+no two paths share any edges.
+Give a graph where there exists a set of paths satisfying the requirements, but where
+Trip\'s strategy won\'t find it.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Consider this graph:
 a1
 b1
 1 1
@@ -430,72 +340,18 @@ b1 , a1 ❀ b2 , a2 ❀ b1 , and a2 ❀ b2 ), which all go through the same edge
 algorithm, which considers only those paths, would find no solution. There are two
 completely disjoint paths using the shortest path a2 ❀ b2 and the direct edge (a1 , b1 ),
 but Trip\'s algorithm would not find this combination because one of them is not a
-shortest path.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas problem 3. estate showing. [30 points] (3 parts)
-trip trillionaire is planning to give potential buyers private showings of his estate, which can
-be modeled as a weighted, directed graph g containing locations v connected by one-way roads
-e. to save time, he decides to do k of these showings at the same time, but because they were
-supposed to be private, he doesn\'t want any of his clients to see each other as they are being driven
-through the estate.
-trip has k grand entrances to his estate, a = {a1 , a2 , . . . , ak } ⊂ v . he wants to take each of
-his buyers on a path through g from their starting location ai to some ending location in b =
-{b1 , b2 , . . . , bk } ⊂ v , where there are spectacular views of his private mountain range.
-because of your prowess with algorithms, he hires you to help him plan his buyers\' visits. his goal
-is to find a path for each buyer i from the entrance they take, ai , to any ending location bj such that
-no two paths share any edges, and no two buyers end in the same location bj .
-trip tells you his idea: find all-pairs shortest paths on g, and then try to select k of
-those shortest paths ai ❀ bj such that all k paths start and end at different vertices and
-no two paths share any edges.
-give a graph where there exists a set of paths satisfying the requirements, but where
-trip\'s strategy won\'t find it.', 'L\'inverse de problem 3. estate showing. [30 points] (3 parts)
-trip trillionaire is planning to give potential buyers private showings of his estate, which can
-be modeled as a weighted, directed graph g containing locations v connected by one-way roads
-e. to save time, he decides to do k of these showings at the same time, but because they were
-supposed to be private, he doesn\'t want any of his clients to see each other as they are being driven
-through the estate.
-trip has k grand entrances to his estate, a = {a1 , a2 , . . . , ak } ⊂ v . he wants to take each of
-his buyers on a path through g from their starting location ai to some ending location in b =
-{b1 , b2 , . . . , bk } ⊂ v , where there are spectacular views of his private mountain range.
-because of your prowess with algorithms, he hires you to help him plan his buyers\' visits. his goal
-is to find a path for each buyer i from the entrance they take, ai , to any ending location bj such that
-no two paths share any edges, and no two buyers end in the same location bj .
-trip tells you his idea: find all-pairs shortest paths on g, and then try to select k of
-those shortest paths ai ❀ bj such that all k paths start and end at different vertices and
-no two paths share any edges.
-give a graph where there exists a set of paths satisfying the requirements, but where
-trip\'s strategy won\'t find it.', 'Problem 3. Estate Showing. [30 points] (3 parts)
-Trip Trillionaire is planning to give potential buyers private showings of his estate, which can
-be modeled as a weighted, directed graph G containing locations V connected by one-way roads
-E. To save time, he decides to do k of these showings at the same time, but because they were
-supposed to be private, he doesn\'t want any of his clients to see each other as they are being driven
-through the estate.
-Trip has k grand entrances to his estate, A = {a1 , a2 , . . . , ak } ⊂ V . He wants to take each of
-his buyers on a path through G from their starting location ai to some ending location in B =
-{b1 , b2 , . . . , bk } ⊂ V , where there are spectacular views of his private mountain range.
-Because of your prowess with algorithms, he hires you to help him plan his buyers\' visits. His goal
-is to find a path for each buyer i from the entrance they take, ai , to any ending location bj such that
-no two paths share any edges, and no two buyers end in the same location bj .
-Trip tells you his idea: find all-pairs shortest paths on G, and then try to select k of
-those shortest paths ai ❀ bj such that all k paths start and end at different vertices and
-no two paths share any edges.
-Give a graph where there exists a set of paths satisfying the requirements, but where
-Trip\'s strategy won\'t find it.', 'Impossible à déterminer'), 'correct' => 2, 'answer' => 'Problem 3. Estate Showing. [30 points] (3 parts)
-Trip Trillionaire is planning to give potential buyers private showings of his estate, which can
-be modeled as a weighted, directed graph G containing locations V connected by one-way roads
-E. To save time, he decides to do k of these showings at the same time, but because they were
-supposed to be private, he doesn\'t want any of his clients to see each other as they are being driven
-through the estate.
-Trip has k grand entrances to his estate, A = {a1 , a2 , . . . , ak } ⊂ V . He wants to take each of
-his buyers on a path through G from their starting location ai to some ending location in B =
-{b1 , b2 , . . . , bk } ⊂ V , where there are spectacular views of his private mountain range.
-Because of your prowess with algorithms, he hires you to help him plan his buyers\' visits. His goal
-is to find a path for each buyer i from the entrance they take, ai , to any ending location bj such that
-no two paths share any edges, and no two buyers end in the same location bj .
-Trip tells you his idea: find all-pairs shortest paths on G, and then try to select k of
-those shortest paths ai ❀ bj such that all k paths start and end at different vertices and
-no two paths share any edges.
-Give a graph where there exists a set of paths satisfying the requirements, but where
-Trip\'s strategy won\'t find it.', '_recupere_le' => '2026-11-04T19:55:22.716057+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Duplicate each vertex v into two vertices vin and vout , with a directed edge
+shortest path.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Trip, after trying out the paths found by your algorithm, realizes that making sure the k
+paths don\'t share edges isn\'t enough: it\'s possible that some paths will share vertices,
+and his buyers might run into each other where their paths intersect.
+a1 b1 a1 b1
+a2 a2
+b2 b2
+a1 b1 and a2 b2 share a vertex a1 b1 and a2 b2 share neither vertices nor edges
+Modify your algorithm to find k paths ai ❀ bj that start and end in different locations,
+and that share neither vertices nor edges.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Duplicate each vertex v into two vertices vin and vout , with a directed edge
 between them. All edges (u, v) now become (u, vin ); all edges (v, w) now become
 (vout , w). Assign the edge (vin , vout ) capacity 1.
 With this transformation, we now have a graph in which there is a single edge cor-
@@ -515,40 +371,10 @@ removing all edges incident to vertices in the augmenting paths found, thus not 
 ing any other augmenting paths to go through those vertices. Again, this approach
 doesn\'t work because it is too greedy: the augmenting paths found by Ford-Fulkerson
 are not necessarily the final paths along which there are units of flow, and therefore
-this approach may miss valid solutions.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('L\'inverse de trip, after trying out the paths found by your algorithm, realizes that making sure the k
-paths don\'t share edges isn\'t enough: it\'s possible that some paths will share vertices,
-and his buyers might run into each other where their paths intersect.
-a1 b1 a1 b1
-a2 a2
-b2 b2
-a1 b1 and a2 b2 share a vertex a1 b1 and a2 b2 share neither vertices nor edges
-modify your algorithm to find k paths ai ❀ bj that start and end in different locations,
-and that share neither vertices nor edges.', 'Impossible à déterminer', 'Trip, after trying out the paths found by your algorithm, realizes that making sure the k
-paths don\'t share edges isn\'t enough: it\'s possible that some paths will share vertices,
-and his buyers might run into each other where their paths intersect.
-a1 b1 a1 b1
-a2 a2
-b2 b2
-a1 b1 and a2 b2 share a vertex a1 b1 and a2 b2 share neither vertices nor edges
-Modify your algorithm to find k paths ai ❀ bj that start and end in different locations,
-and that share neither vertices nor edges.', 'Pas trip, after trying out the paths found by your algorithm, realizes that making sure the k
-paths don\'t share edges isn\'t enough: it\'s possible that some paths will share vertices,
-and his buyers might run into each other where their paths intersect.
-a1 b1 a1 b1
-a2 a2
-b2 b2
-a1 b1 and a2 b2 share a vertex a1 b1 and a2 b2 share neither vertices nor edges
-modify your algorithm to find k paths ai ❀ bj that start and end in different locations,
-and that share neither vertices nor edges.'), 'correct' => 2, 'answer' => 'Trip, after trying out the paths found by your algorithm, realizes that making sure the k
-paths don\'t share edges isn\'t enough: it\'s possible that some paths will share vertices,
-and his buyers might run into each other where their paths intersect.
-a1 b1 a1 b1
-a2 a2
-b2 b2
-a1 b1 and a2 b2 share a vertex a1 b1 and a2 b2 share neither vertices nor edges
-Modify your algorithm to find k paths ai ❀ bj that start and end in different locations,
-and that share neither vertices nor edges.', '_recupere_le' => '2026-11-04T19:55:22.716252+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : We prove that minimizing the number of credit cards is NP-hard by reducing SET-
+this approach may miss valid solutions.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Show that minimizing the number of credit cards used is NP-hard.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : We prove that minimizing the number of credit cards is NP-hard by reducing SET-
 PARTITION to the Zelda\'s problem in polynomial time.
 First, we recast Zelda\'s optimization problem as a decision problem. Let the decision
 problem be formulated as follows: For a given target number of cards k, we are able
@@ -572,11 +398,11 @@ We also accepted the reduction from SUBSET-SUM to Zelda.
 We gave 5 points for correctly identifying an NP-hard problem from which one could
 reduce to Zelda\'s problem to prove that the problem is NP-hard (the direction of the
 reduction needed to be correct to receive all the points). 10 points was given for a
-correct reduction and analysis.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('L\'inverse de show that minimizing the number of credit cards used is np-hard.', 'Impossible à déterminer', 'Pas show that minimizing the number of credit cards used is np-hard.', 'Show that minimizing the number of credit cards used is NP-hard.'), 'correct' => 3, 'answer' => 'Show that minimizing the number of credit cards used is NP-hard.', '_recupere_le' => '2026-11-04T19:55:22.716308+00:00Z', '_strategie' => 'separation_enum_solution'),
+correct reduction and analysis.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
 							array('question' => '[MIT 6.046J — question d’examen, en anglais]
 
 Give a sublinear-time algorithm that takes as input r and ǫ, and outputs a number of
-clusters k that is', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Executive Summary Use the algorithm from part (a) on a subset of the points cho-
+clusters k that is correct with probability at least 2/3.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Executive Summary Use the algorithm from part (a) on a subset of the points cho-
 sen u.a.r. The size of the subset is chosen so that the algorithm is correct with the
 desired probability.
 Algorithm Initialize S ′ to be a subset of S of size t (to be determined below), where
@@ -612,40 +438,53 @@ cluster were independent; this resulted in a deduction of 1 mark. Incorrect algo
 were given partial credit depending on their similarity with the correct solution.
 Several students noted that this was a variant of the sublinear Connected Components
 algorithm as discussed in class; again, while true, this was not necessary and a correct
-calculation of the [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('L\'inverse de with probability at least 2/3.', 'with probability at least 2/3.', 'Pas with probability at least 2/3.', 'Impossible à déterminer'), 'correct' => 1, 'answer' => 'with probability at least 2/3.', '_recupere_le' => '2026-11-04T19:55:22.716390+00:00Z', '_strategie' => 'separation_enum_solution'),
+calculation of the [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
 							array('question' => '[MIT 6.046J — question d’examen, en anglais]
 
-The', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : True. Using the substitution method:
+The solution to the recurrence T (n) = T (n/6) + T (7n/9) + O(n) is O(n).
+(Assume T (n) = 1 for n smaller than some constant c).', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : True. Using the substitution method:
 T (n) ≤ cn/6 + 7cn/9 + an
 ≤ 17cn/18 + an
 ≤ cn - (cn/18 - an)
 This holds if c/18 - a ≥ 0, so it holds for any constant c such that c ≥ 18a.
 Full credit was also given for solutions that uses a recursion tree, noting that the
-total work at level i is (17/18)i n, which onverges to O(n).', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('L\'inverse de to the recurrence t (n) = t (n/6) + t (7n/9) + o(n) is o(n).
-(assume t (n) = 1 for n smaller than some constant c).', 'Pas to the recurrence t (n) = t (n/6) + t (7n/9) + o(n) is o(n).
-(assume t (n) = 1 for n smaller than some constant c).', 'to the recurrence T (n) = T (n/6) + T (7n/9) + O(n) is O(n).
-(Assume T (n) = 1 for n smaller than some constant c).', 'Impossible à déterminer'), 'correct' => 2, 'answer' => 'to the recurrence T (n) = T (n/6) + T (7n/9) + O(n) is O(n).
-(Assume T (n) = 1 for n smaller than some constant c).', '_recupere_le' => '2026-11-04T19:55:22.716474+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. The algorithm will fail given the set of tasks (given
+total work at level i is (17/18)i n, which onverges to O(n).', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+The weighted task scheduling problem with weights in the set {1, 2} can be
+solved optimally by the same greedy algorithm used for the unweighted case.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. The algorithm will fail given the set of tasks (given
 in the form ((si , fi ), wi ):
-{((0, 1), 1), ((0, 2), 2)}.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('L\'inverse de the weighted task scheduling problem with weights in the set {1, 2} can be
-solved optimally by the same greedy algorithm used for the unweighted case.', 'The weighted task scheduling problem with weights in the set {1, 2} can be
-solved optimally by the same greedy algorithm used for the unweighted case.', 'Impossible à déterminer', 'Pas the weighted task scheduling problem with weights in the set {1, 2} can be
-solved optimally by the same greedy algorithm used for the unweighted case.'), 'correct' => 1, 'answer' => 'The weighted task scheduling problem with weights in the set {1, 2} can be
-solved optimally by the same greedy algorithm used for the unweighted case.', '_recupere_le' => '2026-11-04T19:55:22.716557+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. It\'s possible to do this in linear time using S ELECT :
+{((0, 1), 1), ((0, 2), 2)}.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Suppose we are given an array A of n distinct elements, and we want to find n/2
+elements in the array whose median is also the median of A. Any algorithm that
+does this must take Ω(n log n) time.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False. It\'s possible to do this in linear time using S ELECT :
 first find the median of A in Θ(n) time, and then partition A around its median.
 Then we can take n/4 elements from either side to get a total of n/2 elements in
-A whose median is also the median of A.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('L\'inverse de suppose we are given an array a of n distinct elements, and we want to find n/2
-elements in the array whose median is also the median of a. any algorithm that
-does this must take ω(n log n) time.', 'Pas suppose we are given an array a of n distinct elements, and we want to find n/2
-elements in the array whose median is also the median of a. any algorithm that
-does this must take ω(n log n) time.', 'Impossible à déterminer', 'Suppose we are given an array A of n distinct elements, and we want to find n/2
-elements in the array whose median is also the median of A. Any algorithm that
-does this must take Ω(n log n) time.'), 'correct' => 3, 'answer' => 'Suppose we are given an array A of n distinct elements, and we want to find n/2
-elements in the array whose median is also the median of A. Any algorithm that
-does this must take Ω(n log n) time.', '_recupere_le' => '2026-11-04T19:55:22.716684+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Let T be some minimum spanning tree of G. Because T is
+A whose median is also the median of A.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Problem 2. Translation [25 points] (5 parts)
+You have been hired to manage the translation process for some documentation. Unfortunately,
+different sections of the documentation were written in different languages: n languages in total.
+Your boss wants the entire documentation to be available in all n languages.
+There are m different translators for hire. Some of those translators are volunteers that do not
+get any money for their services. Each translator knows exactly two different languages and can
+translate back and forth between them. Each translator has a non-negative hiring cost (some may
+work for free). Unfortunately, your budget is too small to hire one translator for each pair of
+languages. Instead, you must rely on chains of translators: an English-Spanish translator and
+a Spanish-French translator, working together, can translate between English and French. Your
+goal is to find a minimum-cost set of translators that will let you translate between every pair of
+languages.
+We may formulate this problem as a connected undirected graph G = (V, E) with non-negative
+(i.e., zero or positive) edge weights w. The vertices V are the languages for which you wish to
+generate translations. The edges E are the translators. The edge weight w(e) for a translator e
+gives the cost for hiring the translator w(e). A subset S ⊆ E of translators can be used to translate
+between a, b ∈ V if and only if the subgraph GS = (V, S) contains a path between a and b. The set
+S ⊆ E is a translation network if and only if S can be used to translate between all pairs a, b ∈ V .
+Prove that each minimum spanning tree of G is also a minimum-cost translation net-
+work.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Let T be some minimum spanning tree of G. Because T is
 a spanning tree, there is a path in T between any pair of vertices. Hence, T is a
 translation network.
 For the sake of contradiction, suppose that T is not a minimum-cost translation net-
@@ -653,84 +492,25 @@ work. Then there must be some translation network S with total cost strictly sma
 than T . Because S connects every pair of vertices, it must have some spanning tree T ∗
 as a subgraph. Because all edge weights are nonnegative, we have w(T ∗) ≤ w(S) <
 w(T ). Hence, T is not the minimum spanning tree. This contradiction means that all
-spanning trees are also minimum-cost translation networks.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas problem 2. translation [25 points] (5 parts)
-you have been hired to manage the translation process for some documentation. unfortunately,
-different sections of the documentation were written in different languages: n languages in total.
-your boss wants the entire documentation to be available in all n languages.
-there are m different translators for hire. some of those translators are volunteers that do not
-get any money for their services. each translator knows exactly two different languages and can
-translate back and forth between them. each translator has a non-negative hiring cost (some may
-work for free). unfortunately, your budget is too small to hire one translator for each pair of
-languages. instead, you must rely on chains of translators: an english-spanish translator and
-a spanish-french translator, working together, can translate between english and french. your
-goal is to find a minimum-cost set of translators that will let you translate between every pair of
-languages.
-we may formulate this problem as a connected undirected graph g = (v, e) with non-negative
-(i.e., zero or positive) edge weights w. the vertices v are the languages for which you wish to
-generate translations. the edges e are the translators. the edge weight w(e) for a translator e
-gives the cost for hiring the translator w(e). a subset s ⊆ e of translators can be used to translate
-between a, b ∈ v if and only if the subgraph gs = (v, s) contains a path between a and b. the set
-s ⊆ e is a translation network if and only if s can be used to translate between all pairs a, b ∈ v .
-prove that each minimum spanning tree of g is also a minimum-cost translation net-
-work.', 'L\'inverse de problem 2. translation [25 points] (5 parts)
-you have been hired to manage the translation process for some documentation. unfortunately,
-different sections of the documentation were written in different languages: n languages in total.
-your boss wants the entire documentation to be available in all n languages.
-there are m different translators for hire. some of those translators are volunteers that do not
-get any money for their services. each translator knows exactly two different languages and can
-translate back and forth between them. each translator has a non-negative hiring cost (some may
-work for free). unfortunately, your budget is too small to hire one translator for each pair of
-languages. instead, you must rely on chains of translators: an english-spanish translator and
-a spanish-french translator, working together, can translate between english and french. your
-goal is to find a minimum-cost set of translators that will let you translate between every pair of
-languages.
-we may formulate this problem as a connected undirected graph g = (v, e) with non-negative
-(i.e., zero or positive) edge weights w. the vertices v are the languages for which you wish to
-generate translations. the edges e are the translators. the edge weight w(e) for a translator e
-gives the cost for hiring the translator w(e). a subset s ⊆ e of translators can be used to translate
-between a, b ∈ v if and only if the subgraph gs = (v, s) contains a path between a and b. the set
-s ⊆ e is a translation network if and only if s can be used to translate between all pairs a, b ∈ v .
-prove that each minimum spanning tree of g is also a minimum-cost translation net-
-work.', 'Impossible à déterminer', 'Problem 2. Translation [25 points] (5 parts)
-You have been hired to manage the translation process for some documentation. Unfortunately,
-different sections of the documentation were written in different languages: n languages in total.
-Your boss wants the entire documentation to be available in all n languages.
-There are m different translators for hire. Some of those translators are volunteers that do not
-get any money for their services. Each translator knows exactly two different languages and can
-translate back and forth between them. Each translator has a non-negative hiring cost (some may
-work for free). Unfortunately, your budget is too small to hire one translator for each pair of
-languages. Instead, you must rely on chains of translators: an English-Spanish translator and
-a Spanish-French translator, working together, can translate between English and French. Your
-goal is to find a minimum-cost set of translators that will let you translate between every pair of
-languages.
-We may formulate this problem as a connected undirected graph G = (V, E) with non-negative
-(i.e., zero or positive) edge weights w. The vertices V are the languages for which you wish to
-generate translations. The edges E are the translators. The edge weight w(e) for a translator e
-gives the cost for hiring the translator w(e). A subset S ⊆ E of translators can be used to translate
-between a, b ∈ V if and only if the subgraph GS = (V, S) contains a path between a and b. The set
-S ⊆ E is a translation network if and only if S can be used to translate between all pairs a, b ∈ V .
-Prove that each minimum spanning tree of G is also a minimum-cost translation net-
-work.'), 'correct' => 3, 'answer' => 'Problem 2. Translation [25 points] (5 parts)
-You have been hired to manage the translation process for some documentation. Unfortunately,
-different sections of the documentation were written in different languages: n languages in total.
-Your boss wants the entire documentation to be available in all n languages.
-There are m different translators for hire. Some of those translators are volunteers that do not
-get any money for their services. Each translator knows exactly two different languages and can
-translate back and forth between them. Each translator has a non-negative hiring cost (some may
-work for free). Unfortunately, your budget is too small to hire one translator for each pair of
-languages. Instead, you must rely on chains of translators: an English-Spanish translator and
-a Spanish-French translator, working together, can translate between English and French. Your
-goal is to find a minimum-cost set of translators that will let you translate between every pair of
-languages.
-We may formulate this problem as a connected undirected graph G = (V, E) with non-negative
-(i.e., zero or positive) edge weights w. The vertices V are the languages for which you wish to
-generate translations. The edges E are the translators. The edge weight w(e) for a translator e
-gives the cost for hiring the translator w(e). A subset S ⊆ E of translators can be used to translate
-between a, b ∈ V if and only if the subgraph GS = (V, S) contains a path between a and b. The set
-S ⊆ E is a translation network if and only if S can be used to translate between all pairs a, b ∈ V .
-Prove that each minimum spanning tree of G is also a minimum-cost translation net-
-work.', '_recupere_le' => '2026-11-04T19:55:22.717250+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : We saw in part (a) that every minimum spanning tree is a
+spanning trees are also minimum-cost translation networks.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Give an efficient algorithm that takes G as input, and outputs a minimum-cost trans-
+lation network of G. State the runtime of your algorithm in terms of the number of
+languages n and the number of potential translators m.
+Your bosses have decided that the previous approach to translation doesn\'t work. When attempting
+to translate between Spanish and Portuguese - two relatively similar languages - it degrades the
+translation quality to translate from Spanish to Tagalog to Mandarin to Portuguese. There are
+certain clusters of languages that are more closely related than others. When translating between
+two languages that lie within the same cluster, such as Spanish and Portuguese, the translation
+is of high quality when the sequence of languages used to translate between them is completely
+contained within the cluster.
+More formally, the language set V can be divided into disjoint clusters C1 , . . . , Ck . Each cluster
+Ci contains languages that are fairly similar; each language is contained in exactly one cluster.
+Your bosses have decided that a translation between a, b ∈ Ci is high-quality if and only if all of
+the languages used on the path from a to b are also in Ci . The translator set S is a high-quality
+translation network if and only if it is a translation network, and for any language cluster Ci and
+any languages a, b ∈ Ci , S can be used for a high-quality translation between a and b.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : We saw in part (a) that every minimum spanning tree is a
 minimum-cost translation network of G. Hence, to find a minimum-cost translation
 network, it is sufficient to find a minimum spanning tree of G. We may do so using
 Kruskal\'s algorithm, for a runtime of Θ(m log n), or using Prim\'s algorithm, for a
@@ -747,68 +527,12 @@ Ci contains languages that are fairly similar; each language is contained in exa
 Your bosses have decided that a translation between a, b ∈ Ci is high-quality if and only if all of
 the languages used on the path from a to b are also in Ci . The translator set S is a high-quality
 translation network if and only if it is a translation network, and for any language cluster Ci and
-any languages a, b ∈ Ci , S can be used for a high-quality translation between a and b.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Give an efficient algorithm that takes G as input, and outputs a minimum-cost trans-
-lation network of G. State the runtime of your algorithm in terms of the number of
-languages n and the number of potential translators m.
-Your bosses have decided that the previous approach to translation doesn\'t work. When attempting
-to translate between Spanish and Portuguese - two relatively similar languages - it degrades the
-translation quality to translate from Spanish to Tagalog to Mandarin to Portuguese. There are
-certain clusters of languages that are more closely related than others. When translating between
-two languages that lie within the same cluster, such as Spanish and Portuguese, the translation
-is of high quality when the sequence of languages used to translate between them is completely
-contained within the cluster.
-More formally, the language set V can be divided into disjoint clusters C1 , . . . , Ck . Each cluster
-Ci contains languages that are fairly similar; each language is contained in exactly one cluster.
-Your bosses have decided that a translation between a, b ∈ Ci is high-quality if and only if all of
-the languages used on the path from a to b are also in Ci . The translator set S is a high-quality
-translation network if and only if it is a translation network, and for any language cluster Ci and
-any languages a, b ∈ Ci , S can be used for a high-quality translation between a and b.', 'L\'inverse de give an efficient algorithm that takes g as input, and outputs a minimum-cost trans-
-lation network of g. state the runtime of your algorithm in terms of the number of
-languages n and the number of potential translators m.
-your bosses have decided that the previous approach to translation doesn\'t work. when attempting
-to translate between spanish and portuguese - two relatively similar languages - it degrades the
-translation quality to translate from spanish to tagalog to mandarin to portuguese. there are
-certain clusters of languages that are more closely related than others. when translating between
-two languages that lie within the same cluster, such as spanish and portuguese, the translation
-is of high quality when the sequence of languages used to translate between them is completely
-contained within the cluster.
-more formally, the language set v can be divided into disjoint clusters c1 , . . . , ck . each cluster
-ci contains languages that are fairly similar; each language is contained in exactly one cluster.
-your bosses have decided that a translation between a, b ∈ ci is high-quality if and only if all of
-the languages used on the path from a to b are also in ci . the translator set s is a high-quality
-translation network if and only if it is a translation network, and for any language cluster ci and
-any languages a, b ∈ ci , s can be used for a high-quality translation between a and b.', 'Impossible à déterminer', 'Pas give an efficient algorithm that takes g as input, and outputs a minimum-cost trans-
-lation network of g. state the runtime of your algorithm in terms of the number of
-languages n and the number of potential translators m.
-your bosses have decided that the previous approach to translation doesn\'t work. when attempting
-to translate between spanish and portuguese - two relatively similar languages - it degrades the
-translation quality to translate from spanish to tagalog to mandarin to portuguese. there are
-certain clusters of languages that are more closely related than others. when translating between
-two languages that lie within the same cluster, such as spanish and portuguese, the translation
-is of high quality when the sequence of languages used to translate between them is completely
-contained within the cluster.
-more formally, the language set v can be divided into disjoint clusters c1 , . . . , ck . each cluster
-ci contains languages that are fairly similar; each language is contained in exactly one cluster.
-your bosses have decided that a translation between a, b ∈ ci is high-quality if and only if all of
-the languages used on the path from a to b are also in ci . the translator set s is a high-quality
-translation network if and only if it is a translation network, and for any language cluster ci and
-any languages a, b ∈ ci , s can be used for a high-quality translation between a and b.'), 'correct' => 0, 'answer' => 'Give an efficient algorithm that takes G as input, and outputs a minimum-cost trans-
-lation network of G. State the runtime of your algorithm in terms of the number of
-languages n and the number of potential translators m.
-Your bosses have decided that the previous approach to translation doesn\'t work. When attempting
-to translate between Spanish and Portuguese - two relatively similar languages - it degrades the
-translation quality to translate from Spanish to Tagalog to Mandarin to Portuguese. There are
-certain clusters of languages that are more closely related than others. When translating between
-two languages that lie within the same cluster, such as Spanish and Portuguese, the translation
-is of high quality when the sequence of languages used to translate between them is completely
-contained within the cluster.
-More formally, the language set V can be divided into disjoint clusters C1 , . . . , Ck . Each cluster
-Ci contains languages that are fairly similar; each language is contained in exactly one cluster.
-Your bosses have decided that a translation between a, b ∈ Ci is high-quality if and only if all of
-the languages used on the path from a to b are also in Ci . The translator set S is a high-quality
-translation network if and only if it is a translation network, and for any language cluster Ci and
-any languages a, b ∈ Ci , S can be used for a high-quality translation between a and b.', '_recupere_le' => '2026-11-04T19:55:22.717741+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The idea behind this algorithm is to first compute one MST for
+any languages a, b ∈ Ci , S can be used for a high-quality translation between a and b.', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Give an efficient algorithm for computing a minimum-cost high-quality translation
+network. Analyze the runtime of your algorithm in terms of the number of languages
+n and the number of translators m.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The idea behind this algorithm is to first compute one MST for
 each individual cluster, and then to compute a global MST using the remaining edges.
 More specifically, we do the following:
 1. For each edge (u, v), if there is some cluster Ci such that u, v ∈ Ci , then add
@@ -839,16 +563,27 @@ Hence, the total runtime for this step is Θ(m lg n).
 The third step also requires care. We can store the graph to allow us to efficiently
 lookup w(·, ·) and to tell whether an edge (i, j) has been added to the graph. We can
 also store source(·, ·) to allow for Θ(1) lookups. So the runtime here is bounded by
-Θ(m). The fourth step is Kruskal\'s again, only once, on a graph with ≤ [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Impossible à déterminer', 'L\'inverse de give an efficient algorithm for computing a minimum-cost high-quality translation
-network. analyze the runtime of your algorithm in terms of the number of languages
-n and the number of translators m.', 'Pas give an efficient algorithm for computing a minimum-cost high-quality translation
-network. analyze the runtime of your algorithm in terms of the number of languages
-n and the number of translators m.', 'Give an efficient algorithm for computing a minimum-cost high-quality translation
-network. Analyze the runtime of your algorithm in terms of the number of languages
-n and the number of translators m.'), 'correct' => 3, 'answer' => 'Give an efficient algorithm for computing a minimum-cost high-quality translation
-network. Analyze the runtime of your algorithm in terms of the number of languages
-n and the number of translators m.', '_recupere_le' => '2026-11-04T19:55:22.717838+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.046J — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Executive Summary. We use a randomized algorithm that samples O(1) users to approximate
+Θ(m). The fourth step is Kruskal\'s again, only once, on a graph with ≤ [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
+							array('question' => '[MIT 6.046J — question d’examen, en anglais]
+
+Problem 4. Social Networking [25 points]
+MITbook+ is a new social networking site created by MIT students. Much like other social net-
+working sites, MITbook+ allows you to establish "friendship" with other users. Each user has a
+unique MITbook+ ID number, and a list of all MITbook+ ID numbers is available to the general
+public. Furthermore, for any pair of user IDs, there is a publically-accessible webpage that can be
+used to check whether the pair are friends. However, in the interests of preserving user privacy, all
+other information associated with MITbook+ IDs is available to members only.
+Currently, you are not a user of MITbook+, but you want to learn more about a specific person
+(known to you by his ID as 60461337). Specifically, you want to determine whether he went to
+school at MIT. Fortunately, the founders of MITbook+ have posted some statistics on their blog
+that may help you. Currently, MITbook+ has N users (a very large number). Exactly 2N/3 users
+attended MIT; the other N/3 did not. Interestingly, because MIT is a very tight-knit community,
+every current or former MIT student on MITbook+ is friends with every other current or former
+MIT student on MITbook+.
+In the blog post with the statistics, the MITbook+ founders originally claimed that
+every user on MITbook+ who did not attend MIT was friends with at most N/4 users
+who did attend MIT. Create an efficient algorithm that uses this fact to determine
+whether user 60461337 attended MIT.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Executive Summary. We use a randomized algorithm that samples O(1) users to approximate
 the number of friends the student has. If 60461337 has sufficiently many friends, he must have
 attended MIT; otherwise, he could not have attended MIT. This results in an algorithm with runtime
 O(1) and probability of correctness at least 23 .
@@ -881,75 +616,7 @@ gU (z) = gM (z) + gA (z) ≤ + -1= ·N -1
 In this case, the algorithm will return the incorrect answer if ℓ ≥ 15
 ·k. What is the probability
 of that occurring? To compute this, we resort to the Chernoff bound.
-Let Xi be an [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015', 'choices' => array('Pas problem 4. social networking [25 points]
-mitbook+ is a new social networking site created by mit students. much like other social net-
-working sites, mitbook+ allows you to establish "friendship" with other users. each user has a
-unique mitbook+ id number, and a list of all mitbook+ id numbers is available to the general
-public. furthermore, for any pair of user ids, there is a publically-accessible webpage that can be
-used to check whether the pair are friends. however, in the interests of preserving user privacy, all
-other information associated with mitbook+ ids is available to members only.
-currently, you are not a user of mitbook+, but you want to learn more about a specific person
-(known to you by his id as 60461337). specifically, you want to determine whether he went to
-school at mit. fortunately, the founders of mitbook+ have posted some statistics on their blog
-that may help you. currently, mitbook+ has n users (a very large number). exactly 2n/3 users
-attended mit; the other n/3 did not. interestingly, because mit is a very tight-knit community,
-every current or former mit student on mitbook+ is friends with every other current or former
-mit student on mitbook+.
-in the blog post with the statistics, the mitbook+ founders originally claimed that
-every user on mitbook+ who did not attend mit was friends with at most n/4 users
-who did attend mit. create an efficient algorithm that uses this fact to determine
-whether user 60461337 attended mit.', 'Problem 4. Social Networking [25 points]
-MITbook+ is a new social networking site created by MIT students. Much like other social net-
-working sites, MITbook+ allows you to establish "friendship" with other users. Each user has a
-unique MITbook+ ID number, and a list of all MITbook+ ID numbers is available to the general
-public. Furthermore, for any pair of user IDs, there is a publically-accessible webpage that can be
-used to check whether the pair are friends. However, in the interests of preserving user privacy, all
-other information associated with MITbook+ IDs is available to members only.
-Currently, you are not a user of MITbook+, but you want to learn more about a specific person
-(known to you by his ID as 60461337). Specifically, you want to determine whether he went to
-school at MIT. Fortunately, the founders of MITbook+ have posted some statistics on their blog
-that may help you. Currently, MITbook+ has N users (a very large number). Exactly 2N/3 users
-attended MIT; the other N/3 did not. Interestingly, because MIT is a very tight-knit community,
-every current or former MIT student on MITbook+ is friends with every other current or former
-MIT student on MITbook+.
-In the blog post with the statistics, the MITbook+ founders originally claimed that
-every user on MITbook+ who did not attend MIT was friends with at most N/4 users
-who did attend MIT. Create an efficient algorithm that uses this fact to determine
-whether user 60461337 attended MIT.', 'L\'inverse de problem 4. social networking [25 points]
-mitbook+ is a new social networking site created by mit students. much like other social net-
-working sites, mitbook+ allows you to establish "friendship" with other users. each user has a
-unique mitbook+ id number, and a list of all mitbook+ id numbers is available to the general
-public. furthermore, for any pair of user ids, there is a publically-accessible webpage that can be
-used to check whether the pair are friends. however, in the interests of preserving user privacy, all
-other information associated with mitbook+ ids is available to members only.
-currently, you are not a user of mitbook+, but you want to learn more about a specific person
-(known to you by his id as 60461337). specifically, you want to determine whether he went to
-school at mit. fortunately, the founders of mitbook+ have posted some statistics on their blog
-that may help you. currently, mitbook+ has n users (a very large number). exactly 2n/3 users
-attended mit; the other n/3 did not. interestingly, because mit is a very tight-knit community,
-every current or former mit student on mitbook+ is friends with every other current or former
-mit student on mitbook+.
-in the blog post with the statistics, the mitbook+ founders originally claimed that
-every user on mitbook+ who did not attend mit was friends with at most n/4 users
-who did attend mit. create an efficient algorithm that uses this fact to determine
-whether user 60461337 attended mit.', 'Impossible à déterminer'), 'correct' => 1, 'answer' => 'Problem 4. Social Networking [25 points]
-MITbook+ is a new social networking site created by MIT students. Much like other social net-
-working sites, MITbook+ allows you to establish "friendship" with other users. Each user has a
-unique MITbook+ ID number, and a list of all MITbook+ ID numbers is available to the general
-public. Furthermore, for any pair of user IDs, there is a publically-accessible webpage that can be
-used to check whether the pair are friends. However, in the interests of preserving user privacy, all
-other information associated with MITbook+ IDs is available to members only.
-Currently, you are not a user of MITbook+, but you want to learn more about a specific person
-(known to you by his ID as 60461337). Specifically, you want to determine whether he went to
-school at MIT. Fortunately, the founders of MITbook+ have posted some statistics on their blog
-that may help you. Currently, MITbook+ has N users (a very large number). Exactly 2N/3 users
-attended MIT; the other N/3 did not. Interestingly, because MIT is a very tight-knit community,
-every current or former MIT student on MITbook+ is friends with every other current or former
-MIT student on MITbook+.
-In the blog post with the statistics, the MITbook+ founders originally claimed that
-every user on MITbook+ who did not attend MIT was friends with at most N/4 users
-who did attend MIT. Create an efficient algorithm that uses this fact to determine
-whether user 60461337 attended MIT.', '_recupere_le' => '2026-11-04T19:55:22.718323+00:00Z', '_strategie' => 'separation_enum_solution'),
+Let Xi be an [...]', 'source' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.046J Design and Analysis of Algorithms, Spring 2015'),
 						),
 					),
 				),

@@ -16,7 +16,11 @@ if ( ! function_exists( 'seca_import_mit_ocw_6_851_examens' ) ) {
 					'title' => 'comment-marche-un-ordinateur-de-la-donnee-au-programme',
 					'tasks' => array(
 						'test' => array(
-							array('question' => '[MIT — question d’examen, en anglais] to keep your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Construct a graph G with a vertex for each block, and an edge between the the block contain­
+							array('question' => '[MIT — question d’examen, en anglais] to keep your solutions to one page! Compact balanced parentheses. Recall that in lecture we introduced the balanced-parentheses representation of a binary trie. A common query when using this representation is match(i), which returns the index of the close parenthesis matching the open parenthesis at index i. In this problem we will develop a compact data structure to answer these queries (though a succinct data structure is known).
+Let S be a string of balanced parenthesis. Divide S into blocks of size B. We will call an
+open parenthesis far if its matching parenthesis is in a diﬀerent block. A far parenthesis is
+a pioneer if its matching parenthesis is in a diﬀerent block than the matching parenthesis of
+the previous far parenthesis in S. Prove that there are O(|S|/B) pioneer parenthesis.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Construct a graph G with a vertex for each block, and an edge between the the block contain­
 ing each parenthesis and the block containing its match. Observe that G is a simple graph,
 since if two pioneer parenthesis lie in the same block, their matching parens cannot also lie
 in the same block. We construct the following planar embedding for this graph: place the
@@ -26,24 +30,10 @@ obey. Since a planar embedding exists, G is a planar graph and thus the number o
 at most three times the number of vertices. There are |S|/B vertices, and there is a bijection
 between the edges and pioneer parenthesis, thus there are at most 3|S|/B = O(|S|/B) pioneer
 parenthesis, as desired. For the tight bound of 2|S|/B − 3, observe that this graph is also an
-outerplanar graph (as shown by the same embedding).', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'Pas s to one page! compact balanced parentheses. recall that in lecture we introduced the balanced-parentheses representation of a binary trie. a common query when using this representation is match(i), which returns the index of the close parenthesis matching the open parenthesis at index i. in this problem we will develop a compact data structure to answer these queries (though a succinct data structure is known).
-let s be a string of balanced parenthesis. divide s into blocks of size b. we will call an
-open parenthesis far if its matching parenthesis is in a diﬀerent block. a far parenthesis is
-a pioneer if its matching parenthesis is in a diﬀerent block than the matching parenthesis of
-the previous far parenthesis in s. prove that there are o(|s|/b) pioneer parenthesis.', 's to one page! Compact balanced parentheses. Recall that in lecture we introduced the balanced-parentheses representation of a binary trie. A common query when using this representation is match(i), which returns the index of the close parenthesis matching the open parenthesis at index i. In this problem we will develop a compact data structure to answer these queries (though a succinct data structure is known).
-Let S be a string of balanced parenthesis. Divide S into blocks of size B. We will call an
-open parenthesis far if its matching parenthesis is in a diﬀerent block. A far parenthesis is
-a pioneer if its matching parenthesis is in a diﬀerent block than the matching parenthesis of
-the previous far parenthesis in S. Prove that there are O(|S|/B) pioneer parenthesis.', 'L\'inverse de s to one page! compact balanced parentheses. recall that in lecture we introduced the balanced-parentheses representation of a binary trie. a common query when using this representation is match(i), which returns the index of the close parenthesis matching the open parenthesis at index i. in this problem we will develop a compact data structure to answer these queries (though a succinct data structure is known).
-let s be a string of balanced parenthesis. divide s into blocks of size b. we will call an
-open parenthesis far if its matching parenthesis is in a diﬀerent block. a far parenthesis is
-a pioneer if its matching parenthesis is in a diﬀerent block than the matching parenthesis of
-the previous far parenthesis in s. prove that there are o(|s|/b) pioneer parenthesis.'), 'correct' => 2, 'answer' => 's to one page! Compact balanced parentheses. Recall that in lecture we introduced the balanced-parentheses representation of a binary trie. A common query when using this representation is match(i), which returns the index of the close parenthesis matching the open parenthesis at index i. In this problem we will develop a compact data structure to answer these queries (though a succinct data structure is known).
-Let S be a string of balanced parenthesis. Divide S into blocks of size B. We will call an
-open parenthesis far if its matching parenthesis is in a diﬀerent block. A far parenthesis is
-a pioneer if its matching parenthesis is in a diﬀerent block than the matching parenthesis of
-the previous far parenthesis in S. Prove that there are O(|S|/B) pioneer parenthesis.', '_recupere_le' => '2026-11-04T19:55:22.768726+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] to keep your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : • Divide S into blocks of size B = 1/2 lg |S|.
+outerplanar graph (as shown by the same embedding).', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] to keep your solutions to one page! Compact balanced parentheses. Recall that in lecture we introduced the balanced-parentheses representation of a binary trie. A common query when using this representation is match(i), which returns the index of the close parenthesis matching the open parenthesis at index i. In this problem we will develop a compact data structure to answer these queries (though a succinct data structure is known).
+Develop and analyze a static data structure that, given a string of balanced parenthesis S,
+answers match queries in O(1) time and uses O(|S|) bits of space.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : • Divide S into blocks of size B = 1/2 lg |S|.
 • Make a table giving the block containing the matching parenthesis of each pioneer paren­
 thesis.
 • Make a rank data structure over the bit vector of pioneer parenthesis (1 for pioneer, 0
@@ -63,16 +53,10 @@ it. Otherwise, use rank over pioneers to look into the pioneer table to ﬁnd wh
 matching paren is in. Then use T2 for b with k equal to the diﬀerence between the number of
 open parens and the number of close parens up to p minus diﬀerence between the number of
 open parens and the number of close parens up to b (computed using rank over open paren
-and rank over close paren structures).', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'Pas s to one page! compact balanced parentheses. recall that in lecture we introduced the balanced-parentheses representation of a binary trie. a common query when using this representation is match(i), which returns the index of the close parenthesis matching the open parenthesis at index i. in this problem we will develop a compact data structure to answer these queries (though a succinct data structure is known).
-develop and analyze a static data structure that, given a string of balanced parenthesis s,
-answers match queries in o(1) time and uses o(|s|) bits of space.', 's to one page! Compact balanced parentheses. Recall that in lecture we introduced the balanced-parentheses representation of a binary trie. A common query when using this representation is match(i), which returns the index of the close parenthesis matching the open parenthesis at index i. In this problem we will develop a compact data structure to answer these queries (though a succinct data structure is known).
-Develop and analyze a static data structure that, given a string of balanced parenthesis S,
-answers match queries in O(1) time and uses O(|S|) bits of space.', 'L\'inverse de s to one page! compact balanced parentheses. recall that in lecture we introduced the balanced-parentheses representation of a binary trie. a common query when using this representation is match(i), which returns the index of the close parenthesis matching the open parenthesis at index i. in this problem we will develop a compact data structure to answer these queries (though a succinct data structure is known).
-develop and analyze a static data structure that, given a string of balanced parenthesis s,
-answers match queries in o(1) time and uses o(|s|) bits of space.'), 'correct' => 2, 'answer' => 's to one page! Compact balanced parentheses. Recall that in lecture we introduced the balanced-parentheses representation of a binary trie. A common query when using this representation is match(i), which returns the index of the close parenthesis matching the open parenthesis at index i. In this problem we will develop a compact data structure to answer these queries (though a succinct data structure is known).
-Develop and analyze a static data structure that, given a string of balanced parenthesis S,
-answers match queries in O(1) time and uses O(|S|) bits of space.', '_recupere_le' => '2026-11-04T19:55:22.768934+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] to keep your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Construct a lookup table over the ﬁrst lg n bits in a word. Each entry in the table will point to
+and rank over close paren structures).', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] to keep your solutions to one page! Speeding up static d    vann Emde Boas. In this problem we will develop a static data structure w−lg n matching the O lg a     predecessor time bound mentioned in class.
+Develop and analyze a data structure that supports successor and predecessor queries in the
+word-RAM model in O (lg(w − lg n)) worst-case time using O(n) space.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Construct a lookup table over the ﬁrst lg n bits in a word. Each entry in the table will point to
 a vEB (built with perfect hashing) over the last w − lg n bits of all words whose ﬁrst lg n bits
 match the table index. Additionally, each table entry will contain a pointer to the previous
 and next table entry whose vEBs are not empty.
@@ -81,47 +65,34 @@ to ﬁnd the relevant table entry. If the vEB for that entry contains a successo
 word, we return it. Otherwise, use the table’s pointer to the next non-empty vEB and return
 the smallest key in that vEB. The running time for each vEB lookup is O(lg(w − lg n)) since
 each vEB is over words of size w − lg n. The total space used is O(n) since the table is of size
-O(n) and each key is in only one vEB.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'Pas s to one page! speeding up static d    vann emde boas. in this problem we will develop a static data structure w−lg n matching the o lg a     predecessor time bound mentioned in class.
-develop and analyze a data structure that supports successor and predecessor queries in the
-word-ram model in o (lg(w − lg n)) worst-case time using o(n) space.', 's to one page! Speeding up static d    vann Emde Boas. In this problem we will develop a static data structure w−lg n matching the O lg a     predecessor time bound mentioned in class.
-Develop and analyze a data structure that supports successor and predecessor queries in the
-word-RAM model in O (lg(w − lg n)) worst-case time using O(n) space.', 'L\'inverse de s to one page! speeding up static d    vann emde boas. in this problem we will develop a static data structure w−lg n matching the o lg a     predecessor time bound mentioned in class.
-develop and analyze a data structure that supports successor and predecessor queries in the
-word-ram model in o (lg(w − lg n)) worst-case time using o(n) space.'), 'correct' => 2, 'answer' => 's to one page! Speeding up static d    vann Emde Boas. In this problem we will develop a static data structure w−lg n matching the O lg a     predecessor time bound mentioned in class.
-Develop and analyze a data structure that supports successor and predecessor queries in the
-word-RAM model in O (lg(w − lg n)) worst-case time using O(n) space.', '_recupere_le' => '2026-11-04T19:55:22.769081+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] to keep your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : We will construct a normal vEB structure (built with perfect hashing), except once the
+O(n) and each key is in only one vEB.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] to keep your solutions to one page! Speeding up static d    vann Emde Boas. In this problem we will develop a static data structure w−lg n matching the O lg a     predecessor time bound mentioned in class.
+Develop and analyze a data
+d    structure
+n     that supports successor and predecessor queries in the
+w
+word-RAM model in O lg lg lg n worst-case time using O(n log n) space.
+Neither of your data structures needs to support insertions or deletions.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : We will construct a normal vEB structure (built with perfect hashing), except once the
 recursion gets down to a key size less of at most lg lg n, we will stop and instead use a
 complete lookup table. Speciﬁcally, the table will have lg n entries, one for each bit string
 of length lg lg n and each entry will have the predecessor and successor for that query. The
 running time of queries is clearly O(lg lg wlg n ) since the key length halves with each step in the
 recursion until it stops at lg lg n, and then an O(1) lookup occurs. The space used is O(n lg n)
-since each lookup table has size lg n and there are at most n such tables.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('s to one page! Speeding up static d    vann Emde Boas. In this problem we will develop a static data structure w−lg n matching the O lg a     predecessor time bound mentioned in class.
-Develop and analyze a data
-d    structure
-n     that supports successor and predecessor queries in the
-w
-word-RAM model in O lg lg lg n worst-case time using O(n log n) space.
-Neither of your data structures needs to support insertions or deletions.', 'L\'inverse de s to one page! speeding up static d    vann emde boas. in this problem we will develop a static data structure w−lg n matching the o lg a     predecessor time bound mentioned in class.
-develop and analyze a data
-d    structure
-n     that supports successor and predecessor queries in the
-w
-word-ram model in o lg lg lg n worst-case time using o(n log n) space.
-neither of your data structures needs to support insertions or deletions.', 'Pas s to one page! speeding up static d    vann emde boas. in this problem we will develop a static data structure w−lg n matching the o lg a     predecessor time bound mentioned in class.
-develop and analyze a data
-d    structure
-n     that supports successor and predecessor queries in the
-w
-word-ram model in o lg lg lg n worst-case time using o(n log n) space.
-neither of your data structures needs to support insertions or deletions.', 'Impossible à déterminer'), 'correct' => 0, 'answer' => 's to one page! Speeding up static d    vann Emde Boas. In this problem we will develop a static data structure w−lg n matching the O lg a     predecessor time bound mentioned in class.
-Develop and analyze a data
-d    structure
-n     that supports successor and predecessor queries in the
-w
-word-RAM model in O lg lg lg n worst-case time using O(n log n) space.
-Neither of your data structures needs to support insertions or deletions.', '_recupere_le' => '2026-11-04T19:55:22.769253+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] to keep your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Concise van Emde Boas. We can shave oﬀ a factor of lg u bits of space through indirection.
+since each lookup table has size lg n and there are at most n such tables.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] to keep your solutions to one page! Concise van Emde Boas. Develop and analyze a data structure that supports insert, delete, successor and predecessor in the word-RAM model in O(lg lg u) worst-case time. Your data struc­ ture should use O(u) bits of space. Note that the van Emde Boas data structure from lecture used Θ(u) words of space, and thus Θ(u lg u) bits of space. Union-Split-Find. Develop and analyze a word-RAM data structure to maintain a set of disjoint intervals of the form [a, b) such that a, b ∈ U. Your data structure should support the following operations in O(lg lg u) time: • make(a, b) : Create the interval [a, b) (must not overlap existing intervals). • union(a, b, c) :
+Be sure to read the instructions on the assignments section of the class web page. Remember
+to keep your solutions to one page!
+Concise van Emde Boas. Develop and analyze a data structure that supports insert, delete,
+successor and predecessor in the word-RAM model in O(lg lg u) worst-case time. Your data struc­
+ture should use O(u) bits of space. Note that the van Emde Boas data structure from lecture used
+Θ(u) words of space, and thus Θ(u lg u) bits of space.
+Union-Split-Find. Develop and analyze a word-RAM data structure to maintain a set of disjoint
+intervals of the form [a, b) such that a, b ∈ U. Your data structure should support the following
+operations in O(lg lg u) time:
+• make(a, b) : Create the interval [a, b) (must not overlap existing intervals).
+• union(a, b, c) : Merge the adjacent intervals [a, b) and [b, c) into [a, c).
+• split(a, b, k) : For k ∈ [a, b), split the interval [a, b) into [a, k) and [k, b).
+• find(k) : Return the interval [a, b) that contains k, or report that no interval contains k.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Concise van Emde Boas. We can shave oﬀ a factor of lg u bits of space through indirection.
 Divide the universe into chunks of size lg u, corresponding to the last lg lg u bits of the word. We will
 maintain a van Emde Boas structure over the ﬁrst lg u − lg lg u bits. For each chunk, we maintain
 a single word to represent it. To insert into a chunk, simply set the corresponding bit to 1, and to
@@ -144,60 +115,21 @@ follows:
 • split(a, b, k) : Insert k into A and B.
 • find(k) : Let a be the predecessor of k in A, b be the successor of a in B. If k is in the range
 [a, b), return it, otherwise report that no interval contains k.
-All operations require 2 vEB insert/delete/queries, thus they each take O(lg lg u) time.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas s to one page! concise van emde boas. develop and analyze a data structure that supports insert, delete, successor and predecessor in the word-ram model in o(lg lg u) worst-case time. your data struc­ ture should use o(u) bits of space. note that the van emde boas data structure from lecture used θ(u) words of space, and thus θ(u lg u) bits of space. union-split-find. develop and analyze a word-ram data structure to maintain a set of disjoint intervals of the form [a, b) such that a, b ∈ u. your data structure should support the following operations in o(lg lg u) time: • make(a, b) : create the interval [a, b) (must not overlap existing intervals). • union(a, b, c) :
-be sure to read the instructions on the assignments section of the class web page. remember
-to keep your solutions to one page!
-concise van emde boas. develop and analyze a data structure that supports insert, delete,
-successor and predecessor in the word-ram model in o(lg lg u) worst-case time. your data struc­
-ture should use o(u) bits of space. note that the van emde boas data structure from lecture used
-θ(u) words of space, and thus θ(u lg u) bits of space.
-union-split-find. develop and analyze a word-ram data structure to maintain a set of disjoint
-intervals of the form [a, b) such that a, b ∈ u. your data structure should support the following
-operations in o(lg lg u) time:
-• make(a, b) : create the interval [a, b) (must not overlap existing intervals).
-• union(a, b, c) : merge the adjacent intervals [a, b) and [b, c) into [a, c).
-• split(a, b, k) : for k ∈ [a, b), split the interval [a, b) into [a, k) and [k, b).
-• find(k) : return the interval [a, b) that contains k, or report that no interval contains k.', 'Impossible à déterminer', 'L\'inverse de s to one page! concise van emde boas. develop and analyze a data structure that supports insert, delete, successor and predecessor in the word-ram model in o(lg lg u) worst-case time. your data struc­ ture should use o(u) bits of space. note that the van emde boas data structure from lecture used θ(u) words of space, and thus θ(u lg u) bits of space. union-split-find. develop and analyze a word-ram data structure to maintain a set of disjoint intervals of the form [a, b) such that a, b ∈ u. your data structure should support the following operations in o(lg lg u) time: • make(a, b) : create the interval [a, b) (must not overlap existing intervals). • union(a, b, c) :
-be sure to read the instructions on the assignments section of the class web page. remember
-to keep your solutions to one page!
-concise van emde boas. develop and analyze a data structure that supports insert, delete,
-successor and predecessor in the word-ram model in o(lg lg u) worst-case time. your data struc­
-ture should use o(u) bits of space. note that the van emde boas data structure from lecture used
-θ(u) words of space, and thus θ(u lg u) bits of space.
-union-split-find. develop and analyze a word-ram data structure to maintain a set of disjoint
-intervals of the form [a, b) such that a, b ∈ u. your data structure should support the following
-operations in o(lg lg u) time:
-• make(a, b) : create the interval [a, b) (must not overlap existing intervals).
-• union(a, b, c) : merge the adjacent intervals [a, b) and [b, c) into [a, c).
-• split(a, b, k) : for k ∈ [a, b), split the interval [a, b) into [a, k) and [k, b).
-• find(k) : return the interval [a, b) that contains k, or report that no interval contains k.', 's to one page! Concise van Emde Boas. Develop and analyze a data structure that supports insert, delete, successor and predecessor in the word-RAM model in O(lg lg u) worst-case time. Your data struc­ ture should use O(u) bits of space. Note that the van Emde Boas data structure from lecture used Θ(u) words of space, and thus Θ(u lg u) bits of space. Union-Split-Find. Develop and analyze a word-RAM data structure to maintain a set of disjoint intervals of the form [a, b) such that a, b ∈ U. Your data structure should support the following operations in O(lg lg u) time: • make(a, b) : Create the interval [a, b) (must not overlap existing intervals). • union(a, b, c) :
-Be sure to read the instructions on the assignments section of the class web page. Remember
-to keep your solutions to one page!
-Concise van Emde Boas. Develop and analyze a data structure that supports insert, delete,
-successor and predecessor in the word-RAM model in O(lg lg u) worst-case time. Your data struc­
-ture should use O(u) bits of space. Note that the van Emde Boas data structure from lecture used
-Θ(u) words of space, and thus Θ(u lg u) bits of space.
-Union-Split-Find. Develop and analyze a word-RAM data structure to maintain a set of disjoint
-intervals of the form [a, b) such that a, b ∈ U. Your data structure should support the following
-operations in O(lg lg u) time:
-• make(a, b) : Create the interval [a, b) (must not overlap existing intervals).
-• union(a, b, c) : Merge the adjacent intervals [a, b) and [b, c) into [a, c).
-• split(a, b, k) : For k ∈ [a, b), split the interval [a, b) into [a, k) and [k, b).
-• find(k) : Return the interval [a, b) that contains k, or report that no interval contains k.'), 'correct' => 3, 'answer' => 's to one page! Concise van Emde Boas. Develop and analyze a data structure that supports insert, delete, successor and predecessor in the word-RAM model in O(lg lg u) worst-case time. Your data struc­ ture should use O(u) bits of space. Note that the van Emde Boas data structure from lecture used Θ(u) words of space, and thus Θ(u lg u) bits of space. Union-Split-Find. Develop and analyze a word-RAM data structure to maintain a set of disjoint intervals of the form [a, b) such that a, b ∈ U. Your data structure should support the following operations in O(lg lg u) time: • make(a, b) : Create the interval [a, b) (must not overlap existing intervals). • union(a, b, c) :
-Be sure to read the instructions on the assignments section of the class web page. Remember
-to keep your solutions to one page!
-Concise van Emde Boas. Develop and analyze a data structure that supports insert, delete,
-successor and predecessor in the word-RAM model in O(lg lg u) worst-case time. Your data struc­
-ture should use O(u) bits of space. Note that the van Emde Boas data structure from lecture used
-Θ(u) words of space, and thus Θ(u lg u) bits of space.
-Union-Split-Find. Develop and analyze a word-RAM data structure to maintain a set of disjoint
-intervals of the form [a, b) such that a, b ∈ U. Your data structure should support the following
-operations in O(lg lg u) time:
-• make(a, b) : Create the interval [a, b) (must not overlap existing intervals).
-• union(a, b, c) : Merge the adjacent intervals [a, b) and [b, c) into [a, c).
-• split(a, b, k) : For k ∈ [a, b), split the interval [a, b) into [a, k) and [k, b).
-• find(k) : Return the interval [a, b) that contains k, or report that no interval contains k.', '_recupere_le' => '2026-11-04T19:55:22.769848+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] Creationist successor. Given an ordered universe U of keys, develop and analyze a fully retroac­ tive data structure that maintains S ⊆ U and supports the following operations: • insert(k) :    Insert k ∈ U into S • delete(k) :    Remove k ∈ U from S • successor(k) :     Return min{k \' ∈ S | k \' ≥ k} under the constraint that all insert operations must occur at time −∞. All operations should run in time O(log m), where m is the total number of updates performed in the structure (retroactive or not). Observe that such a structure is suﬃcient to', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Creationist successor data structure. The data structure is a balanced BST, such as an AVL
+All operations require 2 vEB insert/delete/queries, thus they each take O(lg lg u) time.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] Creationist successor. Given an ordered universe U of keys, develop and analyze a fully retroac­ tive data structure that maintains S ⊆ U and supports the following operations: • insert(k) :    Insert k ∈ U into S • delete(k) :    Remove k ∈ U from S • successor(k) :     Return min{k \' ∈ S | k \' ≥ k} under the constraint that all insert operations must occur at time −∞. All operations should run in time O(log m), where m is the total number of updates performed in the structure (retroactive or not). Observe that such a structure is suﬃcient to answer the “rightward ray shot” queries needed for the nonoblivious retroactive priority queue. A simple reference to the logarithmic time data
+Be sure to read the instructions on the assignments section of the class web page.
+Creationist successor. Given an ordered universe U of keys, develop and analyze a fully retroac­
+tive data structure that maintains S ⊆ U and supports the following operations:
+• insert(k) :    Insert k ∈ U into S
+• delete(k) :    Remove k ∈ U from S
+• successor(k) :     Return min{k \' ∈ S | k \' ≥ k}
+under the constraint that all insert operations must occur at time −∞. All operations should run
+in time O(log m), where m is the total number of updates performed in the structure (retroactive or
+not). Observe that such a structure is suﬃcient to answer the “rightward ray shot” queries needed
+for the nonoblivious retroactive priority queue.
+A simple reference to the logarithmic time data structure for general retroactive successor is
+not a valid solution to this problem. This is a special case of that problem, and a much simpler
+solution is desired.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Creationist successor data structure. The data structure is a balanced BST, such as an AVL
 tree or red black tree, augmented with the following ﬁelds augmented to each node x:
 • td : The time at which x is deleted
 • tm : The maximal deletion time among x’s subtree
@@ -227,60 +159,18 @@ subtree, avoiding all subtrees whose maximal deletion time is smaller or equal t
 takes O(log n) time.
 Analysis of operation time.        This data structure has O(log n) for all operations, where n is
 the number of elements in tree. We have n ≤ m, where m is the total number of updates. Therefore
-the data structure has operation time O(log m) (for all operations.)', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'L\'inverse de the “rightward ray shot” queries needed for the nonoblivious retroactive priority queue. a simple reference to the logarithmic time data
-be sure to read the instructions on the assignments section of the class web page.
-creationist successor. given an ordered universe u of keys, develop and analyze a fully retroac­
-tive data structure that maintains s ⊆ u and supports the following operations:
-• insert(k) :    insert k ∈ u into s
-• delete(k) :    remove k ∈ u from s
-• successor(k) :     return min{k \' ∈ s | k \' ≥ k}
-under the constraint that all insert operations must occur at time −∞. all operations should run
-in time o(log m), where m is the total number of updates performed in the structure (retroactive or
-not). observe that such a structure is suﬃcient to answer the “rightward ray shot” queries needed
-for the nonoblivious retroactive priority queue.
-a simple reference to the logarithmic time data structure for general retroactive successor is
-not a valid solution to this problem. this is a special case of that problem, and a much simpler
-solution is desired.', 'the “rightward ray shot” queries needed for the nonoblivious retroactive priority queue. A simple reference to the logarithmic time data
-Be sure to read the instructions on the assignments section of the class web page.
-Creationist successor. Given an ordered universe U of keys, develop and analyze a fully retroac­
-tive data structure that maintains S ⊆ U and supports the following operations:
-• insert(k) :    Insert k ∈ U into S
-• delete(k) :    Remove k ∈ U from S
-• successor(k) :     Return min{k \' ∈ S | k \' ≥ k}
-under the constraint that all insert operations must occur at time −∞. All operations should run
-in time O(log m), where m is the total number of updates performed in the structure (retroactive or
-not). Observe that such a structure is suﬃcient to answer the “rightward ray shot” queries needed
-for the nonoblivious retroactive priority queue.
-A simple reference to the logarithmic time data structure for general retroactive successor is
-not a valid solution to this problem. This is a special case of that problem, and a much simpler
-solution is desired.', 'Pas the “rightward ray shot” queries needed for the nonoblivious retroactive priority queue. a simple reference to the logarithmic time data
-be sure to read the instructions on the assignments section of the class web page.
-creationist successor. given an ordered universe u of keys, develop and analyze a fully retroac­
-tive data structure that maintains s ⊆ u and supports the following operations:
-• insert(k) :    insert k ∈ u into s
-• delete(k) :    remove k ∈ u from s
-• successor(k) :     return min{k \' ∈ s | k \' ≥ k}
-under the constraint that all insert operations must occur at time −∞. all operations should run
-in time o(log m), where m is the total number of updates performed in the structure (retroactive or
-not). observe that such a structure is suﬃcient to answer the “rightward ray shot” queries needed
-for the nonoblivious retroactive priority queue.
-a simple reference to the logarithmic time data structure for general retroactive successor is
-not a valid solution to this problem. this is a special case of that problem, and a much simpler
-solution is desired.'), 'correct' => 2, 'answer' => 'the “rightward ray shot” queries needed for the nonoblivious retroactive priority queue. A simple reference to the logarithmic time data
-Be sure to read the instructions on the assignments section of the class web page.
-Creationist successor. Given an ordered universe U of keys, develop and analyze a fully retroac­
-tive data structure that maintains S ⊆ U and supports the following operations:
-• insert(k) :    Insert k ∈ U into S
-• delete(k) :    Remove k ∈ U from S
-• successor(k) :     Return min{k \' ∈ S | k \' ≥ k}
-under the constraint that all insert operations must occur at time −∞. All operations should run
-in time O(log m), where m is the total number of updates performed in the structure (retroactive or
-not). Observe that such a structure is suﬃcient to answer the “rightward ray shot” queries needed
-for the nonoblivious retroactive priority queue.
-A simple reference to the logarithmic time data structure for general retroactive successor is
-not a valid solution to this problem. This is a special case of that problem, and a much simpler
-solution is desired.', '_recupere_le' => '2026-11-04T19:55:22.770377+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] to keep your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Cache-oblivious median ﬁnding. The standard median of medians algorithm is already a
+the data structure has operation time O(log m) (for all operations.)', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] to keep your solutions to one page! Cache-oblivious median ﬁnding. Given an unordered array of N elements, develop and ana­ lyze a cache-oblivious algorithm to ﬁnd the median of the array in O(IN/Bl) memory transfers. In your solution, you may assume knowledge of the standard median-of-medians deterministic selection algorithm. Cache-oblivous queue. Develop and analyze a cache-oblivious FIFO queue. Both the enqueue and the dequeue operation should take O(1/B) amortized memory transfers. Your data structure should only use external memory indices in {0, 1, · · · , O(N )}, where N is the maximum number of elements stored in the queue at once.
+Be sure to read the instructions on the assignments section of the class web page. Remember
+to keep your solutions to one page!
+Cache-oblivious median ﬁnding. Given an unordered array of N elements, develop and ana­
+lyze a cache-oblivious algorithm to ﬁnd the median of the array in O(IN/Bl) memory transfers. In
+your solution, you may assume knowledge of the standard median-of-medians deterministic selection
+algorithm.
+Cache-oblivous queue. Develop and analyze a cache-oblivious FIFO queue. Both the enqueue
+and the dequeue operation should take O(1/B) amortized memory transfers. Your data structure
+should only use external memory indices in {0, 1, · · · , O(N )}, where N is the maximum number of
+elements stored in the queue at once.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Cache-oblivious median ﬁnding. The standard median of medians algorithm is already a
 cache-oblivious algorithm meeting the desired bounds, so all the remains is to prove this. Each
 step of the recursion (ﬁnding the medians of the groups of ﬁve and selecting the elements for
 recursion) can be done in O(1) passes over the the array for a total of O(IN/Bl) memory transfers.
@@ -300,48 +190,24 @@ Note that this algorithm does not stay in memory indices {0, 1, · · · , O(N )
 2 ∗ head > tail, we shift all the elements to the beginning of external memory. This shift takes
 O(k/B) memory transfers, where k is the current size of the queue, and we can charge it to the Ω(k)
 dequeues that must have occurred between it and the previous shift, so we still have an amortized
-O(1/B) memory transfers per operation.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas s to one page! cache-oblivious median ﬁnding. given an unordered array of n elements, develop and ana­ lyze a cache-oblivious algorithm to ﬁnd the median of the array in o(in/bl) memory transfers. in your solution, you may assume knowledge of the standard median-of-medians deterministic selection algorithm. cache-oblivous queue. develop and analyze a cache-oblivious fifo queue. both the enqueue and the dequeue operation should take o(1/b) amortized memory transfers. your data structure should only use external memory indices in {0, 1, · · · , o(n )}, where n is the maximum number of elements stored in the queue at once.
-be sure to read the instructions on the assignments section of the class web page. remember
-to keep your solutions to one page!
-cache-oblivious median ﬁnding. given an unordered array of n elements, develop and ana­
-lyze a cache-oblivious algorithm to ﬁnd the median of the array in o(in/bl) memory transfers. in
-your solution, you may assume knowledge of the standard median-of-medians deterministic selection
-algorithm.
-cache-oblivous queue. develop and analyze a cache-oblivious fifo queue. both the enqueue
-and the dequeue operation should take o(1/b) amortized memory transfers. your data structure
-should only use external memory indices in {0, 1, · · · , o(n )}, where n is the maximum number of
-elements stored in the queue at once.', 'Impossible à déterminer', 'L\'inverse de s to one page! cache-oblivious median ﬁnding. given an unordered array of n elements, develop and ana­ lyze a cache-oblivious algorithm to ﬁnd the median of the array in o(in/bl) memory transfers. in your solution, you may assume knowledge of the standard median-of-medians deterministic selection algorithm. cache-oblivous queue. develop and analyze a cache-oblivious fifo queue. both the enqueue and the dequeue operation should take o(1/b) amortized memory transfers. your data structure should only use external memory indices in {0, 1, · · · , o(n )}, where n is the maximum number of elements stored in the queue at once.
-be sure to read the instructions on the assignments section of the class web page. remember
-to keep your solutions to one page!
-cache-oblivious median ﬁnding. given an unordered array of n elements, develop and ana­
-lyze a cache-oblivious algorithm to ﬁnd the median of the array in o(in/bl) memory transfers. in
-your solution, you may assume knowledge of the standard median-of-medians deterministic selection
-algorithm.
-cache-oblivous queue. develop and analyze a cache-oblivious fifo queue. both the enqueue
-and the dequeue operation should take o(1/b) amortized memory transfers. your data structure
-should only use external memory indices in {0, 1, · · · , o(n )}, where n is the maximum number of
-elements stored in the queue at once.', 's to one page! Cache-oblivious median ﬁnding. Given an unordered array of N elements, develop and ana­ lyze a cache-oblivious algorithm to ﬁnd the median of the array in O(IN/Bl) memory transfers. In your solution, you may assume knowledge of the standard median-of-medians deterministic selection algorithm. Cache-oblivous queue. Develop and analyze a cache-oblivious FIFO queue. Both the enqueue and the dequeue operation should take O(1/B) amortized memory transfers. Your data structure should only use external memory indices in {0, 1, · · · , O(N )}, where N is the maximum number of elements stored in the queue at once.
+O(1/B) memory transfers per operation.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] to keep your solutions to one page! Signature compression. Recall that the ﬁrst step in Signature Sort was to reduce each w = lg2+ε n bit input word to a O(lg1+ε n)-bit signature. We achieved this by dividing each word into k = lgε n chunks of w/k = lg2 n bits each and applying a hash function to each chunk, reducing it to lg n bits. After hashing, our word was of the form 0w/k−lg n h1 0w/k−lg n h2 · · · 0w/k−lg n hk , where each chunk hash hi is lg n bits long. Describe how to compress this word so that all of the hashed chunks are adjacent in the least signiﬁcant bits of the word, so that it has the form needed by the algorithm: 0w−k lg n h1 h2 · · · hk . Your algorithm should take O(1)
 Be sure to read the instructions on the assignments section of the class web page. Remember
 to keep your solutions to one page!
-Cache-oblivious median ﬁnding. Given an unordered array of N elements, develop and ana­
-lyze a cache-oblivious algorithm to ﬁnd the median of the array in O(IN/Bl) memory transfers. In
-your solution, you may assume knowledge of the standard median-of-medians deterministic selection
-algorithm.
-Cache-oblivous queue. Develop and analyze a cache-oblivious FIFO queue. Both the enqueue
-and the dequeue operation should take O(1/B) amortized memory transfers. Your data structure
-should only use external memory indices in {0, 1, · · · , O(N )}, where N is the maximum number of
-elements stored in the queue at once.'), 'correct' => 3, 'answer' => 's to one page! Cache-oblivious median ﬁnding. Given an unordered array of N elements, develop and ana­ lyze a cache-oblivious algorithm to ﬁnd the median of the array in O(IN/Bl) memory transfers. In your solution, you may assume knowledge of the standard median-of-medians deterministic selection algorithm. Cache-oblivous queue. Develop and analyze a cache-oblivious FIFO queue. Both the enqueue and the dequeue operation should take O(1/B) amortized memory transfers. Your data structure should only use external memory indices in {0, 1, · · · , O(N )}, where N is the maximum number of elements stored in the queue at once.
-Be sure to read the instructions on the assignments section of the class web page. Remember
-to keep your solutions to one page!
-Cache-oblivious median ﬁnding. Given an unordered array of N elements, develop and ana­
-lyze a cache-oblivious algorithm to ﬁnd the median of the array in O(IN/Bl) memory transfers. In
-your solution, you may assume knowledge of the standard median-of-medians deterministic selection
-algorithm.
-Cache-oblivous queue. Develop and analyze a cache-oblivious FIFO queue. Both the enqueue
-and the dequeue operation should take O(1/B) amortized memory transfers. Your data structure
-should only use external memory indices in {0, 1, · · · , O(N )}, where N is the maximum number of
-elements stored in the queue at once.', '_recupere_le' => '2026-11-04T19:55:22.770823+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] to keep your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Signature compression. We will ﬁrst multiply the input word x by an integer m which will
+Signature compression. Recall that the ﬁrst step in Signature Sort was to reduce each w =
+lg2+ε n bit input word to a O(lg1+ε n)-bit signature. We achieved this by dividing each word into
+k = lgε n chunks of w/k = lg2 n bits each and applying a hash function to each chunk, reducing it
+to lg n bits. After hashing, our word was of the form
+0w/k−lg n h1 0w/k−lg n h2 · · · 0w/k−lg n hk ,
+where each chunk hash hi is lg n bits long. Describe how to compress this word so that all of the
+hashed chunks are adjacent in the least signiﬁcant bits of the word, so that it has the form needed
+by the algorithm:
+0w−k lg n h1 h2 · · · hk .
+Your algorithm should take O(1) time using the word-RAM operations (+, -, *, /, %, &, |, ~, ^,
+<<, >>). You may assume that ε < 1.
+Level ancestors construction. In class we presented a data structure for answering level an­
+cestor queries in O(1) time using O(n) space. Develop and analyze an algorithm for constructing
+this data structure in O(n) time.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Signature compression. We will ﬁrst multiply the input word x by an integer m which will
 arrange h1 , h2 , · · · , hk into a lg2 n bit segment, then shift this segment to the least signiﬁcant bits
 of the word, and ﬁnally mask out all of the other bits. This consists of 3 word-RAM operations,
 thus it clearly runs in O(1) time.
@@ -364,72 +230,9 @@ as a pointer to the maximum depth child of each node. Next build the paths by fo
 pointers and recursively building the paths from the other children.
 To compute the jump pointers from each leaf, we will use the ladder decomposition. All lg n
 jump pointers fall within O(lg n) ladders from the leaf to the root, so simply follow these ladders
-and extract all of the jump pointers in O(lg n) time per leaf.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas s to one page! signature compression. recall that the ﬁrst step in signature sort was to reduce each w = lg2+ε n bit input word to a o(lg1+ε n)-bit signature. we achieved this by dividing each word into k = lgε n chunks of w/k = lg2 n bits each and applying a hash function to each chunk, reducing it to lg n bits. after hashing, our word was of the form 0w/k−lg n h1 0w/k−lg n h2 · · · 0w/k−lg n hk , where each chunk hash hi is lg n bits long. describe how to compress this word so that all of the hashed chunks are adjacent in the least signiﬁcant bits of the word, so that it has the form needed by the algorithm: 0w−k lg n h1 h2 · · · hk . your algorithm should take o(1)
-be sure to read the instructions on the assignments section of the class web page. remember
-to keep your solutions to one page!
-signature compression. recall that the ﬁrst step in signature sort was to reduce each w =
-lg2+ε n bit input word to a o(lg1+ε n)-bit signature. we achieved this by dividing each word into
-k = lgε n chunks of w/k = lg2 n bits each and applying a hash function to each chunk, reducing it
-to lg n bits. after hashing, our word was of the form
-0w/k−lg n h1 0w/k−lg n h2 · · · 0w/k−lg n hk ,
-where each chunk hash hi is lg n bits long. describe how to compress this word so that all of the
-hashed chunks are adjacent in the least signiﬁcant bits of the word, so that it has the form needed
-by the algorithm:
-0w−k lg n h1 h2 · · · hk .
-your algorithm should take o(1) time using the word-ram operations (+, -, *, /, %, &, |, ~, ^,
-<<, >>). you may assume that ε < 1.
-level ancestors construction. in class we presented a data structure for answering level an­
-cestor queries in o(1) time using o(n) space. develop and analyze an algorithm for constructing
-this data structure in o(n) time.', 'L\'inverse de s to one page! signature compression. recall that the ﬁrst step in signature sort was to reduce each w = lg2+ε n bit input word to a o(lg1+ε n)-bit signature. we achieved this by dividing each word into k = lgε n chunks of w/k = lg2 n bits each and applying a hash function to each chunk, reducing it to lg n bits. after hashing, our word was of the form 0w/k−lg n h1 0w/k−lg n h2 · · · 0w/k−lg n hk , where each chunk hash hi is lg n bits long. describe how to compress this word so that all of the hashed chunks are adjacent in the least signiﬁcant bits of the word, so that it has the form needed by the algorithm: 0w−k lg n h1 h2 · · · hk . your algorithm should take o(1)
-be sure to read the instructions on the assignments section of the class web page. remember
-to keep your solutions to one page!
-signature compression. recall that the ﬁrst step in signature sort was to reduce each w =
-lg2+ε n bit input word to a o(lg1+ε n)-bit signature. we achieved this by dividing each word into
-k = lgε n chunks of w/k = lg2 n bits each and applying a hash function to each chunk, reducing it
-to lg n bits. after hashing, our word was of the form
-0w/k−lg n h1 0w/k−lg n h2 · · · 0w/k−lg n hk ,
-where each chunk hash hi is lg n bits long. describe how to compress this word so that all of the
-hashed chunks are adjacent in the least signiﬁcant bits of the word, so that it has the form needed
-by the algorithm:
-0w−k lg n h1 h2 · · · hk .
-your algorithm should take o(1) time using the word-ram operations (+, -, *, /, %, &, |, ~, ^,
-<<, >>). you may assume that ε < 1.
-level ancestors construction. in class we presented a data structure for answering level an­
-cestor queries in o(1) time using o(n) space. develop and analyze an algorithm for constructing
-this data structure in o(n) time.', 's to one page! Signature compression. Recall that the ﬁrst step in Signature Sort was to reduce each w = lg2+ε n bit input word to a O(lg1+ε n)-bit signature. We achieved this by dividing each word into k = lgε n chunks of w/k = lg2 n bits each and applying a hash function to each chunk, reducing it to lg n bits. After hashing, our word was of the form 0w/k−lg n h1 0w/k−lg n h2 · · · 0w/k−lg n hk , where each chunk hash hi is lg n bits long. Describe how to compress this word so that all of the hashed chunks are adjacent in the least signiﬁcant bits of the word, so that it has the form needed by the algorithm: 0w−k lg n h1 h2 · · · hk . Your algorithm should take O(1)
-Be sure to read the instructions on the assignments section of the class web page. Remember
-to keep your solutions to one page!
-Signature compression. Recall that the ﬁrst step in Signature Sort was to reduce each w =
-lg2+ε n bit input word to a O(lg1+ε n)-bit signature. We achieved this by dividing each word into
-k = lgε n chunks of w/k = lg2 n bits each and applying a hash function to each chunk, reducing it
-to lg n bits. After hashing, our word was of the form
-0w/k−lg n h1 0w/k−lg n h2 · · · 0w/k−lg n hk ,
-where each chunk hash hi is lg n bits long. Describe how to compress this word so that all of the
-hashed chunks are adjacent in the least signiﬁcant bits of the word, so that it has the form needed
-by the algorithm:
-0w−k lg n h1 h2 · · · hk .
-Your algorithm should take O(1) time using the word-RAM operations (+, -, *, /, %, &, |, ~, ^,
-<<, >>). You may assume that ε < 1.
-Level ancestors construction. In class we presented a data structure for answering level an­
-cestor queries in O(1) time using O(n) space. Develop and analyze an algorithm for constructing
-this data structure in O(n) time.', 'Impossible à déterminer'), 'correct' => 2, 'answer' => 's to one page! Signature compression. Recall that the ﬁrst step in Signature Sort was to reduce each w = lg2+ε n bit input word to a O(lg1+ε n)-bit signature. We achieved this by dividing each word into k = lgε n chunks of w/k = lg2 n bits each and applying a hash function to each chunk, reducing it to lg n bits. After hashing, our word was of the form 0w/k−lg n h1 0w/k−lg n h2 · · · 0w/k−lg n hk , where each chunk hash hi is lg n bits long. Describe how to compress this word so that all of the hashed chunks are adjacent in the least signiﬁcant bits of the word, so that it has the form needed by the algorithm: 0w−k lg n h1 h2 · · · hk . Your algorithm should take O(1)
-Be sure to read the instructions on the assignments section of the class web page. Remember
-to keep your solutions to one page!
-Signature compression. Recall that the ﬁrst step in Signature Sort was to reduce each w =
-lg2+ε n bit input word to a O(lg1+ε n)-bit signature. We achieved this by dividing each word into
-k = lgε n chunks of w/k = lg2 n bits each and applying a hash function to each chunk, reducing it
-to lg n bits. After hashing, our word was of the form
-0w/k−lg n h1 0w/k−lg n h2 · · · 0w/k−lg n hk ,
-where each chunk hash hi is lg n bits long. Describe how to compress this word so that all of the
-hashed chunks are adjacent in the least signiﬁcant bits of the word, so that it has the form needed
-by the algorithm:
-0w−k lg n h1 h2 · · · hk .
-Your algorithm should take O(1) time using the word-RAM operations (+, -, *, /, %, &, |, ~, ^,
-<<, >>). You may assume that ε < 1.
-Level ancestors construction. In class we presented a data structure for answering level an­
-cestor queries in O(1) time using O(n) space. Develop and analyze an algorithm for constructing
-this data structure in O(n) time.', '_recupere_le' => '2026-11-04T19:55:22.771426+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] Range tree construction. Recall that in class we presented the range tree and the layered range tree for', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : If we can construct a d − 1-dimensional range tree in O(n lgd−2 n) time, then we can easily
+and extract all of the jump pointers in O(lg n) time per leaf.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] Range tree construction. Recall that in class we presented the range tree and the layered range tree for answering orthogonal range trees. However, we did not describe how to construct them eﬃciently.
+Describe how to construct a d-dimensional range tree on n given points in O(n lgd−1 n) time.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : If we can construct a d − 1-dimensional range tree in O(n lgd−2 n) time, then we can easily
 construct a d-dimensional range tree in O(n lgd−1 n) time. To do this, we construct the tree
 from the root down. First, construct a d − 1 dimensional range tree over all elements for the
 root, then divide on the dth dimension and pass down the relevant elements to each subtree
@@ -440,26 +243,21 @@ to construct a 2-dimensional range tree in O(n lg n) time. To do this, ﬁrst so
 by y in O(n lg n) time. We then build the tree over x as before, except since the elements are
 sorted by y (which we can easily maintain as we work down the tree) the time to build each
 balanced tree over y is O(n), for a total of
-T (n, 2) = 2T (n/2, 2) + T (n, 1) = 2T (n/2, 2) + O(n) = O(n lg n).', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas ing orthogonal range trees. however, we did not describe how to construct them eﬃciently.
-describe how to construct a d-dimensional range tree on n given points in o(n lgd−1 n) time.', 'ing orthogonal range trees. However, we did not describe how to construct them eﬃciently.
-Describe how to construct a d-dimensional range tree on n given points in O(n lgd−1 n) time.', 'Impossible à déterminer', 'L\'inverse de ing orthogonal range trees. however, we did not describe how to construct them eﬃciently.
-describe how to construct a d-dimensional range tree on n given points in o(n lgd−1 n) time.'), 'correct' => 1, 'answer' => 'ing orthogonal range trees. However, we did not describe how to construct them eﬃciently.
-Describe how to construct a d-dimensional range tree on n given points in O(n lgd−1 n) time.', '_recupere_le' => '2026-11-04T19:55:22.771547+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] Range tree construction. Recall that in class we presented the range tree and the layered range tree for', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The procedure for a constructing a layered range tree is identical to the previous section,
+T (n, 2) = 2T (n/2, 2) + T (n, 1) = 2T (n/2, 2) + O(n) = O(n lg n).', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] Range tree construction. Recall that in class we presented the range tree and the layered range tree for answering orthogonal range trees. However, we did not describe how to construct them eﬃciently.
+Describe how to construct a d-dimensional layered range tree on n given points in O(n lgd−1 n)
+time.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The procedure for a constructing a layered range tree is identical to the previous section,
 except instead of building the tree over y in O(n) time, we must instead compute the pointers
 between adjacent layers in O(n) time. This can be done by with a merge-like operation on the
 child and parent arrays. Keep a pointer to the head of each array, if the y value at the child
 head is less than the y value at the parent head, then increment the child head. Otherwise,
-the parent head points to the child head and we increment the parent head.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('L\'inverse de ing orthogonal range trees. however, we did not describe how to construct them eﬃciently.
-describe how to construct a d-dimensional layered range tree on n given points in o(n lgd−1 n)
-time.', 'Pas ing orthogonal range trees. however, we did not describe how to construct them eﬃciently.
-describe how to construct a d-dimensional layered range tree on n given points in o(n lgd−1 n)
-time.', 'ing orthogonal range trees. However, we did not describe how to construct them eﬃciently.
-Describe how to construct a d-dimensional layered range tree on n given points in O(n lgd−1 n)
-time.', 'Impossible à déterminer'), 'correct' => 2, 'answer' => 'ing orthogonal range trees. However, we did not describe how to construct them eﬃciently.
-Describe how to construct a d-dimensional layered range tree on n given points in O(n lgd−1 n)
-time.', '_recupere_le' => '2026-11-04T19:55:22.771721+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] to keep your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : String matching. Construct a compressed suﬃx trie over S = S1 $1 S2 $2 , and then trim below
+the parent head points to the child head and we increment the parent head.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] to keep your solutions to one page! Substring matching. Given two strings S1 and S2 , and a positive integer k, ﬁnd the number of substrings of S1 of length at least k that occur in S2 . Develop and analyze an algorithm to solve this problem in O(|S1 | + |S2 | + sort(Σ)) time.
+Be sure to read the instructions on the assignments section of the class web page. Remember
+to keep your solutions to one page!
+Substring matching. Given two strings S1 and S2 , and a positive integer k, ﬁnd the number of
+substrings of S1 of length at least k that occur in S2 . Develop and analyze an algorithm to solve
+this problem in O(|S1 | + |S2 | + sort(Σ)) time.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : String matching. Construct a compressed suﬃx trie over S = S1 $1 S2 $2 , and then trim below
 $1 so that all leaves are either $1 or $2 . The construction takes O(|S1 | + |S2 | + sort(Σ)), and the
 trimming can be done with a traversal of the trie in O(|S1 | + |S2 |) time.
 Traverse the trie and record for each node whether it has a $2 in its subtree as well as the
@@ -471,28 +269,19 @@ depth at least k.
 This procedure would work correctly on an uncompressed suﬃx trie, but it does not account for
 those substrings corresponding to nodes compressed into edges. To correct for this, when adding
 the number of $1 leaves for a node, multiply it by the length of the edge to its parent (or if the
-parent has letter depth less than k, multiply it by the node’s letter depth minus k − 1).', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('s to one page! Substring matching. Given two strings S1 and S2 , and a positive integer k, ﬁnd the number of substrings of S1 of length at least k that occur in S2 . Develop and analyze an algorithm to solve this problem in O(|S1 | + |S2 | + sort(Σ)) time.
-Be sure to read the instructions on the assignments section of the class web page. Remember
-to keep your solutions to one page!
-Substring matching. Given two strings S1 and S2 , and a positive integer k, ﬁnd the number of
-substrings of S1 of length at least k that occur in S2 . Develop and analyze an algorithm to solve
-this problem in O(|S1 | + |S2 | + sort(Σ)) time.', 'Pas s to one page! substring matching. given two strings s1 and s2 , and a positive integer k, ﬁnd the number of substrings of s1 of length at least k that occur in s2 . develop and analyze an algorithm to solve this problem in o(|s1 | + |s2 | + sort(σ)) time.
-be sure to read the instructions on the assignments section of the class web page. remember
-to keep your solutions to one page!
-substring matching. given two strings s1 and s2 , and a positive integer k, ﬁnd the number of
-substrings of s1 of length at least k that occur in s2 . develop and analyze an algorithm to solve
-this problem in o(|s1 | + |s2 | + sort(σ)) time.', 'L\'inverse de s to one page! substring matching. given two strings s1 and s2 , and a positive integer k, ﬁnd the number of substrings of s1 of length at least k that occur in s2 . develop and analyze an algorithm to solve this problem in o(|s1 | + |s2 | + sort(σ)) time.
-be sure to read the instructions on the assignments section of the class web page. remember
-to keep your solutions to one page!
-substring matching. given two strings s1 and s2 , and a positive integer k, ﬁnd the number of
-substrings of s1 of length at least k that occur in s2 . develop and analyze an algorithm to solve
-this problem in o(|s1 | + |s2 | + sort(σ)) time.', 'Impossible à déterminer'), 'correct' => 0, 'answer' => 's to one page! Substring matching. Given two strings S1 and S2 , and a positive integer k, ﬁnd the number of substrings of S1 of length at least k that occur in S2 . Develop and analyze an algorithm to solve this problem in O(|S1 | + |S2 | + sort(Σ)) time.
-Be sure to read the instructions on the assignments section of the class web page. Remember
-to keep your solutions to one page!
-Substring matching. Given two strings S1 and S2 , and a positive integer k, ﬁnd the number of
-substrings of S1 of length at least k that occur in S2 . Develop and analyze an algorithm to solve
-this problem in O(|S1 | + |S2 | + sort(Σ)) time.', '_recupere_le' => '2026-11-04T19:55:22.771965+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT — question d’examen, en anglais] Geometric basics. Recall that in class we introduced the geometric view for binary search tree execution. Using only this view, prove that for any set of m queries on n items, there is a BST that will', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Geometric basics. To show that there is a binary search tree supporting any m searches on n
+parent has letter depth less than k, multiply it by the node’s letter depth minus k − 1).', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
+							array('question' => '[MIT — question d’examen, en anglais] Geometric basics. Recall that in class we introduced the geometric view for binary search tree execution. Using only this view, prove that for any set of m queries on n items, there is a BST that will answer the queries in total time O(m lg n). You should reason only about point sets, not about BSTs. Working-set is harder. In class we introduced the entropy bound and the working-set        property for BSTs. The entropy bound holds if all searches in the BST have amortized time O( nk=1 pk lg p1k ), n where pk is the fraction of the time that key k is queried. The working-set property holds if the time to search for an element xi is O(lg ti ), where ti is the number of elements queried since
+Be sure to read the instructions on the assignments section of the class web page.
+Geometric basics. Recall that in class we introduced the geometric view for binary search tree
+execution. Using only this view, prove that for any set of m queries on n items, there is a BST
+that will answer the queries in total time O(m lg n). You should reason only about point sets, not
+about BSTs.
+Working-set is harder. In class we introduced the entropy bound and the working-set        property
+for BSTs. The entropy bound holds if all searches in the BST have amortized time O( nk=1 pk lg p1k ),
+n
+where pk is the fraction of the time that key k is queried. The working-set property holds if the
+time to search for an element xi is O(lg ti ), where ti is the number of elements queried since the
+last access to xi . Prove that any BST with the working-set property also has the entropy bound.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Geometric basics. To show that there is a binary search tree supporting any m searches on n
 items in O(m log n) total time, we will show that given a set of m points with y-coordinates 1..m
 and x-coordinates in the set {1..n}, we can insert at most O(m log n) additional points such that
 the total set is arborally satisﬁed. By making the set arborally satisﬁed, it will represent a valid
@@ -526,51 +315,7 @@ O                fx lg         =O                  lg       .
 m     x
 fx                 x
 m fx
-Thus, since px = fmx , the entropy bound holds.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('the queries in total time O(m lg n). You should reason only about point sets, not about BSTs. Working-set is harder. In class we introduced the entropy bound and the working-set        property for BSTs. The entropy bound holds if all searches in the BST have amortized time O( nk=1 pk lg p1k ), n where pk is the fraction of the time that key k is queried. The working-set property holds if the time to search for an element xi is O(lg ti ), where ti is the number of elements queried since
-Be sure to read the instructions on the assignments section of the class web page.
-Geometric basics. Recall that in class we introduced the geometric view for binary search tree
-execution. Using only this view, prove that for any set of m queries on n items, there is a BST
-that will answer the queries in total time O(m lg n). You should reason only about point sets, not
-about BSTs.
-Working-set is harder. In class we introduced the entropy bound and the working-set        property
-for BSTs. The entropy bound holds if all searches in the BST have amortized time O( nk=1 pk lg p1k ),
-n
-where pk is the fraction of the time that key k is queried. The working-set property holds if the
-time to search for an element xi is O(lg ti ), where ti is the number of elements queried since the
-last access to xi . Prove that any BST with the working-set property also has the entropy bound.', 'Pas the queries in total time o(m lg n). you should reason only about point sets, not about bsts. working-set is harder. in class we introduced the entropy bound and the working-set        property for bsts. the entropy bound holds if all searches in the bst have amortized time o( nk=1 pk lg p1k ), n where pk is the fraction of the time that key k is queried. the working-set property holds if the time to search for an element xi is o(lg ti ), where ti is the number of elements queried since
-be sure to read the instructions on the assignments section of the class web page.
-geometric basics. recall that in class we introduced the geometric view for binary search tree
-execution. using only this view, prove that for any set of m queries on n items, there is a bst
-that will answer the queries in total time o(m lg n). you should reason only about point sets, not
-about bsts.
-working-set is harder. in class we introduced the entropy bound and the working-set        property
-for bsts. the entropy bound holds if all searches in the bst have amortized time o( nk=1 pk lg p1k ),
-n
-where pk is the fraction of the time that key k is queried. the working-set property holds if the
-time to search for an element xi is o(lg ti ), where ti is the number of elements queried since the
-last access to xi . prove that any bst with the working-set property also has the entropy bound.', 'Impossible à déterminer', 'L\'inverse de the queries in total time o(m lg n). you should reason only about point sets, not about bsts. working-set is harder. in class we introduced the entropy bound and the working-set        property for bsts. the entropy bound holds if all searches in the bst have amortized time o( nk=1 pk lg p1k ), n where pk is the fraction of the time that key k is queried. the working-set property holds if the time to search for an element xi is o(lg ti ), where ti is the number of elements queried since
-be sure to read the instructions on the assignments section of the class web page.
-geometric basics. recall that in class we introduced the geometric view for binary search tree
-execution. using only this view, prove that for any set of m queries on n items, there is a bst
-that will answer the queries in total time o(m lg n). you should reason only about point sets, not
-about bsts.
-working-set is harder. in class we introduced the entropy bound and the working-set        property
-for bsts. the entropy bound holds if all searches in the bst have amortized time o( nk=1 pk lg p1k ),
-n
-where pk is the fraction of the time that key k is queried. the working-set property holds if the
-time to search for an element xi is o(lg ti ), where ti is the number of elements queried since the
-last access to xi . prove that any bst with the working-set property also has the entropy bound.'), 'correct' => 0, 'answer' => 'the queries in total time O(m lg n). You should reason only about point sets, not about BSTs. Working-set is harder. In class we introduced the entropy bound and the working-set        property for BSTs. The entropy bound holds if all searches in the BST have amortized time O( nk=1 pk lg p1k ), n where pk is the fraction of the time that key k is queried. The working-set property holds if the time to search for an element xi is O(lg ti ), where ti is the number of elements queried since
-Be sure to read the instructions on the assignments section of the class web page.
-Geometric basics. Recall that in class we introduced the geometric view for binary search tree
-execution. Using only this view, prove that for any set of m queries on n items, there is a BST
-that will answer the queries in total time O(m lg n). You should reason only about point sets, not
-about BSTs.
-Working-set is harder. In class we introduced the entropy bound and the working-set        property
-for BSTs. The entropy bound holds if all searches in the BST have amortized time O( nk=1 pk lg p1k ),
-n
-where pk is the fraction of the time that key k is queried. The working-set property holds if the
-time to search for an element xi is O(lg ti ), where ti is the number of elements queried since the
-last access to xi . Prove that any BST with the working-set property also has the entropy bound.', '_recupere_le' => '2026-11-04T19:55:22.772467+00:00Z', '_strategie' => 'separation_enum_solution'),
+Thus, since px = fmx , the entropy bound holds.', 'source' => 'MIT OpenCourseWare, 6.851 Advanced Data Structures, Spring 2012 — énoncés et corrigés officiels (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 						),
 					),
 				),

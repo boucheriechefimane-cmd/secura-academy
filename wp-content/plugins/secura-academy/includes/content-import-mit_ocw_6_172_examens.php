@@ -30,37 +30,21 @@ True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis
 In the free-list heap-allocation algorithm, allocating to the least-full page maximizes the proba-
 bility that two random accesses hit the same page.
 True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
-							array('question' => '[MIT 6.172 — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : O(n/log(n))
+							array('question' => '[MIT 6.172 — question d’examen, en anglais]
+
+Give the parallelism of bitonic_sort() in simple terms.
 5 Heap Allocation (3 parts, 13 points)
 A certain program needs to allocate memory chunks that have alternating sizes of 60 bytes and
 120 bytes. In other words, the program will allocate a chunk of 60 bytes, followed by 120 bytes,
 followed by 60 bytes, and so on. We shall consider two schemes for heap allocation.
 Scheme F is a fixed-size allocator that uses a free-list of 120-byte blocks. Scheme V is a variable-
-sized allocator that uses binned free lists with blocks that are exact powers of 2.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('Give the parallelism of bitonic_sort() in simple terms.
+sized allocator that uses binned free lists with blocks that are exact powers of 2.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : O(n/log(n))
 5 Heap Allocation (3 parts, 13 points)
 A certain program needs to allocate memory chunks that have alternating sizes of 60 bytes and
 120 bytes. In other words, the program will allocate a chunk of 60 bytes, followed by 120 bytes,
 followed by 60 bytes, and so on. We shall consider two schemes for heap allocation.
 Scheme F is a fixed-size allocator that uses a free-list of 120-byte blocks. Scheme V is a variable-
-sized allocator that uses binned free lists with blocks that are exact powers of 2.', 'Pas give the parallelism of bitonic_sort() in simple terms.
-5 heap allocation (3 parts, 13 points)
-a certain program needs to allocate memory chunks that have alternating sizes of 60 bytes and
-120 bytes. in other words, the program will allocate a chunk of 60 bytes, followed by 120 bytes,
-followed by 60 bytes, and so on. we shall consider two schemes for heap allocation.
-scheme f is a fixed-size allocator that uses a free-list of 120-byte blocks. scheme v is a variable-
-sized allocator that uses binned free lists with blocks that are exact powers of 2.', 'L\'inverse de give the parallelism of bitonic_sort() in simple terms.
-5 heap allocation (3 parts, 13 points)
-a certain program needs to allocate memory chunks that have alternating sizes of 60 bytes and
-120 bytes. in other words, the program will allocate a chunk of 60 bytes, followed by 120 bytes,
-followed by 60 bytes, and so on. we shall consider two schemes for heap allocation.
-scheme f is a fixed-size allocator that uses a free-list of 120-byte blocks. scheme v is a variable-
-sized allocator that uses binned free lists with blocks that are exact powers of 2.', 'Impossible à déterminer'), 'correct' => 0, 'answer' => 'Give the parallelism of bitonic_sort() in simple terms.
-5 Heap Allocation (3 parts, 13 points)
-A certain program needs to allocate memory chunks that have alternating sizes of 60 bytes and
-120 bytes. In other words, the program will allocate a chunk of 60 bytes, followed by 120 bytes,
-followed by 60 bytes, and so on. We shall consider two schemes for heap allocation.
-Scheme F is a fixed-size allocator that uses a free-list of 120-byte blocks. Scheme V is a variable-
-sized allocator that uses binned free lists with blocks that are exact powers of 2.', '_recupere_le' => '2026-11-04T19:55:22.730692+00:00Z', '_strategie' => 'separation_enum_solution'),
+sized allocator that uses binned free lists with blocks that are exact powers of 2.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 If there is a TLB miss, then the corresponding cache line is not already in cache.
@@ -86,33 +70,41 @@ Describe a performance problem that Ben might see with thread-local free lists t
 Ben\'s parallel program to use much more space than his original serial program.
 Ben decides to modify his serial free-list code into a global free list, with push and pop oper-
 ations synchronized using mutex locks. Ben wants to add as few instructions as possible to his
-free-list code to implement a', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : memory drift
+free-list code to implement a correct and efficient global free list. Ben\'s free list code contains
+convenient labels A through J at lines where Ben might insert a new statement.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : memory drift
 Ben decides to modify his serial free-list code into a global free list, with push and pop oper-
 ations synchronized using mutex locks. Ben wants to add as few instructions as possible to his
 free-list code to implement a correct and efficient global free list. Ben\'s free list code contains
-convenient labels A through J at lines where Ben might insert a new statement.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('L\'inverse de and efficient global free list. ben\'s free list code contains
-convenient labels a through j at lines where ben might insert a new statement.', 'Impossible à déterminer', 'and efficient global free list. Ben\'s free list code contains
-convenient labels A through J at lines where Ben might insert a new statement.', 'Pas and efficient global free list. ben\'s free list code contains
-convenient labels a through j at lines where ben might insert a new statement.'), 'correct' => 2, 'answer' => 'and efficient global free list. Ben\'s free list code contains
-convenient labels A through J at lines where Ben might insert a new statement.', '_recupere_le' => '2026-11-04T19:55:22.730900+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.172 — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The spans of the four blocks sum to give T∞ (n) = 2T∞ (n/2) + Θ(log2 n).', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('Pas describe how the spans of those four blocks compose to make the recurrence for the span of this
-parallel strassen code equal to
-t∞ (n) = 2t∞ (n/2) + θ(lg n). (2)', 'Describe how the spans of those four blocks compose to make the recurrence for the span of this
-parallel Strassen code equal to
-T∞ (n) = 2T∞ (n/2) + Θ(lg n). (2)', 'L\'inverse de describe how the spans of those four blocks compose to make the recurrence for the span of this
-parallel strassen code equal to
-t∞ (n) = 2t∞ (n/2) + θ(lg n). (2)', 'Impossible à déterminer'), 'correct' => 1, 'answer' => 'Describe how the spans of those four blocks compose to make the recurrence for the span of this
-parallel Strassen code equal to
-T∞ (n) = 2T∞ (n/2) + Θ(lg n). (2)', '_recupere_le' => '2026-11-04T19:55:22.731003+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.172 — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The height of the tree is k = log4 P. Each level uses Θ(n2 ) space. The result follows from
-the product of these terms.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('Argue that the total space usage in the top part of the recursion tree, in all levels i ≤ k, is
-Θ(n2 log4 P).', 'Impossible à déterminer', 'L\'inverse de argue that the total space usage in the top part of the recursion tree, in all levels i ≤ k, is
-θ(n2 log4 p).', 'Pas argue that the total space usage in the top part of the recursion tree, in all levels i ≤ k, is
-θ(n2 log4 p).'), 'correct' => 0, 'answer' => 'Argue that the total space usage in the top part of the recursion tree, in all levels i ≤ k, is
-Θ(n2 log4 P).', '_recupere_le' => '2026-11-04T19:55:22.731081+00:00Z', '_strategie' => 'separation_enum_solution'),
+convenient labels A through J at lines where Ben might insert a new statement.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
-What is the total worst-case space used by an execution of parallel Strassen? Express your', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The space usage below any particular node at level k is S1 (n/2k ) = Θ(n2 /4k ). Because
+Describe how the spans of those four blocks compose to make the recurrence for the span of this
+parallel Strassen code equal to
+T∞ (n) = 2T∞ (n/2) + Θ(lg n). (2)', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The spans of the four blocks sum to give T∞ (n) = 2T∞ (n/2) + Θ(log2 n).', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
+							array('question' => '[MIT 6.172 — question d’examen, en anglais]
+
+Argue that the total space usage in the top part of the recursion tree, in all levels i ≤ k, is
+Θ(n2 log4 P).', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The height of the tree is k = log4 P. Each level uses Θ(n2 ) space. The result follows from
+the product of these terms.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
+							array('question' => '[MIT 6.172 — question d’examen, en anglais]
+
+What is the total worst-case space used by an execution of parallel Strassen? Express your answer
+in Θ-notation.
+6 Cache-oblivious Strassen (3 parts, 13 points)
+This question examines the cache-efficiency of Strassen\'s algorithm for matrix multiplication. For
+this question, we will consider a serial implementation of Strassen\'s algorithm, such as the serial
+elision of the parallel implementation described in Question 4. For this problem, assume an
+ideal cache model (fully associative with an optimal or LRU replacement policy, as appropriate)
+with cache size M and cache-line length B . Assume that the cache is tall (i.e. M = ω (B 2 )).
+Furthermore, assume that Strassen\'s algorithm is run using an optimal allocator that achieves
+perfect utilization. Assume that the input matrix is stored in row-major order, and also assume
+that the routine for adding or subtracting two m-by-m submatrices is Θ(m2 /B).
+The recurrence for the worst-case number Q(n) of cache misses incurred by Strassen\'s algorithm
+when multiplying two n × n matrices is given by
+( √
+Θ(n2 /B) if 0 ≤ n < c M for sufficiently small constant c ≤ 1;
+Q(n) = (4)
+7Q(n/2) + Θ(n2 /B) otherwise.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The space usage below any particular node at level k is S1 (n/2k ) = Θ(n2 /4k ). Because
 k = log4 P, this equation simplifies to Θ(n2 /P). Because there are P nodes at level k, the total
 space usage below level k is Θ(n2 ).
 6 Cache-oblivious Strassen (3 parts, 13 points)
@@ -129,105 +121,23 @@ when multiplying two n × n matrices is given by
 ( √
 Θ(n2 /B) if 0 ≤ n < c M for sufficiently small constant c ≤ 1;
 Q(n) = (4)
-7Q(n/2) + Θ(n2 /B) otherwise.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('in Θ-notation.
-6 Cache-oblivious Strassen (3 parts, 13 points)
-This question examines the cache-efficiency of Strassen\'s algorithm for matrix multiplication. For
-this question, we will consider a serial implementation of Strassen\'s algorithm, such as the serial
-elision of the parallel implementation described in Question 4. For this problem, assume an
-ideal cache model (fully associative with an optimal or LRU replacement policy, as appropriate)
-with cache size M and cache-line length B . Assume that the cache is tall (i.e. M = ω (B 2 )).
-Furthermore, assume that Strassen\'s algorithm is run using an optimal allocator that achieves
-perfect utilization. Assume that the input matrix is stored in row-major order, and also assume
-that the routine for adding or subtracting two m-by-m submatrices is Θ(m2 /B).
-The recurrence for the worst-case number Q(n) of cache misses incurred by Strassen\'s algorithm
-when multiplying two n × n matrices is given by
-( √
-Θ(n2 /B) if 0 ≤ n < c M for sufficiently small constant c ≤ 1;
-Q(n) = (4)
-7Q(n/2) + Θ(n2 /B) otherwise.', 'Pas in θ-notation.
-6 cache-oblivious strassen (3 parts, 13 points)
-this question examines the cache-efficiency of strassen\'s algorithm for matrix multiplication. for
-this question, we will consider a serial implementation of strassen\'s algorithm, such as the serial
-elision of the parallel implementation described in question 4. for this problem, assume an
-ideal cache model (fully associative with an optimal or lru replacement policy, as appropriate)
-with cache size m and cache-line length b . assume that the cache is tall (i.e. m = ω (b 2 )).
-furthermore, assume that strassen\'s algorithm is run using an optimal allocator that achieves
-perfect utilization. assume that the input matrix is stored in row-major order, and also assume
-that the routine for adding or subtracting two m-by-m submatrices is θ(m2 /b).
-the recurrence for the worst-case number q(n) of cache misses incurred by strassen\'s algorithm
-when multiplying two n × n matrices is given by
-( √
-θ(n2 /b) if 0 ≤ n < c m for sufficiently small constant c ≤ 1;
-q(n) = (4)
-7q(n/2) + θ(n2 /b) otherwise.', 'L\'inverse de in θ-notation.
-6 cache-oblivious strassen (3 parts, 13 points)
-this question examines the cache-efficiency of strassen\'s algorithm for matrix multiplication. for
-this question, we will consider a serial implementation of strassen\'s algorithm, such as the serial
-elision of the parallel implementation described in question 4. for this problem, assume an
-ideal cache model (fully associative with an optimal or lru replacement policy, as appropriate)
-with cache size m and cache-line length b . assume that the cache is tall (i.e. m = ω (b 2 )).
-furthermore, assume that strassen\'s algorithm is run using an optimal allocator that achieves
-perfect utilization. assume that the input matrix is stored in row-major order, and also assume
-that the routine for adding or subtracting two m-by-m submatrices is θ(m2 /b).
-the recurrence for the worst-case number q(n) of cache misses incurred by strassen\'s algorithm
-when multiplying two n × n matrices is given by
-( √
-θ(n2 /b) if 0 ≤ n < c m for sufficiently small constant c ≤ 1;
-q(n) = (4)
-7q(n/2) + θ(n2 /b) otherwise.', 'Impossible à déterminer'), 'correct' => 0, 'answer' => 'in Θ-notation.
-6 Cache-oblivious Strassen (3 parts, 13 points)
-This question examines the cache-efficiency of Strassen\'s algorithm for matrix multiplication. For
-this question, we will consider a serial implementation of Strassen\'s algorithm, such as the serial
-elision of the parallel implementation described in Question 4. For this problem, assume an
-ideal cache model (fully associative with an optimal or LRU replacement policy, as appropriate)
-with cache size M and cache-line length B . Assume that the cache is tall (i.e. M = ω (B 2 )).
-Furthermore, assume that Strassen\'s algorithm is run using an optimal allocator that achieves
-perfect utilization. Assume that the input matrix is stored in row-major order, and also assume
-that the routine for adding or subtracting two m-by-m submatrices is Θ(m2 /B).
-The recurrence for the worst-case number Q(n) of cache misses incurred by Strassen\'s algorithm
-when multiplying two n × n matrices is given by
-( √
-Θ(n2 /B) if 0 ≤ n < c M for sufficiently small constant c ≤ 1;
-Q(n) = (4)
-7Q(n/2) + Θ(n2 /B) otherwise.', '_recupere_le' => '2026-11-04T19:55:22.731467+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.172 — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Height = lg n - lg(cM).
+7Q(n/2) + Θ(n2 /B) otherwise.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
+							array('question' => '[MIT 6.172 — question d’examen, en anglais]
+
+Sketch the recursion tree for the recurrence for (4). Compute the height and the number of leaves
+of the recursion tree, and label the internal nodes and leaves of the tree with the corresponding
+number of cache misses incurred at them. Solve the recurrence, providing a tight asymptotic
+bound in simple form.
+Sketch of recursion tree for Q(n):
+Height =
+Number of leaves =
+Misses per leaf =
+Q(n) =', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Height = lg n - lg(cM).
 √ √ lg 7
 Number of leaves = 7lg n-lg(c M) = Θ(nlg 7 / M ).
 Misses per leaf = Θ(M/B).
 lg 7
-Q(n) = Θ( BM(nlog 7)/2-1 ).', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('Impossible à déterminer', 'Pas sketch the recursion tree for the recurrence for (4). compute the height and the number of leaves
-of the recursion tree, and label the internal nodes and leaves of the tree with the corresponding
-number of cache misses incurred at them. solve the recurrence, providing a tight asymptotic
-bound in simple form.
-sketch of recursion tree for q(n):
-height =
-number of leaves =
-misses per leaf =
-q(n) =', 'Sketch the recursion tree for the recurrence for (4). Compute the height and the number of leaves
-of the recursion tree, and label the internal nodes and leaves of the tree with the corresponding
-number of cache misses incurred at them. Solve the recurrence, providing a tight asymptotic
-bound in simple form.
-Sketch of recursion tree for Q(n):
-Height =
-Number of leaves =
-Misses per leaf =
-Q(n) =', 'L\'inverse de sketch the recursion tree for the recurrence for (4). compute the height and the number of leaves
-of the recursion tree, and label the internal nodes and leaves of the tree with the corresponding
-number of cache misses incurred at them. solve the recurrence, providing a tight asymptotic
-bound in simple form.
-sketch of recursion tree for q(n):
-height =
-number of leaves =
-misses per leaf =
-q(n) ='), 'correct' => 2, 'answer' => 'Sketch the recursion tree for the recurrence for (4). Compute the height and the number of leaves
-of the recursion tree, and label the internal nodes and leaves of the tree with the corresponding
-number of cache misses incurred at them. Solve the recurrence, providing a tight asymptotic
-bound in simple form.
-Sketch of recursion tree for Q(n):
-Height =
-Number of leaves =
-Misses per leaf =
-Q(n) =', '_recupere_le' => '2026-11-04T19:55:22.731690+00:00Z', '_strategie' => 'separation_enum_solution'),
+Q(n) = Θ( BM(nlog 7)/2-1 ).', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 Inlining a function tends to improve performance by reducing the number of instruction cache
@@ -285,81 +195,9 @@ True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis
 If a program that runs on 2 threads protects its critical sections using Peterson\'s algorithm, then
 it is free of determinacy races.
 True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : False', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 1),
-							array('question' => '[MIT 6.172 — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The theorem applies to stack allocations, not heap allocations
-3 Concurrent free lists (2 parts, 8 points)
-Ben Bitdiddle is parallelizing a program that uses a free list to handle the allocation of objects of
-a fixed size X. Ben\'s serial code uses a global free-list data structure of type FreeList_t, defined
-as follows:
-
-8 typedef struct Node_t {
-9 /* A */
-10 struct Node_t * next ;
-11 } Node_t ;
-13 typedef struct {
-14 /* B */
-15 Node_t * head ;
-16 } FreeList_t ;
-18 void push ( FreeList_t *fl , Node_t * node ) {
-19 /* C */
-20 node -> next = fl -> head ;
-21 /* D */
-22 fl - > head = node ;
-23 /* E */
-24 }
-26 Node_t * pop ( FreeList_t * fl ) {
-27 /* F */
-28 Node_t * node = fl -> head ;
-29 /* G */
-30 if ( NULL != node ) {
-31 /* H */
-32 fl -> head = node -> next ;
-33 /* I */
-34 }
-35 /* J */
-36 return node ;
-37 }
- 
-Ben considers parallelizing his free list by implementing thread-local free lists. Each thread
-would only push or pop storage from its local free list. If the thread\'s local free list is empty, then
-the thread simply calls the system\'s malloc.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('L\'inverse de in lecture, we saw a theorem stating that a p-worker execution of any cilk program uses at most
-p times the space used in a serial execution of that cilk program. why does the theorem not
-apply to foo, or does it?
-3 concurrent free lists (2 parts, 8 points)
-ben bitdiddle is parallelizing a program that uses a free list to handle the allocation of objects of
-a fixed size x. ben\'s serial code uses a global free-list data structure of type freelist_t, defined
-as follows:
-
-8 typedef struct node_t {
-9 /* a */
-10 struct node_t * next ;
-11 } node_t ;
-13 typedef struct {
-14 /* b */
-15 node_t * head ;
-16 } freelist_t ;
-18 void push ( freelist_t *fl , node_t * node ) {
-19 /* c */
-20 node -> next = fl -> head ;
-21 /* d */
-22 fl - > head = node ;
-23 /* e */
-24 }
-26 node_t * pop ( freelist_t * fl ) {
-27 /* f */
-28 node_t * node = fl -> head ;
-29 /* g */
-30 if ( null != node ) {
-31 /* h */
-32 fl -> head = node -> next ;
-33 /* i */
-34 }
-35 /* j */
-36 return node ;
-37 }
- 
-ben considers parallelizing his free list by implementing thread-local free lists. each thread
-would only push or pop storage from its local free list. if the thread\'s local free list is empty, then
-the thread simply calls the system\'s malloc.', 'Impossible à déterminer', 'In lecture, we saw a theorem stating that a P-worker execution of any Cilk program uses at most
+							array('question' => '[MIT 6.172 — question d’examen, en anglais]
+
+In lecture, we saw a theorem stating that a P-worker execution of any Cilk program uses at most
 P times the space used in a serial execution of that Cilk program. Why does the theorem not
 apply to foo, or does it?
 3 Concurrent free lists (2 parts, 8 points)
@@ -397,47 +235,7 @@ as follows:
  
 Ben considers parallelizing his free list by implementing thread-local free lists. Each thread
 would only push or pop storage from its local free list. If the thread\'s local free list is empty, then
-the thread simply calls the system\'s malloc.', 'Pas in lecture, we saw a theorem stating that a p-worker execution of any cilk program uses at most
-p times the space used in a serial execution of that cilk program. why does the theorem not
-apply to foo, or does it?
-3 concurrent free lists (2 parts, 8 points)
-ben bitdiddle is parallelizing a program that uses a free list to handle the allocation of objects of
-a fixed size x. ben\'s serial code uses a global free-list data structure of type freelist_t, defined
-as follows:
-
-8 typedef struct node_t {
-9 /* a */
-10 struct node_t * next ;
-11 } node_t ;
-13 typedef struct {
-14 /* b */
-15 node_t * head ;
-16 } freelist_t ;
-18 void push ( freelist_t *fl , node_t * node ) {
-19 /* c */
-20 node -> next = fl -> head ;
-21 /* d */
-22 fl - > head = node ;
-23 /* e */
-24 }
-26 node_t * pop ( freelist_t * fl ) {
-27 /* f */
-28 node_t * node = fl -> head ;
-29 /* g */
-30 if ( null != node ) {
-31 /* h */
-32 fl -> head = node -> next ;
-33 /* i */
-34 }
-35 /* j */
-36 return node ;
-37 }
- 
-ben considers parallelizing his free list by implementing thread-local free lists. each thread
-would only push or pop storage from its local free list. if the thread\'s local free list is empty, then
-the thread simply calls the system\'s malloc.'), 'correct' => 2, 'answer' => 'In lecture, we saw a theorem stating that a P-worker execution of any Cilk program uses at most
-P times the space used in a serial execution of that Cilk program. Why does the theorem not
-apply to foo, or does it?
+the thread simply calls the system\'s malloc.', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The theorem applies to stack allocations, not heap allocations
 3 Concurrent free lists (2 parts, 8 points)
 Ben Bitdiddle is parallelizing a program that uses a free list to handle the allocation of objects of
 a fixed size X. Ben\'s serial code uses a global free-list data structure of type FreeList_t, defined
@@ -473,25 +271,27 @@ as follows:
  
 Ben considers parallelizing his free list by implementing thread-local free lists. Each thread
 would only push or pop storage from its local free list. If the thread\'s local free list is empty, then
-the thread simply calls the system\'s malloc.', '_recupere_le' => '2026-11-04T19:55:22.732171+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.172 — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : We have seven recursive multiplications of matrices of size n/2 × n/2. At each level
+the thread simply calls the system\'s malloc.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
+							array('question' => '[MIT 6.172 — question d’examen, en anglais]
+
+Explain why the recurrence for the work T1 (n) of the parallel Strassen code satisfies
+T1 (n) = 7T1 (n/2) + Θ(n2 ). (1)', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : We have seven recursive multiplications of matrices of size n/2 × n/2. At each level
 of the recursion, there are a constant number of matrix additions / subtractions to produce the
-intermediate matrices to pass into the next recursive calls.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('L\'inverse de explain why the recurrence for the work t1 (n) of the parallel strassen code satisfies
-t1 (n) = 7t1 (n/2) + θ(n2 ). (1)', 'Pas explain why the recurrence for the work t1 (n) of the parallel strassen code satisfies
-t1 (n) = 7t1 (n/2) + θ(n2 ). (1)', 'Impossible à déterminer', 'Explain why the recurrence for the work T1 (n) of the parallel Strassen code satisfies
-T1 (n) = 7T1 (n/2) + Θ(n2 ). (1)'), 'correct' => 3, 'answer' => 'Explain why the recurrence for the work T1 (n) of the parallel Strassen code satisfies
-T1 (n) = 7T1 (n/2) + Θ(n2 ). (1)', '_recupere_le' => '2026-11-04T19:55:22.732253+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.172 — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The code spawns off at most four recursive calls in parallel at any point during its
+intermediate matrices to pass into the next recursive calls.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
+							array('question' => '[MIT 6.172 — question d’examen, en anglais]
+
+Why is the branching factor 4 for the top part of this recursion tree?', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The code spawns off at most four recursive calls in parallel at any point during its
 execution, i.e., either in block 1 or block 2. Therefore, the branching factor of the space overhead
-is four because the space allocated is reused across all blocks.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('Impossible à déterminer', 'Why is the branching factor 4 for the top part of this recursion tree?', 'L\'inverse de why is the branching factor 4 for the top part of this recursion tree?', 'Pas why is the branching factor 4 for the top part of this recursion tree?'), 'correct' => 1, 'answer' => 'Why is the branching factor 4 for the top part of this recursion tree?', '_recupere_le' => '2026-11-04T19:55:22.732310+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.172 — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : As shown in 5.2, the total space used at the lower levels of the recursion is Θ(n2 ).', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('Pas argue that the total space usage in the bottom part of the recursion tree, in all levels i > k, is
-θ ( n2 ).', 'L\'inverse de argue that the total space usage in the bottom part of the recursion tree, in all levels i > k, is
-θ ( n2 ).', 'Impossible à déterminer', 'Argue that the total space usage in the bottom part of the recursion tree, in all levels i > k, is
-Θ ( n2 ).'), 'correct' => 3, 'answer' => 'Argue that the total space usage in the bottom part of the recursion tree, in all levels i > k, is
-Θ ( n2 ).', '_recupere_le' => '2026-11-04T19:55:22.732385+00:00Z', '_strategie' => 'separation_enum_solution'),
-							array('question' => '[MIT 6.172 — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : We have seven recursive calls on matrices of size n/2. In addition, there are a constant
+is four because the space allocated is reused across all blocks.', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
+							array('question' => '[MIT 6.172 — question d’examen, en anglais]
+
+Argue that the total space usage in the bottom part of the recursion tree, in all levels i > k, is
+Θ ( n2 ).', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : As shown in 5.2, the total space used at the lower levels of the recursion is Θ(n2 ).', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
+							array('question' => '[MIT 6.172 — question d’examen, en anglais]
+
+Why is Q(n) = 7Q(n/2) + Θ(n2 /B) for n sufficiently large?', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : We have seven recursive calls on matrices of size n/2. In addition, there are a constant
 number of matrix additions and subtractions to construct the inputs for the recursive calls, so the
-cache misses to create the inputs is Θ(n2 /B).', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('Pas why is q(n) = 7q(n/2) + θ(n2 /b) for n sufficiently large?', 'Why is Q(n) = 7Q(n/2) + Θ(n2 /B) for n sufficiently large?', 'Impossible à déterminer', 'L\'inverse de why is q(n) = 7q(n/2) + θ(n2 /b) for n sufficiently large?'), 'correct' => 1, 'answer' => 'Why is Q(n) = 7Q(n/2) + Θ(n2 /B) for n sufficiently large?', '_recupere_le' => '2026-11-04T19:55:22.732444+00:00Z', '_strategie' => 'separation_enum_solution'),
+cache misses to create the inputs is Θ(n2 /B).', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
 							array('question' => '[MIT 6.172 — question d’examen, en anglais]
 
 Because thermal limits prevented CPU manufacturers from increasing clock frequencies signifi-
@@ -508,70 +308,9 @@ True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis
 When using the MSI (modified, shared, invalid) cache coherence protocol, the state of a cache
 line in a processor\'s cache may transition directly from shared to invalid.
 True False', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : choisis la bonne proposition, puis la correction officielle du MIT s’affiche.', 'xp' => 20, 'explanation' => 'Réponse officielle du MIT : True', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('True', 'False'), 'correct' => 0),
-							array('question' => '[MIT 6.172 — question d’examen, en anglais]', 'mode' => 'choice', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False
-2 Back Of The Envelope Calculations (3 Part, 10 Points)
-Perform a back-of-the-envelope calculation for the work of a serial execution of get_row_sums on
-a 1000-by-1000 matrix. Assume that you have one 3 GHz scalar processing core which executes
-only one instruction per cycle, and that everything is in cache.
-
-1 # define ROWS 1000
-2 # define COLS 1000
-4 typedef int32_t element_t ;
-6 void get_row_sums ( element_t M [ ROWS ][ COLS ] ,
-7 element_t row_sums [ ROWS ]) {
-8 for ( int32_t i = 0; i < ROWS ; i ++) {
-9 element_t sum = 0;
-10 for ( int32_t j = 0; j < COLS ; j ++) {
-11 sum += M [ i ][ j ];
-12 }
-13 row_sums [ i ] = sum ;
-14 }
-15 }
- ', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018', 'choices' => array('Pas a greedy scheduler schedules a computation with work t1 and span t∞ in time tp ≤ max ( t1 /p, t∞ )
-on a p-processor ideal parallel computer.
-true false
-2 back of the envelope calculations (3 part, 10 points)
-2 back of the envelope calculations (3 part, 10 points)
-perform a back-of-the-envelope calculation for the work of a serial execution of get_row_sums on
-a 1000-by-1000 matrix. assume that you have one 3 ghz scalar processing core which executes
-only one instruction per cycle, and that everything is in cache.
-
-1 # define rows 1000
-2 # define cols 1000
-4 typedef int32_t element_t ;
-6 void get_row_sums ( element_t m [ rows ][ cols ] ,
-7 element_t row_sums [ rows ]) {
-8 for ( int32_t i = 0; i < rows ; i ++) {
-9 element_t sum = 0;
-10 for ( int32_t j = 0; j < cols ; j ++) {
-11 sum += m [ i ][ j ];
-12 }
-13 row_sums [ i ] = sum ;
-14 }
-15 }
- ', 'L\'inverse de a greedy scheduler schedules a computation with work t1 and span t∞ in time tp ≤ max ( t1 /p, t∞ )
-on a p-processor ideal parallel computer.
-true false
-2 back of the envelope calculations (3 part, 10 points)
-2 back of the envelope calculations (3 part, 10 points)
-perform a back-of-the-envelope calculation for the work of a serial execution of get_row_sums on
-a 1000-by-1000 matrix. assume that you have one 3 ghz scalar processing core which executes
-only one instruction per cycle, and that everything is in cache.
-
-1 # define rows 1000
-2 # define cols 1000
-4 typedef int32_t element_t ;
-6 void get_row_sums ( element_t m [ rows ][ cols ] ,
-7 element_t row_sums [ rows ]) {
-8 for ( int32_t i = 0; i < rows ; i ++) {
-9 element_t sum = 0;
-10 for ( int32_t j = 0; j < cols ; j ++) {
-11 sum += m [ i ][ j ];
-12 }
-13 row_sums [ i ] = sum ;
-14 }
-15 }
- ', 'A greedy scheduler schedules a computation with work T1 and span T∞ in time Tp ≤ max ( T1 /P, T∞ )
+							array('question' => '[MIT 6.172 — question d’examen, en anglais]
+
+A greedy scheduler schedules a computation with work T1 and span T∞ in time Tp ≤ max ( T1 /P, T∞ )
 on a P-processor ideal parallel computer.
 True False
 2 BACK OF THE ENVELOPE CALCULATIONS (3 PART, 10 POINTS)
@@ -593,10 +332,7 @@ only one instruction per cycle, and that everything is in cache.
 13 row_sums [ i ] = sum ;
 14 }
 15 }
- ', 'Impossible à déterminer'), 'correct' => 2, 'answer' => 'A greedy scheduler schedules a computation with work T1 and span T∞ in time Tp ≤ max ( T1 /P, T∞ )
-on a P-processor ideal parallel computer.
-True False
-2 BACK OF THE ENVELOPE CALCULATIONS (3 PART, 10 POINTS)
+ ', 'mode' => 'solution', 'xp' => 20, 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : False
 2 Back Of The Envelope Calculations (3 Part, 10 Points)
 Perform a back-of-the-envelope calculation for the work of a serial execution of get_row_sums on
 a 1000-by-1000 matrix. Assume that you have one 3 GHz scalar processing core which executes
@@ -615,7 +351,7 @@ only one instruction per cycle, and that everything is in cache.
 13 row_sums [ i ] = sum ;
 14 }
 15 }
- ', '_recupere_le' => '2026-11-04T19:55:22.732834+00:00Z', '_strategie' => 'separation_enum_solution'),
+ ', 'source' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018 — quiz d’examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'attribution' => 'MIT OpenCourseWare, 6.172 Performance Engineering of Software Systems, Fall 2018'),
 						),
 					),
 				),

@@ -17,7 +17,7 @@ if ( ! function_exists( 'seca_import_mit_ocw_18_443_examens' ) ) {
 					'tasks' => array(
 						'test' => array(
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.6 (See script in RProject7)', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : See the script/html ﬁle “Rproject7 5 beeswax solution.r”
+10.9.6 (See script in RProject7)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : See the script/html ﬁle “Rproject7 5 beeswax solution.r”
 (a). The data appears normal with some deviations at the extreme
 tails. These deviations can happen with normal samples, but occur
 about 1 in 15 times. (It is possible to formally test for normality using
@@ -34,15 +34,9 @@ evaluate whether the means of the diluted beeswax distributions are
 in the conﬁdence interval. For those dilutions which have mean values
 outside the interval, we would expect the power of the test to be greater
 than 50%. The ﬁrst approach provides some insight into how the power
-varies at diﬀerent dilution levels.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.6 (See script in RProject7)]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.6 (See script in RProject7)', '_recupere_le' => '2026-11-04T19:55:22.590988+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : See the script/html ﬁle “Rproject7 5 beeswax solution.r”
-(a). The data appears normal with some deviations at the extreme
-tails. These deviations can happen with normal sampl')),
+varies at diﬀerent dilution levels.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.35', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : For a normal sample, the proportion of observations ex­
+10.9.35', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : For a normal sample, the proportion of observations ex­
 pected to be marked by an asterisk on a boxplot is equal to the per­
 centage of a normal sample that falls more than 1.5 IQRs above the
 third quartile and lower than 1.5 IQRs below the lower quartile. The
@@ -56,28 +50,15 @@ answer is 0.000697 (less than 1%).
 [1] 0.003488302
 >
 > 2*(1-pnorm(z0))
-[1] 0.006976603
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.35]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.35', '_recupere_le' => '2026-11-04T19:55:22.591098+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : For a normal sample, the proportion of observations ex­
-pected to be marked by an asterisk on a boxplot is equal to the per­
-centage of a normal sample that falls more than 1')),
+[1] 0.006976603', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.43 (See script in RProject7)', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 10.9.43 (See script RProject7 7 kevlar.r)
+10.9.43 (See script in RProject7)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 10.9.43 (See script RProject7 7 kevlar.r)
 From the output, for the higher stresses, there is a faster rate of failure
 – the slopes become stronger (negative).
 At 70% stress, the ESF is mostly linear but steepens at the end (indi­
 cating a faster failure rate).
 This is more pronounced in the 80% stress case.
-At 90% stress, the ESF is mostly linear.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.43 (See script in RProject7)]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.43 (See script in RProject7)', '_recupere_le' => '2026-11-04T19:55:22.591213+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : 10.9.43 (See script RProject7 7 kevlar.r)
-From the output, for the higher stresses, there is a faster rate of failure
-– the slopes become stronger (negative).
-At 70% stress,')),
+At 90% stress, the ESF is mostly linear.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Exam 1 Spring 2015 Statistics for Applications 3/5/2015
 The Pareto distribution is used in economics to model values exceed­
 ing a threshhold (e.g., liability losses greater than $100 million for a
@@ -92,7 +73,7 @@ x0
 (b). Find the mle of θ.
 (c). Find the asymptotic variance of the mle.
 (d). What is the large-sample asymptotic distribution of the mle?
-2', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The Pareto distribution is used in economics to model values exceed­
+2', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The Pareto distribution is used in economics to model values exceed­
 ing a threshhold (e.g., liability losses greater than $100 million for a
 consumer products company). For a ﬁxed, known threshhold value of
 x0 > 0, the density function is
@@ -160,39 +141,7 @@ n(θ̂ − θ) −−→ N (0, I(θ) ) = N (0, θ2 )
 or
 D          2
 θ̂ −−→ N (θ, θn )
-4
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Exam 1 Spring 2015 Statistics for Applications 3/5/2015
-The Pareto distribution is used in economics to model values exceed­
-ing a threshhold (e.g., liability losses greater than $100 million for a
-consumer products company). For a ﬁxed, known threshhold value of
-x0 > 0, the density function is
-f (x | x0 , θ) = θxθ0 x−θ−1 ,   x ≥ x0 , and θ > 1.
-Note that the cumulative distribution function of X is
-x −θ
-P (X ≤ x) = FX (x) = 1 −           .
-x0
-(a). Find the method-of-moments estimate of θ.
-(b). Find the mle of θ.
-(c). Find the asymptotic variance of the mle.
-(d). What is the large-sample asymptotic distribution of the mle?
-2]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Exam 1 Spring 2015 Statistics for Applications 3/5/2015
-The Pareto distribution is used in economics to model values exceed­
-ing a threshhold (e.g., liability losses greater than $100 million for a
-consumer products company). For a ﬁxed, known threshhold value of
-x0 > 0, the density function is
-f (x | x0 , θ) = θxθ0 x−θ−1 ,   x ≥ x0 , and θ > 1.
-Note that the cumulative distribution function of X is
-x −θ
-P (X ≤ x) = FX (x) = 1 −           .
-x0
-(a). Find the method-of-moments estimate of θ.
-(b). Find the mle of θ.
-(c). Find the asymptotic variance of the mle.
-(d). What is the large-sample asymptotic distribution of the mle?
-2', '_recupere_le' => '2026-11-04T19:55:22.591461+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : The Pareto distribution is used in economics to model values exceed­
-ing a threshhold (e.g., liability losses greater than $100 million for a
-consumer products company). For')),
+4', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Exam 1 Spring 2015 Statistics for Applications 3/5/2015
 Hardy-Weinberg (Multinomial) Model of Gene Frequencies
 For a certain population, gene frequencies are in equilibrium: the geno­
@@ -225,7 +174,8 @@ approximated by that of Δ          ˆ The 50-th largest value of Δ̃ was
 +0.065 and the 50-th smallest value was −0.067.
 Use this information and the estimate in (a) to construct a (para­
 metric) bootstrap conﬁdence interval for the true θ0 . What is the
-conﬁdence level of the interval? (If you do not have an', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (a). Find the mle of θ
+conﬁdence level of the interval? (If you do not have an answer to part
+(a), assume the mle θ̂ = 0.25).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (a). Find the mle of θ
 8
 • (X1 , X2 , X3 ) ∼ M ultinomial(n, p = ((1 − θ)2 , 2θ(1 − θ), θ2 ))
 • Log Likelihood for θ
@@ -277,11 +227,7 @@ is the true value), the approximate 5% and 95% quantiles are
 δ = −0.067 and δ = 0.065.
 The approximate 90% conﬁdence interval is
 {θ : θ̂ − δ < θ < θ̂ − δ}
-= [0.2 − 0.065, 0.2 + 0.067]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'Pas to part
-(a), assume the mle θ̂ = 0.25).', 'L\'inverse de to part
-(a), assume the mle θ̂ = 0.25).', 'to part
-(a), assume the mle θ̂ = 0.25).'), 'correct' => 3, 'answer' => 'to part
-(a), assume the mle θ̂ = 0.25).', '_recupere_le' => '2026-11-04T19:55:22.592137+00:00Z', '_strategie' => 'separation_enum_solution'),
+= [0.2 − 0.065, 0.2 + 0.067]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
 Simple Linear Regression
 Consider ﬁtting the simple linear regression model:
@@ -308,7 +254,42 @@ Residuals:
 Coefficients:
 Estimate Std. Error t value Pr(>|t|)
 (Intercept) 1.50000     0.32275   4.648   0.0433 *
-x            0.72222    0.08784   8.222   0.0145 *', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Simple Linear Regression
+x            0.72222    0.08784   8.222   0.0145 *
+---
+Signif. codes: 0 \'***\' 0.001 \'**\' 0.01 \'*\' 0.05 \'.\' 0.1 \' \' 1
+Residual standard error: 0.6455 on 2 degrees of freedom
+Multiple R-squared: 0.9713,         Adjusted R-squared:             0.9569
+F-statistic: 67.6 on 1 and 2 DF, p-value: 0.01447
+5
+4
+3
+2
+y
+1
+0
+−1
+−2
+−4       −2          0       2          4
+x
+(a). Solve directly for the least-squares estimates of the intercept and
+slope of the simple linear regression (obtain the same values as in the R
+print summary)
+(b). Give formulas for the least-squares estimates of β1 and β2 in terms
+of the simple statistics
+x = 0, and y = 1.5
+sx =    Sx2 =4.2426
+2
+�
+sy =    Sy2 =3.1091
+S
+r = Corr(x, y) = Sxxy
+Sy =0.9855
+(c). In the R print summary, the standard error of the slope β̂2 is given
+as σ̂βˆ2 =0.0878
+Using σ̂ =0.65, give a formula for this standard error, using the statistics
+in (b).
+(d). What is the least-squares prediction of Ŷ when X = x = 0, and what
+is its standard error (estimate of its standard deviation)?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Simple Linear Regression
 Consider ﬁtting the simple linear regression model:
 ŷ = β1 + β2 xi
 to the following bivariate data:
@@ -424,139 +405,7 @@ The standard error of this prediction is just the estimate of the standard
 deviation of the sample mean y which is
 q
 2
-σ̂y = σ̂n = √σ̂4 = 0.65/2 = 0.325', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'L\'inverse de signif. codes: 0 \'***\' 0.001 \'**\' 0.01 \'*\' 0.05 \'.\' 0.1 \' \' 1
-residual standard error: 0.6455 on 2 degrees of freedom
-multiple r-squared: 0.9713,         adjusted r-squared:             0.9569
-f-statistic: 67.6 on 1 and 2 df, p-value: 0.01447
-5
-4
-3
-2
-y
-1
-0
-−1
-−2
-−4       −2          0       2          4
-x
-(a). solve directly for the least-squares estimates of the intercept and
-slope of the simple linear regression (obtain the same values as in the r
-print summary)
-(b). give formulas for the least-squares estimates of β1 and β2 in terms
-of the simple statistics
-x = 0, and y = 1.5
-sx =    sx2 =4.2426
-2
-�
-sy =    sy2 =3.1091
-s
-r = corr(x, y) = sxxy
-sy =0.9855
-(c). in the r print summary, the standard error of the slope β̂2 is given
-as σ̂βˆ2 =0.0878
-using σ̂ =0.65, give a formula for this standard error, using the statistics
-in (b).
-(d). what is the least-squares prediction of ŷ when x = x = 0, and what
-is its standard error (estimate of its standard deviation)?', 'Signif. codes: 0 \'***\' 0.001 \'**\' 0.01 \'*\' 0.05 \'.\' 0.1 \' \' 1
-Residual standard error: 0.6455 on 2 degrees of freedom
-Multiple R-squared: 0.9713,         Adjusted R-squared:             0.9569
-F-statistic: 67.6 on 1 and 2 DF, p-value: 0.01447
-5
-4
-3
-2
-y
-1
-0
-−1
-−2
-−4       −2          0       2          4
-x
-(a). Solve directly for the least-squares estimates of the intercept and
-slope of the simple linear regression (obtain the same values as in the R
-print summary)
-(b). Give formulas for the least-squares estimates of β1 and β2 in terms
-of the simple statistics
-x = 0, and y = 1.5
-sx =    Sx2 =4.2426
-2
-�
-sy =    Sy2 =3.1091
-S
-r = Corr(x, y) = Sxxy
-Sy =0.9855
-(c). In the R print summary, the standard error of the slope β̂2 is given
-as σ̂βˆ2 =0.0878
-Using σ̂ =0.65, give a formula for this standard error, using the statistics
-in (b).
-(d). What is the least-squares prediction of Ŷ when X = x = 0, and what
-is its standard error (estimate of its standard deviation)?', 'Pas signif. codes: 0 \'***\' 0.001 \'**\' 0.01 \'*\' 0.05 \'.\' 0.1 \' \' 1
-residual standard error: 0.6455 on 2 degrees of freedom
-multiple r-squared: 0.9713,         adjusted r-squared:             0.9569
-f-statistic: 67.6 on 1 and 2 df, p-value: 0.01447
-5
-4
-3
-2
-y
-1
-0
-−1
-−2
-−4       −2          0       2          4
-x
-(a). solve directly for the least-squares estimates of the intercept and
-slope of the simple linear regression (obtain the same values as in the r
-print summary)
-(b). give formulas for the least-squares estimates of β1 and β2 in terms
-of the simple statistics
-x = 0, and y = 1.5
-sx =    sx2 =4.2426
-2
-�
-sy =    sy2 =3.1091
-s
-r = corr(x, y) = sxxy
-sy =0.9855
-(c). in the r print summary, the standard error of the slope β̂2 is given
-as σ̂βˆ2 =0.0878
-using σ̂ =0.65, give a formula for this standard error, using the statistics
-in (b).
-(d). what is the least-squares prediction of ŷ when x = x = 0, and what
-is its standard error (estimate of its standard deviation)?'), 'correct' => 2, 'answer' => 'Signif. codes: 0 \'***\' 0.001 \'**\' 0.01 \'*\' 0.05 \'.\' 0.1 \' \' 1
-Residual standard error: 0.6455 on 2 degrees of freedom
-Multiple R-squared: 0.9713,         Adjusted R-squared:             0.9569
-F-statistic: 67.6 on 1 and 2 DF, p-value: 0.01447
-5
-4
-3
-2
-y
-1
-0
-−1
-−2
-−4       −2          0       2          4
-x
-(a). Solve directly for the least-squares estimates of the intercept and
-slope of the simple linear regression (obtain the same values as in the R
-print summary)
-(b). Give formulas for the least-squares estimates of β1 and β2 in terms
-of the simple statistics
-x = 0, and y = 1.5
-sx =    Sx2 =4.2426
-2
-�
-sy =    Sy2 =3.1091
-S
-r = Corr(x, y) = Sxxy
-Sy =0.9855
-(c). In the R print summary, the standard error of the slope β̂2 is given
-as σ̂βˆ2 =0.0878
-Using σ̂ =0.65, give a formula for this standard error, using the statistics
-in (b).
-(d). What is the least-squares prediction of Ŷ when X = x = 0, and what
-is its standard error (estimate of its standard deviation)?', '_recupere_le' => '2026-11-04T19:55:22.592849+00:00Z', '_strategie' => 'separation_enum_solution'),
+σ̂y = σ̂n = √σ̂4 = 0.65/2 = 0.325', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
 CAPM Model
 The CAPM model was ﬁt to model the excess returns of Exxon-Mobil (Y)
@@ -606,7 +455,7 @@ than 1, i.e., is Exxon Mobil less risky than the market:
 H0 : β = 1 versus HA : β < 1.
 If so, what is your test statistic; what is the approximate P -value of the
 test (clearly state any assumptions you make)? Would you reject H0 in
-favor of HA ?', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : CAPM Model
+favor of HA ?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : CAPM Model
 The CAPM model was ﬁt to model the excess returns of Exxon-Mobil (Y)
 as a linear function of the excess returns of the market (X) as represented
 by the S&P 500 Index.
@@ -689,110 +538,7 @@ Under the null hypothesis T has a t-distribution with 498 degrees of free­
 dom. This distribution is essentially the N (0, 1) distribution since the
 degrees of freedom is so high. The p-value of this statistic (one-sided)
 is less than 0.05 because P (Z < −1.645) = 0.05 for a Z ∼ N (0, 1) so
-P (T < −1.7841) ≈ P (Z < −1.7841) which is smaller.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
-CAPM Model
-The CAPM model was ﬁt to model the excess returns of Exxon-Mobil (Y)
-as a linear function of the excess returns of the market (X) as represented
-by the S&P 500 Index.
-Yi = α + βXi + Ei
-where the Ei are assumed to be uncorrelated, with zero mean and constant
-variance σ 2 . Using a recent 500-day analysis period the following output
-was generated in R:
-3
-XOM
-0.03
-0.02
-0.01
-Y (Stock Excess Return)
-0.00
-−0.02
-−0.04
-−0.02   −0.01      0.00       0.01    0.02
-X (Market Excess Return)
-> print(summary(lmfit0))
-Call:
-lm(formula = r.daily.symbol0.0[index.window] ~ r.daily.SP500.0[index.window],
-x = TRUE, y = TRUE)
-Residuals:
-Min        1Q                            Median             3Q        Max
--0.038885 -0.004415                          0.000187       0.004445   0.026748
-Coefficients:
-Estimate Std. Error t value Pr(>|t|)
-(Intercept)                  -0.0004805 0.0003360    -1.43    0.153
-r.daily.SP500.0[index.window] 0.9190652 0.0454380    20.23   <2e-16
-Residual standard error: 0.007489 on 498 degrees of freedom
-Multiple R-squared: 0.451,         Adjusted R-squared: 0.4499
-F-statistic: 409.1 on 1 and 498 DF, p-value: < 2.2e-16
-(a). Explain the meaning of the residual standard error.
-(b). What does “498 degrees of freedom” mean?
-4
-(c). What is the correlation between Y (Stock Excess Return) and X
-(Market Excess Return)?
-(d). Using this output, can you test whether the alpha of Exxon Mobil is
-zero (consistent with asset pricing in an eﬃcient market).
-H0 : α = 0 at the signiﬁcance level α = .05?
-If so, conduct the test, explain any assumptions which are necessary, and
-state the result of the test?
-(e). Using this output, can you test whether the β of Exxon Mobil is less
-than 1, i.e., is Exxon Mobil less risky than the market:
-H0 : β = 1 versus HA : β < 1.
-If so, what is your test statistic; what is the approximate P -value of the
-test (clearly state any assumptions you make)? Would you reject H0 in
-favor of HA ?]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
-CAPM Model
-The CAPM model was ﬁt to model the excess returns of Exxon-Mobil (Y)
-as a linear function of the excess returns of the market (X) as represented
-by the S&P 500 Index.
-Yi = α + βXi + Ei
-where the Ei are assumed to be uncorrelated, with zero mean and constant
-variance σ 2 . Using a recent 500-day analysis period the following output
-was generated in R:
-3
-XOM
-0.03
-0.02
-0.01
-Y (Stock Excess Return)
-0.00
-−0.02
-−0.04
-−0.02   −0.01      0.00       0.01    0.02
-X (Market Excess Return)
-> print(summary(lmfit0))
-Call:
-lm(formula = r.daily.symbol0.0[index.window] ~ r.daily.SP500.0[index.window],
-x = TRUE, y = TRUE)
-Residuals:
-Min        1Q                            Median             3Q        Max
--0.038885 -0.004415                          0.000187       0.004445   0.026748
-Coefficients:
-Estimate Std. Error t value Pr(>|t|)
-(Intercept)                  -0.0004805 0.0003360    -1.43    0.153
-r.daily.SP500.0[index.window] 0.9190652 0.0454380    20.23   <2e-16
-Residual standard error: 0.007489 on 498 degrees of freedom
-Multiple R-squared: 0.451,         Adjusted R-squared: 0.4499
-F-statistic: 409.1 on 1 and 498 DF, p-value: < 2.2e-16
-(a). Explain the meaning of the residual standard error.
-(b). What does “498 degrees of freedom” mean?
-4
-(c). What is the correlation between Y (Stock Excess Return) and X
-(Market Excess Return)?
-(d). Using this output, can you test whether the alpha of Exxon Mobil is
-zero (consistent with asset pricing in an eﬃcient market).
-H0 : α = 0 at the signiﬁcance level α = .05?
-If so, conduct the test, explain any assumptions which are necessary, and
-state the result of the test?
-(e). Using this output, can you test whether the β of Exxon Mobil is less
-than 1, i.e., is Exxon Mobil less risky than the market:
-H0 : β = 1 versus HA : β < 1.
-If so, what is your test statistic; what is the approximate P -value of the
-test (clearly state any assumptions you make)? Would you reject H0 in
-favor of HA ?', '_recupere_le' => '2026-11-04T19:55:22.593626+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : CAPM Model
-The CAPM model was ﬁt to model the excess returns of Exxon-Mobil (Y)
-as a linear function of the excess returns of the market (X) as represented
-by the S&P 500 Ind')),
+P (T < −1.7841) ≈ P (Z < −1.7841) which is smaller.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
 Suppose X1 , . . . , Xn are n values sampled at random from a ﬁxed distri­
 bution:
@@ -802,7 +548,7 @@ mean zero and median zero.
 (a). Give explicit deﬁnitions of 3 diﬀerent estimators of the location pa­
 rameter θ.
 (b). For each estimator in (a), explain under what conditions it would be
-expected to be better than the other two.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Suppose X1 , . . . , Xn are n values sampled at random from a ﬁxed distri­
+expected to be better than the other two.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Suppose X1 , . . . , Xn are n values sampled at random from a ﬁxed distri­
 bution:
 X i = θ + Ei
 where θ is a location parameter and the Ei are i.i.d. random variables with
@@ -853,35 +599,11 @@ t (df=10)     0.00     0.70    1.37     1.81     2.76      4.14
 t (df=25)     0.00     0.68    1.32     1.71     2.49      3.45
 t (df=50)     0.00     0.68    1.30     1.68     2.40      3.26
 t (df=100)     0.00     0.68    1.29     1.66     2.36      3.17
-t (df=500)     0.00     0.67    1.28     1.65     2.33      3.11
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
-Suppose X1 , . . . , Xn are n values sampled at random from a ﬁxed distri­
-bution:
-Xi = θ + Ei
-where θ is a location parameter and the Ei are i.i.d. random variables with
-mean zero and median zero.
-(a). Give explicit deﬁnitions of 3 diﬀerent estimators of the location pa­
-rameter θ.
-(b). For each estimator in (a), explain under what conditions it would be
-expected to be better than the other two.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
-Suppose X1 , . . . , Xn are n values sampled at random from a ﬁxed distri­
-bution:
-Xi = θ + Ei
-where θ is a location parameter and the Ei are i.i.d. random variables with
-mean zero and median zero.
-(a). Give explicit deﬁnitions of 3 diﬀerent estimators of the location pa­
-rameter θ.
-(b). For each estimator in (a), explain under what conditions it would be
-expected to be better than the other two.', '_recupere_le' => '2026-11-04T19:55:22.593820+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Suppose X1 , . . . , Xn are n values sampled at random from a ﬁxed distri­
-bution:
-X i = θ + Ei
-where θ is a location parameter and the Ei are i.i.d. random variables with
-me')),
+t (df=500)     0.00     0.67    1.28     1.65     2.33      3.11', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
 Suppose the random variable X has a t distribution with n degrees of
 freedom. For what values of n is the variance ﬁnite/inﬁnite. Derive a
-formula for the variance of X (when it is ﬁnite).', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Suppose the random variable X has a t distribution with n degrees of
+formula for the variance of X (when it is ﬁnite).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Suppose the random variable X has a t distribution with n degrees of
 freedom.
 (a). For what values of n is the variance ﬁnite/inﬁnite.
 (b). Derive a formula for the variance of X (when it is ﬁnite).
@@ -916,20 +638,9 @@ n−2
 1
 The expectation E[ U ] = 1/(n − 2) can be computed directly for n > 2.
 (Note that the formula is undeﬁned for n = 2 and gives negative values
-for n < 2)
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Suppose the random variable X has a t distribution with n degrees of
-freedom. For what values of n is the variance ﬁnite/inﬁnite. Derive a
-formula for the variance of X (when it is ﬁnite).]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Suppose the random variable X has a t distribution with n degrees of
-freedom. For what values of n is the variance ﬁnite/inﬁnite. Derive a
-formula for the variance of X (when it is ﬁnite).', '_recupere_le' => '2026-11-04T19:55:22.593967+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Suppose the random variable X has a t distribution with n degrees of
-freedom.
-(a). For what values of n is the variance ﬁnite/inﬁnite.
-(b). Derive a formula for the variance')),
+for n < 2)', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.10.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.10.
+Problem 8.10.10.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.10.
 Use the normal approximation of the Poisson distribution to sketch
 the approximate sampling distribution of λ̂ of Example A of Section
 8.4. According to this approximation, what is
@@ -965,16 +676,9 @@ p
 Using R and the function pnorm we can compute the desired values:
 > 2 * 1-pnorm( sqrt(23/24.9) * c(.5,1.,1.5,2.,2.5))
 [1] 1.315420 1.168253 1.074703 1.027292 1.008137
-5
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.10.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.10.', '_recupere_le' => '2026-11-04T19:55:22.594056+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 8.10.10.
-Use the normal approximation of the Poisson distribution to sketch
-the approximate sampling distribution of λ̂ of Example A of Section
-8.4. According to this')),
+5', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.5', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.5
+Problem 8.10.5', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.5
 X is a descrete random varialbe with
 P (X = 1) = θ and P (X = 2) = 1 − θ.
 Three independent ovservations of X are made:
@@ -1000,18 +704,9 @@ The posterior distribution has density
 By inspection, the posterior density must be that of a Beta(a, b) dis­
 tribution with
 a = 2 and b = 3.
-1
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.5]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.5', '_recupere_le' => '2026-11-04T19:55:22.594141+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 8.10.5
-X is a descrete random varialbe with
-P (X = 1) = θ and P (X = 2) = 1 − θ.
-Three independent ovservations of X are made:
-x1 = 1, x2 = 2, x = 2.
-(a). Find the me')),
+1', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.32', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.32
+Problem 8.10.32', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.32
 The R code in P roblem 8 10 32.html provides numerical solutions to
 (a), (b), and (c).
 (a). Reasonable guesses for the mean µ and variance σ 2 are the mle
@@ -1051,17 +746,9 @@ the degrees of freedom. So, the factor of 4 is an upper bound on the
 the sample size increase required. Also, the length of the conﬁdence
 interval for µ is random. The previous comments apply on average,
 but in any sample, the conﬁdence interval will have random length
-and could be arbitrarily large, albeit with very small probability.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.32]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.32', '_recupere_le' => '2026-11-04T19:55:22.594226+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 8.10.32
-The R code in P roblem 8 10 32.html provides numerical solutions to
-(a), (b), and (c).
-(a). Reasonable guesses for the mean µ and variance σ 2 are the mle
-for')),
+and could be arbitrarily large, albeit with very small probability.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 9 Spring 2015 Statistics for Applications Due Date: 5/1/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-14.9.4.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 14.9.4.
+14.9.4.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 14.9.4.
 For modeling freshman GPA to depend linearly on high school GPA,
 a standard linear regression model is:
 Yi = β0 + β1 xi + ei , i = 1, 2, . . . , n.
@@ -1099,17 +786,9 @@ Y = ⎢ . ⎥ = X ⎣ βM ⎦ + ⎢ . ⎥
 ⎣ .. ⎦                ⎣ .. ⎦
 β1
 Yn                    en
-1
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 9 Spring 2015 Statistics for Applications Due Date: 5/1/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-14.9.4.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 9 Spring 2015 Statistics for Applications Due Date: 5/1/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-14.9.4.', '_recupere_le' => '2026-11-04T19:55:22.594309+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : 14.9.4.
-For modeling freshman GPA to depend linearly on high school GPA,
-a standard linear regression model is:
-Yi = β0 + β1 xi + ei , i = 1, 2, . . . , n.
-Suppose that diﬀer')),
+1', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 9 Spring 2015 Statistics for Applications Due Date: 5/1/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-14.9.18.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 14.9.18.
+14.9.18.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 14.9.18.
 Suppose that
 Yi = β0 + β1 xi + ei , i = 1, . . . , n
 where the ei are i.i.d. N (0, σ 2 ). Find the mle’s of β0 and β1 and verify
@@ -1118,19 +797,14 @@ from the lecture notes: Regression Analysis II in the section on max­
 imum likelihood. The likelihood function       is a monotonic function of
 the least-squares criterion Q(β) = n1 (Yi − Ŷi )2 . Therefore the least-
 L
-squares estimates of β and the mle’s are identical.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 9 Spring 2015 Statistics for Applications Due Date: 5/1/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-14.9.18.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 9 Spring 2015 Statistics for Applications Due Date: 5/1/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-14.9.18.', '_recupere_le' => '2026-11-04T19:55:22.594391+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : 14.9.18.
-Suppose that
-Yi = β0 + β1 xi + ei , i = 1, . . . , n
-where the ei are i.i.d. N (0, σ 2 ). Find the mle’s of β0 and β1 and verify
-that they are the least squares esti')),
+squares estimates of β and the mle’s are identical.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 3 Spring 2015 Statistics for Applications Due Date: 2/27/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
 Problem 8.10.45. A Random walk Model for Chromatin
 Only parts (a) through (g). See R script ﬁle “Rproject3 script4 Chromatin.r’
-in Rproject3. You can edit this ﬁle for your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.45. A Random walk Model for Chromatin
+in Rproject3. You can edit this ﬁle for your answers; turn in hard­
+copy of an html ﬁle compiled by creating a “notebook” from the script
+(press the button on the script window that looks like a notebook).
+Circle/highlight your answers on the hard-copy.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.45. A Random walk Model for Chromatin
 The html in Rproject3.zip ”Rproject3//Rproject3r mdr ayleight heory.html”
 details estimation theory for a sample from a Rayleigh distribution.
 (a). MLE of θ :
@@ -1233,23 +907,14 @@ So, V ar(θ̂M OM ) = θ2 (2 − π2 )( π2 )( n1 ) = θ2 ( π4 − 1)( n1 ) ≈
 2
 This exceeds the approximate V ar(θ̂M LE ) ≈ θn × 0.25
 See the R script ﬁle:
-Rproject3 script4 Chromatin solution.r', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 's; turn in hard­
-copy of an html ﬁle compiled by creating a “notebook” from the script
-(press the button on the script window that looks like a notebook).
-Circle/highlight your answers on the hard-copy.', 'L\'inverse de s; turn in hard­
-copy of an html ﬁle compiled by creating a “notebook” from the script
-(press the button on the script window that looks like a notebook).
-circle/highlight your answers on the hard-copy.', 'Pas s; turn in hard­
-copy of an html ﬁle compiled by creating a “notebook” from the script
-(press the button on the script window that looks like a notebook).
-circle/highlight your answers on the hard-copy.'), 'correct' => 1, 'answer' => 's; turn in hard­
-copy of an html ﬁle compiled by creating a “notebook” from the script
-(press the button on the script window that looks like a notebook).
-Circle/highlight your answers on the hard-copy.', '_recupere_le' => '2026-11-04T19:55:22.594607+00:00Z', '_strategie' => 'separation_enum_solution'),
+Rproject3 script4 Chromatin solution.r', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 3 Spring 2015 Statistics for Applications Due Date: 2/27/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
 Problem 8.10.58 Gene Frequencies of Haptoglobin Type See
 R Script ﬁle “Rproject3 script1 multinomial simulation.r” in Rpro­
-ject3. You can edit this ﬁle for your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.58 Gene Frequencies of Haptoglobin Type
+ject3. You can edit this ﬁle for your answers; turn in hard-copy of
+an html ﬁle compiled by creating a “notebook” from the script (press
+the button on the script window that looks like a notebook). Cir­
+cle/highlight your answers on the hard-copy.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.58 Gene Frequencies of Haptoglobin Type
 Gene frequencies are in equilibrium, the genotypes AA, Aa, and aa oc­
 cur with probabilities (1 − θ)2 , 2θ(1 − θ), and θ2 . Plato et al. published
 the following data on Haptoglobin Type in a sample of 190 people
@@ -1297,19 +962,7 @@ E[X3 ] = np3 (θ) = nθ2
 • σ̂θ̂2 =              =                      = 0.0004682898 = (.02164)2
 2n             2 × 190
 Parts (c), (d), and (e): see the R script
-Rproject3 script1 multinomial simulation P roblem 8 57.r', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'L\'inverse de s; turn in hard-copy of
-an html ﬁle compiled by creating a “notebook” from the script (press
-the button on the script window that looks like a notebook). cir­
-cle/highlight your answers on the hard-copy.', 's; turn in hard-copy of
-an html ﬁle compiled by creating a “notebook” from the script (press
-the button on the script window that looks like a notebook). Cir­
-cle/highlight your answers on the hard-copy.', 'Pas s; turn in hard-copy of
-an html ﬁle compiled by creating a “notebook” from the script (press
-the button on the script window that looks like a notebook). cir­
-cle/highlight your answers on the hard-copy.'), 'correct' => 2, 'answer' => 's; turn in hard-copy of
-an html ﬁle compiled by creating a “notebook” from the script (press
-the button on the script window that looks like a notebook). Cir­
-cle/highlight your answers on the hard-copy.', '_recupere_le' => '2026-11-04T19:55:22.594831+00:00Z', '_strategie' => 'separation_enum_solution'),
+Rproject3 script1 multinomial simulation P roblem 8 57.r', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 10 Spring 2015 Statistics for Applications Due Date: 5/15/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
 12.5.17. Find the mle’s of the parameters αi , βj , δij , and µ of the model
 for the two-way layout.
@@ -1336,7 +989,7 @@ Solving the following equations:
 ∂ βi = 0 =⇒ βi = Y·j· − µ̂
 ∂l         ˆ                        ˆ
 ∂δij = 0 =⇒ δij = Yij · − µ̂ − α̂i − βj
-These terms yield the', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 12.5.17. Find the mle’s of the parameters αi , βj , δij , and µ of the model
+These terms yield the answer formulas of the problem.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 12.5.17. Find the mle’s of the parameters αi , βj , δij , and µ of the model
 for the two-way layout.
 The model for the two-way layout is given by:
 Yijk = µ + αi + βj + δij + Eijk
@@ -1363,9 +1016,10 @@ Solving the following equations:
 ∂βi = 0 =⇒ βi = Y·j · − µ̂
 ∂l         ˆ                        ˆ
 ∂δij = 0 =⇒ δij = Yij · − µ̂ − α̂i − βj
-These terms yield the answer formulas of the problem.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'Pas formulas of the problem.', 'L\'inverse de formulas of the problem.', 'formulas of the problem.'), 'correct' => 3, 'answer' => 'formulas of the problem.', '_recupere_le' => '2026-11-04T19:55:22.595235+00:00Z', '_strategie' => 'separation_enum_solution'),
+These terms yield the answer formulas of the problem.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 2 Spring 2014 Statistics for Applications Due Date: 2/20/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.31;', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.31; answer if George observes three heads and Hilary
+Problem 8.10.31; answer if George observes three heads and Hilary
+spins the coin ﬁve times.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.31; answer if George observes three heads and Hilary
 spins the coin ﬁve times.
 George spins a coin three times and observes no heads. He then gives
 the coin to Hilary. She spins it until the ﬁrst head occurs, and ends
@@ -1402,13 +1056,9 @@ d
 =⇒ 4θ = 4(1 − θ)
 =⇒ θ̂ = 4/8
 Note that the MLE of θ is identical to the MLE for 8 Bernoulli trials
-which have 4 Heads and 4 Tails.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas if george observes three heads and hilary
-spins the coin ﬁve times.', 'if George observes three heads and Hilary
-spins the coin ﬁve times.', 'Impossible à déterminer', 'L\'inverse de if george observes three heads and hilary
-spins the coin ﬁve times.'), 'correct' => 1, 'answer' => 'if George observes three heads and Hilary
-spins the coin ﬁve times.', '_recupere_le' => '2026-11-04T19:55:22.595358+00:00Z', '_strategie' => 'separation_enum_solution'),
+which have 4 Heads and 4 Tails.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.4', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 9.11.4
+Problem 9.11.4', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 9.11.4
 Let X have one of the following distributions:
 X     H0   H1
 x1    .2   .1
@@ -1465,20 +1115,9 @@ To include {x2 } in the rejection region it must be that P (H0 ) > 4/7.
 So for α = 0.5, the prior probabilities are such that
 4/7 < P (H0 ) = 1 − P (HA ) < 1/3.
 Note that higher prior probability of H0 leads to requiring stronger
-evidence (lower Λ) to reject H0 .
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.4]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.4', '_recupere_le' => '2026-11-04T19:55:22.595466+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 9.11.4
-Let X have one of the following distributions:
-X     H0   H1
-x1    .2   .1
-x2    .3   .4
-x3    .3   .1
-x4    .2   .4
-(a). Compare the likelihood ratio, Λ for e')),
+evidence (lower Λ) to reject H0 .', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.23', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 9.11.23
+Problem 9.11.23', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 9.11.23
 Suppose that a 99% conﬁdence interval for the mean µ of a normal
 distribution is found to be
 (−2.0, 3.0). Would a test of H0 : µ = −3 versus HA : µ = −3 be
@@ -1487,17 +1126,9 @@ Yes, by the duality of conﬁdence intervals and hypothesis tests (with
 two-sided alternatives).
 The conﬁdence interval contains the true parameter with probability
 0.99 (before observing the data). Accepting H0 if and only if the
-conﬁdence interval contains H0 must have level 1 − 0.99.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.23]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.23', '_recupere_le' => '2026-11-04T19:55:22.595571+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 9.11.23
-Suppose that a 99% conﬁdence interval for the mean µ of a normal
-distribution is found to be
-(−2.0, 3.0). Would a test of H0 : µ = −3 versus HA : µ = −3 be
-re')),
+conﬁdence interval contains H0 must have level 1 − 0.99.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.31', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 9.11.31
+Problem 9.11.31', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 9.11.31
 What values of the generalized likelihood ratio Λ are necessary to reject
 the null hypothesis at the signiﬁcance level α = 0.1 if the degrees of
 freedom are 1, 5, 10, 20.
@@ -1517,14 +1148,7 @@ df   LRstat0       Lambda
 3 10 15.987179 3.376200e-04
 4 20 28.411981 6.767321e-07
 >
-5
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.31]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.31', '_recupere_le' => '2026-11-04T19:55:22.595720+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 9.11.31
-What values of the generalized likelihood ratio Λ are necessary to reject
-the null hypothesis at the signiﬁcance level α = 0.1 if the degrees of
-freedom are 1')),
+5', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
 Testing Goodness of Fit.
 Let X be a binomial random variable with n trials and probability p of
@@ -1549,7 +1173,8 @@ that the Pearson chi-square statistic is an increasing function of |x − n/2|.
 (e). Suppose the rejection region of a test of H0 is {X : |X − n/2| > k}
 for some ﬁxed known number k. Using the central limit theorem (CLT)
 as an approximation to the distribution of X, write an expression that
-approximates the signiﬁcance level of the test for given k. (Your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Testing Goodness of Fit.
+approximates the signiﬁcance level of the test for given k. (Your answer
+can use the cdf of Z ∼ N (0, 1) : Φ(z) = P (Z ≤ z).)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Testing Goodness of Fit.
 Let X be a binomial random variable with n trials and probability p of
 success.
 (a). Suppose n = 100 and X = 38. Compute the Pearson chi-square
@@ -1642,7 +1267,7 @@ n/4        n/4
 n/4
 =   2 × [1 − Φ( √k )]
 n/4
-3', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'L\'inverse de can use the cdf of z ∼ n (0, 1) : φ(z) = p (z ≤ z).)', 'Pas can use the cdf of z ∼ n (0, 1) : φ(z) = p (z ≤ z).)', 'can use the cdf of Z ∼ N (0, 1) : Φ(z) = P (Z ≤ z).)'), 'correct' => 3, 'answer' => 'can use the cdf of Z ∼ N (0, 1) : Φ(z) = P (Z ≤ z).)', '_recupere_le' => '2026-11-04T19:55:22.596277+00:00Z', '_strategie' => 'separation_enum_solution'),
+3', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
 Probability Plots
 Random samples of size n = 100 were simulated from four distributions:
@@ -1721,7 +1346,7 @@ Sample Quantiles
 −1
 −2   −1     0      1     2                                  −2   −1     0      1     2
 Theoretical Quantiles                                       Theoretical Quantiles
-4', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Probability Plots
+4', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Probability Plots
 Random samples of size n = 100 were simulated from four distributions:
 • U nif orm(0, 1)
 • Exponential(1)
@@ -1822,170 +1447,7 @@ The QQ Plot for the normal distribution is unchanged and follows a
 straight-line pattern indicating consistency of the ordered observations
 with the theoretical quantiles – distribution
 Plot D = Normal
-10
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
-Probability Plots
-Random samples of size n = 100 were simulated from four distributions:
-• U nif orm(0, 1)
-• Exponential(1)
-• N ormal(50, 10)
-• Student’s t (4 degrees of freedom).
-The quantile-quantile plots are plotted for each of these 4 samples:
-Uniform QQ Plot                                                          Normal QQ Plot
-70
-Ordered Observations
-Ordered Observations
-0.8
-60
-50
-0.4
-40
-0.0
-0.0     0.2   0.4   0.6   0.8    1.0                                        30     40    50    60      70
-Uniform Quantiles                                                      Normal(0,1) Quantiles
-Exponential QQ Plot                                                        t Dist. QQ Plot
-5
-Ordered Observations
-Ordered Observations
-0 2 4 6 8
-4
-3
-2
-1
-−4
-0
-0      1     2     3     4      5                                         −4      −2     0      2      4
-Exponential(1) Quantiles                                                    t (df=4) Quantiles
-For each sample, the values were re-scaled to have sample mean zero and
-sample standard deviation 1
-{xi , i = 1, . . . , 100} =⇒ {Zi = xis−x
-x
-, i = 1, . . . , 100}
-n                                              n
-where x = n1                                            2   1
-1 xi and sx = n                                1 (xi − x)
-2
-3
-The Normal QQ plot for each set of standardized sample values is given
-in the next display but they are in a random order. For each distribution,
-identify the corresponding Normal QQ plot, and explain your reasoning.
-• U nif orm(0, 1) = Plot
-• Exponential(1) = Plot
-• N ormal(50, 10) = Plot
-• Student’s t (4 degrees of freedom) = Plot
-Plot A                                                      Plot C
-1.5
-Sample Quantiles
-Sample Quantiles
-4
-0.5
-2
-−1.5 −0.5
-0
-−2
-−2   −1     0      1     2                                  −2   −1     0      1     2
-Theoretical Quantiles                                       Theoretical Quantiles
-Plot B                                                      Plot D
-4
-2
-Sample Quantiles
-Sample Quantiles
-3
-1
-2
-0
-1
-−1
-0
-−2
-−1
-−2   −1     0      1     2                                  −2   −1     0      1     2
-Theoretical Quantiles                                       Theoretical Quantiles
-4]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
-Probability Plots
-Random samples of size n = 100 were simulated from four distributions:
-• U nif orm(0, 1)
-• Exponential(1)
-• N ormal(50, 10)
-• Student’s t (4 degrees of freedom).
-The quantile-quantile plots are plotted for each of these 4 samples:
-Uniform QQ Plot                                                          Normal QQ Plot
-70
-Ordered Observations
-Ordered Observations
-0.8
-60
-50
-0.4
-40
-0.0
-0.0     0.2   0.4   0.6   0.8    1.0                                        30     40    50    60      70
-Uniform Quantiles                                                      Normal(0,1) Quantiles
-Exponential QQ Plot                                                        t Dist. QQ Plot
-5
-Ordered Observations
-Ordered Observations
-0 2 4 6 8
-4
-3
-2
-1
-−4
-0
-0      1     2     3     4      5                                         −4      −2     0      2      4
-Exponential(1) Quantiles                                                    t (df=4) Quantiles
-For each sample, the values were re-scaled to have sample mean zero and
-sample standard deviation 1
-{xi , i = 1, . . . , 100} =⇒ {Zi = xis−x
-x
-, i = 1, . . . , 100}
-n                                              n
-where x = n1                                            2   1
-1 xi and sx = n                                1 (xi − x)
-2
-3
-The Normal QQ plot for each set of standardized sample values is given
-in the next display but they are in a random order. For each distribution,
-identify the corresponding Normal QQ plot, and explain your reasoning.
-• U nif orm(0, 1) = Plot
-• Exponential(1) = Plot
-• N ormal(50, 10) = Plot
-• Student’s t (4 degrees of freedom) = Plot
-Plot A                                                      Plot C
-1.5
-Sample Quantiles
-Sample Quantiles
-4
-0.5
-2
-−1.5 −0.5
-0
-−2
-−2   −1     0      1     2                                  −2   −1     0      1     2
-Theoretical Quantiles                                       Theoretical Quantiles
-Plot B                                                      Plot D
-4
-2
-Sample Quantiles
-Sample Quantiles
-3
-1
-2
-0
-1
-−1
-0
-−2
-−1
-−2   −1     0      1     2                                  −2   −1     0      1     2
-Theoretical Quantiles                                       Theoretical Quantiles
-4', '_recupere_le' => '2026-11-04T19:55:22.597260+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Probability Plots
-Random samples of size n = 100 were simulated from four distributions:
-• U nif orm(0, 1)
-• Exponential(1)
-• N ormal(50, 10)
-• Student’s t (4 degrees of free')),
+10', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 						),
 					),
 				),
@@ -1994,20 +1456,13 @@ Random samples of size n = 100 were simulated from four distributions:
 					'tasks' => array(
 						'test' => array(
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.8', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : In lecture we derived the following expression for the vari­
+10.9.8', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : In lecture we derived the following expression for the vari­
 ance of the survival function (see p. 384 or Rice)
 F (t)
 V ar(log[Sn (t)]) = V ar(log[1 − Fn (t)]) = n1   1−F (t)
 where F (t) = 1 − e−t = P (X ≤ t), the cdf of an exponential(λ = 1)
 random variable.
-The R script “Problem10 9 8.r” graphs           V ar(log[Sn (t)]) versus t.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.8]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-10.9.8', '_recupere_le' => '2026-11-04T19:55:22.597369+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : In lecture we derived the following expression for the vari­
-ance of the survival function (see p. 384 or Rice)
-F (t)
-V ar(log[Sn (t)]) = V ar(log[1 − Fn (t)]) = n1   1−F (t)')),
+The R script “Problem10 9 8.r” graphs           V ar(log[Sn (t)]) versus t.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 7 Spring 2015 Statistics for Applications Due Date: 4/17/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
 10.9.39 Read in the data and generate the boxplot by executing the
 following code snippet in Rproject7
@@ -2018,7 +1473,10 @@ dimnames(windspeed.0)<-list(c(1:nrow(windspeed.0)), windspeed[,1])
 dim(windspeed.0)
 head(windspeed.0); tail(windspeed.0)
 boxplot(windspeed.0)
-Also, using your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 10.9.39 Read in the data and generate the boxplot by executing the
+Also, using your answer to 10.9.35, comment on the data points dis­
+played as asterisks in the boxplots. is their frequency consistent with
+a normal distribution? Would you expect these data to be consistent
+with a normal distribution?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 10.9.39 Read in the data and generate the boxplot by executing the
 following code snippet in Rproject7
 windspeed=read.table(file="Rice 3e Datasets/ASCII Comma/Chapter 10/windspeed.txt"
 sep=",",stringsAsFactors = FALSE)
@@ -2036,19 +1494,7 @@ Soluton: See Script ”RProject8 1 windspeed.r”. There are many as­
 terisk points in the boxplots which is not consistent with normal dis­
 tributions for the small samples with sizes 37. The extreme wind
 speeds are postively skewed distributions that diﬀer signﬁcantly from
-the normal model.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas to 10.9.35, comment on the data points dis­
-played as asterisks in the boxplots. is their frequency consistent with
-a normal distribution? would you expect these data to be consistent
-with a normal distribution?', 'L\'inverse de to 10.9.35, comment on the data points dis­
-played as asterisks in the boxplots. is their frequency consistent with
-a normal distribution? would you expect these data to be consistent
-with a normal distribution?', 'to 10.9.35, comment on the data points dis­
-played as asterisks in the boxplots. is their frequency consistent with
-a normal distribution? Would you expect these data to be consistent
-with a normal distribution?', 'Impossible à déterminer'), 'correct' => 2, 'answer' => 'to 10.9.35, comment on the data points dis­
-played as asterisks in the boxplots. is their frequency consistent with
-a normal distribution? Would you expect these data to be consistent
-with a normal distribution?', '_recupere_le' => '2026-11-04T19:55:22.597693+00:00Z', '_strategie' => 'separation_enum_solution'),
+the normal model.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Exam 1 Spring 2015 Statistics for Applications 3/5/2015
 Log Normal Distribution: A random variable X follows a Lognormal(θ, σ 2 )
 distribution if Y = ln(X) follows a N ormal(θ, σ 2 ) distribution.
@@ -2084,7 +1530,7 @@ f (x | θ, σ 2 ) = √      ( )e 2       σ2      ,   0 < x < ∞.
 distribution of size n. Find the mle for θ assuming that σ 2 is known
 to equal σ02 .
 (e). Find the asymptotic variance of the mle for θ in (d).
-1', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 1
+1', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 1
 (a).
 2
 µ1 = E[X] = E[eY ] = MY (1) = eθ+σ /2
@@ -2135,88 +1581,7 @@ Since d dθJ(θ)
 V ar(θ̂) ≈ σ02 /n
 ˆ
 This asymptotic variance is in fact the actual variance of θ.
-2
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Exam 1 Spring 2015 Statistics for Applications 3/5/2015
-Log Normal Distribution: A random variable X follows a Lognormal(θ, σ 2 )
-distribution if Y = ln(X) follows a N ormal(θ, σ 2 ) distribution.
-For the normal random variable Y = ln(X)
-• The probability density function of Y is
-1 (y − θ)2
-1     −
-f (y | µ, σ 2 ) = √       e 2 σ 2 , −∞ < y < ∞.
-2πσ 2
-• The moment-generating function of Y is
-1
-tY     2
-tθ + σ 2 t2
-MY (t) = E[e | θ, σ ] = e           2
-(a). Compute the ﬁrst two moments of a random variable X ∼
-Lognormal(θ, σ 2 ).
-µ1 = E[X | θ, σ 2 ] and µ2 = E[X 2 | θ]
-Hint: Note that X = eY and X 2 = e2Y where Y ∼ N (θ, σ 2 ) and use
-the moment-generating function of Y .
-(b). Suppose that X1 , . . . , Xn is an i.i.d. sample from the Lognormal(θ, σ 2 )
-distribution of size n. Find the method of moments estimates of θ and
-σ2.
-Hint: evaluate µ2 /µ12 and ﬁnd a method-of-moments estimate for σ 2
-ﬁrst.
-(c). For the log-normal random variable X = eY , where
-Y ∼ N ormal(θ, σ 2 ),
-prove that the probability density of X is
-1 (ln(x) − θ)2
-1     1  −
-f (x | θ, σ 2 ) = √      ( )e 2       σ2      ,   0 < x < ∞.
-2πσ 2  x
-(d). Suppose that X1 , . . . , Xn is an i.i.d. sample from the Lognormal(θ, σ 2 )
-distribution of size n. Find the mle for θ assuming that σ 2 is known
-to equal σ02 .
-(e). Find the asymptotic variance of the mle for θ in (d).
-1]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Exam 1 Spring 2015 Statistics for Applications 3/5/2015
-Log Normal Distribution: A random variable X follows a Lognormal(θ, σ 2 )
-distribution if Y = ln(X) follows a N ormal(θ, σ 2 ) distribution.
-For the normal random variable Y = ln(X)
-• The probability density function of Y is
-1 (y − θ)2
-1     −
-f (y | µ, σ 2 ) = √       e 2 σ 2 , −∞ < y < ∞.
-2πσ 2
-• The moment-generating function of Y is
-1
-tY     2
-tθ + σ 2 t2
-MY (t) = E[e | θ, σ ] = e           2
-(a). Compute the ﬁrst two moments of a random variable X ∼
-Lognormal(θ, σ 2 ).
-µ1 = E[X | θ, σ 2 ] and µ2 = E[X 2 | θ]
-Hint: Note that X = eY and X 2 = e2Y where Y ∼ N (θ, σ 2 ) and use
-the moment-generating function of Y .
-(b). Suppose that X1 , . . . , Xn is an i.i.d. sample from the Lognormal(θ, σ 2 )
-distribution of size n. Find the method of moments estimates of θ and
-σ2.
-Hint: evaluate µ2 /µ12 and ﬁnd a method-of-moments estimate for σ 2
-ﬁrst.
-(c). For the log-normal random variable X = eY , where
-Y ∼ N ormal(θ, σ 2 ),
-prove that the probability density of X is
-1 (ln(x) − θ)2
-1     1  −
-f (x | θ, σ 2 ) = √      ( )e 2       σ2      ,   0 < x < ∞.
-2πσ 2  x
-(d). Suppose that X1 , . . . , Xn is an i.i.d. sample from the Lognormal(θ, σ 2 )
-distribution of size n. Find the mle for θ assuming that σ 2 is known
-to equal σ02 .
-(e). Find the asymptotic variance of the mle for θ in (d).
-1', '_recupere_le' => '2026-11-04T19:55:22.598245+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : 1
-(a).
-2
-µ1 = E[X] = E[eY ] = MY (1) = eθ+σ /2
-2
-µ2 = E[X 2 ] = E[e2Y ] = MY (2) = e2θ+2σ
-(b). First, note that:
-2
-µ2 /(µ21 ) = eσ
-It follows that a method-of-moments estimat')),
+2', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Exam 1 Spring 2015 Statistics for Applications 3/5/2015
 Distributions derived from Normal random variables. Consider two
 independent random samples from two normal distributions:
@@ -2226,7 +1591,28 @@ independent random samples from two normal distributions:
 T1 (X1 , . . . , Xn , Y1 , . . . , Ym )
 T2 (X1 , . . . , Xn , Y1 , . . . , Ym )
 each of which is a t random variable and which are statistically inde­
-pendent. Explain in detail why your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Distributions derived from Normal random variables. Consider two
+pendent. Explain in detail why your answers have a t distribution and
+why they are independent.
+(b). If σ12 = σ22 > 0, deﬁne a statistic
+T3 (X1 , . . . , Xn , Y1 , . . . , Ym )
+which has an F distribution.
+An F distribution is determined by the numerator and denominator
+degrees of freedom. State the degrees of freedom for your statistic T3 .
+(c). For your answer in (b), deﬁne the statistic
+1
+T4 (X1 , . . . , Xn , Y1 , . . . , Ym ) =
+T3 (X1 , . . . , Xn , Y1 , . . . , Ym )
+What is the distribution of T4 under the conditions of (b)?
+2 = 1       n
+(d). Suppose that σ12 = σ22 . If SX      n−1
+2        2
+i=1 (Xi − X) , and SY =
+1    m            2
+m−1    i=1 (Yi − Y ) , are the sample variances of the two samples, show
+how to use the F distribution to ﬁnd
+P (SX 2 /SY2 > c).
+(e). Repeat question (d) if it is known that σ12 = 2σ22 .
+3', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Distributions derived from Normal random variables. Consider two
 independent random samples from two normal distributions:
 • X1 , . . . , Xn are n i.i.d. N ormal(µ1 , σ12 ) random variables.
 • Y1 , . . . , Ym are m i.i.d. N ormal(µ2 , σ22 ) random variables.
@@ -2343,91 +1729,7 @@ The answer is the upper-tail probability of an F distribution with
 σ2                   σ2
 For (d), use σ22 = 1 and for (e) use σ22 = 1/2
 1                    1
-7', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Pas s have a t distribution and
-why they are independent.
-(b). if σ12 = σ22 > 0, deﬁne a statistic
-t3 (x1 , . . . , xn , y1 , . . . , ym )
-which has an f distribution.
-an f distribution is determined by the numerator and denominator
-degrees of freedom. state the degrees of freedom for your statistic t3 .
-(c). for your answer in (b), deﬁne the statistic
-1
-t4 (x1 , . . . , xn , y1 , . . . , ym ) =
-t3 (x1 , . . . , xn , y1 , . . . , ym )
-what is the distribution of t4 under the conditions of (b)?
-2 = 1       n
-(d). suppose that σ12 = σ22 . if sx      n−1
-2        2
-i=1 (xi − x) , and sy =
-1    m            2
-m−1    i=1 (yi − y ) , are the sample variances of the two samples, show
-how to use the f distribution to ﬁnd
-p (sx 2 /sy2 > c).
-(e). repeat question (d) if it is known that σ12 = 2σ22 .
-3', 'Impossible à déterminer', 's have a t distribution and
-why they are independent.
-(b). If σ12 = σ22 > 0, deﬁne a statistic
-T3 (X1 , . . . , Xn , Y1 , . . . , Ym )
-which has an F distribution.
-An F distribution is determined by the numerator and denominator
-degrees of freedom. State the degrees of freedom for your statistic T3 .
-(c). For your answer in (b), deﬁne the statistic
-1
-T4 (X1 , . . . , Xn , Y1 , . . . , Ym ) =
-T3 (X1 , . . . , Xn , Y1 , . . . , Ym )
-What is the distribution of T4 under the conditions of (b)?
-2 = 1       n
-(d). Suppose that σ12 = σ22 . If SX      n−1
-2        2
-i=1 (Xi − X) , and SY =
-1    m            2
-m−1    i=1 (Yi − Y ) , are the sample variances of the two samples, show
-how to use the F distribution to ﬁnd
-P (SX 2 /SY2 > c).
-(e). Repeat question (d) if it is known that σ12 = 2σ22 .
-3', 'L\'inverse de s have a t distribution and
-why they are independent.
-(b). if σ12 = σ22 > 0, deﬁne a statistic
-t3 (x1 , . . . , xn , y1 , . . . , ym )
-which has an f distribution.
-an f distribution is determined by the numerator and denominator
-degrees of freedom. state the degrees of freedom for your statistic t3 .
-(c). for your answer in (b), deﬁne the statistic
-1
-t4 (x1 , . . . , xn , y1 , . . . , ym ) =
-t3 (x1 , . . . , xn , y1 , . . . , ym )
-what is the distribution of t4 under the conditions of (b)?
-2 = 1       n
-(d). suppose that σ12 = σ22 . if sx      n−1
-2        2
-i=1 (xi − x) , and sy =
-1    m            2
-m−1    i=1 (yi − y ) , are the sample variances of the two samples, show
-how to use the f distribution to ﬁnd
-p (sx 2 /sy2 > c).
-(e). repeat question (d) if it is known that σ12 = 2σ22 .
-3'), 'correct' => 2, 'answer' => 's have a t distribution and
-why they are independent.
-(b). If σ12 = σ22 > 0, deﬁne a statistic
-T3 (X1 , . . . , Xn , Y1 , . . . , Ym )
-which has an F distribution.
-An F distribution is determined by the numerator and denominator
-degrees of freedom. State the degrees of freedom for your statistic T3 .
-(c). For your answer in (b), deﬁne the statistic
-1
-T4 (X1 , . . . , Xn , Y1 , . . . , Ym ) =
-T3 (X1 , . . . , Xn , Y1 , . . . , Ym )
-What is the distribution of T4 under the conditions of (b)?
-2 = 1       n
-(d). Suppose that σ12 = σ22 . If SX      n−1
-2        2
-i=1 (Xi − X) , and SY =
-1    m            2
-m−1    i=1 (Yi − Y ) , are the sample variances of the two samples, show
-how to use the F distribution to ﬁnd
-P (SX 2 /SY2 > c).
-(e). Repeat question (d) if it is known that σ12 = 2σ22 .
-3', '_recupere_le' => '2026-11-04T19:55:22.598797+00:00Z', '_strategie' => 'separation_enum_solution'),
+7', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
 Regression Through the Origin
 For bivariate data on n cases: {(xi , yi ), i = 1, 2, . . . , n}, consider the linear
@@ -2445,7 +1747,7 @@ least-squares ﬁt:
 n        ˆ i )2
 SSERR =        (yi − βx
 i=1
-(d). Find an unbiased estimate of σ 2 using your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Regression Through the Origin
+(d). Find an unbiased estimate of σ 2 using your answer to (c).', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Regression Through the Origin
 For bivariate data on n cases: {(xi , yi ), i = 1, 2, . . . , n}, consider the linear
 model with zero intercept:
 Yi = βxi + Ei , i = 1, 2, . . . , n
@@ -2540,7 +1842,7 @@ SSERR = i=1 (yi − xi β̂)2 ∼ σ 2 χ2df =(n−1) .
 degrees of freedom. E[SSERR ] = σ 2 (n − 1) so
 ˆ 2 = SSn−1
 σ        ERR
-is an unbiased estiamte of σ 2 .', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('to (c).', 'Impossible à déterminer', 'Pas to (c).', 'L\'inverse de to (c).'), 'correct' => 0, 'answer' => 'to (c).', '_recupere_le' => '2026-11-04T19:55:22.599099+00:00Z', '_strategie' => 'separation_enum_solution'),
+is an unbiased estiamte of σ 2 .', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
 Suppose that grades on a midterm and ﬁnal have a correlation coeﬃcient of
 0.6 and both exams have an average score of 75. and a standard deviation
@@ -2553,7 +1855,7 @@ his score was on the midterm?
 midterm. What proportion of these students would you expect to be at
 or above the 75th percentile of the ﬁnal? (i) 75%, (ii) 50%, (iii) less than
 50%, or (iv) more than 50%.
-Justify your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (a). Let x be the midterm score and y be the ﬁnal score. The least-squares
+Justify your answers.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : (a). Let x be the midterm score and y be the ﬁnal score. The least-squares
 regression of y on x is given in terms of the standardized values:
 ŷ−y    x−x
 sy = r sx
@@ -2572,14 +1874,14 @@ variable is to its mean, in standard-deviation units. Since the 75th per­
 centile is on the midterm is above the mean, we expect these students to
 have average ﬁnal score which is lower than the 75th percentile (i.e., closer
 to the mean). This means (iii) is the correct answer.
-5', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('L\'inverse de s.', 'Pas s.', 'Impossible à déterminer', 's.'), 'correct' => 3, 'answer' => 's.', '_recupere_le' => '2026-11-04T19:55:22.599365+00:00Z', '_strategie' => 'separation_enum_solution'),
+5', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
 For the following batch of numbers:
 5, 8, 9, 9, 11, 13, 15, 19, 19, 20, 29
 (a). Make a stem-and-leaf plot of the batch.
 (b). Plot the ECDF (empirical cumulative distribution function) of the
 batch.
-(c). Draw the Boxplot of the batch.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : > x=c(5,8,9,9,11,13,15,19,19,20,29)
+(c). Draw the Boxplot of the batch.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : > x=c(5,8,9,9,11,13,15,19,19,20,29)
 > stem(x)
 The decimal point is 1 digit(s) to the right of the |
 0 | 5899
@@ -2617,37 +1919,9 @@ x
 Note that the center of the box is at the median (19), the bottom is at
 the 25-th percentile and top is at the 75-th percentile. The inter-quartile
 range is (19-9)=10, so any value more than 1.5 × 9 = 13.5 units above or
-below the box will be plotted as outliers. There are no such outliers.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
-For the following batch of numbers:
-5, 8, 9, 9, 11, 13, 15, 19, 19, 20, 29
-(a). Make a stem-and-leaf plot of the batch.
-(b). Plot the ECDF (empirical cumulative distribution function) of the
-batch.
-(c). Draw the Boxplot of the batch.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 3 Spring 2015 Statistics for Applications 5/7/2015
-For the following batch of numbers:
-5, 8, 9, 9, 11, 13, 15, 19, 19, 20, 29
-(a). Make a stem-and-leaf plot of the batch.
-(b). Plot the ECDF (empirical cumulative distribution function) of the
-batch.
-(c). Draw the Boxplot of the batch.', '_recupere_le' => '2026-11-04T19:55:22.599497+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : > x=c(5,8,9,9,11,13,15,19,19,20,29)
-> stem(x)
-The decimal point is 1 digit(s) to the right of the |
-0 | 5899
-1 | 13
-1 | 599
-2 | 0
-2 | 9
-> plot(ecdf(x))
-8
-ecdf(x)
-1.0
-0.8
-0.6
-')),
+below the box will be plotted as outliers. There are no such outliers.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 6.4.1', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 6.4.1
+Problem 6.4.1', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 6.4.1
 Z ∼ N (0, 1) and U ∼ χ2n and Z and U are independent.
 T = Z/ U/n a Student’s t random variable with n degrees
 of freedom.
@@ -2732,18 +2006,11 @@ fT (t) = 0 fT,V (t, v)dv J
 2   −(n+1)/2
 Γ((n + 1)/2)        t
 = √              × 1+
-πnΓ(n/2)         n
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 6.4.1]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 6.4.1', '_recupere_le' => '2026-11-04T19:55:22.599584+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 6.4.1
-Z ∼ N (0, 1) and U ∼ χ2n and Z and U are independent.
-T = Z/ U/n a Student’s t random variable with n degrees
-of freedom.
-Find the density function of T.
-Soluti')),
+πnΓ(n/2)         n', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-6.4.4. Also,', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 6.4.4. Also, add part (c) answer the question if the random variable
+6.4.4. Also, answer the question if the random variable T follows a
+standard normal distribution N (0, 1). Comment on the diﬀerences
+and why that should be.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 6.4.4. Also, add part (c) answer the question if the random variable
 T follows a standard normal distribution N (0, 1). Comment on the
 diﬀerences and why that should be.
 Solution:
@@ -2784,17 +2051,9 @@ distribution has heavier tail areas than the N ormal(0, 1) distribution.
 This makes sense because the t distribution equals a N ormal(0, 1)
 random variable divided by a random variable with expectation equal
 to 1 but positive variance. The possibility of the denominator of the t
-ratio being less than 1 increases the probability of larger values.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('the question if the random variable T follows a
-standard normal distribution N (0, 1). Comment on the diﬀerences
-and why that should be.', 'L\'inverse de the question if the random variable t follows a
-standard normal distribution n (0, 1). comment on the diﬀerences
-and why that should be.', 'Pas the question if the random variable t follows a
-standard normal distribution n (0, 1). comment on the diﬀerences
-and why that should be.', 'Impossible à déterminer'), 'correct' => 0, 'answer' => 'the question if the random variable T follows a
-standard normal distribution N (0, 1). Comment on the diﬀerences
-and why that should be.', '_recupere_le' => '2026-11-04T19:55:22.599783+00:00Z', '_strategie' => 'separation_enum_solution'),
+ratio being less than 1 increases the probability of larger values.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.13.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.13.
+Problem 8.10.13.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.13.
 In Example D of Secton 8.4, the method of moments estimate was
 found to be α̂ = 3X. In this example, consider the sampling distribu­
 tion of α̂.
@@ -2838,17 +2097,9 @@ n
 that
 n→∞               3 − α02
 α̂ −−−−−→ N (α0 ,             )
-n
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.13.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 1 Spring 2014 Statistics for Applications Due Date: 2/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.13.', '_recupere_le' => '2026-11-04T19:55:22.599873+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 8.10.13.
-In Example D of Secton 8.4, the method of moments estimate was
-found to be α̂ = 3X. In this example, consider the sampling distribu­
-tion of α̂.
-(a). Show th')),
+n', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.7', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.7
+Problem 8.10.7', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.7
 Suppose that X follows a geometric distribution
 P (X = x | p) = p(1 − p)x−1 , x = 1, 2 . . .
 Assume an i.i.d. sample of size n.
@@ -2921,17 +2172,9 @@ P
 n+1
 = Pn
 i=1 xi + 2
-(Note: the book solution is only for n = 1 and x1 = k)
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.7]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.7', '_recupere_le' => '2026-11-04T19:55:22.599964+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 8.10.7
-Suppose that X follows a geometric distribution
-P (X = x | p) = p(1 − p)x−1 , x = 1, 2 . . .
-Assume an i.i.d. sample of size n.
-(a). Find the method of moments')),
+(Note: the book solution is only for n = 1 and x1 = k)', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.63', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.63
+Problem 8.10.63', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.63
 Suppose that 100 items are sampled from a manufacturing process
 and 3 are found to be defective. Let X = 3 be the outcome of a
 Binomial(n = 100, θ) random variable.
@@ -2956,16 +2199,9 @@ E[θ | X] = a∗ /(a∗ + b∗ ).
 For a = b = 1 we have E[θ | X] = 4/102 and
 For a.5, and b = 5 we have E[θ | X] = 3.5/105.5.
 The R code in P roblem 8 10 63.html plots the prior/posterior densi­
-ties and computes the posterior means.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.63]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 4 Spring 2015 Statistics for Applications Due Date: 3/13/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.63', '_recupere_le' => '2026-11-04T19:55:22.600049+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 8.10.63
-Suppose that 100 items are sampled from a manufacturing process
-and 3 are found to be defective. Let X = 3 be the outcome of a
-Binomial(n = 100, θ) random var')),
+ties and computes the posterior means.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 9 Spring 2015 Statistics for Applications Due Date: 5/1/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-14.9.6.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 14.9.6. The 4 weighings correspond to 4 outcomes of the dependent
+14.9.6.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 14.9.6. The 4 weighings correspond to 4 outcomes of the dependent
 variable y
 ⎡ ⎤
 3
@@ -3042,27 +2278,9 @@ Under H0 this has a t distribution with n − 2 = 2 degrees of freedom.
 Using R we can compute the P -value as
 P-Value = 2*(1-pt(sqrt(2),df=2)) = 0.2928932
 For normal signiﬁcance levels (.05 or .01) the null hypothesis is not
-rejected because the P-Value is higher.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 9 Spring 2015 Statistics for Applications Due Date: 5/1/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-14.9.6.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 9 Spring 2015 Statistics for Applications Due Date: 5/1/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-14.9.6.', '_recupere_le' => '2026-11-04T19:55:22.600130+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : 14.9.6. The 4 weighings correspond to 4 outcomes of the dependent
-variable y
-⎡ ⎤
-3
-⎢ 3 ⎥
-Y =⎢
-⎣ 1 ⎦
-⎥
-7
-For the regression parameter vector
-w1
-β=
-w2
-the design matrix is
-⎡')),
+rejected because the P-Value is higher.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 3 Spring 2015 Statistics for Applications Due Date: 2/27/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.21.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.21.
+Problem 8.10.21.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.21.
 Suppose that X1 , X2 , . . . , Xn are i.i.d. with density function
 e−(x−θ) , if    x≥θ
 f (x | θ) =
@@ -3130,18 +2348,9 @@ Pn               nn
 = [e− i=1 (Xi −t) ][ 1[t,∞) (Xi )]
 i=1
 The density function does not depend on θ, so
-T = min(X1 , . . . , Xn ) is suﬃcient for θ.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 3 Spring 2015 Statistics for Applications Due Date: 2/27/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.21.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 3 Spring 2015 Statistics for Applications Due Date: 2/27/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.21.', '_recupere_le' => '2026-11-04T19:55:22.600216+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 8.10.21.
-Suppose that X1 , X2 , . . . , Xn are i.i.d. with density function
-e−(x−θ) , if    x≥θ
-f (x | θ) =
-0,        otherwise
-(a). Find the method of moments estima')),
+T = min(X1 , . . . , Xn ) is suﬃcient for θ.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 3 Spring 2015 Statistics for Applications Due Date: 2/27/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.51 Double Exponential (Laplace) Distribution', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.51 Double Exponential (Laplace) Distribution
+Problem 8.10.51 Double Exponential (Laplace) Distribution', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.51 Double Exponential (Laplace) Distribution
 The double exponential distribution is
 f (x | θ) = 12 e|x−θ| , −∞ < x < ∞.
 For an iid sample of size n = 2m + 1, show that the mle of θ is the
@@ -3171,14 +2380,7 @@ negative if θ < median(xi )
 It follows that g(θ) is minimized at θ = median(xi ). A graph of g(θ) is
 piecewise linear with slope changes at each of the xi values; the slope
 at any given θ (not equal to an xj ) is
-count(xi < θ) − count(xi > θ).
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 3 Spring 2015 Statistics for Applications Due Date: 2/27/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.51 Double Exponential (Laplace) Distribution]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 3 Spring 2015 Statistics for Applications Due Date: 2/27/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.51 Double Exponential (Laplace) Distribution', '_recupere_le' => '2026-11-04T19:55:22.600315+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 8.10.51 Double Exponential (Laplace) Distribution
-The double exponential distribution is
-f (x | θ) = 12 e|x−θ| , −∞ < x < ∞.
-For an iid sample of size n = 2m + 1, sho')),
+count(xi < θ) − count(xi > θ).', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 10 Spring 2015 Statistics for Applications Due Date: 5/15/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
 12.5.6
 Prove this version of the Bonferroni inequality:
@@ -3199,7 +2401,7 @@ In the context of simulataneous conﬁdence intervals
 Ai is the the event that the ith conﬁdence interval contains the
 associated parameter
 ∩ni=1 Ai is the the event that all conﬁdence intervals contains
-the associated parameters simultaneously.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 12.5.6
+the associated parameters simultaneously.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : 12.5.6
 Prove this version of the Bonferroni inequality:
 n
 P (∩ni=1 Ai ) ≥ 1 −             c
@@ -3218,62 +2420,10 @@ In the context of simulataneous conﬁdence intervals
 Ai is the the event that the ith conﬁdence interval contains the
 associated parameter
 ∩ni=1 Ai is the the event that all conﬁdence intervals contains
-the associated parameters simultaneously.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 10 Spring 2015 Statistics for Applications Due Date: 5/15/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-12.5.6
-Prove this version of the Bonferroni inequality:
-n
-P (∩ni=1 Ai ) ≥ 1 −             c
-i=1 P (Ai )
-Let A∗ = ∩ni=1 Ai . Then
-A∗c = ∪k=1
-n Ac
-i
-n
-So P (Ac∗ ) = P (∪nk=1 Aci ) ≤           c
-k=1 P (Ai )
-Because P (A∗ ) = 1 − P (A∗c ), it follows that
-n       c
-P (A∗ ) ≥ 1 −     k=1 P (Ai )
-In the context of simulataneous conﬁdence intervals
-Ai is the the event that the ith conﬁdence interval contains the
-associated parameter
-∩ni=1 Ai is the the event that all conﬁdence intervals contains
-the associated parameters simultaneously.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 10 Spring 2015 Statistics for Applications Due Date: 5/15/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-12.5.6
-Prove this version of the Bonferroni inequality:
-n
-P (∩ni=1 Ai ) ≥ 1 −             c
-i=1 P (Ai )
-Let A∗ = ∩ni=1 Ai . Then
-A∗c = ∪k=1
-n Ac
-i
-n
-So P (Ac∗ ) = P (∪nk=1 Aci ) ≤           c
-k=1 P (Ai )
-Because P (A∗ ) = 1 − P (A∗c ), it follows that
-n       c
-P (A∗ ) ≥ 1 −     k=1 P (Ai )
-In the context of simulataneous conﬁdence intervals
-Ai is the the event that the ith conﬁdence interval contains the
-associated parameter
-∩ni=1 Ai is the the event that all conﬁdence intervals contains
-the associated parameters simultaneously.', '_recupere_le' => '2026-11-04T19:55:22.600589+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : 12.5.6
-Prove this version of the Bonferroni inequality:
-n
-P (∩ni=1 Ai ) ≥ 1 −             c
-i=1 P (Ai )
-Let A∗ = ∩ni=1 Ai . Then
-A∗c = ∪k=1
-n Ac
-i
-n
-So P (Ac∗ ) = P (∪nk=1 Ac')),
+the associated parameters simultaneously.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 2 Spring 2014 Statistics for Applications Due Date: 2/20/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
 Problem 8.10.27; instead of 5 components, suppose there are 8 and
-that the ﬁrst one fails at 50 days.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.27; instead of 5 components, suppose there are 8 and
+that the ﬁrst one fails at 50 days.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.27; instead of 5 components, suppose there are 8 and
 that the ﬁrst one fails at 50 days.
 Suppose that certain electronic components have lifetimes that are
 exponentially distributed
@@ -3334,18 +2484,9 @@ true parameter
 StError(τ̂ ) = √ V ar(τ̂ )|τ =τ̂
 =     τ 2 |τ =τ̂ = τ̂ = 400.
 The variance formula follows from p. A2 Appendix A for
-Gamma(α = 1, λ = 1/τ ), which is Exponential(rate = 1/τ ).
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 2 Spring 2014 Statistics for Applications Due Date: 2/20/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.27; instead of 5 components, suppose there are 8 and
-that the ﬁrst one fails at 50 days.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 2 Spring 2014 Statistics for Applications Due Date: 2/20/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.27; instead of 5 components, suppose there are 8 and
-that the ﬁrst one fails at 50 days.', '_recupere_le' => '2026-11-04T19:55:22.600725+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 8.10.27; instead of 5 components, suppose there are 8 and
-that the ﬁrst one fails at 50 days.
-Suppose that certain electronic components have lifetimes that are
-expon')),
+Gamma(α = 1, λ = 1/τ ), which is Exponential(rate = 1/τ ).', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 2 Spring 2014 Statistics for Applications Due Date: 2/20/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.53; (for credit you must detail all calculations', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.53
+Problem 8.10.53; (for credit you must detail all calculations', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 8.10.53
 Let X1 , . . . , Xn be i.i.d. uniform on [0, θ]
 (a). Find the method of moments estimate of θ and its mean and
 variance.
@@ -3474,19 +2615,9 @@ To adjust θ̂M LE to make it unbiased, simply multiply it by the factor
 ( n+1
 n )
 ∗       n+1 ˆ
-θ̂M LE = ( n )θM LE
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 2 Spring 2014 Statistics for Applications Due Date: 2/20/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.53; (for credit you must detail all calculations]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 2 Spring 2014 Statistics for Applications Due Date: 2/20/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem]
-Problem 8.10.53; (for credit you must detail all calculations', '_recupere_le' => '2026-11-04T19:55:22.600829+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 8.10.53
-Let X1 , . . . , Xn be i.i.d. uniform on [0, θ]
-(a). Find the method of moments estimate of θ and its mean and
-variance.
-The ﬁrst moment of each Xi is
-θ
-µ1 =')),
+θ̂M LE = ( n )θM LE', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.5', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 9.11.5
+Problem 9.11.5', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 9.11.5
 (a). The signiﬁcance level of a statistical test is equal to the probability
 that the null hypothesis is true.
 False. In non-Bayesian hypothesis testing, there are no probabilities on
@@ -3532,16 +2663,9 @@ hypothesis.
 3
 True. The likelihood ratio is the ratio of the conditional pmf/pdf of
 the data (X) under H0 and HA . It is a function of the data which is
-a random variable.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.5]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.5', '_recupere_le' => '2026-11-04T19:55:22.600939+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 9.11.5
-(a). The signiﬁcance level of a statistical test is equal to the probability
-that the null hypothesis is true.
-False. In non-Bayesian hypothesis testing, there')),
+a random variable.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.26', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 9.11.26
+Problem 9.11.26', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Problem 9.11.26
 (a). The generalized likelihood ratio statistic Λ is always less than or
 equal to 1.
 maxθ∈Θ0 Lik(θ)
@@ -3572,18 +2696,7 @@ computed under the conditional probability given H0 .
 of 8.5, the p-value is less than 0.05
 False. Using R, the p value of the test statistic is
 1 − pchisq(8.5, df = 4) = 0.07488723
-The p-value is greater than 0.05.
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.26]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] 18.443 Problem Set 6 Spring 2015 Statistics for Applications Due Date: 4/3/2015 prior to 3:00pm Problems from John A. Rice, Third Edition. [Chapter.Section.P roblem] For full credit, explain your reasoning and detail any calculations.
-Problem 9.11.26', '_recupere_le' => '2026-11-04T19:55:22.601043+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Problem 9.11.26
-(a). The generalized likelihood ratio statistic Λ is always less than or
-equal to 1.
-maxθ∈Θ0 Lik(θ)
-True. Λ =
-maxθ∈Θ Lik(θ)
-where Θ0 ⊂ Θ.
-(b). If the p-value')),
+The p-value is greater than 0.05.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
 True or False:
 (a). The signiﬁcance level of a statistical test is not equal to the probability
@@ -3597,7 +2710,7 @@ test.
 hypothesis is a statistic which is higher the stronger the evidence of the
 data in favor of the null hypothesis.
 (e). If the p-value is 0.02, then the corresponding test will reject the null
-at the 0.05 level.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : True or False (and state why).
+at the 0.05 level.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : True or False (and state why).
 (a). The signiﬁcance level of a statistical test is not equal to the probability
 that the null hypothesis is true.
 (b). If a 99% conﬁdence interval for a distribution parameter θ does not
@@ -3610,38 +2723,7 @@ hypothesis is a statistic which is higher the stronger the evidence of the
 data in favor of the null hypothesis.
 (e). If the p-value is 0.02, then the corresponding test will reject the null
 at the 0.05 level.
-Solution: T, T, F, T, T
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
-True or False:
-(a). The signiﬁcance level of a statistical test is not equal to the probability
-that the null hypothesis is true.
-(b). If a 99% conﬁdence interval for a distribution parameter θ does not
-include θ0 , the value under the null hypothesis, then the corresponding
-test with signiﬁcance level 1% would reject the null hypothesis.
-(c). Increasing the size of the rejection region will lower the power of a
-test.
-(d). The likelihood ratio of a simple null hypothesis to a simple alternate
-hypothesis is a statistic which is higher the stronger the evidence of the
-data in favor of the null hypothesis.
-(e). If the p-value is 0.02, then the corresponding test will reject the null
-at the 0.05 level.]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
-True or False:
-(a). The signiﬁcance level of a statistical test is not equal to the probability
-that the null hypothesis is true.
-(b). If a 99% conﬁdence interval for a distribution parameter θ does not
-include θ0 , the value under the null hypothesis, then the corresponding
-test with signiﬁcance level 1% would reject the null hypothesis.
-(c). Increasing the size of the rejection region will lower the power of a
-test.
-(d). The likelihood ratio of a simple null hypothesis to a simple alternate
-hypothesis is a statistic which is higher the stronger the evidence of the
-data in favor of the null hypothesis.
-(e). If the p-value is 0.02, then the corresponding test will reject the null
-at the 0.05 level.', '_recupere_le' => '2026-11-04T19:55:22.601308+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : True or False (and state why).
-(a). The signiﬁcance level of a statistical test is not equal to the probability
-that the null hypothesis is true.
-(b). If a 99% conﬁdence inte')),
+Solution: T, T, F, T, T', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
 Reliability Analysis
 Suppose that n = 10 items are sampled from a manufacturing process
@@ -3672,7 +2754,7 @@ ab
 . Also, when both a > 1 and b > 1, the mode of the probability density is
 (a + b)2 (a + b + 1)
 at (a − 1)/(a + b − 2),
-2', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The random variable S ∼ Binomial(n, θ). If θ ∼ beta(a =
+2', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The random variable S ∼ Binomial(n, θ). If θ ∼ beta(a =
 1, b = 1), then because the beta distribution is a conjugate prior for the
 binomial distribution, the posterior distribution of θ given S is
 beta(a∗ = a + S, b∗ = b + (n − s))
@@ -3762,71 +2844,7 @@ with
 J1
 p=   0
 θπ(θ | S)dθ = E[θ | S] = (a + s)/(a + b + n).
-7
-
-[Correction officielle MIT : [MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
-Reliability Analysis
-Suppose that n = 10 items are sampled from a manufacturing process
-and S items are found to be defective. A beta(a, b) prior 1 is used for
-the unknown proportion θ of defective items, where a > 0, and b > 0 are
-known.
-(a). Consider the case of a beta prior with a = 1 and b = 1. Sketch a plot
-of the prior density of θ and of the posterior density of θ given S = 2. For
-each density, what is the distribution’s mean/expected value and identify
-it on your plot.
-(b). Repeat (a) for the case of a beta(a = 1, b = 10) prior for θ.
-(c). What prior beliefs are implied by each prior in (a) and (b); explain
-how they diﬀer?
-(d). Suppose that X = 1 or 0 according to whether an item is defective
-(X=1). For the general case of a prior beta(a, b) distribution with ﬁxed a
-and b, what is the marginal distribution of X before the n = 10 sample is
-taken and S is observed? (Hint: specify the joint distribution of X and θ
-ﬁrst.)
-(e). What is the marginal distribution of X after the sample is taken?
-(Hint: specify the joint distribution of X and θ using the posterior distri­
-bution of θ.)
-Γ(a + b) a−1
-1 A beta(a, b) distribution has density f
-Θ (θ) =      θ   (1 − θ)b−1 , 0 < θ < 1.
-Γ(a)Γ(b)
-Recall that for a beta(a, b) distribution, the expected value is a/(a + b), the variance is
-ab
-. Also, when both a > 1 and b > 1, the mode of the probability density is
-(a + b)2 (a + b + 1)
-at (a − 1)/(a + b − 2),
-2]', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
-Reliability Analysis
-Suppose that n = 10 items are sampled from a manufacturing process
-and S items are found to be defective. A beta(a, b) prior 1 is used for
-the unknown proportion θ of defective items, where a > 0, and b > 0 are
-known.
-(a). Consider the case of a beta prior with a = 1 and b = 1. Sketch a plot
-of the prior density of θ and of the posterior density of θ given S = 2. For
-each density, what is the distribution’s mean/expected value and identify
-it on your plot.
-(b). Repeat (a) for the case of a beta(a = 1, b = 10) prior for θ.
-(c). What prior beliefs are implied by each prior in (a) and (b); explain
-how they diﬀer?
-(d). Suppose that X = 1 or 0 according to whether an item is defective
-(X=1). For the general case of a prior beta(a, b) distribution with ﬁxed a
-and b, what is the marginal distribution of X before the n = 10 sample is
-taken and S is observed? (Hint: specify the joint distribution of X and θ
-ﬁrst.)
-(e). What is the marginal distribution of X after the sample is taken?
-(Hint: specify the joint distribution of X and θ using the posterior distri­
-bution of θ.)
-Γ(a + b) a−1
-1 A beta(a, b) distribution has density f
-Θ (θ) =      θ   (1 − θ)b−1 , 0 < θ < 1.
-Γ(a)Γ(b)
-Recall that for a beta(a, b) distribution, the expected value is a/(a + b), the variance is
-ab
-. Also, when both a > 1 and b > 1, the mode of the probability density is
-(a + b)2 (a + b + 1)
-at (a − 1)/(a + b − 2),
-2', '_recupere_le' => '2026-11-04T19:55:22.601876+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : The random variable S ∼ Binomial(n, θ). If θ ∼ beta(a =
-1, b = 1), then because the beta distribution is a conjugate prior for the
-binomial distribution, the posterior distri')),
+7', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT 18.443 — question d’examen, en anglais] NAME: 18.443 Exam 2 Spring 2015 Statistics for Applications 4/9/2015
 Betas for Stocks in S&P 500 Index. In ﬁnancial modeling of stock
 returns, the Capital Asset Pricing Model associates a “Beta” for any stock
@@ -3857,7 +2875,28 @@ Theoretical Quantiles
 For the sample of 500 Beta values, x =1.0902 and sx =0.5053.
 (a). On the basis of the histogram and the Normal QQ plot, are the values
 consistent with being a random sample from a Normal distribution?
-(b). Reﬁne your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Yes, the values are consistent with being a random sample from
+(b). Reﬁne your answer to (a) focusing separately on the extreme low
+values (smallest quantiles) and on the extreme large values (highest quan­
+tiles).
+5
+Bayesian Analysis of a Normal Distribution. For a stock that is
+similar to those that are constituents of the S&P 500 index above, let
+X = 1.6 be an estimate of the Beta coeﬃcient θ.
+Suppose that the following assumptions are reasonable:
+• The conditional distribution X given θ is Normal with known vari­
+ance:
+X | θ ∼ N ormal(θ, σ02 ), where σ02 = (0.2)2 .
+• As a prior for θ, assume that θ is Normal with mean and variance
+equal to those in the sample
+2
+θ ∼ N ormal(µprior , σprior )
+where µprior = 1.0902 anad σprior = 0.5053
+(c). Determine the posterior distribution of θ given X = 1.6.
+(d). Is the posterior mean between X and µprior ? Would this always be
+the case if a diﬀerent value of X had been observed?
+(e). Is the variance of the posterior distribution for θ given X greater or
+less than the variance of the prior distribution for θ? Does your answer
+depend on the value of X?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Yes, the values are consistent with being a random sample from
 a Normal distribution. The normal QQ-plot is quite straight.
 (b). Reﬁne your answer to (a) focusing separately on the extreme low
 values (smallest quantiles) and on the extreme large values (highest quan­
@@ -3920,91 +2959,7 @@ will always be between the two values.
 (.5053)2 = σprior
 2
 . From part (c), the posterior variance does not vary with
-the outcome X = x.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('to (a) focusing separately on the extreme low
-values (smallest quantiles) and on the extreme large values (highest quan­
-tiles).
-5
-Bayesian Analysis of a Normal Distribution. For a stock that is
-similar to those that are constituents of the S&P 500 index above, let
-X = 1.6 be an estimate of the Beta coeﬃcient θ.
-Suppose that the following assumptions are reasonable:
-• The conditional distribution X given θ is Normal with known vari­
-ance:
-X | θ ∼ N ormal(θ, σ02 ), where σ02 = (0.2)2 .
-• As a prior for θ, assume that θ is Normal with mean and variance
-equal to those in the sample
-2
-θ ∼ N ormal(µprior , σprior )
-where µprior = 1.0902 anad σprior = 0.5053
-(c). Determine the posterior distribution of θ given X = 1.6.
-(d). Is the posterior mean between X and µprior ? Would this always be
-the case if a diﬀerent value of X had been observed?
-(e). Is the variance of the posterior distribution for θ given X greater or
-less than the variance of the prior distribution for θ? Does your answer
-depend on the value of X?', 'Impossible à déterminer', 'L\'inverse de to (a) focusing separately on the extreme low
-values (smallest quantiles) and on the extreme large values (highest quan­
-tiles).
-5
-bayesian analysis of a normal distribution. for a stock that is
-similar to those that are constituents of the s&p 500 index above, let
-x = 1.6 be an estimate of the beta coeﬃcient θ.
-suppose that the following assumptions are reasonable:
-• the conditional distribution x given θ is normal with known vari­
-ance:
-x | θ ∼ n ormal(θ, σ02 ), where σ02 = (0.2)2 .
-• as a prior for θ, assume that θ is normal with mean and variance
-equal to those in the sample
-2
-θ ∼ n ormal(µprior , σprior )
-where µprior = 1.0902 anad σprior = 0.5053
-(c). determine the posterior distribution of θ given x = 1.6.
-(d). is the posterior mean between x and µprior ? would this always be
-the case if a diﬀerent value of x had been observed?
-(e). is the variance of the posterior distribution for θ given x greater or
-less than the variance of the prior distribution for θ? does your answer
-depend on the value of x?', 'Pas to (a) focusing separately on the extreme low
-values (smallest quantiles) and on the extreme large values (highest quan­
-tiles).
-5
-bayesian analysis of a normal distribution. for a stock that is
-similar to those that are constituents of the s&p 500 index above, let
-x = 1.6 be an estimate of the beta coeﬃcient θ.
-suppose that the following assumptions are reasonable:
-• the conditional distribution x given θ is normal with known vari­
-ance:
-x | θ ∼ n ormal(θ, σ02 ), where σ02 = (0.2)2 .
-• as a prior for θ, assume that θ is normal with mean and variance
-equal to those in the sample
-2
-θ ∼ n ormal(µprior , σprior )
-where µprior = 1.0902 anad σprior = 0.5053
-(c). determine the posterior distribution of θ given x = 1.6.
-(d). is the posterior mean between x and µprior ? would this always be
-the case if a diﬀerent value of x had been observed?
-(e). is the variance of the posterior distribution for θ given x greater or
-less than the variance of the prior distribution for θ? does your answer
-depend on the value of x?'), 'correct' => 0, 'answer' => 'to (a) focusing separately on the extreme low
-values (smallest quantiles) and on the extreme large values (highest quan­
-tiles).
-5
-Bayesian Analysis of a Normal Distribution. For a stock that is
-similar to those that are constituents of the S&P 500 index above, let
-X = 1.6 be an estimate of the Beta coeﬃcient θ.
-Suppose that the following assumptions are reasonable:
-• The conditional distribution X given θ is Normal with known vari­
-ance:
-X | θ ∼ N ormal(θ, σ02 ), where σ02 = (0.2)2 .
-• As a prior for θ, assume that θ is Normal with mean and variance
-equal to those in the sample
-2
-θ ∼ N ormal(µprior , σprior )
-where µprior = 1.0902 anad σprior = 0.5053
-(c). Determine the posterior distribution of θ given X = 1.6.
-(d). Is the posterior mean between X and µprior ? Would this always be
-the case if a diﬀerent value of X had been observed?
-(e). Is the variance of the posterior distribution for θ given X greater or
-less than the variance of the prior distribution for θ? Does your answer
-depend on the value of X?', '_recupere_le' => '2026-11-04T19:55:22.602668+00:00Z', '_strategie' => 'separation_enum_solution'),
+the outcome X = x.', 'source' => 'MIT OpenCourseWare, 18.443 Statistics For Applications, Spring 2015 — examen et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 						),
 					),
 				),

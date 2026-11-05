@@ -35,43 +35,21 @@ negation implies PSPACE ∪= NP.', 'source' => 'MIT OpenCourseWare, 18.404J Theo
 							array('question' => '[MIT — question d’examen, en anglais] PATH \'L PATH ?', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : la justification du corrigé officiel est affichée après ta réponse.', 'explanation' => 'Corrigé officiel du MIT : True, NL = coNL.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('True', 'False', 'Open question'), 'correct' => 0),
 							array('question' => '[MIT — question d’examen, en anglais] Prove that there is a log space reduction from ODD-PARITY to PATH ,
 i.e., ODD-PARITY \'L PATH .
-(You may use any theorem we have proved in this course)', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Obviously ODD-PARITY ∩ L and we know L ≤ NL. We proved that PATH is NP-
+(You may use any theorem we have proved in this course)', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : Obviously ODD-PARITY ∩ L and we know L ≤ NL. We proved that PATH is NP-
 complete and so every language in NL is log-space reducible to PATH .
-Note: Giving a direct reduction from ODD-PARITY to PATH is possible too.
-
-[Correction officielle MIT : [MIT — question d’examen, en anglais] Prove that there is a log space reduction from ODD-PARITY to PATH ,
-i.e., ODD-PARITY \'L PATH .
-(You may use any theorem we have proved in this course)]', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT — question d’examen, en anglais] Prove that there is a log space reduction from ODD-PARITY to PATH ,
-i.e., ODD-PARITY \'L PATH .
-(You may use any theorem we have proved in this course)', '_recupere_le' => '2026-11-04T19:55:22.580116+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : Obviously ODD-PARITY ∩ L and we know L ≤ NL. We proved that PATH is NP-
-complete and so every language in NL is log-space reducible to PATH .
-Note: Giving a direct reduction')),
+Note: Giving a direct reduction from ODD-PARITY to PATH is possible too.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT — question d’examen, en anglais] No log space reduction from PATH to ODD-PARITY is known. State what surprising
-consequence would follow if such a reduction were discovered, and why.', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : If PATH \'L ODD-PARITY then PATH ∩ L and thus NL = L, solving a big open
-problem.
-
-[Correction officielle MIT : [MIT — question d’examen, en anglais] No log space reduction from PATH to ODD-PARITY is known. State what surprising
-consequence would follow if such a reduction were discovered, and why.]', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT — question d’examen, en anglais] No log space reduction from PATH to ODD-PARITY is known. State what surprising
-consequence would follow if such a reduction were discovered, and why.', '_recupere_le' => '2026-11-04T19:55:22.580190+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : If PATH \'L ODD-PARITY then PATH ∩ L and thus NL = L, solving a big open
-problem.
-
-[Correction officielle MIT : [MIT — question d’examen, en anglais] No log space reduction fr')),
+consequence would follow if such a reduction were discovered, and why.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : If PATH \'L ODD-PARITY then PATH ∩ L and thus NL = L, solving a big open
+problem.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT — question d’examen, en anglais] Recall the interactive proof system we gave to show that #SAT ∩ IP.
-Is the Prover which follows that protocol a weak Prover? Why or why not?', 'mode' => 'text', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : No, the prover for #SAT is not a weak Prover, as far as we know. Calculating the
-cooeﬁcients of the polynomials seems to require more than polynomial time.
-
-[Correction officielle MIT : [MIT — question d’examen, en anglais] Recall the interactive proof system we gave to show that #SAT ∩ IP.
-Is the Prover which follows that protocol a weak Prover? Why or why not?]', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'answer' => '[MIT — question d’examen, en anglais] Recall the interactive proof system we gave to show that #SAT ∩ IP.
-Is the Prover which follows that protocol a weak Prover? Why or why not?', '_recupere_le' => '2026-11-04T19:55:22.580257+00:00Z', '_strategie' => 'mode_texte_ouvert', 'answers' => array('Corrigé officiel du MIT : No, the prover for #SAT is not a weak Prover, as far as we know. Calculating the
-cooeﬁcients of the polynomials seems to require more than polynomial time.
-
-[Correction offic')),
+Is the Prover which follows that protocol a weak Prover? Why or why not?', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : No, the prover for #SAT is not a weak Prover, as far as we know. Calculating the
+cooeﬁcients of the polynomials seems to require more than polynomial time.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 							array('question' => '[MIT — question d’examen, en anglais] The class weak-IP is equal to another class that we have previously deﬁned.
-What is that class? Prove your', 'mode' => 'choice', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The class weak-IP = BPP. Clearly, BPP ≤ weak-IP because the Veriﬁer can simply
+What is that class? Prove your answer.', 'mode' => 'solution', 'hint' => 'Question d’examen du MIT : rédige ta réponse, puis la correction officielle du MIT s’affiche.', 'explanation' => 'Corrigé officiel du MIT : The class weak-IP = BPP. Clearly, BPP ≤ weak-IP because the Veriﬁer can simply
 ignore the Prover. Conversely, weak-IP ≤ BPP because we can make a BPP machine
 which simulates both the Veriﬁer and the weak Prover P . If w ∩ A then P causes the
 Veriﬁer to accept with high probability and so will the BPP machine. If w ∪∩ A then P
-causes the Veriﬁer to accept with low probability and so will the BPP machine.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20, 'choices' => array('Impossible à déterminer', 'Pas .', 'L\'inverse de .', '.'), 'correct' => 3, 'answer' => '.', '_recupere_le' => '2026-11-04T19:55:22.580336+00:00Z', '_strategie' => 'separation_enum_solution'),
+causes the Veriﬁer to accept with low probability and so will the BPP machine.', 'source' => 'MIT OpenCourseWare, 18.404J Theory of Computation, Fall 2020 — examen final et corrigé officiel (MIT EECS)', 'licence' => 'CC BY-NC-SA 4.0', 'xp' => 20),
 						),
 					),
 				),
