@@ -456,7 +456,16 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 	# Le contrôle décisif : l'exploit du dépôt obtient-il vraiment un shell
 	# root, puis le drapeau ? Sans cela, la room « le binaire qui obéit
 	# trop » promet un shell qu'aucun élève ne peut obtenir.
-	if docker cp tools/recette-apprenants/exploit-bin01.py "$CONT_BIN:/tmp/exploit.py" >/dev/null 2>&1 \
+	# Le chemin du depot est resolu explicitement : ce script tourne dans une
+	# action composite, ou le dossier courant n'est pas celui du depot. Un
+	# chemin relatif faisait echouer « docker cp » en silence, et l'echec
+	# ressemblait a un lab casse alors que seul le test l'etait.
+	RACINE_DEPOT="$(cd "$(dirname "$0")/.." && pwd)"
+	EXPLOIT="$RACINE_DEPOT/tools/recette-apprenants/exploit-bin01.py"
+
+	if [ ! -f "$EXPLOIT" ]; then
+		test_ko "scenario 9 : l'exploit de reference est introuvable" "$EXPLOIT"
+	elif docker cp "$EXPLOIT" "$CONT_BIN:/tmp/exploit.py" >/dev/null 2>&1 \
 		&& docker exec "$CONT_BIN" python3 /tmp/exploit.py /home/ctf/vulnerable \
 			--commande 'id; cat /root/flag.txt' > /tmp/exploit-bin01.txt 2>&1; then
 		if grep -q 'FLAG=SECURA{buffer_overflow}' /tmp/exploit-bin01.txt; then
