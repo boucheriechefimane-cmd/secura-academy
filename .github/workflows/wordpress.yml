@@ -16,14 +16,14 @@ name: WordPress — recette et compatibilité
 # Le détail des contrôles est dans tools/recette-apprenants/wp-e2e.php et
 # la matrice des plugins dans docs/COMPATIBILITE-PLUGINS.md.
 
+# PHASE DE CONSTRUCTION (5 novembre 2026) : le CI ne tourne plus a chaque
+# poussee. Une seule commande mesure tout, a la demande :
+# « Machines — mesurer sans lancer le CI ». Le CI sera rebranche quand le
+# socle sera termine, et il tournera alors sur la demande de fusion.
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
-  schedule:
-    - cron: '23 5 * * 1'
 
 permissions:
   contents: write # la preuve des machines est commitee dans la branche « preuve-machines »

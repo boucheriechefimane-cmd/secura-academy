@@ -1,9 +1,11 @@
 name: CI — Secura Academy
 
+# PHASE DE CONSTRUCTION : ce controle ne se declenche plus sur les poussees
+# de la branche de travail. Il reste disponible a la main (onglet Actions →
+# « CI — Secura Academy » → Run workflow) et sera rebranche sur la demande
+# de fusion quand le socle sera termine.
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
   workflow_dispatch:
 

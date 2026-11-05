@@ -6,14 +6,26 @@
 # Construction : docker build -t securalabs/bin-01:1.0 labs/bin-01
 #
 # Le binaire est compilé volontairement sans protections (voir Makefile) :
-#   - pas de pile protégée  (-fno-stack-protector)
-#   - pas d'ASLR             (-no-pie)
+#   - pas de canari de pile  (-fno-stack-protector)
+#   - binaire non PIE        (-no-pie) : l'adresse de ses fonctions est fixe
 #   - pas de NX sur la pile  (-z execstack)
+#
+# Nuance importante, souvent mal expliquée : -no-pie ne désactive PAS
+# l'ASLR du noyau. L'ASLR randomise la pile et les bibliothèques ; elle ne
+# déplace pas les adresses du binaire lui-même. C'est précisément ce qui
+# rend l'exercice faisable : l'adresse de « carnet_root » est constante,
+# donc l'élève n'a pas besoin de fuite d'adresse de pile.
 #
 # Il est en plus installé en setuid root (bit « s » du ls -l) : le shell
 # obtenu par débordement de tampon est donc un shell root, ce qui permet
 # de lire /root/flag.txt (400 root:root). Le scénario 9 « Le binaire qui
 # obéit trop » explique ce mécanisme.
+#
+# La cible de l'exploitation est la fonction « carnet_root » du programme :
+# elle n'est jamais appelée par le cours normal, ouvre un shell après
+# setuid(0), et son adresse est lisible avec « nm vulnerable ». Le test de
+# non-régression est tools/recette-apprenants/exploit-bin01.py : si ce
+# script n'obtient plus de shell, le lab est cassé et le CI doit échouer.
 #
 # ⚠ Ce binaire est FAIBLE PAR CONSTRUCTION. Il ne doit jamais être déployé
 #   ailleurs que dans un lab isolé.

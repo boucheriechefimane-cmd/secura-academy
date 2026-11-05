@@ -1,11 +1,25 @@
-Notes de l'équipe
+Notes de l'equipe
 =================
 Le carnet de commandes plante quand on saisit un lot trop long.
-La version 0.9 est déployée sur les postes de l'accueil.
+La version 0.9 est deployee sur les postes de l'accueil.
 
-La.libc du serveur est connue : `ldd vulnerable` donne la version.
+Le carnet lit l'entree dans un tampon de 64 octets, sans verifier la
+longueur : au-dela, on ecrase la pile, y compris l'adresse de retour.
 
-Le carnet de commandes est installé par l'équipe « postes de l'accueil »
-avec un droit particulier : `ls -l /home/ctf/vulnerable` montre un « s »
-en FACE DU GROUPE (mode setuid). Le programme tourne donc avec les droits
-de root, même si c'est l'utilisateur « ctf » qui le lance.
+Un detail qui change tout : le programme contient une fonction
+d'administration, « carnet_root », qui n'est JAMAIS appelee par le cours
+normal. Elle ouvre un shell apres avoir remis les identites a zero.
+Objectif : detourner le programme pour qu'il l'execute.
+
+Deux reperes utiles (et pas la solution) :
+  - la table des symboles du binaire n'est pas strippee :
+    « nm vulnerable | grep carnet_root » donne l'adresse de la fonction ;
+  - le binaire est compile sans PIE, donc ses adresses ne bougent pas
+    d'une execution a l'autre (l'ASLR du noyau ne concerne que la pile
+    et les bibliotheques).
+
+Le carnet est installe par l'equipe « postes de l'accueil » avec un droit
+particulier : « ls -l /home/ctf/vulnerable » montre un « s » devant les
+droits du proprietaire (mode setuid root). Le programme tourne donc avec
+les droits de root, meme si c'est l'utilisateur « ctf » qui le lance —
+et un shell obtenu par le programme herite de ces droits.

@@ -438,6 +438,21 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 		test_ko "scénario 9 : le serveur ne peut pas lire le drapeau du binaire"
 	fi
 
+	# Le contrôle décisif : l'exploit du dépôt obtient-il vraiment un shell
+	# root, puis le drapeau ? Sans cela, la room « le binaire qui obéit
+	# trop » promet un shell qu'aucun élève ne peut obtenir.
+	if docker cp tools/recette-apprenants/exploit-bin01.py "$CONT_BIN:/tmp/exploit.py" >/dev/null 2>&1 \
+		&& docker exec "$CONT_BIN" python3 /tmp/exploit.py /home/ctf/vulnerable \
+			--commande 'id; cat /root/flag.txt' > /tmp/exploit-bin01.txt 2>&1; then
+		if grep -q 'FLAG=SECURA{buffer_overflow}' /tmp/exploit-bin01.txt; then
+			test_ok "scénario 9 : l'exploit obtient un shell root et lit le drapeau"
+		else
+			test_ko "scénario 9 : le shell s'ouvre mais le drapeau reste illisible" "cat /tmp/exploit-bin01.txt"
+		fi
+	else
+		test_ko "scénario 9 : l'exploit n'obtient AUCUN shell (le lab est cassé)" "$(tail -5 /tmp/exploit-bin01.txt 2>/dev/null)"
+	fi
+
 	docker rm -f "$CONT_BIN" >/dev/null 2>&1
 else
 	test_ko "la machine bin-01 ne démarre pas"
