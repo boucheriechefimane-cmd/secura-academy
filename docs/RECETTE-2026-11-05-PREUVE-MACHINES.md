@@ -14,8 +14,15 @@ La mesure a donc ete faite par GitHub Actions, sur un vrai `ubuntu-latest`
 avec un vrai Docker, en executant `tools/recette-apprenants/preuve-machines.php`
 a travers WP-CLI, sur le WordPress reel installe par le travail de recette.
 
-Travail de reference : `42001430680` (branche de la demande), etape
-« La preuve des machines, room par room ». Le rapport brut est depose par
+Travail de reference : `42010248471` (branche de la demande), septieme
+execution apres correction des sondes. Mesures de ce travail :
+
+- les 45 controles des machines : **67 reussis, 0 echec** ;
+- la preuve room par room : **49 rooms, 49 prouvees, 0 echec** ;
+- l'isolation des deux apprenants : deux conteneurs, deux reseaux, deux
+  projets Compose, aucun croisement ;
+- le drapeau de la vraie machine valide une mission, puis un second
+  apprenant ouvre sa propre machine. Le rapport brut est depose par
 le travail lui-meme dans la branche `preuve-machines`, dossier
 `docs/preuves/` (`machines-2026-11-05.txt`), avec le diagnostic des ports
 et le journal PHP. Les journaux de job et les artefacts ne sont pas
