@@ -43,9 +43,13 @@ cp -r "$REPO_DIR/wp-content/themes/secura-learning/." "$TMP/theme/secura-learnin
 # 4. Labs
 mkdir -p "$TMP/labs"
 cp -r "$REPO_DIR/labs/." "$TMP/labs/"
+cp "$REPO_DIR/LICENSE" "$REPO_DIR/LICENSES.md" "$TMP/labs/"
+mkdir -p "$TMP/labs/docs"
+cp "$REPO_DIR/docs/SOURCES-CONTENU.md" "$TMP/labs/docs/"
 
 # 5. Recette
 mkdir -p "$TMP/recette/scripts" "$TMP/recette/docs"
+cp "$REPO_DIR/LICENSE" "$REPO_DIR/LICENSES.md" "$TMP/recette/"
 cp "$REPO_DIR/scripts/recette-serveur.sh" "$TMP/recette/scripts/"
 cp "$REPO_DIR/scripts/test-labs-ci.sh" "$TMP/recette/scripts/"
 cp "$REPO_DIR/scripts/wordpress-local.sh" "$TMP/recette/scripts/"
@@ -76,6 +80,7 @@ cp "$REPO_DIR/tools/import-questions.py" "$TMP/recette/tools/"
 cp "$REPO_DIR/tools/import-mit-ocw.py" "$TMP/recette/tools/"
 cp "$REPO_DIR/tools/ocw-recupere.py" "$TMP/recette/tools/"
 cp "$REPO_DIR/tools/sources-autorisees.json" "$TMP/recette/tools/"
+cp "$REPO_DIR/tools/rooms-connues.json" "$REPO_DIR/tools/controler-lot.py" "$TMP/recette/tools/"
 cp "$REPO_DIR/tools/plugins-tiers.json" "$TMP/recette/tools/"
 rm -rf "$TMP/recette/tools/contenu-universites/__pycache__"
 
@@ -102,6 +107,10 @@ cp "$REPO_DIR/tools/lots/"*.json "$TMP/recette/tools/lots/"
 mkdir -p "$TMP/recette/tests/fixtures"
 cp "$REPO_DIR/tests/import-test.py" "$TMP/recette/tests/"
 cp "$REPO_DIR/tests/fixtures/"*.json "$TMP/recette/tests/fixtures/"
+# Le test d'import compare chaque lot au PHP réellement livré.
+mkdir -p "$TMP/recette/wp-content/plugins/secura-academy/includes"
+cp "$REPO_DIR/wp-content/plugins/secura-academy/includes/"content-import-*.php \
+   "$TMP/recette/wp-content/plugins/secura-academy/includes/"
 
 cp "$REPO_DIR/scripts/ci-wordpress.sh" "$TMP/recette/scripts/"
 cp "$REPO_DIR/scripts/build-archives.sh" "$TMP/recette/scripts/"
@@ -109,6 +118,7 @@ cp "$REPO_DIR/scripts/build-archives.sh" "$TMP/recette/scripts/"
 # Le comite d'audit externe : les cinq auditeurs et leur lanceur.
 mkdir -p "$TMP/recette/scripts/audit"
 cp "$REPO_DIR/scripts/audit/"*.php "$REPO_DIR/scripts/audit/run-audits.sh" "$TMP/recette/scripts/audit/"
+cp "$REPO_DIR/scripts/audit/README-SONDES-ZIP.md" "$TMP/recette/scripts/audit/"
 
 # Les mesures du bac a sable : elles comparent, elles ne testent pas.
 mkdir -p "$TMP/recette/scripts/mesures"

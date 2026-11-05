@@ -66,6 +66,9 @@ jobs:
       - name: Tester la chaîne d'import des questions
         run: python3 tests/import-test.py
 
+      - name: Reconstruire et tester les archives
+        run: python3 tests/archives-test.py
+
       - name: Vérifier les espaces en fin de ligne
         run: |
           if grep -RIn '[[:blank:]]$' --include='*.php' --include='*.js' --include='*.css' wp-content; then
