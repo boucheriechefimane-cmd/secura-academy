@@ -235,25 +235,51 @@
 	 * Changement de langue
 	 * ================================================================== */
 
+	/**
+	 * Selection de la langue.
+	 *
+	 * Le selecteur est fait de vrais liens : chaque langue a SON adresse
+	 * (« ?seca_lang=fr|ar|en »). C'est le serveur qui decide ce qu'il sert
+	 * a cette adresse ; JavaScript ne fait qu'enregistrer la preference
+	 * avant de suivre le lien.
+	 *
+	 * Pourquoi ce detour : l'ancien code rechargeait l'adresse courante.
+	 * Avec « ?seca_lang=ar » dans la barre, le serveur reserve ce
+	 * parametre a la langue de l'adresse : le choix venait d'etre
+	 * enregistre, et la page se rechargeait ... dans l'ancienne langue.
+	 * Le selecteur paraissait donc ne rien faire.
+	 */
 	function bindLanguageSwitch() {
-		var buttons = document.querySelectorAll( '[data-seca-lang]' );
+		var links = document.querySelectorAll( '[data-seca-lang]' );
 
-		Array.prototype.forEach.call( buttons, function ( button ) {
-			button.addEventListener( 'click', function () {
-				var lang = button.getAttribute( 'data-seca-lang' );
+		Array.prototype.forEach.call( links, function ( link ) {
+			var lang = link.getAttribute( 'data-seca-lang' );
+			var target = link.getAttribute( 'href' ) || '';
 
-				if ( ! lang || lang === cfg.lang ) {
+			if ( ! lang || ! target ) {
+				return;
+			}
+
+			link.addEventListener( 'click', function ( event ) {
+				if ( lang === cfg.lang ) {
 					return;
 				}
 
-				button.disabled = true;
+				event.preventDefault();
 
-				post( 'secura_set_lang', { lang: lang } ).then( function () {
-					window.location.reload();
-				} ).catch( function () {
-					button.disabled = false;
-					toast( t( 'error', 'Impossible de changer de langue.' ), true );
-				} );
+				if ( link.getAttribute( 'aria-busy' ) ) {
+					return;
+				}
+
+				link.setAttribute( 'aria-busy', 'true' );
+
+				/* Le lien fonctionne meme si l'enregistrement echoue : la
+				   preference est un confort, pas une condition. */
+				var suivre = function () {
+					window.location.href = target;
+				};
+
+				post( 'secura_set_lang', { lang: lang } ).then( suivre ).catch( suivre );
 			} );
 		} );
 	}
@@ -504,11 +530,32 @@
 			renderNav();
 
 			if ( 'exam' === data.task.type && ! data.task.done ) {
-				startExamTimer();
+				/* Le chronometre est deja parti : on affiche celui du
+				   serveur (time_left) plutot que d'en demarrer un second.
+				   Une tache d'examen n'est jamais servie sans chronometre
+				   (le serveur refuse), sauf sur une copie deja terminee. */
+				if ( data.task.time_left > 0 ) {
+					afficherChronometre( data.task.time_left );
+				} else {
+					startExamTimer();
+				}
 			} else {
 				stopTimer();
 			}
 		} ).catch( function ( error ) {
+			/* L'examen n'est pas encore ouvert : le serveur ne livre pas
+			   ses questions avant le chronometre. On l'ouvre, puis on le
+			   recharge — c'est le serveur qui fixe l'heure de depart. */
+			if ( 'exam_not_started' === error.code ) {
+				post( 'secura_start_exam', { room_id: roomId, task: index } ).then( function () {
+					openTask( index );
+				} ).catch( function ( suite ) {
+					toast( suite.message, true, suite.action );
+				} );
+
+				return;
+			}
+
 			toast( error.message, true, error.action );
 		} );
 	}
@@ -1244,41 +1291,54 @@
 	 * Démarre le chronomètre d'examen (serveur autoritaire).
 	 */
 	function startExamTimer() {
-		stopTimer();
-
 		post( 'secura_start_exam', { room_id: roomId, task: currentIndex } ).then( function ( data ) {
-			timeLeft = data.time_left;
-
-			var node = el( 'span', 'seca-timer' );
-
-			node.setAttribute( 'data-seca-timer', '1' );
-
-			var head = app.querySelector( '.seca-room-head-main' );
-
-			if ( head ) {
-				head.appendChild( node );
-			}
-
-			timerHandle = window.setInterval( function () {
-				timeLeft -= 1;
-
-				if ( timeLeft <= 0 ) {
-					timeLeft = 0;
-					stopTimer();
-
-					if ( statusNode ) {
-						statusNode.textContent = t( 'expired', 'Temps écoulé' );
-						statusNode.className = 'seca-task-status is-bad';
-					}
-				}
-
-				updateTimer( node );
-			}, 1000 );
-
-			updateTimer( node );
+			afficherChronometre( data.time_left );
 		} ).catch( function () {
 			/* Le serveur refusera toute réponse si le temps est écoulé. */
 		} );
+	}
+
+	/**
+	 * Affiche le compte a rebours serveur.
+	 *
+	 * @param {number} restant Secondes restantes.
+	 */
+	function afficherChronometre( restant ) {
+		stopTimer();
+
+		timeLeft = parseInt( restant, 10 ) || 0;
+
+		if ( ! timeLeft ) {
+			return;
+		}
+
+		var node = el( 'span', 'seca-timer' );
+
+		node.setAttribute( 'data-seca-timer', '1' );
+
+		var head = app.querySelector( '.seca-room-head-main' );
+
+		if ( head ) {
+			head.appendChild( node );
+		}
+
+		timerHandle = window.setInterval( function () {
+			timeLeft -= 1;
+
+			if ( timeLeft <= 0 ) {
+				timeLeft = 0;
+				stopTimer();
+
+				if ( statusNode ) {
+					statusNode.textContent = t( 'expired', 'Temps écoulé' );
+					statusNode.className = 'seca-task-status is-bad';
+				}
+			}
+
+			updateTimer( node );
+		}, 1000 );
+
+		updateTimer( node );
 	}
 
 	/**

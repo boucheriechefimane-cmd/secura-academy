@@ -1,0 +1,33 @@
+{
+    "domaine": "onboarding",
+    "titre": "Onboarding et première expérience",
+    "expert": "Expert en expérience d'apprentissage et en conception pédagogique (« du clic au premier succès »)",
+    "perimetre": "Joue le parcours réel d'un élève sans compte : ce qu'il voit en arrivant, ce qu'il peut faire avant de s'inscrire, combien de champs l'inscription demande, et ce qu'il comprend quand une action échoue. Ne juge pas le contenu pédagogique : c'est l'auditeur pédagogie.",
+    "date": "2026-11-05T01:57:11+00:00",
+    "ok": 9,
+    "non_etaye": 0,
+    "barriere_bloquee": false,
+    "constats_non_etayes": [],
+    "forces": [],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 2,
+    "constats": [
+        {
+            "libelle": "Opportunité : laisser essayer une question sans compte",
+            "detail": "Le visiteur lit tout le contenu sans compte (leçon, vidéo, licence, machine), mais ne peut répondre à une question qu'après avoir créé un compte. C'est un choix défendable — la progression et les médailles sont liées au compte. Laisser UNA question d'entraînement à blanc avant l'inscription pourrait réduire les abandons, à tester avec de vrais élèves avant d'être décidé.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "La première impression se mesure aussi avec de vrais élèves",
+            "detail": "Cet audit mesure des faits vérifiables : ce qu'un visiteur sans compte voit, ce qu'il peut faire, le nombre de champs d'inscription, la présence d'aides, d'erreurs expliquées et de progression visible. Il ne mesure pas l'envie de rester : cela demande un test avec de vrais élèves, prévu au palier suivant de la feuille de route.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

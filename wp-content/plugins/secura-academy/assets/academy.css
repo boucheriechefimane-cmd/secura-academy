@@ -315,6 +315,7 @@
 	padding: .3em .9em;
 	border-radius: 999px;
 	cursor: pointer;
+	text-decoration: none;
 }
 
 .seca-lang:hover {

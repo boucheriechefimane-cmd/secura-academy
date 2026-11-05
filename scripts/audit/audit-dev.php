@@ -40,7 +40,7 @@ $cassees = array();
 
 foreach ( $fichiers as $fichier ) {
 	$sortie = array();
-	exec( 'php -l ' . escapeshellarg( $fichier ) . ' 2>&1', $sortie );
+	exec( escapeshellarg( PHP_BINARY ) . ' -l ' . escapeshellarg( $fichier ) . ' 2>&1', $sortie );
 
 	if ( ! preg_match( '/No syntax errors detected/', implode( ' ', $sortie ) ) ) {
 		$cassees[] = $fichier . ' : ' . implode( ' ', $sortie );
@@ -236,6 +236,21 @@ echo "\n7. La structure du plugin\n";
 $entete_plugin = file_get_contents( $plugin . '/secura-academy.php' );
 
 $includes_manquants = array();
+$quarantaine        = array();
+$quarantaine_chargee = array();
+
+/* Les classes experimental du ZIP (examen chronometre, certificat PDF,
+   front de lab, et leurs deux scripts) sont volontairement NON chargees :
+   leurs defauts connus sont documentes dans includes/EXPERIMENTAL-ZIP.md.
+   Les compter comme des fichiers « oublies » faisait echouer le controle
+   pour une bonne raison. On distingue donc les deux cas, et l'on verifie
+   que la quarantaine reste bien inactive. */
+$declarees_quarantaine = array(
+	'class-secura-exam-timed.php',
+	'class-secura-certificate.php',
+	'class-secura-exam-front.php',
+	'class-secura-lab-front.php',
+);
 
 foreach ( glob( $plugin . '/includes/*.php' ) as $inclus ) {
 	$nom = basename( $inclus );
@@ -251,16 +266,44 @@ foreach ( glob( $plugin . '/includes/*.php' ) as $inclus ) {
 		continue;
 	}
 
+	if ( in_array( $nom, $declarees_quarantaine, true ) ) {
+		$quarantaine[] = $nom;
+
+		if ( false !== strpos( $entete_plugin, $nom ) ) {
+			$quarantaine_chargee[] = $nom;
+		}
+
+		continue;
+	}
+
 	if ( false === strpos( $entete_plugin, $nom ) ) {
 		$includes_manquants[] = $nom;
 	}
 }
 
 audit_verifier(
-	'chaque fichier du plugin est charge par le fichier principal',
+	'chaque fichier du plugin est charge par le fichier principal (hors quarantaine declaree)',
 	empty( $includes_manquants ),
 	implode( ' | ', $includes_manquants ),
-	'majeur'
+	'majeur',
+	count( $quarantaine ) . ' classe(s) declaree(s) en quarantaine et exclue(s) de ce controle : '
+		. implode( ', ', $quarantaine )
+);
+
+audit_verifier(
+	'les classes en quarantaine restent inactives (aucune n\'est chargee par le plugin)',
+	empty( $quarantaine_chargee ),
+	'chargee(s) alors qu\'elles sont declarees defaillantes : ' . implode( ', ', $quarantaine_chargee ),
+	'bloquant',
+	count( $quarantaine ) . ' fichier(s) de quarantaine verifie(s) : ' . implode( ', ', $quarantaine )
+);
+
+audit_info(
+	'Ce que la quarantaine laisse indisponible',
+	'Les classes ' . implode( ', ', $quarantaine ) . ' ne sont pas chargees : l\'examen chronometre du ZIP, '
+	. 'le certificat PDF et le front de lab experimental ne sont donc pas fournis par cette version. '
+	. 'L\'examen chronometre PREEXISTANT (class-secura-ajax.php, class-secura-progress.php) est, lui, actif '
+	. 'et mesure par la recette HTTP.'
 );
 
 audit_verifier(
@@ -272,16 +315,35 @@ audit_verifier(
 	'mineur'
 );
 
+/* Ce controle disait « le plugin fonctionne avec PHP 7.4 et PHP 8 » en
+   passant la condition « true » : il ne mesurait rien. Ce qui est
+   mesurable ici est le LINT sous la version qui execute l'audit, et
+   l'absence de syntaxe reservee a PHP 8 (controle plus haut). La
+   compatibilite 7.4 reste a prouver hors WordPress : elle est donc
+   declaree comme non mesuree. */
+/* PHP_BINARY : « php » n'est pas forcement dans le PATH de la machine
+   qui execute l'audit (ce fut le cas de la recette du 05/11/2026). */
+$lint = audit_exec( escapeshellarg( PHP_BINARY ) . ' -l ' . escapeshellarg( $plugin . '/secura-academy.php' ) . ' 2>&1' );
+
 audit_verifier(
-	'le plugin fonctionne avec PHP 7.4 et avec PHP 8 (les deux versions sont testees par la CI)',
-	true,
-	'version en cours : ' . $version
+	'le fichier principal du plugin est syntaxiquement valide sous la version qui execute l\'audit',
+	false !== stripos( $lint, 'No syntax errors' ) || false !== stripos( $lint, 'Aucune erreur' ),
+	'version ' . PHP_VERSION . ' : ' . trim( $lint ),
+	'bloquant',
+	trim( $lint )
+);
+
+audit_info(
+	'La compatibilite PHP 7.4 n\'est pas mesuree par cet audit',
+	'Cet audit tourne sous PHP ' . PHP_VERSION . '. Il verifie qu\'aucune syntaxe reservee a PHP 8 n\'est '
+	. 'utilisee (controle bloquant) et que le code passe le lint de la version courante. Il ne peut pas '
+	. 'prouver l\'execution sous PHP 7.4 : cela demande une machine en 7.4, que la recette ne fournit pas.'
 );
 
 /* ------------------------------------------------------------------ */
 echo "\n8. Les tests\n";
 
-$sortie_tests = audit_exec( 'php ' . escapeshellarg( $racine . '/tests/smoke-test.php' ) . ' 2>&1 | tail -3' );
+$sortie_tests = audit_exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( $racine . '/tests/smoke-test.php' ) . ' 2>&1 | tail -3' );
 
 audit_verifier(
 	'la suite de tests interne passe',

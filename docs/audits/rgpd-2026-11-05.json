@@ -1,0 +1,45 @@
+{
+    "domaine": "rgpd",
+    "titre": "RGPD et protection des mineurs",
+    "expert": "Expert en protection des données personnelles et en sécurité de l'information",
+    "perimetre": "Vérifie ce que la plateforme collecte sur un élève (souvent mineur), ce qu'elle expose publiquement, si l'élève peut exercer ses droits (accès, export, suppression), si la politique de confidentialité et les mentions légales sont publiées, et si aucun traceur non annoncé ni secret ne subsiste. Cet audit signale des manques documentés — il ne constitue pas un avis juridique.",
+    "date": "2026-11-05T01:57:10+00:00",
+    "ok": 8,
+    "non_etaye": 0,
+    "barriere_bloquee": false,
+    "constats_non_etayes": [],
+    "forces": [
+        {
+            "libelle": "Aucun traceur tiers ne charge : la vie privée de l'élève ne part pas chez un tiers",
+            "preuve": "Recherche de 10 traceurs connus dans le HTML servi de l'accueil : 0 occurrence"
+        }
+    ],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 3,
+    "constats": [
+        {
+            "libelle": "Données personnelles stockées par apprenant",
+            "detail": "Aucun champ personnel ajouté par le plugin (WordPress gère le compte)",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Cet audit ne remplace pas un juriste",
+            "detail": "Il vérifie que les pages légales existent et sont publiées, que rien n'est exposé publiquement, qu'aucun traceur ne charge, et que les mécanismes de droits (accès, export, suppression) existent. Il ne qualifie pas la base légale du traitement, ne vérifie pas la conformité d'un contrat, et n'évalue pas le consentement parental — points qui demandent un avis juridique.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Un point de vigilance sur les mineurs",
+            "detail": "La plateforme vise des élèves de 11 à 18 ans. Sous le RGPD, un traitement portant sur des données de mineurs de moins de 15 ans requiert normalement un consentement parental. Ce point n'est pas traité par le code : il doit l'être au niveau du projet (par exemple, un contrôle d'âge à l'inscription) et il est signalé ici pour qu'il ne soit pas oublié.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

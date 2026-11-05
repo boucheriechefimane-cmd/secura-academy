@@ -234,6 +234,11 @@ function update_user_meta( $user_id, $key, $value ) {
  * @return mixed
  */
 function get_option( $name, $default = false ) {
+	if ( 'WPLANG' === $name && ! isset( $GLOBALS['securatest_options'][ $name ] ) ) {
+		/* L'emulation suit la langue du site reglee par le test. */
+		return isset( $GLOBALS['securatest_site_locale'] ) ? $GLOBALS['securatest_site_locale'] : 'fr_FR';
+	}
+
 	return isset( $GLOBALS['securatest_options'][ $name ] ) ? $GLOBALS['securatest_options'][ $name ] : $default;
 }
 
@@ -419,17 +424,84 @@ function home_url( $path = '' ) {
  * @return string
  */
 function add_query_arg( $args, $url = '' ) {
+	/* WordPress REMPLACE la valeur d'une cle deja presente. L'ancienne
+	   emulation ajoutait un second « seca_lang » : elle ne pouvait donc
+	   pas prouver qu'un selecteur ne laisse pas deux langues dans
+	   l'adresse. */
 	$pairs = array();
 
+	if ( false !== strpos( $url, '?' ) ) {
+		$query = substr( $url, strpos( $url, '?' ) + 1 );
+		$url   = substr( $url, 0, strpos( $url, '?' ) );
+
+		foreach ( explode( '&', $query ) as $morceau ) {
+			if ( '' === $morceau ) {
+				continue;
+			}
+
+			$parts = explode( '=', $morceau, 2 );
+			$pairs[ urldecode( $parts[0] ) ] = isset( $parts[1] ) ? urldecode( $parts[1] ) : '';
+		}
+	}
+
 	foreach ( (array) $args as $key => $value ) {
-		$pairs[] = rawurlencode( $key ) . '=' . rawurlencode( (string) $value );
+		$pairs[ $key ] = (string) $value;
 	}
 
 	if ( ! $pairs ) {
 		return $url;
 	}
 
-	return $url . ( false === strpos( $url, '?' ) ? '?' : '&' ) . implode( '&', $pairs );
+	$morceaux = array();
+
+	foreach ( $pairs as $key => $value ) {
+		$morceaux[] = rawurlencode( $key ) . '=' . rawurlencode( $value );
+	}
+
+	return $url . '?' . implode( '&', $morceaux );
+}
+
+/**
+ * Retrait de parametres d'une adresse (emulation).
+ *
+ * @param mixed  $keys Cles a retirer.
+ * @param string $url  Adresse.
+ * @return string
+ */
+function remove_query_arg( $keys, $url = '' ) {
+	$pairs = array();
+
+	if ( false !== strpos( $url, '?' ) ) {
+		$query = substr( $url, strpos( $url, '?' ) + 1 );
+		$url   = substr( $url, 0, strpos( $url, '?' ) );
+
+		foreach ( explode( '&', $query ) as $morceau ) {
+			if ( '' === $morceau ) {
+				continue;
+			}
+
+			$parts = explode( '=', $morceau, 2 );
+
+			if ( in_array( urldecode( $parts[0] ), (array) $keys, true ) ) {
+				continue;
+			}
+
+			$pairs[] = $morceau;
+		}
+	}
+
+	return $pairs ? $url . '?' . implode( '&', $pairs ) : $url;
+}
+
+/**
+ * Analyse d'une adresse (emulation minimale).
+ *
+ * @param string $url    Adresse.
+ * @param int    $composant Composant demande.
+ * @return mixed
+ */
+function wp_parse_url( $url, $composant = -1 ) {
+	return -1 === $composant ? parse_url( $url ) : parse_url( $url, $composant );
 }
 
 /**
@@ -521,7 +593,16 @@ function get_current_user_id() {
 function determine_locale() {
 	$GLOBALS['securatest_locale_calls'] = isset( $GLOBALS['securatest_locale_calls'] ) ? $GLOBALS['securatest_locale_calls'] + 1 : 1;
 
-	return 'fr_FR';
+	return isset( $GLOBALS['securatest_site_locale'] ) ? $GLOBALS['securatest_site_locale'] : 'fr_FR';
+}
+
+/**
+ * Locale du site (ce que WPLANG vaut).
+ *
+ * @return string
+ */
+function get_locale() {
+	return isset( $GLOBALS['securatest_site_locale'] ) ? $GLOBALS['securatest_site_locale'] : 'fr_FR';
 }
 
 /**
@@ -657,6 +738,15 @@ function get_bloginfo( $field = 'name' ) {
  */
 function get_permalink( $post_id = 0 ) {
 	return 'https://exemple.test/?p=' . (int) $post_id;
+}
+
+/**
+ * Objet interroge (emulation).
+ *
+ * @return int
+ */
+function get_queried_object_id() {
+	return isset( $GLOBALS['securatest_queried_id'] ) ? (int) $GLOBALS['securatest_queried_id'] : 0;
 }
 
 /**
@@ -1029,6 +1119,82 @@ check( 3 === count( Secura_I18n::languages() ), 'trois langues sont proposées' 
 check( 'rtl' === Secura_I18n::languages()['ar']['dir'], 'l\'arabe est en écriture de droite à gauche' );
 check( 'fr' === Secura_I18n::current_lang(), 'le français est la langue par défaut' );
 
+/* ---------------------------------------------------------------------
+ * Adresses de langue : chaque version sert VRAIMENT sa langue
+ *
+ * Regression du 05/11/2026. Deux defauts mesures sur le WordPress reel,
+ * installe en anglais :
+ *  - la room sans parametre servait l'anglais, mais le theme la
+ *    declarait hreflang="fr" et le lien « Francais » pointait vers elle ;
+ *  - le selecteur du tableau de bord rechargeait l'adresse courante, ou
+ *    « ?seca_lang=ar » gardait la priorite : le choix venait d'etre
+ *    enregistre et la page revenait dans l'ancienne langue.
+ * ------------------------------------------------------------------ */
+
+echo "\nAdresses de langue\n";
+
+$GLOBALS['securatest_site_locale'] = 'en_US';
+$GLOBALS['securatest_queried_id']  = 0;
+$_GET = array();
+
+check( 'en' === Secura_I18n::langue_de_url( 'https://exemple.test/rooms/x/' ), 'une adresse nue sert la langue du site (ici l anglais)' );
+check( 'fr' === Secura_I18n::langue_de_url( 'https://exemple.test/rooms/x/?seca_lang=fr' ), 'une adresse explicite sert la langue demandee' );
+check( 'ar' === Secura_I18n::langue_de_url( 'https://exemple.test/rooms/x/?seca_lang=ar' ), 'l arabe est reconnu dans l adresse' );
+check( 'en' === Secura_I18n::langue_de_url( 'https://exemple.test/rooms/x/?seca_lang=xx' ), 'une langue inconnue retombe sur la langue du site' );
+
+$adresses = Secura_I18n::traductions_de_url( 'https://exemple.test/rooms/x/' );
+
+check( 3 === count( $adresses ), 'les trois langues ont une adresse' );
+check( 'https://exemple.test/rooms/x/?seca_lang=fr' === $adresses['fr'], 'le francais a une adresse explicite' );
+check( 'https://exemple.test/rooms/x/?seca_lang=ar' === $adresses['ar'], 'l arabe a une adresse explicite' );
+check( 'https://exemple.test/rooms/x/' === $adresses['en'], 'la langue du site garde l adresse nue (une seule adresse par page)' );
+$deux_langues = array();
+
+foreach ( $adresses as $code => $adresse ) {
+	if ( $code === Secura_I18n::langue_du_site() ) {
+		if ( false !== strpos( $adresse, 'seca_lang' ) ) {
+			$deux_langues[] = $adresse;
+		}
+
+		continue;
+	}
+
+	if ( 1 !== substr_count( $adresse, 'seca_lang' ) || false === strpos( $adresse, 'seca_lang=' . $code ) ) {
+		$deux_langues[] = $adresse;
+	}
+}
+
+check( empty( $deux_langues ), 'chaque adresse porte UNE langue, la sienne : ' . implode( ' | ', $deux_langues ) );
+
+/* Sur un site installe en francais, c'est le francais qui garde
+   l'adresse nue : la regle suit la langue du site, elle ne la fixe pas. */
+$GLOBALS['securatest_site_locale'] = 'fr_FR';
+$adresses_fr = Secura_I18n::traductions_de_url( 'https://exemple.test/rooms/x/' );
+
+check( 'https://exemple.test/rooms/x/' === $adresses_fr['fr'], 'sur un site francais, le francais garde l adresse nue' );
+check( 'https://exemple.test/rooms/x/?seca_lang=en' === $adresses_fr['en'], 'sur un site francais, l anglais a son adresse explicite' );
+$GLOBALS['securatest_site_locale'] = 'en_US';
+
+$adresse_fr = Secura_I18n::url_pour_langue( 'fr', 'https://exemple.test/rooms/x/?seca_lang=ar' );
+
+check( 'https://exemple.test/rooms/x/?seca_lang=fr' === $adresse_fr, 'changer de langue REMPLACE la langue de l adresse' );
+check( 1 === substr_count( $adresse_fr, 'seca_lang' ), 'la nouvelle adresse ne garde pas l ancienne langue' );
+check( '' === Secura_I18n::url_pour_langue( 'xx', 'https://exemple.test/' ), 'une langue inconnue ne fabrique pas d adresse' );
+check( 'https://exemple.test/rooms/x/' === Secura_I18n::retirer_parametre_langue( 'https://exemple.test/rooms/x/?seca_lang=fr&page=2' ) || 'https://exemple.test/rooms/x/?page=2' === Secura_I18n::retirer_parametre_langue( 'https://exemple.test/rooms/x/?seca_lang=fr&page=2' ), 'retirer la langue garde les autres parametres' );
+
+/* Le choix de la langue par URL reste prioritaire sur la preference
+   enregistree : c'est ce que demande un lien explicite. */
+$_GET = array( 'seca_lang' => 'ar' );
+check( 'ar' === Secura_I18n::forced_lang(), 'le parametre d adresse impose la langue' );
+
+/* Sans parametre, la preference de l'apprenant connecte s'applique. */
+$_GET = array();
+$GLOBALS['securatest_user']                        = 7;
+$GLOBALS['securatest_users'][7][ SECURA_USER_LANG ] = 'fr';
+check( 'fr' === Secura_I18n::forced_lang(), 'la preference enregistree s applique quand l adresse n impose rien' );
+unset( $GLOBALS['securatest_users'][7][ SECURA_USER_LANG ] );
+$GLOBALS['securatest_site_locale'] = 'fr_FR';
+
 /* Regression : « ?lang= » appartient aux plugins multilingues (Polylang
    l'utilise pour ses adresses). Notre parametre a nous est « ?seca_lang= »,
    et « ?lang= » n'est lu que si aucun autre plugin ne s'en sert. */
@@ -1281,6 +1447,92 @@ check( $payload && true === $payload['ok'], 'un indice peut être demandé' );
 check( Secura_Progress::hint_used( 7, 42, 1, 0 ), 'l\'indice demandé est mémorisé côté serveur' );
 
 /* L'examen est désormais accessible : la tâche précédente est terminée. */
+
+/* Mais une reponse ne demarre JAMAIS le chronometre : sans start_exam,
+   le serveur refuse (409 « exam_not_started »). C'est ce qui garantit
+   que le temps accorde est celui du chronometre que l'eleve a vu. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 2,
+	'question' => 0,
+	'answer'  => 'a3',
+);
+
+$payload = capture_json(
+	function () {
+		Secura_Ajax::validate_answer();
+	}
+);
+
+check( $payload && false === $payload['ok'] && 'exam_not_started' === $payload['data']['code'], 'une reponse d examen sans chronometre est refusee' );
+check( null === Secura_Progress::exam_state( 7, 42, 2 ), 'le refus ne cree pas de chronometre dans le dos de l eleve' );
+
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 2,
+);
+
+/* Les QUESTIONS non plus ne sortent pas avant le chronometre. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 2,
+);
+
+$payload = capture_json(
+	function () {
+		Secura_Ajax::get_task();
+	}
+);
+
+check( $payload && false === $payload['ok'] && 'exam_not_started' === $payload['data']['code'], 'un examen non ouvert ne livre pas ses questions' );
+
+/* Le chronometre ne se lance pas sur une tache qui n'est pas un examen. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 1,
+);
+
+$payload = capture_json(
+	function () {
+		Secura_Ajax::start_exam();
+	}
+);
+
+check( $payload && false === $payload['ok'] && 'not_an_exam' === $payload['data']['code'], 'pas de chronometre sur une tache qui n est pas un examen' );
+
+/* Le chronometre ne se lance pas sur un examen encore verrouille. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 9,
+);
+
+$payload = capture_json(
+	function () {
+		Secura_Ajax::start_exam();
+	}
+);
+
+check( $payload && false === $payload['ok'], 'une tache inexistante ne demarre aucun chronometre (' . ( isset( $payload['data']['code'] ) ? $payload['data']['code'] : 'sans code' ) . ')' );
+
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 2,
+);
+
+$payload = capture_json(
+	function () {
+		Secura_Ajax::start_exam();
+	}
+);
+
+check( $payload && true === $payload['ok'] && $payload['data']['time_left'] > 0, 'le chronometre demarre a l ouverture de l examen' );
+
 $_POST = array(
 	'nonce'   => 'nonce-de-test',
 	'room_id' => 42,

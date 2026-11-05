@@ -75,11 +75,20 @@ $room = $rooms[0];
    les extensions). */
 $permalink = get_permalink( $room->ID );
 
+/* On demande la version FRANCAISE explicitement. L'ancienne mesure
+   chargeait l'adresse nue en croyant recevoir le francais : sur un site
+   installe en anglais, elle auditait l'anglais en le comparant a des
+   attentes francaises (et le WordPress reel de recette est en anglais). */
+$url_fr       = add_query_arg( 'seca_lang', 'fr', $permalink );
 $url_ar       = add_query_arg( 'seca_lang', 'ar', $permalink );
 $page_ar      = audit_exec( 'curl -s "' . $url_ar . '"' );
 $page_ar_html = $page_ar;
 
-$html = audit_exec( 'curl -s "' . $permalink . '"' );
+$html = audit_exec( 'curl -s "' . $url_fr . '"' );
+
+if ( '' === trim( $html ) ) {
+	$html = audit_exec( 'curl -s "' . $permalink . '"' );
+}
 
 if ( '' === trim( $html ) ) {
 	audit_verifier(
@@ -92,15 +101,20 @@ if ( '' === trim( $html ) ) {
 	exit( audit_fin() );
 }
 
+/* Le titre se lit dans <title>, et nulle part ailleurs : l'ancienne
+   mesure cherchait le titre dans TOUT le HTML (le menu, le fil
+   d'Ariane...), donc elle passait meme quand l'onglet annoncait autre
+   chose. */
+preg_match( '/<title>(.*?)<\/title>/is', $html, $m_titre_page );
+$titre_page = isset( $m_titre_page[1] ) ? audit_normaliser_texte( html_entity_decode( $m_titre_page[1], ENT_QUOTES | ENT_HTML5, 'UTF-8' ) ) : '';
+
 audit_verifier(
 	'la page annonce le titre de la room (ce que le moteur affiche dans le resultat)',
-	false !== strpos( $html, '<title>' )
-		&& false !== strpos(
-			audit_normaliser_texte( wp_strip_all_tags( $html ) ),
-			audit_normaliser_texte( (string) $room->post_title )
-		),
-	'title de la room absent de la balise <title>',
-	'majeur'
+	'' !== $titre_page
+		&& false !== strpos( $titre_page, audit_normaliser_texte( (string) $room->post_title ) ),
+	'titre lu dans <title> : « ' . $titre_page . ' » (attendu : « ' . $room->post_title . ' »)',
+	'majeur',
+	'titre servi dans <title> : « ' . $titre_page . ' »'
 );
 
 /* Le meme controle, sur TOUTES les rooms. Choisir une room au hasard
@@ -122,7 +136,7 @@ $rooms_tous = get_posts(
 );
 
 foreach ( $rooms_tous as $chambre ) {
-	$page = wp_remote_get( get_permalink( $chambre->ID ), array( 'timeout' => 20 ) );
+	$page = wp_remote_get( add_query_arg( 'seca_lang', 'fr', get_permalink( $chambre->ID ) ), array( 'timeout' => 20 ) );
 
 	if ( is_wp_error( $page ) ) {
 		$titres_manquants[]   = $chambre->post_name . ' : page non servie';
@@ -132,12 +146,15 @@ foreach ( $rooms_tous as $chambre ) {
 
 	$corps = wp_remote_retrieve_body( $page );
 
-	if ( false === strpos( $corps, '<title>' )
-		|| false === strpos(
-			audit_normaliser_texte( wp_strip_all_tags( $corps ) ),
-			audit_normaliser_texte( (string) $chambre->post_title )
-		) ) {
-		$titres_manquants[] = $chambre->post_name . ' : titre absent de la page servie';
+	/* Meme regle que pour la room de tete : on lit <title>, pas le HTML
+	   entier. */
+	if ( ! preg_match( '/<title>(.*?)<\/title>/is', $corps, $m_t ) ) {
+		$titres_manquants[] = $chambre->post_name . ' : pas de balise <title>';
+	} elseif ( false === strpos(
+		audit_normaliser_texte( html_entity_decode( $m_t[1], ENT_QUOTES | ENT_HTML5, 'UTF-8' ) ),
+		audit_normaliser_texte( (string) $chambre->post_title )
+	) ) {
+		$titres_manquants[] = $chambre->post_name . ' : <title> ne contient pas le titre de la room';
 	}
 
 	/* Ce que le moteur lit sur la page : résumé, adresse canonique,
@@ -380,7 +397,7 @@ audit_verifier(
 
 audit_verifier(
 	'le changement de langue est un lien lisible (pas seulement du JavaScript)',
-	false !== stripos( $html, 'seca_lang=ar' ) || false !== stripos( $html, 'seca_lang=en' ),
+	(bool) preg_match( '/<a[^>]+href=["\'][^"\']*(?:seca_lang|\?lang)=/i', $html ),
 	'le sélecteur de langue n\'apparaît pas dans le code de la page',
 	'majeur'
 );
@@ -461,14 +478,25 @@ audit_verifier(
 	'majeur'
 );
 
+/* La regle mesuree n'est pas « la canonique francaise n'a pas de
+   parametre » : c'est « la page se designe elle-meme, dans la langue
+   qu'elle sert ». Sur un site installe en anglais, l'adresse nue sert
+   l'anglais ; la version francaise vit alors sous « ?seca_lang=fr », et
+   une canonique sans parametre la declarerait identique a l'anglais. */
+$attendu_fr = Secura_I18n::url_pour_langue( 'fr', $canon_url );
+$attendu_ar = Secura_I18n::url_pour_langue( 'ar', $canon_ar_url );
+
 audit_verifier(
 	'chaque langue se designe elle-meme (canonique auto-reference)',
 	'' !== $canon_url
-		&& false === strpos( $canon_url, 'seca_lang' )
 		&& '' !== $canon_ar_url
-		&& false !== strpos( $canon_ar_url, 'seca_lang=ar' ),
-	'canonique francaise : ' . $canon_url . ' | canonique arabe : ' . $canon_ar_url,
-	'majeur'
+		&& $canon_url === $attendu_fr
+		&& $canon_ar_url === $attendu_ar
+		&& $canon_url !== $canon_ar_url,
+	'canonique de la page francaise : ' . $canon_url . ' (attendue : ' . $attendu_fr . ')'
+		. ' | canonique arabe : ' . $canon_ar_url . ' (attendue : ' . $attendu_ar . ')',
+	'majeur',
+	'canonique francaise : ' . $canon_url . ' | canonique arabe : ' . $canon_ar_url
 );
 
 /* 4. Les versions de langue : des adresses absolues, et reciproques. */
@@ -500,6 +528,38 @@ audit_verifier(
 	empty( $relatives ),
 	implode( ', ', $relatives ),
 	'majeur'
+);
+
+/* Presence ne suffit pas : chaque hreflang doit designer une adresse qui
+   SERT cette langue. Le 05/11/2026, la page anglaise se declarait
+   « hreflang=fr » sur sa propre adresse : Google envoyait donc les
+   lecteurs francais vers une page anglaise. */
+$hreflang_faux = array();
+
+foreach ( $langues_declarees as $langue_href => $adresse_href ) {
+	if ( 'x-default' === $langue_href ) {
+		continue;
+	}
+
+	$servie = Secura_I18n::langue_de_url( str_replace( '&amp;', '&', $adresse_href ) );
+
+	if ( $servie !== $langue_href ) {
+		$hreflang_faux[] = $langue_href . ' → ' . $adresse_href . ' sert ' . $servie;
+	}
+}
+
+audit_verifier(
+	'chaque hreflang designe une adresse qui sert vraiment cette langue',
+	empty( $hreflang_faux ),
+	implode( ' ; ', $hreflang_faux ),
+	'majeur',
+	implode( ' ; ', array_map(
+		function ( $langue_href, $adresse_href ) {
+			return $langue_href . ' → ' . $adresse_href;
+		},
+		array_keys( $langues_declarees ),
+		array_values( $langues_declarees )
+	) )
 );
 
 /* 5. Les donnees structurees : valides, et declarant la ressource. */

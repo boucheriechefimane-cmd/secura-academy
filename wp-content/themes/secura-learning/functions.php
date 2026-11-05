@@ -197,14 +197,21 @@ function secures_learning_meta_tags() {
 	   - chaque version doit se designer elle-meme (canonique
 	     auto-reference), sinon la version arabe estConsideree comme
 	     un doublon de la version francaise et n'est pas indexee. */
-	/* L'adresse est deja absolue : remove_query_arg la renvoie telle quelle. */
-	$base = remove_query_arg( 'seca_lang', $url );
+	/* L'adresse est deja absolue : le retrait du parametre la renvoie
+	   telle quelle. */
+	$base = Secura_I18n::retirer_parametre_langue( $url );
 
-	foreach ( array(
-		'fr' => $base,
-		'ar' => add_query_arg( 'seca_lang', 'ar', $base ),
-		'en' => add_query_arg( 'seca_lang', 'en', $base ),
-	) as $langue => $adresse ) {
+	/* Chaque version porte la langue qu'elle SERT vraiment. Sur un site
+	   installe en anglais, l'adresse nue sert l'anglais : la declarer
+	   « hreflang=fr » etait un mensonge que Google suit (la version
+	   francaise n'existait pas a cette adresse). La langue du site garde
+	   l'adresse nue ; les autres recoivent leur parametre. */
+	/* La langue se lit sur l'ADRESSE DEMANDEE, pas sur le permalien :
+	   « ?seca_lang=fr » n'est pas dans get_permalink(). */
+	$langue_page = Secura_I18n::langue_de_url( Secura_I18n::current_url() );
+	$adresses    = Secura_I18n::traductions_de_url( $url );
+
+	foreach ( $adresses as $langue => $adresse ) {
 		printf(
 			'<link rel="alternate" hreflang="%s" href="%s">' . "\n",
 			esc_attr( $langue ),
@@ -215,15 +222,12 @@ function secures_learning_meta_tags() {
 	printf( '<link rel="alternate" hreflang="x-default" href="%s">' . "\n", esc_url( $base ) );
 
 	/* L'adresse de reference de cette page : elle se designe
-	   elle-meme, dans sa langue. */
+	   elle-meme. Sur un site sans parametre, l'adresse nue est la bonne
+	   des que la langue servie est celle du site. */
 	$canonique = $base;
 
-	if ( isset( $_GET['seca_lang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- lecture seule, pour l'adresse canonique.
-		$langue = substr( sanitize_key( wp_unslash( $_GET['seca_lang'] ) ), 0, 2 );
-
-		if ( in_array( $langue, array( 'ar', 'en' ), true ) ) {
-			$canonique = add_query_arg( 'seca_lang', $langue, $base );
-		}
+	if ( $langue_page !== Secura_I18n::langue_du_site() ) {
+		$canonique = Secura_I18n::url_pour_langue( $langue_page, $base );
 	}
 
 	printf( '<link rel="canonical" href="%s">' . "\n", esc_url( $canonique ) );
@@ -297,8 +301,12 @@ add_action( 'send_headers', 'secures_learning_security_headers' );
  * @return string
  */
 function secures_learning_language_switcher() {
-	$base   = remove_query_arg( 'seca_lang' );
-	$actuel = substr( (string) determine_locale(), 0, 2 );
+	if ( ! class_exists( 'Secura_I18n' ) ) {
+		return '';
+	}
+
+	$base   = Secura_I18n::retirer_parametre_langue();
+	$actuel = Secura_I18n::current_lang();
 
 	$langues = array(
 		'fr' => __( 'Francais', 'secura-learning' ),
@@ -309,7 +317,7 @@ function secures_learning_language_switcher() {
 	$html = '<nav class="site-lang" aria-label="' . esc_attr__( 'Choisir la langue', 'secura-learning' ) . '">';
 
 	foreach ( $langues as $code => $nom ) {
-		$adresse = ( 'fr' === $code ) ? $base : add_query_arg( 'seca_lang', $code, $base );
+		$adresse = Secura_I18n::url_pour_langue( $code, $base );
 		$actif   = ( $code === $actuel );
 
 		$html .= sprintf(
