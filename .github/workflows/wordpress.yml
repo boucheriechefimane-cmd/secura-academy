@@ -22,11 +22,7 @@ name: WordPress — recette et compatibilité
 # socle sera termine, et il tournera alors sur la demande de fusion.
 on:
   push:
-    branches:
-      - main
-      # DECLENCHEUR TEMPORAIRE (retire dans le commit suivant) : le jeton
-      # n'a pas le droit « actions: write », l'API refuse workflow_dispatch.
-      - arena/a792cc4e-secura-academy
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
