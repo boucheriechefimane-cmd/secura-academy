@@ -231,6 +231,12 @@ jobs:
             securalabs/web-dvwa:1.0
           sleep 8
           docker exec seca_test_dvwa sh -c 'ls /var/www/html >/dev/null' && echo "OK  web-dvwa : le contenu web est present"
+          # Ce que la machine voit d'elle-meme : ports, outils, processus.
+          echo '--- diagnostic web-01 ---'
+          docker exec seca_test_dvwa sh -c '(command -v ss && ss -ltnp) || (command -v netstat && netstat -ltnp) || echo "ni ss ni netstat"'
+          docker exec seca_test_dvwa sh -c 'command -v curl || echo "pas de curl"; command -v wget || echo "pas de wget"; command -v bash || echo "pas de bash"'
+          docker exec seca_test_dvwa sh -c 'ps aux | head -10' || true
+          docker exec seca_test_dvwa sh -c 'cat /var/log/app/apache.log | tail -20' || true
           for prototype in secura-lab-blue-firewall secura-lab-blue-log-analysis secura-lab-buffer-overflow; do
             docker run -d --name "seca_test_$prototype" --network none \
               --cap-drop ALL --security-opt no-new-privileges --memory 512m --cpus 1.0 \

@@ -111,10 +111,34 @@ function seca_preuve_drapeau( $texte ) {
  * @return array{code:int,sortie:string}
  */
 function seca_preuve_dans( $nom, $commande, $root = false ) {
+	/* Un seul niveau de shell : imbriquer « sh -c \'bash -c ...\' » casse
+	   les guillemets et fait croire que rien n'ecoute. */
 	return seca_preuve_exec(
 		'docker exec ' . ( $root ? '-u 0 ' : '' ) . escapeshellarg( $nom )
-		. ' sh -c ' . escapeshellarg( $commande )
+		. ' ' . seca_preuve_shell( $nom ) . ' -c ' . escapeshellarg( $commande )
 	);
+}
+
+/**
+ * Le shell disponible dans le conteneur (bash si possible).
+ *
+ * @param string $nom Conteneur.
+ * @return string « bash » ou « sh ».
+ */
+function seca_preuve_shell( $nom ) {
+	static $connus = array();
+
+	if ( isset( $connus[ $nom ] ) ) {
+		return $connus[ $nom ];
+	}
+
+	$essai = seca_preuve_exec(
+		'docker exec ' . escapeshellarg( $nom ) . ' sh -c "command -v bash"'
+	);
+
+	$connus[ $nom ] = '' !== trim( $essai['sortie'] ) ? 'bash' : 'sh';
+
+	return $connus[ $nom ];
 }
 
 /**
@@ -173,21 +197,27 @@ function seca_preuve_joindre( $nom, $url ) {
  * @return bool
  */
 function seca_preuve_port_ouvert( $nom, $hote, $port ) {
-	$sonde = 'if command -v bash >/dev/null 2>&1; then '
-		. 'bash -c ' . escapeshellarg( '(exec 3<>/dev/tcp/' . $hote . '/' . $port . ') 2>/dev/null && echo ouvert || echo ferme' )
-		. '; elif command -v php >/dev/null 2>&1; then '
-		. 'php -r ' . escapeshellarg( '$e = @fsockopen(' . var_export( $hote, true ) . ', ' . (int) $port . ', $n, $s, 3); echo $e ? "ouvert" : "ferme";' )
-		. '; else echo inconnu; fi';
+	if ( 'bash' === seca_preuve_shell( $nom ) ) {
+		$sonde = '(exec 3<>/dev/tcp/' . $hote . '/' . $port . ') >/dev/null 2>&1 && echo ouvert || echo ferme';
+	} else {
+		$sonde = 'php -r ' . escapeshellarg(
+			'$e = @fsockopen(' . var_export( $hote, true ) . ', ' . (int) $port . ', $n, $s, 3); echo $e ? "ouvert" : "ferme";'
+		);
+	}
+
+	$dernier = '';
 
 	for ( $essai = 0; $essai < 10; $essai++ ) {
-		$resultat = trim( seca_preuve_dans( $nom, $sonde )['sortie'] );
+		$dernier = trim( seca_preuve_dans( $nom, $sonde )['sortie'] );
 
-		if ( 'ouvert' === $resultat ) {
+		if ( 'ouvert' === $dernier ) {
 			return true;
 		}
 
 		sleep( 2 );
 	}
+
+	echo '  (sonde ' . $nom . ' port ' . $port . ' : « ' . $dernier . ' »)\n';
 
 	return false;
 }
