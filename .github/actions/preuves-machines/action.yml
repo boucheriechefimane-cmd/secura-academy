@@ -56,7 +56,7 @@ runs:
 
     - name: Installer WordPress et le plugin
       shell: bash
-      run: bash scripts/ci-wordpress.sh
+      run: bash scripts/ci-wordpress.sh 2>&1 | tee -a /tmp/etapes.txt
 
     - name: Démarrer le site
       shell: bash
@@ -77,7 +77,7 @@ runs:
 
     - name: Recette avec les vraies machines
       shell: bash
-      run: SECA_AVEC_MACHINE=1 wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php
+      run: SECA_AVEC_MACHINE=1 wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php 2>&1 | tee -a /tmp/etapes.txt
 
     - name: Scénario des deux apprenants (isolation)
       shell: bash
@@ -91,11 +91,11 @@ runs:
         echo "Apprenants : alice=$SECA_USER_ALICE bob=$SECA_USER_BOB"
         SECA_ROOM_WEB="$SECA_ROOM_WEB" SECA_ROOM_NET="$SECA_ROOM_NET" SECA_ROOM_BIN="$SECA_ROOM_BIN" \
         SECA_USER_ALICE="$SECA_USER_ALICE" SECA_USER_BOB="$SECA_USER_BOB" \
-          python3 tools/recette-apprenants/scenario.py
+          python3 tools/recette-apprenants/scenario.py 2>&1 | tee -a /tmp/etapes.txt
 
     - name: Les 45 contrôles des machines
       shell: bash
-      run: bash scripts/test-labs-ci.sh 2>&1 | tee /tmp/machines.txt
+      run: bash scripts/test-labs-ci.sh 2>&1 | tee /tmp/machines.txt | tee -a /tmp/etapes.txt
 
     - name: La preuve des machines, room par room
       shell: bash
@@ -170,6 +170,7 @@ runs:
         cp /tmp/preuve-machines.txt "$dossier/machines-$date_du_jour.txt" 2>/dev/null || true
         cp /tmp/machines.txt "$dossier/controles-machines-$date_du_jour.txt" 2>/dev/null || true
         cp /tmp/diagnostic.txt "$dossier/diagnostic-$date_du_jour.txt" 2>/dev/null || true
+        cp /tmp/etapes.txt "$dossier/journal-des-etapes-$date_du_jour.txt" 2>/dev/null || true
         { echo '--- journal PHP (fin) ---'; tail -40 "${SECA_WP_DIR}/wp-content/debug.log" 2>/dev/null; } \
           > "$dossier/journal-php-$date_du_jour.txt" || true
         {
@@ -181,6 +182,18 @@ runs:
           echo
           echo '```'
           sed -n '1,200p' /tmp/preuve-machines.txt 2>/dev/null || echo 'aucun rapport produit'
+          echo '```'
+          echo
+          echo '## Les controles des machines (fin)'
+          echo
+          echo '```'
+          tail -25 /tmp/machines.txt 2>/dev/null || echo 'aucun journal'
+          echo '```'
+          echo
+          echo '## Le journal des etapes (fin)'
+          echo
+          echo '```'
+          tail -40 /tmp/etapes.txt 2>/dev/null || echo 'aucun journal'
           echo '```'
         } > "$dossier/LISEZ-MOI.md"
         git config user.name 'Recette Secura'
