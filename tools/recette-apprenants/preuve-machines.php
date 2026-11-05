@@ -506,7 +506,7 @@ foreach ( $rooms as $room ) {
 			/* Si la cible est servie par un autre service (le noeud interne
 			   du pivot), on teste depuis ce service : l'attaquant n'a pas
 			   a la joindre directement, c'est tout l'exercice. */
-			if ( '' !== $hote_cible && $hote_cible !== $service && '' === $code_http ) {
+			if ( '' !== $hote_cible && $hote_cible !== $service && 0 === $code_http ) {
 				$autre = seca_preuve_conteneur_compose( $projet, $hote_cible );
 
 				if ( '' !== $autre ) {
