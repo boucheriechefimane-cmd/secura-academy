@@ -101,6 +101,11 @@ jobs:
           --health-retries=12
     timeout-minutes: 45
     steps:
+      # Obligatoire avant toute action locale : GitHub lit
+      # .github/actions/<nom>/action.yml dans le dossier de travail.
+      - name: Récupérer le code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
       - name: WordPress + machines + deux élèves + la preuve room par room
         uses: ./.github/actions/preuves-machines
         with:

@@ -8,6 +8,10 @@ description: >
   (workflow_dispatch, pour mesurer sans toucher au CI) et le CI de la
   demande de fusion (pour prouver avant de fusionner).
 
+  L'appelant doit avoir recupere le depot AVANT d'appeler cette action :
+  GitHub lit action.yml dans le dossier de travail, qui doit donc deja
+  contenir le code.
+
 inputs:
   deposer_preuve:
     description: 'Deposer les rapports dans la branche preuve-machines'
@@ -25,9 +29,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Récupérer le code
-      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-
     - name: Installer PHP et WP-CLI
       uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
       with:
