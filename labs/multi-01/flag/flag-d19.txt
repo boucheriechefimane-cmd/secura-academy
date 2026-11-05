@@ -1,0 +1,1 @@
+FLAG=SECURA{autorite_signataire}

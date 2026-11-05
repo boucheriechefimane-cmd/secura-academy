@@ -1,0 +1,36 @@
+# ============================================================
+# docker-compose pour les labs publics (licences libres)
+# OWASP Juice Shop : licence MIT
+# DVWA : licence GPL
+# ============================================================
+
+services:
+  # --- Red Team : Injection SQL / XSS / IDOR (OWASP Top 10) ---
+  juice-shop:
+    image: bkimminich/juice-shop:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - secura-labs-net
+    labels:
+      - "secura.lab=true"
+      - "secura.lab.key=owasp-juice-shop"
+      - "secura.lab.type=red"
+      - "secura.lab.description=Site vulnérable OWASP Top 10"
+
+  # --- Red Team : 19 vulnérabilités web (DVWA) ---
+  dvwa:
+    image: vulnerables/web-dvwa:latest
+    ports:
+      - "80:80"
+    networks:
+      - secura-labs-net
+    labels:
+      - "secura.lab=true"
+      - "secura.lab.key=dvwa"
+      - "secura.lab.type=red"
+      - "secura.lab.description=Damn Vulnerable Web Application"
+
+networks:
+  secura-labs-net:
+    driver: bridge

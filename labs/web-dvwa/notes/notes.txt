@@ -1,0 +1,14 @@
+Ticket d'incident — Equipe exploitation
+=====================================
+Serveur : intranet.lab (serveur de l'espace clinicians)
+
+Constat : l'utilisateur « soignant » ne arrive plus a se connecter depuis
+l_open Space. Le service support a demande un diagnostic rapide.
+
+Elements fournis :
+  - la page de statut du service est accessible ;
+  - l'application tourne derriere Apache ;
+  - la documentation est telechargeable depuis l'interface.
+
+Objectif : remettre le service en service et documenter la cause.
+Ne modifie pas la production : travaille sur la copie de l'equipe.

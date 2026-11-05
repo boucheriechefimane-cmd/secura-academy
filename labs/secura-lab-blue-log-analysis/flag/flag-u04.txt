@@ -1,0 +1,1 @@
+FLAG=SECURA{confinement_borne}

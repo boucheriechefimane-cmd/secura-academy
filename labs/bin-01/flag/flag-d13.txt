@@ -1,0 +1,1 @@
+FLAG=SECURA{chaine_du_binaire}

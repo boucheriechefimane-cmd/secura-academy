@@ -1,0 +1,26 @@
+# ============================================================
+# Lab Blue Team : Analyse de logs (détection d'intrusion)
+# Référentiel : MITRE ATT&CK T1003 - Vol de credentials dans les logs
+# Licence : Secura Academy (contenu interne)
+# ============================================================
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y \
+    apache2 \
+    rsyslog \
+    python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Créer des logs simulés contenant une activité suspecte
+RUN mkdir -p /var/log/secura && \
+    echo '192.168.1.100 - - [10/Nov/2026:14:22:01 +0000] "GET /login.php?user=admin&pass=password123 HTTP/1.1" 200 1234' > /var/log/secura/auth.log && \
+    echo '192.168.1.100 - - [10/Nov/2026:14:22:05 +0000] "POST /admin/export HTTP/1.1" 200 5678' >> /var/log/secura/auth.log && \
+    echo '10.0.0.5 - - [10/Nov/2026:14:23:10 +0000] "GET /status HTTP/1.1" 200 89' >> /var/log/secura/auth.log && \
+    echo 'FLAG{log_analysis_succesful_credential_theft_detected}' > /var/log/secura/flag.txt && \
+    chmod 644 /var/log/secura/flag.txt
+
+# Script d'aide pour l'élève
+RUN echo '#!/bin/bash\necho "Analyse les logs dans /var/log/secura/"\necho "Cherche les requêtes suspectes avec des credentials en clair"\necho "Le flag se trouve dans le fichier flag.txt"\n' > /help.sh && chmod +x /help.sh
+
+WORKDIR /var/log/secura
+CMD ["/bin/bash"]
