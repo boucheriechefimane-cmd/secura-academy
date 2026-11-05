@@ -225,6 +225,23 @@ runs:
           echo '```'
         } >> "$GITHUB_STEP_SUMMARY" || true
 
+    - name: Le detail des mesures, publie tot
+      if: always()
+      shell: bash
+      run: |
+        # Publie AVANT les etapes de diagnostic : une seule annotation, avec
+        # tout ce qui sert a comprendre (sondes, enquete, sorties d'exploit).
+        # C'est le seul canal lisible depuis le bac a sable du proprietaire.
+        {
+          if [ -f /tmp/moteur.txt ]; then cat /tmp/moteur.txt; fi
+          grep -aE "SONDE|enquete|root   :|montage:|nnp    :|expl \||NON  |KO " /tmp/etapes.txt /tmp/machines.txt 2>/dev/null | head -40
+        } > /tmp/detail.txt 2>/dev/null || true
+        if [ -s /tmp/detail.txt ]; then
+          bloc=""
+          while IFS= read -r ligne; do bloc="${bloc}${ligne}%0A"; done < /tmp/detail.txt
+          echo "::warning title=Detail des mesures::${bloc:0:6000}"
+        fi
+
     - name: Ce que la machine voit de la machine
       if: always()
       shell: bash
