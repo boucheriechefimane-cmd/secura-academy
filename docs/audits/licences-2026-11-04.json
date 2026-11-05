@@ -1,0 +1,68 @@
+{
+    "domaine": "licences",
+    "titre": "Licences, attribution et réutilisation",
+    "expert": "Expert en licences de contenu, en droits de réutilisation et en attribution",
+    "perimetre": "Vérifie que chaque contenu emprunté porte une licence identifiée et datée, que l'attribution est visible par l'élève, que les conditions (usage non commercial, partage dans les mêmes conditions) sont respectées et énoncées, et que le registre des sources est tenu à jour. Ne tranche pas les cas litigieux : cela se décide au cas par cas.",
+    "date": "2026-11-04T23:12:29+00:00",
+    "ok": 5,
+    "non_etaye": 0,
+    "forces": [
+        {
+            "libelle": "Chaque vidéo empruntée porte une licence et une institution",
+            "preuve": "52 vidéos, 10 licence(s) distincte(s) : CC BY-NC-SA 4.0 - MIT OpenCourseWare | Reutilisation non commerciale autorisee, avec attribution (pwn.college) | Usage pedagogique avec attribution (CYBER.ORG) | Usage pedagogique avec attribution (OWASP Foundation) | Usage pedagogique avec attribution (Cristi Vlad) | Usage pedagogique avec attribution (AppSecDojo) | CC BY-NC-SA 4.0 - Stanford Engineering Everywhere | CC BY-SA 4.0 - OWASP | Usage pedagogique avec attribution (Joe Ma) | YouTube Standard License"
+        },
+        {
+            "libelle": "Le registre des sources existe, est structuré et mentionne les dates de vérification",
+            "preuve": "docs/SOURCES-CONTENU.md — 23 sections, 55 licence(s) vérifiée(s)"
+        }
+    ],
+    "scenarios": [],
+    "bloquant": 1,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 5,
+    "constats": [
+        {
+            "libelle": "chaque vidéo empruntée déclare sa licence et son institution",
+            "detail": "16 cas : Penser comme un défenseur (institution absente) | Les fondamentaux du réseau (institution absente) | Sécuriser une application web (institution absente) | Mémoire et défenses (institution absente) | Authentification (institution absente)",
+            "gravite": "bloquant",
+            "preuve": "52 room(s) sur 52 portent une vidéo, toutes avec licence et institution",
+            "etaye": true
+        },
+        {
+            "libelle": "Licences déclarées sur les vidéos",
+            "detail": "CC BY-NC-SA 4.0 - MIT OpenCourseWare (9) | Reutilisation non commerciale autorisee, avec attribution (pwn.college) (13) | Usage pedagogique avec attribution (CYBER.ORG) (6) | Usage pedagogique avec attribution (OWASP Foundation) (1) | Usage pedagogique avec attribution (Cristi Vlad) (1) | Usage pedagogique avec attribution (AppSecDojo) (1) | CC BY-NC-SA 4.0 - Stanford Engineering Everywhere (2) | CC BY-SA 4.0 - OWASP (2) | Usage pedagogique avec attribution (Joe Ma) (1) | YouTube Standard License (16)",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Institutions citées",
+            "detail": "MIT - 6.042 Mathematics for Computer Science (R. Rivest) (1) | pwn.college (Arizona State University) (4) | CYBER.ORG (4) | OWASP Foundation (3) | OWASP (chapitre Presedint) (1) | OWASP Top 10 (A09:2021) (1) | Stanford - Engineering Everywhere (SEE) (2) | pwn.college - Arizona State University (9) | CYBER.ORG - Cyber Safety Series (2) | Joe Ma - OWASP Juice Shop (demonstration) (1) | MIT - 6.858 Computer Systems Security (Fall 2014) (8)",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Rooms citant une source externe dans leur texte",
+            "detail": "21 sur 52 — sans citation : Cryptographie : clé, chiffrement, signature | Déborder la pile : le canari et l'offset | ROP : construire une attaque sans shellcode | Vulnérabilité de format string : printf qui parle trop | Valider les entrées : le premier remède anti-injection | Ceinture jaune : permissions, propriétaire, contenu",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Ce que dit la règle : réordonner ne donne pas une licence",
+            "detail": "Réordonner les questions, les renuméroter ou les reformuler ne rend pas un contenu protégé réutilisable : la licence d'origine continue de s'appliquer, et les conditions du site d'origine aussi. C'est vérifié par un test automatique (tests/import-test.py) : le même lot réordonné et renuméroté est refusé. Pour un service payant, deux portes s'ouvrent : obtenir une autorisation écrite de l'éditeur, ou n'utiliser que des sources libres compatibles avec un usage commercial (licences sans « NC », ou domaine public).",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Un audit ne remplace pas la lecture des licences",
+            "detail": "Cet audit vérifie que les licences sont identifiées, que les attributions sont visibles à l'écran, que les conditions non commerciales sont énoncées et que le registre existe. Il ne peut pas vérifier qu'un contenu a été réécrit plutôt que copié, ni statuer sur une réutilisation litigieuse : cela se décide au cas par cas, en relisant la licence d'origine.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

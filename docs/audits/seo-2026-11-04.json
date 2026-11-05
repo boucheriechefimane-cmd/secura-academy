@@ -1,0 +1,136 @@
+{
+    "domaine": "seo",
+    "titre": "Audit externe — Référencement (SEO)",
+    "expert": "",
+    "perimetre": "",
+    "date": "2026-11-04T23:11:46+00:00",
+    "ok": 31,
+    "non_etaye": 15,
+    "forces": [],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 2,
+    "mineur": 0,
+    "info": 0,
+    "constats": [
+        {
+            "libelle": "chaque room est prete pour le moteur (resume, adresse canonique, partage, langue, telephone)",
+            "detail": "52 room(s) incompletes : penser-comme-un-defenseur : meta description, aperçu de partage (Open Graph), carte Twitter | les-fondamentaux-du-reseau : meta description, aperçu de partage (Open Graph), carte Twitter | securiser-une-application-web : meta description, aperçu de partage (Open Graph), carte Twitter | memoire-et-defenses : meta description, aperçu de partage (Open Graph), carte Twitter | authentification : meta description, aperçu de partage (Open Graph), carte Twitter",
+            "gravite": "majeur",
+            "preuve": "penser-comme-un-defenseur : meta description, aperçu de partage (Open Graph), carte Twitter\nles-fondamentaux-du-reseau : meta description, aperçu de partage (Open Graph), carte Twitter\nsecuriser-une-application-web : meta description, aperçu de partage (Open Graph), carte Twitter\nmemoire-et-defenses : meta description, aperçu de partage (Open Graph), carte Twitter\nauthentification : meta description, aperçu de partage (Open Graph), carte Twitter",
+            "etaye": true
+        },
+        {
+            "libelle": "chaque version arabe repond et se lit de droite a gauche",
+            "detail": "52 room(s) concernee(s) : penser-comme-un-defenseur : version arabe sans dir=\"rtl\" | les-fondamentaux-du-reseau : version arabe sans dir=\"rtl\" | securiser-une-application-web : version arabe sans dir=\"rtl\" | memoire-et-defenses : version arabe sans dir=\"rtl\" | authentification : version arabe sans dir=\"rtl\"",
+            "gravite": "majeur",
+            "preuve": "penser-comme-un-defenseur : version arabe sans dir=\"rtl\"\nles-fondamentaux-du-reseau : version arabe sans dir=\"rtl\"\nsecuriser-une-application-web : version arabe sans dir=\"rtl\"\nmemoire-et-defenses : version arabe sans dir=\"rtl\"\nauthentification : version arabe sans dir=\"rtl\"",
+            "etaye": true
+        },
+        {
+            "libelle": "la page a une meta description (le résumé du moteur)",
+            "detail": "sans meta description, le moteur invente le résumé : la page est moins cliquable",
+            "gravite": "majeur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "la page se partage correctement (Open Graph : titre, image, description)",
+            "detail": "sans Open Graph, un partage sur Facebook/WhatsApp n'a pas de titre ni d'aperçu",
+            "gravite": "mineur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "la page se partage correctement (carte Twitter)",
+            "detail": "sans carte Twitter, le partage sur X/Twitter est muet",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "la version arabe indique la direction du texte (droite à gauche)",
+            "detail": "la page arabe ne renvoie pas dir=\"rtl\" : le texte arabe sera mal aligne",
+            "gravite": "majeur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "le fichier robots.txt répond",
+            "detail": "code reçu : 404",
+            "gravite": "mineur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "le plan du site (sitemap) est disponible",
+            "detail": "code reçu : 501 (WordPress le génère n'importe comment)",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "les pages en plusieurs langues se signalent les unes les autres (hreflang)",
+            "detail": "sans hreflang, un moteur ne sait pas que ces pages sont les versions traduites : il peut les traiter comme des doublons",
+            "gravite": "mineur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "le changement de langue est un lien lisible (pas seulement du JavaScript)",
+            "detail": "le sélecteur de langue n'apparaît pas dans le code de la page",
+            "gravite": "majeur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "chaque langue se designe elle-meme (canonique auto-reference)",
+            "detail": "canonique francaise : http://localhost:8080/wp/rooms/cryptographie-cle-chiffrement-signature/ | canonique arabe : http://localhost:8080/wp/rooms/cryptographie-cle-chiffrement-signature/",
+            "gravite": "majeur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "les versions de langue sont annoncees (francais, arabe, anglais) plus la version de repli",
+            "detail": "declarees : ",
+            "gravite": "majeur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "robots.txt nomme explicitement les robots d'IA (Googlebot, OpenAI, Anthropic, Perplexity, Apple)",
+            "detail": "robots non cites : Googlebot, OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Google-Extended, GPTBot, ClaudeBot, Applebot",
+            "gravite": "majeur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "le plan du site (sitemap) est declare dans robots.txt",
+            "detail": "robots.txt ne declare aucun plan du site",
+            "gravite": "majeur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "chaque parcours liste ses rooms par des liens reels",
+            "detail": "parcours sans room liee : les-labs-avances-juice-shop-dojo-et-quiz, les-universites-22-rooms-6-cours, scenarios-m3-dix-missions-reelles, fondations-reseaux-web-et-cryptographie",
+            "gravite": "bloquant",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "la version arabe porte un titre en arabe (le titre annonce suit la langue affichee)",
+            "detail": "titre de la page arabe : « Cryptographie : clé, chiffrement, signature – Secura Academy » (attendu : « التشفير: المفتاح والتعمية والتوقيع »)",
+            "gravite": "majeur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "la page annonce une image de partage (og:image)",
+            "detail": "aucune balise og:image",
+            "gravite": "mineur",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

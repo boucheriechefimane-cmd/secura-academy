@@ -1,0 +1,38 @@
+{
+    "domaine": "drapeaux",
+    "titre": "Les questions de machine : drapeaux et actions joues pour de vrai",
+    "expert": "Expert en exploitation linux et en surveillance de drapeaux (Read The Docs)",
+    "perimetre": "Verifie que les questions qui demandent la machine de l'eleve sont reellement jouables : le fichier de drapeau existe dans le bon lab, la valeur est unique et sure, la machine se deploie, et la reponse de l'eleve est acceptee par le serveur qui relit le fichier en root.",
+    "date": "2026-11-04T23:13:06+00:00",
+    "ok": 3,
+    "non_etaye": 0,
+    "forces": [],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 3,
+    "constats": [
+        {
+            "libelle": "le périmètre à vérifier",
+            "detail": "60 questions de drapeau et 1 question d'action",
+            "gravite": "info",
+            "preuve": "chacune est rattachée à une room, donc à une machine",
+            "etaye": true
+        },
+        {
+            "libelle": "jeu réel des questions de machine",
+            "detail": "non joué : connexion ou jeton de session indisponible",
+            "gravite": "info",
+            "preuve": "connexion HTTP 0",
+            "etaye": true
+        },
+        {
+            "libelle": "le contrôle porte sur la plateforme, pas sur l'élève",
+            "detail": "la valeur est lue par le serveur dans le fichier de la machine, comme le ferait un élève qui a trouvé la bonne réponse ; l'apprenant, lui, doit trouver la valeur dans la machine",
+            "gravite": "info",
+            "preuve": "le serveur compare le fichier réel, il ne compare pas une liste de réponses",
+            "etaye": true
+        }
+    ]
+}
