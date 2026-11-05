@@ -110,13 +110,20 @@ jobs:
 
       - name: Construire les machines
         run: |
-          for machine in web-01 bin-01 multi-01 internal-01 univ-01 dojo-01; do
+          # Les machines que les rooms declarent, plus les prototypes du ZIP
+          # (web-dvwa, secura-lab-blue-firewall, secura-lab-blue-log-analysis,
+          # secura-lab-buffer-overflow) : ils doivent au moins se construire,
+          # meme si leur contenu est une copie (voir labs/README.md).
+          for machine in web-01 bin-01 multi-01 internal-01 univ-01 dojo-01 \
+                         web-dvwa secura-lab-blue-firewall \
+                         secura-lab-blue-log-analysis secura-lab-buffer-overflow; do
             echo "Construction de $machine…"
             docker build -q -t "securalabs/$machine:1.0" "labs/$machine"
+            echo "OK  $machine"
           done
           echo "Construction du serveur de drapeaux (flags-01)…"
           docker build -q -t "securalabs/flags-01:1.0" labs/juice-shop/flags
-          docker images --format '{{.Repository}}:{{.Tag}}'
+          docker images --format '{{.Repository}}:{{.Tag}}' | tee /tmp/images.txt
 
       - name: Installer WordPress et le plugin
         run: bash scripts/ci-wordpress.sh
@@ -153,7 +160,36 @@ jobs:
             python3 tools/recette-apprenants/scenario.py
 
       - name: Les 45 contrôles des machines
-        run: bash scripts/test-labs-ci.sh
+        run: bash scripts/test-labs-ci.sh 2>&1 | tee /tmp/machines.txt
+
+      - name: La preuve des machines, room par room
+        run: |
+          set -o pipefail
+          wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/preuve-machines.php \
+            | tee /tmp/preuve-machines.txt
+
+      - name: Le lab web-dvwa (prototype du ZIP) démarre-t-il ?
+        run: |
+          # Pas de publication de port : le lab reste en reseau ferme,
+          # comme chez l'apprenant. On verifie seulement qu'il demarre.
+          docker run -d --name seca_test_dvwa --network none \
+            --cap-drop ALL --security-opt no-new-privileges \
+            --memory 512m --cpus 1.0 \
+            securalabs/web-dvwa:1.0
+          sleep 5
+          docker exec seca_test_dvwa sh -c 'ls /var/www/html >/dev/null' && echo "OK  web-dvwa : le contenu web est present"
+          docker rm -f seca_test_dvwa
+
+      - name: Publier les preuves des machines
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: preuves-machines
+          path: |
+            /tmp/machines.txt
+            /tmp/preuve-machines.txt
+            /tmp/images.txt
+          if-no-files-found: warn
 
       - name: Chercher une erreur PHP fatale
         run: |
