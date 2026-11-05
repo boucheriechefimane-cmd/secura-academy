@@ -60,6 +60,9 @@ jobs:
       - name: Tester la barrière et les rapports d'audit
         run: php tests/audit-test.php
 
+      - name: Tester les sondes de contenu simulées
+        run: php tests/sondes-contenu-test.php
+
       - name: Tester la chaîne d'import des questions
         run: python3 tests/import-test.py
 
