@@ -159,6 +159,9 @@ runs:
         if [ "$code" -ne 0 ]; then
           echo "ECHEC : la preuve room par room signale au moins une room qui ment" | tee -a /tmp/echecs.txt
         fi
+        # Le code de cette etape ne doit jamais trahir une autre commande du
+        # bloc (un curl -o /dev/null rend 23 : « pas de corps a ecrire »).
+        exit 0
 
     - name: La preuve au sommaire du travail
       if: always()
@@ -173,7 +176,7 @@ runs:
           echo '```'
           sed -n '1,200p' /tmp/preuve-machines.txt 2>/dev/null || echo 'aucun rapport produit'
           echo '```'
-        } >> "$GITHUB_STEP_SUMMARY"
+        } >> "$GITHUB_STEP_SUMMARY" || true
 
     - name: Ce que la machine voit d'elle-meme
       if: always()
@@ -200,7 +203,10 @@ runs:
           port=$(docker port seca_diag_web 8080/tcp 2>/dev/null | head -1 | cut -d: -f2)
           echo "port=$port"
           if [ -n "$port" ]; then
-            curl -s -o /dev/null -w 'code=%{http_code}\n' --max-time 10 "http://127.0.0.1:$port/" || true
+            # -o /dev/null avec -w : curl rend 23 (« failed writing body »).
+            # Ce n'est pas une panne, et surtout pas un echec du run.
+            entete=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "http://127.0.0.1:$port/") || entete='000'
+            echo "code=$entete"
           fi
           echo '## journal docker'
           docker logs seca_diag_web 2>&1 | tail -20 || true
