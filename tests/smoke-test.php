@@ -2850,6 +2850,30 @@ check( $reservoir_import > 0, 'la reserve alimente le reservoir des epreuves : l
 check( count( $liste_import ) > count( $taches_import[0]['questions'] ), 'le reservoir est plus grand que la tache seule (les copies d\'examen varient)' );
 
 /* ---------------------------------------------------------------------
+ * Les prototypes incomplets du ZIP ne doivent pas être activés sans revue.
+ * ------------------------------------------------------------------ */
+
+$bootstrap_plugin = file_get_contents( __DIR__ . '/../wp-content/plugins/secura-academy/secura-academy.php' );
+$prototypes = array( 'class-secura-lab-front.php', 'class-secura-exam-timed.php', 'class-secura-certificate.php', 'class-secura-exam-front.php' );
+$prototype_charge = false;
+foreach ( $prototypes as $prototype ) {
+	if ( preg_match( '/^\s*(?:require|include)(?:_once)?\b[^;]*' . preg_quote( $prototype, '/' ) . '/m', $bootstrap_plugin ) ) {
+		$prototype_charge = true;
+	}
+}
+check( ! $prototype_charge, 'les prototypes du ZIP restent non chargés tant que leurs défauts ne sont pas corrigés' );
+
+$ajax_source = file_get_contents( __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-ajax.php' );
+$prototype_routes = array( 'secura_exam_time', 'secura_exam_submit', 'secura_exam_answer', 'secura_certificate', 'secura_certificate_list' );
+$route_exposee = false;
+foreach ( $prototype_routes as $route ) {
+	if ( false !== strpos( $ajax_source, "'" . $route . "'" ) ) {
+		$route_exposee = true;
+	}
+}
+check( ! $route_exposee, 'les points d’entrée AJAX des prototypes ne sont pas exposés' );
+
+/* ---------------------------------------------------------------------
  * Bilan
  * ------------------------------------------------------------------ */
 

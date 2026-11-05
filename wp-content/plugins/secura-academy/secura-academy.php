@@ -485,10 +485,9 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-progress.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-exam.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-terminal.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-lab.php';
-require_once SECURA_ACADEMY_PATH . 'includes/class-secura-lab-front.php';
-require_once SECURA_ACADEMY_PATH . 'includes/class-secura-exam-timed.php';
-require_once SECURA_ACADEMY_PATH . 'includes/class-secura-certificate.php';
-require_once SECURA_ACADEMY_PATH . 'includes/class-secura-exam-front.php';
+/* Les prototypes de front, d'examen et de certificat du ZIP ne sont pas
+   charges : leurs contrats et la protection des PDF restent a corriger.
+   Voir includes/EXPERIMENTAL-ZIP.md avant toute activation. */
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-settings.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-ajax.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-dashboard.php';
