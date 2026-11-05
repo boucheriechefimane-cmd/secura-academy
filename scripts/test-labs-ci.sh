@@ -508,6 +508,9 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 		obtenu="$(sed -n 's/.*FLAG=\(SECURA{[^}]*}\).*/\1/p' /tmp/exploit-bin01.txt | head -1)"
 		if [ -n "$obtenu" ] && [ "$obtenu" = "$DRAPEAU_ATTENDU" ]; then
 			test_ok "scénario 9 : l'exploit obtient le drapeau attendu, en uid 1000, sans privilège"
+			# Preuve nominative : le drapeau obtenu apparait dans les
+			# annotations du run, donc dans ce que l'API expose toujours.
+			printf '::notice title=SCENARIO 9::binaire ordinaire, uid 1000, aucun privilege. Exploit : %s\n' "$obtenu"
 		else
 			echo "       --- sortie de l'exploit (scénario 9) ---"
 			sed 's/^/       expl | /' /tmp/exploit-bin01.txt | head -20
@@ -796,6 +799,18 @@ fi
 printf '\n============================================================\n'
 printf 'Tests des machines : %s reussis, %s echecs, %s non mesurables\n' "$NB_OK" "$NB_KO" "${NB_NON_MESURES:-0}"
 printf '============================================================\n'
+
+# Une annotation, et une seule, avec le bilan en clair : les journaux
+# complets ne sont pas toujours accessibles par l'API GitHub (le flux est
+# interrompu en cours de route), alors que les annotations le sont. C'est
+# ce qui permet de VERIFIER le resultat au lieu de le supposer.
+if [ "$NB_KO" -eq 0 ]; then
+	printf '::notice title=BILAN MACHINES::%s controles reussis, 0 echec, %s non mesurable(s).\n' \
+		"$NB_OK" "${NB_NON_MESURES:-0}"
+else
+	printf '::error title=BILAN MACHINES::%s reussis, %s ECHEC(S), %s non mesurable(s). Voir les lignes [KO] ci-dessus.\n' \
+		"$NB_OK" "$NB_KO" "${NB_NON_MESURES:-0}"
+fi
 
 if [ "$NB_KO" -eq 0 ]; then
 	exit 0
