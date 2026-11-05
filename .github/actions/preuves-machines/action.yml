@@ -181,8 +181,9 @@ runs:
     - name: Les 45 contrôles des machines
       shell: bash
       run: |
-        set -o pipefail
-        trap 'echo "ECHEC : Les 45 contrôles des machines (code $?)" | tee -a /tmp/echecs.txt' ERR
+        # Pas de piege ERR ici : ce script teste des choses qui peuvent
+        # legitimement echouer, et il gere lui-meme ses comptes. Le piege y
+        # coupait l'etape a la premiere sonde negative (constate au 20e run).
         set -o pipefail
         if bash scripts/test-labs-ci.sh 2>&1 | tee /tmp/machines.txt | tee -a /tmp/etapes.txt; then
           echo "OK controles des machines"
