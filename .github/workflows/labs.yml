@@ -7,7 +7,7 @@ name: Machines — vrais conteneurs (Docker)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, arena/a792cc4e-secura-academy ]
   workflow_dispatch:
 
 permissions:
