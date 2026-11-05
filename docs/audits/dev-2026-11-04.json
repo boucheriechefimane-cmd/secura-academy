@@ -1,0 +1,45 @@
+{
+    "domaine": "dev",
+    "titre": "Audit externe — Développement technique",
+    "expert": "",
+    "perimetre": "",
+    "date": "2026-11-04T23:11:54+00:00",
+    "ok": 17,
+    "non_etaye": 1,
+    "forces": [],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 3,
+    "constats": [
+        {
+            "libelle": "volume de code examine",
+            "detail": "84 fichiers PHP (/home/user/secura-academy/wp-content/plugins/secura-academy et /home/user/secura-academy/wp-content/themes/secura-learning)",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "la suite de tests interne passe",
+            "detail": "----------------------------------------------\nRésultat : 327 test(s) réussi(s), 4 échec(s).",
+            "gravite": "bloquant",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "resultat des tests internes",
+            "detail": "---------------------------------------------- | Résultat : 327 test(s) réussi(s), 4 échec(s).",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Pourquoi ce controle existe",
+            "detail": "Le 01/11/2026, la CI a echoue sur un constat RGPD bloquant : les pages legales n existaient pas. La cause : le plugin rangeait les textes legaux dans une variable globale. Or WP-CLI charge WordPress dans une portee de fonction, ou une variable globale de plugin n existe pas. Tout fonctionnait donc sur un vrai serveur web (recette manuelle), et rien ne fonctionnait en ligne de commande. Le correctif : une fonction, qui existe dans tous les contextes ; et une verification explicite dans scripts/ci-wordpress.sh, qui echoue bruyamment — en disant pourquoi — si les pages legales ne sont pas publiees.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

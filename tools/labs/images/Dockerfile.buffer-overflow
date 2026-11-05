@@ -1,0 +1,30 @@
+# ============================================================
+# Lab Red Team : Buffer Overflow (x86 Linux)
+# Référentiel : MITRE ATT&CK T1068 - Exploitation pour élévation de privilèges
+# Licence : Secura Academy (contenu interne)
+# ============================================================
+FROM ubuntu:22.04
+
+# Désactiver les protections modernes pour le lab éducatif
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libc6-dev-i386 \
+    python3 \
+    netcat-openbsd \
+    && rm -rf /var/lib/apt/lists/*
+
+# Compiler un binaire vulnérable (désactiver stack protector, ASLR, NX)
+RUN echo '#include <stdio.h>\n#include <string.h>\nvoid vulnerable() {\n    char buf[64];\n    gets(buf);\n    printf("Lu: %s\\n", buf);\n}\nint main() {\n    vulnerable();\n    return 0;\n}\n' > /tmp/vuln.c && \
+    gcc -m32 -fno-stack-protector -z execstack -o /vuln /tmp/vuln.c && \
+    chmod 4755 /vuln && \
+    rm /tmp/vuln.c
+
+# Flag caché dans une variable d'environnement (à trouver par l'élève)
+ENV BOF_FLAG=SECURA{buffer_overflow_m3tr1s3_v01d3}
+
+# Utilisateur non-root pour le réalisme (mais le binaire est setuid root)
+RUN useradd -m student && mkdir -p /home/student/lab && chown student:student /home/student/lab
+
+WORKDIR /home/student
+USER student
+CMD ["/bin/bash"]

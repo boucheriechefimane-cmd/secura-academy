@@ -319,57 +319,39 @@ audit_verifier(
 /* ------------------------------------------------------------------ */
 echo "\n9. La barrière : rouge dès qu'il y a un constat de fond\n";
 
-/* Le 01/11/2026, la barrière ne s'arrêtait qu'aux constats
-   BLOQUANTS. Un défaut réel de gravité « majeur » — le saut de titre
-   h1 → h3 de la room « Kahoot », livré en v0.8.3 — est donc passé en
-   silence : la CI était verte, la plateforme était « conforme », et le
-   défaut n'est apparu que parce qu'un humain a lu le journal.
-
-   On vérifie ici la barrière elle-même, pas sa description : on
-   extrait la condition de sortie du code, et on l'ÉVALUE avec trois
-   états (aucun constat, un majeur, un bloquant). La condition extraite
-   n'est évaluée que si elle ne contient que des caractères de
-   comparaison : aucune instruction ne peut être injectée par
-   accident. */
+/* Vérifier la logique appelée par audit_fin sans eval de code source.
+   La preuve manquante ne transforme pas l'échec en constat établi, mais
+   un contrôle grave incomplet doit tout de même arrêter la barrière. */
 $librairie = file_get_contents( $racine . '/scripts/audit/audit-lib.php' );
-
-$barriere_code  = '';
-$barriere_etats = array();
-
-if ( preg_match( '/exit\(\s*(.+?)\s*\?\s*1\s*:\s*0\s*\);/', $librairie, $m_barriere ) ) {
-	$condition = trim( $m_barriere[1] );
-
-	if ( preg_match( '/^[A-Za-z0-9_\'"\[\]()\$>.!<>=&|?:;, ]+$/', $condition ) ) {
-		foreach ( array( 'aucun constat', 'un majeur', 'un bloquant' ) as $etiquette ) {
-			$a = array(
-				'bloquant' => ( 'un bloquant' === $etiquette ) ? 1 : 0,
-				'majeur'   => ( 'un majeur' === $etiquette ) ? 1 : 0,
-				'mineur'   => 0,
-				'info'     => 0,
-			);
-
-			$code = eval( 'return ( ' . $condition . ' ) ? 1 : 0;' );
-
-			$barriere_etats[ $etiquette ] = (int) $code;
-		}
-
-		$barriere_code = $condition;
-	}
+$etats_barriere = array(
+	'aucun constat' => array( 0, 0, '', 0 ),
+	'un majeur étayé' => array( 0, 1, '', 1 ),
+	'un bloquant étayé' => array( 1, 0, '', 1 ),
+	'un mineur non étayé' => array( 0, 0, 'mineur', 0 ),
+	'un majeur non étayé' => array( 0, 0, 'majeur', 1 ),
+	'un bloquant non étayé' => array( 0, 0, 'bloquant', 1 ),
+);
+$sorties_barriere = array();
+$cas_valides = true;
+foreach ( $etats_barriere as $etiquette => $cas ) {
+	$etat = array(
+		'bloquant' => $cas[0],
+		'majeur' => $cas[1],
+		'constats_non_etayes' => '' === $cas[2] ? array() : array( array( 'gravite' => $cas[2] ) ),
+	);
+	$code = audit_barriere_bloquee( $etat ) ? 1 : 0;
+	$sorties_barriere[] = $etiquette . ' → ' . $code;
+	$cas_valides = $cas_valides && $code === $cas[3];
 }
+$sortie_reliee = 1 === preg_match( '/exit\(\s*audit_barriere_bloquee\(\s*\$a\s*\)\s*\?\s*1\s*:\s*0\s*\)/', $librairie );
 
 audit_verifier(
-	'la barrière automatique bloque sur un constat majeur, pas seulement bloquant',
-	isset( $barriere_etats['aucun constat'], $barriere_etats['un majeur'], $barriere_etats['un bloquant'] )
-		&& 0 === $barriere_etats['aucun constat']
-		&& 1 === $barriere_etats['un majeur']
-		&& 1 === $barriere_etats['un bloquant'],
-	'La barrière ne bloque pas sur un constat majeur : un défaut réel de fond peut passer en silence.',
+	'la barrière bloque sur un échec bloquant ou majeur, étayé ou non',
+	$cas_valides && $sortie_reliee,
+	'Un contrôle de fond peut passer en silence ou le code de sortie ne transmet pas la barrière.',
 	'majeur',
-	'Condition de sortie de audit_fin() : « ' . $barriere_code . ' » — '
-		. 'évaluée avec trois états : aucun constat → code ' . ( isset( $barriere_etats['aucun constat'] ) ? $barriere_etats['aucun constat'] : '?' )
-		. ' ; un majeur → code ' . ( isset( $barriere_etats['un majeur'] ) ? $barriere_etats['un majeur'] : '?' )
-		. ' ; un bloquant → code ' . ( isset( $barriere_etats['un bloquant'] ) ? $barriere_etats['un bloquant'] : '?' )
-		. '. Une CI « verte » signifie donc « aucun constat de fond », pas seulement « aucun bloquant ».'
+	'Cas évalués : ' . implode( ' ; ', $sorties_barriere )
+		. ' ; audit_fin relié à la barrière : ' . ( $sortie_reliee ? 'oui' : 'non' ) . '.'
 );
 
 /* La barrière doit aussi remonter jusqu'au workflow : un script qui
@@ -378,11 +360,11 @@ audit_verifier(
 $script_barriere = file_get_contents( $racine . '/scripts/audit/run-audits.sh' );
 
 audit_verifier(
-	'le script qui lance les dix-sept auditeurs remonte leur code de sortie (la barrière atteint le workflow)',
+	'le script qui lance les auditeurs remonte leur code de sortie (la barrière atteint le workflow)',
 	false !== strpos( $script_barriere, 'exit "$CONSTATS"' ) || false !== strpos( $script_barriere, 'exit "${CONSTATS' ),
 	'Le script de barrière ne transmet pas le code de sortie des auditeurs au workflow.',
 	'majeur',
-	'Le script run-audits.sh sort avec le nombre d\'auditeurs ayant trouvé un constat de fond (bloquant ou majeur) : le job GitHub est donc rouge si un seul constat de fond existe.'
+	'Le script run-audits.sh sort avec le nombre d\'auditeurs en échec, y compris les contrôles graves non étayés : le job GitHub est rouge si un auditeur échoue.'
 );
 
 /* ------------------------------------------------------------------ */

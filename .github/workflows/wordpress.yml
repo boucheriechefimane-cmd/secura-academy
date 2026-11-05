@@ -26,7 +26,7 @@ on:
     - cron: '23 5 * * 1'
 
 permissions:
-  contents: read
+  contents: write # la preuve des machines est commitee dans la branche « preuve-machines »
 
 concurrency:
   group: wordpress-${{ github.ref }}
@@ -81,7 +81,9 @@ jobs:
   recette:
     name: Recette complète (WordPress + machines + deux élèves)
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # Un MySQL reel (conteneur Docker mysql:8.0) : WordPress tourne sur une
+    # vraie base, pas sur un substitut. La mesure manuelle des machines
+    # (mesurer-les-machines.yml) utilise exactement le meme service.
     services:
       mysql:
         image: mysql:8.0
@@ -97,72 +99,19 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=12
+    timeout-minutes: 45
     steps:
+      # Obligatoire avant toute action locale : GitHub lit
+      # .github/actions/<nom>/action.yml dans le dossier de travail.
       - name: Récupérer le code
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      - name: Installer PHP et WP-CLI
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+      - name: WordPress + machines + deux élèves + la preuve room par room
+        uses: ./.github/actions/preuves-machines
         with:
-          php-version: '8.3'
-          extensions: mysqli
-          tools: wp-cli
-
-      - name: Construire les machines
-        run: |
-          for machine in web-01 bin-01 multi-01 internal-01 univ-01 dojo-01; do
-            echo "Construction de $machine…"
-            docker build -q -t "securalabs/$machine:1.0" "labs/$machine"
-          done
-          echo "Construction du serveur de drapeaux (flags-01)…"
-          docker build -q -t "securalabs/flags-01:1.0" labs/juice-shop/flags
-          docker images --format '{{.Repository}}:{{.Tag}}'
-
-      - name: Installer WordPress et le plugin
-        run: bash scripts/ci-wordpress.sh
-
-      - name: Démarrer le site
-        run: |
-          # Le routeur est indispensable : il envoie vers WordPress les
-          # adresses que le serveur PHP ne sait pas servir seul
-          # (/robots.txt, /llms.txt, les permaliens). C'est exactement ce
-          # que fait un vrai hebergeur grace au fichier .htaccess.
-          nohup php -S 0.0.0.0:8080 -t "$SECA_WP_DIR" scripts/audit/router.php > /tmp/serveur.log 2>&1 &
-          for i in $(seq 1 30); do
-            code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/ || true)
-            if [ "$code" = "200" ]; then echo "Site en ligne (HTTP $code)"; exit 0; fi
-            sleep 1
-          done
-          echo "Le site ne répond pas" >&2
-          exit 1
-
-      - name: Recette avec les vraies machines
-        run: SECA_AVEC_MACHINE=1 wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php
-
-      - name: Scénario des deux apprenants (isolation)
-        run: |
-          SECA_ROOM_WEB=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=securiser-une-application-web --field=ID)
-          SECA_ROOM_NET=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=les-fondamentaux-du-reseau --field=ID)
-          SECA_ROOM_BIN=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=memoire-et-defenses --field=ID)
-          SECA_USER_ALICE=$(wp --path="$SECA_WP_DIR" --allow-root user get alice --field=ID)
-          SECA_USER_BOB=$(wp --path="$SECA_WP_DIR" --allow-root user get bob --field=ID)
-          echo "Rooms : web=$SECA_ROOM_WEB net=$SECA_ROOM_NET bin=$SECA_ROOM_BIN"
-          echo "Apprenants : alice=$SECA_USER_ALICE bob=$SECA_USER_BOB"
-          SECA_ROOM_WEB="$SECA_ROOM_WEB" SECA_ROOM_NET="$SECA_ROOM_NET" SECA_ROOM_BIN="$SECA_ROOM_BIN" \
-          SECA_USER_ALICE="$SECA_USER_ALICE" SECA_USER_BOB="$SECA_USER_BOB" \
-            python3 tools/recette-apprenants/scenario.py
-
-      - name: Les 45 contrôles des machines
-        run: bash scripts/test-labs-ci.sh
-
-      - name: Chercher une erreur PHP fatale
-        run: |
-          journal="$SECA_WP_DIR/wp-content/debug.log"
-          if [ -f "$journal" ] && grep -nE "Fatal error|Parse error|Uncaught" "$journal"; then
-            echo "::error::Erreur PHP fatale pendant la recette"
-            exit 1
-          fi
-          echo "Aucune erreur PHP fatale"
+          deposer_preuve: 'true'
+          a_fusionner: 'true'
+          branche_source: ${{ github.head_ref || github.ref_name }}
 
       - name: Conserver le journal PHP
         if: always()

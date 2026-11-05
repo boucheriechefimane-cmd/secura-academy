@@ -1,0 +1,45 @@
+name: Lire la preuve des machines
+
+# La preuve room par room ne doit pas se perdre dans la liste des
+# demandes de fusion : elle vit dans sa propre branche, « preuve-machines »,
+# qui contient un seul dossier — docs/preuves/ — avec le rapport de la
+# derniere mesure, ses 45 controles, le diagnostic des ports et le journal
+# PHP.
+#
+# Cette branche ne contient AUCUN workflow (ce fichier-ci est volontairement
+# le seul, et il ne se declenche jamais sur cette branche) : y ajouter du
+# code ne peut donc rien lancer. C'est ce qui permet au CI de fusionner la
+# tete de la demande de fusion dans la preuve sans provoquer de travail.
+#
+# ATTENTION : ne pas ajouter ce fichier a la branche preuve-machines. Si
+# vous voulez le voir, ouvrez-le depuis la branche principale.
+
+on:
+  # Jamais automatiquement sur la branche de preuve : uniquement a la main.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lire:
+    name: Resume de la preuve
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recuperer la branche de preuve
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: preuve-machines
+
+      - name: Publier le resume dans le sommaire
+        run: |
+          if [ -f docs/preuves/LISEZ-MOI.md ]; then
+            cat docs/preuves/LISEZ-MOI.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo '## Aucune preuve trouvee'
+              echo
+              echo 'La branche preuve-machines existe mais ne contient pas de'
+              echo 'rapport : relancez « Machines — mesurer sans lancer le CI ».'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

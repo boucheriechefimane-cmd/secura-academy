@@ -1021,19 +1021,18 @@ Le **P0 est livré**. Restent en priorité :
 
 ## Licence et contenu
 
-Le code est sous licence **MIT**.
+Le code original est annoncé sous licence **MIT** : voir [`LICENSE`](LICENSE).
+Le thème indique **GPL v2 ou ultérieure** et les contenus de tiers conservent
+leurs propres licences et restrictions : voir [`LICENSES.md`](LICENSES.md).
+Le dépôt contient notamment des questions et adaptations issues de sources
+universitaires ; il ne faut pas les considérer comme du contenu original sous
+licence MIT.
 
-Le contenu pédagogique livré à ce jour est **original** (6 rooms, traductions
-FR/AR/EN).
-
-Les cours MIT OpenCourseWare 6.858 (*Computer Systems Security*, Fall 2014) et
-6.857 (*Network and Computer Security*, Spring 2014) sont la **référence
-pédagogique** du palier 3. Leurs supports sont publiés sous **CC BY-NC-SA 4.0**
-(attribution, usage non commercial, ShareAlike) : la plateforme étant
-**gratuite**, la clause non commerciale est satisfaite, et toute adaptation
-sera **explicitement attribuée** et redistribuée sous la même licence
-(décision D6 de la constitution). Le **cadrage pédagogique** — leçon →
-entraînement → test d'application → examen — est repris tel quel.
+Les supports MIT OpenCourseWare sont notamment publiés sous **CC BY-NC-SA 4.0**
+(attribution, usage non commercial, ShareAlike). Les utilisations et
+adaptations doivent respecter les conditions de la source et être attribuées.
+La gratuité du site ne suffit pas, à elle seule, à prouver qu'un usage est
+non commercial.
 
 Le registre complet des sources réutilisables (licence vérifiée le jour de la
 réutilisation, mention type, périmètre autorisé) est dans

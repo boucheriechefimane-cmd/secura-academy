@@ -1,0 +1,53 @@
+{
+    "domaine": "moteur",
+    "titre": "Moteur de lab et orchestration Docker",
+    "expert": "Expert en orchestration de conteneurs et en cycle de vie de machines virtuelles pédagogiques",
+    "perimetre": "Vérifie que le moteur fonctionne autant qu'il est durci : cycle de vie complet (déployer → jouer → indice → arrêter → nettoyer), durée de vie, nettoyage automatique, isolation de deux apprenants, reprise après incident, et cohérence entre le code et le contenu réel des machines. Ne juge pas la sécurité des conteneurs : c'est l'auditeur sécurité.",
+    "date": "2026-11-04T23:12:22+00:00",
+    "ok": 6,
+    "non_etaye": 0,
+    "forces": [
+        {
+            "libelle": "Le moteur couvre le cycle de vie complet : démarrer, exécuter, indice, arrêter, nettoyer",
+            "preuve": "Fonctions identifiées dans class-secura-lab.php : Secura_Lab::start(), Secura_Lab::exec(), Secura_Lab::stop(), Secura_Lab::cleanup_expired(), Secura_Progress (indices et pénalité)"
+        },
+        {
+            "libelle": "Les ressources sont nommées par élève : deux élèves ne partagent jamais une machine",
+            "preuve": "Préfixes calculés avec l'identifiant de l'élève : SECA_LAB_USER"
+        }
+    ],
+    "scenarios": [
+        {
+            "nom": "Docker répond et liste les images disponibles",
+            "resultat": "Docker opérationnel",
+            "sortie": "Docker version : Docker version 27.3.1-sim, build simulation\nImages :\n"
+        }
+    ],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 3,
+    "constats": [
+        {
+            "libelle": "Machines détectées",
+            "detail": "11 machine(s) avec Dockerfile : bin-01, dojo-01, internal-01, juice-shop, multi-01, secura-lab-blue-firewall, secura-lab-blue-log-analysis, secura-lab-buffer-overflow, univ-01, web-01, web-dvwa",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Docker disponible",
+            "detail": "Version du moteur : Docker version 27.3.1-sim, build simulation",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Le moteur ne peut être jugé qu'en le faisant tourner",
+            "detail": "Cet audit vérifie la complétude du cycle de vie dans le code, l'existence des machines, et le nommage par élève. Il ne mesure ni le temps de déploiement réel, ni la consommation mémoire d'une machine, ni le comportement face à une panne de Docker — ces points sont joués par la recette et par le workflow des machines (45 contrôles), qui tournent sur de vrais conteneurs.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

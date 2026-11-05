@@ -17,6 +17,7 @@
  */
 
 require_once __DIR__ . '/audit-lib.php';
+require_once __DIR__ . '/lib-accessibilite.php';
 
 audit_titre( 'accessibilite', 'Accessibilité — WCAG 2.2 niveau AA' );
 
@@ -111,10 +112,8 @@ $champs_sans_etiquette = array();
 foreach ( $html as $nom => $corps ) {
 	if ( preg_match_all( '/<button\b([^>]*)>(.*?)<\/button>/is', $corps, $m ) ) {
 		foreach ( $m[1] as $index => $attributs ) {
-			$texte = trim( wp_strip_all_tags( $m[2][ $index ] ) );
-
-			if ( '' === $texte && false === stripos( $attributs, 'aria-label' ) ) {
-				$boutons_sans_nom[] = $nom . ' : <button' . trim( $attributs ) . '></button>';
+			if ( ! audit_commande_nom_indique( $attributs, $m[2][ $index ] ) ) {
+				$boutons_sans_nom[] = $nom . ' : <button' . $attributs . '></button>';
 			}
 		}
 	}
@@ -137,12 +136,12 @@ foreach ( $html as $nom => $corps ) {
 }
 
 audit_verifier(
-	'WCAG 4.1.2 — chaque bouton a un nom accessible',
+	'WCAG 4.1.2 — chaque bouton a un nom indiqué (contrôle indicatif)',
 	empty( $boutons_sans_nom ),
 	count( $boutons_sans_nom ) . ' bouton(s) sans nom : ' . implode( ' | ', array_slice( $boutons_sans_nom, 0, 5 ) ),
 	'majeur',
 	empty( $boutons_sans_nom )
-		? 'Relevé sur ' . count( $html ) . ' pages servies : aucun bouton vide sans aria-label'
+		? 'Relevé indicatif sur ' . count( $html ) . ' pages : aucun bouton sans texte ni nom indiqué'
 		: implode( "\n", array_slice( $boutons_sans_nom, 0, 5 ) )
 );
 
@@ -294,31 +293,25 @@ audit_verifier(
 /* ------------------------------------------------------------------ */
 echo "\n8. WCAG 2.5.8 — La taille des cibles tactiles\n";
 
-$cibles_petites = array();
-
-foreach ( $html as $nom => $corps ) {
-	if ( preg_match_all( '/<(a|button)\b([^>]*)>(.*?)<\/\1>/is', $corps, $m ) ) {
-		foreach ( $m[2] as $index => $attributs ) {
-			$texte = trim( wp_strip_all_tags( $m[3][ $index ] ) );
-
-			/* Un lien textuel n'est pas une cible tactile : c'est la
-			   règle. Seules les commandes vides ou très courtes sont
-			   concernées, car elles n'ont pas de texte à lire. */
-			if ( '' === $texte ) {
-				$cibles_petites[] = $nom . ' : <' . $m[1][ $index ] . trim( $attributs ) . '> sans texte';
-			}
-		}
-	}
-}
+/* Le HTML peut signaler une commande sans nom indiqué, pas sa taille
+   calculée. aria-label et aria-labelledby évitent de signaler une icône
+   nommée comme vide ; ils ne prouvent pas une cible de 24 × 24 pixels. */
+$commandes_sans_nom = audit_commandes_sans_nom( $html );
 
 audit_verifier(
-	'WCAG 2.5.8 — les commandes sans texte ont une taille ou une étiquette',
-	empty( $cibles_petites ),
-	count( $cibles_petites ) . ' commande(s) sans nom : ' . implode( ' | ', array_slice( $cibles_petites, 0, 5 ) ),
+	'commandes sans texte ni nom indiqué (contrôle indicatif WCAG 4.1.2)',
+	empty( $commandes_sans_nom ),
+	count( $commandes_sans_nom ) . ' commande(s) sans nom indiqué : ' . implode( ' | ', array_slice( $commandes_sans_nom, 0, 5 ) ),
 	'mineur',
-	empty( $cibles_petites )
-		? 'Relevé sur ' . count( $html ) . ' pages : aucune commande vide sans attribut aria-label'
-		: implode( "\n", array_slice( $cibles_petites, 0, 5 ) )
+	empty( $commandes_sans_nom )
+		? 'Relevé indicatif sur ' . count( $html ) . ' pages : aucun lien ou bouton sans nom indiqué'
+		: implode( "\n", array_slice( $commandes_sans_nom, 0, 5 ) )
+);
+
+audit_info(
+	'WCAG 2.5.8 — taille et espacement des cibles à vérifier',
+	'Le HTML seul ne mesure ni la taille rendue ni l’espacement. Une étiquette accessible ne prouve pas '
+	. 'la conformité aux 24 × 24 pixels ou à leurs exceptions : vérifier dans un navigateur.'
 );
 
 /* ------------------------------------------------------------------ */

@@ -1,0 +1,38 @@
+{
+    "domaine": "ux",
+    "titre": "Audit externe — Ergonomie et interface (UX / UI)",
+    "expert": "",
+    "perimetre": "",
+    "date": "2026-11-04T23:11:53+00:00",
+    "ok": 15,
+    "non_etaye": 1,
+    "forces": [],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 2,
+    "constats": [
+        {
+            "libelle": "contrastes calcules",
+            "detail": "texte normal sur le fond = 16.14:1 ; texte secondaire sur le fond = 8.52:1 ; texte normal sur une carte = 14.68:1 ; texte secondaire sur une carte = 7.75:1 ; accent sur le fond = 9.88:1 ; accent bleu sur le fond = 8.74:1 ; message d'erreur sur le fond = 6.77:1 ; message de reussite sur le fond = 9.74:1 ; avertissement sur le fond = 11.22:1",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "le changement de langue est possible sans JavaScript (de vrais liens)",
+            "detail": "le selecteur de langue n'apparait pas dans la page",
+            "gravite": "majeur",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "messages traduits dans le plugin (chaines __() )",
+            "detail": "38 chaines",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

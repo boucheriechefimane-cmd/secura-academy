@@ -1,0 +1,86 @@
+{
+    "domaine": "donnees-structurees",
+    "titre": "Données structurées et entités",
+    "expert": "Expert en données structurées (schema.org) et en référencement sémantique",
+    "perimetre": "Vérifie le JSON-LD réellement servi par le site : présence, validité JSON, complétude des types, cohérence avec le contenu visible (ce qui est déclaré doit exister à l'écran), et cohérence entre les versions linguistiques. Ces données sont le langage que parlent les moteurs de recherche et les systèmes génératifs.",
+    "date": "2026-11-04T23:11:59+00:00",
+    "ok": 6,
+    "non_etaye": 0,
+    "forces": [
+        {
+            "libelle": "Les données structurées sont servies et valides sur toutes les pages contrôlées",
+            "preuve": "Pages contrôlées : accueil, room 4, room 5, room 6, room 7, room 8, room 9, room 10, room 11, room 12, room 13, room 14, room 15, room 16, room 17, room 18, room 19, room 20, room 21, room 22, room 23, room 24, room 25, room 26, room 27, room 28, room 29, room 30, room 31, room 32, room 33, room 34, room 35, room 36, room 37, room 38, room 39, room 40, room 41, room 42, room 43, room 44, room 45, room 46, room 47, room 48, room 49, room 50, room 51, room 52, room 53, room 54, room 55, parcours 56, parcours 57, parcours 58, parcours 59 — JSON décodé sans erreur"
+        },
+        {
+            "libelle": "La plateforme se déclare comme un cours (type « Course »)",
+            "preuve": "Type « Course » présent dans le JSON-LD servi"
+        },
+        {
+            "libelle": "Le JSON-LD est lisible tel quel (les apostrophes typographiques sont des caractères, pas des entités)",
+            "preuve": "Aucune entité HTML dans le JSON-LD servi"
+        }
+    ],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 1,
+    "mineur": 0,
+    "info": 7,
+    "constats": [
+        {
+            "libelle": "Types déclarés sur « accueil »",
+            "detail": "Organization, WebSite",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Types déclarés sur « parcours 56 »",
+            "detail": "Organization, Course, ItemList",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Types déclarés sur « parcours 57 »",
+            "detail": "Organization, Course, ItemList",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Types déclarés sur « parcours 58 »",
+            "detail": "Organization, Course, ItemList",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Types déclarés sur « parcours 59 »",
+            "detail": "Organization, Course, ItemList",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Types déclarés sur les 52 rooms",
+            "detail": "Organization, LearningResource, VideoObject, BreadcrumbList room(s) : 52",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "ce qui est déclaré apparaît aussi à l'écran (pas de donnée fantôme)",
+            "detail": "52 incohérence(s) : room 4 : « Cyber Security Defense Explained » est déclaré mais n'apparaît pas dans le texte visible | room 5 : « Computer Networking Basics » est déclaré mais n'apparaît pas dans le texte visible | room 6 : « OWASP Top 10 Explained » est déclaré mais n'apparaît pas dans le texte visible | room 7 : « Buffer Overflows Part 3 - Memory Protections » est déclaré mais n'apparaît pas dans le texte visible | room 8 : « Password & Authentication Security: MFA » est déclaré mais n'apparaît pas dans le texte visible",
+            "gravite": "majeur",
+            "preuve": "room 4 : « Cyber Security Defense Explained » est déclaré mais n'apparaît pas dans le texte visible\nroom 5 : « Computer Networking Basics » est déclaré mais n'apparaît pas dans le texte visible\nroom 6 : « OWASP Top 10 Explained » est déclaré mais n'apparaît pas dans le texte visible\nroom 7 : « Buffer Overflows Part 3 - Memory Protections » est déclaré mais n'apparaît pas dans le texte visible\nroom 8 : « Password & Authentication Security: MFA » est déclaré mais n'apparaît pas dans le texte visible\nroom 9 : « How SSL, TLS, & HTTPS Work » est déclaré mais n'apparaît pas dans le texte visible\nroom 10 : « Incident Response Process Explained » est déclaré mais n'apparaît pas dans le texte visible\nroom 11 : « BruteForce Attack Explained in 7 Minutes » est déclaré mais n'apparaît pas dans le texte visible\nroom 12 : « Finding Information Disclosure Vulnerabilities 1 » est déclaré mais n'apparaît pas dans le texte visible\nroom 13 : « What Is Input Validation for Software Security? » est déclaré mais n'apparaît pas dans le texte visible\nroom 14 : « This One File Gave Hackers Access to Their Entire Server » est déclaré mais n'apparaît pas dans le texte visible\nroom 15 : « BruteForce Attack Explained in 7 Minutes » est déclaré mais n'apparaît pas dans le texte visible\nroom 16 : « Wireshark Tutorial - Installation and Network Sniffing » est déclaré mais n'apparaît pas dans le texte visible\nroom 17 : « Bypass ANY Firewall/Hide Traffic - SSH » est déclaré mais n'apparaît pas dans le texte visible\nroom 18 : « The Bad Cat Hack - Privilege escalation on linux » est déclaré mais n'apparaît pas dans le texte visible\nroom 19 : « How SSL, TLS, & HTTPS Work » est déclaré mais n'apparaît pas dans le texte visible\nroom 20 : « 1. Introduction, Threat Models » est déclaré mais n'apparaît pas dans le texte visible\nroom 21 : « 3. Buffer Overflow Exploits and Defenses » est déclaré mais n'apparaît pas dans le texte visible\nroom 22 : « 4. Privilege Separation » est déclaré mais n'apparaît pas dans le texte visible\nroom 23 : « 7. Sandboxing Native Code » est déclaré mais n'apparaît pas dans le texte visible\nroom 24 : « 9. Securing Web Applications » est déclaré mais n'apparaît pas dans le texte visible\nroom 25 : « 12. Network Security » est déclaré mais n'apparaît pas dans le texte visible\nroom 26 : « 14. SSL and HTTPS » est déclaré mais n'apparaît pas dans le texte visible\nroom 27 : « 17. User Authentication » est déclaré mais n'apparaît pas dans le texte visible\nroom 28 : « Lecture 10: Cryptography » est déclaré mais n'apparaît pas dans le texte visible\nroom 29 : « pwn college - Assembly Crash Course - Memory » est déclaré mais n'apparaît pas dans le texte visible\nroom 30 : « pwn.college - Memory Errors - Smashing the Stack » est déclaré mais n'apparaît pas dans le texte visible\nroom 31 : « pwn.college - Return Oriented Programming - Introduction » est déclaré mais n'apparaît pas dans le texte visible\nroom 32 : « Format String Exploits - Introduction » est déclaré mais n'apparaît pas dans le texte visible\nroom 33 : « Making Strong Passwords - Cyber Safety Series » est déclaré mais n'apparaît pas dans le texte visible\nroom 34 : « Phishing - Cyber Safety Series » est déclaré mais n'apparaît pas dans le texte visible\nroom 35 : « Social Media - Cyber Safety Series » est déclaré mais n'apparaît pas dans le texte visible\nroom 36 : « Multi-factor Authentication - Cyber Safety Series » est déclaré mais n'apparaît pas dans le texte visible\nroom 37 : « The How and Why of the OWASP Top Ten 2021 - Brian Glas » est déclaré mais n'apparaît pas dans le texte visible\nroom 38 : « Real World Application Security - How to Test with OWASP [Input Validation] » est déclaré mais n'apparaît pas dans le texte visible\nroom 39 : « Security Logging and Monitoring Failures Explained | OWASP A09:2021 » est déclaré mais n'apparaît pas dans le texte visible\nroom 40 : « Lecture 1 | Programming Methodology (Stanford) » est déclaré mais n'apparaît pas dans le texte visible\nroom 41 : « Lecture 2 | Programming Methodology (Stanford) » est déclaré mais n'apparaît pas dans le texte visible\nroom 42 : « The How and Why of the OWASP Top Ten 2021 - Brian Glas » est déclaré mais n'apparaît pas dans le texte visible\nroom 43 : « Real World Application Security - How to Test with OWASP » est déclaré mais n'apparaît pas dans le texte visible\nroom 44 : « pwn.college - Exploitation Scenarios - Introduction » est déclaré mais n'apparaît pas dans le texte visible\nroom 45 : « pwn.college - Talking Web - Introduction » est déclaré mais n'apparaît pas dans le texte visible\nroom 46 : « Introduction: What is pwn.college? » est déclaré mais n'apparaît pas dans le texte visible\nroom 47 : « pwn college - Assembly Crash Course - Registers » est déclaré mais n'apparaît pas dans le texte visible\nroom 48 : « pwn college - Assembly Crash Course - Memory » est déclaré mais n'apparaît pas dans le texte visible\nroom 49 : « Introduction: What is pwn.college? » est déclaré mais n'apparaît pas dans le texte visible\nroom 50 : « pwn.college - Talking Web - Introduction » est déclaré mais n'apparaît pas dans le texte visible\nroom 51 : « pwn.college - Exploitation Scenarios - Introduction » est déclaré mais n'apparaît pas dans le texte visible\nroom 52 : « pwn college - Assembly Crash Course - Registers » est déclaré mais n'apparaît pas dans le texte visible\nroom 53 : « Don't Get Tricked! K-2 Cybersecurity Basics Lesson » est déclaré mais n'apparaît pas dans le texte visible\nroom 54 : « Exploring Web Application Security with OWASP Juice Shop » est déclaré mais n'apparaît pas dans le texte visible\nroom 55 : « Don't Get Tricked! K-2 Cybersecurity Basics Lesson » est déclaré mais n'apparaît pas dans le texte visible",
+            "etaye": true
+        },
+        {
+            "libelle": "Une donnée structurée bien écrite ne garantit pas d'apparition dans un résultat",
+            "detail": "Google et les systèmes génératifs lisent ces données, mais leur usage dépend du reste : la qualité du contenu, la fiabilité du site, et leurs propres algorithmes. Cet audit vérifie la correction et la complétude des données — pas leur effet.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

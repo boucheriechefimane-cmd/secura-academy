@@ -203,6 +203,152 @@ final class Secura_I18n {
 	 * @param string $lang Code de langue.
 	 * @return bool
 	 */
+	/**
+	 * L'adresse de la page courante dans une langue donnee.
+	 *
+	 * Pourquoi une adresse EXPLICITE pour chaque langue : la langue par
+	 * defaut du site n'est pas forcement le francais (un site installe en
+	 * anglais sert l'anglais sur l'adresse nue). Les anciens liens
+	 * ecrivaient « fr » sur l'adresse sans parametre : sur un site en
+	 * anglais, le lien « Francais » ramenait donc a l'anglais, et la page
+	 * se declarait hreflang="fr" tout en affichant ... l'anglais.
+	 *
+	 * Desormais chaque version porte son parametre, et la page de repli
+	 * (x-default) reste l'adresse nue.
+	 *
+	 * @param string $lang Code de langue.
+	 * @param string $url  Adresse de base (defaut : adresse courante).
+	 * @return string Adresse absolue, ou chaine vide si la langue est inconnue.
+	 */
+	public static function url_pour_langue( $lang, $url = '' ) {
+		$lang = sanitize_key( (string) $lang );
+
+		if ( ! isset( self::languages()[ $lang ] ) ) {
+			return '';
+		}
+
+		$base = self::retirer_parametre_langue( $url );
+
+		/* La langue du site est servie sur l'adresse nue : inutile d'y
+		   ajouter un parametre qui ne changerait rien, et qui creerait
+		   deux adresses pour la meme page (contenu en double). */
+		if ( $lang === self::langue_du_site() ) {
+			return $base;
+		}
+
+		$args = array();
+
+		/* On garde les autres parametres de la requete (recherche,
+		   pagination...) : changer de langue ne doit pas perdre la page. */
+		if ( '' === (string) $url ) {
+			$args = wp_unslash( $_GET ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- lecture seule, adresse de navigation.
+			unset( $args['seca_lang'], $args['lang'] );
+		}
+
+		$args['seca_lang'] = $lang;
+
+		return add_query_arg( $args, $base );
+	}
+
+	/**
+	 * Retire le parametre de langue d'une adresse.
+	 *
+	 * @param string $url Adresse (defaut : adresse courante).
+	 * @return string
+	 */
+	public static function retirer_parametre_langue( $url = '' ) {
+		if ( '' === (string) $url ) {
+			$url = self::current_url();
+		}
+
+		return remove_query_arg( array( 'seca_lang', 'lang' ), $url );
+	}
+
+	/**
+	 * Langue reellement portee par une adresse.
+	 *
+	 * Sert aux balises hreflang et canonique : elles doivent dire ce que
+	 * la page SERT, pas ce qu'on aimerait qu'elle serve. Une adresse sans
+	 * parametre porte la langue du site.
+	 *
+	 * @param string $url Adresse.
+	 * @return string Code de langue.
+	 */
+	public static function langue_de_url( $url ) {
+		$languages = self::languages();
+		$query     = wp_parse_url( (string) $url, PHP_URL_QUERY );
+
+		if ( is_string( $query ) && '' !== $query ) {
+			$args = array();
+
+			parse_str( $query, $args );
+
+			foreach ( array( 'seca_lang', 'lang' ) as $cle ) {
+				if ( isset( $args[ $cle ] ) && is_scalar( $args[ $cle ] ) ) {
+					$candidat = sanitize_key( (string) $args[ $cle ] );
+
+					if ( isset( $languages[ $candidat ] ) ) {
+						return $candidat;
+					}
+				}
+			}
+		}
+
+		/* Pas de parametre : c'est la langue du site qui sert la page. */
+		return self::langue_du_site();
+	}
+
+	/**
+	 * Langue du site (celle que WPLANG installe).
+	 *
+	 * Ce n'est PAS forcement le francais : un site installe en anglais
+	 * sert l'anglais sur chaque adresse sans parametre.
+	 *
+	 * @return string Code de langue.
+	 */
+	public static function langue_du_site() {
+		$languages = self::languages();
+
+		/* On lit l'option WPLANG, PAS get_locale() : notre filtre
+		   « locale » remplace justement la locale par la langue demandee
+		   dans l'adresse. Interroger get_locale() ici renverrait donc la
+		   langue de la page, et l'on croirait que le site est installe
+		   dans cette langue — exactement le defaut qu'on corrige. */
+		$site = (string) get_option( 'WPLANG' );
+
+		if ( '' === $site ) {
+			/* WordPress ne stocke « en_US » que si l'installateur l'a
+			   ecrit : l'absence de WPLANG vaut anglais. */
+			$site = 'en_US';
+		}
+
+		$short = substr( $site, 0, 2 );
+
+		return isset( $languages[ $short ] ) ? $short : 'en';
+	}
+
+	/**
+	 * Les trois adresses de langue d'une page, pour hreflang et le
+	 * selecteur : la langue du site sur l'adresse nue (c'est ce que le
+	 * site sert vraiment), les deux autres en adresse explicite.
+	 *
+	 * @param string $url Adresse de base.
+	 * @return array Code de langue => adresse absolue.
+	 */
+	public static function traductions_de_url( $url ) {
+		$adresses = array();
+
+		foreach ( array_keys( self::languages() ) as $code ) {
+			$adresse = self::url_pour_langue( $code, $url );
+
+			if ( '' !== $adresse ) {
+				$adresses[ $code ] = $adresse;
+			}
+		}
+
+		return $adresses;
+	}
+
 	public static function set_user_lang( $lang ) {
 		$languages = self::languages();
 

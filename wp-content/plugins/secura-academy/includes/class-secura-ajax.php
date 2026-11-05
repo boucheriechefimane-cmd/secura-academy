@@ -265,6 +265,22 @@ final class Secura_Ajax {
 			$exam = Secura_Progress::start_exam( $user_id, $room_id, $index );
 		}
 
+		/* Un examen qui n'a pas commence ne livre pas ses questions.
+		   Mesure du 05/11/2026 : get_task repondait 200 avec les cinq
+		   questions et time_left=0, sans chronometre. L'eleve pouvait donc
+		   lire (et chercher) les questions sans aucune limite de temps,
+		   puis demarrer le chronometre. Le navigateur, lui, passait par
+		   start_exam : c'est l'API qui etait ouverte. */
+		if ( $is_exam && ! $done && ! $exam ) {
+			wp_send_json_error(
+				array(
+					'message' => Secura_I18n::t( 'exam_not_started', '', "Ouvrez d'abord l'examen : le chronomètre n'est pas encore parti." ),
+					'code'    => 'exam_not_started',
+				),
+				409
+			);
+		}
+
 		if ( $is_exam && $exam && $task['time_limit'] > 0 && Secura_Progress::exam_expired( $exam, $task['time_limit'] ) ) {
 			wp_send_json_error(
 				array(
@@ -391,12 +407,24 @@ final class Secura_Ajax {
 			);
 		}
 
-		/* Examen : contrôle du chronomètre côté serveur. */
+		/* Examen : contrôle du chronomètre côté serveur.
+
+		   Une tache d'examen ne commence JAMAIS par une reponse : le
+		   chronometre demarre a l'ouverture de l'examen (start_exam), et
+		   refuser ici est la seule facon de garantir que le temps accorde
+		   est bien le temps utilise. Sans ce refus, une reponse envoyee
+		   avant start_exam creait un chronometre dans le dos de l'eleve. */
 		if ( 'exam' === $task['type'] ) {
 			$exam = Secura_Progress::exam_state( $user_id, $room_id, $index );
 
 			if ( ! $exam ) {
-				$exam = Secura_Progress::start_exam( $user_id, $room_id, $index );
+				wp_send_json_error(
+					array(
+						'message' => Secura_I18n::t( 'exam_not_started', '', "Ouvrez d'abord l'examen : le chronomètre n'est pas encore parti." ),
+						'code'    => 'exam_not_started',
+					),
+					409
+				);
 			} elseif ( ! empty( $exam['finished_at'] ) && empty( $exam['passed'] ) ) {
 				/* L'examen précédent a été raté : on relance une tentative
 				   propre plutôt que de refuser la réponse. */
@@ -985,6 +1013,36 @@ final class Secura_Ajax {
 
 		if ( ! $view || ! isset( $view['tasks'][ $index ] ) ) {
 			wp_send_json_error( array( 'message' => Secura_I18n::t( 'task_not_found', '', 'Tâche introuvable.' ) ), 404 );
+		}
+
+		/* Le chronometre n'a de sens que sur un examen DEBLOQUE. Sans ces
+		   deux controles, un appel direct a l'API demarrait un compte a
+		   rebours sur une tache encore verrouillee (mesure du 05/11/2026 :
+		   get_task repondait 403 « locked », et start_exam 200 avec un
+		   chronometre de 300 minutes). Le navigateur ne le faisait pas,
+		   mais l'API est publique pour tout compte connecte. */
+		$task = $view['tasks'][ $index ];
+
+		if ( 'exam' !== $task['type'] ) {
+			wp_send_json_error(
+				array(
+					'message' => Secura_I18n::t( 'not_an_exam', '', "Cette tache n'est pas un examen : elle n'a pas de chronometre." ),
+					'code'    => 'not_an_exam',
+				),
+				400
+			);
+		}
+
+		$state = Secura_Progress::get_room_state( get_current_user_id(), $room_id );
+
+		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
+			wp_send_json_error(
+				array(
+					'message' => Secura_I18n::t( 'lock_task', '', 'Terminez la tâche précédente pour continuer.' ),
+					'code'    => 'locked',
+				),
+				403
+			);
 		}
 
 		$force = isset( $_POST['force'] ) && '1' === $_POST['force'];

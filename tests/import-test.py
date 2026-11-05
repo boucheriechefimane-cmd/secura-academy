@@ -273,6 +273,35 @@ def main():
             resultat.stdout.strip()[-400:],
         )
 
+    # Les fichiers PHP livres doivent etre reproductibles a partir des lots
+    # validates. Sans ce controle, une fusion peut remplacer les questions
+    # du plugin sans modifier leurs sources (ou inversement).
+    with tempfile.TemporaryDirectory(prefix="secura-import-lots-") as dossier_genere:
+        resultat = lancer(["--importer-dossier", dossier_lots, "--sortie", dossier_genere])
+        differences = []
+        if resultat.returncode != 0:
+            differences.append("generation refusee : " + resultat.stdout.strip()[-300:])
+        else:
+            includes = os.path.join(RACINE, "wp-content", "plugins", "secura-academy", "includes")
+            lots = [nom for nom in os.listdir(dossier_lots) if nom.endswith(".json")]
+            generes = [nom for nom in os.listdir(dossier_genere) if nom.endswith(".php")]
+            if len(generes) != len(lots):
+                differences.append("%d lots mais %d fichiers generes" % (len(lots), len(generes)))
+            for nom in sorted(generes):
+                livre = os.path.join(includes, nom)
+                genere = os.path.join(dossier_genere, nom)
+                if not os.path.isfile(livre):
+                    differences.append("fichier absent : " + nom)
+                    continue
+                with open(livre, "rb") as f_livre, open(genere, "rb") as f_genere:
+                    if f_livre.read() != f_genere.read():
+                        differences.append("different du lot : " + nom)
+        verifier(
+            not differences,
+            "les fichiers PHP livres correspondent aux lots valides",
+            " | ".join(differences[:5]),
+        )
+
     #    4 quater. Une room qui n'existe pas dans le plugin est refusee.
     #    Sans ce garde-fou, le plugin ignore SILENCIEUSEMENT les questions
     #    d'une room inconnue : elles disparaitraient sans bruit.

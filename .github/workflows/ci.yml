@@ -28,7 +28,7 @@ jobs:
           coverage: none
 
       - name: Vérifier la syntaxe des fichiers PHP
-        run: find wp-content tests -name '*.php' -print0 | xargs -0 -n1 php -l
+        run: find wp-content tests scripts tools/labs -name '*.php' -print0 | xargs -0 -n1 php -l
 
       # Un fichier JavaScript qui ne compile pas casse TOUTE l'interface :
       # plus aucune réponse n'est envoyée, plus aucun indice n'apparaît.
@@ -57,8 +57,17 @@ jobs:
       - name: Exécuter les tests de logique serveur
         run: php tests/smoke-test.php
 
+      - name: Tester la barrière et les rapports d'audit
+        run: php tests/audit-test.php
+
+      - name: Tester les sondes de contenu simulées
+        run: php tests/sondes-contenu-test.php
+
       - name: Tester la chaîne d'import des questions
         run: python3 tests/import-test.py
+
+      - name: Reconstruire et tester les archives
+        run: python3 tests/archives-test.py
 
       - name: Vérifier les espaces en fin de ligne
         run: |

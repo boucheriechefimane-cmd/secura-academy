@@ -1,0 +1,25 @@
+# ============================================================
+# Lab Blue Team : Configuration pare-feu (blocage d'attaque)
+# Référentiel : NIST SP 800-41 - Pare-feu et sécurité de périmètre
+# Licence : Secura Academy (contenu interne)
+# ============================================================
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y \
+    iptables \
+    iproute2 \
+    netcat-openbsd \
+    python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Simuler un service vulnérable sur le port 8080
+RUN echo '#!/bin/bash\nwhile true; do echo -e "HTTP/1.1 200 OK\n\nService vulnérable"; done | nc -l -p 8080 &' > /start_vuln.sh && chmod +x /start_vuln.sh
+
+# Flag à trouver après avoir bloqué le port
+RUN echo 'SECURA{firewall_configured_port_blocked}' > /flag.txt && chmod 644 /flag.txt
+
+# Script d'aide
+RUN echo '#!/bin/bash\necho "Un service tourne sur le port 8080"\necho "Bloque l’accès à ce port avec iptables"\necho "Puis lis /flag.txt"\n' > /help.sh && chmod +x /help.sh
+
+WORKDIR /
+CMD ["/bin/bash"]
