@@ -22,5 +22,5 @@ La revue de fusion a relevé notamment :
 Avant toute activation : revoir les contrats AJAX et le contrôle des réponses,
 protéger les données et l'accès aux certificats, puis couvrir les parcours
 complets avec des tests automatisés et une recette sur WordPress réel. Les
-scripts de test du ZIP dans `tools/labs/` ciblent ces prototypes et ne prouvent
-pas leur fonctionnement dans l'état actuel.
+scripts de test du ZIP ciblent ces prototypes et ne prouvent pas leur
+fonctionnement dans l'état actuel ; ils ne sont pas intégrés au dépôt.
