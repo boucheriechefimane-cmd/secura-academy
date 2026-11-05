@@ -463,11 +463,14 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 	RACINE_DEPOT="$(cd "$(dirname "$0")/.." && pwd)"
 	EXPLOIT="$RACINE_DEPOT/tools/recette-apprenants/exploit-bin01.py"
 
+	# On ne copie PAS le script dans le conteneur : /tmp y est un tmpfs
+	# monte pour la securite, et « docker cp » echoue dessus sans le dire.
+	# On le passe donc par l'entree standard, que python3 execute
+	# directement (« python3 - »).
 	if [ ! -f "$EXPLOIT" ]; then
 		test_ko "scenario 9 : l'exploit de reference est introuvable" "$EXPLOIT"
-	elif docker cp "$EXPLOIT" "$CONT_BIN:/tmp/exploit.py" >/dev/null 2>&1 \
-		&& docker exec "$CONT_BIN" python3 /tmp/exploit.py /home/ctf/vulnerable \
-			--commande 'id; cat /root/flag.txt' > /tmp/exploit-bin01.txt 2>&1; then
+	elif docker exec -i "$CONT_BIN" python3 - /home/ctf/vulnerable \
+		--commande 'id; cat /root/flag.txt' < "$EXPLOIT" > /tmp/exploit-bin01.txt 2>&1; then
 		if grep -q 'FLAG=SECURA{buffer_overflow}' /tmp/exploit-bin01.txt; then
 			test_ok "scénario 9 : l'exploit obtient un shell root et lit le drapeau"
 		else
