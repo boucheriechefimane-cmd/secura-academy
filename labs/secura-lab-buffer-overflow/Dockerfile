@@ -47,6 +47,8 @@ COPY src/ /home/ctf/src/
 COPY flag/flag.txt /root/flag.txt
 COPY notes/notes.txt /home/ctf/notes.txt
 
+# Le chown recursif doit avoir lieu AVANT le chown root ci-dessous,
+# sinon il efface le proprietaire root du binaire setuid.
 RUN cd /home/ctf/src \
     && make \
     && cp vulnerable /home/ctf/vulnerable \
@@ -54,8 +56,6 @@ RUN cd /home/ctf/src \
     && chown root:root /root/flag.txt \
     && chmod 755 /root \
     && chown -R ctf:ctf /home/ctf \
-    # Le binaire est setuid root : c'est le point pedagogique du scenario.
-    # Le chown recursif doit donc avoir lieu AVANT (sinon il efface root).
     && chown root:root /home/ctf/vulnerable \
     && chmod 4755 /home/ctf/vulnerable
 

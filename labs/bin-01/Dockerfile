@@ -58,6 +58,9 @@ COPY src/ /home/ctf/src/
 COPY flag/flag.txt /root/flag.txt
 COPY notes/notes.txt /home/ctf/notes.txt
 
+# Le binaire est setuid root : c'est le point pedagogique du scenario.
+# Le chown recursif doit donc avoir lieu AVANT le chown root ci-dessous
+# (sinon il efface le proprietaire root du binaire).
 RUN cd /home/ctf/src \
     && make \
     && cp vulnerable /home/ctf/vulnerable \
@@ -65,15 +68,14 @@ RUN cd /home/ctf/src \
     && chown root:root /root/flag.txt \
     && chmod 755 /root \
     && chown -R ctf:ctf /home/ctf \
-    # Le binaire est setuid root : c'est le point pedagogique du scenario.
-    # Le chown recursif doit donc avoir lieu AVANT (sinon il efface root).
     && chown root:root /home/ctf/vulnerable \
-    && chmod 4755 /home/ctf/vulnerable \
-    # Le drapeau DU LAB, lui, est place dans /root/flag.txt (le meme
-    # fichier) : l'apprenant ne peut donc le lire qu'a travers le shell
-    # root obtenu par le debordement. Avant, le meme contenu trainait
-    # aussi en clair dans les documents de la machine : le drapeau se
-    # trouvait en « catant » un fichier, sans aucune exploitation.
+    && chmod 4755 /home/ctf/vulnerable
+
+# Le drapeau vit UNIQUEMENT dans /root/flag.txt (mode 400, root:root) :
+# l'apprenant ne peut le lire qu'a travers le shell root obtenu par le
+# debordement. Il ne doit jamais etre copie dans /home/ctf ni dans les
+# documents de la machine, sinon le scenario se resout en « catant » un
+# fichier, sans aucune exploitation.
 
 USER ctf
 

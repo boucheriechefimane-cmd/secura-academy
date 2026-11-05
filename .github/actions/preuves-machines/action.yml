@@ -46,6 +46,14 @@ runs:
         echo "Syntaxe PHP : OK"
         if [ -f tests/smoke-test.php ]; then php tests/smoke-test.php; fi
 
+    - name: Vérifier les Dockerfiles avant de construire
+      shell: bash
+      run: |
+        # Une erreur de syntaxe dans un Dockerfile coute trente secondes a
+        # Docker, mais ici elle tombe au milieu d'un run de vingt minutes
+        # qui a deja construit neuf images. Ce controle prend une seconde.
+        python3 tools/recette-apprenants/verifier-dockerfiles.py
+
     - name: Préparer le registre des échecs
       shell: bash
       run: |
