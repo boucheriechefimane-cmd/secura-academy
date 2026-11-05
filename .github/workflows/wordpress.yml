@@ -202,6 +202,7 @@ jobs:
           date_du_jour=$(date -u +%Y-%m-%d)
           cp /tmp/preuve-machines.txt "$dossier/machines-$date_du_jour.txt" 2>/dev/null || true
           cp /tmp/machines.txt "$dossier/controles-machines-$date_du_jour.txt" 2>/dev/null || true
+          cp /tmp/diagnostic.txt "$dossier/diagnostic-$date_du_jour.txt" 2>/dev/null || true
           {
             echo "# Preuve des machines du $date_du_jour"
             echo
@@ -232,11 +233,25 @@ jobs:
           sleep 8
           docker exec seca_test_dvwa sh -c 'ls /var/www/html >/dev/null' && echo "OK  web-dvwa : le contenu web est present"
           # Ce que la machine voit d'elle-meme : ports, outils, processus.
-          echo '--- diagnostic web-01 ---'
-          docker exec seca_test_dvwa sh -c '(command -v ss && ss -ltnp) || (command -v netstat && netstat -ltnp) || echo "ni ss ni netstat"'
-          docker exec seca_test_dvwa sh -c 'command -v curl || echo "pas de curl"; command -v wget || echo "pas de wget"; command -v bash || echo "pas de bash"'
-          docker exec seca_test_dvwa sh -c 'ps aux | head -10' || true
-          docker exec seca_test_dvwa sh -c 'cat /var/log/app/apache.log | tail -20' || true
+          {
+            echo '--- diagnostic web-dvwa (meme image que web-01) ---'
+            docker exec seca_test_dvwa sh -c '(command -v ss && ss -ltn) || (command -v netstat && netstat -ltn) || echo "ni ss ni netstat"' 2>&1
+            docker exec seca_test_dvwa sh -c 'command -v curl || echo "pas de curl"; command -v wget || echo "pas de wget"; command -v bash || echo "pas de bash"' 2>&1
+            docker exec seca_test_dvwa sh -c 'ps aux | head -10' 2>&1 || true
+            docker exec seca_test_dvwa sh -c 'tail -20 /var/log/app/apache.log' 2>&1 || true
+            echo '--- ecoute-t-il depuis l hote, port publie ? ---'
+            docker run -d --name seca_diag_web --network none --memory 512m \
+              -p 127.0.0.1::8080 securalabs/web-01:1.0 >/dev/null
+            sleep 8
+            docker port seca_diag_web
+            port=$(docker port seca_diag_web 8080/tcp | cut -d: -f2)
+            if [ -n "$port" ]; then
+              code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "http://127.0.0.1:$port/" || true)
+              echo "HTTP depuis l hote sur le port publie $port : $code"
+            fi
+            docker logs seca_diag_web 2>&1 | tail -20
+            docker rm -f seca_diag_web >/dev/null
+          } | tee /tmp/diagnostic.txt
           for prototype in secura-lab-blue-firewall secura-lab-blue-log-analysis secura-lab-buffer-overflow; do
             docker run -d --name "seca_test_$prototype" --network none \
               --cap-drop ALL --security-opt no-new-privileges --memory 512m --cpus 1.0 \
