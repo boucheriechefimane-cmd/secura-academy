@@ -165,10 +165,14 @@ jobs:
       - name: La preuve des machines, room par room
         run: |
           set -o pipefail
+          set +e
           wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/preuve-machines.php \
             | tee /tmp/preuve-machines.txt
-          # Le rapport est deja dans /tmp : l'etape echoue si une room ment,
-          # mais on publie quand meme tout le detail.
+          code=${PIPESTATUS[0]}
+          echo "code de sortie de la preuve : $code"
+          echo "code=$code" >> /tmp/preuve-machines.txt
+          # Le rapport est dans /tmp : l'etape echoue si une room ment, mais
+          # on publie quand meme tout le detail.
 
       - name: La preuve au sommaire du travail
         if: always()
@@ -228,6 +232,8 @@ jobs:
           cp /tmp/preuve-machines.txt "$dossier/machines-$date_du_jour.txt" 2>/dev/null || true
           cp /tmp/machines.txt "$dossier/controles-machines-$date_du_jour.txt" 2>/dev/null || true
           cp /tmp/diagnostic.txt "$dossier/diagnostic-$date_du_jour.txt" 2>/dev/null || true
+          { echo '--- journal PHP (fin) ---'; tail -40 "${SECA_WP_DIR}/wp-content/debug.log" 2>/dev/null; } \
+            > "$dossier/journal-php-$date_du_jour.txt" || true
           {
             echo "# Preuve des machines du $date_du_jour"
             echo
