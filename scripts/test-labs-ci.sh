@@ -476,7 +476,11 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 		echo "       test   : $(docker exec "$CONT_BIN" ls -l /home/ctf/vulnerable 2>&1 | tr '\n' ' ')"
 		echo "       id     : $(docker exec "$CONT_BIN" id 2>&1 | tr '\n' ' ')"
 		echo "       nnp    : $(docker exec "$CONT_BIN" grep -i NoNewPrivs /proc/self/status 2>&1 | tr '\n' ' ')"
-		echo "       expl   : $(head -6 /tmp/exploit-bin01.txt 2>/dev/null | tr '\n' ' ')"
+		# La sortie complete de l'exploit, ligne par ligne : sans elle, on ne
+		# peut que supposer pourquoi le shell ne vient pas.
+		if [ -f /tmp/exploit-bin01.txt ]; then
+			sed 's/^/       expl | /' /tmp/exploit-bin01.txt | head -20
+		fi
 	fi
 
 	docker rm -f "$CONT_BIN" >/dev/null 2>&1
