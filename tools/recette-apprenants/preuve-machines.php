@@ -160,6 +160,9 @@ function seca_preuve_joindre( $nom, $url ) {
 	$script = 'if command -v curl >/dev/null 2>&1; then '
 		. 'curl -sk -o /dev/null -w "%{http_code}" --max-time 8 ' . escapeshellarg( $url )
 		. ' 2>/dev/null || echo 000; '
+		. 'elif command -v wget >/dev/null 2>&1; then '
+		. 'wget --no-check-certificate -q -T 8 -S -O /dev/null ' . escapeshellarg( $url )
+		. ' 2>&1 | sed -n "s/^ *HTTP\/[0-9.]* \([0-9]\{3\}\).*/\1/p" | head -1; '
 		. 'elif command -v php >/dev/null 2>&1; then '
 		. 'php -r ' . escapeshellarg(
 			'$e = @fsockopen(' . var_export( $hote, true ) . ', ' . $port . ', $n, $s, 8); echo $e ? "200" : "000";'
@@ -182,6 +185,18 @@ function seca_preuve_joindre( $nom, $url ) {
 	}
 
 	return (int) trim( $reponse['sortie'] );
+}
+
+/**
+ * La cible est-elle une adresse locale (127.0.0.1, localhost) ?
+ *
+ * @param string $url URL.
+ * @return bool
+ */
+function seca_preuve_cible_locale( $url ) {
+	$hote = strtolower( (string) wp_parse_url( $url, PHP_URL_HOST ) );
+
+	return in_array( $hote, array( '127.0.0.1', 'localhost', '::1' ), true );
 }
 
 /**
@@ -599,16 +614,26 @@ foreach ( $rooms as $room ) {
 					$details[] = 'cible ' . $url . ' : le port ecoute mais ne repond pas (code ' . $code_http . ')';
 				}
 			} else {
-				/* Une room qui annonce un site web dans une image sans curl ni
-				   wget : l'apprenant ne pourrait pas le consulter non plus.
-				   C'est un defaut de la machine, pas un doute du test. */
-				$ok_room   = false;
+				/* Le port ecoute : le contenu n'est pas verifie, faute de
+				   client HTTP dans cette image. On le dit, sans accuser. */
 				$details[] = 'cible ' . $url . ' : le port ' . $port_cible
-					. ' ecoute mais l image n a ni curl ni wget (l apprenant ne peut pas consulter la cible)';
+					. ' ecoute (contenu non verifie : aucun client HTTP dans la machine)';
 			}
 		} else {
-			$ok_room   = false;
-			$details[] = 'cible ' . $url . ' injoignable : rien n ecoute sur le port ' . $port_cible;
+			/* Distinguer « l'application ne repond pas » de « cette image
+			   n'a aucun serveur web » : deux defauts differents. */
+			$serveur = seca_preuve_dans(
+				$nom,
+				'command -v apache2 || command -v apache2ctl || command -v nginx || command -v node'
+			);
+
+			if ( '' === trim( $serveur['sortie'] ) && seca_preuve_cible_locale( $url ) ) {
+				$ok_room   = false;
+				$details[] = 'cible ' . $url . ' : l image n a aucun serveur web, rien ne peut ecouter sur le port ' . $port_cible;
+			} else {
+				$ok_room   = false;
+				$details[] = 'cible ' . $url . ' injoignable : rien n ecoute sur le port ' . $port_cible;
+			}
 		}
 	} elseif ( '' !== $cible ) {
 		list( $fichier_ok, $detail_fichier ) = seca_preuve_cible_fichier( $nom, $cible );

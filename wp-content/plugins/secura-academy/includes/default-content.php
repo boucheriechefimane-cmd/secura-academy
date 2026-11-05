@@ -526,7 +526,7 @@ function seca_default_rooms() {
 				'image'      => 'securalabs/bin-01:1.0',
 				'command'    => 'sleep infinity',
 				'network'    => 'seca_lab',
-				'target'     => 'binaire vulnerable : /home/ctf/vuln',
+				'target'     => 'binaire vulnerable : /home/ctf/vulnerable',
 				'ttl'        => 3600,
 				'allow'      => array( 'ls', 'cat', 'file', 'checksec', 'gdb', 'python3', 'gcc' ),
 				'workdir'    => '/home/ctf',
