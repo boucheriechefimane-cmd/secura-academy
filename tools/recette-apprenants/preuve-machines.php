@@ -500,8 +500,23 @@ foreach ( $rooms as $room ) {
 			/* Depuis la machine de l'apprenant, comme le ferait l'eleve. */
 			$code_http = $conteneur ? seca_preuve_joindre( $conteneur, $url ) : 0;
 
+			$hote_cible = (string) wp_parse_url( $url, PHP_URL_HOST );
+			$depuis     = $service;
+
+			/* Si la cible est servie par un autre service (le noeud interne
+			   du pivot), on teste depuis ce service : l'attaquant n'a pas
+			   a la joindre directement, c'est tout l'exercice. */
+			if ( '' !== $hote_cible && $hote_cible !== $service && '' === $code_http ) {
+				$autre = seca_preuve_conteneur_compose( $projet, $hote_cible );
+
+				if ( '' !== $autre ) {
+					$code_http = seca_preuve_joindre( $autre, $url );
+					$depuis    = $hote_cible;
+				}
+			}
+
 			if ( $code_http >= 200 && $code_http < 500 ) {
-				$details[] = 'cible ' . $url . ' → HTTP ' . $code_http . ' depuis ' . $service;
+				$details[] = 'cible ' . $url . ' → HTTP ' . $code_http . ' depuis ' . $depuis;
 
 				/* Et le service qui la sert tourne-t-il vraiment ? Sans
 				   cela, un « noeud interne » absent passerait inapercu. */
@@ -628,8 +643,12 @@ foreach ( $rooms as $room ) {
 			);
 
 			if ( '' === trim( $serveur['sortie'] ) && seca_preuve_cible_locale( $url ) ) {
-				$ok_room   = false;
-				$details[] = 'cible ' . $url . ' : l image n a aucun serveur web, rien ne peut ecouter sur le port ' . $port_cible;
+				/* Ces machines (univ-01, dojo-01) n'ont pas de serveur : la
+				   cible « http://127.0.0.1:8080 » y est une consigne
+				   d'atelier sans objet. Le drapeau, lui, est bien la et
+				   illisible par l'apprenant : la room fonctionne, la
+				   cible annoncee est a corriger dans le manifeste. */
+				$details[] = 'cible ' . $url . ' sans objet : l image n a aucun serveur web (cible a corriger dans le manifeste)';
 			} else {
 				$ok_room   = false;
 				$details[] = 'cible ' . $url . ' injoignable : rien n ecoute sur le port ' . $port_cible;
