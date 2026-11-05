@@ -465,7 +465,18 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 			test_ko "scénario 9 : le shell s'ouvre mais le drapeau reste illisible" "cat /tmp/exploit-bin01.txt"
 		fi
 	else
-		test_ko "scénario 9 : l'exploit n'obtient AUCUN shell (le lab est cassé)" "$(tail -5 /tmp/exploit-bin01.txt 2>/dev/null)"
+		test_ko "scénario 9 : l'exploit n'obtient AUCUN shell (le lab est cassé)" "$(tail -12 /tmp/exploit-bin01.txt 2>/dev/null | tr '\n' ' ')"
+
+		# Enquete automatique : on ne devine pas la cause, on la mesure.
+		# a) le mode du binaire tel qu'il est DANS l'image ;
+		# b) le mode vu par le conteneur du test (donc avec ses options) ;
+		# c) l'identite et l'etat no_new_privs du processus de test.
+		echo "       --- enquete scenario 9 ---"
+		echo "       image  : $(docker run --rm --entrypoint sh securalabs/bin-01:1.0 -c 'ls -l /home/ctf/vulnerable; id' 2>&1 | tr '\n' ' ')"
+		echo "       test   : $(docker exec "$CONT_BIN" ls -l /home/ctf/vulnerable 2>&1 | tr '\n' ' ')"
+		echo "       id     : $(docker exec "$CONT_BIN" id 2>&1 | tr '\n' ' ')"
+		echo "       nnp    : $(docker exec "$CONT_BIN" grep -i NoNewPrivs /proc/self/status 2>&1 | tr '\n' ' ')"
+		echo "       expl   : $(head -6 /tmp/exploit-bin01.txt 2>/dev/null | tr '\n' ' ')"
 	fi
 
 	docker rm -f "$CONT_BIN" >/dev/null 2>&1
