@@ -1,0 +1,79 @@
+name: Machines — mesurer sans lancer le CI
+
+# Ce workflow existe pour une seule raison : pouvoir MESURER un vrai
+# WordPress + les vraies machines Docker sans pousser un commit.
+#
+#   - il ne se declenche que sur demande (workflow_dispatch) ;
+#   - il ne modifie jamais la branche de travail ni la demande de fusion :
+#     la preuve est deposee dans la branche « preuve-machines », qui ne
+#     contient aucun CI pour cette raison (voir .github/workflows/lire-la-preuve.yml).
+#
+# Le CI complet (CI — Secura Academy + WordPress) continue de tourner a
+# chaque poussee : c'est le filet de securite de la demande de fusion. Ce
+# workflow est la mesure unitaire, avant de pousser.
+
+on:
+  workflow_dispatch:
+    inputs:
+      branche:
+        description: 'Branche a mesurer (vide = la branche selectionnee)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write # depose la preuve dans la branche « preuve-machines »
+  actions: read
+
+concurrency:
+  group: mesurer-les-machines
+  cancel-in-progress: false
+
+env:
+  SECA_WP_DIR: ${{ github.workspace }}/wp-ci
+  SECA_WP_URL: http://localhost:8080
+  SECA_LABS_PATH: ${{ github.workspace }}/labs
+  SECA_DB_NAME: seca_wp
+  SECA_DB_USER: seca
+  SECA_DB_PASSWORD: seca_ci_pw
+  SECA_DB_HOST: 127.0.0.1
+  SECA_DB_PORT: 3306
+
+jobs:
+  mesurer:
+    name: Mesurer les machines (WordPress + Docker reels)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Exactement le meme MySQL que le job de recette du CI.
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: ${{ env.SECA_DB_NAME }}
+          MYSQL_USER: ${{ env.SECA_DB_USER }}
+          MYSQL_PASSWORD: ${{ env.SECA_DB_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: root_ci_pw
+        ports:
+          - '3306:3306'
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    steps:
+      - name: Choisir la branche a mesurer
+        run: |
+          echo "SECA_BRANCHE=${{ inputs.branche || github.ref_name }}" >> "$GITHUB_ENV"
+          echo "Branche mesuree : ${{ inputs.branche || github.ref_name }}"
+
+      - name: Le code de la branche choisie
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.branche || github.ref_name }}
+          fetch-depth: 0
+
+      - name: WordPress + machines + la preuve room par room
+        uses: ./.github/actions/preuves-machines
+        with:
+          deposer_preuve: 'true'
+          a_fusionner: 'false'
+          branche_source: ${{ env.SECA_BRANCHE }}

@@ -1,0 +1,202 @@
+name: Preuve des machines, room par room
+description: >
+  Wordpress et MySQL reels, machines Docker reelles : construit les images,
+  installe WordPress, execute les controles des machines puis la preuve
+  room par room, et depose les rapports dans le depot (docs/preuves).
+
+  Ecrit une fois, appele par deux chemins : le declenchement manuel
+  (workflow_dispatch, pour mesurer sans toucher au CI) et le CI de la
+  demande de fusion (pour prouver avant de fusionner).
+
+inputs:
+  deposer_preuve:
+    description: 'Deposer les rapports dans la branche preuve-machines'
+    required: false
+    default: 'false'
+  a_fusionner:
+    description: 'Ajouter a la branche preuve-machines la tete de la branche de la demande de fusion'
+    required: false
+    default: 'false'
+  branche_source:
+    description: 'Branche dont on depose le rapport'
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Récupérer le code
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+    - name: Installer PHP et WP-CLI
+      uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+      with:
+        php-version: '8.3'
+        extensions: mysqli
+        tools: wp-cli
+
+    - name: Construire les machines
+      shell: bash
+      run: |
+        # Les machines que les rooms declarent, plus les prototypes du ZIP
+        # (web-dvwa, secura-lab-blue-firewall, secura-lab-blue-log-analysis,
+        # secura-lab-buffer-overflow) : ils doivent au moins se construire,
+        # meme si leur contenu est une copie (voir labs/README.md).
+        for machine in web-01 bin-01 multi-01 internal-01 univ-01 dojo-01 \
+                       web-dvwa secura-lab-blue-firewall \
+                       secura-lab-blue-log-analysis secura-lab-buffer-overflow; do
+          echo "Construction de $machine…"
+          docker build -q -t "securalabs/$machine:1.0" "labs/$machine"
+          echo "OK  $machine"
+        done
+        echo "Construction du serveur de drapeaux (flags-01)…"
+        docker build -q -t "securalabs/flags-01:1.0" labs/juice-shop/flags
+        docker images --format '{{.Repository}}:{{.Tag}}' | tee /tmp/images.txt
+
+    - name: Installer WordPress et le plugin
+      shell: bash
+      run: bash scripts/ci-wordpress.sh
+
+    - name: Démarrer le site
+      shell: bash
+      run: |
+        # Le routeur est indispensable : il envoie vers WordPress les
+        # adresses que le serveur PHP ne sait pas servir seul
+        # (/robots.txt, /llms.txt, les permaliens). C'est exactement ce
+        # que fait un vrai hebergeur grace au fichier .htaccess.
+        nohup php -S 0.0.0.0:8080 -t "$SECA_WP_DIR" scripts/audit/router.php > /tmp/serveur.log 2>&1 &
+        for i in $(seq 1 30); do
+          code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/ || true)
+          if [ "$code" = "200" ]; then echo "Site en ligne (HTTP $code)"; exit 0; fi
+          sleep 1
+        done
+        echo "Le site ne répond pas" >&2
+        tail -20 /tmp/serveur.log >&2
+        exit 1
+
+    - name: Recette avec les vraies machines
+      shell: bash
+      run: SECA_AVEC_MACHINE=1 wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php
+
+    - name: Scénario des deux apprenants (isolation)
+      shell: bash
+      run: |
+        SECA_ROOM_WEB=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=securiser-une-application-web --field=ID)
+        SECA_ROOM_NET=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=les-fondamentaux-du-reseau --field=ID)
+        SECA_ROOM_BIN=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=memoire-et-defenses --field=ID)
+        SECA_USER_ALICE=$(wp --path="$SECA_WP_DIR" --allow-root user get alice --field=ID)
+        SECA_USER_BOB=$(wp --path="$SECA_WP_DIR" --allow-root user get bob --field=ID)
+        echo "Rooms : web=$SECA_ROOM_WEB net=$SECA_ROOM_NET bin=$SECA_ROOM_BIN"
+        echo "Apprenants : alice=$SECA_USER_ALICE bob=$SECA_USER_BOB"
+        SECA_ROOM_WEB="$SECA_ROOM_WEB" SECA_ROOM_NET="$SECA_ROOM_NET" SECA_ROOM_BIN="$SECA_ROOM_BIN" \
+        SECA_USER_ALICE="$SECA_USER_ALICE" SECA_USER_BOB="$SECA_USER_BOB" \
+          python3 tools/recette-apprenants/scenario.py
+
+    - name: Les 45 contrôles des machines
+      shell: bash
+      run: bash scripts/test-labs-ci.sh 2>&1 | tee /tmp/machines.txt
+
+    - name: La preuve des machines, room par room
+      shell: bash
+      run: |
+        set +e
+        wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/preuve-machines.php \
+          | tee /tmp/preuve-machines.txt
+        code=${PIPESTATUS[0]}
+        echo "code de sortie de la preuve : $code"
+        echo "code=$code" >> /tmp/preuve-machines.txt
+        # Le rapport est dans /tmp : l'etape echoue si une room ment, mais
+        # on publie quand meme tout le detail.
+
+    - name: La preuve au sommaire du travail
+      if: always()
+      shell: bash
+      run: |
+        # Les artefacts et les journaux de job ne sont pas telechargeables
+        # depuis le bac a sable du proprietaire : le rapport atterrit aussi
+        # dans le sommaire du travail, qui est lisible.
+        {
+          echo '## Preuve des machines, room par room'
+          echo ''
+          echo '```'
+          sed -n '1,200p' /tmp/preuve-machines.txt 2>/dev/null || echo 'aucun rapport produit'
+          echo '```'
+        } >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Ce que la machine voit d'elle-meme
+      if: always()
+      shell: bash
+      run: |
+        # web-01 et web-dvwa partagent la meme base : si le serveur ne
+        # repond pas, il faut savoir pourquoi (ports, outils, journal).
+        docker rm -f seca_diag_web >/dev/null 2>&1 || true
+        {
+          echo '--- diagnostic de la machine web (image web-dvwa) ---'
+          docker run -d --name seca_diag_web --network none --memory 512m \
+            --cap-drop ALL --security-opt no-new-privileges -p 127.0.0.1::8080 \
+            securalabs/web-dvwa:1.0 >/dev/null
+          sleep 10
+          echo '## ports publies'
+          docker port seca_diag_web || true
+          echo '## processus'
+          docker exec seca_diag_web sh -c 'ps aux | head -12' 2>&1 || true
+          echo '## outils reseau presents'
+          docker exec seca_diag_web sh -c 'for o in curl wget bash apache2 php nc; do printf "%s=" "$o"; command -v "$o" || echo absent; done' 2>&1 || true
+          echo '## journal apache'
+          docker exec seca_diag_web sh -c 'tail -20 /var/log/apache2/error.log 2>/dev/null; tail -20 /var/log/app/apache.log 2>/dev/null' 2>&1 || true
+          echo '## http depuis l hote (port publie, uniquement dans ce diagnostic)'
+          port=$(docker port seca_diag_web 8080/tcp 2>/dev/null | head -1 | cut -d: -f2)
+          echo "port=$port"
+          if [ -n "$port" ]; then
+            curl -s -o /dev/null -w 'code=%{http_code}\n' --max-time 10 "http://127.0.0.1:$port/" || true
+          fi
+          echo '## journal docker'
+          docker logs seca_diag_web 2>&1 | tail -20 || true
+          docker rm -f seca_diag_web >/dev/null 2>&1 || true
+        } | tee /tmp/diagnostic.txt
+
+    - name: Déposer la preuve dans le dépôt
+      if: always() && inputs.deposer_preuve == 'true'
+      shell: bash
+      run: |
+        # Ni les journaux de job ni les artefacts ne sont telechargeables
+        # depuis le bac a sable du proprietaire (redirection Azure
+        # bloquee). La preuve est donc commitee dans une branche dediee,
+        # ou elle reste lisible : « preuve-machines ».
+        dossier="docs/preuves"
+        mkdir -p "$dossier"
+        date_du_jour=$(date -u +%Y-%m-%d)
+        cp /tmp/preuve-machines.txt "$dossier/machines-$date_du_jour.txt" 2>/dev/null || true
+        cp /tmp/machines.txt "$dossier/controles-machines-$date_du_jour.txt" 2>/dev/null || true
+        cp /tmp/diagnostic.txt "$dossier/diagnostic-$date_du_jour.txt" 2>/dev/null || true
+        { echo '--- journal PHP (fin) ---'; tail -40 "${SECA_WP_DIR}/wp-content/debug.log" 2>/dev/null; } \
+          > "$dossier/journal-php-$date_du_jour.txt" || true
+        {
+          echo "# Preuve des machines du $date_du_jour"
+          echo
+          echo "Commit mesure : $GITHUB_SHA"
+          echo "Branche mesuree : ${INPUTS_BRANCHE_SOURCE:-$GITHUB_REF_NAME}"
+          echo "Travail : $GITHUB_RUN_ID"
+          echo
+          echo '```'
+          sed -n '1,200p' /tmp/preuve-machines.txt 2>/dev/null || echo 'aucun rapport produit'
+          echo '```'
+        } > "$dossier/LISEZ-MOI.md"
+        git config user.name 'Recette Secura'
+        git config user.email 'recette@secura.invalid'
+        # La branche de preuve est construite a partir du depot, pas du
+        # dossier de travail (sinon les images construites y entreraient).
+        git checkout --force -B preuve-machines
+        git add "$dossier"
+        git commit -q -m "Preuve des machines du $date_du_jour ($GITHUB_SHA)" || echo 'rien de neuf'
+        if [ "${INPUTS_A_FUSIONNER:-false}" = "true" ]; then
+          # Branche sans CI (voir .github/workflows/lire-la-preuve.yml) : y
+          # ajouter la tete de la branche ne declenche aucun travail.
+          git merge --no-edit -X theirs "origin/${INPUTS_BRANCHE_SOURCE}" \
+            -m "La preuve porte aussi sur la tete de ${INPUTS_BRANCHE_SOURCE}" || echo 'fusion impossible'
+        fi
+        git push --force origin HEAD:refs/heads/preuve-machines
+      env:
+        INPUTS_DEPOSER_PREUVE: ${{ inputs.deposer_preuve }}
+        INPUTS_A_FUSIONNER: ${{ inputs.a_fusionner }}
+        INPUTS_BRANCHE_SOURCE: ${{ inputs.branche_source }}
