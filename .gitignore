@@ -71,3 +71,6 @@ __pycache__/
 tools/lots/cleaned/
 tools/lots/recovered/
 tools/lots-origine-sauvegarde/
+
+# Drapeau pedagogique necessaire a la construction de cet exemple
+!labs/secura-lab-buffer-overflow/flag/flag.txt

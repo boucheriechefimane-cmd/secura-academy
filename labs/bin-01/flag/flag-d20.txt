@@ -1,1 +1,0 @@
-FLAG=SECURA{empreinte_du_mot_de_passe}

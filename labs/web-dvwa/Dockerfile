@@ -1,3 +1,6 @@
+# PROTOTYPE : cette recette du ZIP est une copie de multi-01, pas DVWA.
+# Voir labs/README.md avant toute utilisation.
+
 # Machine « multi-01 » — la machine à plusieurs scénarios
 #
 # Une seule image sert sept scénarios différents : l'élève y cherche une

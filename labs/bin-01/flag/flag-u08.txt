@@ -1,1 +1,0 @@
-FLAG=SECURA{mot_de_passe_long}

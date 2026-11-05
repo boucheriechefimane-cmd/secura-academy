@@ -1,1 +1,0 @@
-FLAG=SECURA{offset_du_tp}

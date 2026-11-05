@@ -1,3 +1,6 @@
+# COPIE de bin-01 livree dans le ZIP ; ce n’est pas une nouvelle machine validee.
+# Voir labs/README.md avant toute utilisation.
+
 # Machine 2 — binaire vulnérable (dépassement de tampon)
 #
 # But pédagogique : un programme C compilé sans protections, que l'apprenant

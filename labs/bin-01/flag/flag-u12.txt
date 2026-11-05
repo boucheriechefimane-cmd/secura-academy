@@ -1,1 +1,0 @@
-FLAG=SECURA{chainage_de_gadgets}

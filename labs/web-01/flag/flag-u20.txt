@@ -1,1 +1,0 @@
-FLAG=SECURA{trace_utile}
