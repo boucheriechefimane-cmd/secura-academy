@@ -71,13 +71,6 @@ jobs:
           ref: ${{ inputs.branche || github.ref_name }}
           fetch-depth: 0
 
-      - name: Les tests unitaires du depot
-        run: |
-          # Ce que faisait « CI — Secura Academy » : la verification PHP,
-          # les tests du depot et les audits. Rapatrie ici pour qu'une
-          # seule commande mesure vraiment tout.
-          if [ -f tests/smoke-test.php ]; then php tests/smoke-test.php; fi
-
       - name: WordPress + machines + la preuve room par room
         uses: ./.github/actions/preuves-machines
         with:

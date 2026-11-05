@@ -36,6 +36,16 @@ runs:
         extensions: mysqli
         tools: wp-cli
 
+    - name: Les tests unitaires du dépôt
+      shell: bash
+      run: |
+        # Ce que faisait « CI — Secura Academy » : la vérification
+        # syntaxique et les tests du dépôt. Rapatriés ici pour qu'une
+        # seule commande mesure vraiment tout.
+        for f in $(git ls-files '*.php'); do php -l "$f" >/dev/null || exit 1; done
+        echo "Syntaxe PHP : OK"
+        if [ -f tests/smoke-test.php ]; then php tests/smoke-test.php; fi
+
     - name: Construire les machines
       shell: bash
       run: |
