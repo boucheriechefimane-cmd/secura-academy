@@ -22,13 +22,7 @@ name: WordPress — recette et compatibilité
 # socle sera termine, et il tournera alors sur la demande de fusion.
 on:
   push:
-    branches:
-      - main
-      # DECLENCHEUR TEMPORAIRE, retire juste apres le lancement : il permet
-      # de declencher cette mesure depuis la branche de travail, le jeton de
-      # l'assistant n'ayant pas le droit « actions: write » (l'API repond
-      # 403 sur workflow_dispatch).
-      - arena/a792cc4e-secura-academy
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
