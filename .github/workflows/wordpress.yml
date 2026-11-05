@@ -182,21 +182,46 @@ jobs:
             echo '```'
             sed -n '1,200p' /tmp/preuve-machines.txt 2>/dev/null || echo 'aucun rapport produit'
             echo '```'
-            echo ''
-            echo '## Les contrôles des machines (fin du journal)'
-            echo ''
-            echo '```'
-            tail -40 /tmp/machines.txt 2>/dev/null || echo 'aucun journal'
-            echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Ce que la machine voit d'elle-meme
+        if: always()
+        run: |
+          # web-01 et web-dvwa partagent la meme base : si le serveur ne
+          # repond pas, il faut savoir pourquoi (ports, outils, journal).
+          docker rm -f seca_diag_web >/dev/null 2>&1 || true
+          {
+            echo '--- diagnostic de la machine web (image web-dvwa) ---'
+            docker run -d --name seca_diag_web --network none --memory 512m \
+              --cap-drop ALL --security-opt no-new-privileges -p 127.0.0.1::8080 \
+              securalabs/web-dvwa:1.0 >/dev/null
+            sleep 10
+            echo '## ports publies'
+            docker port seca_diag_web || true
+            echo '## processus'
+            docker exec seca_diag_web sh -c 'ps aux | head -12' 2>&1 || true
+            echo '## outils reseau presents'
+            docker exec seca_diag_web sh -c 'for o in curl wget bash apache2 php nc; do printf "%s=" "$o"; command -v "$o" || echo absent; done' 2>&1 || true
+            echo '## journal apache'
+            docker exec seca_diag_web sh -c 'tail -20 /var/log/app/apache.log' 2>&1 || true
+            echo '## http depuis l hote (port publie, uniquement dans ce diagnostic)'
+            port=$(docker port seca_diag_web 8080/tcp 2>/dev/null | head -1 | cut -d: -f2)
+            echo "port=$port"
+            if [ -n "$port" ]; then
+              curl -s -o /dev/null -w 'code=%{http_code}\n' --max-time 10 "http://127.0.0.1:$port/" || true
+            fi
+            echo '## journal docker'
+            docker logs seca_diag_web 2>&1 | tail -20 || true
+            docker rm -f seca_diag_web >/dev/null 2>&1 || true
+          } | tee /tmp/diagnostic.txt
 
       - name: Déposer la preuve dans le dépôt
         if: always()
         run: |
           # Ni les journaux de job ni les artefacts ne sont telechargeables
           # depuis le bac a sable du proprietaire (redirection Azure
-          # bloquee). Le rapport est donc commite dans une branche dediee,
-          # ou il reste lisible : « preuve-machines ».
+          # bloquee). La preuve est donc commitee dans une branche dediee,
+          # ou elle reste lisible : « preuve-machines ».
           dossier="docs/preuves"
           mkdir -p "$dossier"
           date_du_jour=$(date -u +%Y-%m-%d)
@@ -219,60 +244,6 @@ jobs:
           git add "$dossier"
           git commit -q -m "Preuve des machines du $date_du_jour ($GITHUB_SHA)" || echo 'rien de neuf'
           git push --force origin HEAD:refs/heads/preuve-machines
-
-      - name: Le lab web-dvwa (prototype du ZIP) démarre-t-il ?
-        if: always()
-        run: |
-          # Pas de publication de port : le lab reste en reseau ferme,
-          # comme chez l'apprenant. On verifie seulement qu'il demarre.
-          docker rm -f seca_test_dvwa >/dev/null 2>&1 || true
-          docker run -d --name seca_test_dvwa --network none \
-            --cap-drop ALL --security-opt no-new-privileges \
-            --memory 512m --cpus 1.0 \
-            securalabs/web-dvwa:1.0
-          sleep 8
-          docker exec seca_test_dvwa sh -c 'ls /var/www/html >/dev/null' && echo "OK  web-dvwa : le contenu web est present"
-          # Ce que la machine voit d'elle-meme : ports, outils, processus.
-          {
-            echo '--- diagnostic web-dvwa (meme image que web-01) ---'
-            docker exec seca_test_dvwa sh -c '(command -v ss && ss -ltn) || (command -v netstat && netstat -ltn) || echo "ni ss ni netstat"' 2>&1
-            docker exec seca_test_dvwa sh -c 'command -v curl || echo "pas de curl"; command -v wget || echo "pas de wget"; command -v bash || echo "pas de bash"' 2>&1
-            docker exec seca_test_dvwa sh -c 'ps aux | head -10' 2>&1 || true
-            docker exec seca_test_dvwa sh -c 'tail -20 /var/log/app/apache.log' 2>&1 || true
-            echo '--- ecoute-t-il depuis l hote, port publie ? ---'
-            docker run -d --name seca_diag_web --network none --memory 512m \
-              -p 127.0.0.1::8080 securalabs/web-01:1.0 >/dev/null
-            sleep 8
-            docker port seca_diag_web
-            port=$(docker port seca_diag_web 8080/tcp | cut -d: -f2)
-            if [ -n "$port" ]; then
-              code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "http://127.0.0.1:$port/" || true)
-              echo "HTTP depuis l hote sur le port publie $port : $code"
-            fi
-            docker logs seca_diag_web 2>&1 | tail -20
-            docker rm -f seca_diag_web >/dev/null
-          } | tee /tmp/diagnostic.txt
-          for prototype in secura-lab-blue-firewall secura-lab-blue-log-analysis secura-lab-buffer-overflow; do
-            docker run -d --name "seca_test_$prototype" --network none \
-              --cap-drop ALL --security-opt no-new-privileges --memory 512m --cpus 1.0 \
-              "securalabs/$prototype:1.0" >/dev/null
-            sleep 6
-            etat=$(docker inspect -f '{{.State.Running}}' "seca_test_$prototype")
-            echo "$etat $prototype"
-            docker rm -f "seca_test_$prototype" >/dev/null
-          done
-          docker rm -f seca_test_dvwa >/dev/null
-
-      - name: Publier les preuves des machines
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: preuves-machines
-          path: |
-            /tmp/machines.txt
-            /tmp/preuve-machines.txt
-            /tmp/images.txt
-          if-no-files-found: warn
 
       - name: Chercher une erreur PHP fatale
         run: |
