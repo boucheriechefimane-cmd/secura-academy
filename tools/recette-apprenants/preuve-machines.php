@@ -86,8 +86,17 @@ function seca_preuve_attendre( $nom, $essais = 15 ) {
  * @return string
  */
 function seca_preuve_drapeau( $texte ) {
-	if ( preg_match( '/SECURA\{[^}]+\}/i', (string) $texte, $trouve ) ) {
+	$texte = trim( (string) $texte );
+
+	if ( preg_match( '/SECURA\{[^}]+\}/i', $texte, $trouve ) ) {
 		return strtolower( $trouve[0] );
+	}
+
+	/* Juice Shop n'affiche pas « SECURA{...} » mais une empreinte HMAC-SHA1
+	   du nom du defi : le fichier de drapeau contient donc cette empreinte,
+	   et le plugin la compare telle quelle (same_flag). C'est valide. */
+	if ( preg_match( '/^[0-9a-f]{32,64}$/i', $texte ) ) {
+		return strtolower( $texte );
 	}
 
 	return '';
@@ -135,9 +144,52 @@ function seca_preuve_joindre( $nom, $url ) {
 		. 'bash -c ' . escapeshellarg( '(exec 3<>/dev/tcp/' . $hote . '/' . $port . ') 2>/dev/null && echo 200 || echo 000' ) . '; '
 		. 'else echo 000; fi';
 
-	$reponse = seca_preuve_dans( $nom, $script );
+	/* Un serveur web (Apache, Node) met plusieurs secondes a ecouter : on
+	   reessaie au lieu de conclure au premier refus. */
+	for ( $essai = 0; $essai < 12; $essai++ ) {
+		$reponse = seca_preuve_dans( $nom, $script );
+		$code    = (int) trim( $reponse['sortie'] );
+
+		if ( $code >= 200 && $code < 500 ) {
+			return $code;
+		}
+
+		sleep( 2 );
+	}
 
 	return (int) trim( $reponse['sortie'] );
+}
+
+/**
+ * Un port ecoute-t-il dans le conteneur ?
+ *
+ * dash (« sh » sous Debian) ne connait pas /dev/tcp : le test doit passer
+ * par bash, sinon tout parait ferme. C'est l'erreur qui a fait declarer
+ * « rien n'ecoute » a tort.
+ *
+ * @param string $nom  Conteneur.
+ * @param string $hote Hote.
+ * @param int    $port Port.
+ * @return bool
+ */
+function seca_preuve_port_ouvert( $nom, $hote, $port ) {
+	$sonde = 'if command -v bash >/dev/null 2>&1; then '
+		. 'bash -c ' . escapeshellarg( '(exec 3<>/dev/tcp/' . $hote . '/' . $port . ') 2>/dev/null && echo ouvert || echo ferme' )
+		. '; elif command -v php >/dev/null 2>&1; then '
+		. 'php -r ' . escapeshellarg( '$e = @fsockopen(' . var_export( $hote, true ) . ', ' . (int) $port . ', $n, $s, 3); echo $e ? "ouvert" : "ferme";' )
+		. '; else echo inconnu; fi';
+
+	for ( $essai = 0; $essai < 10; $essai++ ) {
+		$resultat = trim( seca_preuve_dans( $nom, $sonde )['sortie'] );
+
+		if ( 'ouvert' === $resultat ) {
+			return true;
+		}
+
+		sleep( 2 );
+	}
+
+	return false;
 }
 
 /**
@@ -498,13 +550,13 @@ foreach ( $rooms as $room ) {
 		$details[] = 'aucune question de drapeau (machine de cours)';
 	}
 
-	if ( '' !== $cible && 0 === strpos( $cible, 'http' ) ) {
+	if ( '' !== $url ) {
 		$port_cible = wp_parse_url( $url, PHP_URL_PORT );
 		$port_cible = $port_cible ? (int) $port_cible : ( 'https' === wp_parse_url( $url, PHP_URL_SCHEME ) ? 443 : 80 );
 
-		$ecoute = seca_preuve_dans( $nom, '(exec 3<>/dev/tcp/127.0.0.1/' . $port_cible . ') 2>/dev/null && echo ouvert || echo ferme' );
+		$ecoute = seca_preuve_port_ouvert( $nom, '127.0.0.1', $port_cible );
 
-		if ( 'ouvert' === trim( $ecoute['sortie'] ) ) {
+		if ( $ecoute ) {
 			/* Le port repond : reste a savoir si l'application sert vraiment
 			   quelque chose. Faute de client HTTP dans l'image, on le dit. */
 			if ( seca_preuve_a_client_http( $nom ) ) {
