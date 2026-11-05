@@ -135,6 +135,27 @@ if ( 1 === count( $rapports ) ) {
 		'auditeur réel : taille WCAG 2.5.8 signalée comme non mesurée' );
 }
 
+/* Le lanceur entier doit relayer un seul audit grave non étayé, et ne pas
+   présenter une erreur de WP-CLI comme un constat prouvé. */
+$faux_wp = $dossier . '/faux-wp';
+$fixture_harnais = __DIR__ . '/fixtures/audit-cas.php';
+file_put_contents(
+	$faux_wp,
+	"#!/bin/sh\ncase \"\$4\" in\n  *audit-seo.php) exec " . escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( $fixture_harnais )
+		. ' majeur-sans-preuve ' . escapeshellarg( $dossier . '/rapport-lanceur' ) . ";;\n  *) exit 0;;\nesac\n"
+);
+chmod( $faux_wp, 0700 );
+$lanceur = dirname( __DIR__ ) . '/scripts/audit/run-audits.sh';
+$sortie = array();
+$code = -1;
+exec( 'WP_CLI=' . escapeshellarg( $faux_wp ) . ' bash ' . escapeshellarg( $lanceur ) . ' 2>&1', $sortie, $code );
+verifier_test_audit( 1 === $code, 'lanceur : un audit majeur non étayé fait sortir la barrière en 1' );
+verifier_test_audit( false !== strpos( implode( "\n", $sortie ), '[NON ÉTAYÉ]' ), 'lanceur : le contrôle non étayé reste identifiable' );
+$sortie = array();
+$code = -1;
+exec( 'WP_CLI=false bash ' . escapeshellarg( $lanceur ) . ' 2>&1', $sortie, $code );
+verifier_test_audit( 18 === $code && false !== strpos( implode( "\n", $sortie ), 'erreur d’exécution' ), 'lanceur : les erreurs WP-CLI bloquent sans inventer de constat' );
+
 /* Ne supprimer que les répertoires temporaires créés par ce test. */
 $entries = new RecursiveIteratorIterator(
 	new RecursiveDirectoryIterator( $dossier, FilesystemIterator::SKIP_DOTS ),

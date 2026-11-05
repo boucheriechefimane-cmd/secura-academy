@@ -58,8 +58,8 @@ echo ""
 echo "============================================================"
 
 if [ "$CONSTATS" -gt 0 ]; then
-	echo " $CONSTATS audit(s) en échec : constat de fond ou contrôle grave non étayé."
-	echo " La plateforme ne peut pas être déclarée conforme : corriger, puis relancer."
+	echo " $CONSTATS audit(s) en échec : contrôle bloquant ou majeur, ou erreur d’exécution."
+	echo " Lire les rapports et les journaux ; corriger ou compléter les preuves, puis relancer."
 else
 	echo " Aucun échec bloquant ou majeur. Lire aussi les rapports et leurs limites."
 fi
