@@ -53,6 +53,8 @@ runs:
     - name: Les tests unitaires du dépôt
       shell: bash
       run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Les tests unitaires du dépôt (code $?)" | tee -a /tmp/echecs.txt' ERR
         # Ce que faisait « CI — Secura Academy » : la vérification
         # syntaxique et les tests du dépôt. Rapatriés ici pour qu'une
         # seule commande mesure vraiment tout.
@@ -68,6 +70,8 @@ runs:
     - name: Vérifier les Dockerfiles avant de construire
       shell: bash
       run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Vérifier les Dockerfiles avant de construire (code $?)" | tee -a /tmp/echecs.txt' ERR
         # Une erreur de syntaxe dans un Dockerfile coute trente secondes a
         # Docker, mais ici elle tombe au milieu d'un run de vingt minutes
         # qui a deja construit neuf images. Ce controle prend une seconde.
@@ -94,6 +98,8 @@ runs:
       shell: bash
       run: |
         set -o pipefail
+        trap 'echo "ECHEC : Construire les machines (code $?)" | tee -a /tmp/echecs.txt' ERR
+        set -o pipefail
         # Les machines que les rooms declarent, plus les prototypes du ZIP
         # (web-dvwa, secura-lab-blue-firewall, secura-lab-blue-log-analysis,
         # secura-lab-buffer-overflow) : ils doivent au moins se construire,
@@ -115,6 +121,8 @@ runs:
     - name: Installer WordPress et le plugin
       shell: bash
       run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Installer WordPress et le plugin (code $?)" | tee -a /tmp/echecs.txt' ERR
         if ! bash scripts/ci-wordpress.sh 2>&1 | tee -a /tmp/etapes.txt; then
           echo "ECHEC : installation de WordPress et du plugin" | tee -a /tmp/echecs.txt
         fi
@@ -122,6 +130,8 @@ runs:
     - name: Démarrer le site
       shell: bash
       run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Démarrer le site (code $?)" | tee -a /tmp/echecs.txt' ERR
         # Le routeur est indispensable : il envoie vers WordPress les
         # adresses que le serveur PHP ne sait pas servir seul
         # (/robots.txt, /llms.txt, les permaliens). C'est exactement ce
@@ -140,6 +150,8 @@ runs:
       shell: bash
       run: |
         set -o pipefail
+        trap 'echo "ECHEC : Recette avec les vraies machines (code $?)" | tee -a /tmp/echecs.txt' ERR
+        set -o pipefail
         if SECA_AVEC_MACHINE=1 wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php 2>&1 | tee -a /tmp/etapes.txt; then
           echo "OK recette wp-e2e"
         else
@@ -149,6 +161,8 @@ runs:
     - name: Scénario des deux apprenants (isolation)
       shell: bash
       run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Scénario des deux apprenants (isolation) (code $?)" | tee -a /tmp/echecs.txt' ERR
         SECA_ROOM_WEB=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=securiser-une-application-web --field=ID)
         SECA_ROOM_NET=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=les-fondamentaux-du-reseau --field=ID)
         SECA_ROOM_BIN=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=memoire-et-defenses --field=ID)
@@ -168,6 +182,8 @@ runs:
       shell: bash
       run: |
         set -o pipefail
+        trap 'echo "ECHEC : Les 45 contrôles des machines (code $?)" | tee -a /tmp/echecs.txt' ERR
+        set -o pipefail
         if bash scripts/test-labs-ci.sh 2>&1 | tee /tmp/machines.txt | tee -a /tmp/etapes.txt; then
           echo "OK controles des machines"
         else
@@ -177,6 +193,8 @@ runs:
     - name: La preuve des machines, room par room
       shell: bash
       run: |
+        set -o pipefail
+        trap 'echo "ECHEC : La preuve des machines, room par room (code $?)" | tee -a /tmp/echecs.txt' ERR
         set +e
         wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/preuve-machines.php \
           | tee /tmp/preuve-machines.txt
@@ -207,10 +225,12 @@ runs:
           echo '```'
         } >> "$GITHUB_STEP_SUMMARY" || true
 
-    - name: Ce que la machine voit d'elle-meme
+    - name: Ce que la machine voit de la machine
       if: always()
       shell: bash
       run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Ce que la machine voit de la machine (code $?)" | tee -a /tmp/echecs.txt' ERR
         # web-01 et web-dvwa partagent la meme base : si le serveur ne
         # repond pas, il faut savoir pourquoi (ports, outils, journal).
         docker rm -f seca_diag_web >/dev/null 2>&1 || true
