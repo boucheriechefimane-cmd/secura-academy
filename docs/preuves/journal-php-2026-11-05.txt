@@ -1,0 +1,2 @@
+--- journal PHP (fin) ---
+[05-Nov-2026 12:26:11 UTC] PHP Warning:  Undefined array key "HTTP_HOST" in /home/runner/work/secura-academy/secura-academy/wp-ci/wp-includes/functions.php on line 6473

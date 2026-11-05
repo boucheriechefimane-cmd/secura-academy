@@ -1,0 +1,9 @@
+--- diagnostic de la machine web (image web-dvwa) ---
+## ports publies
+## processus
+Error response from daemon: container 365c43f8e89233d07a50f8a951d1df23c81005ca5b69f17867e8d32d7085f8ef is not running
+## outils reseau presents
+Error response from daemon: container 365c43f8e89233d07a50f8a951d1df23c81005ca5b69f17867e8d32d7085f8ef is not running
+## journal apache
+Error response from daemon: container 365c43f8e89233d07a50f8a951d1df23c81005ca5b69f17867e8d32d7085f8ef is not running
+## http depuis l hote (port publie, uniquement dans ce diagnostic)

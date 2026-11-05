@@ -1,0 +1,239 @@
+
+[1;34m== 1. WP-CLI[0m
+
+[1;34m== 2. WordPress[0m
+Downloading WordPress 7.1.4 (fr_FR)...
+md5 hash verified: e741ed6a363c48692b460dde53bee37c
+Success: WordPress downloaded.
+Success: Generated 'wp-config.php' file.
+Success: WordPress installed successfully.
+
+[1;34m== 3. Plugin et thème du dépôt[0m
+
+[1;34m== 3 bis. Les pages legales sont-elles publiees ?[0m
+  Politique de confidentialité : publiée (ID 3)
+  Mentions légales : publiée (ID 6)
+  version installée : 0.13.0
+
+[1;34m== 4. Plugins tiers[0m
+  (aucun)
+
+[1;34m== 5. Apprenants de test[0m
+  alice / alice_pw
+  bob   / bob_pw
+
+[1;34m== 6. Bilan[0m
+  WordPress   : /home/runner/work/secura-academy/secura-academy/wp-ci
+  Site        : http://localhost:8080
+  Rooms       : 52
+  Parcours    : 4
+  Machines    : /home/runner/work/secura-academy/secura-academy/labs
+  Journal PHP : /home/runner/work/secura-academy/secura-academy/wp-ci/wp-content/debug.log
+
+=== Recette de bout en bout (WordPress réel) ===
+
+1. Le plugin et les contenus
+  ok   le plugin est chargé
+  ok   les rooms sont là (au moins 6)
+  ok   les parcours sont là (au moins 1)
+  ok   les scénarios M3 sont là (10)
+  ok   réactiver le plugin ne duplique pas les rooms
+  ok   réactiver le plugin ne duplique pas les parcours
+  ok   les rooms universitaires sont là (22)
+  ok   les rooms des labs avancés sont là (14)
+  ok   chaque room universitaire a sa vidéo (36)
+  ok   le quiz Kahoot est installé (1)
+  ok   la façade vidéo est affichée
+  ok   aucune iframe n’est chargée avant le clic
+  ok   le lien vers la source reste visible
+
+2. Les trois langues
+  ok   la room porte le français (contenu de base)
+  ok   la room porte les traductions arabe et anglaise
+
+3. Un QCM se valide, et l'XP monte
+  ok   une mauvaise proposition est refusée
+  ok   la bonne proposition est acceptée
+  ok   l’XP a monté
+  ok   la bonne réponse ne quitte jamais le serveur
+
+4. Une mission se valide par le drapeau de la vraie machine
+  ok   la machine de l’apprenant se déploie
+  ok   un mauvais drapeau est refusé
+  ok   le bon drapeau est accepté
+
+4. Le site vu de l'extérieur : maillage et robots
+  ok   la page « Parcours » existe
+  ok   la page « Parcours » est publiée
+  ok   le site affiche la page « Parcours » en accueil
+  ok   le shortcode de la plateforme est sur la page d'accueil
+  ok   chaque parcours lie ses rooms par de vrais liens
+  ok   le fichier robots.txt est servi
+  ok   robots.txt nomme les robots d'IA
+  ok   robots.txt ne ferme pas tout le site
+  ok   robots.txt declare le plan du site
+  ok   le fichier llms.txt est servi
+  ok   llms.txt cite les rooms avec leurs adresses
+  ok   l'archive d'auteur est fermee
+
+=== Résultat : 34 réussi(s), 0 échec(s) ===
+
+[1m=== 1. Connexion des deux apprenants ===[0m
+  [32mOK[0m Alice est connectee
+  [32mOK[0m Bob est connecte
+
+[1m=== 1 bis. La couche AJAX du plugin repond-elle ? ===[0m
+  [32mOK[0m Le plugin repond a une action AJAX — {"room": {"id": 10, "title": "Sécuriser une application web", "excerpt": "Injections SQL, XSS, CSRF : identifie les failles web classiques et leurs parades.", "content": "<p>La majorité des incidents 
+
+[1m=== 2. Room « Securiser une application web » (machine unique, image web-01) ===[0m
+  [32mOK[0m Alice : la room affiche la barre de lab
+  [32mOK[0m Bob : la room affiche la barre de lab
+  [32mOK[0m Alice : la machine est deployee — {"ok": true, "state": "running", "target": "http://127.0.0.1:8080", "message": "Machine déployée. Bonne chasse."}
+  [32mOK[0m Bob : la machine est deployee — {"ok": true, "state": "running", "target": "http://127.0.0.1:8080", "message": "Machine déployée. Bonne chasse."}
+
+[1m=== 3. Commandes reelles dans la machine ===[0m
+  Alice : `$ id`
+  Alice : `$ ls -la /var/www/html`
+      total 56
+      drwxrwxrwt 1 ctf  ctf  4096 Nov  5 12:26 .
+      drwxr-xr-x 1 root root 4096 Nov  5 07:19 ..
+      -rw-r--r-- 1 ctf  ctf   614 Nov  5 12:25 admin.php
+      drwxr-xr-x 2 ctf  ctf  4096 Nov  5 12:26 backup
+      -rw-rw-rw- 1 ctf  ctf  8192 Nov  5 12:26 db.sqlite
+      -rw-r--r-- 1 ctf  ctf   648 Nov  5 12:25 diag.php
+      -rwxr-xr-x 1 ctf  ctf  1311 Nov  5 12:25 entrypoint.sh
+  Alice : `$ cat /root/flag.txt`
+      FLAG=SECURA{sql_injection_web}
+  Bob : `$ id`
+  Bob : `$ ls -la /var/www/html`
+      total 56
+      drwxrwxrwt 1 ctf  ctf  4096 Nov  5 12:26 .
+      drwxr-xr-x 1 root root 4096 Nov  5 07:19 ..
+      -rw-r--r-- 1 ctf  ctf   614 Nov  5 12:25 admin.php
+      drwxr-xr-x 2 ctf  ctf  4096 Nov  5 12:26 backup
+      -rw-rw-rw- 1 ctf  ctf  8192 Nov  5 12:26 db.sqlite
+      -rw-r--r-- 1 ctf  ctf   648 Nov  5 12:25 diag.php
+      -rwxr-xr-x 1 ctf  ctf  1311 Nov  5 12:25 entrypoint.sh
+  Bob : `$ cat /root/flag.txt`
+      FLAG=SECURA{sql_injection_web}
+  [32mOK[0m Alice lit le drapeau dans SA machine
+  [32mOK[0m Bob lit le drapeau dans SA machine
+
+[1m=== 4. TEST DECISIF : aucun croisement entre les deux apprenants ===[0m
+  Conteneurs simules :
+    seca_lab_3_10 | running
+    seca_lab_2_10 | running
+    03c8db1cd2d54a4b967b2aeecbfd7309_mysql80_363ea9 | running
+  Reseaux dedies : seca_lab_2_10, seca_lab_3_10
+  [32mOK[0m Les conteneurs ont des noms differents — seca_lab_3_10, seca_lab_2_10, 03c8db1cd2d54a4b967b2aeecbfd7309_mysql80_363ea9
+  [32mOK[0m Un reseau par apprenant — seca_lab_2_10, seca_lab_3_10
+  [32mOK[0m Le conteneur d'Alice porte son identifiant — seca_lab_3_10, seca_lab_2_10, 03c8db1cd2d54a4b967b2aeecbfd7309_mysql80_363ea9
+  [32mOK[0m Le conteneur de Bob porte son identifiant — seca_lab_3_10, seca_lab_2_10, 03c8db1cd2d54a4b967b2aeecbfd7309_mysql80_363ea9
+
+[1m=== 5. Room « Les fondamentaux du reseau » (pile Compose, 4 services) ===[0m
+  [32mOK[0m Alice : pile Compose deployee — {"ok": true, "state": "running", "target": "http://web:8080", "message": "Machine déployée. Bonne chasse."}
+  [32mOK[0m Bob : pile Compose deployee — {"ok": true, "state": "running", "target": "http://web:8080", "message": "Machine déployée. Bonne chasse."}
+  Conteneurs simules :
+    seca_net01_3_9-db-1 | running
+    seca_net01_3_9-attacker-1 | running
+    seca_net01_3_9-internal-1 | running
+    seca_net01_3_9-web-1 | running
+    seca_net01_2_9-db-1 | running
+    seca_net01_2_9-web-1 | running
+    seca_net01_2_9-internal-1 | running
+    seca_net01_2_9-attacker-1 | running
+    seca_lab_3_10 | running
+    seca_lab_2_10 | running
+    03c8db1cd2d54a4b967b2aeecbfd7309_mysql80_363ea9 | running
+  Projets Compose : seca_net01_2_9, seca_net01_3_9
+  [32mOK[0m Deux projets Compose distincts — seca_net01_2_9, seca_net01_3_9
+  [32mOK[0m Projet d'Alice != projet de Bob — seca_net01_2_9, seca_net01_3_9
+
+[1m=== 6. Arret des machines ===[0m
+  Conteneurs restants : 03c8db1cd2d54a4b967b2aeecbfd7309_mysql80_363ea9
+  Tous les controles sont passes.
+
+=== 1. Docker répond ===
+  [OK] le démon Docker est disponible
+
+=== 2. Les images des machines sont construites ===
+  [OK] l'image securalabs/web-01:1.0 existe
+  [OK] l'image securalabs/bin-01:1.0 existe
+  [OK] l'image securalabs/multi-01:1.0 existe
+  [OK] l'image securalabs/internal-01:1.0 existe
+  [OK] l'image securalabs/univ-01:1.0 existe
+  [OK] l'image securalabs/dojo-01:1.0 existe
+  [OK] l'image securalabs/flags-01:1.0 existe
+
+=== 3. Une machine démarre, répond, et son drapeau est accessible ===
+  [OK] la machine se démarre (avec les mêmes contraintes que le plugin)
+  [OK] la machine reste allumée (elle ne s'arrête pas aussitôt)
+  [OK] le terminal de l'apprenant répond : uid=1000(ctf) gid=1000(ctf) groups=1000(ctf)
+  [OK] les notes de l'équipe sont lisibles
+  [OK] le drapeau est accessible à l'apprenant (le lab est faisable)
+
+=== 4. Deux apprenants ne se voient pas ===
+  [OK] deux machines tournent sur deux réseaux distincts
+  [OK] la machine A ne voit pas le nom de la machine B
+  [OK] la machine A ne joint pas la machine B (aucun croisement)
+
+=== 5. Une machine n'a pas accès à Internet ===
+  [OK] la machine A n'atteint pas Internet (réseau sans sortie)
+
+=== 6. La pile réseau (4 services) monte, répond et s'arrête ===
+  [OK] les 4 services de la pile sont démarrés
+  [OK] le serveur web du lab répond (HTTP 200 sur le port 8080)
+  [OK] l'apprenant atteint la cible par son nom (http://web:8080)
+  [OK] la pile s'arrête proprement
+
+=== 7. Les scénarios M3 sont jouables (preuve de travail) ===
+  [OK] scénario 1 : la page de diagnostic indique où est la configuration
+  [OK] scénario 2 : le mot de passe en clair est bien dans la configuration
+  [OK] scénario 4 : l'injection SQL permet de se connecter
+  [OK] scénario 7 : l'export CSV du nœud web contient le drapeau
+  [OK] scénario 8 : le nœud interne est invisible depuis la machine de l'apprenant
+  [OK] scénario 8 : l'apprenant ne joint pas le nœud interne directement
+  [OK] scénario 8 : le nœud web, lui, joint le nœud interne (le pivot est possible)
+  [OK] scénario 8 : l'outil de supervision du nœud web permet d'atteindre l'interne
+  [OK] scénario 8 : le mot de passe réutilisé ouvre l'archivage interne (drapeau obtenu)
+  [OK] scénario 8 : le serveur lit le drapeau du nœud interne en root
+  [OK] scénario 8 : le fichier de drapeau est illisible par l'apprenant
+  [OK] scénario 1 (multi-01) : la page d'état fonctionne
+  [OK] scénario 1 (multi-01) : le code de version interne est dans la configuration
+  [OK] scénario 3 (multi-01) : la saisie est renvoyée telle quelle (XSS réfléchie)
+  [OK] scénario 3 (multi-01) : le robot a enregistré le jeton de session
+  [OK] scénario 4 (multi-01) : l'injection SQL fonctionne
+  [OK] scénario 5 (multi-01) : la traversée de répertoire lit la configuration
+  [OK] scénario 5 (multi-01) : la sauvegarde oubliée livre la clé de licence
+  [OK] scénario 6 (multi-01) : le journal contient la requête réussie
+  [OK] scénario 10 (multi-01) : la page secrète répond en HTTPS
+  [OK] scénario 10 (multi-01) : la page secrète est introuvable en HTTP simple
+  [OK] scénario 1 (multi-01) : les fichiers de drapeau sont illisibles par l'apprenant
+  [OK] scénario 1 (multi-01) : le serveur lit le drapeau en root
+  [OK] scénario 9 : le binaire est bien setuid root (le shell obtenu sera root)
+  [OK] scénario 9 : le drapeau reste protégé tant qu'aucun shell root n'est obtenu
+  [OK] scénario 9 : le serveur lit le drapeau du binaire en root
+  [OK] univ-01 : l'apprenant lit les notes de la salle des cours
+  [OK] univ-01 : le livrable du cours 6.858 contient la valeur attendue
+  [OK] univ-01 : la politique de separation des privileges est lisible
+  [OK] univ-01 : les TP pwn.college sont lisibles
+  [OK] univ-01 : les fichiers de drapeau sont illisibles par l'apprenant
+  [OK] univ-01 : le serveur lit les vingt-deux drapeaux en root
+  [OK] univ-01 : chaque drapeau est decouvrable dans les livrables de cours
+  [OK] dojo-01 : l'apprenant lit les notes du dojo
+  [OK] dojo-01 : les cinq ceintures sont presentes
+  [OK] dojo-01 : les briefs sont presents
+  [OK] dojo-01 : le serveur lit les vingt-sept drapeaux en root
+  [OK] dojo-01 : les fichiers de drapeau sont illisibles par l'apprenant
+  [OK] dojo-01 : chaque drapeau est decouvrable dans les documents du dojo
+  [OK] juice-shop : l'application OWASP Juice Shop repond
+  [OK] juice-shop : la liste des defis de l'application est lisible
+  [OK] juice-shop : le fichier de drapeau est illisible par l'apprenant
+  [OK] juice-shop : le drapeau du serveur correspond a celui de l'application
+  [OK] juice-shop : les trois services de la pile tournent
+  [OK] juice-shop : le reseau du lab n'a pas de sortie Internet
+  [OK] aucun conteneur de test ne reste
+
+============================================================
+Tests des machines : 67 reussis, 0 echecs
+============================================================
