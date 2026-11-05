@@ -31,6 +31,7 @@ ARCHIVES = {
         "LICENSE", "LICENSES.md", "tests/import-test.py",
         "tools/rooms-connues.json", "tools/controler-lot.py",
         "scripts/audit/README-SONDES-ZIP.md",
+        "docs/RECETTE-2026-11-05-WORDPRESS-REEL.md",
     ],
 }
 
@@ -65,6 +66,13 @@ class TestArchives(unittest.TestCase):
                 in_recipe = "wp-content/plugins/" + name
                 with self.subTest(fichier=name):
                     self.assertEqual(plugin.read(name), recette.read(in_recipe))
+
+            # Les rapports d'audit voyagent avec la recette : un auditeur
+            # livre sans son resultat ne dit rien.
+            rapports = [n for n in recette.namelist() if n.startswith("docs/audits/")]
+            self.assertGreaterEqual(len(rapports), 54)
+            self.assertTrue(any(n.endswith(".json") for n in rapports))
+            self.assertTrue(any(n.endswith(".html") for n in rapports))
 
     def test_recette_chaine_import_autonome(self):
         destination = self.path / "recette"
