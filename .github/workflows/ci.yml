@@ -28,7 +28,7 @@ jobs:
           coverage: none
 
       - name: Vérifier la syntaxe des fichiers PHP
-        run: find wp-content tests -name '*.php' -print0 | xargs -0 -n1 php -l
+        run: find wp-content tests scripts tools/labs -name '*.php' -print0 | xargs -0 -n1 php -l
 
       # Un fichier JavaScript qui ne compile pas casse TOUTE l'interface :
       # plus aucune réponse n'est envoyée, plus aucun indice n'apparaît.

@@ -218,7 +218,7 @@ audit_verifier(
 $permissions = array();
 
 foreach ( $fichiers as $fichier ) {
-	if ( ( fileperms( $fichier ) & 0o002 ) ) {
+	if ( ( fileperms( $fichier ) & 0002 ) ) {
 		$permissions[] = $fichier;
 	}
 }
