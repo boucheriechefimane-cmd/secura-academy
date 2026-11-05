@@ -25,7 +25,7 @@ ARCHIVES = {
     "secura-learning-theme.zip": ["secura-learning/LICENSE"],
     "secura-academy-labs.zip": [
         "LICENSE", "LICENSES.md", "docs/SOURCES-CONTENU.md",
-        "secura-lab-buffer-overflow/flag/flag.txt", "dojo-01/Dockerfile",
+        "bin-01/flag/flag.txt", "dojo-01/Dockerfile",
     ],
     "secura-academy-recette.zip": [
         "LICENSE", "LICENSES.md", "tests/import-test.py",

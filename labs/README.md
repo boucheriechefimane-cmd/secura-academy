@@ -8,14 +8,21 @@ copiés par le ZIP dans des machines qui ne les utilisaient pas ont été
 retirés : ils pouvaient mélanger les scénarios et le dojo ne contenait plus
 ses 27 drapeaux attendus.
 
-Les quatre dossiers supplémentaires du ZIP sont conservés pour inspection,
-**pas comme nouvelles machines prêtes à déployer** :
+Les quatre dossiers supplémentaires du ZIP ont été **supprimés** le
+6 novembre 2026, et non pas conservés « pour inspection » :
 
 - `web-dvwa/`, `secura-lab-blue-firewall/` et
-  `secura-lab-blue-log-analysis/` sont des copies de `multi-01` ; ce ne sont
-  pas respectivement DVWA, un exercice de pare-feu ou d'analyse de logs.
-- `secura-lab-buffer-overflow/` est une copie de `bin-01`. Son fichier
-  `flag/flag.txt` est une valeur d'exercice nécessaire à la construction.
+  `secura-lab-blue-log-analysis/` étaient des copies de `multi-01` ; ce
+  n'étaient ni DVWA, ni un exercice de pare-feu, ni un exercice d'analyse
+  de logs. Le nom promettait quatre scénarios, le contenu en livrait zéro.
+- `secura-lab-buffer-overflow/` était une copie de `bin-01`, avec en plus
+  la même dépendance setuid que `bin-01` abandonne, et un `gets()` qui ne
+  se compile plus sur une glibc récente : cette machine ne se construisait
+  pas.
+
+Les garder « pour inspection » n'avait qu'un effet mesurable : gonfler le
+catalogue et faire dire au workflow qu'il construisait dix machines. Il en
+construit six, qui sont celles que les rooms utilisent vraiment.
 
 Les recettes expérimentales distinctes sous `tools/labs/images/` n'ont pas
 été construites ni testées. Aucun nouveau mapping des rooms n'est appliqué.

@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /admin.php
-Disallow: /bot.php
-Disallow: /status.php
-Disallow: /var/backups/

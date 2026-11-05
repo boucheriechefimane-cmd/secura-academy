@@ -100,13 +100,13 @@ runs:
         set -o pipefail
         trap 'echo "ECHEC : Construire les machines (code $?)" | tee -a /tmp/echecs.txt' ERR
         set -o pipefail
-        # Les machines que les rooms declarent, plus les prototypes du ZIP
-        # (web-dvwa, secura-lab-blue-firewall, secura-lab-blue-log-analysis,
-        # secura-lab-buffer-overflow) : ils doivent au moins se construire,
-        # meme si leur contenu est une copie (voir labs/README.md).
-        for machine in web-01 bin-01 multi-01 internal-01 univ-01 dojo-01 \
-                       web-dvwa secura-lab-blue-firewall \
-                       secura-lab-blue-log-analysis secura-lab-buffer-overflow; do
+        # Uniquement les machines que les rooms declarent reellement. Les
+        # quatre dossiers du ZIP qui n'etaient que des copies (web-dvwa,
+        # secura-lab-blue-firewall, secura-lab-blue-log-analysis,
+        # secura-lab-buffer-overflow) ont ete supprimes le 6 novembre :
+        # construire une copie ne prouve rien et laisse croire a quatre
+        # machines supplementaires.
+        for machine in web-01 bin-01 multi-01 internal-01 univ-01 dojo-01; do
           echo "Construction de $machine…"
           if docker build -q -t "securalabs/$machine:1.0" "labs/$machine"; then
             echo "OK  $machine"
@@ -249,14 +249,14 @@ runs:
       run: |
         set -o pipefail
         trap 'echo "ECHEC : Ce que la machine voit de la machine (code $?)" | tee -a /tmp/echecs.txt' ERR
-        # web-01 et web-dvwa partagent la meme base : si le serveur ne
+        # Le serveur web et l'image d'attaque partagent la meme base : si le serveur ne
         # repond pas, il faut savoir pourquoi (ports, outils, journal).
         docker rm -f seca_diag_web >/dev/null 2>&1 || true
         {
-          echo '--- diagnostic de la machine web (image web-dvwa) ---'
+          echo '--- diagnostic de la machine web ---'
           docker run -d --name seca_diag_web --network none --memory 512m \
             --cap-drop ALL --security-opt no-new-privileges -p 127.0.0.1::8080 \
-            securalabs/web-dvwa:1.0 >/dev/null
+            securalabs/web-01:1.0 >/dev/null
           sleep 10
           echo '## ports publies'
           docker port seca_diag_web || true
