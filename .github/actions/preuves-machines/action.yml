@@ -223,10 +223,25 @@ runs:
           fi
         } | tee -a "$GITHUB_STEP_SUMMARY"
 
-        # Un job rouge sans nom d'etape coute une heure d'enquete : on
-        # n'echoue qu'ici, et jamais sans avoir dit pourquoi.
+        # Les journaux complets et les artefacts ne sont pas toujours
+        # accessibles (stockage Azure). Les annotations, elles, le sont
+        # toujours : chaque ligne en echec est donc remontee ici, une par
+        # annotation. C'est le seul canal que le proprietaire du depot et
+        # l'assistant peuvent relire apres coup.
         if [ -s /tmp/echecs.txt ]; then
           echo "::error title=Run de mesure en echec::$(paste -sd ' | ' /tmp/echecs.txt)"
+
+          extrait() {
+            [ -f "$1" ] || return 0
+            grep -aE "KO|ECHEC|ECHEC|échec|erreur|Error|Fatal" "$1" | head -15 | while IFS= read -r ligne; do
+              echo "::error title=$(basename "$1")::${ligne:0:400}"
+            done
+          }
+
+          extrait /tmp/machines.txt
+          extrait /tmp/etapes.txt
+          extrait /tmp/preuve-machines.txt
+
           exit 1
         fi
 
@@ -283,7 +298,9 @@ runs:
           git merge --no-edit -X theirs "origin/${INPUTS_BRANCHE_SOURCE}" \
             -m "La preuve porte aussi sur la tete de ${INPUTS_BRANCHE_SOURCE}" || echo 'fusion impossible'
         fi
-        git push --force origin HEAD:refs/heads/preuve-machines
+        if ! git push --force origin HEAD:refs/heads/preuve-machines; then
+          echo "::warning title=Preuve non deposee::le push vers preuve-machines a echoue ; les rapports restent dans /tmp"
+        fi
       env:
         INPUTS_DEPOSER_PREUVE: ${{ inputs.deposer_preuve }}
         INPUTS_A_FUSIONNER: ${{ inputs.a_fusionner }}
