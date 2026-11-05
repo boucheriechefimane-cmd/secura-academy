@@ -232,7 +232,7 @@ function seca_preuve_port_ouvert( $nom, $hote, $port ) {
 		sleep( 2 );
 	}
 
-	echo '  (sonde ' . $nom . ' port ' . $port . ' : « ' . $dernier . ' »)\n';
+	fwrite( STDERR, '  (sonde ' . $nom . ' port ' . $port . ' : « ' . $dernier . ' »)' . "\n" );
 
 	return false;
 }
