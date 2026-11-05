@@ -36,15 +36,34 @@ runs:
         extensions: mysqli
         tools: wp-cli
 
+    - name: Préparer le registre des échecs
+      shell: bash
+      run: |
+        # Un run de mesure dure vingt minutes et construit dix images : on
+        # ne veut pas perdre tout ce travail au premier pepin. Chaque etape
+        # note son echec ici, et une seule etape finale decide du sort du
+        # job — en NOMMANT ce qui a echoue.
+        #
+        # Ce registre doit exister AVANT la premiere etape qui peut
+        # echouer : le 5 novembre, il etait cree trop tard, et un echec
+        # survenu avant lui n'a produit aucune annotation lisible.
+        : > /tmp/echecs.txt
+        echo "Registre des echecs pret."
+
     - name: Les tests unitaires du dépôt
       shell: bash
       run: |
         # Ce que faisait « CI — Secura Academy » : la vérification
         # syntaxique et les tests du dépôt. Rapatriés ici pour qu'une
         # seule commande mesure vraiment tout.
-        for f in $(git ls-files '*.php'); do php -l "$f" >/dev/null || exit 1; done
+        if ! for f in $(git ls-files '*.php'); do php -l "$f" >/dev/null || exit 1; done; then
+          echo "ECHEC : la syntaxe d'un fichier PHP est invalide" | tee -a /tmp/echecs.txt
+          exit 0
+        fi
         echo "Syntaxe PHP : OK"
-        if [ -f tests/smoke-test.php ]; then php tests/smoke-test.php; fi
+        if [ -f tests/smoke-test.php ] && ! php tests/smoke-test.php; then
+          echo "ECHEC : les tests du depot (tests/smoke-test.php)" | tee -a /tmp/echecs.txt
+        fi
 
     - name: Vérifier les Dockerfiles avant de construire
       shell: bash
@@ -52,10 +71,14 @@ runs:
         # Une erreur de syntaxe dans un Dockerfile coute trente secondes a
         # Docker, mais ici elle tombe au milieu d'un run de vingt minutes
         # qui a deja construit neuf images. Ce controle prend une seconde.
-        python3 tools/recette-apprenants/verifier-dockerfiles.py
+        if ! python3 tools/recette-apprenants/verifier-dockerfiles.py; then
+          echo "ECHEC : au moins un Dockerfile est invalide" | tee -a /tmp/echecs.txt
+        fi
         # Et la commande que le plugin construit : une option placee apres
         # l'image devient la commande du conteneur, qui s'arrete aussitot.
-        php tools/recette-apprenants/verifier-commandes-docker.php
+        if ! php tools/recette-apprenants/verifier-commandes-docker.php; then
+          echo "ECHEC : la commande docker run construite par le plugin est fausse" | tee -a /tmp/echecs.txt
+        fi
 
     - name: Préparer le registre des échecs
       shell: bash
@@ -91,7 +114,10 @@ runs:
 
     - name: Installer WordPress et le plugin
       shell: bash
-      run: bash scripts/ci-wordpress.sh 2>&1 | tee -a /tmp/etapes.txt
+      run: |
+        if ! bash scripts/ci-wordpress.sh 2>&1 | tee -a /tmp/etapes.txt; then
+          echo "ECHEC : installation de WordPress et du plugin" | tee -a /tmp/echecs.txt
+        fi
 
     - name: Démarrer le site
       shell: bash
@@ -106,9 +132,9 @@ runs:
           if [ "$code" = "200" ]; then echo "Site en ligne (HTTP $code)"; exit 0; fi
           sleep 1
         done
-        echo "Le site ne répond pas" >&2
+        echo "ECHEC : le site ne repond pas (voir /tmp/serveur.log)" | tee -a /tmp/echecs.txt
         tail -20 /tmp/serveur.log >&2
-        exit 1
+        exit 0
 
     - name: Recette avec les vraies machines
       shell: bash
@@ -227,6 +253,11 @@ runs:
             echo 'Le run est en echec. Ce qui a échoué, nommément :'
             echo ''
             sed 's/^/  - /' /tmp/echecs.txt
+          elif [ -n "${GITHUB_ACTION:-}" ]; then
+            # Aucun echec enregistre : c'est suspect si une etape amont a
+            # echoue sans passer par le registre. On le dit au lieu de
+            # laisser croire que tout va bien.
+            echo 'Aucun echec enregistre par les mesures.'
           else
             echo 'Toutes les mesures sont passées.'
           fi
@@ -237,6 +268,13 @@ runs:
         # toujours : chaque ligne en echec est donc remontee ici, une par
         # annotation. C'est le seul canal que le proprietaire du depot et
         # l'assistant peuvent relire apres coup.
+        if [ ! -s /tmp/echecs.txt ]; then
+          # Silence dangereux : le job est en echec mais aucune etape n'a
+          # rien enregistre. C'est arrive le 5 novembre (registre cree trop
+          # tard) : on le signale au lieu de laisser un run rouge muet.
+          echo "::warning title=Registre vide::le run est en echec mais aucune mesure n'a enregistre de cause — voir les etapes amont."
+        fi
+
         if [ -s /tmp/echecs.txt ]; then
           echo "::error title=Run de mesure en echec::$(paste -sd ' | ' /tmp/echecs.txt)"
 
