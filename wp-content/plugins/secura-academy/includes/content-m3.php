@@ -1557,6 +1557,10 @@ array(
 				'workdir' => '/home/ctf',
 				'target' => 'binaire vulnerable : /home/ctf/vulnerable',
 				'ttl' => 3600,
+				/* Cette room enseigne le setuid : sans cette exception,
+				   « no-new-privileges » annule le bit et le scenario devient
+				   impossible. Toutes les autres limites restent en place. */
+				'allow_setuid' => 1,
 				'allow' => array( 'ls', 'cat', 'file', 'checksec', 'gdb', 'python3', 'gcc', 'strings' ),
 			),
 			'tasks' => array(
@@ -1684,9 +1688,8 @@ array(
 					),
 					array(
 						'match' => array( 'cat /root/flag.txt', '/cat .*flag\\.txt/' ),
-						'output' => 'FLAG=SECURA{buffer_overflow}
-',
-						'hint' => 'Une fois le shell root obtenu, le drapeau est dans /root/.',
+						'output' => "cat: /root/flag.txt: Permission denied\n",
+						'hint' => 'Sans shell root, /root reste ferme. Le drapeau ne vient qu\'apres le debordement.',
 					),
 				),
 			),

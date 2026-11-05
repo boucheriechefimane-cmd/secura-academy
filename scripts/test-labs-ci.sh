@@ -414,8 +414,14 @@ fi
 # --- La machine « bin-01 » (scénario 9).
 CONT_BIN="seca_test_bin_$$"
 
+# Pas de « no-new-privileges » ici, et ce n'est pas un relâchement : cette
+# room enseigne justement le setuid (voir « allow_setuid » dans son
+# manifeste). Avec cette option, le noyau annule le bit et le scénario
+# devient impossible — c'est précisément ce que le premier test révélait.
+# Toutes les autres limites restent : pas de capacité, réseau fermé,
+# mémoire, pids, /tmp nosuid.
 if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
-	--cap-drop ALL --security-opt no-new-privileges --pids-limit 256 \
+	--cap-drop ALL --pids-limit 256 \
 	--memory 512m --cpus 1.0 --tmpfs /tmp:rw,noexec,nosuid,size=32m \
 	--user 1000:1000 -w /home/ctf securalabs/bin-01:1.0 sleep infinity >/dev/null 2>&1; then
 	attendre 4
@@ -424,6 +430,15 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 		test_ok "scénario 9 : le binaire est bien setuid root (le shell obtenu sera root)"
 	else
 		test_ko "scénario 9 : le binaire n'est pas setuid root" "docker exec $CONT_BIN ls -l /home/ctf/vulnerable"
+	fi
+
+	# Le drapeau ne doit pas tomber sans exploitation : c'est le second
+	# défaut trouvé le 5 novembre (le même contenu traînait dans les
+	# documents de la machine).
+	if docker exec "$CONT_BIN" grep -rq 'buffer_overflow' /home/ctf 2>/dev/null; then
+		test_ko "scénario 9 : le drapeau traîne en clair dans /home/ctf (aucune exploitation requise)"
+	else
+		test_ok "scénario 9 : le drapeau n'est pas en clair dans les documents de la machine"
 	fi
 
 	if docker exec "$CONT_BIN" cat /root/flag.txt >/dev/null 2>&1; then

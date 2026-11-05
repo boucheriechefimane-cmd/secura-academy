@@ -53,6 +53,8 @@ RUN groupadd -g 1000 ctf \
 WORKDIR /home/ctf
 
 COPY src/ /home/ctf/src/
+# Le drapeau 'externe' (celui que lit le serveur en root pour comparer la
+# reponse) reste dans /root, illisible par l'apprenant.
 COPY flag/flag.txt /root/flag.txt
 COPY notes/notes.txt /home/ctf/notes.txt
 
@@ -66,7 +68,12 @@ RUN cd /home/ctf/src \
     # Le binaire est setuid root : c'est le point pedagogique du scenario.
     # Le chown recursif doit donc avoir lieu AVANT (sinon il efface root).
     && chown root:root /home/ctf/vulnerable \
-    && chmod 4755 /home/ctf/vulnerable
+    && chmod 4755 /home/ctf/vulnerable \
+    # Le drapeau DU LAB, lui, est place dans /root/flag.txt (le meme
+    # fichier) : l'apprenant ne peut donc le lire qu'a travers le shell
+    # root obtenu par le debordement. Avant, le meme contenu trainait
+    # aussi en clair dans les documents de la machine : le drapeau se
+    # trouvait en « catant » un fichier, sans aucune exploitation.
 
 USER ctf
 

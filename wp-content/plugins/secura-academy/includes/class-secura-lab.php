@@ -84,6 +84,7 @@ class Secura_Lab {
 			'ttl'      => self::DEFAULT_TTL,
 			'allow'    => array(),
 			'deny'     => array(),
+			'allow_setuid' => false,
 			'user'     => '1000:1000',
 			'memory'   => '512m',
 			'cpus'     => '1',
@@ -114,6 +115,17 @@ class Secura_Lab {
 
 		$manifest['allow'] = self::string_list( isset( $raw['allow'] ) ? $raw['allow'] : array() );
 		$manifest['deny']  = self::string_list( isset( $raw['deny'] ) ? $raw['deny'] : array() );
+
+		/*
+		 * Certaines rooms enseignent le setuid (débordement de tampon dans un
+		 * programme setuid root). Or « no-new-privileges » annule précisément
+		 * l'effet du bit setuid : le shell s'ouvrait, mais en tant que simple
+		 * utilisateur, et le scénario devenait impossible. Le manifeste peut
+		 * donc demander explicitement cette exception ; elle reste fermée par
+		 * défaut, et le conteneur garde toutes ses autres limites (cap-drop
+		 * ALL, réseau fermé, mémoire, pids, /tmp nosuid).
+		 */
+		$manifest['allow_setuid'] = ! empty( $raw['allow_setuid'] );
 
 		/* Un lab sans image ni compose ne peut pas démarrer : on le désactive. */
 		if ( 'single' === $manifest['mode'] && '' === $manifest['image'] ) {
@@ -993,8 +1005,6 @@ class Secura_Lab {
 			$manifest['user'],
 			'--cap-drop',
 			'ALL',
-			'--security-opt',
-			'no-new-privileges',
 			'--pids-limit',
 			(string) $manifest['pids'],
 			'--memory',
@@ -1009,6 +1019,17 @@ class Secura_Lab {
 			$manifest['workdir'],
 			$manifest['image'],
 		);
+
+		/*
+		 * « no-new-privileges » interdit d'acquérir de nouveaux privilèges :
+		 * il neutralise le bit setuid. On le garde partout, sauf pour les
+		 * rares rooms qui enseignent justement le setuid (voir
+		 * « allow_setuid » dans le manifeste).
+		 */
+		if ( empty( $manifest['allow_setuid'] ) ) {
+			$line[] = '--security-opt';
+			$line[] = 'no-new-privileges';
+		}
 
 		/* La commande du manifeste est une chaine (« sleep infinity ») :
 		   Docker attend une liste d'arguments, sinon le conteneur
