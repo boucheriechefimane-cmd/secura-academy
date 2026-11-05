@@ -9,7 +9,7 @@
 #   SECA_WP_DIR=/chemin/vers/wordpress bash scripts/audit/run-audits.sh
 #
 # Le script sort avec le code 1 si un seul audit trouve un constat de
-# fond (bloquant OU majeur) : c'est la barrière automatique. Avant le
+# fond (bloquant OU majeur), même sans preuve : c'est la barrière automatique. Avant le
 # 01/11/2026, seul le « bloquant » bloquait — un défaut réel de gravité
 # « majeur » passait en silence alors que la plateforme était déclarée
 # conforme. Les niveaux « mineur » et « info » restent informatifs.
@@ -58,10 +58,10 @@ echo ""
 echo "============================================================"
 
 if [ "$CONSTATS" -gt 0 ]; then
-	echo " $CONSTATS audit(s) ont trouvé un constat de fond (bloquant ou majeur)."
+	echo " $CONSTATS audit(s) en échec : constat de fond ou contrôle grave non étayé."
 	echo " La plateforme ne peut pas être déclarée conforme : corriger, puis relancer."
 else
-	echo " Aucun constat de fond : la plateforme peut passer en ligne."
+	echo " Aucun échec bloquant ou majeur. Lire aussi les rapports et leurs limites."
 fi
 
 echo "============================================================"

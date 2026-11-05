@@ -57,6 +57,9 @@ jobs:
       - name: Exécuter les tests de logique serveur
         run: php tests/smoke-test.php
 
+      - name: Tester la barrière et les rapports d'audit
+        run: php tests/audit-test.php
+
       - name: Tester la chaîne d'import des questions
         run: python3 tests/import-test.py
 

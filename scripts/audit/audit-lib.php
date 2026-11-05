@@ -26,8 +26,8 @@
  *   mineur    — à planifier ;
  *   info      — remarque, piste d'amélioration.
  *
- * Le script sort avec le code 1 si (et seulement si) il y a un constat
- * bloquant : la CI peut donc servir de barrière automatique.
+ * La barrière échoue pour un échec bloquant ou majeur, même si la preuve
+ * manque : un audit incomplet ne doit jamais passer au vert par défaut.
  *
  * @package Secura_Academy
  */
@@ -44,6 +44,7 @@ $GLOBALS['seca_audit'] = array(
 	'expert'    => '',
 	'perimetre' => '',
 	'constats'  => array(),
+	'constats_non_etayes' => array(),
 	'forces'    => array(),
 	'scenarios' => array(),
 	'ok'        => 0,
@@ -124,7 +125,7 @@ function audit_verifier( $libelle, $condition, $detail = '', $gravite = 'mineur'
 	$etaye = ( '' !== trim( (string) $preuve ) );
 
 	if ( ! $etaye ) {
-		$GLOBALS['seca_audit']['constats'][] = array(
+		$GLOBALS['seca_audit']['constats_non_etayes'][] = array(
 			'libelle' => $libelle,
 			'detail'  => $detail,
 			'gravite' => $gravite,
@@ -236,10 +237,64 @@ function audit_scenario( $nom, $resultat, $sortie = '' ) {
 }
 
 /**
- * Termine l'audit : écrit le rapport et renvoie le code de sortie.
+ * Nombre d'échecs sans preuve dont la gravité annoncée bloque la CI.
+ *
+ * Ils ne sont pas présentés comme des constats établis : ils indiquent
+ * qu'un contrôle important a échoué sans que l'audit puisse le prouver.
+ *
+ * @param array $a État de l'audit.
+ * @return int
+ */
+function audit_non_etayes_graves( $a ) {
+	$nombre = 0;
+
+	foreach ( isset( $a['constats_non_etayes'] ) ? $a['constats_non_etayes'] : array() as $constat ) {
+		if ( in_array( $constat['gravite'], array( 'bloquant', 'majeur' ), true ) ) {
+			$nombre++;
+		}
+	}
+
+	return $nombre;
+}
+
+/**
+ * Détermine l'état de la barrière, y compris les contrôles incomplets.
+ *
+ * @param array $a État de l'audit.
+ * @return bool
+ */
+function audit_barriere_bloquee( $a ) {
+	return $a['bloquant'] > 0 || $a['majeur'] > 0 || audit_non_etayes_graves( $a ) > 0;
+}
+
+/**
+ * Libellé et explication communs aux rapports HTML et Markdown.
+ *
+ * @param array $a État de l'audit.
+ * @return array
+ */
+function audit_verdict( $a ) {
+	if ( $a['bloquant'] > 0 ) {
+		return array( 'libelle' => 'Non conforme', 'phrase' => $a['bloquant'] . ' constat(s) bloquant(s) : correction exigée avant mise en ligne.', 'couleur' => '#b3261e' );
+	}
+	if ( $a['majeur'] > 0 ) {
+		return array( 'libelle' => 'Réserves', 'phrase' => $a['majeur'] . ' constat(s) majeur(s) à traiter avant la prochaine version.', 'couleur' => '#9a5b00' );
+	}
+	if ( ! empty( $a['constats_non_etayes'] ) ) {
+		return array( 'libelle' => 'Audit incomplet', 'phrase' => 'Des contrôles ont échoué sans preuve ; leur résultat doit être vérifié.', 'couleur' => '#9a5b00' );
+	}
+	if ( empty( $a['constats'] ) ) {
+		return array( 'libelle' => 'Conforme', 'phrase' => 'Aucun constat.', 'couleur' => '#1b7f4b' );
+	}
+
+	return array( 'libelle' => 'Conforme avec observations', 'phrase' => 'Aucun constat bloquant ni majeur.', 'couleur' => '#1b7f4b' );
+}
+
+/**
+ * Termine l'audit : écrit les rapports et termine avec le code de sortie.
  *
  * @param string $dossier Dossier de sortie (docs/audits).
- * @return int
+ * @return void
  */
 function audit_fin( $dossier = null ) {
 	$a = $GLOBALS['seca_audit'];
@@ -256,17 +311,20 @@ function audit_fin( $dossier = null ) {
 
 	$nom = $a['domaine'] . '-' . gmdate( 'Y-m-d', $a['debut'] );
 
-	/* Le rapport Markdown : la même forme pour les cinq auditeurs. */
+	$verdict = audit_verdict( $a );
+	$non_etayes_graves = audit_non_etayes_graves( $a );
+
+	/* Le rapport Markdown distingue les constats prouvés des échecs à étayer. */
 	$markdown  = "# " . $a['titre'] . "\n\n";
 	$markdown .= "- **Date** : " . gmdate( 'd/m/Y H:i', $a['debut'] ) . " UTC\n";
 	$markdown .= "- **Auditeur** : " . $a['domaine'] . "\n";
 	$markdown .= "- **Contrôles réussis** : " . $a['ok'] . "\n";
-	$markdown .= "- **Constats** : " . $a['bloquant'] . " bloquant(s), " . $a['majeur'] . " majeur(s), "
-		. $a['mineur'] . " mineur(s), " . $a['info'] . " info(s)\n\n";
+	$markdown .= "- **Constats retenus** : " . $a['bloquant'] . " bloquant(s), " . $a['majeur'] . " majeur(s), "
+		. $a['mineur'] . " mineur(s), " . $a['info'] . " info(s)\n";
+	$markdown .= "- **Échecs non étayés** : " . $a['non_etaye'] . "\n";
+	$markdown .= "- **Barrière** : " . ( audit_barriere_bloquee( $a ) ? 'échec' : 'réussite' ) . "\n\n";
 
-	if ( empty( $a['constats'] ) ) {
-		$markdown .= "## Verdict\n\n**Conforme.** Aucun constat.\n";
-	} else {
+	if ( ! empty( $a['constats'] ) ) {
 		$markdown .= "## Constats\n\n";
 
 		foreach ( array( 'bloquant', 'majeur', 'mineur', 'info' ) as $niveau ) {
@@ -283,29 +341,33 @@ function audit_fin( $dossier = null ) {
 			}
 
 			$markdown .= "### " . ucfirst( $niveau ) . " (" . count( $du_niveau ) . ")\n\n";
-
 			foreach ( $du_niveau as $constat ) {
 				$markdown .= "- **" . $constat['libelle'] . "**";
-
 				if ( '' !== $constat['detail'] ) {
 					$markdown .= " — " . $constat['detail'];
 				}
-
 				$markdown .= "\n";
 			}
-
 			$markdown .= "\n";
 		}
+	}
 
-		$markdown .= "## Verdict\n\n";
-
-		if ( $a['bloquant'] > 0 ) {
-			$markdown .= "**Non conforme.** " . $a['bloquant'] . " constat(s) bloquant(s) : correction exigée avant mise en ligne.\n";
-		} elseif ( $a['majeur'] > 0 ) {
-			$markdown .= "**Réserves.** " . $a['majeur'] . " constat(s) majeur(s) à traiter avant la prochaine version.\n";
-		} else {
-			$markdown .= "**Conforme avec observations.** Aucun constat bloquant ni majeur.\n";
+	if ( ! empty( $a['constats_non_etayes'] ) ) {
+		$markdown .= "## Échecs non étayés (" . count( $a['constats_non_etayes'] ) . ")\n\n";
+		$markdown .= "Ces contrôles ont échoué mais ne constituent pas des constats établis sans preuve.\n\n";
+		foreach ( $a['constats_non_etayes'] as $constat ) {
+			$markdown .= "- **" . $constat['libelle'] . "** (gravité annoncée : " . $constat['gravite'] . ")";
+			if ( '' !== $constat['detail'] ) {
+				$markdown .= " — " . $constat['detail'];
+			}
+			$markdown .= "\n";
 		}
+		$markdown .= "\n";
+	}
+
+	$markdown .= "## Verdict\n\n**" . $verdict['libelle'] . ".** " . $verdict['phrase'] . "\n";
+	if ( $non_etayes_graves > 0 ) {
+		$markdown .= "\nLa barrière échoue : " . $non_etayes_graves . " contrôle(s) bloquant(s) ou majeur(s) sont non étayés.\n";
 	}
 
 	file_put_contents( $dossier . '/' . $nom . '.md', $markdown );
@@ -323,7 +385,9 @@ function audit_fin( $dossier = null ) {
 				'perimetre' => $a['perimetre'],
 				'date'      => gmdate( 'c', $a['debut'] ),
 				'ok'        => $a['ok'],
-				'non_etaye' => isset( $a['non_etaye'] ) ? $a['non_etaye'] : 0,
+				'non_etaye' => $a['non_etaye'],
+				'barriere_bloquee' => audit_barriere_bloquee( $a ),
+				'constats_non_etayes' => $a['constats_non_etayes'],
 				'forces'    => $a['forces'],
 				'scenarios' => $a['scenarios'],
 				'bloquant' => $a['bloquant'],
@@ -337,35 +401,22 @@ function audit_fin( $dossier = null ) {
 	);
 
 	printf(
-		"\n%s : %d contrôle(s) réussi(s) — %d bloquant, %d majeur, %d mineur, %d info\n",
+		"\n%s : %d contrôle(s) réussi(s) — %d bloquant, %d majeur, %d mineur, %d info, %d non étayé(s)\n",
 		$a['domaine'],
 		$a['ok'],
 		$a['bloquant'],
 		$a['majeur'],
 		$a['mineur'],
-		$a['info']
+		$a['info'],
+		$a['non_etaye']
 	);
 
 	printf( "Rapport : docs/audits/%s.html\n", $nom );
 
-	/* IMPORTANT
-	   On termine par exit() et non par return : quand un script est
-	   lancé par « wp eval-file », la valeur renvoyée par return est
-	   IGNORÉE par WP-CLI, et le code de sortie reste 0. La barrière
-	   (run-audits.sh) repose pourtant sur ce code de sortie : sans
-	   exit(), un constat bloquant ne bloquerait rien.
-	   Vérifié le 01/11/2026 : « wp eval-file » avec « return 3 »
-	   sort avec le code 0 ; avec « exit(7) » il sort avec le code 7.
-
-	   La barrière bloque sur un constat BLOQUANT **et** sur un constat
-	   MAJEUR. Avant, seul le bloquant arrêtait la CI : un défaut réel
-	   de gravité « majeur » (le saut de titre h1 → h3 de la room
-	   « Kahoot », livré en v0.8.3) était passé en silence, et la
-	   plateforme pouvait être déclarée « conforme » avec lui. L'objectif
-	   du comité est « zéro constat » : la CI doit donc rougir dès
-	   qu'un constat de fond existe. Les niveaux « mineur » et « info »
-	   restent informatifs. */
-	exit( ( $a['bloquant'] > 0 || $a['majeur'] > 0 ) ? 1 : 0 );
+	/* WP-CLI ignore un return de eval-file : exit est indispensable pour
+	   transmettre le résultat au lanceur et à la CI. Un échec grave non
+	   étayé bloque aussi, sans être compté comme constat prouvé. */
+	exit( audit_barriere_bloquee( $a ) ? 1 : 0 );
 }
 
 /**
