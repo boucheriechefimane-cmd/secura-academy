@@ -1005,31 +1005,42 @@ class Secura_Lab {
 			$manifest['user'],
 			'--cap-drop',
 			'ALL',
-			'--pids-limit',
-			(string) $manifest['pids'],
-			'--memory',
-			$manifest['memory'],
-			'--cpus',
-			$manifest['cpus'],
-			'--tmpfs',
-			'/tmp:rw,noexec,nosuid,size=32m',
-			'--network',
-			self::network_name( $user_id, $room_id, $manifest ),
-			'-w',
-			$manifest['workdir'],
-			$manifest['image'],
 		);
 
 		/*
-		 * « no-new-privileges » interdit d'acquérir de nouveaux privilèges :
+		 * « no-new-privileges » interdit d'acquerir de nouveaux privileges :
 		 * il neutralise le bit setuid. On le garde partout, sauf pour les
 		 * rares rooms qui enseignent justement le setuid (voir
 		 * « allow_setuid » dans le manifeste).
+		 *
+		 * ATTENTION : cette option doit etre placee AVANT le nom de
+		 * l'image. Placee apres, Docker la traite comme la commande du
+		 * conteneur : il cherche un programme nomme « no-new-privileges »
+		 * et le conteneur s'arrete aussitot (« is not running »).
 		 */
 		if ( empty( $manifest['allow_setuid'] ) ) {
 			$line[] = '--security-opt';
 			$line[] = 'no-new-privileges';
 		}
+
+		$line = array_merge(
+			$line,
+			array(
+				'--pids-limit',
+				(string) $manifest['pids'],
+				'--memory',
+				$manifest['memory'],
+				'--cpus',
+				$manifest['cpus'],
+				'--tmpfs',
+				'/tmp:rw,noexec,nosuid,size=32m',
+				'--network',
+				self::network_name( $user_id, $room_id, $manifest ),
+				'-w',
+				$manifest['workdir'],
+				$manifest['image'],
+			)
+		);
 
 		/* La commande du manifeste est une chaine (« sleep infinity ») :
 		   Docker attend une liste d'arguments, sinon le conteneur

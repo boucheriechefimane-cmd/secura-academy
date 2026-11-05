@@ -53,6 +53,9 @@ runs:
         # Docker, mais ici elle tombe au milieu d'un run de vingt minutes
         # qui a deja construit neuf images. Ce controle prend une seconde.
         python3 tools/recette-apprenants/verifier-dockerfiles.py
+        # Et la commande que le plugin construit : une option placee apres
+        # l'image devient la commande du conteneur, qui s'arrete aussitot.
+        php tools/recette-apprenants/verifier-commandes-docker.php
 
     - name: Préparer le registre des échecs
       shell: bash
