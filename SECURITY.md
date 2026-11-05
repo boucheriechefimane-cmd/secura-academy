@@ -33,4 +33,6 @@ Ne testez que des environnements que vous contrôlez ou pour lesquels vous avez
 une autorisation explicite. Ne lancez pas les labs vulnérables sur Internet ;
 utilisez une infrastructure isolée et des données fictives. Les dossiers de
 prototypes du ZIP ne sont pas validés pour la production : voir
-[`labs/README.md`](labs/README.md).
+[`labs/README.md`](labs/README.md). Les prototypes d’examen et de certificat
+du ZIP sont également non chargés ; voir
+[`EXPERIMENTAL-ZIP.md`](wp-content/plugins/secura-academy/includes/EXPERIMENTAL-ZIP.md).

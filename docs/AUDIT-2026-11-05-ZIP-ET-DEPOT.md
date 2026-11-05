@@ -4,7 +4,13 @@
 **Périmètre :** le ZIP livré sur Google Drive (1 648 fichiers, 10,2 Mo, modifié le 04/11/2026 à 23:49) — `sources/`, `handoff/`, `livrables/` et `docs/audits/` (159 rapports) — et le dépôt `boucheriechefimane-cmd/secura-academy` (branche `main`, commit `da510ef`).
 **Méthode :** lecture des 18 auditeurs et de leurs rapports, comparaison fichier par fichier ZIP ↔ dépôt, revue statique du code PHP/Docker/CI, **exécution réelle** des deux suites de tests dans un interpréteur PHP compilé en WebAssembly (`php-wasm`), analyse de l'historique des workflows GitHub.
 
-> Ce rapport ne remplace pas les 18 audits : il les audite. Il dit ce qui tient, ce qui ne tient pas, et pourquoi.
+> Ce rapport décrit l'état observé lors de l'audit initial, avant la fusion sélective.
+> Des erreurs factuelles ont été corrigées après une revue plus approfondie : les
+> quatre classes du ZIP sont des prototypes non chargés, les quatre dossiers
+> supplémentaires de labs sont des copies, et le décompte initial des drapeaux
+> était erroné. L'état après intervention et les limites des tests figurent dans
+> [`FUSION-ZIP-2026-11-05.md`](FUSION-ZIP-2026-11-05.md). Les campagnes
+> d'audit historiques restent inchangées.
 
 ---
 
@@ -14,7 +20,7 @@
 
 | # | Constat | Gravité |
 |---|---|---|
-| 1 | **Le ZIP est en avance sur GitHub** : 5 classes PHP neuves (1 194 lignes : certificats, examens chronométrés, fronts), 4 machines Docker, 159 rapports d'audit, 2 sondes d'audit et une roadmap n'existent **que** dans le ZIP | Bloquant pour la traçabilité |
+| 1 | **Le ZIP diffère de GitHub** : 4 classes PHP neuves (1 194 lignes : certificats, examens chronométrés, fronts), 4 dossiers de labs supplémentaires, 54 rapports supplémentaires, 2 sondes d'audit et une roadmap n'existaient **que** dans le ZIP. Les classes et labs supplémentaires ne sont pas validés | Bloquant pour la traçabilité |
 | 2 | **Même numéro de version (0.12.7) pour deux codes différents** — impossible de savoir ce qui est déployé | Majeur |
 | 3 | **La CI ne démarre plus** : les 5 workflows déclenchés sur `push` échouent en **3 à 10 secondes**, sans exécuter une seule étape (quota du compte) | Majeur |
 | 4 | **Le harnais d'audit se contredit** : des constats « bloquants » apparaissent dans le rapport sans être comptés, donc **sans faire échouer la barrière** | Majeur |
@@ -22,7 +28,7 @@
 | 6 | **Deux constats de fond réels** : licences vidéo (16 vidéos en « YouTube Standard License », 16 sans institution) et 52 objets JSON-LD qui déclarent un titre anglais absent du texte visible | Majeur |
 | 7 | **Le code neuf n'est pas testé** : `tests/smoke-test.php` est identique dans le ZIP et dans le dépôt — les 1 194 nouvelles lignes ne sont couvertes par aucune assertion | Majeur |
 | 8 | **Pas de `LICENSE`, ni `SECURITY.md`, ni `CONTRIBUTING.md`** dans un dépôt public qui enseigne la cybersécurité et le droit d'auteur | Majeur |
-| 9 | **La documentation dérive du code** : README annonce 250 assertions (réel : 331), 6 rooms (réel : 52), « pas de vrais labs » (réel : 11 machines Docker) | Mineur |
+| 9 | **La documentation dérive du code** : README annonce 250 assertions (réel : 331), 6 rooms (réel : 52), « pas de vrais labs » (le ZIP contient 11 Dockerfiles, dont des copies non validées) | Mineur |
 | 10 | **Deux « constitutions » concurrentes** : `docs/ROADMAP.md` (1 021 lignes) et `ROADMAP-QUALITE-PREMIUM-ANGLAIS.md` (187 lignes) qui se déclare elle aussi « la constitution » | Mineur |
 
 **Ce qui est solide, et qu'il faut dire aussi :** 132 fichiers PHP sans une seule erreur de syntaxe ; 11 endpoints AJAX tous protégés (nonce + session) ; aucune requête SQL non préparée ; exécution Docker par `proc_open` en forme tableau (jamais de shell) ; durcissement des conteneurs réel (`cap_drop: ALL`, `no-new-privileges`, `pids_limit`, `mem_limit`, réseau `internal`) ; aucun secret en clair ; et un harnais de test de **331 assertions** qui tourne sans WordPress.
@@ -50,7 +56,7 @@
 | Dernier `push` GitHub | 04/11/2026 17:10 UTC |
 | Date du ZIP | 04/11/2026 23:49 UTC — **6 h 40 après le dernier push** |
 
-### 2.3 Les cinq classes qui n'existent pas sur GitHub
+### 2.3 Les quatre classes absentes de `main` lors de l'audit initial
 
 C'est le point le plus important du rapport.
 
@@ -62,11 +68,9 @@ C'est le point le plus important du rapport.
 | `includes/class-secura-lab-front.php` | 129 | Bouton de déploiement du lab côté élève |
 | `js/exam-front.js`, `js/lab-front.js` | — | Front de l'examen et du lab |
 
-Ces classes sont **chargées par le plugin** (`secura-academy.php`, lignes 488-491), et **aucune n'est chargée par le harnais de test** (`grep require_once` dans `tests/smoke-test.php` : néant). Soit 1 194 lignes actives, non versionnées sur GitHub, non couvertes par les 331 assertions.
+Dans le ZIP, ces classes étaient chargées par le plugin, mais aucune n'était chargée par le harnais de test. Une revue ultérieure a trouvé des défauts de contrat AJAX, d'exposition des réponses et de protection des certificats. Les 1 194 lignes sont conservées pour revue mais **ne sont pas chargées** dans la fusion ; elles ne doivent pas être considérées comme une fonctionnalité prête à l'emploi. Voir `wp-content/plugins/secura-academy/includes/EXPERIMENTAL-ZIP.md`.
 
-Elles correspondent aux phases 5 de la roadmap (examens chronométrés, médaille + certificat). **Le travail est fait — il n'est simplement pas poussé.**
-
-### 2.4 Les quatre machines Docker manquantes dans le dépôt
+### 2.4 Les quatre dossiers de labs absents de `main` lors de l'audit initial
 
 | Machine | Dans le ZIP `sources/labs` | Dans le dépôt |
 |---|---|---|
@@ -76,13 +80,13 @@ Elles correspondent aux phases 5 de la roadmap (examens chronométrés, médaill
 | `web-dvwa` | oui | **non** |
 | Total Dockerfiles | 11 | 7 |
 
-Conséquence concrète : `scripts/build-archives.sh` reconstruit `secura-academy-labs.zip` à partir de `labs/` du dépôt (ligne 45 : `cp -r "$REPO_DIR/labs/."`). **Relancer la fabrication des archives depuis le dépôt produirait un livrable amputé de 4 machines**, dont les 3 machines Blue Team de la roadmap. Le livrable actuel est plus complet que la source dont il est censé sortir.
+Une revue des fichiers a montré que `web-dvwa`, `secura-lab-blue-firewall` et `secura-lab-blue-log-analysis` sont des copies de `multi-01` ; `secura-lab-buffer-overflow` copie `bin-01`. Ces dossiers n'attestent donc pas l'existence de quatre nouveaux scénarios fonctionnels. Ils sont conservés avec avertissement, sans nouveau mapping ni validation Docker.
 
 ### 2.5 Le reste de l'écart
 
 - **54 rapports d'audit** du 04/11 (18 catégories × 3 formats) : le dépôt s'arrête au 02/11 (105 fichiers). Les preuves de la dernière campagne n'ont jamais été archivées.
 - **2 sondes d'audit** neuves : `scripts/audit/probe-contenu.php`, `scripts/audit/mesure-contenu.php`.
-- **301 fichiers de contenu des labs** (flags, notes, sources) : gitignorés à dessein (`labs/**/flag.txt`), donc l'absence est normale — mais elle rend le dépôt inutilisable pour reconstruire les labs à l'identique.
+- **Correction du décompte des fichiers de labs :** le chiffre initial « 301 fichiers gitignorés à dessein » n'était pas étayé. Lors de la fusion, 520 drapeaux copiés en double ont été retirés ; les drapeaux pédagogiques suivis nécessaires aux scénarios historiques ont été conservés. Voir `labs/README.md`.
 - **49 lots de questions** (`tools/lots/*.json`) et **49 fichiers du plugin** (`content-import-*.php`) différents : la campagne de récolte du 04/11 après 17 h.
 - `tools/lots-origine-sauvegarde/`, `tools/lots/cleaned/`, `tools/lots/recovered/` : sauvegardes intermédiaires, absentes du dépôt (souhaitable).
 - `handoff/` : **le dépôt n'a aucune documentation opérationnelle de passation** — ni installation, ni développement, ni contribution, ni release. Le seul document approchant est `docs/PASSATION-SECURA-ARENA.md`.
@@ -168,7 +172,7 @@ Trois preuves convergentes :
 
 | Source | Constat | Pourquoi c'est réel |
 |---|---|---|
-| `licences` (bloquant) | 16 vidéos déclarées « YouTube Standard License » et 16 cas « institution absente » | « YouTube Standard » n'autorise **aucune** réutilisation : à proprement parler, on ne peut pas les intégrer, seulement les citer par lien. Le registre `docs/SOURCES-CONTENU.md` sait le faire — il faut l'appliquer et **retirer l'intégration** de ces 16 vidéos. |
+| `licences` (bloquant) | 16 vidéos déclarées « YouTube Standard License » et 16 cas « institution absente » | Les droits, les conditions YouTube et la possibilité d'intégration doivent être vérifiés au cas par cas. La licence standard ne vaut pas licence générale de republication ; elle ne suffit pas non plus à conclure que tout lecteur intégré est interdit. Documenter l'attribution et suspendre les usages non autorisés. |
 | `donnees-structurees` (majeur) | 52 objets `LearningResource`/`VideoObject` déclarent un titre anglais (« Cyber Security Defense Explained ») qui n'apparaît **pas** dans le texte visible (français) | Les données structurées décrivent un contenu que la page ne montre pas : c'est un écart Google (donnée trompeuse) et un risque de pénalité. Il faut soit localiser le `name`, soit ajouter le titre d'origine visible (ce qui sert aussi l'attribution). |
 | `epreuves` (mineur) | 7 examens ont un réservoir < 5× la taille de l'épreuve | Réel, mesuré sur les données : les copies se ressemblent trop sur ces 7 examens. |
 | `contenu` (info) | 639 questions importées, dont **33 de type « solution »** (l'élève rédige, la correction officielle s'affiche) | Réel et assumé. À vérifier : ces 33 questions ne doivent pas être notées automatiquement. |
@@ -193,7 +197,7 @@ Trois preuves convergentes :
 | Élément | Mesure |
 |---|---|
 | Code PHP | 56 970 lignes, 132 fichiers |
-| Plugin | 20 classes + 45 fichiers `content-import-*.php` (2,9 Mo de contenu en PHP) |
+| Plugin | 17 fichiers `class-*.php` + 49 fichiers `content-import-*.php` (environ 2,9 Mo de contenu en PHP) |
 | Thème | 13 fichiers, `header/footer/functions` + gabarits `secura_room`, `secura_path` |
 | Labs | 9 dossiers, 7 Dockerfiles, 3 `docker-compose.yml` |
 | Outils | 61 fichiers Python (récolte OCW, imports, criblage) |
@@ -229,7 +233,7 @@ Trois preuves convergentes :
 
 **Ce que cela dit des 4 échecs du 04/11 :** ils appartiennent très probablement à la même famille — les assertions qui **lancent réellement un processus** et dépendent de l'environnement (`HOME`, `DOCKER_HOST`, disponibilité du démon). Autrement dit : des tests fragiles, pas des bugs produit. **Mais rien ne le prouve** tant que la CI ne tourne pas. C'est le premier chantier.
 
-**Ce qui n'est pas testé du tout :** les 1 194 lignes neuves (certificats, examens chronométrés, fronts), et les 11 machines Docker (couvertes par `scripts/test-labs-ci.sh`, 45 contrôles — mais dans un workflow qui ne démarre plus).
+**Ce qui n'avait pas été testé lors de l'audit initial :** les 1 194 lignes neuves (désormais non chargées), ni les conteneurs Docker. `scripts/test-labs-ci.sh` vérifie sept images historiques ; il ne valide pas les quatre dossiers supplémentaires du ZIP.
 
 ### 4.4 CI/CD
 
@@ -249,7 +253,7 @@ Bonne pratique déjà en place : `permissions: contents: read` sur les 8 workflo
 
 | Manque | Impact |
 |---|---|
-| **Pas de `LICENSE`** | Dépôt public, contenu sous CC BY-NC-SA 4.0 et contenus tiers : sans fichier de licence, le régime par défaut est « tous droits réservés ». Incohérent avec un projet qui passe son temps à vérifier les licences des autres. |
+| **Pas de `LICENSE`** | Le plugin annonçait déjà MIT dans son en-tête ; le texte complet et le périmètre des licences manquaient à la racine. Le thème et les contenus tiers conservent leurs propres conditions. |
 | **Pas de `SECURITY.md`** | Aucun canal de signalement de vulnérabilité, pour une plateforme qui enseigne la sécurité. |
 | **Pas de `CONTRIBUTING.md`**, ni `CHANGELOG.md`, ni `.editorconfig`, ni `composer.json`/`phpcs.xml` | Le ZIP livre `handoff/CONTRIBUTING.md` et `handoff/DEVELOPMENT.md` : **la doc existe, elle n'est pas dans le dépôt**. |
 | **Pas de version unique** | 0.12.7 dans le dépôt **et** 0.12.7 dans le ZIP, pour deux codes différents. Un `VERSION` + tag Git + `SECURA_ACADEMY_VERSION` dérivé résoudrait le problème. |
@@ -260,7 +264,7 @@ Bonne pratique déjà en place : `permissions: contents: read` sur les 8 workflo
 |---|---|---|
 | « vérifie **250 assertions** » (ligne 591) | 331 | −81 |
 | « **6 rooms** sont livrées » (ligne 934) | 52 (`tools/rooms-connues.json`) | × 8,7 |
-| « **Pas de vrais labs** … aucun conteneur ni machine n'est exécuté » (ligne 931) | 11 machines Docker, 3 `docker-compose`, moteur à deux pilotes | affirmation fausse depuis M1 |
+| « **Pas de vrais labs** … aucun conteneur ni machine n'est exécuté » (ligne 931) | moteur à deux pilotes et recettes Docker ; le ZIP contient 11 Dockerfiles, dont quatre dossiers copiés | affirmation à actualiser sans assimiler des copies à de nouveaux labs |
 | « le nom de projet Docker Compose est encore fixe … à corriger avant l'ouverture publique » (ligne 956) | corrigé et testé (`project_name()`, 6 assertions) | limitation périmée |
 | `handoff/README-DEVELOPPEUR` : « les **16 labs** (8 Red + 8 Blue) » | 13 dossiers, 11 Dockerfiles | −3 à −5 |
 
@@ -286,13 +290,13 @@ Ce n'est pas cosmétique : ce README est la seule porte d'entrée du dépôt. Un
 | **Baseline « 8 / 20 » introuvable** | Aucun des 18 rapports ne produit de note sur 20. Le score d'arrivée (« au moins 16 / 20 ») n'est donc ni mesurable ni vérifiable. Il faut soit une grille de notation explicite, soit renoncer au chiffre et garder les 8 critères binaires (qui, eux, sont bons). |
 | **Chiffres incohérents entre documents** | Questions à traduire : **1 777** (roadmap) / **1 891** (réservoir) / **2 283** (audit `epreuves`, mesuré) / **639** importées auditées / **392** maison. Quatre comptages pour un même corpus : personne ne peut suivre l'avancement. |
 | **16 labs annoncés, 11 Dockerfiles, 13 dossiers** | Le décompte « 8 Red + 8 Blue » ne correspond à rien de mesurable aujourd'hui. |
-| **Phase 5 = « À implémenter » sur des points déjà faits** | « HTTPS partout », « isolation des labs », « journaux d'audit », « copies différentes » : l'isolation est faite et testée, les copies différentes sont mesurées à 324 milliards de combinaisons. La roadmap décrit un état ancien. |
+| **Phase 5 = « À implémenter » sur des points déjà faits** | « HTTPS partout », « isolation des labs », « journaux d'audit », « copies différentes » : l'isolation et les variantes ont des tests simulés ; leur comportement réel reste à vérifier sur WordPress et Docker. La roadmap décrit un état ancien. |
 | **Aucune ligne de moyens** | 6 phases, 13 semaines, 52 vidéos, 1 777 QCM anglais relus par un pentester certifié, 1 777 traductions FR + AR, 52 labs… **sans un seul nom, budget, ni tarif de relecture**. Le document dit *quoi* et *quand*, jamais *qui paie*. C'est ce qui fait échouer ce type de plan. |
-| **Le verrou juridique n'est pas traité comme bloquant** | La phase 1 se propose de « vérifier les licences » en une semaine. Or `licences-2026-11-04` est **non conforme** : 16 vidéos en YouTube Standard License, 16 sans institution. Et les licences CC **BY-NC-SA** interdisent tout usage commercial — ce qui est compatible avec « gratuit à jamais », mais interdit une version payante ou un partenariat. À écrire noir sur blanc. |
+| **Le verrou juridique n'est pas traité comme bloquant** | La phase 1 se propose de « vérifier les licences » en une semaine. Or `licences-2026-11-04` est **non conforme** : 16 vidéos en YouTube Standard License, 16 sans institution. Les licences CC **BY-NC-SA** comportent une restriction d'usage commercial ; le caractère gratuit d'un service ne tranche pas à lui seul tous les cas, notamment les partenariats. Vérification par source nécessaire. |
 
 ### 5.3 Ce que la roadmap ne voit pas
 
-1. **Le code n'est pas versionné.** On ne peut pas planifier 13 semaines de contenu premium quand 1 194 lignes et 4 machines vivent hors du dépôt.
+1. **Le code du ZIP n'était pas versionné dans `main`.** Les 1 194 lignes et les quatre dossiers de labs demandaient une revue sélective avant intégration, pas une activation aveugle.
 2. **La CI est morte.** La phase 2 promet « 0 erreur technique bloquante après relecture experte » : sans CI, aucune des 1 777 questions ne sera validée automatiquement à l'import.
 3. **Les 33 questions de type « solution »** (l'élève rédige, la correction s'affiche) ne sont pas des QCM : la roadmap les compte dans « 1 777 QCM anglais ». Elles demandent une notation humaine ou une grille — un chantier non prévu.
 
@@ -304,11 +308,11 @@ Ce n'est pas cosmétique : ce README est la seule porte d'entrée du dépôt. Un
 
 | # | Action | Critère de vérification |
 |---|---|---|
-| 1 | **Pousser le ZIP dans le dépôt** : 5 classes, 4 machines, 54 rapports, 2 sondes, `handoff/`, la roadmap premium | `git diff main..HEAD` = contenu du ZIP ; `bash scripts/build-archives.sh` reproduit les 5 archives **à l'identique** (dont 11 Dockerfiles) |
+| 1 | **Fusionner sélectivement le ZIP** : préserver les fichiers plus récents, isoler les prototypes et écarter les régressions | Décisions documentées ; tests ; cinq archives reconstruisibles et vérifiées, sans exiger une reproduction à l'octet des archives anciennes |
 | 2 | **Rétablir la CI** (facturation/quota) | 5 workflows verts sur un commit de test |
 | 3 | **Corriger `audit_verifier()`** (constats non étayés) | Un test de non-régression : rapport avec constat bloquant non étayé → `run-audits.sh` sort en 1 |
 | 4 | **Trancher les 4 échecs** de `smoke-test.php` | `php tests/smoke-test.php` → 0 échec, ou tests marqués `skip` avec justification |
-| 5 | **Traiter le bloquant licences** : retirer l'intégration des 16 vidéos « YouTube Standard », citer par lien | `licences-*.md` → 0 bloquant |
+| 5 | **Traiter le bloquant licences** : examiner les droits et conditions d'intégration des 16 vidéos signalées et suspendre les usages non autorisés | Décisions sourcées par vidéo et nouvel audit des licences |
 
 ### P1 — ce mois
 
@@ -361,7 +365,7 @@ gh run list --limit 20 ; gh api .../actions/runs/<id>/jobs
 
 **Limites assumées :**
 
-1. **Pas de PHP natif dans mon environnement** : j'ai utilisé `php-wasm` (PHP 8.4). Le projet cible **PHP 7.4** en CI. La syntaxe validée n'est donc pas exactement celle de la cible (PHP 8.4 accepte plus que 7.4). Un `php -l` en 7.4 reste à faire.
+1. **Pas de PHP natif lors de l'audit initial** : j'ai utilisé `php-wasm` (PHP 8.4). Après l'audit, des tests ont été rejoués en PHP natif 8.3 et la syntaxe vérifiée en PHP 7.4 émulé. Les suites dépendant des processus enfants ne sont pas validées en PHP 7.4 natif : voir le [suivi de fusion](FUSION-ZIP-2026-11-05.md).
 2. **Pas de WordPress, pas de MySQL, pas de Docker** : je n'ai pas pu rejouer les 18 audits, ni la recette `wordpress.yml`, ni les 45 contrôles de `test-labs-ci.sh`. Mon jugement sur les rapports du 04/11 est donc une **analyse des rapports**, pas une re-mesure.
 3. **Les 3 échecs de `smoke-test` sont les miens**, pas ceux du projet : je l'ai écrit au § 4.3 et je ne les compte pas comme des défauts.
 4. **Lectures non exhaustives** : je n'ai pas relu les 41 documents du dossier `docs/` ligne à ligne (1,7 Mo), ni les 2 283 questions. Les volumes cités viennent des audits du 04/11 et de `tools/rooms-connues.json`.
@@ -369,4 +373,4 @@ gh run list --limit 20 ; gh api .../actions/runs/<id>/jobs
 
 ---
 
-*Rapport d'audit — 05/11/2026. Toutes les affirmations de ce document sont adossées à une commande, un fichier ou une ligne citée.*
+*Rapport d'audit initial — 05/11/2026, rectifié après revue. Les interprétations et hypothèses restent soumises aux limites indiquées ci-dessus.*
