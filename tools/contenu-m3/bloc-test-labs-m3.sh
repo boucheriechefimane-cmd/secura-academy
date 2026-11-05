@@ -202,6 +202,11 @@ else
 fi
 
 # --- La machine « bin-01 » (scénario 9).
+# Depuis le 6 novembre, ce lab ne repose plus sur setuid : le binaire est
+# ordinaire, le scenario est un detournement de flot d'execution. Ces
+# controles sont volontairement peu nombreux ici : le controle decisif
+# (l'exploit obtient-il le drapeau ?) est dans scripts/test-labs-ci.sh,
+# qui est la reference. Ce bloc verifie seulement l'etat de la machine.
 CONT_BIN="seca_test_bin_$$"
 
 if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
@@ -210,22 +215,22 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 	--user 1000:1000 -w /home/ctf securalabs/bin-01:1.0 sleep infinity >/dev/null 2>&1; then
 	attendre 4
 
-	if docker exec "$CONT_BIN" ls -l /home/ctf/vulnerable 2>/dev/null | grep -q 'rws'; then
-		test_ok "scénario 9 : le binaire est bien setuid root (le shell obtenu sera root)"
+	if docker exec "$CONT_BIN" ls -l /home/ctf/vulnerable 2>/dev/null | grep -q '^[^ ]*rws'; then
+		test_ko "scénario 9 : le binaire porte encore un bit setuid (scénario non portable)"
 	else
-		test_ko "scénario 9 : le binaire n'est pas setuid root" "docker exec $CONT_BIN ls -l /home/ctf/vulnerable"
+		test_ok "scénario 9 : le binaire s'exécute sans aucun privilège particulier"
 	fi
 
-	if docker exec "$CONT_BIN" cat /root/flag.txt >/dev/null 2>&1; then
-		test_ko "scénario 9 : l'apprenant lit le drapeau sans avoir obtenu de shell"
+	if docker exec "$CONT_BIN" grep -q 'SECURA{' /root/flag.txt 2>/dev/null; then
+		test_ko "scénario 9 : le corrigé est lisible en uid 1000"
 	else
-		test_ok "scénario 9 : le drapeau reste protégé tant qu'aucun shell root n'est obtenu"
+		test_ok "scénario 9 : le corrigé du serveur est illisible en uid 1000"
 	fi
 
-	if docker exec -u 0 "$CONT_BIN" cat /root/flag.txt 2>/dev/null | grep -q 'FLAG=SECURA{buffer_overflow}'; then
-		test_ok "scénario 9 : le serveur lit le drapeau du binaire en root"
+	if docker exec -u 0 "$CONT_BIN" grep -q 'FLAG=SECURA{buffer_overflow}' /root/flag.txt 2>/dev/null; then
+		test_ok "scénario 9 : le serveur relit le corrigé en root"
 	else
-		test_ko "scénario 9 : le serveur ne peut pas lire le drapeau du binaire"
+		test_ko "scénario 9 : le serveur ne peut pas relire le corrigé"
 	fi
 
 	docker rm -f "$CONT_BIN" >/dev/null 2>&1

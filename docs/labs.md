@@ -213,9 +213,22 @@ est absent ou illisible.
 
 - Programme C compilé **sans** protections (`-fno-stack-protector -z execstack
   -no-pie`).
-- Parcours attendu : `file`/`checksec` → lecture du code → construction de la
-  charge utile → shell → drapeau.
+- Parcours attendu : `file`/`checksec` → lecture du code → `nm` pour trouver
+  l'adresse de `lire_drapeau` → construction de la charge utile → le
+  programme affiche le drapeau.
 - Drapeau : `SECURA{buffer_overflow}`.
+- **Aucun setuid, aucun privilège.** Le binaire tourne en uid 1000 et le
+  drapeau n'est présent en clair nulle part : il est stocké dans le binaire
+  sous forme de deux blocs recombinés par OU exclusif, et seule la fonction
+  `lire_drapeau` les déchiffre. `strings` ne le donne pas.
+- La copie `400 root:root` de `/root/flag.txt` est le **corrigé du serveur**
+  (le plugin la relit en root pour valider la réponse), pas le butin de
+  l'élève. Vérifié par les tests : illisible en uid 1000.
+- Historique : la version précédente reposait sur `chmod 4755`. Elle a été
+  abandonnée le 6 novembre après mesure — l'élévation setuid est neutralisée
+  par la configuration du moteur de conteneurs, donc le scénario était
+  impossible là où il tournait vraiment. Un scénario qui ne dépend d'aucune
+  configuration d'exécution vaut mieux qu'un scénario élégant sur le papier.
 
 ### 6.3 `labs/net-01` — réseau à quatre nœuds
 
@@ -257,7 +270,7 @@ est absent ou illisible.
 |---|---|---|
 | Le journal d'Apache ne pouvait pas être écrit | Conteneur qui s'arrête aussitôt (« cannot create /var/log/app/apache.log ») | Le dossier `/var/log/app` est **créé à la construction** et donné à l'utilisateur du lab ; l'entréepoint le recrée s'il peut |
 | `COPY notes/ …` copiait un **dossier** | `cat /home/ctf/notes.txt` → « Is a directory » | `COPY notes/notes.txt …` : le **fichier** est copié |
-| Le binaire du scénario 9 n'était pas `setuid` | Le shell obtenu n'était pas root : le drapeau restait inaccessible | `chown root:root` + `chmod 4755` **après** le `chown -R` (sinon il est effacé) |
+| Le binaire du scénario 9 reposait sur le `setuid` | Mesuré sur 4 exécutions réelles : le moteur neutralise l'élévation (`NoNewPrivs: 0`, `nosuid` absent, même exploit en root → `uid=0`), donc aucun élève n'obtenait de shell root | Le scénario est **redessiné sans privilège** : cible `lire_drapeau` dans un binaire ordinaire, drapeau chiffré dans le binaire. Vérifié en uid 1000, sans setuid |
 | Le drapeau du scénario 10 ne correspondait pas | La page HTTPS annonçait un autre drapeau | `flag-10.txt` aligné sur `tls_not_proof` |
 | Le drapeau du pivot était lu dans le mauvais service | La validation échouait : le drapeau est sur `internal`, pas sur `attacker` | Nouvelle clé `flag_service` dans le manifeste : le serveur lit le drapeau **sur le bon nœud** |
 

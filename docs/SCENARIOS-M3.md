@@ -38,7 +38,7 @@ Ce document répond à six questions posées le 31/10/2026 :
 | 6 | **Qui a forcé la porte ?** | Une rafale d'échecs puis une réussite : il faut remettre l'histoire dans l'ordre. | `multi-01` | ★★☆ | 25 min | 35 |
 | 7 | **Le réseau qui parle trop** | Trois nœuds, des ports ouverts : il faut dessiner la carte avant d'attaquer. | `net-01` (4 services) | ★★☆ | 30 min | 40 |
 | 8 | **Traverser le mur** | Le nœud « web » est compromis, un mot de passe est réutilisé, et un nœud interne n'écoute que depuis le réseau interne. | `net-01` + `internal-01` | ★★★ | 40 min | 60 |
-| 9 | **Le binaire qui obéit trop** | Un carnet de commandes écrit sans vérifier la longueur de la saisie — et il est `setuid root`. | `bin-01` | ★★★ | 40 min | 60 |
+| 9 | **Le binaire qui obéit trop** | Un carnet de commandes écrit sans vérifier la longueur de la saisie : un débordement de tampon détourne son exécution vers une fonction d'administration qui affiche le drapeau. Aucun privilège en jeu. | `bin-01` | ★★★ | 40 min | 60 |
 | 10 | **Le certificat qui ne prouve rien** | Le cadenas est vert. Le certificat est auto-signé. Le chiffrement et l'identité sont deux choses séparées. | `multi-01` (HTTPS 8443) | ★★★ | 35 min | 55 |
 
 **Total : 78 questions** (68 QCM + 9 missions vérifiées sur la machine + 1 mission à réponse saisie) et **300 minutes** de travail effectif, soit environ **5 heures** — le volume d'un « module » de trois mois sur une plateforme de formation.
@@ -211,7 +211,7 @@ Le moteur n'est pas une simulation : c'est Docker.
 1. **Le plugin déploie** un conteneur par apprenant et par room (`seca_lab_<apprenant>_<room>`), réseau `--internal` (aucune sortie Internet), projet Compose renommé (`seca_<prefixe>_<apprenant>_<room>`).
 2. **L'apprenant** tape des commandes réellement exécutées dans le conteneur (`docker exec`), avec liste blanche et blocages durs (`sudo`, `nsenter`, `docker`…).
 3. **La validation** : le serveur lit le fichier de drapeau **dans le conteneur, en root**, et compare (`strcasecmp`). Le drapeau attendu **n'existe nulle part côté WordPress**.
-4. **L'automatisation** : `.github/workflows/labs.yml` construit les 4 images et joue `scripts/test-labs-ci.sh` à chaque push — **42 contrôles** sur Docker réel, dont le rejeu des 10 scénarios M3 (triage, injection SQL, XSS, robot, traversée, sauvegarde, journaux, TLS, export, pivot, binaire setuid) et la preuve que **le nœud interne est invisible depuis la machine de l'apprenant**.
+4. **L'automatisation** : `.github/workflows/labs.yml` construit les 4 images et joue `scripts/test-labs-ci.sh` à chaque push — **42 contrôles** sur Docker réel, dont le rejeu des 10 scénarios M3 (triage, injection SQL, XSS, robot, traversée, sauvegarde, journaux, TLS, export, pivot, détournement de binaire) et la preuve que **le nœud interne est invisible depuis la machine de l'apprenant**.
 5. **Le bac à sable de développement** n'a pas de démon Docker (aucun privilège noyau) : les tests y sont joués avec un runtime rootless (Podman), et c'est cette limite qui a fait écrire les corrections (port 8080, `set -e`, `mkdir` refusé en utilisateur non root…).
 
 ---

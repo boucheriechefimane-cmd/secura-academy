@@ -429,143 +429,94 @@ fi
 # ete ecartees en local). Restent la politique seccomp et le mode rootless.
 echo "SONDE moteur : $(docker info --format '{{.SecurityOptions}} | driver={{.Driver}} | cgroup={{.CgroupVersion}} | rootless={{.SecurityOptions}}' 2>&1 | tr '\n' ' ')"
 
-# --- La machine « bin-01 » (scénario 9).
+# --- La machine « bin-01 » (scénario 9). -----------------------------------
+# Depuis la reecriture du 6 novembre, ce lab ne repose plus sur setuid :
+# le binaire tourne avec les droits de « ctf » et le defi est un simple
+# detournement de flot d'execution vers « lire_drapeau ». C'est ce qui
+# rend le scenario verifiable partout, y compris dans un conteneur ou le
+# noyau neutralise l'elevation setuid. Les controles ci-dessous portent
+# donc sur ce qui compte vraiment : le drapeau n'est disponible nulle part
+# sans exploitation, et l'exploit de reference l'obtient.
 CONT_BIN="seca_test_bin_$$"
+RACINE_DEPOT="$(cd "$(dirname "$0")/.." && pwd)"
+EXPLOIT="$RACINE_DEPOT/tools/recette-apprenants/exploit-bin01.py"
+DRAPEAU_ATTENDU="$(sed -n 's/^FLAG=//p' "$RACINE_DEPOT/labs/bin-01/flag/flag.txt" 2>/dev/null | head -1)"
 
-# Pas de « no-new-privileges » ici, et ce n'est pas un relâchement : cette
-# room enseigne justement le setuid (voir « allow_setuid » dans son
-# manifeste). Avec cette option, le noyau annule le bit et le scénario
-# devient impossible — c'est précisément ce que le premier test révélait.
-# Toutes les autres limites restent : pas de capacité, réseau fermé,
-# mémoire, pids, /tmp nosuid.
 if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
-	--cap-drop ALL --pids-limit 256 \
+	--cap-drop ALL --security-opt no-new-privileges --pids-limit 256 \
 	--memory 512m --cpus 1.0 --tmpfs /tmp:rw,noexec,nosuid,size=32m \
 	--user 1000:1000 -w /home/ctf securalabs/bin-01:1.0 sleep infinity >/dev/null 2>&1; then
 	attendre 4
 
-	if docker exec "$CONT_BIN" ls -l /home/ctf/vulnerable 2>/dev/null | grep -q 'rws'; then
-		test_ok "scénario 9 : le binaire est bien setuid root (le shell obtenu sera root)"
+	# 1. Le binaire ne doit porter aucun bit setuid : s'il en portait un, le
+	#    scenario reposerait de nouveau sur une propriete que le moteur peut
+	#    neutraliser, et le modele de menace affiche a l'eleve serait faux.
+	if docker exec "$CONT_BIN" ls -l /home/ctf/vulnerable 2>/dev/null | grep -q '^[^ ]*rws\|^[^ ]*r-s'; then
+		test_ko "scénario 9 : le binaire porte encore un bit setuid (scénario non portable)"
 	else
-		test_ko "scénario 9 : le binaire n'est pas setuid root" "docker exec $CONT_BIN ls -l /home/ctf/vulnerable"
+		test_ok "scénario 9 : le binaire s'exécute sans aucun privilège particulier"
 	fi
 
-	# Le drapeau ne doit pas tomber sans exploitation : c'est le second
-	# défaut trouvé le 5 novembre (le même contenu traînait dans les
-	# documents de la machine).
-	if docker exec "$CONT_BIN" grep -rq 'buffer_overflow' /home/ctf 2>/dev/null; then
-		test_ko "scénario 9 : le drapeau traîne en clair dans /home/ctf (aucune exploitation requise)"
+	# 2. Aucun drapeau en clair, nulle part : ni dans les documents, ni dans
+	#    le binaire (« strings »), ni dans un fichier de la machine. C'est le
+	#    défaut qui rendait le lab soluble en « grep ».
+	if docker exec "$CONT_BIN" sh -c "grep -rl 'SECURA{' /home/ctf 2>/dev/null | head -1" | grep -q .; then
+		test_ko "scénario 9 : le drapeau est en clair dans les fichiers de la machine"
 	else
-		test_ok "scénario 9 : le drapeau n'est pas en clair dans les documents de la machine"
+		test_ok "scénario 9 : le drapeau n'est en clair dans aucun fichier de la machine"
 	fi
 
-	if docker exec "$CONT_BIN" cat /root/flag.txt >/dev/null 2>&1; then
-		test_ko "scénario 9 : l'apprenant lit le drapeau sans avoir obtenu de shell"
+	if docker exec "$CONT_BIN" sh -c 'strings /home/ctf/vulnerable 2>/dev/null' | grep -q 'SECURA{'; then
+		test_ko "scénario 9 : le drapeau est lisible avec « strings » sur le binaire"
 	else
-		test_ok "scénario 9 : le drapeau reste protégé tant qu'aucun shell root n'est obtenu"
+		test_ok "scénario 9 : « strings » sur le binaire ne donne pas le drapeau"
 	fi
 
-	if docker exec -u 0 "$CONT_BIN" cat /root/flag.txt 2>/dev/null | grep -q 'FLAG=SECURA{buffer_overflow}'; then
-		test_ok "scénario 9 : le serveur lit le drapeau du binaire en root"
+	# Le corrige du serveur est en 400 root:root : c'est ce qui permet a la
+	# plateforme de valider la reponse sans jamais l'exposer a l'eleve.
+	if docker exec "$CONT_BIN" grep -q 'SECURA{' /root/flag.txt 2>/dev/null; then
+		test_ko "scénario 9 : le corrigé est lisible en uid 1000 (le drapeau tombe sans exploitation)"
 	else
-		test_ko "scénario 9 : le serveur ne peut pas lire le drapeau du binaire"
+		test_ok "scénario 9 : le corrigé du serveur est illisible en uid 1000"
 	fi
 
-	# Le contrôle décisif : l'exploit du dépôt obtient-il vraiment un shell
-	# root, puis le drapeau ? Sans cela, la room « le binaire qui obéit
-	# trop » promet un shell qu'aucun élève ne peut obtenir.
-	#
-	# Trois etats possibles, et il faut les distinguer :
-	#   1. l'exploit obtient le drapeau          -> le lab tient sa promesse ;
-	#   2. l'exploit n'obtient rien ET le binaire setuid ne s'eleve pas
-	#      (experience en root concluante, montage nosuid) -> le scenario
-	#      est impossible LA OU IL TOURNE : c'est un vrai echec ;
-	#   3. le binaire setuid s'eleve mais l'exploit echoue -> le binaire est
-	#      en cause, pas l'environnement.
-	RACINE_DEPOT="$(cd "$(dirname "$0")/.." && pwd)"
-	EXPLOIT="$RACINE_DEPOT/tools/recette-apprenants/exploit-bin01.py"
+	if docker exec -u 0 "$CONT_BIN" grep -q 'SECURA{' /root/flag.txt 2>/dev/null; then
+		test_ok "scénario 9 : le serveur peut relire le corrigé en root"
+	else
+		test_ko "scénario 9 : le serveur ne peut pas relire le corrigé (room invalidable)"
+	fi
 
+	# 3. Le binaire fonctionne normalement (sinon l'élève ne peut rien faire).
+	if docker exec "$CONT_BIN" /home/ctf/vulnerable --version 2>&1 | grep -q 'carnet v'; then
+		test_ok "scénario 9 : le carnet de commandes se lance et répond"
+	else
+		test_ko "scénario 9 : le carnet de commandes ne se lance pas"
+	fi
+
+	# 4. Le contrôle décisif : l'exploit de référence, exécuté en uid 1000
+	#    sans aucun privilège, obtient-il le drapeau ? Un seul état compte
+	#    désormais : ça marche, ou le lab est cassé. Plus d'excuse
+	#    d'environnement, puisque plus rien ne dépend de l'environnement.
 	if [ ! -f "$EXPLOIT" ]; then
-		test_ko "scenario 9 : l'exploit de reference est introuvable" "$EXPLOIT"
+		test_ko "scénario 9 : l'exploit de référence est introuvable" "$EXPLOIT"
 	else
-		# On ne copie PAS le script dans le conteneur : /tmp y est un tmpfs
-		# monte pour la securite, et « docker cp » echoue dessus sans le dire.
-		docker exec -i "$CONT_BIN" python3 - /home/ctf/vulnerable \
-			--commande 'id; cat /root/flag.txt' < "$EXPLOIT" > /tmp/exploit-bin01.txt 2>&1 || true
+		# On passe le script par l'entrée standard : /tmp est un tmpfs monté
+		# sans exec et « docker cp » y échoue silencieusement.
+		docker exec -i "$CONT_BIN" python3 - /home/ctf/vulnerable < "$EXPLOIT" \
+			> /tmp/exploit-bin01.txt 2>&1 || true
 
-		if grep -q 'FLAG=SECURA{buffer_overflow}' /tmp/exploit-bin01.txt; then
-			test_ok "scenario 9 : l'exploit obtient un shell root et lit le drapeau"
+		obtenu="$(sed -n 's/.*FLAG=\(SECURA{[^}]*}\).*/\1/p' /tmp/exploit-bin01.txt | head -1)"
+		if [ -n "$obtenu" ] && [ "$obtenu" = "$DRAPEAU_ATTENDU" ]; then
+			test_ok "scénario 9 : l'exploit obtient le drapeau attendu, en uid 1000, sans privilège"
 		else
-			# Le meme exploit, en root, dans le meme conteneur : il isole la
-			# cause (binaire ou environnement).
-			docker exec -u 0 -i "$CONT_BIN" python3 - /home/ctf/vulnerable \
-				--commande 'id' < "$EXPLOIT" > /tmp/exploit-root.txt 2>&1 || true
-
-			options_racine="$(docker exec "$CONT_BIN" sh -c 'awk "\$2 == \"/\" {print \$4}" /proc/mounts 2>/dev/null' | tr '\n' ',')"
-			if echo "$options_racine" | grep -q 'nosuid'; then
-				montage="nosuid PRESENT sur /"
+			echo "       --- sortie de l'exploit (scénario 9) ---"
+			sed 's/^/       expl | /' /tmp/exploit-bin01.txt | head -20
+			if [ -n "$obtenu" ]; then
+				test_ko "scénario 9 : le drapeau obtenu ne correspond pas à celui du plateau" \
+					"obtenu=$obtenu attendu=$DRAPEAU_ATTENDU"
 			else
-				montage="nosuid absent de /"
-			fi
-			nnp="$(docker exec "$CONT_BIN" grep -i NoNewPrivs /proc/self/status 2>/dev/null | tr -d '\r')"
-
-			echo "       --- enquete scenario 9 ---"
-			echo "       root   : $(grep -E 'IDENTITE|uid=' /tmp/exploit-root.txt 2>/dev/null | tr '\n' ' ')"
-			echo "       montage: $montage"
-			echo "       nnp    : $nnp"
-			# Temoin : un binaire setuid root trivial, compile dans le conteneur.
-			# Il ne fait qu'afficher getuid()/geteuid() et ne peut pas echouer.
-			# S'il affiche euid=0, le noyau honore bien le bit setuid ici ; s'il
-			# affiche euid=1000, c'est l'environnement qui l'ignore. C'est la
-			# mesure qui tranche, pas l'intuition.
-			docker exec -u 0 -i "$CONT_BIN" sh -c 'cat > /tmp/temoin.c && gcc -o /home/ctf/temoin /tmp/temoin.c && chown root:root /home/ctf/temoin && chmod 4755 /home/ctf/temoin' <<'C' >/dev/null 2>&1 || true
-#include <stdio.h>
-#include <unistd.h>
-int main(void) { printf("temoin uid=%d euid=%d\n", getuid(), geteuid()); return 0; }
-C
-			echo "SONDE temoin : $(docker exec "$CONT_BIN" /home/ctf/temoin 2>&1 | tr '\n' ' ')"
-
-			if [ -f /tmp/exploit-bin01.txt ]; then
-				sed 's/^/       expl | /' /tmp/exploit-bin01.txt | head -20
-			fi
-
-
-			# Comparaison decisive, dans CE meme run : le meme exploit, le meme
-			# utilisateur, le meme binaire, mais sans filtre seccomp. Si le shell
-			# s'ouvre ici et pas dans le conteneur normal, la cause est le
-			# profil seccomp, et c'est prouve en une seule comparaison au lieu
-			# de dix runs.
-			CONT_SANS_SECCOMP="${CONT_BIN}_noseccomp"
-			if docker run -d --name "$CONT_SANS_SECCOMP" --network none \
-				--cap-drop ALL --pids-limit 256 --memory 512m --cpus 1.0 \
-				--security-opt seccomp=unconfined \
-				--tmpfs /tmp:rw,noexec,size=32m \
-				--user 1000:1000 -w /home/ctf securalabs/bin-01:1.0 sleep infinity >/dev/null 2>&1; then
-				attendre 3
-				docker exec -i "$CONT_SANS_SECCOMP" python3 - /home/ctf/vulnerable \
-					--commande 'id' < "$EXPLOIT" > /tmp/exploit-noseccomp.txt 2>&1 || true
-				echo "SONDE sans seccomp : $(grep -E 'IDENTITE|uid=' /tmp/exploit-noseccomp.txt 2>/dev/null | tr '\n' ' ')"
-				docker rm -f "$CONT_SANS_SECCOMP" >/dev/null 2>&1
-			else
-				echo "SONDE sans seccomp : conteneur de comparaison impossible"
-			fi
-
-			if grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-noseccomp.txt 2>/dev/null \
-				&& ! grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-bin01.txt 2>/dev/null; then
-				test_non_mesurable \
-					"scenario 9 : CAUSE TROUVEE — le profil seccomp bloque l'elevation setuid" \
-					"le meme exploit reussit avec seccomp=unconfined et echoue sans. Le binaire et le scenario sont bons ; c'est le moteur de conteneurs qui refuse l'elevation."
-			elif grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-root.txt 2>/dev/null \
-				&& echo "$montage" | grep -q 'nosuid'; then
-				test_non_mesurable \
-					"scenario 9 : le binaire setuid n'est PAS honore ici (montage nosuid)" \
-					"l'exploit reussit en root dans ce meme conteneur ; le montage racine porte nosuid, donc le noyau ignore le bit setuid. Le scenario est demontrable hors de ces conditions, pas dedans."
-			elif grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-root.txt 2>/dev/null; then
-				test_ko "scenario 9 : l'exploit echoue alors que le setuid fonctionne (binaire en cause)" \
+				test_ko "scénario 9 : l'exploit n'obtient pas le drapeau (le lab est cassé)" \
 					"$(tail -6 /tmp/exploit-bin01.txt 2>/dev/null | tr '\n' ' ')"
-			else
-				test_ko "scenario 9 : l'exploit n'obtient AUCUN shell, meme en root (le lab est casse)" \
-					"$(tail -8 /tmp/exploit-root.txt 2>/dev/null | tr '\n' ' ')"
 			fi
 		fi
 	fi

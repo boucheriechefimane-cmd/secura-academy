@@ -1557,10 +1557,11 @@ array(
 				'workdir' => '/home/ctf',
 				'target' => 'binaire vulnerable : /home/ctf/vulnerable',
 				'ttl' => 3600,
-				/* Cette room enseigne le setuid : sans cette exception,
-				   « no-new-privileges » annule le bit et le scenario devient
-				   impossible. Toutes les autres limites restent en place. */
-				'allow_setuid' => 1,
+				/* Plus d'exception ici : depuis le 6 novembre, la machine
+				   ne demande aucun privilege. Le scenario est le detournement
+				   d'un binaire ordinaire, il tient donc dans le bac a sable
+				   standard, « no-new-privileges » compris. */
+				'allow_setuid' => 0,
 				'allow' => array( 'ls', 'cat', 'file', 'checksec', 'gdb', 'python3', 'gcc', 'strings' ),
 			),
 			'tasks' => array(
@@ -1568,7 +1569,7 @@ array(
 					'type' => 'lesson',
 					'format' => 'lecon',
 					'title' => 'Task 1 : La pile, le tampon, et les quatre defenses',
-					'content' => '<p>Un programme reserve un espace en memoire (le <strong>buffer</strong>) pour y ecrire ce que l\'utilisateur saisit. Si la saisie depasse la place reserve, elle <strong>ecrase ce qui se trouve apres</strong> : les variables locales, puis l\'adresse de retour de la fonction. Reecrire cette adresse, c\'etait detourner le programme vers le code de l\'attaquant.</p><p>Quatre defenses se combinent (6.858) :</p><ul><li><strong>NX</strong> (No-eXecute) : la pile n\'est pas executable ; on ne peut pas y mettre du code, il faut passer par unetechnique existante (ROP).</li><li><strong>ASLR</strong> : les adresses sont randomisees a chaque execution ; on ne peut pas deviner ou sont le code et la pile.</li><li><strong>Canary</strong> (cookie de pile) : une valeur sentinelle placee entre le tampon et l\'adresse de retour ; si elle change, le programme s\'arrete avant de revenir.</li><li><strong>PIE / RELRO</strong> : randomisation du binaire et protections de la table GOT.</li></ul><p><strong>A retenir :</strong> aucune parade n\'est suffisante seule ; c\'est leur <em>combinaison</em> qui rend l\'exploitation couteuse. Et le mieux est encore de ne pas ecrire sans verifier la taille.</p><p><strong>Un détail qui change tout :</strong> sur cette machine, le carnet de commandes est installé en <strong>setuid root</strong>. Le bit setuid veut dire : « même si je suis lancé par un simple utilisateur, le noyau me donne les droits de son propriétaire ». Un débordement de tampon dans un programme setuid root ne donne pas un shell d\'utilisateur : il donne un shell <strong>root</strong>. C\'est pourquoi on ne laisse jamais de programme setuid dans les mains d\'un utilisateur non fiable.</p>',
+					'content' => '<p>Un programme reserve un espace en memoire (le <strong>buffer</strong>) pour y ecrire ce que l\'utilisateur saisit. Si la saisie depasse la place reserve, elle <strong>ecrase ce qui se trouve apres</strong> : les variables locales, puis l\'adresse de retour de la fonction. Reecrire cette adresse, c\'etait detourner le programme vers le code de l\'attaquant.</p><p>Quatre defenses se combinent (6.858) :</p><ul><li><strong>NX</strong> (No-eXecute) : la pile n\'est pas executable ; on ne peut pas y mettre du code, il faut passer par unetechnique existante (ROP).</li><li><strong>ASLR</strong> : les adresses sont randomisees a chaque execution ; on ne peut pas deviner ou sont le code et la pile.</li><li><strong>Canary</strong> (cookie de pile) : une valeur sentinelle placee entre le tampon et l\'adresse de retour ; si elle change, le programme s\'arrete avant de revenir.</li><li><strong>PIE / RELRO</strong> : randomisation du binaire et protections de la table GOT.</li></ul><p><strong>A retenir :</strong> aucune parade n\'est suffisante seule ; c\'est leur <em>combinaison</em> qui rend l\'exploitation couteuse. Et le mieux est encore de ne pas ecrire sans verifier la taille.</p><p><strong>Un détail qui change tout :</strong> ici, aucun privilège n\'est en jeu. Le programme tourne avec tes droits, un point c\'est tout. Ce que tu attaques, c\'est le <em>flot d\'exécution</em> : le programme contient une fonction d\'administration qu\'il n\'appelle jamais, et un débordement de tampon suffit à l\'y envoyer. Retiens la distinction, elle est décisive en analyse : <strong>élever ses privilèges</strong> et <strong>détourner un programme</strong> sont deux buts différents. Le second ne demande aucun droit particulier — c\'est ce qui le rend si courant dans les logiciels qui lisent des fichiers.</p>',
 					'questions' => array(),
 				),
 				array(
@@ -1601,15 +1602,15 @@ array(
 					'type' => 'test',
 					'format' => 'qcm',
 					'title' => 'Task 3 : La mission',
-					'content' => '<p><strong>Mission.</strong> Un binaire vulnereble est dans <code>/home/ctf/</code>. Il attend une saisie et la copie dans un tampon trop petit. Depasse ce tampon pour obtenir un shell, puis lis le drapeau que l\'administrateur a laisse dans <code>/root/flag.txt</code>.</p><p>Indice : le ticket d\'incident precise ce que le programme attend.</p>',
+					'content' => '<p><strong>Mission.</strong> Un binaire vulnereble est dans <code>/home/ctf/</code>. Il attend une saisie et la copie dans un tampon trop petit. Depasse ce tampon pour detourner son execution vers la fonction d\'administration : elle affichera le drapeau sur ta sortie standard. Aucun privilege n\'est necessaire — et aucun fichier ne contient le drapeau en clair.</p><p>Indice : le ticket d\'incident precise ce que le programme attend.</p>',
 					'questions' => array(
 						array(
 							'question' => 'Le drapeau lu apres avoir obtenu un shell : donne-le.',
 							'mode' => 'flag',
 							'flag_path' => '/root/flag.txt',
 							'xp' => 45,
-							'hint' => 'Le carnet de commandes (/home/ctf/vulnerable) lit ta saisie sans vérifier sa longueur, et il est installé en setuid root : ton shell sera root.',
-							'explanation' => 'Le dépassement de tampon a detourne l\'execution vers un shell root, parce que le binaire est setuid. Parade : verifier les longueurs, compiler avec les defenses (canary, NX, PIE, RELRO), et surtout ne pas donner le setuid a un programme fragile.',
+							'hint' => 'Le carnet de commandes (/home/ctf/vulnerable) lit ta saisie sans vérifier sa longueur. Cherche la fonction d\'administration avec « nm », puis écrase l\'adresse de retour par son adresse (le binaire n\'est pas PIE, elle ne bouge pas).',
+							'explanation' => 'Le depassement de tampon a ecrase l\'adresse de retour et detourne l\'execution vers la fonction d\'administration, qui a affiche le drapeau. Aucun privilege n\'a ete eleve : tout s\'est joue dans le flot d\'execution. Parades : verifier les longueurs, compiler avec les defenses (canary, NX, PIE, RELRO), et surtout ne jamais laisser une fonction sensible accessible depuis un programme qui lit des donnees non fiables.',
 						),
 					),
 				),
