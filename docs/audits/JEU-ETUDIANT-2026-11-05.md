@@ -122,3 +122,52 @@ fichier). Un élève attentif voit que le laboratoire est fabriqué. À nettoyer
   trois portes qui ne s'ouvrent pas**. Les corrections sont ciblées et peu
   coûteuses : voir `ROADMAP-CORRECTION-2026-11.md`, lots L1 (anti-triche),
   L2 (pratique) et L3 (machines crédibles).
+
+---
+
+## 9. Réparation de `bin-01` (5 novembre 2026, après-midi)
+
+Le scénario 9 promettait un shell root que personne ne pouvait obtenir : le
+binaire lisait bien au-delà de son tampon, mais ne contenait **aucun** chemin
+vers un shell (`strings` : zéro `/bin/sh` ; `objdump` : aucun `system`, aucun
+`execve`). Le drapeau était pourtant présenté comme le butin d'un débordement.
+
+### Ce qui a changé
+
+| Élément | Avant | Après |
+|---|---|---|
+| Lecture de l'entrée | `gets(buffer)` sur 64 octets | `read(0, buffer, 1024)` sur un tampon de 64 |
+| Chemin vers le drapeau | aucun | fonction `carnet_root` (jamais appelée) : `setuid(0)` + `execl("/bin/sh")` |
+| Adresse de la cible | — | `nm vulnerable` → `0x401196`, fixe (`-no-pie`) |
+| Mention de l'ASLR | « pas d'ASLR (-no-pie) » — **faux** | corrigée : `-no-pie` ne désactive pas l'ASLR du noyau |
+| Notes élève | « ldd donne la version » (sans objet) | repères `nm`, absence de PIE, sens du bit setuid |
+| Contrôle machine | le serveur lit le drapeau en root (ne prouve rien) | l'**exploit du dépôt** obtient un shell et lit le drapeau |
+
+### Preuve mesurée (hors Docker, sans setuid)
+
+```
+$ gcc -fno-stack-protector -z execstack -no-pie -fno-pie -g -o vulnerable vulnerable.c
+$ python3 tools/recette-apprenants/exploit-bin01.py labs/bin-01/src/vulnerable
+carnet_root      : 0x0000000000401196
+bourrage retenu  : 88 octets
+--- ce que le shell a répondu ---
+=== Carnet de commandes (v0.9) ===
+Format : <numero de lot> <reference>
+> uid=1001(user) gid=1001(user) groups=1001(user),27(sudo),100(users)
+SECA-SHELL-OK
+--- fin ---
+IDENTITE DU SHELL : pas root (normal hors image : le binaire doit etre setuid root)
+```
+
+88 = 80 octets réservés par `handle_input` (`sub $0x50,%rsp`) + 8 octets de
+pointeur de pile sauve. L'exploit balaie ensuite 64→120 octets si une autre
+version de gcc déplace la pile, pour que le lab ne casse pas à la première
+mise à jour d'image.
+
+### Ce que cette preuve ne dit pas
+
+Le shell **n'est pas root hors Docker** : le binaire n'est pas setuid dans le
+bac à sable. La preuve du shell root et de la lecture de
+`/root/flag.txt` (`FLAG=SECURA{buffer_overflow}`) ne peut être faite que dans
+l'image, donc par la mesure manuelle GitHub (voir §10). Tant que ce run n'a pas
+eu lieu, la ligne « shell root » reste **non prouvée**.

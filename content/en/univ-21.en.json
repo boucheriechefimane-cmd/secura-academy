@@ -1,0 +1,67 @@
+{
+  "room_id": 40,
+  "en": {
+    "title": "How a computer works: from data to program",
+    "excerpt": "From bits to instructions: what really happens between the keyboard and the result on screen.",
+    "tasks": [
+      {
+        "title": "Task 1: Lesson — from data to program",
+        "content": "<p>A computer understands nothing: it executes instructions, in order, at absurd speed and without ever getting tired. Everything else is organisation.</p><p>The path of a program, in four layers:</p><ol><li><strong>Data</strong>: everything is a binary number. A character is a number, an image is a table of numbers, a sound is a series of samples. The only unit the machine knows is the bit.</li><li><strong>Memory</strong>: a long sequence of numbered bytes. Every slot has an <em>address</em>. A variable is a name given to an address: the program handles names, the machine handles addresses.</li><li><strong>The instruction</strong>: an elementary operation (load, add, store, jump). A program is a long sequence of those.</li><li><strong>The cycle</strong>: the processor fetches the instruction at the address held in the program counter, executes it, moves on to the next. Nothing else. This is exactly where security starts: who controls the program counter, and what happens when you make it jump somewhere else?</li></ol><p>Then comes the idea of a <strong>high-level language</strong>: you write <code>x = 5 + 3</code>, the compiler turns it into instructions, the assembler turns those into machine code, and the processor executes them. Every layer adds comfort… and sometimes bugs: buffer overflows exist precisely because the C layer does not protect memory.</p><p><strong>Remember:</strong> a computer is an instruction machine that manipulates addresses. All security rests on controlling three things: the data, the addresses, and the program counter.</p>",
+        "questions": []
+      },
+      {
+        "title": "Task 2: Practice",
+        "content": "<p>Two questions: what the machine actually does, and what the language hides.</p>",
+        "questions": [
+          {
+            "question": "What does a processor actually do?",
+            "hint": "The processor knows neither meaning nor intent: it follows a counter.",
+            "explanation": "The processor executes a stream of instructions driven by a program counter. Security of systems rests on controlling that counter — which is why defences such as the stack canary or NX exist."
+          },
+          {
+            "question": "Why is C described as “close to the machine”?",
+            "hint": "It is not about speed, it is about guarantees.",
+            "explanation": "In C, memory management is the programmer's job: that is power (performance, control) and risk (overflows, use-after-free). It is exactly what the pwn.college labs exploit."
+          }
+        ]
+      },
+      {
+        "title": "Task 3: Mission — the machine diagram",
+        "content": "<p>In the lecture room, the Stanford course left its <em>machine diagram</em> (the document describing the layers, from data to processor).</p><p><strong>Mission.</strong> Read that diagram and find the <em>number of bytes</em> given to one address (the <code>address_size</code> field).</p>",
+        "questions": [
+          {
+            "question": "Find the address size (address_size, in bytes) given in the machine diagram.",
+            "hint": "The diagram is in <code>/srv/cours/stanford</code>.",
+            "explanation": "The size of an address sets the addressable memory space (2^64 bytes on 64 bits). It is also what makes addresses predictable without ASLR, hence the importance of randomisation."
+          }
+        ]
+      },
+      {
+        "title": "Task 4: End-of-room exam",
+        "content": "<p>Four timed questions. 60% is enough to pass.</p>",
+        "questions": [
+          {
+            "question": "What is a memory address?",
+            "hint": "It is what lets you reach one slot unambiguously.",
+            "explanation": "An address is the access number of a memory slot. A variable name is only a translation made by the compiler: at machine level there are only numbers."
+          },
+          {
+            "question": "What is the program counter?",
+            "hint": "It decides where the program goes next.",
+            "explanation": "The program counter holds the next instruction. It is incremented after each instruction unless a jump changes it: hence the importance of the return address on the stack."
+          },
+          {
+            "question": "What happens when a program is compiled?",
+            "hint": "The compiler produces another form of the program.",
+            "explanation": "Compilation chain: source → machine code → execution. The optimiser works on intermediate code, not on algorithms: the semantics must stay the same."
+          },
+          {
+            "question": "Why does a garbage collector make exploitation harder?",
+            "hint": "The trouble with manual memory management is that it gets it wrong.",
+            "explanation": "In C the programmer frees memory: a double free or a use-after-free is a classic exploitable flaw. Automatic garbage collection removes that whole family of bugs — the argument behind memory-safe languages, which course 6.858 mentions at the end."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "room_id": 55,
+  "en": {
+    "title": "Kahoot: reviewing the advanced labs",
+    "excerpt": "The same content, playable in class (with Kahoot) or alone in the platform (no account needed).",
+    "tasks": [
+      {
+        "title": "Task 1: Lesson — how to review",
+        "content": "<p>Reviewing is not re-reading: it is <strong>answering without looking</strong>.</p><p>This room is built for that: ten questions, a timer, and an explanation after every answer — including the wrong ones. In class you can go through Kahoot: same duration, same set of questions, and students play on their phones. Without a Kahoot account, the room works as it is.</p><p><strong>Remember:</strong> a mistake that gets explained is worth more than a correct answer with no reasoning behind it. That is why every wrong option is commented.</p>",
+        "questions": []
+      },
+      {
+        "title": "Task 2: Practice",
+        "content": "<p>Two questions to get started.</p>",
+        "questions": [
+          {
+            "question": "What is the best way to memorise a security concept?",
+            "hint": "What counts is recall, not reading.",
+            "explanation": "Explaining forces you to rebuild the logic, and therefore to spot the holes. That is why the rooms on this platform explain every mistake: spaced repetition does the rest."
+          },
+          {
+            "question": "What is a classroom quiz useful for, beyond grading?",
+            "hint": "A quiz is a discussion tool.",
+            "explanation": "The value of a quiz is not the mark: it is the moment everyone discovers their blind spot, and the class talks it through. That is exactly what the platform does: the explanation is systematic."
+          }
+        ]
+      },
+      {
+        "title": "Task 3: Mission — the proof of review",
+        "content": "<p>The review left a trace on the dojo machine: <code>/srv/briefs/07-revision.txt</code>.</p><p><strong>Mission.</strong> Open the document and pick out the value it states.</p>",
+        "questions": [
+          {
+            "question": "Pick out the value from the review document.",
+            "hint": "The document is in <code>/srv/briefs</code>.",
+            "explanation": "Same mechanics as everywhere else: a proof read inside the machine, compared by the server running as root."
+          }
+        ]
+      },
+      {
+        "title": "Task 4: End-of-room exam",
+        "content": "<p>The ten quiz questions, timed. 60% is enough to pass.</p>",
+        "questions": [
+          {
+            "question": "What is a threat model?",
+            "hint": "Three questions, one sentence.",
+            "explanation": "The threat model is the foundation of any security work: you start from what you protect and what the adversary can do, then derive the mechanisms. Without it, you protect at random."
+          },
+          {
+            "question": "What is a long but predictable password worth?",
+            "hint": "The number of combinations to try.",
+            "explanation": "Strength is measured in attempts. A long password multiplies the combinations to try: “chat1234” (8 characters) falls in a few hours on a single machine, while “Correct-Horse-Battery-9” (24) takes years."
+          },
+          {
+            "question": "A SQL injection is…",
+            "hint": "Data and code mixed together.",
+            "explanation": "Injection comes from the missing separation: user data is concatenated into the query. It then becomes SQL code — and can read, write or delete."
+          },
+          {
+            "question": "What is a firewall for?",
+            "hint": "A policy on what may pass.",
+            "explanation": "A firewall is a filtering rule set. It encrypts nothing and cleans nothing: it applies a traffic policy. A badly written rule lets through exactly what it was meant to block."
+          },
+          {
+            "question": "“Least privilege” means…",
+            "hint": "Just enough, and no more.",
+            "explanation": "A service running with too many rights turns a bug into a disaster. Least privilege costs little to set up and limits the impact of a compromise."
+          },
+          {
+            "question": "XSS is…",
+            "hint": "The script travels with the data.",
+            "explanation": "XSS stands for Cross-Site Scripting: the application reflects data back into its page without escaping it, and the browser runs the code. The consequence: a stolen session, or actions taken in the victim's name."
+          },
+          {
+            "question": "What does the TLS certificate prove?",
+            "hint": "The identity of the server.",
+            "explanation": "Encryption protects against eavesdropping; the certificate protects against impersonation. Both are needed: HTTPS with no verified certificate only protects you from the network, not from a man in the middle."
+          },
+          {
+            "question": "Hashing a password is…",
+            "hint": "You never read a hash back.",
+            "explanation": "A hash function is one-way. You check a password by recomputing its hash and comparing — hence the salt, so that two accounts with the same password do not share the same hash."
+          },
+          {
+            "question": "How do you protect yourself from phishing?",
+            "hint": "Do not go through the link.",
+            "explanation": "Manual verification fails: a well-written message fools anyone. The most effective defence is mechanical: type the address yourself, or call the service on a number you already know."
+          },
+          {
+            "question": "An exploited buffer overflow is…",
+            "hint": "What comes right after the buffer in memory.",
+            "explanation": "This is lesson 3 of course 6.858: the program does not check the size of the input. By overwriting the return address, the attacker chooses where the program continues. Hence the defences: canary, NX, ASLR."
+          }
+        ]
+      }
+    ]
+  }
+}
