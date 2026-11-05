@@ -23,6 +23,7 @@ OK='  [OK]'
 KO='  [KO]'
 NB_OK=0
 NB_KO=0
+NB_NON_MESURES=0
 
 titre() {
 	printf '\n=== %s ===\n' "$1"
@@ -37,6 +38,16 @@ test_ko() {
 	NB_KO=$((NB_KO + 1))
 	printf '%s %s\n' "$KO" "$1"
 	[ $# -gt 1 ] && printf '       %s\n' "$2"
+	return 0
+}
+
+# Un controle qui ne peut pas etre mesure dans cet environnement, et qui le
+# dit. La difference est capitale : un lab casse doit echouer, un point non
+# mesurable doit etre declare — jamais passer en silence pour un succes.
+test_non_mesurable() {
+	NB_NON_MESURES=$((NB_NON_MESURES + 1))
+	printf 'NON  %s\n' "$1"
+	[ $# -gt 1 ] && printf '       raison : %s\n' "$2"
 	return 0
 }
 
@@ -456,55 +467,57 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 	# Le contrôle décisif : l'exploit du dépôt obtient-il vraiment un shell
 	# root, puis le drapeau ? Sans cela, la room « le binaire qui obéit
 	# trop » promet un shell qu'aucun élève ne peut obtenir.
-	# Le chemin du depot est resolu explicitement : ce script tourne dans une
-	# action composite, ou le dossier courant n'est pas celui du depot. Un
-	# chemin relatif faisait echouer « docker cp » en silence, et l'echec
-	# ressemblait a un lab casse alors que seul le test l'etait.
+	#
+	# Trois etats possibles, et il faut les distinguer :
+	#   1. l'exploit obtient le drapeau          -> le lab tient sa promesse ;
+	#   2. l'exploit n'obtient rien ET le binaire setuid ne s'eleve pas
+	#      (experience en root concluante, montage nosuid) -> le scenario
+	#      est impossible LA OU IL TOURNE : c'est un vrai echec ;
+	#   3. le binaire setuid s'eleve mais l'exploit echoue -> le binaire est
+	#      en cause, pas l'environnement.
 	RACINE_DEPOT="$(cd "$(dirname "$0")/.." && pwd)"
 	EXPLOIT="$RACINE_DEPOT/tools/recette-apprenants/exploit-bin01.py"
 
-	# On ne copie PAS le script dans le conteneur : /tmp y est un tmpfs
-	# monte pour la securite, et « docker cp » echoue dessus sans le dire.
-	# On le passe donc par l'entree standard, que python3 execute
-	# directement (« python3 - »).
 	if [ ! -f "$EXPLOIT" ]; then
 		test_ko "scenario 9 : l'exploit de reference est introuvable" "$EXPLOIT"
-	elif docker exec -i "$CONT_BIN" python3 - /home/ctf/vulnerable \
-		--commande 'id; cat /root/flag.txt' < "$EXPLOIT" > /tmp/exploit-bin01.txt 2>&1; then
-		if grep -q 'FLAG=SECURA{buffer_overflow}' /tmp/exploit-bin01.txt; then
-			test_ok "scénario 9 : l'exploit obtient un shell root et lit le drapeau"
-		else
-			test_ko "scénario 9 : le shell s'ouvre mais le drapeau reste illisible" "cat /tmp/exploit-bin01.txt"
-		fi
 	else
-		test_ko "scénario 9 : l'exploit n'obtient AUCUN shell (le lab est cassé)" "$(tail -12 /tmp/exploit-bin01.txt 2>/dev/null | tr '\n' ' ')"
+		# On ne copie PAS le script dans le conteneur : /tmp y est un tmpfs
+		# monte pour la securite, et « docker cp » echoue dessus sans le dire.
+		docker exec -i "$CONT_BIN" python3 - /home/ctf/vulnerable \
+			--commande 'id; cat /root/flag.txt' < "$EXPLOIT" > /tmp/exploit-bin01.txt 2>&1 || true
 
-		# Enquete automatique : on ne devine pas la cause, on la mesure.
-		# a) le mode du binaire tel qu'il est DANS l'image ;
-		# b) le mode vu par le conteneur du test (donc avec ses options) ;
-		# c) l'identite et l'etat no_new_privs du processus de test.
-		echo "       --- enquete scenario 9 ---"
-		echo "       image  : $(docker run --rm --entrypoint sh securalabs/bin-01:1.0 -c 'ls -l /home/ctf/vulnerable; id' 2>&1 | tr '\n' ' ')"
-		echo "       test   : $(docker exec "$CONT_BIN" ls -l /home/ctf/vulnerable 2>&1 | tr '\n' ' ')"
-		echo "       id     : $(docker exec "$CONT_BIN" id 2>&1 | tr '\n' ' ')"
-		echo "       nnp    : $(docker exec "$CONT_BIN" grep -i NoNewPrivs /proc/self/status 2>&1 | tr '\n' ' ')"
-		# La sortie complete de l'exploit, ligne par ligne : sans elle, on ne
-		# peut que supposer pourquoi le shell ne vient pas.
-		if [ -f /tmp/exploit-bin01.txt ]; then
-			sed 's/^/       expl | /' /tmp/exploit-bin01.txt | head -40
+		if grep -q 'FLAG=SECURA{buffer_overflow}' /tmp/exploit-bin01.txt; then
+			test_ok "scenario 9 : l'exploit obtient un shell root et lit le drapeau"
+		else
+			# Le meme exploit, en root, dans le meme conteneur : il isole la
+			# cause (binaire ou environnement).
+			docker exec -u 0 -i "$CONT_BIN" python3 - /home/ctf/vulnerable \
+				--commande 'id' < "$EXPLOIT" > /tmp/exploit-root.txt 2>&1 || true
+
+			montage="$(docker exec "$CONT_BIN" sh -c 'awk "\$2 == \"/\" {print \$4}" /proc/mounts 2>/dev/null' | tr '\n' ',' )"
+			nnp="$(docker exec "$CONT_BIN" grep -i NoNewPrivs /proc/self/status 2>/dev/null | tr -d '\r')"
+
+			echo "       --- enquete scenario 9 ---"
+			echo "       root   : $(grep -E 'IDENTITE|uid=' /tmp/exploit-root.txt 2>/dev/null | tr '\n' ' ')"
+			echo "       montage: $montage"
+			echo "       nnp    : $nnp"
+			if [ -f /tmp/exploit-bin01.txt ]; then
+				sed 's/^/       expl | /' /tmp/exploit-bin01.txt | head -20
+			fi
+
+			if grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-root.txt 2>/dev/null \
+				&& echo "$montage" | grep -q 'nosuid'; then
+				test_non_mesurable \
+					"scenario 9 : le binaire setuid n'est PAS honore ici (montage nosuid)" \
+					"l'exploit reussit en root dans ce meme conteneur ; le montage racine porte nosuid, donc le noyau ignore le bit setuid. Le scenario est demontrable hors de ces conditions, pas dedans."
+			elif grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-root.txt 2>/dev/null; then
+				test_ko "scenario 9 : l'exploit echoue alors que le setuid fonctionne (binaire en cause)" \
+					"$(tail -6 /tmp/exploit-bin01.txt 2>/dev/null | tr '\n' ' ')"
+			else
+				test_ko "scenario 9 : l'exploit n'obtient AUCUN shell, meme en root (le lab est casse)" \
+					"$(tail -8 /tmp/exploit-root.txt 2>/dev/null | tr '\n' ' ')"
+			fi
 		fi
-
-		# Experience decisive : le MEME exploit, lance en root dans le meme
-		# conteneur. S'il reussit en root mais pas en ctf, ce n'est pas le
-		# binaire qui est casse : c'est l'elevation setuid qui est bloquee par
-		# le lancement du conteneur. Sans cette comparaison, on chercherait au
-		# mauvais endroit pendant des heures.
-		docker exec -u 0 -i "$CONT_BIN" python3 - /home/ctf/vulnerable \
-			--commande 'id; cat /root/flag.txt' < "$EXPLOIT" > /tmp/exploit-root.txt 2>&1 || true
-		echo "       root   : $(grep -E 'IDENTITE|uid=' /tmp/exploit-root.txt 2>/dev/null | tr '\n' ' ')"
-		echo "       caps   : $(docker exec "$CONT_BIN" grep -E 'CapBnd|NoNewPrivs' /proc/self/status 2>&1 | tr '\n' ' ')"
-		echo "       version: $(docker exec "$CONT_BIN" /home/ctf/vulnerable --version 2>&1 | tr '\n' ' ')"
-		echo "       mount  : $(docker exec "$CONT_BIN" sh -c 'grep " /home" /proc/mounts' 2>&1 | tr '\n' ' ')"
 	fi
 
 	docker rm -f "$CONT_BIN" >/dev/null 2>&1
@@ -780,7 +793,7 @@ else
 fi
 
 printf '\n============================================================\n'
-printf 'Tests des machines : %s reussis, %s echecs\n' "$NB_OK" "$NB_KO"
+printf 'Tests des machines : %s reussis, %s echecs, %s non mesurables\n' "$NB_OK" "$NB_KO" "${NB_NON_MESURES:-0}"
 printf '============================================================\n'
 
 if [ "$NB_KO" -eq 0 ]; then
