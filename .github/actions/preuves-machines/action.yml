@@ -242,7 +242,7 @@ runs:
 
           extrait() {
             [ -f "$1" ] || return 0
-            grep -aE "KO|ECHEC|échec|erreur|Error|Fatal|enquete|image  :|test   :|nnp    :|expl \\|" "$1" | head -30 | while IFS= read -r ligne; do
+            grep -aE "KO|ECHEC|échec|erreur|Error|Fatal|enquete|image  :|test   :|nnp    :|expl \\||root   :|caps   :|version:|mount  :" "$1" | head -40 | while IFS= read -r ligne; do
               echo "::error title=$(basename "$1")::${ligne:0:400}"
             done
           }

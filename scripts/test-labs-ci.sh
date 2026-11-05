@@ -491,8 +491,20 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 		# La sortie complete de l'exploit, ligne par ligne : sans elle, on ne
 		# peut que supposer pourquoi le shell ne vient pas.
 		if [ -f /tmp/exploit-bin01.txt ]; then
-			sed 's/^/       expl | /' /tmp/exploit-bin01.txt | head -20
+			sed 's/^/       expl | /' /tmp/exploit-bin01.txt | head -40
 		fi
+
+		# Experience decisive : le MEME exploit, lance en root dans le meme
+		# conteneur. S'il reussit en root mais pas en ctf, ce n'est pas le
+		# binaire qui est casse : c'est l'elevation setuid qui est bloquee par
+		# le lancement du conteneur. Sans cette comparaison, on chercherait au
+		# mauvais endroit pendant des heures.
+		docker exec -u 0 -i "$CONT_BIN" python3 - /home/ctf/vulnerable \
+			--commande 'id; cat /root/flag.txt' < "$EXPLOIT" > /tmp/exploit-root.txt 2>&1 || true
+		echo "       root   : $(grep -E 'IDENTITE|uid=' /tmp/exploit-root.txt 2>/dev/null | tr '\n' ' ')"
+		echo "       caps   : $(docker exec "$CONT_BIN" grep -E 'CapBnd|NoNewPrivs' /proc/self/status 2>&1 | tr '\n' ' ')"
+		echo "       version: $(docker exec "$CONT_BIN" /home/ctf/vulnerable --version 2>&1 | tr '\n' ' ')"
+		echo "       mount  : $(docker exec "$CONT_BIN" sh -c 'grep " /home" /proc/mounts' 2>&1 | tr '\n' ' ')"
 	fi
 
 	docker rm -f "$CONT_BIN" >/dev/null 2>&1
