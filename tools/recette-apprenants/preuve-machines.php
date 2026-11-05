@@ -7,23 +7,23 @@
  * developpeur annonce pour chaque room existent-elles vraiment, et le
  * drapeau que la room exige est-il VRAIMENT dans l'image ? »
  *
- * Pour chaque room qui declare une machine (`_secura_lab`), il :
+ * Pour chaque room qui declare une machine, il :
  *
- *   1. lit l'image declaree et verifie qu'elle est construite sur place ;
- *   2. demarre un conteneur avec les reglages du plugin (utilisateur non
- *      privilegie, pas de capacite, pas de sortie reseau) ;
- *   3. lit le drapeau attendu par la room, avec les droits de l'apprenant
- *      PUIS en root, et compare la valeur a celle que la machine contient
- *      reellement ;
- *   4. verifie que l'apprenant ne peut pas lire le fichier directement
- *      (sinon la room se resout sans rien comprendre) ;
- *   5. verifie que la cible annoncee (l'URL du service) repond depuis le
- *      conteneur, quand la room en declare une.
+ *   1. verifie que l'image (ou la pile compose) declaree existe sur place ;
+ *   2. demarre la machine avec les reglages du plugin (utilisateur non
+ *      privilegie, aucune capacite, pas de sortie reseau) ;
+ *   3. lit le drapeau exige par la room en root — l'endroit exact ou le
+ *      plugin va le chercher (`flag_service` pour une pile compose) — et
+ *      verifie qu'il contient bien une valeur `SECURA{...}` ;
+ *   4. verifie que l'apprenant ne peut PAS lire ce fichier directement,
+ *      sinon la room se resout sans rien comprendre ;
+ *   5. joint la cible annoncee depuis l'interieur de la machine : le
+ *      plugin ne publie aucun port, donc un essai depuis l'hote ne
+ *      prouverait rien.
  *
- * Ce qui n'est pas mesurable ici est DIT, jamais suppose : une room dont
- * la machine est en mode « compose » est signalee comme testee par la pile
- * (voir test-labs-ci.sh), une cible injoignable est un constat, pas un
- * silence.
+ * Ce qui n'est pas mesurable est DIT, jamais suppose : une room sans
+ * machine est listee comme telle, une room dont la machine est une pile
+ * compose est mesuree puis demontee, et un echec est un echec.
  *
  * Execution (le script doit pouvoir appeler docker et wp) :
  *
@@ -59,13 +59,13 @@ function seca_preuve_exec( $commande ) {
 }
 
 /**
- * Attend qu'un conteneur soit pret (ou rend la main apres le delai).
+ * Attend qu'un conteneur tourne (ou rend la main apres le delai).
  *
  * @param string $nom    Nom du conteneur.
  * @param int    $essais Nombre d'essais.
  * @return bool
  */
-function seca_preuve_attendre( $nom, $essais = 10 ) {
+function seca_preuve_attendre( $nom, $essais = 15 ) {
 	for ( $i = 0; $i < $essais; $i++ ) {
 		$etat = seca_preuve_exec( 'docker inspect -f "{{.State.Running}}" ' . escapeshellarg( $nom ) );
 
@@ -93,6 +93,176 @@ function seca_preuve_drapeau( $texte ) {
 	return '';
 }
 
+/**
+ * Joue une commande dans un conteneur, en root ou en apprenant.
+ *
+ * @param string $nom     Conteneur.
+ * @param string $commande Commande shell.
+ * @param bool   $root    Vrai pour lire avec les droits du serveur.
+ * @return array{code:int,sortie:string}
+ */
+function seca_preuve_dans( $nom, $commande, $root = false ) {
+	return seca_preuve_exec(
+		'docker exec ' . ( $root ? '-u 0 ' : '' ) . escapeshellarg( $nom )
+		. ' sh -c ' . escapeshellarg( $commande )
+	);
+}
+
+/**
+ * Demande a la machine de joindre une URL, sans dependre de curl.
+ *
+ * @param string $nom Conteneur.
+ * @param string $url URL.
+ * @return int Code HTTP mesure, 0 si rien ne repond.
+ */
+function seca_preuve_joindre( $nom, $url ) {
+	$hote = (string) wp_parse_url( $url, PHP_URL_HOST );
+	$port = wp_parse_url( $url, PHP_URL_PORT );
+	$port = $port ? (int) $port : ( 'https' === wp_parse_url( $url, PHP_URL_SCHEME ) ? 443 : 80 );
+
+	/* Les machines de cours (univ-01, dojo-01) n'ont pas curl : on essaie
+	   curl, puis le client HTTP de PHP, puis un simple TCP en bash. Un
+	   « 200 » synthetique signifie « le port repond », pas « la page est
+	   correcte » — c'est ecrit dans le detail. */
+	$script = 'if command -v curl >/dev/null 2>&1; then '
+		. 'curl -sk -o /dev/null -w "%{http_code}" --max-time 8 ' . escapeshellarg( $url )
+		. ' 2>/dev/null || echo 000; '
+		. 'elif command -v php >/dev/null 2>&1; then '
+		. 'php -r ' . escapeshellarg(
+			'$e = @fsockopen(' . var_export( $hote, true ) . ', ' . $port . ', $n, $s, 8); echo $e ? "200" : "000";'
+		) . '; '
+		. 'elif command -v bash >/dev/null 2>&1; then '
+		. 'bash -c ' . escapeshellarg( '(exec 3<>/dev/tcp/' . $hote . '/' . $port . ') 2>/dev/null && echo 200 || echo 000' ) . '; '
+		. 'else echo 000; fi';
+
+	$reponse = seca_preuve_dans( $nom, $script );
+
+	return (int) trim( $reponse['sortie'] );
+}
+
+/**
+ * Le nom du service qui repond dans une pile, deduit de la cible.
+ *
+ * @param string $cible URL declaree par la room.
+ * @return string
+ */
+function seca_preuve_service_cible( $cible ) {
+	$hote = (string) wp_parse_url( $cible, PHP_URL_HOST );
+
+	return '' === $hote ? '' : $hote;
+}
+
+/**
+ * Verifie qu'un fichier cite par la room existe vraiment dans la machine.
+ *
+ * Une room qui demande d'ouvrir /home/ctf/vulnerable dans une image qui ne
+ * le contient pas envoie l'apprenant dans le mur : c'est un echec, meme si
+ * le drapeau, lui, est present.
+ *
+ * @param string $nom     Conteneur.
+ * @param string $cible   Texte de la cible declaree.
+ * @return array{0:bool,1:string} Existence et detail.
+ */
+function seca_preuve_cible_fichier( $nom, $cible ) {
+	$candidats = array();
+	$texte     = preg_replace( '/^[^:]*:\s*/', '', $cible );
+
+	foreach ( preg_split( '/\s+/', (string) $texte ) as $mot ) {
+		if ( '/' === substr( $mot, 0, 1 ) ) {
+			$candidats[] = $mot;
+		}
+	}
+
+	if ( empty( $candidats ) ) {
+		return array( true, '' );
+	}
+
+	foreach ( $candidats as $chemin ) {
+		$essai = seca_preuve_dans( $nom, 'test -e ' . escapeshellarg( $chemin ) . ' && echo present || echo absent' );
+
+		if ( 'present' === trim( $essai['sortie'] ) ) {
+			return array( true, 'fichier ' . $chemin . ' present' );
+		}
+	}
+
+	return array( false, 'fichier cite par la room absent de la machine (' . implode( ', ', $candidats ) . ')' );
+}
+
+/**
+ * Le nom du conteneur d'un service dans une pile compose.
+ *
+ * @param string $projet  Nom du projet compose.
+ * @param string $service Service.
+ * @return string
+ */
+function seca_preuve_conteneur_compose( $projet, $service ) {
+	$liste = seca_preuve_exec(
+		'docker ps -aq --filter ' . escapeshellarg( 'label=com.docker.compose.project=' . $projet )
+		. ' --filter ' . escapeshellarg( 'label=com.docker.compose.service=' . $service )
+	);
+
+	$ids = preg_split( '/\s+/', trim( $liste['sortie'] ) );
+
+	return isset( $ids[0] ) && '' !== $ids[0] ? $ids[0] : '';
+}
+
+/**
+ * Les chemins de drapeau exiges par une room.
+ *
+ * @param int $room_id Room.
+ * @return array<int,string>
+ */
+function seca_preuve_drapeaux( $room_id ) {
+	$chemins = array();
+
+	foreach ( Secura_Rooms::get_tasks( $room_id ) as $task ) {
+		foreach ( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) as $question ) {
+			$mode = isset( $question['mode'] ) ? $question['mode'] : 'text';
+
+			if ( 'flag' === $mode && ! empty( $question['flag_path'] ) ) {
+				$chemins[] = (string) $question['flag_path'];
+			}
+		}
+	}
+
+	return array_values( array_unique( $chemins ) );
+}
+
+/**
+ * Verifie les drapeaux d'une machine deja demarree.
+ *
+ * @param string $nom     Conteneur qui garde le drapeau.
+ * @param array  $chemins Chemins exiges.
+ * @return array{0:bool,1:array<int,string>} Reussite et details.
+ */
+function seca_preuve_verifier_drapeaux( $nom, $chemins ) {
+	$ok      = true;
+	$details = array();
+
+	foreach ( $chemins as $chemin ) {
+		$lecture_root = seca_preuve_dans( $nom, 'cat ' . escapeshellarg( $chemin ), true );
+		$valeur       = seca_preuve_drapeau( $lecture_root['sortie'] );
+
+		if ( '' === $valeur ) {
+			$ok        = false;
+			$details[] = 'drapeau absent en root : ' . $chemin;
+			continue;
+		}
+
+		$lecture_eleve = seca_preuve_dans( $nom, 'cat ' . escapeshellarg( $chemin ) );
+
+		if ( 0 === $lecture_eleve['code'] && '' !== seca_preuve_drapeau( $lecture_eleve['sortie'] ) ) {
+			$ok        = false;
+			$details[] = 'l apprenant lit directement ' . $chemin;
+			continue;
+		}
+
+		$details[] = $chemin . ' = ' . $valeur . ' (root seulement)';
+	}
+
+	return array( $ok, $details );
+}
+
 if ( ! Secura_Lab::docker_available() ) {
 	echo "Docker ne repond pas : la preuve des machines ne peut pas etre produite ici.\n";
 	exit( 1 );
@@ -110,11 +280,11 @@ $rooms   = get_posts(
 	)
 );
 
-$total   = 0;
-$ok      = 0;
-$echecs  = array();
-$non_testables = array();
+$total         = 0;
+$ok            = 0;
+$echecs        = array();
 $sans_machine  = array();
+$non_testables = array();
 
 foreach ( $rooms as $room ) {
 	$manifest = Secura_Lab::get_manifest( $room->ID );
@@ -126,34 +296,107 @@ foreach ( $rooms as $room ) {
 
 	$total++;
 
-	/* Les questions qui exigent un fichier de drapeau dans la machine. */
-	$drapeaux = array();
+	$mode    = isset( $manifest['mode'] ) ? $manifest['mode'] : 'single';
+	$cible   = isset( $manifest['target'] ) ? (string) $manifest['target'] : '';
+	$chemins = seca_preuve_drapeaux( $room->ID );
 
-	foreach ( Secura_Rooms::get_tasks( $room->ID ) as $index => $task ) {
-		foreach ( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) as $q_index => $question ) {
-			$mode = isset( $question['mode'] ) ? $question['mode'] : 'text';
+	/* ---------------- Pile compose ---------------- */
+	if ( 'compose' === $mode ) {
+		$compose = isset( $manifest['compose'] ) ? (string) $manifest['compose'] : '';
 
-			if ( 'flag' === $mode && ! empty( $question['flag_path'] ) ) {
-				$drapeaux[] = array(
-					'tache'    => $index,
-					'question' => $q_index,
-					'chemin'   => $question['flag_path'],
-				);
+		if ( '' === $compose || ! file_exists( $compose ) ) {
+			$echecs[] = $room->post_name . ' : fichier compose introuvable (' . $compose . ')';
+			continue;
+		}
+
+		$projet  = $prefixe . 'p' . $room->ID;
+		$service = isset( $manifest['service'] ) ? (string) $manifest['service'] : 'attacker';
+		$garde   = isset( $manifest['flag_service'] ) && '' !== (string) $manifest['flag_service']
+			? (string) $manifest['flag_service']
+			: $service;
+
+		$montee = seca_preuve_exec(
+			'docker compose -f ' . escapeshellarg( $compose )
+			. ' -p ' . escapeshellarg( $projet ) . ' up -d --no-build'
+		);
+
+		if ( 0 !== $montee['code'] ) {
+			$echecs[] = $room->post_name . ' : la pile ne monte pas (' . trim( $montee['sortie'] ) . ')';
+			seca_preuve_exec( 'docker compose -f ' . escapeshellarg( $compose ) . ' -p ' . escapeshellarg( $projet ) . ' down -v --remove-orphans' );
+			continue;
+		}
+
+		$ok_room = true;
+		$details = array();
+
+		$conteneur = seca_preuve_conteneur_compose( $projet, $service );
+
+		if ( '' === $conteneur || ! seca_preuve_attendre( $conteneur ) ) {
+			$ok_room   = false;
+			$details[] = 'le service ' . $service . ' ne tourne pas';
+		}
+
+		if ( $ok_room && ! empty( $chemins ) ) {
+			$garde_conteneur = seca_preuve_conteneur_compose( $projet, $garde );
+
+			if ( '' === $garde_conteneur ) {
+				$ok_room   = false;
+				$details[] = 'le service qui garde le drapeau (' . $garde . ') ne tourne pas';
+			} else {
+				list( $drapeaux_ok, $details_drapeaux ) = seca_preuve_verifier_drapeaux( $garde_conteneur, $chemins );
+
+				if ( ! $drapeaux_ok ) {
+					$ok_room = false;
+				}
+
+				$details = array_merge( $details, $details_drapeaux );
 			}
 		}
-	}
 
-	$mode = isset( $manifest['mode'] ) ? $manifest['mode'] : 'single';
+		if ( $ok_room && '' !== $cible && 0 === strpos( $cible, 'http' ) ) {
+			/* Depuis la machine de l'apprenant, comme le ferait l'eleve. */
+			$code_http = $conteneur ? seca_preuve_joindre( $conteneur, $cible ) : 0;
 
-	if ( 'compose' === $mode ) {
-		/* La pile est testee par test-labs-ci.sh : on le dit, on ne le
-		   pretend pas mesure ici. */
-		$non_testables[] = $room->post_name . ' (pile compose : « '
-			. ( isset( $manifest['compose'] ) ? $manifest['compose'] : '?' )
-			. ' », testee par test-labs-ci.sh)';
+			if ( $code_http >= 200 && $code_http < 500 ) {
+				$details[] = 'cible ' . $cible . ' → HTTP ' . $code_http . ' depuis ' . $service;
+
+				/* Et le service qui la sert tourne-t-il vraiment ? Sans
+				   cela, un « noeud interne » absent passerait inapercu. */
+				$hote    = seca_preuve_service_cible( $cible );
+				$servant = '' !== $hote ? seca_preuve_conteneur_compose( $projet, $hote ) : '';
+
+				if ( '' !== $servant ) {
+					$details[] = 'service ' . $hote . ' demarre';
+				} else {
+					$ok_room   = false;
+					$details[] = 'aucun service ' . $hote . ' dans la pile';
+				}
+			} else {
+				$ok_room   = false;
+				$details[] = 'cible ' . $cible . ' injoignable depuis ' . $service;
+			}
+		}
+
+		seca_preuve_exec( 'docker compose -f ' . escapeshellarg( $compose ) . ' -p ' . escapeshellarg( $projet ) . ' down -v --remove-orphans' );
+
+		if ( $ok_room ) {
+			$ok++;
+		} else {
+			$echecs[] = $room->post_name . ' : ' . implode( ' ; ', $details );
+		}
+
+		$lignes[] = sprintf(
+			'%-4s %-46s %-24s %s',
+			$ok_room ? 'OK' : 'KO',
+			$room->post_name,
+			'pile ' . basename( dirname( $compose ) ),
+			implode( ' ; ', $details )
+		);
+
 		continue;
 	}
 
+	/* ---------------- Machine unique ---------------- */
 	$image = isset( $manifest['image'] ) ? (string) $manifest['image'] : '';
 
 	if ( '' === $image ) {
@@ -161,27 +404,30 @@ foreach ( $rooms as $room ) {
 		continue;
 	}
 
-	$inspection = seca_preuve_exec( 'docker image inspect ' . escapeshellarg( $image ) );
-
-	if ( 0 !== $inspection['code'] ) {
+	if ( 0 !== seca_preuve_exec( 'docker image inspect ' . escapeshellarg( $image ) )['code'] ) {
 		$echecs[] = $room->post_name . ' : image absente sur la machine (' . $image . ')';
 		continue;
 	}
 
-	if ( empty( $drapeaux ) ) {
-		$non_testables[] = $room->post_name . ' : aucune question de drapeau (rien a prouver par l image)';
-		continue;
-	}
-
-	$nom = $prefixe . $room->ID;
-	$reseau = Secura_Lab::network_name( 0, $room->ID, $manifest );
+	$nom     = $prefixe . 'r' . $room->ID;
+	$reseau  = $prefixe . 'n' . $room->ID;
 	$commande = 'docker run -d --name ' . escapeshellarg( $nom )
 		. ' --network ' . escapeshellarg( $reseau )
+		. ' --user ' . escapeshellarg( isset( $manifest['user'] ) ? (string) $manifest['user'] : '1000:1000' )
 		. ' --cap-drop ALL --security-opt no-new-privileges'
-		. ' --pids-limit 256 --memory 512m --cpus 1.0'
+		. ' --pids-limit ' . (int) ( isset( $manifest['pids'] ) ? $manifest['pids'] : 256 )
+		. ' --memory ' . escapeshellarg( isset( $manifest['memory'] ) ? (string) $manifest['memory'] : '512m' )
+		. ' --cpus ' . escapeshellarg( isset( $manifest['cpus'] ) ? (string) $manifest['cpus'] : '1' )
 		. ' --tmpfs /tmp:rw,noexec,nosuid,size=32m'
-		. ' --user 1000:1000 -w /home/ctf '
-		. escapeshellarg( $image ) . ' sleep infinity';
+		. ' -w ' . escapeshellarg( isset( $manifest['workdir'] ) ? (string) $manifest['workdir'] : '/home/ctf' )
+		. ' ' . escapeshellarg( $image );
+
+	/* La commande du manifeste est une chaine : Docker attend des mots. */
+	foreach ( preg_split( '/\s+/', trim( (string) ( isset( $manifest['command'] ) ? $manifest['command'] : 'sleep infinity' ) ) ) as $mot ) {
+		if ( '' !== $mot ) {
+			$commande .= ' ' . escapeshellarg( $mot );
+		}
+	}
 
 	seca_preuve_exec( 'docker network create --internal ' . escapeshellarg( $reseau ) );
 	$demarrage = seca_preuve_exec( $commande );
@@ -189,76 +435,57 @@ foreach ( $rooms as $room ) {
 	if ( 0 !== $demarrage['code'] || ! seca_preuve_attendre( $nom ) ) {
 		$echecs[] = $room->post_name . ' : la machine ne demarre pas (' . trim( $demarrage['sortie'] ) . ')';
 		seca_preuve_exec( 'docker rm -f ' . escapeshellarg( $nom ) );
+		seca_preuve_exec( 'docker network rm ' . escapeshellarg( $reseau ) );
 		continue;
 	}
 
-	$room_ok = true;
-	$detail  = array();
+	$ok_room = true;
+	$details = array();
 
-	foreach ( $drapeaux as $attendu ) {
-		$lecture_apprenant = seca_preuve_exec(
-			'docker exec ' . escapeshellarg( $nom ) . ' cat ' . escapeshellarg( $attendu['chemin'] )
-		);
+	if ( ! empty( $chemins ) ) {
+		list( $drapeaux_ok, $details ) = seca_preuve_verifier_drapeaux( $nom, $chemins );
 
-		/* Le fichier doit etre lisible par le serveur (root) : c'est ce que
-		   fait le plugin pour corriger la reponse. */
-		$lecture_root = seca_preuve_exec(
-			'docker exec -u 0 ' . escapeshellarg( $nom ) . ' cat ' . escapeshellarg( $attendu['chemin'] )
-		);
-
-		$valeur = seca_preuve_drapeau( $lecture_root['sortie'] );
-
-		if ( '' === $valeur ) {
-			$room_ok = false;
-			$detail[] = 'drapeau introuvable en root : ' . $attendu['chemin'];
-			continue;
+		if ( ! $drapeaux_ok ) {
+			$ok_room = false;
 		}
-
-		/* L'apprenant ne doit pas le lire directement : sinon la room se
-		   resout sans rien apprendre. */
-		if ( 0 === $lecture_apprenant['code'] && '' !== seca_preuve_drapeau( $lecture_apprenant['sortie'] ) ) {
-			$room_ok = false;
-			$detail[] = 'l apprenant lit directement ' . $attendu['chemin'];
-			continue;
-		}
-
-		$detail[] = $attendu['chemin'] . ' = ' . $valeur;
+	} else {
+		$details[] = 'aucune question de drapeau (machine de cours)';
 	}
 
-	/* La cible annoncee repond-elle depuis la machine ? */
-	$cible = isset( $manifest['target'] ) ? (string) $manifest['target'] : '';
-
 	if ( '' !== $cible && 0 === strpos( $cible, 'http' ) ) {
-		$reponse = seca_preuve_exec(
-			'docker exec ' . escapeshellarg( $nom )
-			. ' sh -c ' . escapeshellarg( 'curl -sk -o /dev/null -w "%{http_code}" --max-time 8 ' . $cible )
-		);
-
-		$code_http = (int) trim( $reponse['sortie'] );
+		$code_http = seca_preuve_joindre( $nom, $cible );
 
 		if ( $code_http >= 200 && $code_http < 500 ) {
-			$detail[] = 'cible ' . $cible . ' → HTTP ' . $code_http;
+			$details[] = 'cible ' . $cible . ' → HTTP ' . $code_http;
 		} else {
-			$room_ok = false;
-			$detail[] = 'cible ' . $cible . ' injoignable (code ' . $code_http . ')';
+			$ok_room   = false;
+			$details[] = 'cible ' . $cible . ' injoignable depuis la machine';
 		}
+	} elseif ( '' !== $cible ) {
+		list( $fichier_ok, $detail_fichier ) = seca_preuve_cible_fichier( $nom, $cible );
+
+		if ( ! $fichier_ok ) {
+			$ok_room = false;
+		}
+
+		$details[] = $detail_fichier;
 	}
 
 	seca_preuve_exec( 'docker rm -f ' . escapeshellarg( $nom ) );
 	seca_preuve_exec( 'docker network rm ' . escapeshellarg( $reseau ) );
 
-	if ( $room_ok ) {
+	if ( $ok_room ) {
 		$ok++;
 	} else {
-		$echecs[] = $room->post_name . ' : ' . implode( ' ; ', $detail );
+		$echecs[] = $room->post_name . ' : ' . implode( ' ; ', $details );
 	}
 
 	$lignes[] = sprintf(
-		'%-4s %-46s %-28s %s',
-		$room_ok ? 'OK' : 'KO',
+		'%-4s %-46s %-24s %s',
+		$ok_room ? 'OK' : 'KO',
 		$room->post_name,
 		$image,
-		implode( ' ; ', $detail )
+		implode( ' ; ', $details )
 	);
 }
 
@@ -270,11 +497,11 @@ foreach ( $non_testables as $note ) {
 }
 
 echo "\n";
-printf( "Rooms avec machine : %d\n", $total );
-printf( "Rooms dont le drapeau est prouve : %d\n", $ok );
-printf( "Rooms sans machine (cours sans lab) : %d\n", count( $sans_machine ) );
-printf( "Rooms non testables ici : %d\n", count( $non_testables ) );
-printf( "Echecs : %d\n", count( $echecs ) );
+printf( "Rooms avec machine          : %d\n", $total );
+printf( "Rooms prouvees par la machine : %d\n", $ok );
+printf( "Rooms sans machine (cours)  : %d\n", count( $sans_machine ) );
+printf( "Rooms non testables ici     : %d\n", count( $non_testables ) );
+printf( "Echecs                      : %d\n", count( $echecs ) );
 
 foreach ( $echecs as $echec ) {
 	echo '  ECHEC ', $echec, "\n";

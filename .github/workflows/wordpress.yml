@@ -167,18 +167,51 @@ jobs:
           set -o pipefail
           wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/preuve-machines.php \
             | tee /tmp/preuve-machines.txt
+          # Le rapport est deja dans /tmp : l'etape echoue si une room ment,
+          # mais on publie quand meme tout le detail.
+
+      - name: La preuve au sommaire du travail
+        if: always()
+        run: |
+          # Les artefacts (et leurs journaux) ne sont pas telechargeables
+          # depuis ce bac a sable : le rapport doit donc atterrir dans le
+          # sommaire du job, qui, lui, est lisible.
+          {
+            echo '## Preuve des machines, room par room'
+            echo ''
+            echo '```'
+            sed -n '1,200p' /tmp/preuve-machines.txt 2>/dev/null || echo 'aucun rapport produit'
+            echo '```'
+            echo ''
+            echo '## Les contrôles des machines (fin du journal)'
+            echo ''
+            echo '```'
+            tail -40 /tmp/machines.txt 2>/dev/null || echo 'aucun journal'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Le lab web-dvwa (prototype du ZIP) démarre-t-il ?
+        if: always()
         run: |
           # Pas de publication de port : le lab reste en reseau ferme,
           # comme chez l'apprenant. On verifie seulement qu'il demarre.
+          docker rm -f seca_test_dvwa >/dev/null 2>&1 || true
           docker run -d --name seca_test_dvwa --network none \
             --cap-drop ALL --security-opt no-new-privileges \
             --memory 512m --cpus 1.0 \
             securalabs/web-dvwa:1.0
-          sleep 5
+          sleep 8
           docker exec seca_test_dvwa sh -c 'ls /var/www/html >/dev/null' && echo "OK  web-dvwa : le contenu web est present"
-          docker rm -f seca_test_dvwa
+          for prototype in secura-lab-blue-firewall secura-lab-blue-log-analysis secura-lab-buffer-overflow; do
+            docker run -d --name "seca_test_$prototype" --network none \
+              --cap-drop ALL --security-opt no-new-privileges --memory 512m --cpus 1.0 \
+              "securalabs/$prototype:1.0" >/dev/null
+            sleep 6
+            etat=$(docker inspect -f '{{.State.Running}}' "seca_test_$prototype")
+            echo "$etat $prototype"
+            docker rm -f "seca_test_$prototype" >/dev/null
+          done
+          docker rm -f seca_test_dvwa >/dev/null
 
       - name: Publier les preuves des machines
         if: always()
