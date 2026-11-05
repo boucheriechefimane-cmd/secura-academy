@@ -24,8 +24,6 @@ on:
   push:
     branches:
       - main
-      # DECLENCHEUR TEMPORAIRE (retire dans le commit suivant).
-      - arena/a792cc4e-secura-academy
   workflow_dispatch:
 
 permissions:
