@@ -505,6 +505,15 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 				sed 's/^/       expl | /' /tmp/exploit-bin01.txt | head -20
 			fi
 
+			# Temoin : un binaire setuid root trivial, compile dans le conteneur.
+			# Il ne fait qu'afficher getuid()/geteuid() et ne peut pas echouer.
+			# S'il affiche euid=0, le noyau honore bien le bit setuid ici, et
+			# le probleme vient du shell ou du binaire ; s'il affiche euid=1000,
+			# c'est l'environnement qui ignore le bit, quelle qu'en soit la
+			# raison. C'est la mesure qui tranche, pas l'intuition.
+			docker exec -u 0 "$CONT_BIN" sh -c 'printf "#include <stdio.h>\n#include <unistd.h>\nint main(void){printf(\"temoin uid=%d euid=%d\\n\", getuid(), geteuid()); return 0;}\n" > /home/ctf/temoin.c && gcc -o /home/ctf/temoin /home/ctf/temoin.c && chown root:root /home/ctf/temoin && chmod 4755 /home/ctf/temoin' >/dev/null 2>&1 || true
+			echo "       temoin : $(docker exec "$CONT_BIN" /home/ctf/temoin 2>&1 | tr '\n' ' ')"
+
 			if grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-root.txt 2>/dev/null \
 				&& echo "$montage" | grep -q 'nosuid'; then
 				test_non_mesurable \
