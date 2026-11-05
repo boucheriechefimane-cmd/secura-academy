@@ -247,3 +247,22 @@ et de l'arabe.
 - Un certificat « reconnu par les employeurs » : il faut un organisme
   certificateur, une surveillance et une vérification d'identité. Le produit
   peut délivrer une **attestation de suivi honnête** en attendant.
+
+---
+
+## 9. Ordre révisé (5 novembre 2026, soir) — anglais d'abord, preuve ensuite
+
+Décision de travail, applicable à partir de maintenant :
+
+| Ordre | Chantier | Pourquoi dans cet ordre |
+|---|---|---|
+| 1 | **Anglais complet** (1298 champs restants sur 50 rooms) | c'est la langue de référence ; traduire avant de valider reviendrait à traduire deux fois |
+| 2 | **Preuve réelle en image** (`bin-01` shell root, 67 contrôles machines) | la seule partie que le bac à sable ne peut pas mesurer |
+| 3 | **Scénarios cassés restants** (`multi-01` TLS, `owasp-01`) | même méthode que `bin-01` : un test qui échoue si le scénario est impossible |
+| 4 | Nettoyage anti-triche (lot L1) et vraie pratique (lot L2) | demande du contenu anglais stable |
+| 5 | Traductions FR et AR | **seulement après** validation complète de l'anglais |
+| 6 | Rebranchement du CI | un seul run, sur la demande de fusion, à la fin |
+
+Le lot L3 « machines crédibles » est **entamé** : `bin-01` est réparé et son
+exploit est devenu un test de non-régression (voir
+`docs/audits/ETAT-2026-11-05-SOIR.md`, §2 et §3).
