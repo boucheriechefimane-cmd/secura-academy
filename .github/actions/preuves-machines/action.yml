@@ -240,16 +240,23 @@ runs:
         if [ -s /tmp/echecs.txt ]; then
           echo "::error title=Run de mesure en echec::$(paste -sd ' | ' /tmp/echecs.txt)"
 
-          extrait() {
+          # GitHub plafonne a 10 annotations par etape : une annotation par
+          # ligne en faisait perdre la moitie, dont justement l'enquete.
+          # On regroupe donc tout dans UNE annotation, en plusieurs lignes
+          # (%0A = saut de ligne), et on la garde sous la limite de taille.
+          bloc=""
+          ajouter() {
             [ -f "$1" ] || return 0
-            grep -aE "KO|ECHEC|échec|erreur|Error|Fatal|enquete|image  :|test   :|nnp    :|expl \\||root   :|caps   :|version:|mount  :" "$1" | head -40 | while IFS= read -r ligne; do
-              echo "::error title=$(basename "$1")::${ligne:0:400}"
-            done
+            while IFS= read -r ligne; do
+              bloc="${bloc}${ligne}%0A"
+            done < <(grep -aE "KO|ECHEC|échec|erreur|Error|Fatal|enquete|image  :|test   :|nnp    :|expl |root   :|caps   :|version:|mount  :" "$1" | head -40)
           }
 
-          extrait /tmp/machines.txt
-          extrait /tmp/etapes.txt
-          extrait /tmp/preuve-machines.txt
+          ajouter /tmp/machines.txt
+          ajouter /tmp/etapes.txt
+          ajouter /tmp/preuve-machines.txt
+
+          echo "::error title=Detail des echecs::${bloc:0:6000}"
 
           exit 1
         fi
