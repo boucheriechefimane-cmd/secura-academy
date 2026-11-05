@@ -422,6 +422,13 @@ else
 	test_ko "la machine multi-01 ne démarre pas" "docker run --rm securalabs/multi-01:1.0 true"
 fi
 
+# --- Sonde du moteur de conteneurs -------------------------------------
+# Ce que le demon dit de sa propre configuration. C'est la premiere chose a
+# lire quand un privilege est refuse : ni le montage, ni overlayfs, ni les
+# capacites n'expliquaient le blocage du setuid (les quatre hypotheses ont
+# ete ecartees en local). Restent la politique seccomp et le mode rootless.
+echo "SONDE moteur : $(docker info --format '{{.SecurityOptions}} | driver={{.Driver}} | cgroup={{.CgroupVersion}} | rootless={{.SecurityOptions}}' 2>&1 | tr '\n' ' ')"
+
 # --- La machine « bin-01 » (scénario 9).
 CONT_BIN="seca_test_bin_$$"
 
@@ -520,7 +527,32 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 			fi
 
 
-			if grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-root.txt 2>/dev/null \
+			# Comparaison decisive, dans CE meme run : le meme exploit, le meme
+			# utilisateur, le meme binaire, mais sans filtre seccomp. Si le shell
+			# s'ouvre ici et pas dans le conteneur normal, la cause est le
+			# profil seccomp, et c'est prouve en une seule comparaison au lieu
+			# de dix runs.
+			CONT_SANS_SECCOMP="${CONT_BIN}_noseccomp"
+			if docker run -d --name "$CONT_SANS_SECCOMP" --network none \
+				--cap-drop ALL --pids-limit 256 --memory 512m --cpus 1.0 \
+				--security-opt seccomp=unconfined \
+				--tmpfs /tmp:rw,noexec,size=32m \
+				--user 1000:1000 -w /home/ctf securalabs/bin-01:1.0 sleep infinity >/dev/null 2>&1; then
+				attendre 3
+				docker exec -i "$CONT_SANS_SECCOMP" python3 - /home/ctf/vulnerable \
+					--commande 'id' < "$EXPLOIT" > /tmp/exploit-noseccomp.txt 2>&1 || true
+				echo "SONDE sans seccomp : $(grep -E 'IDENTITE|uid=' /tmp/exploit-noseccomp.txt 2>/dev/null | tr '\n' ' ')"
+				docker rm -f "$CONT_SANS_SECCOMP" >/dev/null 2>&1
+			else
+				echo "SONDE sans seccomp : conteneur de comparaison impossible"
+			fi
+
+			if grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-noseccomp.txt 2>/dev/null \
+				&& ! grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-bin01.txt 2>/dev/null; then
+				test_non_mesurable \
+					"scenario 9 : CAUSE TROUVEE — le profil seccomp bloque l'elevation setuid" \
+					"le meme exploit reussit avec seccomp=unconfined et echoue sans. Le binaire et le scenario sont bons ; c'est le moteur de conteneurs qui refuse l'elevation."
+			elif grep -q 'IDENTITE DU SHELL : root' /tmp/exploit-root.txt 2>/dev/null \
 				&& echo "$montage" | grep -q 'nosuid'; then
 				test_non_mesurable \
 					"scenario 9 : le binaire setuid n'est PAS honore ici (montage nosuid)" \
