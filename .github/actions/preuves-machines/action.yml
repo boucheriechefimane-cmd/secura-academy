@@ -46,9 +46,20 @@ runs:
         echo "Syntaxe PHP : OK"
         if [ -f tests/smoke-test.php ]; then php tests/smoke-test.php; fi
 
+    - name: Préparer le registre des échecs
+      shell: bash
+      run: |
+        # Un run de mesure dure vingt minutes et construit dix images : on
+        # ne veut pas perdre tout ce travail au premier pepin. Chaque etape
+        # note son echec ici, et une seule etape finale decide du sort du
+        # job — en NOMMANT ce qui a echoue.
+        : > /tmp/echecs.txt
+        echo "Registre des echecs pret."
+
     - name: Construire les machines
       shell: bash
       run: |
+        set -o pipefail
         # Les machines que les rooms declarent, plus les prototypes du ZIP
         # (web-dvwa, secura-lab-blue-firewall, secura-lab-blue-log-analysis,
         # secura-lab-buffer-overflow) : ils doivent au moins se construire,
@@ -57,8 +68,11 @@ runs:
                        web-dvwa secura-lab-blue-firewall \
                        secura-lab-blue-log-analysis secura-lab-buffer-overflow; do
           echo "Construction de $machine…"
-          docker build -q -t "securalabs/$machine:1.0" "labs/$machine"
-          echo "OK  $machine"
+          if docker build -q -t "securalabs/$machine:1.0" "labs/$machine"; then
+            echo "OK  $machine"
+          else
+            echo "ECHEC construction : $machine" | tee -a /tmp/echecs.txt
+          fi
         done
         echo "Construction du serveur de drapeaux (flags-01)…"
         docker build -q -t "securalabs/flags-01:1.0" labs/juice-shop/flags
@@ -87,7 +101,13 @@ runs:
 
     - name: Recette avec les vraies machines
       shell: bash
-      run: SECA_AVEC_MACHINE=1 wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php 2>&1 | tee -a /tmp/etapes.txt
+      run: |
+        set -o pipefail
+        if SECA_AVEC_MACHINE=1 wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php 2>&1 | tee -a /tmp/etapes.txt; then
+          echo "OK recette wp-e2e"
+        else
+          echo "ECHEC : recette wp-e2e (le site ou les machines ne repondent pas comme prevu)" | tee -a /tmp/echecs.txt
+        fi
 
     - name: Scénario des deux apprenants (isolation)
       shell: bash
@@ -99,13 +119,23 @@ runs:
         SECA_USER_BOB=$(wp --path="$SECA_WP_DIR" --allow-root user get bob --field=ID)
         echo "Rooms : web=$SECA_ROOM_WEB net=$SECA_ROOM_NET bin=$SECA_ROOM_BIN"
         echo "Apprenants : alice=$SECA_USER_ALICE bob=$SECA_USER_BOB"
-        SECA_ROOM_WEB="$SECA_ROOM_WEB" SECA_ROOM_NET="$SECA_ROOM_NET" SECA_ROOM_BIN="$SECA_ROOM_BIN" \
+        if SECA_ROOM_WEB="$SECA_ROOM_WEB" SECA_ROOM_NET="$SECA_ROOM_NET" SECA_ROOM_BIN="$SECA_ROOM_BIN" \
         SECA_USER_ALICE="$SECA_USER_ALICE" SECA_USER_BOB="$SECA_USER_BOB" \
-          python3 tools/recette-apprenants/scenario.py 2>&1 | tee -a /tmp/etapes.txt
+          python3 tools/recette-apprenants/scenario.py 2>&1 | tee -a /tmp/etapes.txt; then
+          echo "OK scenario des deux apprenants"
+        else
+          echo "ECHEC : scenario des deux apprenants (isolation ou progression)" | tee -a /tmp/echecs.txt
+        fi
 
     - name: Les 45 contrôles des machines
       shell: bash
-      run: bash scripts/test-labs-ci.sh 2>&1 | tee /tmp/machines.txt | tee -a /tmp/etapes.txt
+      run: |
+        set -o pipefail
+        if bash scripts/test-labs-ci.sh 2>&1 | tee /tmp/machines.txt | tee -a /tmp/etapes.txt; then
+          echo "OK controles des machines"
+        else
+          echo "ECHEC : controles des machines (voir /tmp/machines.txt)" | tee -a /tmp/echecs.txt
+        fi
 
     - name: La preuve des machines, room par room
       shell: bash
@@ -116,8 +146,11 @@ runs:
         code=${PIPESTATUS[0]}
         echo "code de sortie de la preuve : $code"
         echo "code=$code" >> /tmp/preuve-machines.txt
-        # Le rapport est dans /tmp : l'etape echoue si une room ment, mais
-        # on publie quand meme tout le detail.
+        # Le rapport est dans /tmp : on publie tout le detail, et on note
+        # l'echec dans le registre (avant, ce code etait calcule puis jete).
+        if [ "$code" -ne 0 ]; then
+          echo "ECHEC : la preuve room par room signale au moins une room qui ment" | tee -a /tmp/echecs.txt
+        fi
 
     - name: La preuve au sommaire du travail
       if: always()
@@ -165,6 +198,29 @@ runs:
           docker logs seca_diag_web 2>&1 | tail -20 || true
           docker rm -f seca_diag_web >/dev/null 2>&1 || true
         } | tee /tmp/diagnostic.txt
+
+    - name: Verdict du run de mesure
+      if: always()
+      shell: bash
+      run: |
+        {
+          echo '## Verdict du run de mesure'
+          echo ''
+          if [ -s /tmp/echecs.txt ]; then
+            echo 'Le run est en echec. Ce qui a échoué, nommément :'
+            echo ''
+            sed 's/^/  - /' /tmp/echecs.txt
+          else
+            echo 'Toutes les mesures sont passées.'
+          fi
+        } | tee -a "$GITHUB_STEP_SUMMARY"
+
+        # Un job rouge sans nom d'etape coute une heure d'enquete : on
+        # n'echoue qu'ici, et jamais sans avoir dit pourquoi.
+        if [ -s /tmp/echecs.txt ]; then
+          echo "::error title=Run de mesure en echec::$(paste -sd ' | ' /tmp/echecs.txt)"
+          exit 1
+        fi
 
     - name: Déposer la preuve dans le dépôt
       if: always() && inputs.deposer_preuve == 'true'
