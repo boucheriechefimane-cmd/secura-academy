@@ -26,7 +26,7 @@ on:
     - cron: '23 5 * * 1'
 
 permissions:
-  contents: read
+  contents: write # la preuve des machines est commitee dans la branche « preuve-machines »
 
 concurrency:
   group: wordpress-${{ github.ref }}
@@ -189,6 +189,35 @@ jobs:
             tail -40 /tmp/machines.txt 2>/dev/null || echo 'aucun journal'
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Déposer la preuve dans le dépôt
+        if: always()
+        run: |
+          # Ni les journaux de job ni les artefacts ne sont telechargeables
+          # depuis le bac a sable du proprietaire (redirection Azure
+          # bloquee). Le rapport est donc commite dans une branche dediee,
+          # ou il reste lisible : « preuve-machines ».
+          dossier="docs/preuves"
+          mkdir -p "$dossier"
+          date_du_jour=$(date -u +%Y-%m-%d)
+          cp /tmp/preuve-machines.txt "$dossier/machines-$date_du_jour.txt" 2>/dev/null || true
+          cp /tmp/machines.txt "$dossier/controles-machines-$date_du_jour.txt" 2>/dev/null || true
+          {
+            echo "# Preuve des machines du $date_du_jour"
+            echo
+            echo "Commit mesure : $GITHUB_SHA"
+            echo "Travail : $GITHUB_RUN_ID"
+            echo
+            echo '```'
+            sed -n '1,200p' /tmp/preuve-machines.txt 2>/dev/null || echo 'aucun rapport produit'
+            echo '```'
+          } > "$dossier/LISEZ-MOI.md"
+          git config user.name 'Recette Secura'
+          git config user.email 'recette@secura.invalid'
+          git checkout -B preuve-machines
+          git add "$dossier"
+          git commit -q -m "Preuve des machines du $date_du_jour ($GITHUB_SHA)" || echo 'rien de neuf'
+          git push --force origin HEAD:refs/heads/preuve-machines
 
       - name: Le lab web-dvwa (prototype du ZIP) démarre-t-il ?
         if: always()
