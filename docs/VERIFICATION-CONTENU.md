@@ -164,16 +164,39 @@ Autrement dit : **13 % du catalogue est adossé à une source nommée**. Les
 document ne les couvre pas, la plateforme ne peut pas affirmer qu'ils sont
 exacts — seulement qu'ils sont plausibles et cohérents.
 
-## 5. Défauts connus, non corrigés à ce jour
+## 5. Défauts trouvés, et leur état
 
-Ces trois points ont été relevés pendant l'audit et **n'ont pas été
-corrigés** : ils sont hors du périmètre des 34 questions, et une correction
-de masse reste suspendue.
+### 5.1 Corrigés le 06/11/2026 : huit mots coupés en deux
+
+Une passe automatique antérieure avait remplacé, dans des phrases
+**françaises**, des mots par leur équivalent anglais. Le dégât est
+particulièrement vicieux : il ne casse ni la longueur, ni la structure, ni
+la syntaxe. La phrase reste grammaticalement plausible.
+
+| Où | Avant | Après |
+|---|---|---|
+| `univ-04` q1 (bonne réponse) | « les autres **mechanisms** limitent le dégât » | « les autres **mécanismes** limitent le dégât » |
+| `univ-06` q0 (bonne réponse) | « la segmentation est **incomplete** » | « la segmentation est **incomplète** … sans passer par un contrôle » |
+| `univ-06` q3 (bonne réponse) | « le chemin a été**Possible** » | « le chemin a été **ouvert** » |
+| `univ-07` q5 (bonne réponse) | « signer **desalgorithms** … **consideres** faibles » | « signer **des algorithmes** … **considérés** faibles » |
+| `univ-06` (énoncé) | « envoyer une requête **directly** » | « envoyer une requête **directement** » |
+| `univ-12` (explication) | « du code **located elsewhere** » | « du code **situé ailleurs** dans le programme » |
+| `univ-08` q1 (mauvaise réponse) | « Empêcher **lesARAM** de se souvenir » | « Empêcher le navigateur de mémoriser la session » |
+| `univ-12` q1 (mauvaise réponse) | « le ROP utilise **desAES** » | « le ROP se contente des adresses déjà présentes dans la pile » |
+| `univ-18` q0 (mauvaise réponse) | « Parce que les **laws change** » | « Parce que les lois et les usages changent » |
+| `univ-14` q4 (bonne réponse) | « ça peut **cacheter** une mauvaise pratique » | « c'est le signe d'une mauvaise pratique » |
+
+**Pourquoi les contrôles ne les avaient pas vus** : `verifie_lisibilite()`
+ne regardait que les bonnes réponses (les mauvaises sont pourtant lues par
+l'élève), et aucun contrôle ne cherchait un mot français coupé en deux.
+`check.py` porte désormais `MOT_COUPE` et `ANGLAIS_INTRUS`, appliqués à
+**toutes** les propositions, en français seulement.
+
+### 5.2 Toujours ouverts
 
 | Où | Défaut | Gravité |
 |---|---|---|
-| `univ-18` | « Parce que les **laws change** » — une moitié de phrase est restée en anglais dans le texte français | visible, à corriger en priorité |
-| `univ-06` | « la zone publique ne devrait pas joindre la zone des données » — présenté comme une règle générale, alors qu'un pare-feu à états autorise le retour des connexions établies | **faux comme règle générale** |
+| `univ-06` q0 | « la zone publique ne devrait pas joindre la zone des données » — reste trop absolu : un pare-feu à états autorise le retour des connexions établies | **imprécis** ; la formulation a été adoucie, la nuance reste à écrire dans l'explication |
 | `univ-01` (texte de room) | « je gagne le niveau en 3 minutes » — promesse commerciale dans un texte pédagogique | hors sujet, à retirer |
 
 ## 6. Les sources, avec leur URL

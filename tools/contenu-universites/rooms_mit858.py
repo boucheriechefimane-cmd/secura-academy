@@ -553,7 +553,7 @@ ROOMS = [
                 'q': 'Pourquoi le cours insiste-t-il sur la défense en profondeur après la leçon sur le bac à sable ?',
                 'choices': [
                     'Parce que le bac à sable est trop lent',
-                    'Parce qu\'un mécanisme unique peut avoir une faille : les autres mechanisms limitent le dégât',
+                    'Parce qu\'un mécanisme unique peut avoir une faille : les autres mécanismes limitent le dégât',
                     'Parce qu\'il faut deux serveurs web',
                     'Parce que le bac à sable ne marche que sous Linux',
                 ],

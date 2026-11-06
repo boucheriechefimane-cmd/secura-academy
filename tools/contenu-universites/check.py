@@ -205,6 +205,25 @@ MOT_OUTIL_FINAL = re.compile(
     r"entre|que|qui|dont|il faut|faut|peut|doit|est|sont|etre|avoir)$"
 )
 JETON_CASSE = re.compile(r"[a-zà-ÿ]_[a-zà-ÿ]")   # ex. « defense_rules »
+
+# Un mot francais coupe en deux par une passe automatique : « requete
+# directly », « est incomplete », « a etePossible », « desalgorithms »,
+# « lesARAM », « desAES ». C'est le degat le plus vicieux, parce qu'il ne
+# casse NI la longueur NI la structure : la phrase reste grammaticalement
+# plausible (« les autres mechanisms limitent le degat »). Il ne se voit
+# qu'en lisant, ou avec ce motif.
+MOT_COUPE = re.compile(
+    r"[a-zà-ÿ]{2,}(?:AES|ARAM|RAM|SSH|HTTP|TLS|Possible)\b"   # lesARAM, desAES
+    r"|\b[a-zà-ÿ]{2,}(?:[A-Z][a-zà-ÿ]{2,})"                     # etePossible
+)
+
+# Mots anglais qui, dans une phrase francaise, ne sont JAMAIS du vocabulaire
+# technique admis (contrairement a « buffer », « cookie », « session »).
+# La liste est courte par construction : un intrus large crie au loup.
+ANGLAIS_INTRUS = re.compile(
+    r"\b(mechanisms?|algorithms?|consideres|incomplete|located|directly|"
+    r"ultimate|however|therefore|otherwise|laws|trusted|untrusted)\b"
+)
 BALISE = re.compile(r"<[^>]+>")                  # ce qui est dans <code> n est pas du texte
 LETTRE_ISOLEE = re.compile(r"(?<!\w)[bcdfghjklmnpqrstvwxz](?!\w)", re.I)
 
@@ -226,6 +245,19 @@ def verifie_lisibilite(where, choices, problems, langue):
             problems.append('%s [%s] : proposition %d contient un jeton casse '
                             '(« %s ») — majuscule au milieu d un mot'
                             % (where, langue, position + 1, JETON_CASSE.search(texte).group(0)))
+        coupe = MOT_COUPE.search(texte)
+        if coupe:
+            problems.append('%s [%s] : proposition %d contient un mot coupe '
+                            'en deux (« %s ») — une passe automatique a du '
+                            'coller deux mots'
+                            % (where, langue, position + 1, coupe.group(0)))
+        # En anglais, « therefore » et « however » sont chez eux : ce
+        # controle ne vaut que pour le francais.
+        intrus = ANGLAIS_INTRUS.search(texte) if langue == 'fr' else None
+        if intrus:
+            problems.append('%s [%s] : proposition %d contient un intrus '
+                            'anglais (« %s ») dans une phrase francaise'
+                            % (where, langue, position + 1, intrus.group(0)))
         # Le mot juge est le DERNIER MOT, pas la derniere lettre : « il y a »
         # est une phrase finie, « il faut reutiliser » n'en est pas une.
         mots = re.findall(r"[A-Za-zÀ-ÿ']+", texte)

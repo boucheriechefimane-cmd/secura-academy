@@ -49,10 +49,10 @@ ROOMS = [
         'practice_intro': '<p>Deux questions sur ce que le réseau fait, et ce qu\'il ne fait pas.</p>',
         'practice': [
             {
-                'q': 'Une machine du réseau public peut envoyer une requête directly au serveur de base de données. Quel est le défaut ?',
+                'q': 'Une machine du réseau public peut envoyer une requête directement au serveur de base de données. Quel est le défaut ?',
                 'choices': [
                     'Aucun : c\'est normal, le réseau public est fait pour ça',
-                    'La segmentation est incomplete : la zone publique ne devrait pas joindre la zone des données',
+                    'La segmentation est incomplète : la zone publique ne devrait pas joindre la zone des données sans passer par un contrôle',
                     'Le serveur de base de données est trop lent',
                     'Le protocole TCP/IP est trop ancien',
                 ],
@@ -106,7 +106,7 @@ ROOMS = [
                 'q': 'Une machine compromise dans la zone « public » arrive à joindre la zone « interne ». Que faut-il en premier ?',
                 'choices': [
                     'Changer tous les mots de passe',
-                    'Rechercher où le chemin a étéPossible : règle de pare-feu, route, ou service exposé',
+                    'Rechercher où le chemin a été ouvert : règle de pare-feu, route, ou service exposé',
                     'Éteindre le serveur web',
                     'Installer un antivirus sur la machine compromise',
                 ],
@@ -290,7 +290,7 @@ ROOMS = [
                 'q': 'Pourquoi la date de validité du certificat compte-t-elle ?',
                 'choices': [
                     'Pour la facturation',
-                    'Parce qu\'un certificat trop ancien peut signer desalgorithms aujourd\'hui consideres faibles, et qu\'il faut pouvoir le revoquer',
+                    'Parce qu\'un certificat ancien peut signer des algorithmes aujourd\'hui considérés faibles, et qu\'il faut pouvoir le révoquer',
                     'Pour Savoir qui a achete le domaine',
                     'Parce que le navigateur ne supporte que les certificats de moins d\'un an',
                 ],
@@ -423,7 +423,7 @@ ROOMS = [
                     'Stocker le mot de passe en clair pour ne pas le redemander',
                     'Porter un identifiant de session aléatoire, difficile à deviner, qui remplace le mot de passe à chaque requête',
                     'Chiffrer la page pour le moteur de recherche',
-                    'Empêcher lesARAM de se souvenir du site',
+                    'Empêcher le navigateur de mémoriser la session du site',
                 ],
                 'correct': 1,
                 'xp': 10,

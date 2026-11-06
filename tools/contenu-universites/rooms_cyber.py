@@ -120,7 +120,7 @@ ROOMS = [
                 'q': 'Un service te demande de choisir un mot de passe <em>avant</em> de créer le compte, et ne te laisse jamais le voir après. Est-ce un problème ?',
                 'choices': [
                     'Non, c\'est normal',
-                    'Oui, ça peut cacheter une mauvaise pratique : demander le mot de passe en clair empêche de le hacher correctement',
+                    'Oui, c\'est le signe d\'une mauvaise pratique : un service sérieux ne renvoie jamais un mot de passe en clair',
                     'Non, seulement si le service est en anglais',
                     'Oui, parce que le mot de passe doit contenir des chiffres',
                 ],

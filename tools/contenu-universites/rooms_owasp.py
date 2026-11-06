@@ -64,7 +64,7 @@ ROOMS = [
                 'choices': [
                     'Parce que les éditeurs changent leurs règles',
                     'Parce que le web évolue : les risques qui reviennent le plus souvent changent',
-                    'Parce que les laws change',
+                    'Parce que les lois et les usages changent, et qu\'un classement se périme',
                     'Pour publier plus de pages',
                 ],
                 'correct': 1,

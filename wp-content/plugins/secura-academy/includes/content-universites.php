@@ -648,7 +648,7 @@ array(
 					'question' => 'Pourquoi le cours insiste-t-il sur la défense en profondeur après la leçon sur le bac à sable ?',
 					'mode' => 'choice',
 					'choices' => array(
-						'Parce qu\'un mécanisme unique peut avoir une faille : les autres mechanisms limitent le dégât',
+						'Parce qu\'un mécanisme unique peut avoir une faille : les autres mécanismes limitent le dégât',
 						'Parce que le bac à sable est trop lent',
 						'Parce qu\'il faut deux serveurs web',
 						'Parce que le bac à sable ne marche que sous Linux',
@@ -995,10 +995,10 @@ array(
 			'content' => '<p>Deux questions sur ce que le réseau fait, et ce qu\'il ne fait pas.</p>',
 			'questions' => array(
 				array(
-					'question' => 'Une machine du réseau public peut envoyer une requête directly au serveur de base de données. Quel est le défaut ?',
+					'question' => 'Une machine du réseau public peut envoyer une requête directement au serveur de base de données. Quel est le défaut ?',
 					'mode' => 'choice',
 					'choices' => array(
-						'La segmentation est incomplete : la zone publique ne devrait pas joindre la zone des données',
+						'La segmentation est incomplète : la zone publique ne devrait pas joindre la zone des données sans passer par un contrôle',
 						'Aucun : c\'est normal, le réseau public est fait pour ça',
 						'Le serveur de base de données est trop lent',
 						'Le protocole TCP/IP est trop ancien',
@@ -1068,7 +1068,7 @@ array(
 					'choices' => array(
 						'Changer tous les mots de passe',
 						'Éteindre le serveur web',
-						'Rechercher où le chemin a étéPossible : règle de pare-feu, route, ou service exposé',
+						'Rechercher où le chemin a été ouvert : règle de pare-feu, route, ou service exposé',
 						'Installer un antivirus sur la machine compromise',
 					),
 					'correct' => 2,
@@ -1275,7 +1275,7 @@ array(
 					'mode' => 'choice',
 					'choices' => array(
 						'Pour la facturation',
-						'Parce qu\'un certificat trop ancien peut signer desalgorithms aujourd\'hui consideres faibles, et qu\'il faut pouvoir le revoquer',
+						'Parce qu\'un certificat ancien peut signer des algorithmes aujourd\'hui considérés faibles, et qu\'il faut pouvoir le révoquer',
 						'Pour Savoir qui a achete le domaine',
 						'Parce que le navigateur ne supporte que les certificats de moins d\'un an',
 					),
@@ -1429,7 +1429,7 @@ array(
 						'Porter un identifiant de session aléatoire, difficile à deviner, qui remplace le mot de passe à chaque requête',
 						'Stocker le mot de passe en clair pour ne pas le redemander',
 						'Chiffrer la page pour le moteur de recherche',
-						'Empêcher lesARAM de se souvenir du site',
+						'Empêcher le navigateur de mémoriser la session du site',
 					),
 					'correct' => 0,
 					'xp' => 10,
@@ -2097,14 +2097,14 @@ array(
 					'mode' => 'choice',
 					'choices' => array(
 						'Parce qu\'NX ne s\'applique qu\'au noyau',
-						'Parce que le ROP utilise desAES',
+						'Parce que le ROP se contente des adresses déjà présentes dans la pile',
 						'Parce que NX désactive le canari',
 						'Parce qu\'on n\'exécute pas de code placé dans la pile : on saute vers du code déjà exécutable',
 					),
 					'correct' => 3,
 					'xp' => 10,
 					'hint' => 'NX interdit d\'exécuter la pile, pas d\'y mettre des adresses.',
-					'explanation' => 'La pile ne contient que des <em>adresses</em> : le CPU saute vers du code located elsewhere (le code du programme), qui est exécutable. La pile reste une donnée.',
+					'explanation' => 'La pile ne contient que des <em>adresses</em> : le CPU saute vers du code situé ailleurs dans le programme, qui est exécutable. La pile reste une donnée.',
 				),
 			),
 		),
@@ -2531,7 +2531,7 @@ array(
 						'Non, c\'est normal',
 						'Non, seulement si le service est en anglais',
 						'Oui, parce que le mot de passe doit contenir des chiffres',
-						'Oui, ça peut cacheter une mauvaise pratique : demander le mot de passe en clair empêche de le hacher correctement',
+						'Oui, c\'est le signe d\'une mauvaise pratique : un service sérieux ne renvoie jamais un mot de passe en clair',
 					),
 					'correct' => 3,
 					'xp' => 10,
@@ -3172,7 +3172,7 @@ array(
 					'choices' => array(
 						'Parce que le web évolue : les risques qui reviennent le plus souvent changent',
 						'Parce que les éditeurs changent leurs règles',
-						'Parce que les laws change',
+						'Parce que les lois et les usages changent, et qu\'un classement se périme',
 						'Pour publier plus de pages',
 					),
 					'correct' => 0,
