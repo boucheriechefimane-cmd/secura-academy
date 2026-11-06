@@ -1261,4 +1261,313 @@ return array(
 		),
 	),
 
+	/* ---------------------------------------------------------------------
+	 * univ-13 — Vulnerabilite de format string
+	 * ------------------------------------------------------------------ */
+	'univ-13' => array(
+		'title'   => 'Format string vulnerability: the printf that talks too much',
+		'excerpt' => 'One %s too many, and the program goes looking for information on your behalf.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the format that becomes an address',
+				'content' => '<p>The <code>printf</code> family is dangerously flexible: <code>printf("%s", s)</code> prints a string, but <code>printf(s)</code> reads it as a <em>format</em>. If the user controls <code>s</code>, they control what the program <strong>reads from memory</strong> — and sometimes what it <strong>writes</strong>.</p><p>The mechanics are easy to grasp:</p><ul><li><code>%x</code> prints an hexadecimal word read from the stack (or from the registers);</li><li><code>%s</code> prints the string pointed to by the value it read;</li><li><code>%n</code> <strong>writes</strong> the number of characters printed to the address it read;</li><li><code>%n</code> is the most dangerous: it is an <strong>arbitrary write</strong>.</li></ul><p>Two consequences:</p><ol><li><strong>Information leak</strong>: by stacking <code>%p</code>, you make the program spit out the addresses it holds in memory. With ASLR, that is gold: you recover the program base or the address of a libc function.</li><li><strong>Arbitrary write</strong>: with <code>%n</code>, you write a chosen value to a chosen address. You can then overwrite a jump table entry, a function pointer, or the GOT (the table of already-resolved functions) to take control of the flow.</li></ol><p>The fix is simple and well known: <strong>always pass the format as a constant</strong>, never as data. <code>printf("%s", user_input)</code> and not <code>printf(user_input)</code>. The compiler can even help you: <code>gcc -Wformat-security</code> warns.</p><p><strong>Remember:</strong> a format string is a read <em>and</em> write controller handed to the user. Fixing it costs one line of code; exploiting it takes hours.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions: reading, writing, and fixing.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What does the <code>%n</code> specifier do in an exploitation context?',
+						'choices'     => array(
+							'It prints the number of characters already written',
+							'It reads a number from the network',
+							'It cleans the stack',
+							'It writes the number of characters printed to the address it just read: that is an arbitrary write',
+						),
+						'hint'        => 'Almost every specifier reads. That one writes.',
+						'explanation' => 'The other specifiers (%x, %s, %p) read. <code>%n</code> writes the character counter to the address read from the stack: hence an arbitrary write in memory.',
+					),
+					1 => array(
+						'question'    => 'How do you fix a vulnerable format string?',
+						'choices'     => array(
+							'By passing the format as a constant: <code>printf("%s", input)</code>',
+							'By filtering the <code>%</code> and <code>n</code> characters',
+							'By allocating more memory',
+							'By encrypting the input',
+						),
+						'hint'        => 'The course fix is a single move.',
+						'explanation' => 'The format must be a constant and the data must stay data. Character filtering is a stopgap: it gets bypassed (double %% or other encodings) and it hides the real design error.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the address leak',
+				'content' => '<p>In <code>/home/ctf/pwn</code>, the "Format String Exploits" practical left its <em>leak notebook</em>: the notes from the display manipulations used to recover addresses.</p><p><strong>Mission.</strong> Read that notebook and note the <em>number of specifiers value</em> used in the leak example (<code>specifier_count</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the number of specifiers (specifier_count) used in the leak example of the notebook.',
+						'hint'        => 'The leak notebook is in <code>/home/ctf/pwn</code>: read the note files.',
+						'explanation' => 'Counting the specifiers is understanding the mechanics: each <code>%p</code> consumes one value from the stack, so it shifts the read by one step.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the exact risk of <code>printf(user_input)</code>?',
+						'choices'     => array(
+							'The user controls what printf reads (and sometimes writes) in memory',
+							'A performance risk',
+							'An automatic buffer overflow',
+							'A leak of the PATH environment variable',
+						),
+						'hint'        => 'printf is not a reader by trade: it is a formatter.',
+						'explanation' => 'The data is interpreted as a format: the user chooses the specifiers, hence which places in memory are read — and with <code>%n</code>, written.',
+					),
+					1 => array(
+						'question'    => 'How does a format string let you bypass ASLR?',
+						'choices'     => array(
+							'By encrypting the binary',
+							'By making the program spit out the addresses it holds in memory: you recover a base to compute from',
+							'By disabling the kernel',
+							'By changing the CPU frequency',
+						),
+						'hint'        => 'ASLR hides addresses; a leak reveals them.',
+						'explanation' => 'An address leak (stack address, library address, program address) lets you compute the addresses despite the randomness: the randomness becomes known.',
+					),
+					2 => array(
+						'question'    => 'Why is <code>%n</code> so sought after in exploitation?',
+						'choices'     => array(
+							'Because it prints very large numbers',
+							'Because it stops the program',
+							'Because it lets you write a chosen value to a chosen address',
+							'Because it checks the password',
+						),
+						'hint'        => 'The other specifiers read. That one writes.',
+						'explanation' => '<code>%n</code> turns the leak into a write: you can overwrite a return address, a GOT entry, a function pointer. It is the primitive that makes modern exploitation possible.',
+					),
+					3 => array(
+						'question'    => 'A program prints user input with <code>printf("%s", input)</code>. What risk remains?',
+						'choices'     => array(
+							'The format string stays exploitable',
+							'The program will crash',
+							'The input will be encrypted twice',
+							'None for the format string, but the input still has to be length-checked (a buffer overflow is possible)',
+						),
+						'hint'        => 'Fixing the format string does not fix everything.',
+						'explanation' => 'The format string fix is secured, but the length of the input still has to be controlled (and its type, if you want to avoid injections). Security is won one brick at a time.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * univ-14 — Mots de passe : la longueur bat la complexite
+	 * ------------------------------------------------------------------ */
+	'univ-14' => array(
+		'title'   => 'Passwords: length beats complexity',
+		'excerpt' => 'Why "three unlinked words" is stronger, safer and easier to remember than "P@ssw0rd!".',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the password that holds',
+				'content' => '<p>A password is a <em>key</em>. You do not choose it to be pretty: you choose it to resist. Three rules, and the rest is decoration.</p><ol><li><strong>Length first.</strong> Every added character multiplies the number of combinations. Four unlinked words ("peach green jacket bicycle") are remembered <em>and</em> resist, whereas a complicated word is guessed from a dictionary in seconds.</li><li><strong>Uniqueness second.</strong> A password reused on two sites means two sites can be burgled with the same key. The password of a gaming forum has become the key to your mailbox.</li><li><strong>Storage last.</strong> A password manager (the one in your browser, or a dedicated program) creates a different password for every site and remembers them for you. You no longer have to remember: you have to know where they are.</li></ol><p>And the hygiene reflexes around it: never reuse the password of another account, change it as soon as you have a doubt (a service that was burgled), and check whether a password has leaked (a service that asks for it at sign-up is already storing it).</p><p><strong>Remember:</strong> length is a technique, not a whim. A long, unique, stored password is unbeatable — even if it looks less "strong".</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions: the right reflex and the classic trap.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Which password best resists a dictionary attack?',
+						'choices'     => array(
+							'"jeep-storm-lantern-cherry" (four unlinked words)',
+							'"Basketball2024!" (a dictionary word plus a year)',
+							'"Xz!7@qP" (eight unreadable characters)',
+							'"mycat" (nobody guesses an animal)',
+						),
+						'hint'        => 'A dictionary attack tests words, not sentences.',
+						'explanation' => 'Cracking tools test millions of words and variants. Four unlinked words appear in no dictionary: it is length and randomness that protect, not symbols.',
+					),
+					1 => array(
+						'question'    => 'You notice the same password is used on a gaming forum and on your mail. What must you do?',
+						'choices'     => array(
+							'Nothing: it is the same password, so it is consistent',
+							'Change it first on the most important account, then on all the others, with a unique password per site',
+							'Add a digit at the end everywhere',
+							'Message your friends so they change too',
+						),
+						'hint'        => 'The most important account is the most exposed if it is burgled.',
+						'explanation' => 'You start with the most critical account (mail, bank), then migrate the others to unique passwords. Adding "1" at the end changes nothing: it is the reuse that has to go.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the password sheet',
+				'content' => '<p>In the classroom, the team left a <em>password sheet</em> (the hygiene sheet of the CYBER.ORG workshop).</p><p><strong>Mission.</strong> Read that sheet and note the <em>recommended minimum length value</em> in characters (<code>min_length</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the minimum password length (min_length) stated in the hygiene sheet.',
+						'hint'        => 'The sheet is in <code>/srv/cours/cyber</code>: list the folder, then read the file.',
+						'explanation' => 'A minimum length written on a sheet is a rule you can apply to an account: that is how hygiene becomes a habit.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Why is "P@ssw0rd!" less safe than "llama-bike-rain-9"?',
+						'choices'     => array(
+							'Because it contains a special character',
+							'Because it is short and predictable: cracking tools test it in seconds',
+							'Because it contains capitals',
+							'Because it is hard to type',
+						),
+						'hint'        => 'Cracking tools do not guess at random: they follow rules.',
+						'explanation' => '"Password" plus a year plus character substitution is one of the first patterns cracking tools try. A random phrase is in no model at all.',
+					),
+					1 => array(
+						'question'    => 'What is a password manager for?',
+						'choices'     => array(
+							'Making passwords shorter',
+							'Sending passwords to the bank',
+							'Creating and remembering a unique password per site, without you having to memorise them',
+							'Sharing passwords with friends',
+						),
+						'hint'        => 'The problem is not remembering, it is not reusing.',
+						'explanation' => 'The manager moves the burden: you no longer remember, you know where they are. Every site gets a different password, so one data theft opens only one account.',
+					),
+					2 => array(
+						'question'    => 'A service asks you to choose a password <em>before</em> creating the account, and never lets you see it afterwards. Is that a problem?',
+						'choices'     => array(
+							'No, that is normal',
+							'No, only if the service is in English',
+							'Yes, because the password must contain digits',
+							'Yes, it may hide a bad practice: asking for the password in clear text prevents hashing it properly',
+						),
+						'hint'        => 'A good service should never need to know your password.',
+						'explanation' => 'A service that lets you log in must store a salted hash, not the password. If it asks you for it, it cannot hash it reliably: it is a red flag worth checking.',
+					),
+					3 => array(
+						'question'    => 'What is the best rule when hesitating between two passwords?',
+						'choices'     => array(
+							'Choose the longer and more unique one, even if you have to write it down at first',
+							'Choose the shorter one, it is more convenient',
+							'Choose one that looks like a dictionary word, it is more memorable',
+							'Alternate capitals and lowercase',
+						),
+						'hint'        => 'Convenience has a cost; the cost is paid later.',
+						'explanation' => 'Length and uniqueness protect; convenience costs you a minute. The right reflex: the longest, and a manager so you do not have to remember it.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * univ-15 — Hameconnage : lire un message avant de cliquer
+	 * ------------------------------------------------------------------ */
+	'univ-15' => array(
+		'title'   => 'Phishing: read a message before clicking',
+		'excerpt' => 'Phishing does not miss: it gets spotted. Four signals to check in thirty seconds.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the four signals',
+				'content' => '<p>A message that wants you to act fast is suspicious by nature. Phishing is a <em>lie factory</em>: a fake message imitating a bank, a school, a delivery service, to obtain a password, a code, or a click that installs software.</p><p>Four signals, to check in this order:</p><ol><li><strong>The real address</strong>: look at the domain, not at the display name. "support@bank-secure.com" is not a bank. Deceptive domains (a swapped letter, an unexpected subdomain) are the number one clue.</li><li><strong>Urgency</strong>: "your account will be blocked in 24 h", "your parcel is waiting". Urgency is a lever: it short-circuits your caution. A real bank does not threaten you by SMS.</li><li><strong>The unusual request</strong>: asking for a password, a validation code or a payment by message is <em>always</em> suspicious. Validation codes, by definition, are never shared.</li><li><strong>Inconsistency</strong>: an unusual tone, a typo, a badly copied logo, a link that does not go where it says (hover over the link before clicking).</li></ol><p>The fix: <strong>never click inside the message</strong>. Open the site by typing the address yourself, or call the service on a known number. And if a message creates panic, that is exactly the moment to slow down.</p><p><strong>Remember:</strong> what attackers use is not technology: it is urgency. Learning to see it is learning to stop.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions: recognise, and react.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'You receive "Your parcel is blocked, settle it within 2 h: http://livraison-colis-urgent.xyz/paiement". What do you do first?',
+						'choices'     => array(
+							'Click and pay the fee, the parcel may really be blocked',
+							'Do not click: open the carrier site by typing its address, or call the official number',
+							'Forward the message to a friend to ask their opinion',
+							'Reply to the message to ask how much it is',
+						),
+						'hint'        => 'The message must never be the way to reach the site.',
+						'explanation' => 'The rule: you never go through the link you received. You go to the site by its known address, or you call the official number. The link can lead anywhere — and the urgency is exactly the trap.',
+					),
+					1 => array(
+						'question'    => 'A site asks you for an SMS validation code to "confirm" a login. What should you think?',
+						'choices'     => array(
+							'It is a normal two-factor request',
+							'It proves the site is serious',
+							'It is a theft attempt: a validation code is never shared, with anyone',
+							'You should give it if the site name is correct',
+						),
+						'hint'        => 'Whose code is the one you receive?',
+						'explanation' => 'The code you receive by SMS authenticates you. Giving it to someone lets them log in as you. That is the basic con of targeted phishing.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the phishing example',
+				'content' => '<p>In the classroom, the CYBER.ORG workshop left an <em>annotated example</em> of a phishing message (the exercise message, with its annotations).</p><p><strong>Mission.</strong> Read that example and note the <em>signal value</em> flagged as the main clue of the scam (<code>main_signal</code> field, one word in English: urgency, sender, link or spelling).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the main signal (main_signal) stated in the phishing message example.',
+						'hint'        => 'The example is in <code>/srv/cours/cyber</code>: list, then read the files.',
+						'explanation' => 'Being able to name the main signal is being able to look at an unknown message with a grid, instead of reacting to emotion.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the best reflex when a message demands urgent action?',
+						'choices'     => array(
+							'Reply to find out what it is about',
+							'Click: urgent messages are rare, so it must be legitimate',
+							'Take your time: check the address, the sender, and reach the site yourself',
+							'Forward it to everyone',
+						),
+						'hint'        => 'Urgency is a lever, not information.',
+						'explanation' => 'Urgency exists to prevent verification. The right reflex is the pause: check the real address, the sender, and reach the service by your own means.',
+					),
+					1 => array(
+						'question'    => 'Why is the address of the link more reliable than the display name?',
+						'choices'     => array(
+							'Because the display name is always in English',
+							'Because links are always shorter',
+							'Because the browser shows it bigger',
+							'Because the display name can be copied at will, whereas the real domain is registered and traceable',
+						),
+						'hint'        => 'What can you do with a display name? Nothing. With a domain?',
+						'explanation' => 'The "display" name is free text: "MyBank" takes a second to type. The domain, on the other hand, is registered: that is where you see "bank-officiial-secure.ru" and understand.',
+					),
+					2 => array(
+						'question'    => 'A friend sends you a link to a game, saying "click, it is funny". What is the risk?',
+						'choices'     => array(
+							'Your friend\'s account may have been compromised: the message is the vector',
+							'None: it is your friend',
+							'The link is too long',
+							'Your friend is breaking the law',
+						),
+						'hint'        => 'A stolen account sends messages to its contacts: that is a classic vector.',
+						'explanation' => 'The identity of the sender guarantees nothing: if your friend\'s account is compromised, it is the attacker writing. And even a trusted friend can forward a booby-trapped message without knowing.',
+					),
+					3 => array(
+						'question'    => 'What is "smishing"?',
+						'choices'     => array(
+							'A password traded for a product',
+							'A type of phishing by SMS',
+							'An encryption technique',
+							'An online game',
+						),
+						'hint'        => 'It is phishing over SMS.',
+						'explanation' => 'Smishing is phishing by SMS: the message arrives on the phone, so it speaks directly to habit. Vishing is the same thing by phone call.',
+					),
+				),
+			),
+		),
+	),
+
 );
