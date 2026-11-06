@@ -223,6 +223,21 @@ utilisable — au lieu d'être un tirage invisible validé par dix caractères.
 
 ---
 
+## 2 bis. Ce qui est déjà fait dans cette branche
+
+| Point du plan | État | Preuve |
+|---|---|---|
+| Mesurer la couverture au lieu de l'affirmer | **fait** | `tools/certifications/couverture.php` + `sy0-701.json` : 34 sujets, poids officiels, sort 1 sous le seuil |
+| Fermer la porte des dix caractères | **fait** | `Secura_Solution` + `tests/solution-test.php` (8 essais) ; CI verte, run 42143975139 |
+| Auto-évaluation explicite pour les questions sans grille | **fait** | l'élève voit le corrigé, les concepts manquants, et se positionne — sa déclaration, pas dix caractères |
+| Ne plus mentir sur la validation | **fait** | le message dit « vous avez comparé au corrigé et confirmé », plus « correction affichée » |
+
+Reste à faire, dans l'ordre de impact : tentatives limitées, seuil 80 %,
+étiquetage par sujet + tirage pondéré, contrôle anti-drapeau-lisible dans le CI,
+puis les 5 machines et les 15 rooms manquantes.
+
+---
+
 ## 3. Par quoi je commence, si tu dis oui
 
 Par ordre d'impact sur le score réel de l'élève, et du moins cher au plus cher :
