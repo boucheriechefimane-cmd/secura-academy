@@ -1055,4 +1055,335 @@ return array(
 		),
 	),
 
+	/* ---------------------------------------------------------------------
+	 * avance-12 — Brief 5 : ne pas se faire avoir
+	 * ------------------------------------------------------------------ */
+	'avance-12' => array(
+		'title'   => 'Brief 5: not getting caught out',
+		'excerpt' => 'The golden rule of digital hygiene: what looks too good, or too urgent, is almost always staged.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — not getting caught out',
+				'content' => '<p>The CYBER.ORG video is aimed at younger people: that is the level where traps become <em>everyday</em>. Three reflexes:</p><ul><li><strong>Urgency is a tool.</strong> "Your account will be closed in two hours", "you have 3 minutes left": urgency prevents thinking. A real service does not threaten to punish you.</li><li><strong>The emotional lever.</strong> Fear ("you have been hacked"), curiosity ("look at this photo"), sympathy ("I need help"): those are doorways, not feelings.</li><li><strong>The pause rule.</strong> When a message pushes you, you stop: you check the address, you open the site by typing its address yourself, you ask an adult.</li></ul><p><strong>Remember:</strong> the most effective technique against phishing is not recognising a fake message: it is knowing <em>where to go</em> without going through the message.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions to check the brief went in.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Why is urgency a sign of phishing?',
+						'choices'     => array(
+							'Because real services are always slow',
+							'Because urgent e-mails are rare',
+							'Because it makes the message shorter',
+							'Because it prevents checking: you act before thinking',
+						),
+						'hint'        => 'What does urgency do to you?',
+						'explanation' => 'Urgency is a social technique: it short-circuits verification. If a threat pushes you to act immediately, that is exactly the moment to slow down — and to check where the message comes from.',
+					),
+					1 => array(
+						'question'    => 'What is the best way to check a message asking you to log in?',
+						'choices'     => array(
+							'Open the site by typing its address in the browser, without going through the link',
+							'Click the link then look at the address',
+							'Reply to the message to ask',
+							'Click the link and check the padlock',
+						),
+						'hint'        => 'If you go through the link, you can no longer check.',
+						'explanation' => 'The padlock only means the connection is encrypted — not that the site is the right one. The only reliable method: type the address yourself, or call the service on a number you already know.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the proof of the brief',
+				'content' => '<p>The brief is written in the dojo machine, in <code>/srv/briefs/05-ne-pas-se-faire-avor.txt</code>.</p><p><strong>Mission.</strong> Open that document and note the value it announces. The server compares it with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of brief 5 (not getting caught out).',
+						'hint'        => 'The briefs are in <code>/srv/briefs</code>.',
+						'explanation' => 'Same mechanism: proof read from the machine, compared by the server as root.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Two questions on this brief. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the role of the second authentication factor (MFA)?',
+						'choices'     => array(
+							'Add a proof the password thief normally does not have: a code, a key, an app',
+							'Make the password longer',
+							'Block spam',
+							'Back up the accounts',
+						),
+						'hint'        => 'A password alone is a single proof.',
+						'explanation' => 'The second factor changes the nature of authentication: even with the password, something is missing. That is what makes password phishing far less profitable — hence those CYBER.ORG videos on the subject.',
+					),
+					1 => array(
+						'question'    => 'Why does the length of a password matter more than its complexity?',
+						'choices'     => array(
+							'Because complex passwords take too long to type',
+							'Because length makes enumeration impossible in a reasonable time, even with a full alphabet',
+							'Because sites require it',
+							'Because a complex password is harder to remember, so people write it down',
+						),
+						'hint'        => 'Trying every combination takes an enormous amount of time.',
+						'explanation' => 'The strength of a password is measured in how many tries it takes. Each extra character multiplies the number of combinations; going from 8 to 12 characters multiplies it by more than 16,000. A long, predictable password beats a short, complicated one.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * avance-13 — Brief 6 : explorer une application web
+	 * ------------------------------------------------------------------ */
+	'avance-13' => array(
+		'title'   => 'Brief 6: exploring a web application',
+		'excerpt' => 'Before looking for a flaw: look at the application as a user, then as an attacker.',
+		'tasks'   => array(
+			0 => array(
+					'title'   => 'Task 1: Lesson — exploring a web application',
+				'content' => '<p>Joe Ma\'s demonstration shows the order to follow: <strong>look first, attack afterwards</strong>.</p><ol><li><strong>Look as a user.</strong> Every button, every field, every link: what is it for, who reaches it, what happens when it fails.</li><li><strong>Look at the roles.</strong> A visitor, a customer, an administrator: what should a visitor not be able to see?</li><li><strong>Look at the inputs.</strong> Every form sends something: what happens if it is not what is expected?</li><li><strong>Look at what is exposed.</strong> Error messages, files left on the server, forgotten pages.</li></ol><p><strong>Remember:</strong> a badly tested application is first of all a badly <em>understood</em> one. The flaw is often in an area nobody bothered to look at.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions to check the brief went in.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Where do you start when testing a web application?',
+						'choices'     => array(
+							'With careful reading of the application: its functions, its roles, its inputs',
+							'With an automatic scanner',
+							'By sending many requests',
+							'With the source code, if it is available',
+						),
+						'hint'        => 'Before launching anything, what do you understand?',
+						'explanation' => 'A scanner finds anomalies the application forgot; a human understands the functions. Order matters: understand first, then test.',
+					),
+					1 => array(
+						'question'    => 'What is the point of trying the application with a "plain" account, then an "administrator" account?',
+						'choices'     => array(
+							'To go faster',
+							'To see what the plain role should not see: that is where authorisation flaws live',
+							'To occupy the account',
+							'To test the browser',
+						),
+						'hint'        => 'A test is a comparison.',
+						'explanation' => 'The plain role is the reference: anything it sees, everyone should see. Anything extra it sees is an authorisation flaw to document.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the proof of the brief',
+				'content' => '<p>The brief is written in the dojo machine, in <code>/srv/briefs/06-explorer-application.txt</code>.</p><p><strong>Mission.</strong> Open that document and note the value it announces. The server compares it with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of brief 6 (exploring a web application).',
+						'hint'        => 'The briefs are in <code>/srv/briefs</code>.',
+						'explanation' => 'Same mechanism: proof read from the machine, compared by the server as root.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Two questions on this brief. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Is a detailed error message (file path, library version) a problem?',
+						'choices'     => array(
+							'No, it is useful for the user',
+							'Yes: it gives the attacker a map of the application (technologies, tree, versions)',
+							'No, if the site uses HTTPS',
+							'No, as long as no secret appears',
+						),
+						'hint'        => 'An overly talkative error is an information leak.',
+						'explanation' => 'The detailed error message is an OWASP classic: it makes exploitation easier. In production you show a generic message and keep the detail in the logs, on the server side.',
+					),
+					1 => array(
+						'question'    => 'What is the difference between a flaw and a misconfiguration?',
+						'choices'     => array(
+							'None, they are the same thing',
+							'Configuration is fixed faster',
+							'A flaw is a bug in the code; a misconfiguration is a setting that leaves a door open while the code is correct',
+							'A flaw is always more serious',
+						),
+						'hint'        => 'One is code, the other is settings.',
+						'explanation' => 'Both are doors, but not of the same nature: one is fixed in the code, the other in configuration files or access rules. An audit looks for both.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * avance-14 — Kahoot : la revision des labs avances
+	 * ------------------------------------------------------------------ */
+	'avance-14' => array(
+		'title'   => 'Kahoot: revising the advanced labs',
+		'excerpt' => 'The same content, playable in class (with Kahoot) or alone on the platform (no account).',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — how we revise',
+				'content' => '<p>Revising is not re-reading: it is <strong>answering without looking</strong>.</p><p>The format of this room is made for that: ten questions, a timer, and an explanation after every answer — even a wrong one. In class you can go through Kahoot: same duration, same series of questions, and the students play on their phone. Without a Kahoot account, the room works as it is.</p><p><strong>Remember:</strong> an explained mistake is worth more than a right answer with no reason. That is why every wrong option is commented on.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions to get going.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the best way to memorise a security notion?',
+						'choices'     => array(
+							'Re-read it three times',
+							'Explain it to someone else, and check what you understood',
+							'Copy it word for word',
+							'Watch it in a video a second time',
+						),
+						'hint'        => 'What counts is retrieving it.',
+						'explanation' => 'Explaining forces you to rebuild the logic, and therefore to spot the gaps. That is why the rooms on the platform explain every mistake: spaced repetition does the rest.',
+					),
+					1 => array(
+						'question'    => 'What is a classroom quiz for, besides grading?',
+						'choices'     => array(
+							'Ranking the students',
+							'Filling the time',
+							'Showing each person right away what they got wrong, and discussing it',
+							'Replacing the lessons',
+						),
+						'hint'        => 'A quiz is a discussion tool.',
+						'explanation' => 'The value of a quiz is not the mark: it is the moment when each person discovers their blind spot, and the class discusses it. That is exactly what the platform does: the explanation is systematic.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the revision proof',
+				'content' => '<p>The revision left a trace in the dojo machine: <code>/srv/briefs/07-revision.txt</code>.</p><p><strong>Mission.</strong> Open the document and note the announced value.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of the revision document.',
+						'hint'        => 'The document is in <code>/srv/briefs</code>.',
+						'explanation' => 'Same mechanism as everywhere else: a proof read from the machine, compared by the server as root.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>The ten quiz questions, timed. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is a threat model?',
+						'choices'     => array(
+							'The list of known flaws in a product',
+							'The test plan of an application',
+							'The sentence that links what you protect, who the adversary is, and what they can do',
+							'The list of the company servers',
+						),
+						'hint'        => 'Three questions, one sentence.',
+						'explanation' => 'The threat model is the basis of all security: you start from what you protect and what the adversary can do, then deduce the mechanisms. Without it, you protect at random.',
+					),
+					1 => array(
+						'question'    => 'What is a long, predictable password worth?',
+						'choices'     => array(
+							'Less than a short, complicated password',
+							'The same, if the site is well protected',
+							'Nothing: length does not count',
+							'More than a short, complicated password',
+						),
+						'hint'        => 'The number of combinations to try.',
+						'explanation' => 'Strength is measured in number of tries. A long password multiplies the combinations to test: "chat1234" (8 characters) is found in a few hours on one machine, "Correct-Horse-Battery-9" (24) would take years.',
+					),
+					2 => array(
+						'question'    => 'An SQL injection is…',
+						'choices'     => array(
+							'Code that slips into the SQL query because the data is not separated from the code',
+							'A virus that infects the database',
+							'Too many connections',
+							'A backup of the database',
+						),
+						'hint'        => 'Data and code mixed together.',
+						'explanation' => 'The injection comes from the missing separation: the user data is concatenated into the query. It then becomes SQL code — and can read, write, or delete.',
+					),
+					3 => array(
+						'question'    => 'What is the role of a firewall?',
+						'choices'     => array(
+							'Making the network faster',
+							'Enforcing a policy: who may pass, and to where',
+							'Encrypting data in transit',
+							'Removing viruses',
+						),
+						'hint'        => 'A crossing policy.',
+						'explanation' => 'The firewall is a filtering rule. It encrypts nothing and cleans nothing: it enforces a flow policy. A badly written rule lets through what it was meant to block.',
+					),
+					4 => array(
+						'question'    => '"Least privilege" means…',
+						'choices'     => array(
+							'Giving every right to the administrator',
+							'Creating a single account for the whole company',
+							'Giving a service only the rights it needs',
+							'Closing every port',
+						),
+						'hint'        => 'Just what is needed, and no more.',
+						'explanation' => 'A service running with too many rights turns a bug into a catastrophe. Least privilege costs little to put in place and limits the impact of a compromise.',
+					),
+					5 => array(
+						'question'    => 'An XSS is…',
+						'choices'     => array(
+							'A password in clear text in a database',
+							'A server that no longer answers',
+							'A site that loads slowly',
+							'Code executed in a visitor\'s browser, because of unescaped data',
+						),
+						'hint'        => 'The script travels with the data.',
+						'explanation' => 'XSS = Cross-Site Scripting: the application reinjects data into its page without escaping it, and the browser executes the code. The consequence: steal a session, or act in the victim\'s name.',
+					),
+					6 => array(
+						'question'    => 'What does the TLS certificate prove?',
+						'choices'     => array(
+							'Who you are talking to: the public key really is bound to that domain name',
+							'That the site is fast',
+							'That the site is high quality',
+							'That the password is strong',
+						),
+						'hint'        => 'The identity of the server.',
+						'explanation' => 'Encryption protects against eavesdropping; the certificate protects against impersonation. Both are needed: HTTPS without a verified certificate only protects against the network, not against a middleman.',
+					),
+					7 => array(
+						'question'    => 'The hash of a password is…',
+						'choices'     => array(
+							'Reversible with the right key',
+							'One-way: you recompute it to verify',
+							'Reversible with the user name',
+							'Too slow to be useful',
+						),
+						'hint'        => 'You do not read a digest back.',
+						'explanation' => 'A hash function is one-way. You verify a password by recomputing its digest and comparing — hence the salt, so that two accounts with the same password do not have the same digest.',
+					),
+					8 => array(
+						'question'    => 'How do you protect yourself from phishing?',
+						'choices'     => array(
+							'By carefully checking every message',
+							'By never replying',
+							'By going to the site typing its address, without going through the link in the message',
+							'By installing an antivirus',
+						),
+						'hint'        => 'Do not go through the link.',
+						'explanation' => 'Manual checking is fallible: a well-written message fools everybody. The most effective defence is mechanical: type the address yourself, or call the service on a number you already know.',
+					),
+					9 => array(
+						'question'    => 'An exploited buffer overflow is…',
+						'choices'     => array(
+							'A program that crashes',
+							'A compilation error',
+							'A full disk',
+							'A write past the buffer, which overwrites the return address and makes execution jump elsewhere',
+						),
+						'hint'        => 'What follows the buffer in memory.',
+						'explanation' => 'That is lesson 3 of the 6.858 course: the program does not check the size of the input. By overwriting the return address, the attacker chooses where the program continues. Hence the defences: canary, NX, ASLR.',
+					),
+				),
+			),
+		),
+	),
+
 );
