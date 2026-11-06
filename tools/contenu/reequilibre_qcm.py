@@ -174,7 +174,12 @@ def defauts_question(options, correct, ou):
         # Un leurre de MEME longueur que la bonne reponse est l'objectif, pas un
         # defaut : on ne signale que ceux qui sont nettement plus courts, parce
         # que la bonne reponse se repere alors a sa longueur.
-        if l * RATIO_MIN < lc:
+        #
+        # Exception assumee : les questions dont les options sont des ETIQUETTES
+        # (« Public », « Prive », « Hybride »). On ne rallonge pas un nom de
+        # modele de cloud sans mentir sur son sens. Sous vingt caracteres, la
+        # longueur ne distingue plus rien, et le controle se tait.
+        if lc >= 20 and l * RATIO_MIN < lc:
             fautes.append('%s : option %d trop courte (%d car. contre %d)' % (ou, i, l, lc))
 
         if l > lc * RATIO_MAX:

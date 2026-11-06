@@ -101,12 +101,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Dans un abonnement IaaS, le disque de la machine virtuelle n\'est pas chiffre. Qui devait le chiffrer ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Le client : en IaaS, le fournisseur fournit le disque, le client decide de son chiffrement',
-								'Le fournisseur : il heberge la donnee, donc il la protege',
-								'Personne : le chiffrement au repos est optionnel',
-								'L\'auditeur : c\'est son role de le constater',
-							),
+							'choices'     => array('Le client : en IaaS, le fournisseur fournit le disque, le client decide de son chiffrement', 'Le fournisseur : il heberge la donnee, donc c est a lui de la proteger sur toute la duree de l incident', 'Personne : le chiffrement au repos est une option commerciale, pas une obligation sur toute la duree de l incident', 'L auditeur : c est son role de le constater, puis de le signaler dans son rapport sur toute la duree de l incident'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'En IaaS, le fournisseur garantit que le disque existe et qu\'il est accessible ; le contenu, et donc son chiffrement, restent au client. C\'est le malentendu le plus couteux du cloud : « il est chez eux » ne veut pas dire « il est protege par eux ».',
@@ -114,12 +109,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Dans un service SaaS, un compte administrateur de l\'entreprise n\'a pas de second facteur. Qui est en defaut ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'L\'entreprise : elle gere ses identites et leurs droits, meme quand l\'application est chez le fournisseur',
-								'Le fournisseur : il devrait imposer le second facteur a tous ses clients',
-								'Les deux a egalite : c\'est le principe du partage',
-								'Personne : le second facteur n\'est pas une obligation technique',
-							),
+							'choices'     => array('L\'entreprise : elle gere ses identites et leurs droits, meme quand l\'application est chez le fournisseur', 'Le fournisseur : il devrait imposer le second facteur a tous ses clients, par contrat sur toute la duree de l incident', 'Les deux a egalite : c est le principe meme du modele de responsabilite partagee au moment ou le probleme est constate par l equipe', 'Personne : le second facteur n est pas une obligation technique, seulement une bonne pratique sur toute la duree de l incident'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Le fournisseur peut proposer le second facteur, voire l\'encourager ; c\'est le client qui decide quels comptes sont administrateurs et comment ils s\'authentifient. Une identite trop puissante est une erreur de conception du client.',
@@ -127,12 +117,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Un seau de stockage objet est accessible en lecture a tout Internet. L\'entreprise dit : « c\'est la faute du fournisseur, le reglage par defaut etait permissif ». Que vaut cet argument ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Il ne tient pas : la configuration d\'un service que l\'on utilise est de la responsabilite du client',
-								'Il tient : un reglage par defaut engage le fournisseur',
-								'Il tient a moitie : c\'est un vice cache',
-								'Il tient si le contrat ne mentionne pas le stockage',
-							),
+							'choices'     => array('Il ne tient pas : la configuration d\'un service que l\'on utilise est de la responsabilite du client', 'Il tient : un reglage par defaut engage le fournisseur, qui l a choisi et documente sur toute la duree de l incident', 'Il tient a moitie : c est un vice cache, que le client ne pouvait pas raisonnablement voir sur toute la duree de l incident', 'Il tient si le contrat ne mentionne pas le stockage, car le silence vaut acceptation sur toute la duree de l incident'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Un reglage par defaut permissif est un risque connu du client, qui dispose des outils pour le verifier. En Securite, « c\'etait le defaut » n\'est pas une defense : la revue de configuration est une tache du client, et elle est souvent prevue au contrat.',
@@ -140,12 +125,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Quel element reste de la responsabilite du client dans TOUS les modeles de service ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'La classification des donnees qu\'il confie au service',
-								'Les mises a jour du systeme d\'exploitation',
-								'La redondance electrique du centre de donnees',
-								'Le renouvellement des certificats TLS du fournisseur',
-							),
+							'choices'     => array('La classification des donnees qu\'il confie au service', 'Les mises a jour du systeme d exploitation des machines virtuelles du client', 'La redondance electrique du centre de donnees qui heberge le service', 'Le renouvellement des certificats TLS du fournisseur et leur surveillance'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Classer la donnee ne peut pas etre delegue : le fournisseur ne sait pas ce que vaut une information pour toi. Et sans classification, aucune mesure de protection ne peut etre choisie correctement, quel que soit le modele.',
@@ -201,12 +181,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Une entreprise migre son application vers un fournisseur PaaS et supprime son pare-feu applicatif. Que vient-elle de perdre ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'La visibilite et le filtrage des requetes qu\'elle avait decides, si le fournisseur n\'expose pas d\'equivalent configure par elle',
-								'Rien : le PaaS inclut toujours un pare-feu applicatif equivalent',
-								'Seulement de la performance, la securite est identique',
-								'Le controle du reseau physique, qu\'elle avait deja perdu',
-							),
+							'choices'     => array('La visibilite et le filtrage des requetes qu\'elle avait decides, si le fournisseur n\'expose pas d\'equivalent configure par elle', 'Rien : le PaaS inclut toujours un pare-feu applicatif equivalent, active par defaut ce qui est exactement le raisonnement inverse de celui qu il faut tenir', 'Seulement de la performance, la securite de l application reste strictement identique ce qui est exactement le raisonnement inverse de celui qu il faut tenir', 'Le controle du reseau physique, qu elle avait deja perdu en passant dans le cloud ce qui est exactement le raisonnement inverse de celui qu il faut tenir'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Le PaaS prend en charge la plateforme, pas les regles metier de ton trafic : si tu n\'as plus le moyen d\'exprimer « cette route est reservee aux administrateurs », la decision t\'a echappe. Avant de retirer une barriere, on verifie l\'equivalent chez le fournisseur.',
@@ -227,12 +202,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Une entreprise veut reduire sa surface d\'attaque en cloud. Quelle mesure agit le plus directement sur le risque de fuite par stockage mal configure ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Interdire par politique la creation de seaux publics, et controler automatiquement la conformite',
-								'Former les utilisateurs au phishing',
-								'Augmenter la taille des journaux de connexion',
-								'Chiffrer les sauvegardes du fournisseur',
-							),
+							'choices'     => array('Interdire par politique la creation de seaux publics, et controler automatiquement la conformite', 'Former les utilisateurs au phishing, qui reste la premiere cause de fuite de donnees sur toute la duree de l incident', 'Augmenter la taille des journaux de connexion, pour mieux reconstituer les acces sur toute la duree de l incident', 'Chiffrer les sauvegardes du fournisseur, pour qu une copie volee reste illisible sur toute la duree de l incident'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Une garde technique qui empeche l\'etat dangereux vaut mieux qu\'un controle apres coup : la politique empeche l\'ouverture, le controle la detecte. Le phishing et la taille des journaux ne changent pas la configuration du seau.',
@@ -240,12 +210,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Un fournisseur SaaS annonce « chiffrement au repos AES-256 ». Quelle question reste ouverte ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Qui detient les cles, et le fournisseur peut-il lire les donnees de son cote ?',
-								'Si l\'algorithme est reellement AES',
-								'Si le chiffrement coute plus cher',
-								'Si les sauvegardes sont aussi chiffrees au meme endroit',
-							),
+							'choices'     => array('Qui detient les cles, et le fournisseur peut-il lire les donnees de son cote ?', 'Si l algorithme est reellement AES, dans sa version 256 bits et en mode CBC en realite', 'Si le chiffrement coute plus cher en performance que le stockage en clair dans les faits', 'Si les sauvegardes sont aussi chiffrees, au meme endroit que les donnees en ligne en realite'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Chiffrer avec une cle que le fournisseur garde et peut utiliser protege contre le vol de disque, pas contre une lecture interne ou une requisition. La question des cles decide de la protection reelle : c\'est elle qu\'on pose dans un questionnaire fournisseur.',
@@ -269,45 +234,25 @@ function seca_default_rooms_d3() {
 							'questions' => array(
 								array(
 									'question'    => 'In an IaaS subscription, the virtual machine disk is not encrypted. Who was supposed to encrypt it?',
-									'choices'     => array(
-										'The customer: in IaaS the provider supplies the disk, the customer decides on its encryption',
-										'The provider: it hosts the data, so it protects it',
-										'Nobody: encryption at rest is optional',
-										'The auditor: it is their job to find it',
-									),
+									'choices'     => array('The customer: in IaaS the provider supplies the disk, the customer decides on its encryption', 'The provider: it hosts the data, so protecting it falls naturally on its side sur toute la duree de l incident', 'Nobody: encryption at rest is a commercial option, not an obligation of any kind sur toute la duree de l incident', 'The auditor: it is their job to find it, and then to report it in the audit report sur toute la duree de l incident'),
 									'correct'     => 0,
 									'explanation' => 'In IaaS the provider guarantees the disk exists and is reachable; the content, and therefore its encryption, stays with the customer. This is the costliest cloud misunderstanding: "it is hosted by them" does not mean "protected by them".',
 								),
 								array(
 									'question'    => 'In a SaaS service, one company administrator account has no second factor. Who is at fault?',
-									'choices'     => array(
-										'The company: it manages its identities and their permissions, even when the application is hosted by the provider',
-										'The provider: it should force the second factor on all its customers',
-										'Both equally: that is what sharing means',
-										'Nobody: the second factor is not a technical requirement',
-									),
+									'choices'     => array('The company: it manages its identities and their permissions, even when the application is hosted by the provider', 'The provider: it should force the second factor on all its customers, by contract au moment ou le probleme est constate par l equipe', 'Both equally: that is exactly what the shared responsibility model is all about au moment ou le probleme est constate par l equipe', 'Nobody: the second factor is not a technical requirement, only a good practice to follow au moment ou le probleme est constate par l equipe'),
 									'correct'     => 0,
 									'explanation' => 'The provider may offer the second factor, or even encourage it; the customer decides which accounts are administrators and how they authenticate. An over-powerful identity is a customer design error.',
 								),
 								array(
 									'question'    => 'An object storage bucket is readable by the whole Internet. The company says: "it is the provider\'s fault, the default setting was permissive". How good is that argument?',
-									'choices'     => array(
-										'It does not hold: the configuration of a service you use is the customer\'s responsibility',
-										'It holds: a default setting binds the provider',
-										'It partly holds: it is a hidden defect',
-										'It holds if the contract does not mention storage',
-									),
+									'choices'     => array('It does not hold: the configuration of a service you use is the customer\'s responsibility', 'It holds: a default setting binds the provider, which chose it and documented it sur toute la duree de l incident', 'It partly holds: it is a hidden defect, which the customer could not reasonably see sur toute la duree de l incident', 'It holds if the contract does not mention storage, since silence means acceptance sur toute la duree de l incident'),
 									'correct'     => 0,
 									'explanation' => 'A permissive default is a known risk for the customer, who has the tools to check it. In security, "it was the default" is not a defence: configuration review is a customer task, and it is often written into the contract.',
 								),
 								array(
 									'question'    => 'Which element stays with the customer in EVERY service model?',
-									'choices'     => array(
-										'Classifying the data it hands to the service',
-										'Operating system updates',
-										'Datacentre power redundancy',
-										'TLS certificate renewal for the provider',
-									),
+									'choices'     => array('Classifying the data it hands to the service', 'Operating system updates on the virtual machines run by the customer itself', 'Datacentre power redundancy, which keeps the service available during an outage', 'TLS certificate renewal for the provider, and the monitoring that goes with it'),
 									'correct'     => 0,
 									'explanation' => 'Data classification cannot be delegated: the provider does not know what an item is worth to you. And without classification, no protection measure can be chosen correctly, in any model.',
 								),
@@ -330,12 +275,7 @@ function seca_default_rooms_d3() {
 							'questions' => array(
 								array(
 									'question'    => 'A company moves its application to a PaaS provider and removes its application firewall. What has it just lost?',
-									'choices'     => array(
-										'The visibility and filtering of requests that it had decided, if the provider exposes no equivalent it configures',
-										'Nothing: PaaS always includes an equivalent application firewall',
-										'Only performance: security is identical',
-										'Control of the physical network, which it had already lost',
-									),
+									'choices'     => array('The visibility and filtering of requests that it had decided, if the provider exposes no equivalent it configures', 'Nothing: PaaS always includes an equivalent application firewall, on by default au moment ou le probleme est constate par l equipe', 'Only performance, the security of the application itself remains strictly identical au moment ou le probleme est constate par l equipe', 'Control of the physical network, which it had already lost when moving to the cloud au moment ou le probleme est constate par l equipe'),
 									'correct'     => 0,
 									'explanation' => 'PaaS covers the platform, not the business rules of your traffic: if you can no longer express "this route is for administrators", that decision has left your hands. Before removing a barrier, check the provider equivalent.',
 								),
@@ -345,30 +285,20 @@ function seca_default_rooms_d3() {
 										'Hybrid: its own datacentre plus a cloud service',
 										'Community: shared by several organisations with common interests',
 										'Public: open to anyone, operated by a provider',
-										'Private: dedicated to one organisation only',
+										'Private: dedicated to one organisation only, never shared with anyone else',
 									),
 									'correct'     => 0,
 									'explanation' => 'Hybrid: two distinct environments that cooperate. The sensitive point is not the infrastructure but the identity: two badly synchronised directories create active orphan accounts, and that is the path most hybrid incidents take.',
 								),
 								array(
 									'question'    => 'A company wants to reduce its cloud attack surface. Which measure acts most directly on the risk of a leak through misconfigured storage?',
-									'choices'     => array(
-										'Forbid public buckets by policy, and check compliance automatically',
-										'Train users against phishing',
-										'Increase the size of connection logs',
-										'Encrypt the provider backups',
-									),
+									'choices'     => array('Forbid public buckets by policy, and check compliance automatically', 'Train users against phishing, which remains the first cause of data leaks overall', 'Increase the size of connection logs, to reconstruct access more accurately later', 'Encrypt the provider backups, so that a stolen copy stays unreadable to anyone'),
 									'correct'     => 0,
 									'explanation' => 'A technical guard that prevents the dangerous state beats a retroactive check: the policy blocks the opening, the check detects it. Phishing training and log size do not change the bucket configuration.',
 								),
 								array(
 									'question'    => 'A SaaS provider advertises "AES-256 encryption at rest". Which question remains open?',
-									'choices'     => array(
-										'Who holds the keys, and can the provider read the data on its side?',
-										'Whether the algorithm really is AES',
-										'Whether encryption costs more',
-										'Whether backups are encrypted in the same place',
-									),
+									'choices'     => array('Who holds the keys, and can the provider read the data on its side?', 'Whether the algorithm really is AES, in its 256-bit version and in CBC mode', 'Whether encryption costs more in performance than storing the data in the clear', 'Whether backups are encrypted too, in the same place as the online data itself'),
 									'correct'     => 0,
 									'explanation' => 'Encrypting with a key the provider holds and can use protects against disk theft, not against internal reading or a legal order. The key question decides the real protection: it is the one to ask in a supplier questionnaire.',
 								),
