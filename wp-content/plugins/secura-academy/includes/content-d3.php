@@ -426,12 +426,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Un fichier de sauvegarde contient des dossiers medicaux et il n\'est pas chiffre. Quelle est la mesure la plus urgente ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Chiffrer la sauvegarde avec une cle conservee hors du serveur de sauvegarde',
-								'Chiffrer la sauvegarde avec la cle rangee dans le meme dossier',
-								'Supprimer la sauvegarde : plus de donnee, plus de risque',
-								'Deplacer la sauvegarde sur un autre serveur non chiffre',
-							),
+							'choices'     => array('Chiffrer la sauvegarde avec une cle conservee hors du serveur de sauvegarde', 'Chiffrer la sauvegarde avec la cle rangee dans le meme dossier que l archive', 'Supprimer la sauvegarde : plus de donnee, plus de risque de fuite si le support est vole', 'Deplacer la sauvegarde sur un autre serveur non chiffre, plus difficile d acces'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Le chiffrement ne protege que si la cle est separee : un attaquant qui prend le serveur prend la sauvegarde et la cle. Supprimer la sauvegarde detruit la capacite de reprise : ce n\'est pas une mesure de securite mais une perte.',
@@ -439,12 +434,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Une DLP signale 400 alertes par jour, dont 398 sont des faux positifs. Quelle est la cause la plus probable ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Les regles reposent sur des formes trop larges, sans classification prealable des donnees',
-								'La DLP est mal installee',
-								'Les utilisateurs envoient trop de courriels',
-								'Il faut augmenter le seuil de blocage a 100 %',
-							),
+							'choices'     => array('Les regles reposent sur des formes trop larges, sans classification prealable des donnees', 'La DLP est mal installee : il faudrait la reinsaller en suivant la procedure de l editeur, puis rejouer les tests de non-regression prevus', 'Les utilisateurs envoient trop de courriels : il faudrait limiter leur quota quotidien et sensibiliser les plus gros expediteurs du service commercial', 'Il faut augmenter le seuil de blocage a 100 % pour que plus rien ne passe sans une validation manuelle de l administrateur de la plateforme'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Une regle qui cherche « une suite de 16 chiffres » trouve aussi des references de commande. Sans classification, on ne sait pas quels documents sont sensibles : on devine par la forme, et on se trompe. Le resultat est une alerte ignoree — le pire etat d\'une DLP.',
@@ -452,12 +442,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Un fichier chiffre est dechiffre dans /tmp pendant un traitement. Quel etat de la donnee est expose ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'En usage : la donnee est en clair dans la memoire et sur le disque local le temps du traitement',
-								'Au repos : le fichier d\'origine reste chiffre',
-								'En transit : /tmp est un reseau',
-								'Aucun : le chiffrement protege pendant tout le traitement',
-							),
+							'choices'     => array('En usage : la donnee est en clair dans la memoire et sur le disque local le temps du traitement', 'Au repos : le fichier d origine reste chiffre, mais la copie temporaire deposee dans /tmp ne l est pas forcement selon l outil utilise', 'En transit : /tmp est un reseau, donc la donnee circule en clair entre les deux machines pendant toute la duree du traitement batch', 'Aucun : le chiffrement protege pendant tout le traitement, y compris dans les fichiers temporaires et dans la memoire du processus'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => '/tmp est sur un disque : la donnee y est au repos en clair, et lisible par les autres processus selon les droits. C\'est exactement le chemin par lequel un fichier « chiffre » fuit. Un traitement correct utilise un espace memoire, ou efface le fichier temporaire.',
@@ -465,12 +450,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Quelle donnee exige, en Europe, une notification a l\'autorite en cas de violation, generalement sous 72 heures ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Une donnee a caractere personnel permettant d\'identifier une personne',
-								'Toute donnee de l\'entreprise, sans distinction',
-								'Uniquement les donnees bancaires',
-								'Uniquement les donnees de sante',
-							),
+							'choices'     => array('Une donnee a caractere personnel permettant d\'identifier une personne', 'Toute donnee detenue par l entreprise, sans aucune distinction de nature ni de sensibilité', 'Uniquement les donnees bancaires, parce que ce sont les seules a avoir une valeur directe', 'Uniquement les donnees de sante, parce qu elles relevent d une categorie renforcee'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Le RGPD vise les donnees a caractere personnel, pas « toute donnee ». Les donnees de sante sont une categorie particuliere, pas la seule : une adresse ou un identifiant suffit a declencher le regime. Confondre « sensible » et « personnelle » fait rater la notification.',
@@ -532,12 +512,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Quel ordre est correct dans une demarche de protection des donnees ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Classer, puis choisir la mesure selon la classe, puis verifier qu\'elle tient',
-								'Chiffrer tout, puis classer ce qui reste',
-								'Acheter une DLP, puis classer selon ses alertes',
-								'Former les utilisateurs, puis classer selon leurs declarations',
-							),
+							'choices'     => array('Classer, puis choisir la mesure selon la classe, puis verifier qu\'elle tient', 'Chiffrer tout, puis classer ce qui reste apres le chiffrement dans un second temps', 'Acheter une DLP, puis classer les donnees selon les alertes qu elle remonte au fil de l eau', 'Former les utilisateurs, puis classer les donnees selon leurs declarations annuelles'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'La classification est ce qui permet de choisir : sans elle, toutes les mesures se valent et le budget part au hasard. Chiffrer avant de classer revient a proteger uniformement, donc a mal proteger les cas extremes.',
@@ -545,12 +520,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Une entreprise deploie une DLP qui bloque les courriels sortants contenant un numero de carte bancaire. Un employe envoie le meme numero dans une image. Que se passe-t-il ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'La DLP ne voit rien : la regle lit du texte, pas le contenu d\'une image',
-								'La DLP bloque : toute DLP analyse les images par defaut',
-								'La DLP chiffre le courriel automatiquement',
-								'La DLP previent l\'expediteur mais envoie le courriel',
-							),
+							'choices'     => array('La DLP ne voit rien : la regle lit du texte, pas le contenu d\'une image', 'La DLP bloque : toute DLP analyse les images par defaut et compare leur empreinte', 'La DLP chiffre le courriel automatiquement des qu elle detecte une piece jointe', 'La DLP previent l expediteur mais envoie le courriel, c est le comportement normal'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Une DLP par motif textuel est aveugle aux images, aux archives compressees et aux formats binaires, sauf analyse specifique. C\'est une limite de conception a connaitre : elle explique pourquoi la DLP se combine toujours avec d\'autres mesures, et pourquoi elle ne remplace jamais la classification.',
@@ -558,12 +528,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Quelle affirmation sur le chiffrement au repos est exacte ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Il protege les donnees si le support est vole, et ne protege pas l\'acces par un compte autorise',
-								'Il protege contre tous les acces, y compris ceux des administrateurs',
-								'Il remplace la classification des donnees',
-								'Il rend inutile la journalisation des acces',
-							),
+							'choices'     => array('Il protege les donnees si le support est vole, et ne protege pas l\'acces par un compte autorise', 'Il protege contre tous les acces, y compris ceux des administrateurs qui detiennent les cles de dechiffrement du volume', 'Il remplace la classification des donnees, puisqu il en protege le contenu directement et sans avoir besoin de la classer', 'Il rend inutile la journalisation des acces, le chiffrement faisant office de preuve suffisante en cas de controle'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Le chiffrement au repos repond au vol de support et a l\'acces hors ligne. Un compte autorise lit la donnee dechiffree : c\'est une autre couche, le controle d\'acces, qui la protege. Croire le contraire est l\'erreur qui fait rater l\'examen et, en entreprise, laisser les droits trop larges.',
@@ -571,12 +536,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Un fournisseur propose un service de « tokenisation » des numeros de carte. Quel est l\'avantage principal par rapport au chiffrement ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Le systeme qui manipule le jeton n\'a jamais la vraie valeur, donc il sort du perimetre de protection de la donnee',
-								'Le jeton est plus court donc plus rapide a traiter',
-								'La tokenisation est un chiffrement avec une autre cle',
-								'Le jeton est reversible sans cle, ce qui simplifie les traitements',
-							),
+							'choices'     => array('Le systeme qui manipule le jeton n\'a jamais la vraie valeur, donc il sort du perimetre de protection de la donnee', 'Le jeton est plus court, donc plus rapide a traiter par les applications du service client qui l affichent dans leur interface quotidienne', 'La tokenisation est un chiffrement avec une autre cle, applique au meme emplacement a chaque fois, et donc reversible par le detenteur de la cle', 'Le jeton est reversible sans cle, ce qui simplifie les traitements et evite de gerer des secrets supplementaires dans les applications du groupe'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Avec un jeton, l\'application ne detient plus la donnee sensible : la reduction de perimetre (scope reduction) est l\'interet reel, pas la performance. Un jeton reversible sans cle ne serait pas un jeton mais un encodage — et ne reduirait rien.',
@@ -600,45 +560,25 @@ function seca_default_rooms_d3() {
 							'questions' => array(
 								array(
 									'question'    => 'A backup file contains medical records and is not encrypted. What is the most urgent measure?',
-									'choices'     => array(
-										'Encrypt the backup with a key kept outside the backup server',
-										'Encrypt the backup with the key stored in the same folder',
-										'Delete the backup: no data, no risk',
-										'Move the backup to another unencrypted server',
-									),
+									'choices'     => array('Encrypt the backup with a key kept outside the backup server', 'Encrypt the backup with the key stored in the same folder as the archive', 'Delete the backup: no data, no risk of a leak if the medium gets stolen at all', 'Move the backup to another unencrypted server, which is harder to reach by chance'),
 									'correct'     => 0,
 									'explanation' => 'Encryption only protects if the key is separate: an attacker who takes the server takes the backup and the key. Deleting the backup destroys recovery capability: that is not a security measure but a loss.',
 								),
 								array(
 									'question'    => 'A DLP raises 400 alerts a day, 398 of which are false positives. What is the most likely cause?',
-									'choices'     => array(
-										'Rules rely on overly broad patterns, with no prior classification of the data',
-										'The DLP is badly installed',
-										'Users send too many emails',
-										'The blocking threshold must be raised to 100%',
-									),
+									'choices'     => array('Rules rely on overly broad patterns, with no prior classification of the data', 'The DLP is badly installed and should be reinstalled following the vendor procedure', 'Users send too many emails, their daily quota should be reduced by the IT team', 'The blocking threshold must be raised to 100% so that nothing gets through unchecked'),
 									'correct'     => 0,
 									'explanation' => 'A rule looking for "a run of 16 digits" also finds order references. Without classification you do not know which documents are sensitive: you guess by shape, and you guess wrong. The result is an ignored alert — the worst state for a DLP.',
 								),
 								array(
 									'question'    => 'An encrypted file is decrypted in /tmp during processing. Which data state is exposed?',
-									'choices'     => array(
-										'In use: the data is in the clear in memory and on the local disk for the duration of processing',
-										'At rest: the original file stays encrypted',
-										'In transit: /tmp is a network',
-										'None: encryption protects throughout processing',
-									),
+									'choices'     => array('In use: the data is in the clear in memory and on the local disk for the duration of processing', 'At rest: the original file stays encrypted, but the temporary copy dropped in /tmp is not always so, depending on the tool used', 'In transit: /tmp is a network, so the data travels in the clear between the two machines for the whole duration of the batch job', 'None: encryption protects throughout processing, including in the temporary files and in the memory of the running process'),
 									'correct'     => 0,
 									'explanation' => '/tmp is on a disk: the data there is at rest in the clear, and readable by other processes depending on permissions. This is exactly the path by which an "encrypted" file leaks. Correct processing uses a memory space, or wipes the temporary file.',
 								),
 								array(
 									'question'    => 'Which data requires, in Europe, notification to the authority in the event of a breach, generally within 72 hours?',
-									'choices'     => array(
-										'Personal data that can identify a person',
-										'Any company data, with no distinction',
-										'Only banking data',
-										'Only health data',
-									),
+									'choices'     => array('Personal data that can identify a person', 'Any data held by the company, with no distinction of nature or sensitivity', 'Only banking data, because it is the only kind with a resale value', 'Only health data, because it falls under a reinforced category'),
 									'correct'     => 0,
 									'explanation' => 'GDPR targets personal data, not "all data". Health data is a special category, not the only one: an address or an identifier is enough to trigger the regime. Confusing "sensitive" with "personal" makes you miss the notification.',
 								),
@@ -661,45 +601,25 @@ function seca_default_rooms_d3() {
 							'questions' => array(
 								array(
 									'question'    => 'Which order is correct in a data protection approach?',
-									'choices'     => array(
-										'Classify, then choose the measure for the class, then verify it holds',
-										'Encrypt everything, then classify what is left',
-										'Buy a DLP, then classify from its alerts',
-										'Train users, then classify from their statements',
-									),
+									'choices'     => array('Classify, then choose the measure for the class, then verify it holds', 'Encrypt everything, then classify whatever is left after the encryption step', 'Buy a DLP, then classify the data from the alerts it raises as it runs day after day', 'Train users, then classify the data from the statements they make once a year'),
 									'correct'     => 0,
 									'explanation' => 'Classification is what allows choice: without it, all measures are equivalent and the budget goes at random. Encrypting before classifying means protecting uniformly, therefore protecting the extreme cases badly.',
 								),
 								array(
 									'question'    => 'A company deploys a DLP that blocks outgoing emails containing a bank card number. An employee sends the same number inside an image. What happens?',
-									'choices'     => array(
-										'The DLP sees nothing: the rule reads text, not the content of an image',
-										'The DLP blocks it: every DLP analyses images by default',
-										'The DLP encrypts the email automatically',
-										'The DLP warns the sender but sends the email',
-									),
+									'choices'     => array('The DLP sees nothing: the rule reads text, not the content of an image', 'The DLP blocks it: every DLP analyses images by default and compares their signature', 'The DLP encrypts the email automatically as soon as it detects an attached file', 'The DLP warns the sender but sends the email, which is the documented normal behaviour'),
 									'correct'     => 0,
 									'explanation' => 'A text-pattern DLP is blind to images, compressed archives and binary formats without specific analysis. This is a design limit worth knowing: it explains why DLP is always combined with other measures, and why it never replaces classification.',
 								),
 								array(
 									'question'    => 'Which statement about encryption at rest is accurate?',
-									'choices'     => array(
-										'It protects the data if the medium is stolen, and does not protect against access by an authorised account',
-										'It protects against all access, including administrators',
-										'It replaces data classification',
-										'It makes access logging unnecessary',
-									),
+									'choices'     => array('It protects the data if the medium is stolen, and does not protect against access by an authorised account', 'It protects against all access, including that of administrators who hold the volume encryption keys in their vault', 'It replaces data classification, since it protects the content of the data directly without needing to classify it first', 'It makes access logging unnecessary, since encryption itself now serves as sufficient evidence in a compliance audit'),
 									'correct'     => 0,
 									'explanation' => 'Encryption at rest answers media theft and offline access. An authorised account reads the decrypted data: a different layer, access control, protects it. Believing otherwise is the mistake that fails the exam and, in a company, leaves permissions too wide.',
 								),
 								array(
 									'question'    => 'A provider offers a card number "tokenisation" service. What is the main advantage over encryption?',
-									'choices'     => array(
-										'The system handling the token never holds the real value, so it leaves the data protection scope',
-										'The token is shorter, therefore faster to process',
-										'Tokenisation is encryption with another key',
-										'The token is reversible without a key, which simplifies processing',
-									),
+									'choices'     => array('The system handling the token never holds the real value, so it leaves the data protection scope', 'The token is shorter, therefore faster to process by the applications of the support team that display it all day long', 'Tokenisation is encryption with another key, applied to the same field every time, and therefore reversible by the key holder', 'The token is reversible without a key, which simplifies processing and avoids managing extra secrets across the group'),
 									'correct'     => 0,
 									'explanation' => 'With a token, the application no longer holds the sensitive data: scope reduction is the real benefit, not performance. A token reversible without a key would not be a token but an encoding — and would reduce nothing.',
 								),
@@ -758,12 +678,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Vingt capteurs d\'atelier utilisent le meme compte « admin » avec le meme mot de passe d\'usine. Quelle est la mesure la plus efficace ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Changer les secrets par defaut sur chaque objet et les gerer dans un inventaire',
-								'Ajouter un antivirus sur la passerelle',
-								'Renommer le compte « admin » en « operateur »',
-								'Informer les operateurs du risque',
-							),
+							'choices'     => array('Changer les secrets par defaut sur chaque objet et les gerer dans un inventaire', 'Ajouter un antivirus sur la passerelle, qui filtrera aussi les flux montants de l atelier avant leur sortie du site', 'Renommer le compte « admin » en « operateur » pour qu il soit moins evident a deviner par un attaquant de passage', 'Informer les operateurs du risque, en comptant sur leur vigilance quotidienne pour compenser l absence de controle'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Le mot de passe commun fait que la compromission d\'un objet compromet les vingt. Renommer le compte ne change pas le secret : c\'est un changement d\'apparence, pas de protection. La gestion des secrets est la mesure directe.',
@@ -771,12 +686,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Un objet connecte ne peut pas recevoir de mise a jour. Quelle mesure compense le mieux l\'absence de correctifs ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Le confiner dans un reseau segmente avec un filtrage strict et une surveillance du flux',
-								'Le remplacer par un modele plus recent, sans autre mesure',
-								'Le renommer pour l\'identifier',
-								'Le laisser tel quel : sans mise a jour, il ne change pas, donc il est stable',
-							),
+							'choices'     => array('Le confiner dans un reseau segmente avec un filtrage strict et une surveillance du flux', 'Le remplacer par un modele plus recent, sans autre mesure : le materiel neuf est toujours plus sur que l ancien', 'Le renommer pour l identifier dans l inventaire des objets connectes, ce qui suffit a le suivre dans le temps', 'Le laisser tel quel : sans mise a jour, il ne change pas, donc il est stable, previsible et sans surprise'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Sans correctif possible, on reduit ce que l\'objet peut atteindre et on surveille ce qu\'il fait. Le remplacer est une bonne reponse a long terme, mais pas une compensation immediate, et un parc d\'objets ne se remplace pas en une nuit.',
@@ -784,12 +694,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Une passerelle d\'atelier voit un capteur de temperature se connecter a une adresse externe inconnue. Quel est le premier geste ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Bloquer le flux vers cette adresse, puis analyser le journal pour savoir quand et combien de donnees sont parties',
-								'Eteindre l\'ensemble de l\'atelier immediatement',
-								'Ignorer : un capteur ne peut pas exfiltrer',
-								'Remplacer le capteur sans lire le journal',
-							),
+							'choices'     => array('Bloquer le flux vers cette adresse, puis analyser le journal pour savoir quand et combien de donnees sont parties', 'Eteindre l ensemble de l atelier immediatement, pour couper court a toute exfiltration en cours sur la chaine de bout en bout', 'Ignorer : un capteur ne peut pas exfiltrer, il n a ni disque ni systeme d exploitation pour stocker quoi que ce soit en realite', 'Remplacer le capteur sans lire le journal, pour repartir sur une base saine, connue et documentee dans l inventaire en realite'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Bloquer d\'abord coupe l\'exfiltration en cours ; le journal ensuite dit l\'etendue, qui decide de la suite (notification, enquete). Arreter la production en premier prive l\'entreprise de la preuve que le journal contient.',
@@ -797,12 +702,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Quelle caracteristique distingue le plus un systeme industriel (ICS/SCADA) d\'un systeme d\'information classique ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'La priorite a la disponibilite physique : arreter un automate peut arreter une machine et blesser quelqu\'un',
-								'Le systeme industriel n\'a pas de reseau',
-								'Les automates utilisent une autre cryptographie',
-								'Les automates ne sont jamais vulnerables',
-							),
+							'choices'     => array('La priorite a la disponibilite physique : arreter un automate peut arreter une machine et blesser quelqu\'un', 'Le systeme industriel n a pas de reseau : les automates sont cables en serie entre eux, sans passer par Ethernet en realite', 'Les automates utilisent une autre cryptographie, que les outils classiques ne savent pas lire ni dechiffrer dans les faits', 'Les automates ne sont jamais vulnerables : ils n executent que du code ecrit et signe par le constructeur dans les faits'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'La triade de securite change d\'ordre : en atelier, la disponibilite passe avant la confidentialite, parce qu\'un arret non planifie peut etre dangereux. C\'est pourquoi une reponse « on coupe tout » n\'y est presque jamais acceptable.',
@@ -864,12 +764,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Quelle mesure reduit le plus directement le risque qu\'un objet connecte compromis atteigne le reseau de bureaux ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'La segmentation, avec un filtrage des flux entre le reseau d\'atelier et celui des bureaux',
-								'Un mot de passe plus long sur l\'objet',
-								'Une mise a jour du firmware de l\'objet',
-								'Une sauvegarde quotidienne de l\'objet',
-							),
+							'choices'     => array('La segmentation, avec un filtrage des flux entre le reseau d\'atelier et celui des bureaux', 'Un mot de passe plus long sur l objet : douze caracteres au moins, renouveles chaque annee par l equipementier', 'Une mise a jour du firmware de l objet, des qu un correctif est publie par le constructeur sur son portail', 'Une sauvegarde quotidienne de l objet, restauree chaque semaine pour verifier qu elle tient vraiment la route'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'La segmentation limite la portee d\'une compromission, meme quand l\'objet reste vulnerable. Un mot de passe plus long protege l\'acces a l\'objet, pas le reseau d\'a cote. C\'est la difference entre proteger une porte et cloisonner un batiment.',
@@ -877,12 +772,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Un parc d\'objets connectes n\'a pas d\'inventaire. Quelle est la consequence la plus grave ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'On ne peut ni les mettre a jour, ni les surveiller, ni savoir lesquels sont concernes par une faille annoncee',
-								'On ne peut pas les facturer',
-								'On ne connait pas leur consommation electrique',
-								'On ne peut pas les redemarrer a distance',
-							),
+							'choices'     => array('On ne peut ni les mettre a jour, ni les surveiller, ni savoir lesquels sont concernes par une faille annoncee', 'On ne peut pas les facturer : ils ne rentrent dans aucun budget et n ont pas de proprietaire identifiable dans les faits', 'On ne connait pas leur consommation electrique, donc on ne sait pas lesquels coutent le plus au site sur toute la duree de l incident', 'On ne peut pas les redemarrer a distance, il faut se deplacer a chaque incident, parfois la nuit sur toute la duree de l incident'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Sans inventaire, une faille annoncee ne se transforme en action : on ne sait pas si l\'on est concerne. C\'est le premier des trois axes du NISTIR 8228, et la raison pour laquelle il commence par la decouverte du parc.',
@@ -890,12 +780,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Pourquoi une reponse « on deconnecte tout l\'atelier du reseau » est-elle souvent refusee en milieu industriel ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Parce qu\'un arret non planifie d\'un procede peut creer un danger physique et un cout majeur : la disponibilite prime',
-								'Parce que les automates ne se deconnectent pas techniquement',
-								'Parce que la deconnexion ne protege rien',
-								'Parce que le reseau d\'atelier n\'a pas de risque',
-							),
+							'choices'     => array('Parce qu\'un arret non planifie d\'un procede peut creer un danger physique et un cout majeur : la disponibilite prime', 'Parce que les automates ne se deconnectent pas techniquement : le reseau est cable en dur dans les armoires sur toute la duree de l incident', 'Parce que la deconnexion ne protege rien : l automate continue a tourner sur lui-meme, sans consequence sur toute la duree de l incident', 'Parce que le reseau d atelier n a pas de risque : il est isole par construction depuis l origine du site sur toute la duree de l incident'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'En ICS, la disponibilite passe avant la confidentialite : couper peut arreter une machine, une chaine du froid ou un circuit de securite. La reponse correcte isole le flux en cause (une adresse, un port) sans arreter la production.',
@@ -903,12 +788,7 @@ function seca_default_rooms_d3() {
 						array(
 							'question'    => 'Quel indice, dans un journal de flux, est le plus revelateur d\'un objet connecte compromis ?',
 							'mode'        => 'choice',
-							'choices'     => array(
-								'Un volume ou une destination qui ne correspond pas a son role, surtout a une heure inhabituelle',
-								'Une adresse IP qui change tous les jours',
-								'Un nombre eleve de paquets de petite taille',
-								'Une connexion chiffree vers son serveur de collecte habituel',
-							),
+							'choices'     => array('Un volume ou une destination qui ne correspond pas a son role, surtout a une heure inhabituelle', 'Une adresse IP qui change tous les jours, signe d un bail DHCP mal configure sur le segment de l atelier en realite', 'Un nombre eleve de paquets de petite taille, typique d une numerisation en cours sur le reseau local en realite', 'Une connexion chiffree vers son serveur de collecte habituel, plusieurs fois par jour a heure fixe en realite'),
 							'correct'     => 0,
 							'xp'          => 15,
 							'explanation' => 'Un capteur de temperature qui envoie 43 Mo vers une adresse inconnue a 3 h du matin sort de son role : c\'est le signal. Le trafic chiffre vers le serveur habituel est normal ; le volume et la destination sont ce qu\'on compare au role attendu.',
@@ -932,45 +812,25 @@ function seca_default_rooms_d3() {
 							'questions' => array(
 								array(
 									'question'    => 'Twenty shop-floor sensors share the same "admin" account with the same factory password. Which is the most effective measure?',
-									'choices'     => array(
-										'Change default secrets on each object and manage them in an inventory',
-										'Add an antivirus on the gateway',
-										'Rename the "admin" account to "operator"',
-										'Inform operators of the risk',
-									),
+									'choices'     => array('Change default secrets on each object and manage them in an inventory', 'Add an antivirus on the gateway, which will also filter the outbound traffic of the shop floor before it leaves', 'Rename the "admin" account to "operator" so that it is less obvious to guess for an attacker passing by', 'Inform operators of the risk, relying on their daily vigilance to make up for the lack of any control'),
 									'correct'     => 0,
 									'explanation' => 'A shared password means compromising one object compromises all twenty. Renaming the account does not change the secret: it is a change of appearance, not of protection. Secret management is the direct measure.',
 								),
 								array(
 									'question'    => 'A connected object cannot receive updates. Which measure best compensates for the lack of patches?',
-									'choices'     => array(
-										'Confine it in a segmented network with strict filtering and flow monitoring',
-										'Replace it with a newer model, with no other measure',
-										'Rename it so it can be identified',
-										'Leave it as is: with no updates it does not change, so it is stable',
-									),
+									'choices'     => array('Confine it in a segmented network with strict filtering and flow monitoring', 'Replace it with a newer model, with no other measure: new hardware is always safer than the old one', 'Rename it so it can be identified in the inventory of connected objects, which is enough to track it over time', 'Leave it as is: with no updates it does not change, so it is stable, predictable and without surprise'),
 									'correct'     => 0,
 									'explanation' => 'With no patch possible, you reduce what the object can reach and monitor what it does. Replacing it is a good long-term answer but not an immediate compensation, and a fleet of objects is not replaced overnight.',
 								),
 								array(
 									'question'    => 'A shop-floor gateway sees a temperature sensor connecting to an unknown external address. What is the first action?',
-									'choices'     => array(
-										'Block the flow to that address, then analyse the log to know when and how much data left',
-										'Shut down the whole shop floor immediately',
-										'Ignore it: a sensor cannot exfiltrate',
-										'Replace the sensor without reading the log',
-									),
+									'choices'     => array('Block the flow to that address, then analyse the log to know when and how much data left', 'Shut down the whole shop floor immediately, to put a stop to any exfiltration running on the line right now', 'Ignore it: a sensor cannot exfiltrate, it has neither a disk nor an operating system to store anything at all', 'Replace the sensor without reading the log, to restart from a clean, known and documented baseline in the inventory'),
 									'correct'     => 0,
 									'explanation' => 'Blocking first stops the ongoing exfiltration; the log then tells the extent, which decides what follows (notification, investigation). Stopping production first deprives the company of the evidence the log holds.',
 								),
 								array(
 									'question'    => 'Which characteristic most distinguishes an industrial system (ICS/SCADA) from a classic information system?',
-									'choices'     => array(
-										'Priority given to physical availability: stopping a controller can stop a machine and injure someone',
-										'The industrial system has no network',
-										'Controllers use different cryptography',
-										'Controllers are never vulnerable',
-									),
+									'choices'     => array('Priority given to physical availability: stopping a controller can stop a machine and injure someone', 'The industrial system has no network: controllers are wired in series to each other, without going through Ethernet', 'Controllers use different cryptography, which the usual tools cannot read nor decrypt on the wire at all en realite', 'Controllers are never vulnerable: they only run code written and signed by the manufacturer itself dans les faits'),
 									'correct'     => 0,
 									'explanation' => 'The security triad changes order: on the shop floor, availability comes before confidentiality, because an unplanned stop can be dangerous. That is why a "we cut everything" response is almost never acceptable there.',
 								),
@@ -993,45 +853,25 @@ function seca_default_rooms_d3() {
 							'questions' => array(
 								array(
 									'question'    => 'Which measure most directly reduces the risk that a compromised connected object reaches the office network?',
-									'choices'     => array(
-										'Segmentation, with flow filtering between the shop-floor network and the office network',
-										'A longer password on the object',
-										'A firmware update on the object',
-										'A daily backup of the object',
-									),
+									'choices'     => array('Segmentation, with flow filtering between the shop-floor network and the office network', 'A longer password on the object: at least twelve characters, renewed once a year by the equipment supplier', 'A firmware update on the object, as soon as a patch is published by the maker on its public portal', 'A daily backup of the object, restored once a week to check that it really holds when needed en realite'),
 									'correct'     => 0,
 									'explanation' => 'Segmentation limits the scope of a compromise even while the object stays vulnerable. A longer password protects access to the object, not the network next door. It is the difference between protecting a door and partitioning a building.',
 								),
 								array(
 									'question'    => 'A fleet of connected objects has no inventory. What is the most serious consequence?',
-									'choices'     => array(
-										'You can neither update them, nor monitor them, nor know which are affected by an announced flaw',
-										'You cannot bill for them',
-										'You do not know their power consumption',
-										'You cannot reboot them remotely',
-									),
+									'choices'     => array('You can neither update them, nor monitor them, nor know which are affected by an announced flaw', 'You cannot bill for them: they fit in no budget and have no identifiable owner in the organisation en realite', 'You do not know their power consumption, so you cannot tell which ones cost the site the most dans les faits', 'You cannot reboot them remotely, so a trip on site is needed for every incident, sometimes at night en realite'),
 									'correct'     => 0,
 									'explanation' => 'Without an inventory, an announced flaw does not become action: you do not know whether you are affected. It is the first of the three NISTIR 8228 axes, and the reason it starts with fleet discovery.',
 								),
 								array(
 									'question'    => 'Why is a "we disconnect the whole shop floor from the network" response often refused in an industrial setting?',
-									'choices'     => array(
-										'Because an unplanned stop of a process can create physical danger and major cost: availability comes first',
-										'Because controllers cannot be disconnected technically',
-										'Because disconnection protects nothing',
-										'Because the shop-floor network carries no risk',
-									),
+									'choices'     => array('Because an unplanned stop of a process can create physical danger and major cost: availability comes first', 'Because controllers cannot be disconnected technically: the network is hard-wired in the cabinets sur toute la duree de l incident', 'Because disconnection protects nothing: the controller keeps running on its own, with no consequence sur toute la duree de l incident', 'Because the shop-floor network carries no risk: it is isolated by construction since the plant was built dans les faits'),
 									'correct'     => 0,
 									'explanation' => 'In ICS, availability comes before confidentiality: cutting can stop a machine, a cold chain or a safety circuit. The correct answer isolates the flow at fault (one address, one port) without stopping production.',
 								),
 								array(
 									'question'    => 'Which clue in a flow log most reveals a compromised connected object?',
-									'choices'     => array(
-										'A volume or destination inconsistent with its role, especially at an unusual hour',
-										'An IP address that changes every day',
-										'A high number of small packets',
-										'An encrypted connection to its usual collection server',
-									),
+									'choices'     => array('A volume or destination inconsistent with its role, especially at an unusual hour', 'An IP address that changes every day, a sign of a misconfigured DHCP lease on the shop-floor segment', 'A high number of small packets, typical of a scan currently running on the local network en realite', 'An encrypted connection to its usual collection server, several times a day at a fixed hour'),
 									'correct'     => 0,
 									'explanation' => 'A temperature sensor sending 43 MB to an unknown address at 3 a.m. is out of role: that is the signal. Encrypted traffic to the usual server is normal; volume and destination are what you compare to the expected role.',
 								),
