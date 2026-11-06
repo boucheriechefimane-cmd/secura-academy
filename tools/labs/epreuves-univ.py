@@ -147,7 +147,8 @@ def main():
 
         # Le drapeau attendu est « SECURA{<radical>_<valeur>} ». La commande
         # ne produit que la valeur : c'est bien ce que l'eleve recopie.
-        valeur = attendu.replace("SECURA{", "").replace("}", "")
+        # Les fichiers de drapeau contiennent « FLAG=SECURA{radical_valeur} ».
+        valeur = attendu.split("SECURA{")[-1].rstrip("}")
         radical = regle[1]
         if not valeur.startswith(radical + "_"):
             print("ECHEC %s : drapeau %r, radical %r" % (nom, attendu, radical))
