@@ -185,6 +185,55 @@ def verifie_longueurs_par_longueur(where, choices, longueur_bonne, problems, lan
 
 ECART_MEDIANE = 12  # au-dela, la bonne reponse se repere a sa seule taille
 
+# MOTS QUI NE FINISSENT PAS UNE PHRASE.
+#
+# Mon propre garde-fou de longueur a produit exactement ce defaut qu'il ne
+# savait pas voir : pour raccourcir une bonne reponse, j'ai ecrit « il faut
+# reutiliser » et « c'est la separation ». Une proposition tronquee n'est
+# pas plus honnete qu'une proposition trop longue : elle est seulement
+# illisible, et elle donne a l'eleve le sentiment que le cours est bacle.
+#
+# On ne cherche pas a faire de la grammaire : on refuse une proposition qui
+# s'arrete sur un mot qui appelle une suite.
+# Premier essai : tous les determinants et tous les adverbes. Neuf fausses
+# alertes sur dix — « le contenu reste lisible par tous », « le hash ne l'est
+# pas », « il chiffre tout » sont des phrases finies. Un detecteur qui crie au
+# loup ne sert a rien : on le limite aux mots qui appellent VRAIMENT une
+# suite, et a eux seuls.
+MOT_OUTIL_FINAL = re.compile(
+    r"\b(de|du|des|d|au|aux|pour|par|dans|sur|sous|avec|sans|chez|vers|"
+    r"entre|que|qui|dont|il faut|faut|peut|doit|est|sont|etre|avoir)$"
+)
+JETON_CASSE = re.compile(r"[a-zà-ÿ]_[a-zà-ÿ]")   # ex. « defense_rules »
+BALISE = re.compile(r"<[^>]+>")                  # ce qui est dans <code> n est pas du texte
+LETTRE_ISOLEE = re.compile(r"(?<!\w)[bcdfghjklmnpqrstvwxz](?!\w)", re.I)
+
+
+def verifie_lisibilite(where, choices, problems, langue):
+    """Refuse une proposition vide, tronquee ou corrompue.
+
+    C'est le controle qui manquait le jour ou j'ai raccourci des bonnes
+    reponses a coups de ciseaux : la longueur etait bonne, la phrase non.
+    """
+    for position, choix in enumerate(choices):
+        # On juge le texte, pas le code : « strip_tags() » et « gets() » sont
+        # des identifiants, pas des mots casses.
+        texte = BALISE.sub('', choix).strip()
+        if not texte:
+            problems.append('%s [%s] : proposition %d vide' % (where, langue, position + 1))
+            continue
+        if JETON_CASSE.search(texte):
+            problems.append('%s [%s] : proposition %d contient un jeton casse '
+                            '(« %s ») — majuscule au milieu d un mot'
+                            % (where, langue, position + 1, JETON_CASSE.search(texte).group(0)))
+        # Le mot juge est le DERNIER MOT, pas la derniere lettre : « il y a »
+        # est une phrase finie, « il faut reutiliser » n'en est pas une.
+        mots = re.findall(r"[A-Za-zÀ-ÿ']+", texte)
+        if len(texte) > 15 and mots and MOT_OUTIL_FINAL.search(mots[-1].lower()):
+            problems.append('%s [%s] : proposition %d s arrete sur « %s » — '
+                            'la phrase est coupee' % (where, langue, position + 1, mots[-1]))
+
+
 
 def verifie_ecart_median(where, choices, correct, problems, langue):
     """La bonne reponse est-elle beaucoup plus longue que les autres ?
@@ -488,6 +537,8 @@ def main():
                               question['correct'], problems, 'fr')
             verifie_ecart_median('%s / %s' % (cle, question['q'][:40]), question['choices'],
                                  question['correct'], problems, 'fr')
+            verifie_lisibilite('%s / %s' % (cle, question['q'][:40]), question['choices'],
+                               problems, 'fr')
 
     index_php = index_corrects_du_php(CONTENU_PHP)
     total_en = 0
@@ -521,6 +572,7 @@ def main():
                               correct_fichier, problems, 'en')
             verifie_ecart_median(('%s / %s' % (cle, intitule)), propositions,
                                  correct_fichier, problems, 'en')
+            verifie_lisibilite(('%s / %s' % (cle, intitule)), propositions, problems, 'en')
 
     print('longueur [fr] : %d question(s) mesuree(s), %d gagnable(s) a la longueur'
           % (total_fr, gagnees_fr))

@@ -120,7 +120,7 @@ ROOMS = [
                 'q': 'Ton service doit être accessible depuis chez les élèves, mais seulement les enseignants doivent pouvoir changer les paramètres. Quelle politique ?',
                 'choices': [
                     'Tout le monde peut changer les paramètres, c\'est plus simple',
-                    'Les enseignants changent les paramètres ; les élèves utilisent',
+                    'Les enseignants changent ; les élèves utilisent le service',
                     'Les élèves accèdent au service par le réseau interne de l\'école uniquement',
                     'Le service n\'est accessible qu\'aux enseignants',
                 ],
@@ -133,7 +133,7 @@ ROOMS = [
                 'q': 'Un service tourne avec les droits root alors qu\'il n\'a besoin que de lire un fichier. Que vaut-il faire ?',
                 'choices': [
                     'Laisser tel quel : root marche toujours',
-                    'Retirer les droits superflus : c\'est la séparation',
+                    'Retirer les droits superflus : c\'est la séparation des privilèges',
                     'Ajouter un second service root pour la redondance',
                     'Désinstaller le service et le remplacer par un script bricolé à la main',
                 ],
@@ -232,7 +232,7 @@ ROOMS = [
             {
                 'q': 'Le programme est compilé avec ASLR, NX et un canari. Quelle attaque reste possible ?',
                 'choices': [
-                    'Aucune : les trois défense_rules rendent l\'exploitation impossible',
+                    'Aucune : les trois défenses rendent l\'exploitation impossible',
                     'L\'injection SQL sur la base de l\'application',
                     'Le ROP : rebondir sur des morceaux de code existants',
                     'La capture du trafic réseau en clair',
@@ -279,7 +279,7 @@ ROOMS = [
                 'q': 'Pourquoi le NX rend-il nécessaire le ROP ?',
                 'choices': [
                     'Parce que NX autorise l\'exécution dans le tas mais jamais dans la pile',
-                    'Parce que la pile n\'est plus exécutable : il faut réutiliser',
+                    'Parce que la pile n\'est plus exécutable : il faut réutiliser du code',
                     'Parce que NX chiffre la pile du programme au repos',
                     'Parce que NX désactive le canari de la pile',
                 ],
