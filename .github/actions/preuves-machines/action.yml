@@ -158,6 +158,30 @@ runs:
           echo "ECHEC : recette wp-e2e (le site ou les machines ne repondent pas comme prevu)" | tee -a /tmp/echecs.txt
         fi
 
+    - name: L'anglais des 52 rooms (mesure officielle)
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : La mesure de l anglais (code $?)" | tee -a /tmp/echecs.txt' ERR
+        # La mesure officielle du chantier anglais : elle sort 0 seulement
+        # si plus aucun champ ne manque et si aucun texte n'est resté en
+        # francais. C'est cette meme commande que lance l'auteur en local ;
+        # la brancher ici evite de croire le chantier fini sur parole.
+        if wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/mesure-anglais.php 2>&1 | tee -a /tmp/etapes.txt; then
+          echo "OK mesure de l anglais"
+        else
+          echo "ECHEC : l anglais n est pas complet (voir la mesure ci-dessus)" | tee -a /tmp/echecs.txt
+        fi
+
+        # Le garde-fou de structure : une traduction presente mais qui a
+        # perdu un repere technique (URL, chemin, drapeau) est pire qu'une
+        # traduction manquante, parce qu'elle a l'air finie.
+        if wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/verifier-traductions.php 2>&1 | tee -a /tmp/etapes.txt; then
+          echo "OK coherence des traductions"
+        else
+          echo "ECHEC : une traduction est incoherente (voir ci-dessus)" | tee -a /tmp/echecs.txt
+        fi
+
     - name: Scénario des deux apprenants (isolation)
       shell: bash
       run: |
