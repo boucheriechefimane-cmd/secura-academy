@@ -24,4 +24,4 @@ Exercice de l'atelier
 ---------------------
 Releve la taille d'une adresse, en octets :
 
-    grep "^adresse " /srv/cours/stanford/tailles.txt | cut -d" " -f2
+    grep "^adresse " /srv/cours/stanford/tailles.txt | cut -d" " -f3

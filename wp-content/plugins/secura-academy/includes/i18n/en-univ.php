@@ -482,7 +482,7 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'Extract the value of the csrf field from the web course notes (web-notes.txt).',
-						'hint'        => 'The line is indented: <code>grep "^ *csrf" /srv/cours/mit858/web-notes.txt</code> finds it, then <code>cut -d" " -f5</code> isolates the value. Shorter: <code>awk "/^ *csrf *=/{print $3}" /srv/cours/mit858/web-notes.txt</code>.',
+						'hint'        => 'The line is indented: <code>grep "^ *csrf" /srv/cours/mit858/web-notes.txt</code> finds it, then <code>cut -d" " -f5</code> isolates the value. Shorter: <code>awk \'/^ *csrf *=/{print $3}\' /srv/cours/mit858/web-notes.txt</code>.',
 						'explanation' => 'A CSRF token is a random value tied to the session: the legitimate form knows it, a third-party site cannot guess it. Reading it in a configuration file is understanding where the server keeps it and how an attacker might steal it.',
 					),
 				),
@@ -688,7 +688,7 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'Which TLS version does the service announce in the audit (tls field)?',
-						'hint'        => '<code>awk "/^ *tls *=/{print $3}" /srv/cours/mit857/tls-audit.txt</code>. The version is written after the equals sign.',
+						'hint'        => '<code>awk \'/^ *tls *=/{print $3}\' /srv/cours/mit857/tls-audit.txt</code>. The version is written after the equals sign.',
 						'explanation' => 'Reading the TLS version a service announces is the first reflex of an audit: TLS 1.0 and 1.1 are retired, 1.2 is still acceptable, 1.3 is the state of the art. You do not guess, you read what the service says about itself, then you verify it.',
 					),
 				),
@@ -894,7 +894,7 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'What is the sum of the three block sizes, in bytes (tailles.txt)?',
-						'hint'        => '<code>awk "{s+=$1} END{print s}" /srv/cours/mit857/tailles.txt</code>. Check with <code>cat</code> first that it only contains numbers.',
+						'hint'        => '<code>awk \'{s+=$1} END{print s}\' /srv/cours/mit857/tailles.txt</code>. Check with <code>cat</code> first that it only contains numbers.',
 						'explanation' => 'Adding up a column is half of analysis work: sizes, volumes, event counts. awk does that calculation in one line, and the result can be checked by hand when there are three values.',
 					),
 				),
@@ -1615,7 +1615,7 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'What is the sum of the observed publishing delays, in hours (delais.txt)?',
-						'hint'        => 'The three delays are one number per line: <code>awk "{s+=$1} END{print s}" /srv/cours/cyber/delais.txt</code> adds them up.',
+						'hint'        => 'The three delays are one number per line: <code>awk \'{s+=$1} END{print s}\' /srv/cours/cyber/delais.txt</code> adds them up.',
 						'explanation' => 'What is published stays accessible for a long time, even after deletion: a review delay is not wasted time, it is the only chance to catch a photo that shows an address. Adding the delays up is measuring what caution costs.',
 					),
 				),
@@ -2130,7 +2130,7 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'What is the size of an address, in bytes, according to the machine diagram?',
-						'hint'        => '<code>grep "^adresse " /srv/cours/stanford/tailles.txt</code>, then take the second field (<code>cut -d" " -f2</code>).',
+						'hint'        => '<code>grep "^adresse " /srv/cours/stanford/tailles.txt</code> shows the line <code>adresse       = 8 octets</code>: the value is the third field (<code>cut -d" " -f3</code>).',
 						'explanation' => 'A 64-bit processor addresses 2^64 cells: that is why it can exceed 4 GB of memory. Remembering 8 bytes per address is remembering why the 4 GB limit disappeared.',
 					),
 				),

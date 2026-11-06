@@ -20,7 +20,7 @@ Exercice de l'atelier
 ---------------------
 Retrouve le nom du jeton utilise dans l'exemple ci-dessous :
 
-    awk "/^ *csrf *=/{print $3}" /srv/cours/mit858/web-notes.txt
+    awk '/^ *csrf *=/{print $3}' /srv/cours/mit858/web-notes.txt
 
     methode  = POST
     csrf     = TOKEN-9137-SECURE

@@ -92,7 +92,7 @@ ROOMS = [
             'question': 'Quelle est la taille d\'une adresse, en octets, d\'apres le schema de la machine ?',
             'flag_path': '/root/flags/flag-u21.txt',
             'xp': 30,
-            'hint': '<code>grep "^adresse " /srv/cours/stanford/tailles.txt</code>, puis prends le deuxième champ (<code>cut -d" " -f2</code>).',
+            'hint': '<code>grep "^adresse " /srv/cours/stanford/tailles.txt</code> montre la ligne <code>adresse       = 8 octets</code> : la valeur est le troisième champ (<code>cut -d" " -f3</code>).',
             'explain': 'Un processeur 64 bits adresse 2^64 cases : c\'est pour cela qu\'il peut dépasser 4 Go de mémoire. Retenir 8 octets par adresse, c\'est retenir pourquoi la limite de 4 Go a disparu.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',

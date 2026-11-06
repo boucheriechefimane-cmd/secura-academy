@@ -182,25 +182,25 @@ REGLES = [
      'grep "^vault:" /srv/cours/owasp/services.txt | cut -d: -f2'),
 
     ('confinement_borne', 'borne',    'somme:cours/owasp/processus.csv:2',
-     'tail -n +2 /srv/cours/owasp/processus.csv | cut -d, -f2 | paste -sd+ | bc'),
+     "awk -F, 'NR>1{s+=$2} END{print s}' /srv/cours/owasp/processus.csv"),
 
     ('jeton_csrf', 'csrf',           'champ:cours/mit858/web-notes.txt:csrf',
-     'awk "/^ *csrf *=/{print \\$3}" /srv/cours/mit858/web-notes.txt'),
+     "awk '/^ *csrf *=/{print $3}' /srv/cours/mit858/web-notes.txt"),
 
     ('zone_interdite', 'zone',       'colonne_triee:cours/owasp/services.txt:1::',
      'cut -d: -f1 /srv/cours/owasp/services.txt | sort | head -1'),
 
     ('tls_signe', 'tls',            'champ:cours/mit857/tls-audit.txt:tls',
-     'awk "/^ *tls *=/{print \\$3}" /srv/cours/mit857/tls-audit.txt'),
+     "awk '/^ *tls *=/{print $3}' /srv/cours/mit857/tls-audit.txt"),
 
     ('mot_de_passe_long', 'auth',    'sans_entete:cours/mit857/comptes.csv',
      'tail -n +2 /srv/cours/mit857/comptes.csv | wc -l'),
 
     ('cle_symetrique', 'crypto',       'somme:cours/mit857/tailles.txt',
-     'awk "{s+=\\$1} END{print s}" /srv/cours/mit857/tailles.txt'),
+     "awk '{s+=$1} END{print s}' /srv/cours/mit857/tailles.txt"),
 
     ('pile_x86', 'pile',             'somme:opt/labs/padding.txt',
-     'awk "{s+=\\$1} END{print s}" /opt/labs/padding.txt'),
+     "awk '{s+=$1} END{print s}' /opt/labs/padding.txt"),
 
     ('canari_connu', 'canari',         'empreinte:cours/stanford/canari.txt',
      'sha256sum /srv/cours/stanford/canari.txt | cut -c1-8'),
@@ -218,7 +218,7 @@ REGLES = [
      'grep -n urgence /srv/cours/cyber/signalements.txt | cut -d: -f1'),
 
     ('publie_plus_tard', 'publier',     'somme:cours/cyber/delais.txt',
-     'awk "{s+=\\$1} END{print s}" /srv/cours/cyber/delais.txt'),
+     "awk '{s+=$1} END{print s}' /srv/cours/cyber/delais.txt"),
 
     ('deux_categories', 'facteur',      'compte:cours/cyber/facteurs.txt',
      'wc -l < /srv/cours/cyber/facteurs.txt'),
@@ -233,7 +233,7 @@ REGLES = [
      'wc -l < /srv/cours/owasp/trace.txt'),
 
     ('adresse_64_bits', 'memoire',      'champ:cours/stanford/tailles.txt:adresse',
-     'grep "^adresse " /srv/cours/stanford/tailles.txt | cut -d" " -f2'),
+     'grep "^adresse " /srv/cours/stanford/tailles.txt | cut -d" " -f3'),
 
     ('secrets_a_part', 'ranger',       'compte:cours/stanford/emplacements.txt',
      'wc -l < /srv/cours/stanford/emplacements.txt'),
@@ -483,7 +483,7 @@ Exercice de l'atelier
 ---------------------
 Retrouve le nom du jeton utilise dans l'exemple ci-dessous :
 
-    awk "/^ *csrf *=/{print $3}" /srv/cours/mit858/web-notes.txt
+    awk '/^ *csrf *=/{print $3}' /srv/cours/mit858/web-notes.txt
 
     methode  = POST
     csrf     = TOKEN-9137-SECURE
@@ -539,7 +539,7 @@ Exercice de l'atelier
 ---------------------
 Releve la version de TLS annoncee par le service :
 
-    awk "/^ *tls *=/{print $3}" /srv/cours/mit857/tls-audit.txt"""),
+    awk '/^ *tls *=/{print $3}' /srv/cours/mit857/tls-audit.txt"""),
 
     ('cours/mit857/auth-policy.md', """Politique d'authentification - services du laboratoire
 (cours 6.857)
@@ -588,7 +588,7 @@ Exercice de l'atelier
 ---------------------
 Fais la somme des tailles des trois blocs, en octets :
 
-    awk "{s+=$1} END{print s}" /srv/cours/mit857/tailles.txt"""),
+    awk '{s+=$1} END{print s}' /srv/cours/mit857/tailles.txt"""),
 
     ('home/ctf/pwn/memory-notebook.md', """Carnet de memoire - refresher assembleur (pwn.college)
 =====================================================
@@ -787,7 +787,7 @@ Exercice de l'atelier
 ---------------------
 Fais la somme des trois delais, en heures :
 
-    awk "{s+=$1} END{print s}" /srv/cours/cyber/delais.txt"""),
+    awk '{s+=$1} END{print s}' /srv/cours/cyber/delais.txt"""),
 
     ('cours/cyber/factors-sheet.txt', """Fiche du deuxieme facteur - atelier CYBER.ORG
 =============================================
@@ -923,7 +923,7 @@ Exercice de l'atelier
 ---------------------
 Releve la taille d'une adresse, en octets :
 
-    grep "^adresse " /srv/cours/stanford/tailles.txt | cut -d" " -f2"""),
+    grep "^adresse " /srv/cours/stanford/tailles.txt | cut -d" " -f3"""),
 
     ('cours/stanford/storage-plan.txt', """Plan de rangement - cours Stanford CS105
 ========================================

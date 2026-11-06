@@ -22,4 +22,4 @@ Exercice de l'atelier
 ---------------------
 Fais la somme des tailles des trois blocs, en octets :
 
-    awk "{s+=$1} END{print s}" /srv/cours/mit857/tailles.txt
+    awk '{s+=$1} END{print s}' /srv/cours/mit857/tailles.txt

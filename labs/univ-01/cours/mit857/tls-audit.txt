@@ -19,4 +19,4 @@ Exercice de l'atelier
 ---------------------
 Releve la version de TLS annoncee par le service :
 
-    awk "/^ *tls *=/{print $3}" /srv/cours/mit857/tls-audit.txt
+    awk '/^ *tls *=/{print $3}' /srv/cours/mit857/tls-audit.txt

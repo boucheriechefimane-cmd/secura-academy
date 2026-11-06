@@ -733,7 +733,7 @@ ROOMS = [
             'question': 'Extrais la valeur du champ csrf dans les notes du cours web (web-notes.txt).',
             'flag_path': '/root/flags/flag-u05.txt',
             'xp': 30,
-            'hint': 'La ligne est indentée : <code>grep "^ *csrf" /srv/cours/mit858/web-notes.txt</code> la trouve, puis <code>cut -d" " -f5</code> isole la valeur. Plus court : <code>awk "/^ *csrf *=/{print $3}" /srv/cours/mit858/web-notes.txt</code>.',
+            'hint': 'La ligne est indentée : <code>grep "^ *csrf" /srv/cours/mit858/web-notes.txt</code> la trouve, puis <code>cut -d" " -f5</code> isole la valeur. Plus court : <code>awk \'/^ *csrf *=/{print $3}\' /srv/cours/mit858/web-notes.txt</code>.',
             'explain': 'Un jeton anti-CSRF est une valeur aléatoire liée à la session : le formulaire légitime la connaît, un site tiers ne peut pas la deviner. Le lire dans un fichier de configuration, c\'est comprendre où le serveur la range et comment un attaquant pourrait la voler.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',

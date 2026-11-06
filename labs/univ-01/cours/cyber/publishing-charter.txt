@@ -20,4 +20,4 @@ Exercice de l'atelier
 ---------------------
 Fais la somme des trois delais, en heures :
 
-    awk "{s+=$1} END{print s}" /srv/cours/cyber/delais.txt
+    awk '{s+=$1} END{print s}' /srv/cours/cyber/delais.txt
