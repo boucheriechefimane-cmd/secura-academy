@@ -1776,4 +1776,210 @@ return array(
 		),
 	),
 
+	/* ---------------------------------------------------------------------
+	 * univ-18 — Le Top 10 OWASP et la surface d'attaque
+	 * ------------------------------------------------------------------ */
+	'univ-18' => array(
+		'title'   => 'The OWASP Top 10 and the attack surface',
+		'excerpt' => 'The list everyone quotes, and what it is really for: ranking risks, not listing flaws.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — a list of risks, not a catalogue',
+				'content' => '<p>The <strong>OWASP Top 10</strong> is the list of the ten risks most often found in web applications. It is revised every year, because the web changes: browser flaws have receded, logic and configuration flaws have climbed.</p><p>Two ideas to keep from the foundation video:</p><ul><li><strong>A list is a prioritisation tool.</strong> You cannot fix the ten thousand problems of an application: you look first at what is on the list, because those are the risks found everywhere.</li><li><strong>Risks are categories, not precise flaws.</strong> "Injection" does not mean "my application is injectable": it means "my application receives data and concatenates it into a query". The category helps you think; the exact flaw is found by testing.</li></ul><p>And the notion of <strong>attack surface</strong>: everything the application accepts from the outside world (forms, URLs, headers, files, websockets). The wider the surface, the more paths there are to test. Shrinking the surface (removing an old API, an unnecessary port, a forgotten module) is a <em>free</em> defence, before writing a single line of security code.</p><p>The 2021 entries you meet most: broken access control, cryptographic failures, injection, insecure design, misconfiguration, vulnerable components, authentication failures, data integrity failures, insufficient logging and monitoring, and excessive error handling.</p><p><strong>Remember:</strong> the list is not there to say "we are protected because we read the Top 10". It is there to say "here is where to start, and here are the questions to ask".</p><p><strong>Going further, for free:</strong> <a href="https://portswigger.net/web-security" target="_blank" rel="noopener">PortSwigger\'s Web Security Academy</a> offers several hundred web labs on exactly these flaws (SQL injection, XSS, bypassing access controls, forged requests…). The labs are free and run on deliberately vulnerable applications. We do not reproduce their content: we point to it, naming the source and its address.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions on using the list and on the attack surface.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Why is the list revised regularly?',
+						'choices'     => array(
+							'Because the web evolves: the risks that come back most often change',
+							'Because publishers change their rules',
+							'Because the laws change',
+							'To publish more pages',
+						),
+						'hint'        => 'Think about browser flaws, which have receded.',
+						'explanation' => 'Revision reflects reality on the ground: hygiene practices improve, so other risks climb. It is a snapshot, not a dogma.',
+					),
+					1 => array(
+						'question'    => 'An application exposes a statistics API forgotten since 2019, without authentication. What is this?',
+						'choices'     => array(
+							'A system update problem',
+							'An unnecessary attack surface: closing it removes possible paths without writing code',
+							'A good architecture practice',
+							'A naming problem',
+						),
+						'hint'        => 'Every entry point is a path someone can test.',
+						'explanation' => 'Every reachable interface is a possible door. Shrinking the surface (delete, restrict, filter at the reverse proxy) is an immediate action, almost free, that reduces the number of paths to test.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the internal ranking',
+				'content' => '<p>In the classroom, the team left its <em>internal risk ranking</em> (how the team prioritised its fixes, following the Top 10).</p><p><strong>Mission.</strong> Read that ranking and note the <em>rank value</em> given to the first risk fixed (<code>top_risk</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the rank of the first risk fixed (top_risk) in the internal risk ranking.',
+						'hint'        => 'The ranking is in <code>/srv/cours/owasp</code>.',
+						'explanation' => 'Prioritising is knowing where to start. A team\'s ranking says a lot about its maturity: you fix first what is most frequent and most severe.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the OWASP Top 10 actually for?',
+						'choices'     => array(
+							'Guaranteeing that an application is safe',
+							'Prioritising fixes and giving a common vocabulary to talk about them',
+							'Replacing security tests',
+							'Setting the price of an application',
+						),
+						'hint'        => 'Nobody is safe because of a list.',
+						'explanation' => 'The list gives a battle order and a shared language (saying "injection" and "broken access control" names a problem precisely and lets you track it).',
+					),
+					1 => array(
+						'question'    => 'Broken access control is... ?',
+						'choices'     => array(
+							'A badly configured firewall',
+							'A password that is too short',
+							'A user reaching data or a function not meant for them',
+							'An expired certificate',
+						),
+						'hint'        => 'It is the first entry of the 2021 Top 10.',
+						'explanation' => 'Broken access control is the number 1 risk of 2021: the user reaches what they should not see. It is often a simple missing server-side check: "the interface does not show the button, so nobody can do it" is not protection.',
+					),
+					2 => array(
+						'question'    => 'Why is shrinking the attack surface considered a security measure?',
+						'choices'     => array(
+							'Because it makes the site prettier',
+							'Because routers require it',
+							'Because it reduces the number of employees',
+							'Because every entry point removed is an attack path you no longer have to watch or test',
+						),
+						'hint'        => 'Fewer doors, fewer keys to keep.',
+						'explanation' => 'The attack surface is every reachable entry. Shrinking it (useless API, open port, obsolete module) removes paths before you even have to secure them — the cheapest defence there is.',
+					),
+					3 => array(
+						'question'    => 'An error-handling mistake displays a full JavaScript stack trace in the browser. What is the risk?',
+						'choices'     => array(
+							'Exposing internal information (paths, versions, queries) that makes the next attacks easier',
+							'None: it is useful for debugging',
+							'The site will stop working',
+							'The page will not be indexed',
+						),
+						'hint'        => 'What does an error trace reveal?',
+						'explanation' => 'Detailed error messages are an information leak: versions, paths, database structure, sometimes connection credentials. In production you log on the server and display a neutral message.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * univ-19 — Valider les entrees
+	 * ------------------------------------------------------------------ */
+	'univ-19' => array(
+		'title'   => 'Validating input: the first anti-injection remedy',
+		'excerpt' => 'Never trust what comes from the outside world: the rule that removes half of all web flaws.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — validate, escape, prepared queries',
+				'content' => '<p>Three notions not to confuse, which settle most injections:</p><ul><li><strong>Validation</strong>: check that the data is of the right <em>type</em> and inside the right <em>range</em>. "42" for an age, "AAA-BBB-123" for a postal code, "10/03/2026" for a date. If the data does not conform, you reject it — and that is the end of it.</li><li><strong>Escaping</strong> (or <em>encoding</em>): turning special characters into plain text so they are not read as code. Essential for anything displayed in HTML, JavaScript, a URL or a shell command.</li><li><strong>Prepared queries</strong> (<em>prepared statements</em>): THE answer for SQL injection. The query and the data are sent separately: the database cannot confuse "the data" with "the command".</li></ul><p>And what does not work: <strong>escaping by hand</strong>, filtering a blacklist of words (<code>OR</code>, <code>DROP</code>...), or relying on the front end. A word filter is bypassed by writing differently; validation that lives only in the browser is bypassed by a plain HTTP request.</p><p>The golden rule, repeated by the video: <strong>"Never build a command or a query out of data that came from elsewhere."</strong> If you cannot use a prepared query, you escape with the library function, never by hand.</p><p>And the same logic applies beyond SQL: a shell command built by concatenation is a command injection; a link built with unescaped data is an XSS injection.</p><p><strong>Remember:</strong> validation is the shield, escaping is the ink, the prepared query is the armour. You use all three.</p><p><strong>Going further, for free:</strong> <a href="https://portswigger.net/web-security" target="_blank" rel="noopener">PortSwigger\'s Web Security Academy</a> offers several hundred web labs on exactly these flaws (SQL injection, XSS, bypassing access controls, forged requests…). The labs are free and run on deliberately vulnerable applications. We do not reproduce their content: we point to it, naming the source and its address.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions: the right answer, and the false remedy.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the decisive advantage of a prepared query against SQL injection?',
+						'choices'     => array(
+							'It executes faster',
+							'The query and the data are sent separately: the database can no longer read the data as code',
+							'It removes the need to validate input',
+							'It encrypts the database',
+						),
+						'hint'        => 'Think about the border between "command" and "data".',
+						'explanation' => 'The prepared query enforces that border: the parameter is a value, never a piece of SQL. It is the structural answer, where escaping remains a technique.',
+					),
+					1 => array(
+						'question'    => 'A developer filters the words "SELECT", "DROP" and "UNION" in form fields. What is the problem?',
+						'choices'     => array(
+							'None: it is an effective filter',
+							'It is too slow for a modern site',
+							'The list is endless: the same thing can be written another way (comments, encodings, other keywords)',
+							'The browser refuses that filtering',
+						),
+						'hint'        => '"SELECT" can be written differently.',
+						'explanation' => 'Keyword filtering is a game without end: spelling variants, other commands, evasion techniques. The serious answer is structural (prepared query) or contextual (escaping suited to the output context).',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the validation rule',
+				'content' => '<p>In the classroom, the input validation practical left its <em>validation rule</em> (the sheet of checks made on the form).</p><p><strong>Mission.</strong> Read that sheet and note the <em>number of checks value</em> listed for the "postal code" field (<code>zip_checks</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the number of checks (zip_checks) listed for the postal code field in the validation sheet.',
+						'hint'        => 'The validation sheet is in <code>/srv/cours/owasp</code>.',
+						'explanation' => 'Counting the checks of a field is measuring the rigour of the validation: every check is a condition to write in the code.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the difference between validation and escaping?',
+						'choices'     => array(
+							'They are the same thing',
+							'Validation is client-side, escaping is server-side',
+							'Validation checks the type and range of the data; escaping makes the characters safe for a given output context',
+							'Escaping is more recent',
+						),
+						'hint'        => 'One rejects data, the other transforms what is left.',
+						'explanation' => 'Validation says "this value is not acceptable"; escaping says "this value is acceptable, but I make it inert for this use". The two are complementary.',
+					),
+					1 => array(
+						'question'    => 'A "quantity" field must contain a number between {min} and {max}. What is the right check?',
+						'choices'     => array(
+							'A <code>strip_tags()</code> on the input',
+							'Escaping the input with <code>htmlspecialchars</code>',
+							'Limiting the field to 3 characters',
+							'Checking that the input is an integer and lies in the range, rejecting it otherwise',
+						),
+						'hint'        => 'The check must match the stated range.',
+						'explanation' => 'Escaping does not turn "12; DROP TABLE" into a number: validation must check the type (integer) and the range ({min}..{max}). Escaping, for its part, applies to display.',
+					),
+					2 => array(
+						'question'    => 'Why does client-side validation not protect the application?',
+						'choices'     => array(
+							'Because the attacker does not need the browser: they can send the HTTP request directly',
+							'Because browsers are old',
+							'Because JavaScript is disabled',
+							'Because keyboards are QWERTY',
+						),
+						'hint'        => 'Think about the tool that sends the request.',
+						'explanation' => 'The browser is a client like any other: the request can be written by hand (curl) or by a script. Every security rule must be enforced on the server.',
+					),
+					3 => array(
+						'question'    => 'You build a shell command to process an uploaded file name. What is the right approach?',
+						'choices'     => array(
+							'Escape the name with a home-made function',
+							'Validate the name (allow-list of permitted characters, no special character) and use it as a single argument',
+							'Put it in quotes and hope',
+							'Encode it in base64 before using it',
+						),
+						'hint'        => 'The shell interprets some characters: spaces, semicolons, pipes.',
+						'explanation' => 'A file name containing a space or a ";" changes the command. You validate the format (allow-list) and make sure the name stays a single argument. Functions such as <code>escapeshellarg</code> exist too: the principle is never to concatenate.',
+					),
+				),
+			),
+		),
+	),
+
 );
