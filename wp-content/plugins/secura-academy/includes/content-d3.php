@@ -319,9 +319,8 @@ function seca_default_rooms_d3() {
 							'questions' => array(
 								array(
 									'question'    => 'What is the name of the publicly reachable storage bucket?',
-								),
-								array(
-									'question'    => 'How many days separate the bucket opening from the first unauthorised access? (give the number)',
+									'hint'        => 'In the terminal: <code>cat /home/analyste/inventaire.txt</code>. The "public" column leaves no doubt.',
+									'explanation' => 'The bucket has been open since 2 September, and the first unauthorised access is dated 14 September: twelve days of exposure window. The "cree_par" column names a company account, not the provider. This demonstrates the lesson: the "service configuration" checkbox belongs to the customer.',
 								),
 							),
 						),
@@ -342,7 +341,12 @@ function seca_default_rooms_d3() {
 								),
 								array(
 									'question'    => 'Which deployment model combines its own datacentre with a cloud service, under a shared identity system?',
-									'choices'     => array( 'Hybrid', 'Community', 'Public', 'Private' ),
+									'choices'     => array(
+										'Hybrid: its own datacentre plus a cloud service',
+										'Community: shared by several organisations with common interests',
+										'Public: open to anyone, operated by a provider',
+										'Private: dedicated to one organisation only',
+									),
 									'correct'     => 0,
 									'explanation' => 'Hybrid: two distinct environments that cooperate. The sensitive point is not the infrastructure but the identity: two badly synchronised directories create active orphan accounts, and that is the path most hybrid incidents take.',
 								),
@@ -646,9 +650,8 @@ function seca_default_rooms_d3() {
 							'questions' => array(
 								array(
 									'question'    => 'What is the name of the file containing the decryption key?',
-								),
-								array(
-									'question'    => 'Is dossier.enc encrypted or merely encoded? Answer with one word.',
+									'hint'        => 'In the terminal: <code>ls /srv/export</code>, then <code>cat /srv/export/note.txt</code>. The note says where the key is.',
+									'explanation' => 'The file is genuinely encrypted (the "Salted" header), but the key sits in the same folder as the encrypted file. An attacker who copies the folder gets both: the protection is nil. This is the most common form of "encryption" in companies, and the hardest to make understood without showing it.',
 								),
 							),
 						),
@@ -979,9 +982,8 @@ function seca_default_rooms_d3() {
 							'questions' => array(
 								array(
 									'question'    => 'Which device connects to the external address 203.0.113.90? (give its identifier)',
-								),
-								array(
-									'question'    => 'Which credential do all shop-floor sensors use to connect? (one word)',
+									'hint'        => 'In the terminal: <code>cat /srv/atelier/flux.log</code>. Compare each destination with the allowed list, then find the identifier in <code>appareils.txt</code>.',
+									'explanation' => 'The sensor sends 43 MB to an external address in two connections, at 3 a.m., while its usual destination is the internal collector 10.20.1.20. A temperature sensor has no reason to send 21 MB per connection: that is the signal, and it needs no antivirus to be seen. On IoT, the flow is the probe.',
 								),
 							),
 						),
