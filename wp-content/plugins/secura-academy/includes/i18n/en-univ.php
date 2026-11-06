@@ -147,7 +147,7 @@ return array(
 						'question'    => 'A program overflows and overwrites the return address. What happens to the canary?',
 						'choices'     => array(
 							'It blocks the write: the program refuses to overflow',
-							'It is overwritten too, and noticed on return',
+							'It is overwritten too, and the program notices on return, then stops',
 							'It is not touched: it protects the whole stack',
 							'It recompiles the program automatically',
 						),

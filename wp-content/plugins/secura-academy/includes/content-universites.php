@@ -164,7 +164,7 @@ array(
 					'choices' => array(
 						'Tout le monde peut changer les paramètres, c\'est plus simple',
 						'Les élèves accèdent au service par le réseau interne de l\'école uniquement',
-						'Les enseignants changent ; les élèves utilisent le service',
+						'Les enseignants changent les paramètres ; les élèves utilisent le service',
 						'Le service n\'est accessible qu\'aux enseignants',
 					),
 					'correct' => 2,
@@ -275,7 +275,7 @@ array(
 					'mode' => 'choice',
 					'choices' => array(
 						'Il bloque l\'écriture : le programme refuse net de déborder',
-						'Il est écrasé, et le programme le remarque au retour',
+						'Il est écrasé lui aussi, et le programme le remarque au retour puis s\'arrête',
 						'Il n\'est pas touché : il protège la pile entière',
 						'Il est chiffré, donc l\'attaquant ne peut pas le lire',
 					),

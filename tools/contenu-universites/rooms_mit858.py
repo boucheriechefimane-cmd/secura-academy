@@ -120,7 +120,7 @@ ROOMS = [
                 'q': 'Ton service doit être accessible depuis chez les élèves, mais seulement les enseignants doivent pouvoir changer les paramètres. Quelle politique ?',
                 'choices': [
                     'Tout le monde peut changer les paramètres, c\'est plus simple',
-                    'Les enseignants changent ; les élèves utilisent le service',
+                    'Les enseignants changent les paramètres ; les élèves utilisent le service',
                     'Les élèves accèdent au service par le réseau interne de l\'école uniquement',
                     'Le service n\'est accessible qu\'aux enseignants',
                 ],
@@ -221,7 +221,7 @@ ROOMS = [
                 'choices': [
                     'Il bloque l\'écriture : le programme refuse net de déborder',
                     'Il n\'est pas touché : il protège la pile entière',
-                    'Il est écrasé, et le programme le remarque au retour',
+                    'Il est écrasé lui aussi, et le programme le remarque au retour puis s\'arrête',
                     'Il est chiffré, donc l\'attaquant ne peut pas le lire',
                 ],
                 'correct': 2,

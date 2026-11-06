@@ -1,0 +1,91 @@
+<!doctype html><html lang="fr"><meta charset="utf-8">
+<title>Relecture des bonnes reponses reecrites</title>
+<style>
+body{font:15px/1.55 system-ui,sans-serif;max-width:1100px;margin:2em auto;padding:0 1em;color:#1a1a1a;background:#fff}
+h1{font-size:1.5em;margin-bottom:.2em}
+.compte{color:#555;margin-bottom:1.2em}
+.n{margin:1.4em 0;border-left:4px solid #ccc;padding:.2em 0 .2em 1em}
+.n h2{font-size:1em;margin:.2em 0 .4em;font-weight:600}
+.tag{display:inline-block;font-size:.72em;font-weight:700;color:#fff;padding:.15em .5em;border-radius:3px;margin-right:.5em}
+.avant,.apres{font-family:ui-monospace,monospace;font-size:.9em;padding:.5em .7em;border-radius:4px;margin:.3em 0;white-space:pre-wrap}
+.avant{background:#fdecea;text-decoration:line-through;color:#7a1c14}
+.apres{background:#e8f5e9;color:#14361a}
+.note{font-size:.82em;color:#666;margin-top:.3em}
+code{background:#f0f0f0;padding:.1em .3em;border-radius:3px}
+</style>
+<h1>Relecture des bonnes reponses reecrites</h1>
+<p class="compte">Comparaison avec <code>da510ef</code> &mdash; <strong>12 ligne(s) a relire</strong> (2 allongee, 10 raccourcie).</p>
+<p class="note">Cette page ne dit pas si le nouveau texte est vrai : aucun programme ne peut le dire. Elle donne la liste courte sur laquelle un humain tranche ; les sources sont dans <code>docs/VERIFICATION-CONTENU.md</code>.</p>
+<div class="n" style="border-left-color:#8a5a00">
+<h2><span class="tag" style="background:#8a5a00">Raccourcie</span><code>univ-01</code> q1 &mdash; Un pare-feu bloque toutes les requêtes venant de l&#x27;Internet. Quelle propriété ta politique peut-elle encore garantir ?</h2>
+<div class="avant">Rien : sans tester le système, aucune propriété ne peut être garantie</div>
+<div class="apres">Rien : un pare-feu ne traite qu&#x27;une menace, pas les autres</div>
+<p class="note">Plus courte, sans troncature visible. Verifier que le sens n&#x27;a pas ete perdu.</p>
+</div>
+<div class="n" style="border-left-color:#8a5a00">
+<h2><span class="tag" style="background:#8a5a00">Raccourcie</span><code>univ-01</code> q3 &mdash; Quel est le rôle exact d&#x27;un « mécanisme de sécurité » ?</h2>
+<div class="avant">Faire appliquer la politique, tant que les hypothèses du modèle de menace sont vraies</div>
+<div class="apres">Faire appliquer la politique, tant que le modèle de menace tient</div>
+<p class="note">Plus courte, sans troncature visible. Verifier que le sens n&#x27;a pas ete perdu.</p>
+</div>
+<div class="n" style="border-left-color:#8a5a00">
+<h2><span class="tag" style="background:#8a5a00">Raccourcie</span><code>univ-01</code> q4 &mdash; Ton service doit être accessible depuis chez les élèves, mais seulement les enseignants doivent pouvoir changer les paramètres. Quelle politique ?</h2>
+<div class="avant">Seuls les enseignants peuvent changer les paramètres ; tous les élèves peuvent utiliser le service</div>
+<div class="apres">Les enseignants changent les paramètres ; les élèves utilisent le service</div>
+<p class="note">Plus courte, sans troncature visible. Verifier que le sens n&#x27;a pas ete perdu.</p>
+</div>
+<div class="n" style="border-left-color:#8a5a00">
+<h2><span class="tag" style="background:#8a5a00">Raccourcie</span><code>univ-01</code> q5 &mdash; Un service tourne avec les droits root alors qu&#x27;il n&#x27;a besoin que de lire un fichier. Que vaut-il faire ?</h2>
+<div class="avant">Retirer les droits superflus : c&#x27;est la séparation des privilèges</div>
+<div class="apres">Retirer les droits superflus : c&#x27;est le moindre privilège</div>
+<p class="note">Plus courte, sans troncature visible. Verifier que le sens n&#x27;a pas ete perdu.</p>
+</div>
+<div class="n" style="border-left-color:#8a5a00">
+<h2><span class="tag" style="background:#8a5a00">Raccourcie</span><code>univ-01</code> q6 &mdash; Un pare-feu bloque 100 % des requêtes externes, mais l&#x27;application a une injection SQL. Que conclure ?</h2>
+<div class="avant">Le mécanisme ne couvre pas la menace : il reste une vulnérabilité applicative</div>
+<div class="apres">Le mécanisme ne couvre pas la menace : la faille demeure</div>
+<p class="note">Plus courte, sans troncature visible. Verifier que le sens n&#x27;a pas ete perdu.</p>
+</div>
+<div class="n" style="border-left-color:#8a5a00">
+<h2><span class="tag" style="background:#8a5a00">Raccourcie</span><code>univ-02</code> q2 &mdash; Quel est le but exact d&#x27;ASLR ?</h2>
+<div class="avant">Déplacer les zones de mémoire à chaque exécution pour viser à l&#x27;aveugle</div>
+<div class="apres">Déplacer les zones mémoire à chaque exécution</div>
+<p class="note">Plus courte, sans troncature visible. Verifier que le sens n&#x27;a pas ete perdu.</p>
+</div>
+<div class="n" style="border-left-color:#8a5a00">
+<h2><span class="tag" style="background:#8a5a00">Raccourcie</span><code>univ-02</code> q3 &mdash; Pourquoi le NX rend-il nécessaire le ROP ?</h2>
+<div class="avant">Parce que la pile n&#x27;est plus exécutable : le code déposé ne peut pas être lancé directement</div>
+<div class="apres">Parce que la pile n&#x27;est plus exécutable : il faut réutiliser du code</div>
+<p class="note">Plus courte, sans troncature visible. Verifier que le sens n&#x27;a pas ete perdu.</p>
+</div>
+<div class="n" style="border-left-color:#8a5a00">
+<h2><span class="tag" style="background:#8a5a00">Raccourcie</span><code>univ-02</code> q4 &mdash; Un programme C lit avec gets() dans un buffer de 32 octets. Quel est le vrai problème ?</h2>
+<div class="avant">gets() n&#x27;a aucune limite : la saisie peut dépasser le buffer et déborder</div>
+<div class="apres">gets() n&#x27;a aucune limite : la saisie peut déborder</div>
+<p class="note">Plus courte, sans troncature visible. Verifier que le sens n&#x27;a pas ete perdu.</p>
+</div>
+<div class="n" style="border-left-color:#8a5a00">
+<h2><span class="tag" style="background:#8a5a00">Raccourcie</span><code>univ-02</code> q5 &mdash; Pourquoi le canari ne protège-t-il pas contre un débordement sur le tas ?</h2>
+<div class="avant">Parce que le canari est posé sur la pile, pas entre les blocs du tas</div>
+<div class="apres">Parce que le canari est sur la pile, pas entre les blocs</div>
+<p class="note">Plus courte, sans troncature visible. Verifier que le sens n&#x27;a pas ete perdu.</p>
+</div>
+<div class="n" style="border-left-color:#8a5a00">
+<h2><span class="tag" style="background:#8a5a00">Raccourcie</span><code>univ-10</code> q4 &mdash; Que se passe-t-il si un programme écrit 40 octets dans un buffer de 32 ?</h2>
+<div class="avant">Les {trop} octets en trop écrasent ce qui se trouve après le buffer, dans la pile</div>
+<div class="apres">Les 8 octets en trop écrasent ce qui se trouve après le buffer, dans la pile</div>
+<p class="note">Plus courte, sans troncature visible. Verifier que le sens n&#x27;a pas ete perdu.</p>
+</div>
+<div class="n" style="border-left-color:#1b5e20">
+<h2><span class="tag" style="background:#1b5e20">Allongee</span><code>univ-01</code> q0 &mdash; Dans la phrase « un pirate peut envoyer des requêtes forgées au service de facturation », qu&#x27;est-ce qui est la menace et qu&#x27;est-ce qui est la vulnérabilité ?</h2>
+<div class="avant">La menace est le pirate ; la vulnérabilité est la requête forgée</div>
+<div class="apres">La menace est le scénario ; la vulnérabilité est la faiblesse du service</div>
+<p class="note">Plus longue : c&#x27;est la correction voulue (on etoffe au lieu de couper).</p>
+</div>
+<div class="n" style="border-left-color:#1b5e20">
+<h2><span class="tag" style="background:#1b5e20">Allongee</span><code>univ-02</code> q0 &mdash; Un programme déborde et écrase l&#x27;adresse de retour. Que se passe-t-il au canari ?</h2>
+<div class="avant">Il est écrasé lui aussi, et le programme le remarque au retour et s&#x27;arrête</div>
+<div class="apres">Il est écrasé lui aussi, et le programme le remarque au retour puis s&#x27;arrête</div>
+<p class="note">Plus longue : c&#x27;est la correction voulue (on etoffe au lieu de couper).</p>
+</div>
+</html>
