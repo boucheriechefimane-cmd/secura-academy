@@ -198,6 +198,10 @@ final class Secura_Rooms {
 			/* Domaine D3 « architecture » : responsabilite partagee (3.1),
 			   protection des donnees (3.4), IoT et industriel (3.6). */
 			'architecture' => seca_default_rooms_d3(),
+			/* Domaine D4 « operations » : forensique et preuves (4.7),
+			   automatisation et orchestration (4.8). Les deux sujets
+			   manquaient au referentiel, mesure du 06/11/2026. */
+			'operations'  => seca_default_rooms_d4(),
 		);
 
 		/* Les rooms deja installees, retrouvees par leur cle stable. */

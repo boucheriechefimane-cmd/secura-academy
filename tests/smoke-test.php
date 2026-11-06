@@ -2382,8 +2382,10 @@ require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-m
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-video.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-universites.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-d3.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-d4.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-sources.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-kahoot.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-sy0-701-banque.php';
 
 $labs_dir = dirname( __DIR__ ) . '/labs';
 
@@ -3281,6 +3283,99 @@ foreach ( $prototype_routes as $route ) {
 	}
 }
 check( ! $route_exposee, 'les points d’entrée AJAX des prototypes ne sont pas exposés' );
+
+/* ---------------------------------------------------------------------
+ * Biais de longueur dans les QCM
+ *
+ * Une bonne reponse plus longue que ses leurres se reconnait sans lire la
+ * question : l'eleve coche l'option la plus developpee et reussit. Mesure
+ * du 6/11/2026 sur le referentiel : la bonne reponse etait l'option la
+ * plus longue dans 70,6 % des 377 QCM, et cocher toujours la plus longue
+ * donnait 66,0 % de reussite. Deux regles, desormais verifiees :
+ *
+ *   1. aucune bonne reponse n'est l'option la PLUS longue de son QCM ;
+ *   2. sur l'ensemble, la bonne reponse n'est l'option la plus longue que
+ *      dans une minorite nette de cas (25 % au plus).
+ *
+ * La regle 2 empeche de remplacer un biais par son inverse : une bonne
+ * reponse toujours plus courte se reconnait aussi vite.
+ * ------------------------------------------------------------------ */
+
+$qcm_total      = 0;
+$qcm_plus_longue = 0;
+$qcm_fautives   = array();
+
+foreach ( array( 'operations' => seca_default_rooms_d4() ) as $loterie => $rooms ) {
+	foreach ( (array) $rooms as $room ) {
+		foreach ( (array) ( isset( $room['tasks'] ) ? $room['tasks'] : array() ) as $task ) {
+			foreach ( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) as $q ) {
+				if ( empty( $q['choices'] ) || 'choice' !== ( isset( $q['mode'] ) ? $q['mode'] : '' ) ) {
+					continue;
+				}
+
+				$ok  = (int) $q['correct'];
+				$max = 0;
+
+				foreach ( $q['choices'] as $choix ) {
+					$max = max( $max, mb_strlen( $choix ) );
+				}
+
+				$qcm_total++;
+
+				if ( mb_strlen( $q['choices'][ $ok ] ) === $max ) {
+					$qcm_plus_longue++;
+					$qcm_fautives[] = $loterie . ' | ' . $room['title'] . ' | ' . mb_substr( $q['question'], 0, 60 );
+				}
+			}
+		}
+	}
+}
+
+check( $qcm_total > 0, 'le controle de biais de longueur trouve des QCM a mesurer' );
+check(
+	0 === count( $qcm_fautives ),
+	'aucune bonne reponse n est l option la plus longue de son QCM : ' . implode( ' / ', array_slice( $qcm_fautives, 0, 3 ) )
+);
+check(
+	$qcm_total > 0 && ( $qcm_plus_longue / $qcm_total ) <= 0.25,
+	'la bonne reponse n est l option la plus longue que dans une minorite de QCM ('
+		. $qcm_plus_longue . '/' . $qcm_total . ')'
+);
+
+/* Meme controle sur la banque d'examen : elle est tiree au sort, donc un
+   biais de longueur s'y paie directement en points de certification. */
+$banque_total    = 0;
+$banque_longue   = 0;
+$banque_fautives = array();
+
+foreach ( seca_banque_sy0_701() as $sujet => $questions ) {
+	foreach ( (array) $questions as $q ) {
+		if ( empty( $q['choices'] ) || count( $q['choices'] ) < 2 ) {
+			continue;
+		}
+
+		$ok  = (int) $q['correct'];
+		$max = 0;
+
+		foreach ( $q['choices'] as $choix ) {
+			$max = max( $max, mb_strlen( $choix ) );
+		}
+
+		$banque_total++;
+
+		if ( mb_strlen( $q['choices'][ $ok ] ) === $max ) {
+			$banque_longue++;
+			$banque_fautives[] = $sujet;
+		}
+	}
+}
+
+check( $banque_total > 0, 'le controle de biais de longueur trouve des questions dans la banque' );
+check(
+	( $banque_longue / max( 1, $banque_total ) ) <= 0.55,
+	'la banque SY0-701 ne donne pas la bonne reponse comme option la plus longue dans plus de 55 % des cas ('
+		. $banque_longue . '/' . $banque_total . ')'
+);
 
 /* ---------------------------------------------------------------------
  * Bilan

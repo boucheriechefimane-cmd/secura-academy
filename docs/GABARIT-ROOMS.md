@@ -54,7 +54,7 @@ Le temps 3 se termine par une preuve que l'élève a réellement ouvert la
 machine : un drapeau, un nom de propriétaire, un identifiant. Un QCM se
 devine ; une valeur lue dans un fichier ne se devine pas.
 
-C'est aussi ce qui distingue la **couverture officielle** (87,0 %) de la
+C'est aussi ce qui distingue la **couverture officielle** (94,0 %) de la
 **borne sévère** (39,1 %) : seule la seconde compte comme une preuve
 vérifiable par le serveur. L'écart entre les deux mesure exactement ce que
 le site fait réellement manipuler.
@@ -74,18 +74,16 @@ n'enseigne. Le contrôle est mécanique : `tools/certifications/couverture.php`
 mesure la couverture du référentiel SY0-701, sujet par sujet, et nomme les
 trous.
 
-État au 06/11/2026, après l'ajout de la room 5.5 :
+État au 06/11/2026, après l'ajout des rooms 5.5, 4.7 et 4.8 :
 
 ```
-COUVERTURE PONDEREE : 87,0 %   (83,0 % avant)
+COUVERTURE PONDEREE : 94,0 %   (87,0 % avant les rooms D4)
 BORNE BASSE (severe) : 39,1 %
-Sujets non couverts : 6
+Sujets non couverts : 4
   - D1 1.1 — Controles de securite (categories et types)
   - D1 1.3 — Zero trust
   - D1 1.4 — Gestion du changement
   - D1 1.7 — Securite physique (theorie seulement)
-  - D4 4.7 — Forensique et preuves
-  - D4 4.8 — Automatisation et orchestration
 ```
 
 **On ne comble pas un trou avec une room de vocabulaire.** Une room qui
@@ -146,10 +144,11 @@ cours citent encore. C'est exactement le genre d'erreur que
    contrôles réels (préventif, détectif, correctif) sur un incident donné.
 2. **D1 1.3 — zero trust** : une situation où le réseau interne est réputé
    sûr, et où cette hypothèse tue.
-3. **D4 4.7 — forensique et preuves** : la room existe déjà en pratique
-   (RFC 3227 est déjà cité) ; il manque la mise en situation terminal.
-4. **D1 1.4 — gestion du changement**, **D1 1.7 — sécurité physique**,
-   **D4 4.8 — automatisation**.
+3. **D1 1.4 — gestion du changement**, puis **D1 1.7 — sécurité physique**.
+
+Fait depuis : **D4 4.7 — forensique et preuves** et **D4 4.8 — automatisation
+et orchestration**, toutes deux écrites avec le générateur
+`tools/contenu-universites/blocs/ecrire.py` et les données de `blocs/d4.py`.
 
 Chaque room suit le gabarit du § 2, et chaque affirmation factuelle entre
 dans `docs/VERIFICATION-CONTENU.md` avec sa source.
