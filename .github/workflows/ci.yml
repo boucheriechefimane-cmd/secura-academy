@@ -160,7 +160,7 @@ jobs:
         run: |
           # Aucun pipe : le code de sortie doit rester celui du script, et
           # l'erreur doit atterrir dans le fichier qu'on publiera.
-          PHP=php WP_CLI=wp SECURA_SANDBOX="$SECA_WP_DIR" \
+          WP_CLI=wp SECURA_SANDBOX="$SECA_WP_DIR" \
             python3 tools/controle/qualite-qcm.py --liste > /tmp/qcm.txt 2>&1
           code=$?
           tail -40 /tmp/qcm.txt

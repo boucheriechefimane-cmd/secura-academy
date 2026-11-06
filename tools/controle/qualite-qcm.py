@@ -24,7 +24,10 @@ LES QUATRE REGLES D'UN BON DISTRACTEUR
    le seul avec un chiffre...).
 
 Usage :
+    # sur le runner : wp est deja dans le PATH
     python3 tools/controle/qualite-qcm.py            # le bilan
+    # en local, si wp est un phar et php n'est pas dans le PATH
+    PHP=/chemin/php WP_CLI=/chemin/wp-cli.phar python3 tools/controle/qualite-qcm.py
     python3 tools/controle/qualite-qcm.py --liste    # la liste de travail
 Sortie 0 si tout est au niveau, 1 sinon.
 """
@@ -36,8 +39,11 @@ import subprocess
 import sys
 
 SANDBOX = os.environ.get("SECURA_SANDBOX", "/home/user/wp-sandbox/www")
-PHP = os.environ.get("PHP", "php")
-WP = os.environ.get("WP_CLI", "")
+# PHP est FACULTATIF : sur le runner, « wp » est un executable autonome.
+# Le passer a php donnerait « Could not open input file: wp » — l'erreur
+# rencontree au premier run.
+PHP = os.environ.get("PHP", "").strip()
+WP = os.environ.get("WP_CLI", "wp").strip()
 
 LONGUEUR_TOLEREE = 1.2   # la bonne reponse peut depasser de 20 % au plus
 EXAMEN_MIN_QUESTIONS = 4
@@ -52,8 +58,8 @@ def interroge(code):
     derniere ligne tout court. Un script qui plante en silence ne vaut rien
     en CI, ou personne ne lit les journaux.
     """
-    r = subprocess.run([PHP, WP, "--allow-root", "eval", code],
-                       capture_output=True, text=True, cwd=SANDBOX)
+    commande = ([PHP] if PHP else []) + [WP, "--allow-root", "eval", code]
+    r = subprocess.run(commande, capture_output=True, text=True, cwd=SANDBOX)
 
     if r.returncode != 0:
         raise SystemExit("wp eval a echoue (%d) :\n%s" % (r.returncode, (r.stderr or r.stdout)[-800:]))
