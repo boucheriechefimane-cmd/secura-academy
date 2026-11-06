@@ -8,43 +8,359 @@ Le script ecrit :
 
 Usage : python3 make-lab.py
 """
+import hashlib
 import io
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-FLAGS = [
-    'FLAG=SECURA{modele_de_menace}',
-    'FLAG=SECURA{offset_du_tp}',
-    'FLAG=SECURA{privileges_separes}',
-    'FLAG=SECURA{confinement_borne}',
-    'FLAG=SECURA{jeton_csrf}',
-    'FLAG=SECURA{zone_interdite}',
-    'FLAG=SECURA{tls_signe}',
-    'FLAG=SECURA{mot_de_passe_long}',
-    'FLAG=SECURA{cle_symetrique}',
-    'FLAG=SECURA{pile_x86}',
-    'FLAG=SECURA{canari_connu}',
-    'FLAG=SECURA{chainage_de_gadgets}',
-    'FLAG=SECURA{printf_parle_trop}',
-    'FLAG=SECURA{phrase_passe}',
-    'FLAG=SECURA{urgence_artificielle}',
-    'FLAG=SECURA{publie_plus_tard}',
-    'FLAG=SECURA{deux_categories}',
-    'FLAG=SECURA{risque_priorise}',
-    'FLAG=SECURA{validation_stricte}',
-    'FLAG=SECURA{trace_utile}',
-    'FLAG=SECURA{adresse_64_bits}',
-    'FLAG=SECURA{secrets_a_part}',
+# ---------------------------------------------------------------------------
+# LES VALEURS SONT DERIVEES, PAS ECRITES DANS LES DOCUMENTS
+#
+# Correction du 6 novembre 2026. Avant, chaque livrable ecrivait sa valeur en
+# clair :  `risque_critique = SECURA{modele_de_menace}`. L'eleve lisait le
+# document avec `cat`, recopiait, validait. C'est le defaut que
+# tools/controle/drapeaux-lisibles.php a mesure : 15 drapeaux sur 22 de cette
+# machine ne demandaient aucune manipulation.
+#
+# Desormais le document porte la DONNEE (la liste, la trace, les tailles), et
+# le drapeau est le RESULTAT d'une transformation courte que l'eleve doit
+# appliquer :
+#
+#   empreinte    sha256 du fichier, tronque      sha256sum | cut -c1-8
+#   champ        la valeur d'une ligne « cle = x »  grep | awk
+#   colon        la valeur apres « cle: »        cut -d: -f2
+#   compte       le nombre de lignes             wc -l < fichier
+#   sans_entete  les lignes moins l'en-tete      tail -n +2 | wc -l
+#   somme        la somme d'une colonne          awk
+#   tri          le premier element alphabetique sort | head -1
+#   colonne_triee le premier element d'une colonne
+#   position     le numero de la ligne utile     grep -n | cut -d: -f1
+#   extrait      un nombre lu dans une phrase    grep -o
+#
+# Le drapeau reste dans /root/flags, en 400 root:root : le serveur le lit en
+# root, l'eleve ne le voit jamais. Il obtient la valeur en executant la
+# commande que la room lui indique.
+# ---------------------------------------------------------------------------
+
+# Les fichiers de donnees : la matiere premiere de la manipulation.
+DATA = {
+    'opt/labs/invites.txt': """alice
+bob
+charlie
+diane
+eric
+fatima
+gaston
+helene
+ivan
+""",
+
+    'opt/labs/padding.txt': """16
+24
+""",
+
+    'cours/owasp/services.txt': """vault:8200
+backup:9000
+cache:6379
+audit:9100
+""",
+
+    'cours/owasp/processus.csv': """service,memoire_mo,processus
+web,120,40
+api,80,30
+audit,60,20
+""",
+
+    'cours/owasp/gadgets.txt': """pop rdi ; ret
+leave ; ret
+pop rsi ; ret
+ret2libc
+""",
+
+    'cours/owasp/specifiers.txt': """%d
+%i
+%u
+%o
+%x
+%X
+%s
+%c
+%p
+%n
+%f
+""",
+
+    'cours/owasp/risques.txt': """controle d'acces defaillant
+injection
+configuration par defaut
+composants obsoletes
+identification et authentification defaillantes
+""",
+
+    'cours/owasp/formats.txt': """code postal : format A9999, 5 caracteres
+identifiant : 3 a 20 caracteres, lettres et chiffres
+montant : nombre decimal, 2 chiffres apres la virgule
+date : AAAA-MM-JJ
+""",
+
+    'cours/owasp/trace.txt': """connexion refusee pour alice depuis 10.10.0.4
+changement de configuration par bob
+acces au dossier eleves par le service comptage
+connexion reussie pour alice depuis 10.10.0.4
+acces au dossier eleves par le service comptage
+connexion refusee pour alice depuis 10.10.0.9
+changement de configuration par bob
+""",
+
+    'cours/mit857/comptes.csv': """compte,role,derniere_connexion
+svc-web,service,2026-09-01
+svc-comptage,service,2026-09-02
+alice,administration,2026-09-04
+""",
+
+    'cours/mit857/tailles.txt': """1280
+960
+640
+""",
+
+    'cours/cyber/mots.txt': """pluie
+ululement
+vache
+kayak
+onde
+""",
+
+    'cours/cyber/signalements.txt': """le domaine ne correspond pas au service officiel
+le message joue sur l'urgence pour court-circuiter la reflexion
+le lien affiche n'est pas celui vers lequel il pointe
+le message demande les identifiants
+""",
+
+    'cours/cyber/delais.txt': """12
+24
+6
+""",
+
+    'cours/cyber/facteurs.txt': """mot de passe
+application d'authentification
+cle de securite
+empreinte digitale
+""",
+
+    'cours/stanford/canari.txt': """canari du programme du TP : 0x1f2e3d4c
+compile sans pile executable, avec canari
+canari regenere a chaque execution
+""",
+
+    'cours/stanford/tailles.txt': """processeur 64 bits
+word_size 8 octets
+adresse 8 octets
+memoire 16 Go
+""",
+
+    'cours/stanford/emplacements.txt': """/etc/secura-secrets/signing.key
+/etc/secura-secrets/tls.key
+/home/service/.ssh/id_ed25519
+/srv/data/.env.production
+/etc/app/db.conf
+/var/backups/keys.tar
+""",
+}
+
+# (marqueur du fichier de drapeau, regle de derivation, commande pour l'eleve)
+# Les 22 valeurs produites sont deux a deux differentes : un drapeau trouve
+# ne peut pas servir a une autre room.
+REGLES = [
+    ('modele_de_menace', 'menace',     'empreinte:cours/mit858/analyse-risque.md',
+     'sha256sum /srv/cours/mit858/analyse-risque.md | cut -c1-8'),
+
+    ('offset_du_tp', 'offset',         'compte:opt/labs/invites.txt',
+     'wc -l < /opt/labs/invites.txt'),
+
+    ('privileges_separes', 'privilege',   'colon:cours/owasp/services.txt:vault',
+     'grep "^vault:" /srv/cours/owasp/services.txt | cut -d: -f2'),
+
+    ('confinement_borne', 'borne',    'somme:cours/owasp/processus.csv:2',
+     'tail -n +2 /srv/cours/owasp/processus.csv | cut -d, -f2 | paste -sd+ | bc'),
+
+    ('jeton_csrf', 'csrf',           'champ:cours/mit858/web-notes.txt:csrf',
+     'awk "/^ *csrf *=/{print \\$3}" /srv/cours/mit858/web-notes.txt'),
+
+    ('zone_interdite', 'zone',       'colonne_triee:cours/owasp/services.txt:1::',
+     'cut -d: -f1 /srv/cours/owasp/services.txt | sort | head -1'),
+
+    ('tls_signe', 'tls',            'champ:cours/mit857/tls-audit.txt:tls',
+     'awk "/^ *tls *=/{print \\$3}" /srv/cours/mit857/tls-audit.txt'),
+
+    ('mot_de_passe_long', 'auth',    'sans_entete:cours/mit857/comptes.csv',
+     'tail -n +2 /srv/cours/mit857/comptes.csv | wc -l'),
+
+    ('cle_symetrique', 'crypto',       'somme:cours/mit857/tailles.txt',
+     'awk "{s+=\\$1} END{print s}" /srv/cours/mit857/tailles.txt'),
+
+    ('pile_x86', 'pile',             'somme:opt/labs/padding.txt',
+     'awk "{s+=\\$1} END{print s}" /opt/labs/padding.txt'),
+
+    ('canari_connu', 'canari',         'empreinte:cours/stanford/canari.txt',
+     'sha256sum /srv/cours/stanford/canari.txt | cut -c1-8'),
+
+    ('chainage_de_gadgets', 'rop',  'tri:cours/owasp/gadgets.txt',
+     'sort /srv/cours/owasp/gadgets.txt | head -1'),
+
+    ('printf_parle_trop', 'printf',    'compte:cours/owasp/specifiers.txt',
+     'wc -l < /srv/cours/owasp/specifiers.txt'),
+
+    ('phrase_passe', 'passe',         'tri:cours/cyber/mots.txt',
+     'sort /srv/cours/cyber/mots.txt | head -1'),
+
+    ('urgence_artificielle', 'harpon', 'position:cours/cyber/signalements.txt:urgence',
+     'grep -n urgence /srv/cours/cyber/signalements.txt | cut -d: -f1'),
+
+    ('publie_plus_tard', 'publier',     'somme:cours/cyber/delais.txt',
+     'awk "{s+=\\$1} END{print s}" /srv/cours/cyber/delais.txt'),
+
+    ('deux_categories', 'facteur',      'compte:cours/cyber/facteurs.txt',
+     'wc -l < /srv/cours/cyber/facteurs.txt'),
+
+    ('risque_priorise', 'risque',      'tri:cours/owasp/risques.txt',
+     'sort /srv/cours/owasp/risques.txt | head -1'),
+
+    ('validation_stricte', 'valider',   'extrait:cours/owasp/formats.txt:code postal:([0-9]+) caracteres',
+     'grep -i "code postal" /srv/cours/owasp/formats.txt | grep -o "[0-9]* caracteres" | cut -d" " -f1'),
+
+    ('trace_utile', 'journal',          'compte:cours/owasp/trace.txt',
+     'wc -l < /srv/cours/owasp/trace.txt'),
+
+    ('adresse_64_bits', 'memoire',      'champ:cours/stanford/tailles.txt:adresse',
+     'grep "^adresse " /srv/cours/stanford/tailles.txt | cut -d" " -f2'),
+
+    ('secrets_a_part', 'ranger',       'compte:cours/stanford/emplacements.txt',
+     'wc -l < /srv/cours/stanford/emplacements.txt'),
 ]
+
+
+def contenu_de(chemin):
+    """Le contenu d'un fichier de donnees : DATA d'abord, disque ensuite."""
+    if chemin.startswith('/'):
+        chemin = chemin.lstrip('/')
+    if chemin in DATA:
+        return DATA[chemin]
+    with io.open(os.path.join(HERE, chemin), encoding='utf-8') as handle:
+        return handle.read()
+
+
+def empreinte(chemin):
+    return hashlib.sha256(contenu_de(chemin).encode('utf-8')).hexdigest()[:8]
+
+
+def champ(chemin, cle):
+    """Le troisieme champ d'une ligne « cle = valeur » (indentation toleree)."""
+    for ligne in contenu_de(chemin).splitlines():
+        morceaux = ligne.split()
+        if morceaux and morceaux[0] == cle and len(morceaux) >= 3:
+            return morceaux[2]
+    raise SystemExit('champ %s introuvable dans %s' % (cle, chemin))
+
+
+def colon(chemin, cle):
+    """La valeur apres « cle: »."""
+    for ligne in contenu_de(chemin).splitlines():
+        if ligne.startswith(cle + ':'):
+            return ligne.split(':', 1)[1]
+    raise SystemExit('cle %s introuvable dans %s' % (cle, chemin))
+
+
+def lignes(chemin):
+    return [l for l in contenu_de(chemin).splitlines() if l.strip()]
+
+
+def compte(chemin):
+    return str(len(lignes(chemin)))
+
+
+def sans_entete(chemin):
+    return str(len(lignes(chemin)) - 1)
+
+
+def somme(chemin, colonne=1, separateur=None):
+    total = 0
+    for numero, ligne in enumerate(lignes(chemin)):
+        if numero == 0 and separateur:
+            continue  # en-tete du CSV
+        morceaux = ligne.split(separateur) if separateur else ligne.split()
+        total += int(morceaux[colonne - 1])
+    return str(total)
+
+
+def tri(chemin):
+    return sorted(lignes(chemin))[0]
+
+
+def colonne_triee(chemin, colonne, separateur):
+    valeurs = [l.split(separateur)[colonne - 1] for l in lignes(chemin)]
+    return sorted(valeurs)[0]
+
+
+def position(chemin, motif):
+    for numero, ligne in enumerate(lignes(chemin), 1):
+        if motif in ligne:
+            return str(numero)
+    raise SystemExit('motif %s introuvable dans %s' % (motif, chemin))
+
+
+def extrait(chemin, motif_ligne, expression):
+    import re
+    for ligne in lignes(chemin):
+        if motif_ligne.lower() in ligne.lower():
+            trouve = re.search(expression, ligne)
+            if trouve:
+                return trouve.group(1)
+    raise SystemExit('extrait %s introuvable dans %s' % (motif_ligne, chemin))
+
+
+def valeur_de(regle):
+    morceaux = regle.split(':')
+    transformation = morceaux[0]
+
+    if transformation == 'empreinte':
+        return empreinte(morceaux[1])
+    if transformation == 'champ':
+        return champ(morceaux[1], morceaux[2])
+    if transformation == 'colon':
+        return colon(morceaux[1], morceaux[2])
+    if transformation == 'compte':
+        return compte(morceaux[1])
+    if transformation == 'sans_entete':
+        return sans_entete(morceaux[1])
+    if transformation == 'somme':
+        colonne = int(morceaux[2]) if len(morceaux) > 2 else 1
+        return somme(morceaux[1], colonne, ',' if colonne > 1 else None)
+    if transformation == 'tri':
+        return tri(morceaux[1])
+    if transformation == 'colonne_triee':
+        return colonne_triee(morceaux[1], int(morceaux[2]), ':')
+    if transformation == 'position':
+        return position(morceaux[1], morceaux[2])
+    if transformation == 'extrait':
+        return extrait(morceaux[1], morceaux[2], ':'.join(morceaux[3:]))
+
+    raise SystemExit('transformation inconnue : %s' % transformation)
+
+
+FLAGS = ['FLAG=SECURA{%s_%s}' % (regle[1], valeur_de(regle[2])) for regle in REGLES]
 
 # (chemin dans la machine, contenu)
 LIVRABLES = [
     ('cours/mit858/analyse-risque.md', """# Analyse de risque - cours 6.858 (Computer Systems Security)
 
 Document de travail du semestre, ecrit par l'equipe securite du laboratoire.
+L'empreinte de la room resume CE document : sa valeur est le sha256 de ce
+fichier, tronque a ses 8 premiers caracteres.
 
-## Actifs protects
+    sha256sum /srv/cours/mit858/analyse-risque.md | cut -c1-8
+
+## Actifs proteges
 - Base de donnees des eleves (nom, identifiant, notes)
 - Cle de signature du service de publication
 - Journal d'audit du service d'authentification
@@ -57,19 +373,7 @@ Document de travail du semestre, ecrit par l'equipe securite du laboratoire.
 ## Regles (politique de securite)
 1. Seul le service de comptage lit la base des eleves.
 2. Seuls les administrateurs modifient la configuration.
-3. Toute tentative de connexion refusee doit etre tracee.
-
-## Conclusion - risque critique
-
-Le risque critique identifie par l'equipe est celui qui casse la regle 1 :
-une requete non verifiee qui permet de lire la base depuis la zone publique.
-La valeur de reference retenue pour ce risque est :
-
-    risque_critique = {flag}
-
-Toute modification de ce document doit etre reflechie dans le tableau de bord
-de l'equipe avant la revue de securite du mois prochain.
-"""),
+3. Toute tentative de connexion refusee doit etre tracee."""),
 
     ('opt/labs/buffer-overflow/README.md', """TP 3 - Buffer Overflow Exploits and Defenses (cours 6.858)
 ====================================================
@@ -94,7 +398,9 @@ Le programme se termine avec « *** stack smashing detected *** » quand la
 saisie depasse le canari. Il faut donc reconstruire le canari avant
 d'atteindre l'adresse de retour.
 
-Offset calcule par l'equipe : {flag}
+Offset calcule par l'equipe : compte les octets du bloc [buffer] ci-dessus
+plus les 8 octets du canari, puis ajoute 8 pour atteindre la sauvegarde de
+l'adresse de retour. Ecris le total.
 
 Rappel : le canari ne protege que si l'on ne le touche pas. Avec la valeur
 ci-dessus, on peut le reecrire tel quel.
@@ -128,7 +434,7 @@ ne_peut_pas     = /etc/secura-policy, /root
 
 [regle_generale]
 principe            = moindre privilege
-niveau_privilege_du_processus_principal = {flag}
+niveau_privilege_du_processus_principal = a determiner par l'eleve
 commentaire         = le service web tourne avec le niveau le plus bas possible
 """),
 
@@ -144,7 +450,7 @@ se_syscall_exec       = false
 se_syscall_socket     = false
 memoire_max_mb        = 128
 cpu_max_percent       = 50
-max_processes         = {flag}
+max_processes         = a determiner par l'eleve
 max_fichiers_ouverts  = 32
 taille_max_fichier_mb = 16
 lecture_seule          = /opt/labs, /srv/cours
@@ -155,148 +461,134 @@ evenement = tentative_sortie
 action    = arreter_le_programme
 """),
 
-    ('cours/mit858/web-notes.txt', """Notes de la lecon 9 - Securing Web Applications (cours 6.858)
-=========================================================
+    ('cours/mit858/web-notes.txt', """Notes de seance - le web et ses regles (6.858)
+==============================================
 
-Rappel du modele de securite du web
------------------------------------
-La regle de meme origine (Same Origin Policy) interdit a une page de lire
-la reponse d'un autre site. Elle n'interdit pas a un autre site d'ENVOYER
-une requete avec les identifiants de l'utilisateur connecte : c'est la
-faille CSRF.
+Le meme site, deux origines
+---------------------------
+Un site regroupe des ressources sous une meme origine (schema, hote,
+port). La politique de meme origine (SOP) empeche le script d'une page
+de lire la reponse d'une autre origine.
 
-Parade : un jeton secret dans le formulaire, verifie par le serveur a
-chaque requete sensible. Un site externe ne peut pas lire ce jeton, donc
-il ne peut pas le renvoyer.
+CSRF : le navigateur fait confiance au cookie
+---------------------------------------------
+Un formulaire heberge ailleurs peut declencher une requete vers notre
+site ; le navigateur joint le cookie de session automatiquement. Le
+serveur, lui, ne voit qu'une requete authentifiee.
 
-Exemple du cours (a recopier tel quel dans l'exercice)
-------------------------------------------------------
-    <form action="/virement" method="post">
-        <input type="hidden" name="jeton" value="TOKEN-9137-SECURE">
-        ...
-    </form>
+Le jeton anti-CSRF est la parade : une valeur aleatoire, liee a la
+session, que seul notre propre formulaire connait.
 
-    POST /virement   jeton=TOKEN-9137-SECURE
+Exercice de l'atelier
+---------------------
+Retrouve le nom du jeton utilise dans l'exemple ci-dessous :
 
-Nom du jeton utilise dans l'exemple du cours : {flag}
+    awk "/^ *csrf *=/{print $3}" /srv/cours/mit858/web-notes.txt
 
-Autres parades citees : cookie HttpOnly, cookie Secure, SameSite=Lax,
-verification de l'en-tete Origin, et surtout ne jamais faire confiance au
-formulaire cote serveur.
-"""),
+    methode  = POST
+    csrf     = TOKEN-9137-SECURE
+    duree    = 30 minutes
+    chemin   = /compte"""),
 
-    ('cours/mit857/segmentation-plan.txt', """Plan de segmentation du reseau du laboratoire
-(cours 6.857 - Network and Computer Security)
+    ('cours/mit857/segmentation-plan.txt', """Plan de segmentation - cours 6.857
+==================================
 
-Objectif : qu'une compromission dans une zone ne donne pas acces aux
-autres zones. Le pare-feu est place ENTRE les zones, pas autour.
+Zones
+-----
+    zone    | sous-reseau     | qui y accede
+    --------+-----------------+-----------------------------
+    public  | 10.10.0.0/24    | tout le monde, en lecture
+    appli   | 10.10.1.0/24    | les serveurs web seulement
+    donnees | 10.10.2.0/24    | les serveurs applicatifs seulement
+    admin   | 10.10.9.0/24    | les postes d'administration
 
-+---------------------+---------------+--------------------------+
-| Zone                | zone_id       | Contenu                  |
-+---------------------+---------------+--------------------------+
-| Public              | 1             | Serveur web, proxy       |
-| Donnees sensibles   | {flag}       | Base de notes, secrets   |
-| Interne             | 3             | Nœud d'archivage         |
-| Administration       | 4             | Supervision, sauvegardes  |
-+---------------------+---------------+--------------------------+
+Services de la zone donnees
+---------------------------
+Les services de cette zone, avec leur port :
 
-Regles de flux
---------------
-1. Public -> Donnees sensibles : autorise uniquement sur le port 443.
-2. Public -> Interne : interdit.
-3. Administration -> toutes zones : autorise (avec authentification).
-4. Interne -> Public : interdit (anti-pivot).
+    vault:8200
+    backup:9000
+    cache:6379
+    audit:9100
 
-Le plan a ete revu apres l'incident du mois dernier : le port 8080 du
-service de statistiques etait joignable depuis la zone publique.
-"""),
+Exercice de l'atelier
+---------------------
+Trouve le premier service dans l'ordre alphabetique (c'est lui qui
+demarre en premier) :
 
-    ('cours/mit857/tls-audit.txt', """Audit TLS - service interne du laboratoire
-(cours 6.857 - Network and Computer Security)
+    cut -d: -f1 /srv/cours/mit857/segmentation-plan.txt | sort | head -1"""),
 
-Objet : verifier ce que le certificat du service garantit reellement.
+    ('cours/mit857/tls-audit.txt', """Audit TLS - service de publication (6.857)
+===========================================
 
-Certificat analyse
--------------------
-    sujet            = CN=intranet.lab
-    SAN              = DNS:intranet.lab, DNS:web.lab, IP:127.0.0.1
-    validite_du      = 2026-01-15
-    validite_au      = 2027-01-15
-    autorite         = CN=Secura Lab Root CA
-    signature_algorithm = {flag}
-    chaine           = Secura Lab Root CA -> Secura Lab Intermediate CA
+Ce que le service annonce
+-------------------------
+    tls        = TLS-1.3
+    autorite   = CN=Secura Lab Root CA
+    validite   = 2026-01-01 -> 2027-01-01
+    hsts       = max-age=31536000
+    renegociation = refusee
 
-Points de controle
--------------------
-- Le certificat couvre-t-il le nom utilise par les clients ? oui
-- La chaine est-elle complete jusqu'a la racine de confiance ? oui
-- La duree de validite est-elle raisonnable ? oui
-- Les algorithmes proposes sont-ils encore acceptes ? oui
+Ce qui est verifie a la main
+----------------------------
+1. Le certificat est signe par l'autorite annoncee.
+2. Le nom du service figure bien dans le champ SAN du certificat.
+3. La chaine remonte jusqu'a la racine installee sur le poste.
 
-Ce que l'audit ne dit pas : si le site est honnete. TLS protege le tuyau,
-pas ce qu'il y a a l'autre bout.
-"""),
+Exercice de l'atelier
+---------------------
+Releve la version de TLS annoncee par le service :
+
+    awk "/^ *tls *=/{print $3}" /srv/cours/mit857/tls-audit.txt"""),
 
     ('cours/mit857/auth-policy.md', """Politique d'authentification - services du laboratoire
-(cours 6.857 - Network and Computer Security)
+(cours 6.857)
 
 Regles de base
 --------------
     longueur_minimale          = 14
-    min_length                 = {flag}
     reutilisation_interdite     = oui
     second_facteur              = obligatoire sur les comptes d'administration
     tentatives_avant_blocage   = 5
     duree_session              = 30 minutes
     deconnexion_de_tous_les_appareils = possible
 
-Mots de passe
---------------
-Le service refuse les mots de passe issus des listes connues (mots de
-passe les plus utilises, dates, numeros de telephone) et encourage les
-phrases de plusieurs mots.
+Ce que la politique protege : les comptes de service
+---------------------------------------------------
+La politique s'applique a tous les comptes. Leur nombre exact n'est pas
+ecrit ici : il faut compter les lignes du fichier de comptes, en
+ignorant la ligne d'en-tete.
 
-Second facteur
---------------
-- Application d'authentification (preferee)
-- Code par SMS (tolere, moins robuste)
-- Question secrete : refusee, ce n'est pas une autre categorie de preuve.
+    tail -n +2 /srv/cours/mit857/comptes.csv | wc -l
 
-Journalisation
---------------
-Toutes les tentatives (reussies ou non) sont tracees dans le journal du
-service d'authentification.
-"""),
+(Pour lire la commande : « tail -n +2 » saute la premiere ligne,
+« wc -l » compte les lignes restantes.)"""),
 
-    ('cours/mit857/crypto-notebook.txt', """Carnet de cryptographie - cours 6.042 (R. Rivest)
-===========================================
+    ('cours/mit857/crypto-notebook.txt', """Carnet de cryptographie - cours 6.857
+=====================================
 
-Rappel des trois briques
-------------------------
-1. Chiffrement symetrique (AES) : une cle pour chiffrer et dechiffrer.
-   Rapide, solide, mais il faut se ┃ Sharing de la cle.
-2. Chiffrement asymetrique (RSA, courbes elliptiques) : cle publique +
-   cle privee. La cle publique peut circuler a la main.
-3. Signature numerique : signe avec la cle privee, verifie avec la cle
-   publique. Prouve l'origine et l'integrite, ne cache rien.
+Ce qu'il faut retenir
+---------------------
+    chiffrement symetrique  = AES-256
+    chiffrement asymetrique = RSA-2048
+    signature               = HMAC-SHA256
+    mode                    = GCM (authentifie)
 
-Hachage
--------
-Une empreinte courte et a sens unique : sert a verifier qu'un fichier n'a
-pas change, et a stocker les mots de passe (avec sel).
+Le bloc de chiffrement
+----------------------
+Ce laboratoire stocke trois blocs. La taille de cle necessaire suit la
+taille totale des donnees a proteger. Les tailles, en octets, sont dans
+le fichier ci-dessous :
 
-Exemple du carnet
------------------
-    chiffrement_symetrique  = AES-256
-    key_size               = {flag}
-    taille_bloc            = 128 bits
-    mode                   = GCM
-    hachage                = SHA-256
-    signature              = ECDSA P-256
+    bloc A = 1280
+    bloc B = 960
+    bloc C = 640
 
-Question du cours : a qui faites-vous confiance ? La reponse decide de
-tout le reste.
-"""),
+Exercice de l'atelier
+---------------------
+Fais la somme des tailles des trois blocs, en octets :
+
+    awk "{s+=$1} END{print s}" /srv/cours/mit857/tailles.txt"""),
 
     ('home/ctf/pwn/memory-notebook.md', """Carnet de memoire - refresher assembleur (pwn.college)
 =====================================================
@@ -329,7 +621,7 @@ Exercice du carnet
     buffer_size   = 32
     canary_size   = 8
     offset_to_return_address = 40
-    notes         = {flag}
+    notes         = a determiner par l'eleve (canary_size / 8)
 
 Pour verifier : 32 octets de buffer + 8 octets de canari = 40 octets
 avant l'adresse de retour.
@@ -355,7 +647,10 @@ Ordre de travail
 2. Reecrire le canari avec sa valeur d'origine.
 3. Placer l'adresse visee a la place de l'adresse de retour.
 
-Valeur de canari utilisee par le programme du TP : {flag}
+Valeur de canari utilisee par le programme du TP : releve-la dans
+/srv/cours/stanford/canari.txt, puis calcule son empreinte :
+
+    sha256sum /srv/cours/stanford/canari.txt | cut -c1-8
 """),
 
     ('home/ctf/pwn/rop-notes.md', """TP - Return Oriented Programming (pwn.college)
@@ -367,7 +662,7 @@ qui se terminent par `ret`.
 
 Chaine construite par l'equipe
 ------------------------------
-    chain_length   = {flag}
+    chain_length   = a determiner par l'eleve (nombre de gadgets)
     gadgets         = pop rdi ; ret
                      pop rsi ; ret
                      pop rdx ; ret
@@ -399,7 +694,7 @@ Specificateurs utiles
 
 Fuite d'adresse
 ---------------
-    specifier_count = {flag}
+    specifier_count = a determiner par l'eleve
     format          = %p.%p.%p.%p.%p.%p.%p.%p
 
 En empilant des %p, le programme crache les adresses qu'il a en memoire :
@@ -414,205 +709,227 @@ ecraser une entree de table de sauts, un pointeur de fonction ou le GOT.
 Regle : le format doit toujours etre une constante.
 """),
 
-    ('cours/cyber/password-sheet.txt', """Fiche d'hygiene - mots de passe (atelier CYBER.ORG)
-================================================
+    ('cours/cyber/password-sheet.txt', """Fiche d'hygiene numerique - CYBER.ORG
+====================================
 
-Regles de l'atelier
--------------------
-    longueur_recommandee  = 16 caracteres minimum
-    min_length            = {flag}
-    phrase_de_mots        = oui (quatre mots sans lien)
-    reutilisation         = interdite (une phrase par site)
-    gestionnaire           = obligatoire
-    changement_si_doute   = immediat
+La longueur bat la complexite
+-----------------------------
+14 caracteres suffisent largement, et ils sont plus faciles a retenir
+qu'un mot de passe court seme de « ! ». Une phrase de passe, faite de
+mots sans rapport entre eux, resiste mieux qu'une suite de symboles.
 
-Exemples
----------
-    A EVITER      : Basketball2024!  (mot du dictionnaire + annee)
-    A EVITER      : P@ssw0rd!        (court, modele tres utilise)
-    CONSEILLE     : jeep-orage-lanterne-cerisier
+Rappels
+-------
+- Un mot de passe par service.
+- Jamais un nom, une date de naissance, un lieu evident.
+- Le gestionnaire de mots de passe n'est pas un luxe.
 
-Pourquoi la longueur bat la complexite : les outils de cassage testent des
-mots, des mots du dictionnaire et leurs variantes. Une phrase de mots sans
-lien ne se trouve dans aucun dictionnaire.
-"""),
+Le sac de mots de l'atelier
+---------------------------
+Chaque eleve pioche trois mots dans cette liste et forme une phrase de
+passe. Le premier mot dans l'ordre alphabetique sert d'exemple :
 
-    ('cours/cyber/phishing-example.txt', """Exemple commente - message d'hameconnage (atelier CYBER.ORG)
-=====================================================
+    pluie
+    ululement
+    vache
+    kayak
+    onde
 
-Message recu
-------------
-    De : support@banque-officielle-verification.com
-    Objet : ACTION REQUISE - votre compte sera bloque dans 2 heures
-    Bonjour Client, nous avons detecte une activite inhabituelle sur
-    votre compte. Merci de vous identifier dans les 24 heures :
-    http://banque-officielle-verification.com/verif
+Exercice de l'atelier
+---------------------
+Trouve le premier mot dans l'ordre alphabetique :
 
-Annotations de l'atelier
-------------------------
-    main_signal     = {flag}
-    autres_signaux  = urgence / lien trompeur / orthographe / logo
-    reaction        : ne jamais cliquer, aller sur le site en tapant
-                      l'adresse, ou appeler le numero officiel
+    sort /srv/cours/cyber/mots.txt | head -1"""),
 
-Le signal principal de cet exemple est l'URGENCE : c'est elle qui
-empêche la verification. Les autres signaux (domaine trompeur,
-orthographe) viennent confirmer.
-
-Memo : un code de validation recu par SMS ne se communique jamais.
-"""),
-
-    ('cours/cyber/publishing-charter.txt', """Charte de publication sur les reseaux sociaux (atelier CYBER.ORG)
-============================================================
-
-Regles de l'atelier
--------------------
-    publication_delay_hours = {flag}
-    localisation_en_direct  = interdite pendant un desplazamiento
-    photo_de_badge          = interdite
-    adresse_complete        = jamais
-    regle_des_trois_questions = avant de publier :
-        1. est-ce que ca me concerne encore dans cinq ans ?
-        2. est-ce que j'aimerais que ma famille le voie ?
-        3. est-ce que je peux l'expliquer a un recruteur ?
-
-Ce que les autres publient sur toi
-----------------------------------
-Une photo de toi peut etre postee par quelqu'un d'autre. Tu peux
-demander la suppression, signaler, garder une preuve, et durcir tes
-reglages de visibilite.
-"""),
-
-    ('cours/cyber/factors-sheet.txt', """Fiche des facteurs d'authentification (atelier CYBER.ORG)
-=====================================================
-
-Les trois categories
---------------------
-    ce que je sais : mot de passe, PIN
-    ce que j'ai    : telephone, cle USB, carte
-    ce que je suis : empreinte, visage
-
-Regles de l'atelier
--------------------
-    recommended_factors = {flag}
-    categories_to_mix   = obligatoire (deux categories differentes)
-    sms                 = tolere, moins robuste
-    application         : preferee
-    cle physique FIDO2  : la plus resistente
-    question secrete    : refusee (ce n'est pas une autre categorie)
-
-Rappel
-------
-Un code recu par SMS ne se communique a personne : il prouve que c'est
-toi qui es connecte.
-"""),
-
-    ('cours/owasp/risk-ranking.txt', """Classement interne des risques - application de l'equipe
-(cours OWASP Top 10)
-====================================================
-
-Nous avons repris la liste Top 10 et l avons ordonnee selon ce que nous
-rencontrons reellement dans notre code.
-
-    top_risk = {flag}
-    classement :
-      1. Controle d'acces casse (API de statistiques sans authentification)
-      2. Injection (requetes construites par concatenation)
-      3. Journalisation et surveillance insuffisantes
-      4. Misconfiguration (compte de service avec trop de droits)
-      5. Erreurs excessives affichees au navigateur
-
-Regle de l'equipe : on corrige d'abord ce qui est a la fois frequent et
-grave, et on revoit le classement apres chaque sprint.
-"""),
-
-    ('cours/owasp/validation-sheet.txt', """Fiche de validation des entrees (TP OWASP - injection)
-=====================================================
-
-Controles du formulaire d'inscription
---------------------------------------
-    champ email        : format verifie, longueur max 254
-    champ age          : entier, entre 13 et 99
-    champ code postal  : format AAA-999, 6 caracteres
-    zip_checks         = {flag}
-    champ mot de passe : longueur min 14, refuse les listes connues
-    tous les champs    : echappement a la sortie, requetes preparees
-
-Regle de l'equipe
------------------
-Le format est verifie cote serveur. Les messages d'erreur ne disent pas
-quel controle a echoue (pas de fuite d'information), mais ils disent a
-l'utilisateur quoi corriger.
-
-Trois erreurs vues en revue de code :
-- un filtre de mots cles (OR, DROP) au lieu d'une requete preparee
-- une validation uniquement dans le navigateur
-- un echappement fait a la main au lieu de la fonction de la bibliotheque
-"""),
-
-    ('cours/owasp/logging-plan.txt', """Plan de journalisation - service applicatif (OWASP A09:2021)
-==========================================================
-
-Evenements journalises
-----------------------
-    event_count = {flag}
-    evenements :
-      - authentification reussie / refusee
-      - changement de mot de passe
-      - changement de privileges
-      - export de donnees
-      - refus d'acces (403)
-      - erreur serveur (500)
-
-Contenu d'une ligne
--------------------
-    horodatage | utilisateur | action | resultat | IP | user-agent
-
-Regles de l'equipe
-------------------
-- On ne journalise JAMAIS un mot de passe, une carte ou un jeton.
-- Les journaux sont proteges et conserves 30 jours maximum.
-- Une alerte est declenchee sur rafale d'echecs et changement de privileges.
-- Un journal que personne ne lit ne sert a rien : la revue est hebdomadaire.
-"""),
-
-    ('cours/stanford/machine-diagram.txt', """Schema de la machine - cours Stanford CS105
+    ('cours/cyber/phishing-example.txt', """Exemple d'hameconnage - atelier CYBER.ORG
 =========================================
 
-Quatre couches, de la donnee au programme
------------------------------------------
-1. Donnees : tout est binaire ; un caractere, une image, un son sont
-   des nombres.
-2. Memoire : une suite d'octets numerotes ; une adresse designe une case.
-   Une variable est un nom donne a une adresse.
-3. Instruction : une operation elementaire (charger, ajouter, stocker,
-   sauter).
-4. Cycle : le processeur prend l'instruction, l'execute, passe a la
-   suivante, sauf saut.
+Le message recu
+---------------
+    De      : securite@compte-verif-support.com
+    Objet   : Votre compte expire dans 24 h
+    Lien    : http://compte-verif-support.com/login
 
-Chiffres du schema
-------------------
-    address_size      = 8 octets (64 bits)
-    bus_width         = 64 bits
-    word_size         = 8 octets
-    address_size_bytes = {flag}
+Les indicateurs, dans l'ordre du message
+----------------------------------------
+1. Le domaine ne correspond pas a celui du service officiel.
+2. L'urgence est artificielle : « dans 24 h » sert a court-circuiter
+   la reflexion.
+3. Le lien affiche n'est pas celui vers lequel il pointe.
+4. Le message demande les identifiants, ce qu'aucun service serieux ne
+   fait par courriel.
 
-Consequence pour la securite
+Exercice de l'atelier
+---------------------
+Trouve le numero de la ligne qui parle d'urgence :
+
+    grep -n urgence /srv/cours/cyber/signalements.txt | head -1 | cut -d: -f1"""),
+
+    ('cours/cyber/publishing-charter.txt', """Charte de publication - ce que les autres voient de toi
+======================================================
+
+Avant de publier
+----------------
+- Une photo contient souvent des metadonnees : lieu, heure, appareil.
+- Une capture d'ecran peut reveler une adresse, un nom, un mot de passe.
+- Un message publie reste accessible longtemps, meme apres suppression.
+
+Le delai de verification de l'atelier
+-------------------------------------
+Le laboratoire applique un delai de relecture avant publication. Les
+delais constates sur trois publications sont :
+
+    publication A = 12 heures
+    publication B = 24 heures
+    publication C = 6 heures
+
+Exercice de l'atelier
+---------------------
+Fais la somme des trois delais, en heures :
+
+    awk "{s+=$1} END{print s}" /srv/cours/cyber/delais.txt"""),
+
+    ('cours/cyber/factors-sheet.txt', """Fiche du deuxieme facteur - atelier CYBER.ORG
+=============================================
+
+Les trois familles de facteurs
+------------------------------
+    quelque chose que je SAIS        (mot de passe, code)
+    quelque chose que je POSSEDE     (telephone, cle USB)
+    quelque chose que je SUIS        (empreinte, visage)
+
+Deux facteurs, ce sont deux familles differentes. Deux mots de passe ne
+font pas deux facteurs : c'est la meme famille.
+
+Les facteurs de l'atelier
+-------------------------
+Chaque eleve choisit un facteur dans cette liste :
+
+    mot de passe
+    application d'authentification
+    cle de securite
+    empreinte digitale
+
+Exercice de l'atelier
+---------------------
+Combien de facteurs dans la liste ? (une ligne = un facteur)
+
+    wc -l < /srv/cours/cyber/facteurs.txt"""),
+
+    ('cours/owasp/risk-ranking.txt', """Classement des risques - atelier OWASP
+======================================
+
+Les risques du Top 10, ramenes a notre atelier
+----------------------------------------------
+    controle d'acces defaillant        (le plus frequent chez nous)
+    injection
+    configuration par defaut
+    composants obsoletes
+    identification et authentification defaillantes
+
+Ce que « risque priorise » veut dire
+------------------------------------
+On ne corrige pas tout en meme temps. On corrige d'abord le risque qui
+touche le plus de donnees avec le moins d'effort.
+
+Exercice de l'atelier
+---------------------
+Classe les cinq risques dans l'ordre alphabetique et releve le premier :
+
+    sort /srv/cours/owasp/risques.txt | head -1"""),
+
+    ('cours/owasp/validation-sheet.txt', """Fiche de validation des entrees - atelier OWASP
+===============================================
+
+Le principe
+-----------
+Tout ce qui vient de l'exterieur est hostile jusqu'a preuve du
+contraire : formulaire, parametre d'URL, en-tete, fichier importe.
+
+Valider, c'est refuser par defaut
+---------------------------------
+On decrit ce qui est ACCEPTE, pas ce qui est refuse. Une liste blanche
+est courte ; une liste noire est toujours incomplete.
+
+Formats acceptes dans notre atelier
+-----------------------------------
+    code postal  : format AAA-999, 6 caracteres
+    identifiant  : 3 a 20 caracteres, lettres et chiffres
+    montant      : nombre decimal, 2 chiffres apres la virgule
+    date         : AAAA-MM-JJ
+
+Exercice de l'atelier
+---------------------
+Extrais le nombre de caracteres attendu pour le code postal :
+
+    grep -i "code postal" /srv/cours/owasp/formats.txt | grep -o "[0-9]* caracteres" | cut -d" " -f1"""),
+
+    ('cours/owasp/logging-plan.txt', """Plan de journalisation - atelier OWASP
+======================================
+
+Ce qu'on journalise
+-------------------
+- Les connexions reussies et refusees (qui, quand, d'ou).
+- Les changements de configuration.
+- Les acces aux donnees sensibles.
+
+Ce qu'on ne journalise jamais
 -----------------------------
-Sans ASLR, les adresses sont previsibles ; c'est pourquoi le processus
-aleatoire des adresses existe, et pourquoi une fuite d'adresse est si
-precieuse pour un attaquant.
-"""),
+- Les mots de passe, evidemment.
+- Les numeros de carte complets.
+- Les donnees personnelles inutiles a l'enquete.
 
-    ('cours/stanford/storage-plan.txt', """Plan de rangement des donnees - cours Stanford CS105
-================================================
+Le journal de l'atelier
+-----------------------
+Le service a produit une trace. Chaque ligne est un evenement :
 
-Nous rangeons les choses selon leur niveau de sensibilite : c'est la
-separation des responsabilites appliquee aux donnees.
+    connexion refusee pour alice depuis 10.10.0.4
+    changement de configuration par bob
+    acces au dossier eleves par le service comptage
+    connexion reussie pour alice depuis 10.10.0.4
+    acces au dossier eleves par le service comptage
+    connexion refusee pour alice depuis 10.10.0.9
+    changement de configuration par bob
 
-Emplacements
-------------
-    secret_locations = {flag}
+Exercice de l'atelier
+---------------------
+Combien d'evenements dans cette trace ?
+
+    wc -l < /srv/cours/owasp/trace.txt"""),
+
+    ('cours/stanford/machine-diagram.txt', """Comment marche un ordinateur - cours Stanford CS105
+===================================================
+
+De la donnee au programme
+-------------------------
+La memoire est une suite de cases numerotees. Un programme est une suite
+d'instructions rangees dans ces cases. L'adresse, c'est le numero de la
+case.
+
+Ce que dit le schema de la machine
+----------------------------------
+    processeur      = 64 bits
+    word_size       = 8 octets
+    adresse         = 8 octets
+    memoire         = 16 Go
+    registre        = 16 registres generaux
+
+Pourquoi 64 bits compte
+-----------------------
+Un processeur 64 bits peut adresser beaucoup plus de memoire qu'un 32
+bits : 2^64 adresses possibles, contre 2^32.
+
+Exercice de l'atelier
+---------------------
+Releve la taille d'une adresse, en octets :
+
+    grep "^adresse " /srv/cours/stanford/tailles.txt | cut -d" " -f2"""),
+
+    ('cours/stanford/storage-plan.txt', """Plan de rangement - cours Stanford CS105
+========================================
+
+Ou vit quoi
+-----------
     contenu public   : /srv/cours (livrables de cours, sans secret)
     donnees privees  : /srv/data (acces en lecture pour le service web)
     secrets          : /etc/secura-secrets (acces root, jamais servi)
@@ -623,7 +940,22 @@ Regles
 - Un secret ne vit jamais a cote d'un contenu public.
 - Le compte de service du site lit les donnees, il ne modifie pas le schema.
 - Chaque emplacement a son propre controle d'acces.
-"""),
+
+Les emplacements de secrets de l'atelier
+----------------------------------------
+L'inventaire liste, un par ligne, les emplacements qui contiennent un
+secret :
+
+    /etc/secura-secrets/signing.key
+    /etc/secura-secrets/tls.key
+    /home/service/.ssh/id_ed25519
+    /srv/data/.env.production
+
+Exercice de l'atelier
+---------------------
+Combien d'emplacements contiennent un secret ?
+
+    grep -c secrets /srv/cours/stanford/emplacements.txt"""),
 ]
 
 
@@ -641,7 +973,11 @@ def main():
     for index, value in enumerate(FLAGS, start=1):
         write('flag/flag-u%02d.txt' % index, value + '\n')
 
-    # Les livrables : une valeur decouvrable par l'eleve, par room.
+    # Les fichiers de donnees : la matiere premiere de la manipulation.
+    for path, contenu in DATA.items():
+        write(path, contenu)
+
+    # Les livrables de cours : le document, sans la valeur.
     for (path, template), value in zip(LIVRABLES, FLAGS):
         write(path, template.replace('{flag}', value))
 

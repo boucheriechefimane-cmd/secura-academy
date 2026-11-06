@@ -1,28 +1,25 @@
-Carnet de cryptographie - cours 6.042 (R. Rivest)
-===========================================
+Carnet de cryptographie - cours 6.857
+=====================================
 
-Rappel des trois briques
-------------------------
-1. Chiffrement symetrique (AES) : une cle pour chiffrer et dechiffrer.
-   Rapide, solide, mais il faut se ┃ Sharing de la cle.
-2. Chiffrement asymetrique (RSA, courbes elliptiques) : cle publique +
-   cle privee. La cle publique peut circuler a la main.
-3. Signature numerique : signe avec la cle privee, verifie avec la cle
-   publique. Prouve l'origine et l'integrite, ne cache rien.
+Ce qu'il faut retenir
+---------------------
+    chiffrement symetrique  = AES-256
+    chiffrement asymetrique = RSA-2048
+    signature               = HMAC-SHA256
+    mode                    = GCM (authentifie)
 
-Hachage
--------
-Une empreinte courte et a sens unique : sert a verifier qu'un fichier n'a
-pas change, et a stocker les mots de passe (avec sel).
+Le bloc de chiffrement
+----------------------
+Ce laboratoire stocke trois blocs. La taille de cle necessaire suit la
+taille totale des donnees a proteger. Les tailles, en octets, sont dans
+le fichier ci-dessous :
 
-Exemple du carnet
------------------
-    chiffrement_symetrique  = AES-256
-    key_size               = FLAG=SECURA{cle_symetrique}
-    taille_bloc            = 128 bits
-    mode                   = GCM
-    hachage                = SHA-256
-    signature              = ECDSA P-256
+    bloc A = 1280
+    bloc B = 960
+    bloc C = 640
 
-Question du cours : a qui faites-vous confiance ? La reponse decide de
-tout le reste.
+Exercice de l'atelier
+---------------------
+Fais la somme des tailles des trois blocs, en octets :
+
+    awk "{s+=$1} END{print s}" /srv/cours/mit857/tailles.txt

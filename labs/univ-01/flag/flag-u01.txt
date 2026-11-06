@@ -1,1 +1,1 @@
-FLAG=SECURA{modele_de_menace}
+FLAG=SECURA{menace_74f604cf}

@@ -1,23 +1,23 @@
-Exemple commente - message d'hameconnage (atelier CYBER.ORG)
-=====================================================
+Exemple d'hameconnage - atelier CYBER.ORG
+=========================================
 
-Message recu
-------------
-    De : support@banque-officielle-verification.com
-    Objet : ACTION REQUISE - votre compte sera bloque dans 2 heures
-    Bonjour Client, nous avons detecte une activite inhabituelle sur
-    votre compte. Merci de vous identifier dans les 24 heures :
-    http://banque-officielle-verification.com/verif
+Le message recu
+---------------
+    De      : securite@compte-verif-support.com
+    Objet   : Votre compte expire dans 24 h
+    Lien    : http://compte-verif-support.com/login
 
-Annotations de l'atelier
-------------------------
-    main_signal     = FLAG=SECURA{urgence_artificielle}
-    autres_signaux  = urgence / lien trompeur / orthographe / logo
-    reaction        : ne jamais cliquer, aller sur le site en tapant
-                      l'adresse, ou appeler le numero officiel
+Les indicateurs, dans l'ordre du message
+----------------------------------------
+1. Le domaine ne correspond pas a celui du service officiel.
+2. L'urgence est artificielle : « dans 24 h » sert a court-circuiter
+   la reflexion.
+3. Le lien affiche n'est pas celui vers lequel il pointe.
+4. Le message demande les identifiants, ce qu'aucun service serieux ne
+   fait par courriel.
 
-Le signal principal de cet exemple est l'URGENCE : c'est elle qui
-empêche la verification. Les autres signaux (domaine trompeur,
-orthographe) viennent confirmer.
+Exercice de l'atelier
+---------------------
+Trouve le numero de la ligne qui parle d'urgence :
 
-Memo : un code de validation recu par SMS ne se communique jamais.
+    grep -n urgence /srv/cours/cyber/signalements.txt | head -1 | cut -d: -f1

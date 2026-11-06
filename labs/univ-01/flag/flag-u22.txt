@@ -1,1 +1,1 @@
-FLAG=SECURA{secrets_a_part}
+FLAG=SECURA{ranger_6}

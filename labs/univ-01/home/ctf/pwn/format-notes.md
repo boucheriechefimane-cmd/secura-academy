@@ -15,7 +15,7 @@ Specificateurs utiles
 
 Fuite d'adresse
 ---------------
-    specifier_count = FLAG=SECURA{printf_parle_trop}
+    specifier_count = a determiner par l'eleve
     format          = %p.%p.%p.%p.%p.%p.%p.%p
 
 En empilant des %p, le programme crache les adresses qu'il a en memoire :

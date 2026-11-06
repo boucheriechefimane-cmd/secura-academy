@@ -1,0 +1,6 @@
+/etc/secura-secrets/signing.key
+/etc/secura-secrets/tls.key
+/home/service/.ssh/id_ed25519
+/srv/data/.env.production
+/etc/app/db.conf
+/var/backups/keys.tar

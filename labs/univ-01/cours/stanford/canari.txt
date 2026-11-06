@@ -1,0 +1,3 @@
+canari du programme du TP : 0x1f2e3d4c
+compile sans pile executable, avec canari
+canari regenere a chaque execution

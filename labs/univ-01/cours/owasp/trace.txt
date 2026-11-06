@@ -1,0 +1,7 @@
+connexion refusee pour alice depuis 10.10.0.4
+changement de configuration par bob
+acces au dossier eleves par le service comptage
+connexion reussie pour alice depuis 10.10.0.4
+acces au dossier eleves par le service comptage
+connexion refusee pour alice depuis 10.10.0.9
+changement de configuration par bob

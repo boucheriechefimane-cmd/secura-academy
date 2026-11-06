@@ -1,28 +1,28 @@
-Notes de la lecon 9 - Securing Web Applications (cours 6.858)
-=========================================================
+Notes de seance - le web et ses regles (6.858)
+==============================================
 
-Rappel du modele de securite du web
------------------------------------
-La regle de meme origine (Same Origin Policy) interdit a une page de lire
-la reponse d'un autre site. Elle n'interdit pas a un autre site d'ENVOYER
-une requete avec les identifiants de l'utilisateur connecte : c'est la
-faille CSRF.
+Le meme site, deux origines
+---------------------------
+Un site regroupe des ressources sous une meme origine (schema, hote,
+port). La politique de meme origine (SOP) empeche le script d'une page
+de lire la reponse d'une autre origine.
 
-Parade : un jeton secret dans le formulaire, verifie par le serveur a
-chaque requete sensible. Un site externe ne peut pas lire ce jeton, donc
-il ne peut pas le renvoyer.
+CSRF : le navigateur fait confiance au cookie
+---------------------------------------------
+Un formulaire heberge ailleurs peut declencher une requete vers notre
+site ; le navigateur joint le cookie de session automatiquement. Le
+serveur, lui, ne voit qu'une requete authentifiee.
 
-Exemple du cours (a recopier tel quel dans l'exercice)
-------------------------------------------------------
-    <form action="/virement" method="post">
-        <input type="hidden" name="jeton" value="TOKEN-9137-SECURE">
-        ...
-    </form>
+Le jeton anti-CSRF est la parade : une valeur aleatoire, liee a la
+session, que seul notre propre formulaire connait.
 
-    POST /virement   jeton=TOKEN-9137-SECURE
+Exercice de l'atelier
+---------------------
+Retrouve le nom du jeton utilise dans l'exemple ci-dessous :
 
-Nom du jeton utilise dans l'exemple du cours : FLAG=SECURA{jeton_csrf}
+    awk "/^ *csrf *=/{print $3}" /srv/cours/mit858/web-notes.txt
 
-Autres parades citees : cookie HttpOnly, cookie Secure, SameSite=Lax,
-verification de l'en-tete Origin, et surtout ne jamais faire confiance au
-formulaire cote serveur.
+    methode  = POST
+    csrf     = TOKEN-9137-SECURE
+    duree    = 30 minutes
+    chemin   = /compte

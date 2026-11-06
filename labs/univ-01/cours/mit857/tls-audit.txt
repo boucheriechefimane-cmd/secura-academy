@@ -1,24 +1,22 @@
-Audit TLS - service interne du laboratoire
-(cours 6.857 - Network and Computer Security)
+Audit TLS - service de publication (6.857)
+===========================================
 
-Objet : verifier ce que le certificat du service garantit reellement.
+Ce que le service annonce
+-------------------------
+    tls        = TLS-1.3
+    autorite   = CN=Secura Lab Root CA
+    validite   = 2026-01-01 -> 2027-01-01
+    hsts       = max-age=31536000
+    renegociation = refusee
 
-Certificat analyse
--------------------
-    sujet            = CN=intranet.lab
-    SAN              = DNS:intranet.lab, DNS:web.lab, IP:127.0.0.1
-    validite_du      = 2026-01-15
-    validite_au      = 2027-01-15
-    autorite         = CN=Secura Lab Root CA
-    signature_algorithm = FLAG=SECURA{tls_signe}
-    chaine           = Secura Lab Root CA -> Secura Lab Intermediate CA
+Ce qui est verifie a la main
+----------------------------
+1. Le certificat est signe par l'autorite annoncee.
+2. Le nom du service figure bien dans le champ SAN du certificat.
+3. La chaine remonte jusqu'a la racine installee sur le poste.
 
-Points de controle
--------------------
-- Le certificat couvre-t-il le nom utilise par les clients ? oui
-- La chaine est-elle complete jusqu'a la racine de confiance ? oui
-- La duree de validite est-elle raisonnable ? oui
-- Les algorithmes proposes sont-ils encore acceptes ? oui
+Exercice de l'atelier
+---------------------
+Releve la version de TLS annoncee par le service :
 
-Ce que l'audit ne dit pas : si le site est honnete. TLS protege le tuyau,
-pas ce qu'il y a a l'autre bout.
+    awk "/^ *tls *=/{print $3}" /srv/cours/mit857/tls-audit.txt

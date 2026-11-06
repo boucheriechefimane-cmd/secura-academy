@@ -1,0 +1,4 @@
+vault:8200
+backup:9000
+cache:6379
+audit:9100

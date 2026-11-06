@@ -66,12 +66,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — risk analysis',
-				'content' => '<p>On the classroom machine, the team left the semester deliverables. In <code>/srv/cours</code>, one folder holds the risk analysis for course 6.858: it lists the assets, the possible adversaries and the rules to enforce.</p><p><strong>Mission.</strong> Read that document and note the <em>critical risk value</em> it announces (the conclusion line of the analysis). That value is the proof that you read the course document.</p>',
+				'content' => 'In the classroom machine, the team left the semester deliverables. In <code>/srv/cours/mit858</code>, the document <code>analyse-risque.md</code> lists the assets, the possible adversaries and the rules to enforce.</p><p><strong>Mission.</strong> This room\'s flag is the <em>fingerprint of the document</em>, not a sentence inside it: the first eight characters of the file\'s sha256. A fingerprint cannot be read, it has to be computed — that is the proof you opened the right file.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the critical risk value announced in the course risk analysis.',
-						'hint'        => 'Start by listing the folders: <code>ls -R /srv/cours</code>. The 6.858 folder holds a .md file.',
-						'explanation' => 'A risk analysis reads like a conclusion: the critical risk is the one that, if it happens, breaks the security policy. Noting it means applying the course to a real case.',
+						'question'    => 'Compute the fingerprint (sha256, first 8 characters) of analyse-risque.md from course 6.858.',
+						'hint'        => 'The command: <code>sha256sum /srv/cours/mit858/analyse-risque.md</code>, then <code>cut -c1-8</code> on the output. Check the exact file name with <code>ls</code> first.',
+						'explanation' => 'A fingerprint proves two things at once: that you read the right file, and that it has not changed since. That is exactly what an auditor does with a piece of evidence: they do not trust the content, they verify the seal.',
 					),
 				),
 			),
@@ -478,12 +478,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the web course notes',
-				'content' => '<p>In the classroom, course 6.858 left its <em>web lesson notes</em> (the document summarising SOP, CSRF and the fixes).</p><p><strong>Mission.</strong> Read those notes and note the <em>token name value</em> used in the course example (the exact parameter name, in lower case, without braces).</p>',
+				'content' => 'In the classroom, course 6.858 left its <em>web notes</em> (<code>/srv/cours/mit858/web-notes.txt</code>): they recap the same-origin policy, CSRF and its fix.</p><p><strong>Mission.</strong> The form\'s configuration block is in the file, in three columns: <code>csrf     = TOKEN-…</code>. The flag value is what follows the <code>=</code>, as written. Find it with a command, not by eye.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the token name used in the web course example.',
-						'hint'        => 'The web course notes are in <code>/srv/cours/mit858</code> (a .txt or .md file).',
-						'explanation' => 'Recognising the token name in a concrete example is what lets you use it later in a real form.',
+						'question'    => 'Extract the value of the csrf field from the web course notes (web-notes.txt).',
+						'hint'        => 'The line is indented: <code>grep "^ *csrf" /srv/cours/mit858/web-notes.txt</code> finds it, then <code>cut -d" " -f5</code> isolates the value. Shorter: <code>awk "/^ *csrf *=/{print $3}" /srv/cours/mit858/web-notes.txt</code>.',
+						'explanation' => 'A CSRF token is a random value tied to the session: the legitimate form knows it, a third-party site cannot guess it. Reading it in a configuration file is understanding where the server keeps it and how an attacker might steal it.',
 					),
 				),
 			),
@@ -581,12 +581,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the segmentation plan',
-				'content' => '<p>In the classroom, the team left the <em>segmentation plan</em> for the lab network (the document describing the zones and the firewall between them).</p><p><strong>Mission.</strong> Read that plan and note the <em>zone number value</em> assigned to the sensitive data zone (the <code>zone_id</code> field of the most restricted zone).</p>',
+				'content' => 'In the classroom, the <em>segmentation plan</em> of the lab network describes the zones and what each holds. The file <code>/srv/cours/mit857/segmentation-plan.txt</code> lists the services of the most restricted zone, one per line, as <code>service:port</code>.</p><p><strong>Mission.</strong> This room\'s flag is the <em>first service in alphabetical order</em>: it is the one that starts first, and therefore the one you check first.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the zone number (zone_id) of the sensitive data zone in the segmentation plan.',
-						'hint'        => 'The plan is in <code>/srv/cours</code>: list the folders, then read the files whose name mentions "plan" or "segmentation".',
-						'explanation' => 'Reading a segmentation plan is knowing where to put a firewall. The zone number is what lets you check you are talking about the right zone.',
+						'question'    => 'Which is the first service (alphabetical order) in the sensitive data zone?',
+						'hint'        => 'Cut the port, sort, take the first: <code>cut -d: -f1 /srv/cours/mit857/segmentation-plan.txt | sort | head -1</code>.',
+						'explanation' => 'Sorting then taking the first is an operation you repeat constantly in administration: list the services, order them, check the one that starts before the others. A backup service that starts before its volume backs up nothing.',
 					),
 				),
 			),
@@ -684,12 +684,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the certificate audit',
-				'content' => '<p>In the classroom, a <em>TLS audit</em> was left behind: the document describing the internal service certificate (version, algorithm, signing authority).</p><p><strong>Mission.</strong> Read that audit and note the <em>signature algorithm value</em> announced for the certificate (the <code>signature_algorithm</code> field).</p>',
+				'content' => 'In the classroom, a <em>TLS audit</em> was left in <code>/srv/cours/mit857/tls-audit.txt</code>: the service certificate is described there line by line.</p><p><strong>Mission.</strong> The flag value is the TLS version announced by the service, exactly as written (the <code>tls</code> field).',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the certificate signature algorithm stated in the TLS audit.',
-						'hint'        => 'The audit is in <code>/srv/cours</code>, in the network course folder.',
-						'explanation' => 'Reading a TLS audit means being able to judge a certificate: algorithm, key size, validity period, signing authority.',
+						'question'    => 'Which TLS version does the service announce in the audit (tls field)?',
+						'hint'        => '<code>awk "/^ *tls *=/{print $3}" /srv/cours/mit857/tls-audit.txt</code>. The version is written after the equals sign.',
+						'explanation' => 'Reading the TLS version a service announces is the first reflex of an audit: TLS 1.0 and 1.1 are retired, 1.2 is still acceptable, 1.3 is the state of the art. You do not guess, you read what the service says about itself, then you verify it.',
 					),
 				),
 			),
@@ -787,12 +787,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the authentication policy',
-				'content' => '<p>In the classroom, the service <em>authentication policy</em> (the document setting the rules: minimum length, number of attempts, second factor).</p><p><strong>Mission.</strong> Read that policy and note the <em>minimum password length value</em> (<code>min_length</code> field).</p>',
+				'content' => 'In the classroom, the service <em>authentication policy</em> sets the rules: minimum length, attempts, second factor. It applies to every account, and the account inventory is in <code>/srv/cours/mit857/comptes.csv</code>.</p><p><strong>Mission.</strong> The policy does not say how many accounts it protects: you have to count. The flag value is the <em>number of lines in the accounts file, minus the header line</em>.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the minimum password length set by the authentication policy.',
-						'hint'        => 'The policy is in <code>/srv/cours</code>, in the folder of the authentication course.',
-						'explanation' => 'Reading an authentication policy means being able to tell whether a service is configured properly: length, attempts, second factor, unlocking.',
+						'question'    => 'How many accounts does the authentication policy protect (lines of comptes.csv minus the header)?',
+						'hint'        => '<code>tail -n +2 /srv/cours/mit857/comptes.csv | wc -l</code>: "tail -n +2" skips the header, "wc -l" counts what is left.',
+						'explanation' => 'A policy that applies to "all accounts" without anyone knowing how many there are is not applicable: you cannot verify a perimeter you have not counted. Counting the lines of an inventory is the basic gesture of any audit.',
 					),
 				),
 			),
@@ -890,12 +890,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the cryptography notebook',
-				'content' => '<p>In the classroom, course 6.042 left its <em>cryptography notebook</em> (the document presenting the three blocks with their algorithms).</p><p><strong>Mission.</strong> Read that notebook and note the <em>key size value</em> used by the symmetric encryption example (<code>key_size</code> field, in bits).</p>',
+				'content' => 'In the classroom, the <em>cryptography notebook</em> presents the course\'s three building blocks (AES-256, RSA-2048, HMAC-SHA256). The lab stores three data blocks; their sizes, in bytes, are in <code>/srv/cours/mit857/tailles.txt</code>, one per line.</p><p><strong>Mission.</strong> Key size is sized on the volume to protect. The flag value is the <em>sum of the three sizes</em>.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the key size (key_size, in bits) stated in the cryptography notebook.',
-						'hint'        => 'The notebook is in <code>/srv/cours</code>, in the cryptography course folder.',
-						'explanation' => 'Knowing the key size of an example is understanding what "strong" means: security rests on computation time, not on secrecy of the algorithm.',
+						'question'    => 'What is the sum of the three block sizes, in bytes (tailles.txt)?',
+						'hint'        => '<code>awk "{s+=$1} END{print s}" /srv/cours/mit857/tailles.txt</code>. Check with <code>cat</code> first that it only contains numbers.',
+						'explanation' => 'Adding up a column is half of analysis work: sizes, volumes, event counts. awk does that calculation in one line, and the result can be checked by hand when there are three values.',
 					),
 				),
 			),
@@ -1405,12 +1405,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the password sheet',
-				'content' => '<p>In the classroom, the team left a <em>password sheet</em> (the hygiene sheet of the CYBER.ORG workshop).</p><p><strong>Mission.</strong> Read that sheet and note the <em>recommended minimum length value</em> in characters (<code>min_length</code> field).</p>',
+				'content' => 'In the classroom, the CYBER.ORG workshop left a <em>hygiene sheet</em> (<code>/srv/cours/cyber/password-sheet.txt</code>): length beats complexity, and the sheet offers a <em>word bag</em> to build a passphrase.</p><p><strong>Mission.</strong> The words of the bag are in <code>/srv/cours/cyber/mots.txt</code>, one per line. The flag value is the <em>first of those words in alphabetical order</em>: the one the workshop gives as an example.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the minimum password length (min_length) stated in the hygiene sheet.',
-						'hint'        => 'The sheet is in <code>/srv/cours/cyber</code>: list the folder, then read the file.',
-						'explanation' => 'A minimum length written on a sheet is a rule you can apply to an account: that is how hygiene becomes a habit.',
+						'question'    => 'What is the first word of the bag (alphabetical order) offered for a passphrase?',
+						'hint'        => '<code>sort /srv/cours/cyber/mots.txt | head -1</code>. Careful: sort orders according to the locale, check the result with the full <code>sort /srv/cours/cyber/mots.txt</code>.',
+						'explanation' => 'A passphrase is built from words with no relation to each other: "rain-owl-cow" is memorable and resists better than a short word peppered with symbols. Sorting a word list is also the first step to spot duplicates in a dictionary.',
 					),
 				),
 			),
@@ -1508,12 +1508,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the phishing example',
-				'content' => '<p>In the classroom, the CYBER.ORG workshop left an <em>annotated example</em> of a phishing message (the exercise message, with its annotations).</p><p><strong>Mission.</strong> Read that example and note the <em>signal value</em> flagged as the main clue of the scam (<code>main_signal</code> field, one word in English: urgency, sender, link or spelling).</p>',
+				'content' => 'In the classroom, the workshop left an annotated <em>phishing message example</em> (<code>/srv/cours/cyber/phishing-example.txt</code>), and the list of observed signals in <code>signalements.txt</code>, one per line.</p><p><strong>Mission.</strong> The flag value is the <em>number of the line that talks about urgency</em> in that list: urgency is scam lever number one.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the main signal (main_signal) stated in the phishing message example.',
-						'hint'        => 'The example is in <code>/srv/cours/cyber</code>: list, then read the files.',
-						'explanation' => 'Being able to name the main signal is being able to look at an unknown message with a grid, instead of reacting to emotion.',
+						'question'    => 'Which line of signalements.txt talks about urgency?',
+						'hint'        => '<code>grep -n urgence /srv/cours/cyber/signalements.txt</code>: the <code>-n</code> option shows the line number, before the colon.',
+						'explanation' => 'Numbering the lines of a trace is what you do to cite evidence: "line 2 of the report". An incident report that says "a hurried message" is useless; the one that cites the line can be verified.',
 					),
 				),
 			),
@@ -1611,12 +1611,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the publishing charter',
-				'content' => '<p>In the classroom, the workshop left the social network <em>publishing charter</em> (the workshop rules).</p><p><strong>Mission.</strong> Read that charter and note the <em>recommended publishing delay value</em> after an event (<code>publish_delay_hours</code> field).</p>',
+				'content' => 'In the classroom, the social media <em>publishing charter</em> sets the workshop rules. The lab applies a review delay before publishing, and the delays observed on three publications are in <code>/srv/cours/cyber/delais.txt</code>, in hours.</p><p><strong>Mission.</strong> The flag value is the <em>sum of the three delays</em>, in hours: the total review time the team spent.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the publishing delay (publish_delay_hours) recommended in the publishing charter.',
-						'hint'        => 'The charter is in <code>/srv/cours/cyber</code>.',
-						'explanation' => 'A publishing delay is a simple rule that prevents many problems: you give the information time to calm down before sharing it.',
+						'question'    => 'What is the sum of the observed publishing delays, in hours (delais.txt)?',
+						'hint'        => 'The three delays are one number per line: <code>awk "{s+=$1} END{print s}" /srv/cours/cyber/delais.txt</code> adds them up.',
+						'explanation' => 'What is published stays accessible for a long time, even after deletion: a review delay is not wasted time, it is the only chance to catch a photo that shows an address. Adding the delays up is measuring what caution costs.',
 					),
 				),
 			),
@@ -1714,12 +1714,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the workshop factors',
-				'content' => '<p>In the classroom, the CYBER.ORG workshop left the <em>factors sheet</em> (the document presenting the three authentication categories).</p><p><strong>Mission.</strong> Read that sheet and note the <em>recommended number of factors value</em> for a sensitive account (<code>recommended_factors</code> field).</p>',
+				'content' => 'In the classroom, the <em>factors sheet</em> presents the three families of authentication: something I know, something I have, something I am. Two factors means two different families — two passwords do not make two factors.</p><p><strong>Mission.</strong> The factors offered to the workshop students are in <code>/srv/cours/cyber/facteurs.txt</code>, one per line. The flag value is their <em>number</em>.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the number of factors (recommended_factors) recommended for a sensitive account.',
-						'hint'        => 'The factors sheet is in <code>/srv/cours/cyber</code>.',
-						'explanation' => 'Knowing how many factors a sensitive account requires is knowing the level of protection you are aiming for.',
+						'question'    => 'How many authentication factors are offered in facteurs.txt?',
+						'hint'        => '<code>wc -l < /srv/cours/cyber/facteurs.txt</code>. The <code>&lt;</code> redirection stops wc from printing the file name too.',
+						'explanation' => 'Counting the lines of a list is the most common gesture in analysis: how many factors, how many accounts, how many events. And the underlying lesson of the sheet remains: what matters is not the number, it is the diversity of families.',
 					),
 				),
 			),
@@ -1817,12 +1817,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the internal ranking',
-				'content' => '<p>In the classroom, the team left its <em>internal risk ranking</em> (how the team prioritised its fixes, following the Top 10).</p><p><strong>Mission.</strong> Read that ranking and note the <em>rank value</em> given to the first risk fixed (<code>top_risk</code> field).</p>',
+				'content' => 'In the classroom, the team left its <em>risk ranking</em> (<code>/srv/cours/owasp/risques.txt</code>): the five OWASP Top 10 risks found in its own code, one per line.</p><p><strong>Mission.</strong> You do not fix everything at once: you start with the one that comes first in alphabetical order. The flag value is that <em>first risk</em>, as written.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the rank of the first risk fixed (top_risk) in the internal risk ranking.',
-						'hint'        => 'The ranking is in <code>/srv/cours/owasp</code>.',
-						'explanation' => 'Prioritising is knowing where to start. A team\'s ranking says a lot about its maturity: you fix first what is most frequent and most severe.',
+						'question'    => 'Which is the first risk (alphabetical order) in the internal ranking?',
+						'hint'        => '<code>sort /srv/cours/owasp/risques.txt | head -1</code>. The value contains spaces: copy it whole, apostrophe included.',
+						'explanation' => 'Prioritising means choosing what not to fix right away. The team\'s ranking is not the official Top 10: it is what they actually found in their own code, which is more useful than a list learned by heart.',
 					),
 				),
 			),
@@ -1920,12 +1920,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the validation rule',
-				'content' => '<p>In the classroom, the input validation practical left its <em>validation rule</em> (the sheet of checks made on the form).</p><p><strong>Mission.</strong> Read that sheet and note the <em>number of checks value</em> listed for the "postal code" field (<code>zip_checks</code> field).</p>',
+				'content' => 'In the classroom, the input validation lab left its <em>sheet of accepted formats</em> (<code>/srv/cours/owasp/formats.txt</code>). Validating means describing what is ACCEPTED, not what is rejected.</p><p><strong>Mission.</strong> The sheet describes the zip code format. The flag value is the <em>number of characters</em> expected for that field, extracted from the line.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the number of checks (zip_checks) listed for the postal code field in the validation sheet.',
-						'hint'        => 'The validation sheet is in <code>/srv/cours/owasp</code>.',
-						'explanation' => 'Counting the checks of a field is measuring the rigour of the validation: every check is a condition to write in the code.',
+						'question'    => 'How many characters does the zip code format accept ("code postal" line of formats.txt)?',
+						'hint'        => '<code>grep -i "code postal" /srv/cours/owasp/formats.txt</code> shows you the line; <code>grep -o "[0-9]* caracteres"</code> isolates the number.',
+						'explanation' => 'A whitelist of formats is short and verifiable; a blacklist of forbidden characters is always incomplete. Extracting a number from a rule sentence is turning a policy into an executable check.',
 					),
 				),
 			),
@@ -2023,12 +2023,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the logging plan',
-				'content' => '<p>In the classroom, the team left its <em>logging plan</em> (the list of events to log).</p><p><strong>Mission.</strong> Read that plan and note the <em>number of events value</em> planned for the log (<code>event_count</code> field).</p>',
+				'content' => 'In the classroom, the team left its <em>logging plan</em> and the trace the service produced (<code>/srv/cours/owasp/trace.txt</code>): each line is an event.</p><p><strong>Mission.</strong> The flag value is the <em>number of events</em> in that trace. Three questions follow: how many refused logins, how many configuration changes, and who did what.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the number of events (event_count) planned for the log in the logging plan.',
-						'hint'        => 'The plan is in <code>/srv/cours/owasp</code>.',
-						'explanation' => 'Counting the events to log is measuring whether a day of activity could be rebuilt. A short plan is a plan that leaves blind spots.',
+						'question'    => 'How many events does the service trace contain (trace.txt)?',
+						'hint'        => '<code>wc -l < /srv/cours/owasp/trace.txt</code>. Also look at the trace: <code>grep refusee</code>, <code>grep configuration</code>.',
+						'explanation' => 'A log is only worth something if you can read it: how many lines, how many refusals, which sequence precedes the incident. Counting events is the first step; the next question is "how many are abnormal".',
 					),
 				),
 			),
@@ -2126,12 +2126,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the machine diagram',
-				'content' => '<p>In the classroom, the Stanford course left its <em>machine diagram</em> (the document describing the layers, from data to the processor).</p><p><strong>Mission.</strong> Read that diagram and note the <em>number of bytes value</em> assigned to an address (<code>address_size</code> field).</p>',
+				'content' => 'In the classroom, the Stanford course left its <em>machine diagram</em> (<code>/srv/cours/stanford/tailles.txt</code>): processor, word size, address size, memory.</p><p><strong>Mission.</strong> The flag value is the <em>size of an address</em>, in bytes, as it appears in the diagram. It is what explains the difference between a 32-bit and a 64-bit processor.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the address size (address_size, in bytes) given in the machine diagram.',
-						'hint'        => 'The diagram is in <code>/srv/cours/stanford</code>.',
-						'explanation' => 'The size of an address determines the addressable memory space (2^64 bytes in 64 bits). It is also what makes addresses guessable without ASLR: hence the importance of randomness.',
+						'question'    => 'What is the size of an address, in bytes, according to the machine diagram?',
+						'hint'        => '<code>grep "^adresse " /srv/cours/stanford/tailles.txt</code>, then take the second field (<code>cut -d" " -f2</code>).',
+						'explanation' => 'A 64-bit processor addresses 2^64 cells: that is why it can exceed 4 GB of memory. Remembering 8 bytes per address is remembering why the 4 GB limit disappeared.',
 					),
 				),
 			),
@@ -2229,12 +2229,12 @@ return array(
 			),
 			2 => array(
 				'title'   => 'Task 3: The mission — the storage plan',
-				'content' => '<p>In the classroom, the Stanford course left its <em>storage plan</em> (how the team stores its data and its secrets).</p><p><strong>Mission.</strong> Read that plan and note the <em>number of locations value</em> planned for the secrets (<code>secret_locations</code> field).</p>',
+				'content' => 'In the classroom, the Stanford course left its <em>storage plan</em>: where public content, private data, secrets and logs live. The inventory of locations holding a secret is in <code>/srv/cours/stanford/emplacements.txt</code>.</p><p><strong>Mission.</strong> The flag value is the <em>number of locations</em> in that inventory. A secret never lives next to public content: each location is a separate access control.',
 				'questions' => array(
 					0 => array(
-						'question'    => 'Note the number of locations (secret_locations) planned for the secrets in the storage plan.',
-						'hint'        => 'The storage plan is in <code>/srv/cours/stanford</code>.',
-						'explanation' => 'Counting the secret locations is checking that none of them was forgotten in the public zone: each location must have its own access control.',
+						'question'    => 'How many locations hold a secret according to the inventory (emplacements.txt)?',
+						'hint'        => '<code>wc -l < /srv/cours/stanford/emplacements.txt</code>. Also look at the paths: <code>/etc/secura-secrets</code> is not where <code>/srv/data</code> is, and that is deliberate.',
+						'explanation' => 'Organising, in security, is not tidying: it is separating what is allowed to sit together. A <code>.env</code> file in the folder served by the web is a leak that does not look like one.',
 					),
 				),
 			),

@@ -79,16 +79,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — la fiche des mots de passe',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, l\'équipe a laissé une <em>fiche de passwords</em> '
-                '(la fiche d\'hygiène de l\'atelier CYBER.ORG).</p>'
-                '<p><strong>Mission.</strong> Lis cette fiche et relève la <em>valeur de la longueur minimale '
-                'recommandée</em> en caractères (champ <code>min_length</code>).</p>'
+                '<p>Dans la salle des cours, l\'atelier CYBER.ORG a laissé une <em>fiche d\'hygiène</em> (<code>/srv/cours/cyber/password-sheet.txt</code>) : la longueur bat la complexité, et la fiche propose un <em>sac de mots</em> pour composer une phrase de passe.</p><p><strong>Mission.</strong> Les mots du sac sont dans <code>/srv/cours/cyber/mots.txt</code>, un par ligne. La valeur du drapeau est le <em>premier de ces mots dans l\'ordre alphabétique</em> : c\'est celui que l\'atelier donne en exemple.</p>'
             ),
-            'question': 'Releve la longueur minimale de mot de passe (min_length) indiquee dans la fiche d\'hygiene.',
+            'question': 'Quel est le premier mot du sac (ordre alphabetique) propose pour une phrase de passe ?',
             'flag_path': '/root/flags/flag-u14.txt',
             'xp': 30,
-            'hint': 'La fiche est dans <code>/srv/cours/cyber</code> : liste le dossier puis lis le fichier.',
-            'explain': 'Une longueur minimale écrite dans une fiche, c\'est une règle qu\'on peut appliquer à un compte : c\'est ainsi que l\'hygiène devient une habitude.',
+            'hint': '<code>sort /srv/cours/cyber/mots.txt | head -1</code>. Attention : « sort » classe selon la locale, vérifie le résultat avec <code>sort /srv/cours/cyber/mots.txt</code> en entier.',
+            'explain': 'Une phrase de passe se compose de mots sans rapport entre eux : « pluie-ululement-vache » se retient et résiste mieux qu\'un mot court semé de symboles. Trier une liste de mots, c\'est aussi la première étape pour repérer les doublons d\'un dictionnaire.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -242,17 +239,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — l\'exemple d\'hameçonnage',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, l\'atelier CYBER.ORG a laissé un <em>exempleannotated</em> '
-                'd\'un message d\'hameçonnage (le message d\'exercice, avec ses annotations).</p>'
-                '<p><strong>Mission.</strong> Lis cet exemple et relève la <em>valeur du signal</em> '
-                'indiqué comme le principal indice de l\'arnaque (champ <code>main_signal</code>, '
-                'un mot en anglais : urgency, sender, link ou spelling).</p>'
+                '<p>Dans la salle des cours, l\'atelier a laissé un <em>exemple de message d\'hameçonnage</em> annoté (<code>/srv/cours/cyber/phishing-example.txt</code>), et la liste des signalements constatés dans <code>signalements.txt</code>, un par ligne.</p><p><strong>Mission.</strong> La valeur du drapeau est le <em>numéro de la ligne qui parle d\'urgence</em> dans cette liste : l\'urgence est le levier numéro un de l\'arnaque.</p>'
             ),
-            'question': 'Releve le signal principal (main_signal) indique dans l\'exemple de message d\'hameconnage.',
+            'question': 'Quel est le numero de la ligne qui parle d\'urgence dans signalements.txt ?',
             'flag_path': '/root/flags/flag-u15.txt',
             'xp': 30,
-            'hint': 'L\'exemple est dans <code>/srv/cours/cyber</code> : liste puis lis les fichiers.',
-            'explain': 'Savoir nommer le signal principal, c\'est savoir regarder un message desconocido avec une grille, au lieu de réagir à l\'émotion.',
+            'hint': '<code>grep -n urgence /srv/cours/cyber/signalements.txt</code> : l\'option <code>-n</code> affiche le numéro de ligne, avant les deux-points.',
+            'explain': 'Numéroter les lignes d\'une trace, c\'est ce qu\'on fait pour citer une preuve : « ligne 2 du signalement ». Un rapport d\'incident qui dit « un message pressé » ne sert à rien ; celui qui cite la ligne se vérifie.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -411,16 +404,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — la charte de publication',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, l\'atelier a laissé la <em>charte de publication</em> '
-                'des réseaux sociaux (les règles de l\'atelier).</p>'
-                '<p><strong>Mission.</strong> Lis cette charte et relève la <em>valeur du délai de publication</em> '
-                'recommandé après un événement (champ <code>publish_delay_hours</code>).</p>'
+                '<p>Dans la salle des cours, la <em>charte de publication</em> des réseaux sociaux fixe les règles de l\'atelier. Le laboratoire applique un délai de relecture avant publication, et les délais constatés sur trois publications sont dans <code>/srv/cours/cyber/delais.txt</code>, en heures.</p><p><strong>Mission.</strong> La valeur du drapeau est la <em>somme des trois délais</em>, en heures : c\'est le temps total de relecture que l\'équipe a consommé.</p>'
             ),
-            'question': 'Releve le delai de publication (publish_delay_hours) recommande dans la charte de publication.',
+            'question': 'Quelle est la somme des delais de publication constates, en heures (delais.txt) ?',
             'flag_path': '/root/flags/flag-u16.txt',
             'xp': 30,
-            'hint': 'La charte est dans <code>/srv/cours/cyber</code>.',
-            'explain': 'Un délai de publication, c\'est une règle simple qui évite beaucoup de problèmes : on laisse le temps à l\'information de se calmer avant de la partager.',
+            'hint': '<code>awk "{s+=$1} END{print s}" /srv/cours/cyber/delais.txt</code>.',
+            'explain': 'Ce qui est publié reste accessible longtemps, même après suppression : un délai de relecture n\'est pas une perte de temps, c\'est la seule chance de rattraper une photo qui montre une adresse. Additionner les délais, c\'est mesurer ce que la prudence coûte.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -576,16 +566,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — les facteurs de l\'atelier',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, l\'atelier CYBER.ORG a laissé la <em>fiche des facteurs</em> '
-                '(le document qui présente les trois catégories d\'authentification).</p>'
-                '<p><strong>Mission.</strong> Lis cette fiche et relève la <em>valeur du nombre de facteurs '
-                'recommandés</em> pour un compte sensible (champ <code>recommended_factors</code>).</p>'
+                '<p>Dans la salle des cours, la <em>fiche des facteurs</em> d\'authentification présente les trois familles : ce que je sais, ce que je possède, ce que je suis. Deux facteurs, ce sont deux familles différentes — deux mots de passe n\'en font pas deux.</p><p><strong>Mission.</strong> Les facteurs proposés aux élèves de l\'atelier sont dans <code>/srv/cours/cyber/facteurs.txt</code>, un par ligne. La valeur du drapeau est leur <em>nombre</em>.</p>'
             ),
-            'question': 'Releve le nombre de facteurs (recommended_factors) recommande pour un compte sensible.',
+            'question': 'Combien de facteurs d\'authentification sont proposes dans facteurs.txt ?',
             'flag_path': '/root/flags/flag-u17.txt',
             'xp': 30,
-            'hint': 'La fiche des facteurs est dans <code>/srv/cours/cyber</code>.',
-            'explain': 'Savoir combien de facteurs un compte sensible exige, c\'est savoir le niveau de protection qu\'on cherche à obtenir.',
+            'hint': '<code>wc -l < /srv/cours/cyber/facteurs.txt</code>. La redirection <code>&lt;</code> évite que wc affiche aussi le nom du fichier.',
+            'explain': 'Compter les lignes d\'une liste, c\'est le geste le plus courant de l\'analyse : combien de facteurs, combien de comptes, combien d\'événements. Et la leçon de fond reste celle de la fiche : ce qui compte n\'est pas le nombre, c\'est la diversité des familles.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',

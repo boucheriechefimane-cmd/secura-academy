@@ -1,1 +1,1 @@
-FLAG=SECURA{pile_x86}
+FLAG=SECURA{pile_40}

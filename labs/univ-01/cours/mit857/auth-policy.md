@@ -1,29 +1,22 @@
 Politique d'authentification - services du laboratoire
-(cours 6.857 - Network and Computer Security)
+(cours 6.857)
 
 Regles de base
 --------------
     longueur_minimale          = 14
-    min_length                 = FLAG=SECURA{mot_de_passe_long}
     reutilisation_interdite     = oui
     second_facteur              = obligatoire sur les comptes d'administration
     tentatives_avant_blocage   = 5
     duree_session              = 30 minutes
     deconnexion_de_tous_les_appareils = possible
 
-Mots de passe
---------------
-Le service refuse les mots de passe issus des listes connues (mots de
-passe les plus utilises, dates, numeros de telephone) et encourage les
-phrases de plusieurs mots.
+Ce que la politique protege : les comptes de service
+---------------------------------------------------
+La politique s'applique a tous les comptes. Leur nombre exact n'est pas
+ecrit ici : il faut compter les lignes du fichier de comptes, en
+ignorant la ligne d'en-tete.
 
-Second facteur
---------------
-- Application d'authentification (preferee)
-- Code par SMS (tolere, moins robuste)
-- Question secrete : refusee, ce n'est pas une autre categorie de preuve.
+    tail -n +2 /srv/cours/mit857/comptes.csv | wc -l
 
-Journalisation
---------------
-Toutes les tentatives (reussies ou non) sont tracees dans le journal du
-service d'authentification.
+(Pour lire la commande : « tail -n +2 » saute la premiere ligne,
+« wc -l » compte les lignes restantes.)

@@ -89,16 +89,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — le classement interne',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, l\'équipe a laissé son <em>classement interne</em> '
-                'des risques (la façon dont l\'équipe a priorisé ses corrections, en suivant le Top 10).</p>'
-                '<p><strong>Mission.</strong> Lis ce classement et relève la <em>valeur du rang</em> '
-                'attribué au premier risque corrigé (champ <code>top_risk</code>).</p>'
+                '<p>Dans la salle des cours, l\'équipe a laissé son <em>classement des risques</em> (<code>/srv/cours/owasp/risques.txt</code>) : les cinq risques du Top 10 rencontrés dans son propre code, un par ligne.</p><p><strong>Mission.</strong> On ne corrige pas tout en même temps : on commence par celui qui vient en premier dans l\'ordre alphabétique. La valeur du drapeau est ce <em>premier risque</em>, tel qu\'il est écrit.</p>'
             ),
-            'question': 'Releve le rang du premier risque corrige (top_risk) dans le classement interne des risques.',
+            'question': 'Quel est le premier risque (ordre alphabetique) du classement interne ?',
             'flag_path': '/root/flags/flag-u18.txt',
             'xp': 30,
-            'hint': 'Le classement est dans <code>/srv/cours/owasp</code>.',
-            'explain': 'Prioriser, c\'est savoir par quoi commencer. Le classement d\'une équipe dit beaucoup sur sa maturité : on corrige d\'abord ce qui est le plus fréquent et le plus grave.',
+            'hint': '<code>sort /srv/cours/owasp/risques.txt | head -1</code>. La valeur contient des espaces : recopie-la en entier, apostrophe comprise.',
+            'explain': 'Prioriser, c\'est choisir ce qu\'on ne corrige pas tout de suite. Le classement de l\'équipe n\'est pas le Top 10 officiel : c\'est ce qu\'elle a réellement trouvé chez elle, ce qui est plus utile qu\'une liste apprise par cœur.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -264,16 +261,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — la règle de validation',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, le TP de validation des entrées a laissé sa '
-                '<em>règle de validation</em> (la fiche des contrôles faits sur le formulaire).</p>'
-                '<p><strong>Mission.</strong> Lis cette fiche et relève la <em>valeur du nombre de contrôles</em> '
-                'listés pour le champ « code postal » (champ <code>zip_checks</code>).</p>'
+                '<p>Dans la salle des cours, le TP de validation des entrées a laissé sa <em>fiche des formats acceptés</em> (<code>/srv/cours/owasp/formats.txt</code>). Valider, c\'est décrire ce qui est ACCEPTÉ, pas ce qui est refusé.</p><p><strong>Mission.</strong> La fiche décrit le format du code postal. La valeur du drapeau est le <em>nombre de caractères</em> attendus pour ce champ, extrait de la ligne.</p>'
             ),
-            'question': 'Releve le nombre de controles (zip_checks) listes pour le champ code postal dans la fiche de validation.',
+            'question': 'Combien de caracteres le format du code postal accepte-t-il (ligne « code postal » de formats.txt) ?',
             'flag_path': '/root/flags/flag-u19.txt',
             'xp': 30,
-            'hint': 'La fiche de validation est dans <code>/srv/cours/owasp</code>.',
-            'explain': 'Compter les contrôles d\'un champ, c\'est mesurer la rigueur de la validation : chaque contrôle est une condition à écrire dans le code.',
+            'hint': '<code>grep -i "code postal" /srv/cours/owasp/formats.txt</code> te montre la ligne ; <code>grep -o "[0-9]* caracteres"</code> isole le nombre.',
+            'explain': 'Une liste blanche de formats est courte et vérifiable ; une liste noire de caractères interdits est toujours incomplète. Extraire un nombre d\'une phrase de règle, c\'est transformer une politique en contrôle exécutable.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -442,16 +436,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — le plan de journalisation',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, l\'équipe a laissé son <em>plan de journalisation</em> '
-                '(la liste des événements à journaliser).</p>'
-                '<p><strong>Mission.</strong> Lis ce plan et relève la <em>valeur du nombre d\'événements</em> '
-                'prévus au journal (champ <code>event_count</code>).</p>'
+                '<p>Dans la salle des cours, l\'équipe a laissé son <em>plan de journalisation</em> et la trace que le service a produite (<code>/srv/cours/owasp/trace.txt</code>) : chaque ligne est un événement.</p><p><strong>Mission.</strong> La valeur du drapeau est le <em>nombre d\'événements</em> de cette trace. Trois questions en découlent : combien de connexions refusées, combien de changements de configuration, et qui a fait quoi.</p>'
             ),
-            'question': 'Releve le nombre d\'evenements (event_count) prevus au journal dans le plan de journalisation.',
+            'question': 'Combien d\'evenements contient la trace du service (trace.txt) ?',
             'flag_path': '/root/flags/flag-u20.txt',
             'xp': 30,
-            'hint': 'Le plan est dans <code>/srv/cours/owasp</code>.',
-            'explain': 'Compter les événements à journaliser, c\'est mesurer si l\'on pourra reconstituer une journée d\'activité. Un plan court est un plan qui laisse des angles morts.',
+            'hint': '<code>wc -l < /srv/cours/owasp/trace.txt</code>. Regarde aussi la trace : <code>grep refusee</code>, <code>grep configuration</code>.',
+            'explain': 'Un journal ne vaut que si on sait le lire : combien de lignes, combien de refus, quelle séquence précède l\'incident. Compter les événements est le premier pas ; la question suivante, c\'est « combien sont anormaux ».',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',

@@ -1,1 +1,1 @@
-FLAG=SECURA{privileges_separes}
+FLAG=SECURA{privilege_8200}

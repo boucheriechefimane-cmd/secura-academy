@@ -1,0 +1,4 @@
+service,memoire_mo,processus
+web,120,40
+api,80,30
+audit,60,20

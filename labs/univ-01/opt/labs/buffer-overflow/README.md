@@ -21,7 +21,9 @@ Le programme se termine avec « *** stack smashing detected *** » quand la
 saisie depasse le canari. Il faut donc reconstruire le canari avant
 d'atteindre l'adresse de retour.
 
-Offset calcule par l'equipe : FLAG=SECURA{offset_du_tp}
+Offset calcule par l'equipe : compte les octets du bloc [buffer] ci-dessus
+plus les 8 octets du canari, puis ajoute 8 pour atteindre la sauvegarde de
+l'adresse de retour. Ecris le total.
 
 Rappel : le canari ne protege que si l'on ne le touche pas. Avec la valeur
 ci-dessus, on peut le reecrire tel quel.

@@ -1,24 +1,32 @@
-Plan de journalisation - service applicatif (OWASP A09:2021)
-==========================================================
+Plan de journalisation - atelier OWASP
+======================================
 
-Evenements journalises
-----------------------
-    event_count = FLAG=SECURA{trace_utile}
-    evenements :
-      - authentification reussie / refusee
-      - changement de mot de passe
-      - changement de privileges
-      - export de donnees
-      - refus d'acces (403)
-      - erreur serveur (500)
-
-Contenu d'une ligne
+Ce qu'on journalise
 -------------------
-    horodatage | utilisateur | action | resultat | IP | user-agent
+- Les connexions reussies et refusees (qui, quand, d'ou).
+- Les changements de configuration.
+- Les acces aux donnees sensibles.
 
-Regles de l'equipe
-------------------
-- On ne journalise JAMAIS un mot de passe, une carte ou un jeton.
-- Les journaux sont proteges et conserves 30 jours maximum.
-- Une alerte est declenchee sur rafale d'echecs et changement de privileges.
-- Un journal que personne ne lit ne sert a rien : la revue est hebdomadaire.
+Ce qu'on ne journalise jamais
+-----------------------------
+- Les mots de passe, evidemment.
+- Les numeros de carte complets.
+- Les donnees personnelles inutiles a l'enquete.
+
+Le journal de l'atelier
+-----------------------
+Le service a produit une trace. Chaque ligne est un evenement :
+
+    connexion refusee pour alice depuis 10.10.0.4
+    changement de configuration par bob
+    acces au dossier eleves par le service comptage
+    connexion reussie pour alice depuis 10.10.0.4
+    acces au dossier eleves par le service comptage
+    connexion refusee pour alice depuis 10.10.0.9
+    changement de configuration par bob
+
+Exercice de l'atelier
+---------------------
+Combien d'evenements dans cette trace ?
+
+    wc -l < /srv/cours/owasp/trace.txt

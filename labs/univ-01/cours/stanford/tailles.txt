@@ -1,0 +1,4 @@
+processeur 64 bits
+word_size 8 octets
+adresse 8 octets
+memoire 16 Go

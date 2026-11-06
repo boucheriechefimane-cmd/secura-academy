@@ -1,12 +1,8 @@
-Plan de rangement des donnees - cours Stanford CS105
-================================================
+Plan de rangement - cours Stanford CS105
+========================================
 
-Nous rangeons les choses selon leur niveau de sensibilite : c'est la
-separation des responsabilites appliquee aux donnees.
-
-Emplacements
-------------
-    secret_locations = FLAG=SECURA{secrets_a_part}
+Ou vit quoi
+-----------
     contenu public   : /srv/cours (livrables de cours, sans secret)
     donnees privees  : /srv/data (acces en lecture pour le service web)
     secrets          : /etc/secura-secrets (acces root, jamais servi)
@@ -17,3 +13,19 @@ Regles
 - Un secret ne vit jamais a cote d'un contenu public.
 - Le compte de service du site lit les donnees, il ne modifie pas le schema.
 - Chaque emplacement a son propre controle d'acces.
+
+Les emplacements de secrets de l'atelier
+----------------------------------------
+L'inventaire liste, un par ligne, les emplacements qui contiennent un
+secret :
+
+    /etc/secura-secrets/signing.key
+    /etc/secura-secrets/tls.key
+    /home/service/.ssh/id_ed25519
+    /srv/data/.env.production
+
+Exercice de l'atelier
+---------------------
+Combien d'emplacements contiennent un secret ?
+
+    grep -c secrets /srv/cours/stanford/emplacements.txt

@@ -1,0 +1,4 @@
+code postal : format A9999, 5 caracteres
+identifiant : 3 a 20 caracteres, lettres et chiffres
+montant : nombre decimal, 2 chiffres apres la virgule
+date : AAAA-MM-JJ

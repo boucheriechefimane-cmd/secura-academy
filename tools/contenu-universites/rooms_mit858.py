@@ -92,18 +92,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — l\'analyse de risque',
         'mission': {
             'prompt': (
-                '<p>Sur la machine de la salle des cours, l\'équipe a laissé les livrables du semestre. '
-                'Dans <code>/srv/cours</code>, un dossier porte l\'analyse de risque du cours 6.858 : '
-                'elle liste les actifs, les adversaires possibles et les règles à faire respecter.</p>'
-                '<p><strong>Mission.</strong> Lis ce document et relève la <em>valeur du risque critique</em> '
-                'qu\'il annonce (la ligne de conclusion de l\'analyse). '
-                'Cette valeur est la preuve que tu as lu le document du cours.</p>'
+                '<p>Sur la machine de la salle des cours, l\'équipe a laissé les livrables du semestre. Dans <code>/srv/cours/mit858</code>, le document <code>analyse-risque.md</code> liste les actifs, les adversaires possibles et les règles à faire respecter.</p><p><strong>Mission.</strong> Le drapeau de cette room est l\'<em>empreinte du document</em>, pas une phrase qu\'il contient : les huit premiers caractères du sha256 de ce fichier. Une empreinte ne se lit pas, elle se calcule — c\'est la preuve que tu as ouvert le bon fichier.</p>\'<p>Exécute <code>sha256sum</code> sur le document, puis garde les huit premiers caractères.</p>'
             ),
-            'question': 'Releve la valeur du risque critique annonce dans l\'analyse de risque du cours.',
+            'question': 'Calcule l\'empreinte (sha256, 8 premiers caracteres) du document analyse-risque.md du cours 6.858.',
             'flag_path': '/root/flags/flag-u01.txt',
             'xp': 30,
-            'hint': 'Commence par lister les dossiers : <code>ls -R /srv/cours</code>. Le dossier du cours 6.858 contient un fichier .md.',
-            'explain': 'Une analyse de risque se lit comme une conclusion : le risque critique est celui qui, s\'il se réalise, casse la politique de sécurité. Le relever, c\'est appliquer le cours à un cas réel.',
+            'hint': 'La commande : <code>sha256sum /srv/cours/mit858/analyse-risque.md</code>, puis <code>cut -c1-8</code> sur la sortie. Vérifie d\'abord le nom exact du fichier avec <code>ls</code>.',
+            'explain': 'Une empreinte prouve deux choses d\'un coup : que tu as lu le bon fichier, et qu\'il n\'a pas changé depuis. C\'est exactement ce qu\'un auditeur fait pour vérifier une pièce : il ne croit pas le contenu, il vérifie le sceau.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -733,16 +728,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — les notes du cours web',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, le cours 6.858 a laissé ses <em>notes de la leçon web</em> '
-                '(le document qui récapitule SOP, CSRF et parades).</p>'
-                '<p><strong>Mission.</strong> Lis ces notes et relève la <em>valeur du nom du jeton</em> '
-                'utilisé dans l\'exemple du cours (le nom exact du paramètre, en minuscules, sans accolade).</p>'
+                '<p>Dans la salle des cours, le cours 6.858 a laissé ses <em>notes sur le web</em> (<code>/srv/cours/mit858/web-notes.txt</code>) : elles récapitulent la politique de même origine, le CSRF et sa parade.</p><p><strong>Mission.</strong> Le bloc de configuration du formulaire est dans le fichier, en trois colonnes : <code>csrf     = TOKEN-…</code>. La valeur du drapeau est ce qui suit le <code>=</code>, tel quel. Trouve-la avec une commande, pas à l\'œil.</p>'
             ),
-            'question': 'Releve le nom du jeton utilise dans l\'exemple du cours web.',
+            'question': 'Extrais la valeur du champ csrf dans les notes du cours web (web-notes.txt).',
             'flag_path': '/root/flags/flag-u05.txt',
             'xp': 30,
-            'hint': 'Les notes du cours web sont dans <code>/srv/cours/mit858</code> (fichier .txt ou .md).',
-            'explain': 'Reconnaître le nom du jeton dans un exemple concret, c\'est être capable de l\'utiliser ensuite dans un vrai formulaire.',
+            'hint': 'La ligne est indentée : <code>grep "^ *csrf" /srv/cours/mit858/web-notes.txt</code> la trouve, puis <code>cut -d" " -f5</code> isole la valeur. Plus court : <code>awk "/^ *csrf *=/{print $3}" /srv/cours/mit858/web-notes.txt</code>.',
+            'explain': 'Un jeton anti-CSRF est une valeur aléatoire liée à la session : le formulaire légitime la connaît, un site tiers ne peut pas la deviner. Le lire dans un fichier de configuration, c\'est comprendre où le serveur la range et comment un attaquant pourrait la voler.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
