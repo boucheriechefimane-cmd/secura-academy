@@ -6,7 +6,8 @@ Outil attendu : grep, strings
 
 sortie.txt est un extrait de désassemblage. Une seule ligne contient
 l'adresse d'une fonction appelée « interessant ». Rapporte l'adresse.
-Forme : SECURA{0x...}.
+Rapporte cette adresse sans le prefixe 0x, entouree des
+accolades habituelles.
 Indice : « grep interessant sortie.txt ».
 
 Le drapeau n'est ecrit nulle part dans les documents du dojo :

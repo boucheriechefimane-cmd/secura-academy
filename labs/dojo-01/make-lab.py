@@ -271,7 +271,8 @@ DEFIS = [
         "outil": "grep, strings",
         "doc": "sortie.txt est un extrait de désassemblage. Une seule ligne contient\n"
                "l'adresse d'une fonction appelée « interessant ». Rapporte l'adresse.\n"
-               "Forme : SECURA{0x...}.\n"
+               "Rapporte cette adresse sans le prefixe 0x, entouree des\n"
+               "accolades habituelles.\n"
                "Indice : « grep interessant sortie.txt ».",
         "fichiers": {
             "/srv/dojo/4-verte/sortie.txt": "8049000 <main>:\n"
@@ -279,15 +280,17 @@ DEFIS = [
                 " 8049010 call 80493f0 <interessant>\n"
                 " 8049018 call 8049100 <fin>\n",
         },
-        "secret": "SECURA{0x80493f0}",
+        "secret": "SECURA{80493f0}",
     },
     {
         "id": "d16", "ceinture": 4, "titre": "Le fichier anormalement gros",
         "chemin": "/srv/dojo/4-verte/16-taille.txt",
         "outil": "du, ls -l, sort",
         "doc": "Dans /srv/dojo/4-verte/volumes/, trois fichiers. Le plus gros est\n"
-               "anormal pour son type. Rapporte son nom sous la forme SECURA{nom}.\n"
-               "Indice : « du -a volumes/ | sort -n | tail -1 ».",
+               "anormal pour son type. Rapporte son nom, entoure des accolades\n"
+               "habituelles.\n"
+               "Indice : « ls -S volumes/ | head -1 » — trie par taille, du plus gros\n"
+               "au plus petit. Ne te fie pas a du : il compte aussi les dossiers.",
         "fichiers": {
             "/srv/dojo/4-verte/volumes/petit.txt": "x" * 200 + "\n",
             "/srv/dojo/4-verte/volumes/moyen.txt": "x" * 3000 + "\n",
@@ -307,7 +310,11 @@ DEFIS = [
         "fichiers": {
             "/srv/dojo/5-noire/mot-de-passe.txt": "dojo-session-2026\n",
         },
-        "secret": "sha256:dojo-session-2026",
+        # Le fichier se termine par un saut de ligne : sha256sum hache le
+        # fichier tel qu'il est, saut de ligne compris. Hacher la chaine nue
+        # donnait une valeur que l'eleve ne pouvait pas retrouver — defaut
+        # trouve en CI, pas a la lecture.
+        "secret": "sha256:dojo-session-2026\n",
     },
     {
         "id": "d18", "ceinture": 5, "titre": "La paire de clés",
@@ -322,7 +329,7 @@ DEFIS = [
                 + "MIIEowIBAAKCAQEA" + "x" * 60 + "\n"
                 + "-----END RSA PRIVATE KEY-----\n",
         },
-        "secret": "SECURA{BEGIN_RSA_PRIVATE_KEY}",
+        "secret": "SECURA{BEGIN RSA PRIVATE KEY}",
     },
     {
         "id": "d19", "ceinture": 5, "titre": "Le certificat expiré",

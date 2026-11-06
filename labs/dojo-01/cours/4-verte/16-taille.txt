@@ -5,8 +5,10 @@ Ceinture 4 (verte)
 Outil attendu : du, ls -l, sort
 
 Dans /srv/dojo/4-verte/volumes/, trois fichiers. Le plus gros est
-anormal pour son type. Rapporte son nom sous la forme SECURA{nom}.
-Indice : « du -a volumes/ | sort -n | tail -1 ».
+anormal pour son type. Rapporte son nom, entoure des accolades
+habituelles.
+Indice : « ls -S volumes/ | head -1 » — trie par taille, du plus gros
+au plus petit. Ne te fie pas a du : il compte aussi les dossiers.
 
 Le drapeau n'est ecrit nulle part dans les documents du dojo :
 il est lu par le serveur, en root, dans /root/flags.

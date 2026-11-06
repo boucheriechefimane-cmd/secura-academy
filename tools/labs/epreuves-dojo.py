@@ -149,7 +149,9 @@ EPREUVES = [
     (
         "d16",
         "le fichier anormalement gros",
-        "du -a /srv/dojo/4-verte/volumes/ | sort -n | tail -1",
+        # L'epreuve joue la commande du conseil donne dans le document, pas
+        # une commande differente : c'est ce que l'eleve tapera.
+        "ls -S /srv/dojo/4-verte/volumes/ | head -1",
         lambda sortie, drapeau: contient_drapeau(sortie, drapeau),
     ),
     (
