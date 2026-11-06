@@ -294,11 +294,30 @@ final class Secura_Ajax {
 		$questions = array();
 
 		foreach ( $task['questions'] as $q_index => $question ) {
+			/* Les options sont melangees a l'affichage, pas dans le contenu :
+			   la bonne reponse reste la meme pour tout le monde, mais sa
+			   POSITION change a chaque appel. Sans ce melange, une option
+			   ecrite en dernier et plus longue que les autres se reconnait
+			   sans lire la question (mesure du 6/11 : 89,6 % des examens
+			   reussis en cochant toujours la reponse la plus longue). */
+			$choix_affiches = isset( $question['choices'] ) ? array_values( $question['choices'] ) : array();
+
+			if ( 'choice' === ( isset( $question['mode'] ) ? $question['mode'] : 'text' ) && count( $choix_affiches ) > 1 ) {
+				mt_srand( (int) ( crc32( (string) $user_id . '|' . $room_id . '|' . $index . '|' . $q_index ) ) );
+
+				$melange = $choix_affiches;
+				shuffle( $melange );
+
+				mt_srand();
+
+				$choix_affiches = $melange;
+			}
+
 			$entry = array(
 				'index'        => $q_index,
 				'question'     => $question['question'],
 				'mode'         => isset( $question['mode'] ) ? $question['mode'] : 'text',
-				'choices'      => isset( $question['choices'] ) ? array_values( $question['choices'] ) : array(),
+				'choices'      => $choix_affiches,
 				'xp'           => (int) $question['xp'],
 				'hint'         => $question['hint'],
 				'weight'       => (int) $question['weight'],
