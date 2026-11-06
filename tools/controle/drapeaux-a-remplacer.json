@@ -1,0 +1,212 @@
+{
+    "Ceinture blanche : lire, chercher, comprendre#2.0": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture blanche : lire, chercher, comprendre#2.1": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture blanche : lire, chercher, comprendre#2.2": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture blanche : lire, chercher, comprendre#2.3": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture jaune : permissions, propriétaire, contenu#2.0": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture jaune : permissions, propriétaire, contenu#2.1": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture jaune : permissions, propriétaire, contenu#2.2": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture jaune : permissions, propriétaire, contenu#2.3": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture orange : réseau, processus, configuration#2.0": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture orange : réseau, processus, configuration#2.1": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture orange : réseau, processus, configuration#2.2": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture orange : réseau, processus, configuration#2.3": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture verte : binaires, chaînes, mémoire#2.0": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture verte : binaires, chaînes, mémoire#2.1": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture verte : binaires, chaînes, mémoire#2.2": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture verte : binaires, chaînes, mémoire#2.3": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture noire : cryptographie, clés, empreintes#2.0": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture noire : cryptographie, clés, empreintes#2.1": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture noire : cryptographie, clés, empreintes#2.2": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Ceinture noire : cryptographie, clés, empreintes#2.3": {
+        "avant": "2026-12-31",
+        "raison": "se resout en lisant un fichier de /srv/dojo",
+        "remplacement": "machine web-02 (permissions, contenu, SUID)"
+    },
+    "Brief 1 : le dojo, comment on s'entraîne#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/briefs",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Brief 2 : le web, comment on parle à un serveur#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/briefs",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Brief 3 : les scénarios d'exploitation#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/briefs",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Brief 4 : les registres, le carnet du processeur#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/briefs",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Brief 5 : ne pas se faire avoir#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/briefs",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Brief 6 : explorer une application web#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/briefs",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Kahoot : la révision des labs avancés#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/briefs",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Menaces, vulnérabilités et modèle de menace#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Le web et ses règles : SOP, CSRF et sessions#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Segmenter, isoler, pivoter : la sécurité réseau#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "TLS et HTTPS : le chiffrement qui tient la route#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "S'authentifier : mot de passe, session, second facteur#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Cryptographie : clé, chiffrement, signature#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Mots de passe : la longueur bat la complexité#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Hameçonnage : lire un message avant de cliquer#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Publier en ligne : ce que les autres voient de toi#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Hygiène numérique : le deuxième facteur#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Le Top 10 OWASP et la surface d'attaque#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Valider les entrées : le premier remède anti-injection#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Journaux et audit : la trace qui vaut de l'or#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Comment marche un ordinateur : de la donnée au programme#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    },
+    "Données et systèmes : organiser l'information#2.0": {
+        "avant": "2026-12-15",
+        "raison": "se resout en lisant un fichier de /srv/cours",
+        "remplacement": "machine du parcours universitaire, mission a instruire"
+    }
+}
