@@ -952,4 +952,313 @@ return array(
 		),
 	),
 
+	/* ---------------------------------------------------------------------
+	 * univ-10 — x86 et memoire : comprendre la pile
+	 * ------------------------------------------------------------------ */
+	'univ-10' => array(
+		'title'   => 'x86 and memory: understanding the stack',
+		'excerpt' => 'Registers, stack, addresses: the three ingredients the CPU handles all the time.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — registers, stack, addresses',
+				'content' => '<p>A running program is three things moving all the time: <strong>data</strong>, <strong>addresses</strong>, and a <strong>program counter</strong> that says "execute this instruction". On x86-64, data lives first in <strong>registers</strong> (ultra-fast slots: <code>rax</code>, <code>rdi</code>, <code>rsp</code>, <code>rbp</code>...), then in <strong>memory</strong>, which is cut into areas.</p><p>The area that concerns us is the <strong>stack</strong>. On every function call, the stack <em>grows</em> downwards: the local variables are placed there, then the return address. Mental picture, from top to bottom:</p><ul><li>local variables (the buffer we are going to fill);</li><li>the <strong>canary</strong> (a sentinel value);</li><li>the <strong>return address</strong> (where the CPU must resume after the function);</li><li>the <strong>stack pointer</strong> (<code>rsp</code>), which says where the stack ends.</li></ul><p>Two ideas to keep:</p><ul><li><strong>An overflow spills upwards</strong>: towards the return address. That is exactly what we want to reach.</li><li><strong>Addresses are numbers</strong>: if I know the address of an instruction, I can jump to it. That is the starting point of ROP, two rooms away.</li></ul><p><strong>Remember:</strong> understanding the stack is understanding <em>where</em> a program puts its data — and therefore where an attacker can act.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions on the stack and the registers.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'In which direction does the stack grow during a function call?',
+						'choices'     => array(
+							'Downwards, towards decreasing addresses',
+							'Upwards, towards increasing addresses',
+							'It never grows',
+							'It depends on the compiler',
+						),
+						'hint'        => 'On x86-64 the stack descends: <code>rsp</code> decreases.',
+						'explanation' => 'The stack grows towards decreasing addresses (the pointer moves down). <code>rsp</code> is the stack pointer: it marks the top.',
+					),
+					1 => array(
+						'question'    => 'Why is an overflow "upwards" so sought after?',
+						'choices'     => array(
+							'Because it is faster',
+							'Because the return address sits just above the buffer',
+							'Because the local variables are at the top',
+							'Because the canary is placed at the bottom',
+						),
+						'hint'        => 'Draw the stack: buffer, canary, return address.',
+						'explanation' => 'The buffer is at the bottom of the stack frame and the return address just above it: an overflow that overwrites that address lets you control where the CPU goes next. That is where the canary comes in.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the memory notebook',
+				'content' => '<p>In the folder <code>/home/ctf/pwn</code>, pwn.college left its <em>memory notebook</em>: the notes from the assembler refresher, with the practical numbers.</p><p><strong>Mission.</strong> Read those notes and note the <em>number of bytes reserved for the buffer</em> in the practical (<code>buffer_size</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the buffer size (buffer_size, in bytes) stated in the memory notebook.',
+						'hint'        => 'One <code>ls /home/ctf/pwn</code> is enough: then read the notebook file.',
+						'explanation' => 'Knowing the buffer size is being able to compute the offset: it is the first number of the practical.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the <code>rsp</code> register for?',
+						'choices'     => array(
+							'It holds the result of the last addition',
+							'It points to the top of the stack',
+							'It counts the instructions executed',
+							'It stores the address of the code segment',
+						),
+						'hint'        => 'Read the suffix of the register name: it tells you what it points at.',
+						'explanation' => '<code>rsp</code> is the stack pointer: it marks the top of the current frame. <code>rbp</code> (base pointer) gives stable access to the local variables.',
+					),
+					1 => array(
+						'question'    => 'A program allocates a {size}-byte buffer and writes no canary byte. Why is that riskier?',
+						'choices'     => array(
+							'Because the program will be slower',
+							'Because the buffer cannot be read',
+							'Because the overflow overwrites the return address directly, with no warning',
+							'Because the compiler will refuse to produce the binary',
+						),
+						'hint'        => 'With no sentinel, nothing notices the corruption.',
+						'explanation' => 'The canary is a sentinel: without it, the corruption goes unnoticed until the return, when the CPU jumps anywhere. The overflow becomes directly exploitable.',
+					),
+					2 => array(
+						'question'    => 'What happens if a program writes {written} bytes into a {size}-byte buffer?',
+						'choices'     => array(
+							'The program stops with an error',
+							'The buffer grows automatically',
+							'Memory is purged',
+							'The {extra} extra bytes overwrite what follows the buffer on the stack',
+						),
+						'hint'        => 'In C, an array has no guard rail.',
+						'explanation' => 'A C array is just a memory area: writing {extra} bytes beyond the {size} reserved overwrites the neighbouring memory. That is exactly what the canary tries to detect.',
+					),
+					3 => array(
+						'question'    => 'Why are registers so important for exploitation?',
+						'choices'     => array(
+							'Because they hold the addresses and data in use, so controlling them means controlling the program',
+							'Because they store the user password',
+							'Because they are the only memory that survives a reboot',
+							'Because they replace the hard disk',
+						),
+						'hint'        => 'Think about what the CPU copies from a register into memory.',
+						'explanation' => 'The CPU works in registers first, then spills to memory. Acting on registers is acting on the behaviour of the program: that is the principle of ROP.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * univ-11 — Deborder la pile : le canari et l'offset
+	 * ------------------------------------------------------------------ */
+	'univ-11' => array(
+		'title'   => 'Overflowing the stack: the canary and the offset',
+		'excerpt' => 'How you measure an offset, and why the canary is useless if you do not know where it is.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — measuring the offset',
+				'content' => '<p>The canary is an obstacle, not a wall: it can be overwritten. But to do that you must know <strong>exactly</strong> how many bytes separate the start of the buffer from the canary. That <strong>offset</strong> is measured, and that is the whole work of the practical.</p><p>The classic method, in three steps:</p><ol><li>Write a long run of recognisable characters (<code>AAAAAAAA...AAAA</code>) to go past the buffer and overwrite the canary and the return address.</li><li>The program crashes (SIGSEGV or "stack smashing detected"): the crash position tells you roughly how far you got.</li><li>Refine by changing the size and the pattern (often <code>A</code>, then <code>B</code>, then <code>C</code>…) to locate <em>exactly</em> the byte that breaks something.</li></ol><p>Once the offset is known, the attack becomes precise: fill the buffer, rewrite the canary with its original value (if you know it), then place the desired address where the return address was.</p><p>And the countermeasures: <strong>ASLR</strong> (addresses move), <strong>NX</strong> (the stack is not executable) and the canary. The course shows that combining the three makes direct exploitation very expensive: you then have to go through ROP (next room).</p><p><strong>Remember:</strong> the offset is not a trick, it is a measurement. You do not "guess": you measure, you retry, you refine.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions on measurement and protections.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Why write a recognisable pattern (AAAA..., BBBB...) into the buffer?',
+						'choices'     => array(
+							'To fill memory faster',
+							'To spot at which byte the program breaks and deduce the offset',
+							'To keep the canary happy',
+							'To get a better grade on the practical',
+						),
+						'hint'        => 'The pattern works like a ruler.',
+						'explanation' => 'A pattern of distinct bytes (AAAA BBBB CCCC) works like a ruler: when the program breaks, you know exactly where you are, hence how many bytes come before the return address.',
+					),
+					1 => array(
+						'question'    => 'ASLR makes the return address unpredictable. How does the course suggest dealing with it?',
+						'choices'     => array(
+							'By trying random addresses until one works',
+							'By disabling ASLR in the code',
+							'By using address leaks (an ASLR bypass), or by accepting that direct exploitation costs more',
+							'By using longer passwords',
+						),
+						'hint'        => 'You do not guess a random address: you recover it.',
+						'explanation' => 'ASLR forces you to <em>reveal</em> the address (an information leak: an address printed on a page, a pointer in a crash, etc.). Failing that, exploitation becomes a matter of probability.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the canary',
+				'content' => '<p>In <code>/home/ctf/pwn</code>, the notes from the "Smashing the stack" practical were left behind: they describe the vulnerable program and how to measure the offset.</p><p><strong>Mission.</strong> Read those notes and note the <em>canary value</em> used by the vulnerable program (<code>canary_value</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the canary value (canary_value) stated in the stack smashing practical notes.',
+						'hint'        => 'Still <code>/home/ctf/pwn</code>: one <code>ls</code>, then one <code>cat</code>.',
+						'explanation' => 'Knowing the canary value is understanding that it can be "put back": the protection only stops attacks that did not anticipate it.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the offset in a buffer overflow?',
+						'choices'     => array(
+							'The base address of the program',
+							'The size of the canary',
+							'The number of bytes between the start of the buffer and the return address',
+							'The gap between the code and the data',
+						),
+						'hint'        => 'It is the distance to travel to reach the target.',
+						'explanation' => 'The offset is that distance. Once measured, you know exactly how many bytes to write to reach the return address without destroying anything else.',
+					),
+					1 => array(
+						'question'    => 'Why does the canary not prevent exploitation, only detect it?',
+						'choices'     => array(
+							'Because it is too small',
+							'Because it is encrypted',
+							'Because it expires',
+							'Because it is checked on return from the function: the corruption is already done',
+						),
+						'hint'        => 'When is the canary compared?',
+						'explanation' => 'The canary is compared at return time, between leaving the function and jumping. The return address has already been overwritten: it is detection, not prevention.',
+					),
+					2 => array(
+						'question'    => 'ASLR and NX are enabled: what happens to the direct approach?',
+						'choices'     => array(
+							'It becomes much more expensive: the address is unknown and the payload cannot run on the stack',
+							'It becomes impossible',
+							'It stays exactly as easy as before',
+							'It necessarily becomes faster',
+						),
+						'hint'        => 'The three protections do not build a wall: they build a cost.',
+						'explanation' => 'Direct exploitation becomes expensive: the address is unpredictable (ASLR) and the payload cannot run on the stack (NX). The attacker then moves to ROP, which is the next room.',
+					),
+					3 => array(
+						'question'    => 'A program detects "stack smashing detected" and stops. What does that prove?',
+						'choices'     => array(
+							'That the offset is wrong',
+							'That the canary was overwritten: the offset may be right, but the canary has to be restored',
+							'That the program is patched',
+							'That the stack is full',
+						),
+						'hint'        => 'The canary is the alarm, not the wall.',
+						'explanation' => 'The detection tells you the overflow reached the canary. The offset is probably in the right area; to succeed you must rewrite the canary with its original value (hence the leaks studied next).',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * univ-12 — ROP : construire une attaque sans shellcode
+	 * ------------------------------------------------------------------ */
+	'univ-12' => array(
+		'title'   => 'ROP: building an attack without shellcode',
+		'excerpt' => 'When the stack can no longer execute, you make the program bounce off itself.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the return as an instruction',
+				'content' => '<p>With NX, the stack is a <em>data</em> area: you can no longer leave code there to execute. But you can still <strong>choose where the program resumes</strong>. That is the whole principle of ROP.</p><p>The idea is simple and startling: a program already compiled contains useful pieces of code that end with <code>ret</code>. Those are <strong>gadgets</strong>. If the return address points to a gadget that sets a register, then to another gadget that chains on, the program strings together actions <em>without executing a single one of our instructions</em>.</p><p>An example of the reasoning:</p><ol><li><code>rdi</code> must hold the address of the string <code>"/bin/sh"</code>.</li><li>Then <code>execve</code> must be called.</li><li>A <code>pop rdi ; ret</code> gadget lets you place a value in <code>rdi</code>.</li><li>You stack: <code>pop rdi</code>, then the address of the string, then the address of <code>execve</code>.</li></ol><p>Every gadget ends with <code>ret</code>: the "return" becomes the instruction that chains the sequence. It is elegant, and it is exactly the idea of the course: you do not create code, you <em>reuse</em> what exists, the way you repair an engine using parts from another engine.</p><p>And the tinkering that never stops is the <strong>"binary lego"</strong>. The tools (<code>ROPgadget</code>, <code>pwntools</code>) exist to find gadgets and build the chain automatically.</p><p><strong>Remember:</strong> ROP shows that "no injectable code" does not mean "no exploitation". It moves the difficulty, it does not remove it.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions on the principle of ROP.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is a "gadget" in ROP?',
+						'choices'     => array(
+							'A piece of code the attacker adds to the program',
+							'A tool that finds vulnerabilities',
+							'A piece of code already present in the binary, ending with <code>ret</code>',
+							'A function of the libc',
+						),
+						'hint'        => 'With NX you cannot leave code behind: what do you use instead?',
+						'explanation' => 'A gadget is a sequence of already-compiled instructions ending in a <code>ret</code>. You create nothing: you recycle. That is what makes the technique so portable.',
+					),
+					1 => array(
+						'question'    => 'Why does the NX protection (non-executable stack) not block ROP?',
+						'choices'     => array(
+							'Because NX only applies to the kernel',
+							'Because ROP uses AES',
+							'Because NX disables the canary',
+							'Because you do not execute code placed on the stack: you jump to code that is already executable',
+						),
+						'hint'        => 'NX forbids executing the stack, not placing addresses in it.',
+						'explanation' => 'The stack only holds <em>addresses</em>: the CPU jumps to code located elsewhere (the program code), which is executable. The stack remains data.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the gadget chain',
+				'content' => '<p>In <code>/home/ctf/pwn</code>, the "Return Oriented Programming" practical left its annotated <em>gadget chain</em> (the order in which to stack the gadgets).</p><p><strong>Mission.</strong> Read that annotation and note the <em>number of gadgets value</em> in the chain (<code>chain_length</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the number of gadgets (chain_length) of the chain stated in the ROP practical.',
+						'hint'        => 'The ROP practical is in <code>/home/ctf/pwn</code>: several files, read the one about the chain.',
+						'explanation' => 'Counting the gadgets of a chain is understanding that an exploit is an <em>assembly</em>: each piece has a role, and order matters.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Which gadget is typically used to place an argument in the first register?',
+						'choices'     => array(
+							'<code>syscall ; ret</code>',
+							'<code>leave ; ret</code>',
+							'<code>nop ; ret</code>',
+							'<code>pop rdi ; ret</code>',
+						),
+						'hint'        => 'You have to "pop" a value into a register.',
+						'explanation' => 'In the System V ABI, arguments go in <code>rdi</code>, <code>rsi</code>... A <code>pop rdi ; ret</code> gadget places the stacked value there, and the following <code>ret</code> chains the next gadget.',
+					),
+					1 => array(
+						'question'    => 'What happens if the gadget chain is in the wrong order?',
+						'choices'     => array(
+							'The values land in the wrong registers and the system call fails',
+							'The program does the same thing, order does not matter',
+							'The program starts more slowly',
+							'The canary is disabled',
+						),
+						'hint'        => 'Each gadget acts on the CPU state at the moment it runs.',
+						'explanation' => 'ROP is a program written in return codes: the order of the pieces determines what happens. A wrong order gives badly filled registers, hence a call that fails.',
+					),
+					2 => array(
+						'question'    => 'Why is ROP considered more advanced than the "classic" overflow?',
+						'choices'     => array(
+							'Because it needs more bytes',
+							'Because you have to understand the calling convention, find gadgets and build a coherent chain',
+							'Because it only works on old kernels',
+							'Because it needs no address at all',
+						),
+						'hint'        => 'You no longer leave code behind: you build an assembler program out of gadgets.',
+						'explanation' => 'You must know the ABI (which registers, in which order), find compatible gadgets and order the chain. That is real construction, not brute force.',
+					),
+					3 => array(
+						'question'    => 'Is a program with no useful gadget at all (no <code>pop rdi</code>, no useful <code>syscall</code>) exploitable through ROP?',
+						'choices'     => array(
+							'Yes, always',
+							'Yes, by writing shellcode on the heap',
+							'No, not with this technique: you have to look for another primitive',
+							'Yes, if the program is 64-bit',
+						),
+						'hint'        => 'A chain needs pieces; with no pieces, there is no chain.',
+						'explanation' => 'ROP depends on the gadgets present. If the binary offers none, the attacker switches technique (ret2libc, JOP, or another primitive).',
+					),
+				),
+			),
+		),
+	),
+
 );

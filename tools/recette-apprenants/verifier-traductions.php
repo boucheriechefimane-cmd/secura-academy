@@ -64,6 +64,26 @@ $est_identique = function ( $fr, $en ) {
 };
 
 /**
+ * Ce texte est-il purement technique ? Une option qui n'est qu'un fragment
+ * de code (`<code>pop rdi ; ret</code>`) ne se traduit pas : la signaler
+ * comme « non traduite » produirait du bruit et pousserait a maquiller
+ * l'original, ce qui est pire que le silence.
+ *
+ * @param string $texte Texte.
+ * @return bool
+ */
+$est_technique = function ( $texte ) {
+	$texte = (string) $texte;
+
+	/* On retire le contenu des balises <code> : s'il ne reste aucun mot
+	   d'au moins trois lettres, c'est du code, pas de la prose. */
+	$sans_code = preg_replace( '#<code>.*?</code>#is', ' ', $texte );
+	$sans_code = wp_strip_all_tags( $sans_code );
+
+	return ! preg_match( '/[A-Za-zÀ-ÿ]{3,}/u', $sans_code );
+};
+
+/**
  * Les elements techniques d'un texte : chemins, commandes, drapeaux,
  * identifiants entre accents graves.
  *
@@ -180,7 +200,7 @@ foreach ( $rooms as $room ) {
 					continue;
 				}
 
-				if ( $est_identique( $fr_txt, $en_txt ) ) {
+				if ( ! $est_technique( $fr_txt ) && $est_identique( $fr_txt, $en_txt ) ) {
 					$erreurs[] = $nomq . ' : ' . $champ . ' identique au francais';
 				}
 
@@ -209,7 +229,7 @@ foreach ( $rooms as $room ) {
 
 				if ( '' === trim( $texte_en ) ) {
 					$erreurs[] = $nomq . ' : option ' . ( $ci + 1 ) . ' vide en anglais';
-				} elseif ( $est_identique( $texte_fr, $texte_en ) ) {
+				} elseif ( ! $est_technique( $texte_fr ) && $est_identique( $texte_fr, $texte_en ) ) {
 					$erreurs[] = $nomq . ' : option ' . ( $ci + 1 ) . ' identique au francais (« ' . mb_substr( trim( $texte_fr ), 0, 40 ) . ' »)';
 				}
 			}
