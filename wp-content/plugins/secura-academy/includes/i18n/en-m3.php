@@ -163,7 +163,7 @@ return array(
 						'hint'        => 'Count where the secret can leak, then where it must be changed.',
 						'explanation' => 'Five copies mean five exposed surfaces and five rotations not to forget. In practice one is forgotten and stays valid after the change.',
 					),
-				
+
 				),
 			),
 		),

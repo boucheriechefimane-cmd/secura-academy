@@ -180,7 +180,7 @@ array(
 							'hint' => 'Compte les endroits ou le secret peut fuir, puis ceux ou il faut le changer.',
 							'explanation' => 'Cinq copies font cinq surfaces d\'exposition et cinq rotations a ne pas oublier. En pratique, une seule est oubliee et reste valide apres le changement.',
 						),
-					
+
 					),
 				),
 			),
