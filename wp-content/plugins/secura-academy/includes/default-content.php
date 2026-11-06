@@ -993,11 +993,12 @@ function seca_default_rooms() {
  * @param array $m3_room_ids  Identifiants des rooms M3 (dix scénarios), dans l'ordre.
  * @return array
  */
-function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array() ) {
+function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array(), $gouvernance_room_ids = array() ) {
 	$room_ids       = array_values( array_map( 'absint', (array) $room_ids ) );
 	$m3_room_ids    = array_values( array_map( 'absint', (array) $m3_room_ids ) );
 	$uni_room_ids   = array_values( array_map( 'absint', (array) $uni_room_ids ) );
 	$avance_room_ids = array_values( array_map( 'absint', (array) $avance_room_ids ) );
+	$gouvernance_room_ids = array_values( array_map( 'absint', (array) $gouvernance_room_ids ) );
 
 	$paths = array(
 		array(
@@ -1252,6 +1253,59 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 						array( 'title' => 'Lab 1: OWASP Juice Shop (2 rooms)' ),
 						array( 'title' => 'The dojo: five belts, twenty challenges (5 rooms)' ),
 						array( 'title' => 'The briefs and the review quiz (7 rooms)' ),
+					),
+				),
+			),
+		),
+		/* --------------------------------------------------------------
+		 * Parcours « Gouvernance et conformite » : les trois rooms du
+		 * domaine D5 de Security+ (20 % du score), ecrites pour combler
+		 * le trou mesure le 6 novembre 2026.
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Gouvernance, risque et conformite : 3 rooms D5',
+			'excerpt'    => 'Le domaine que tout le monde saute en preparation, et qui vaut 20 % du score Security+. On y audite un registre, un fournisseur et un rapport d\'audit.',
+			'content'    => 'Ces trois rooms couvrent le domaine D5 de Security+ : gouvernement et politiques, gestion des risques et registre, risque lie aux tiers, conformite et audits, et sensibilisation. Aucune ne se valide en lisant : a chaque fois, il faut lire une piece reelle (registre, questionnaire, journal) et rendre un verdict. Le terminal est simule : ces rooms fonctionnent sans machine, donc tout de suite.',
+			'difficulty' => 'moyen',
+			'duration'   => 95,
+			'xp_bonus'   => 150,
+			'certification' => array(
+				'nom'         => 'CompTIA Security+ (SY0-701) — domaine 5',
+				'cout'        => 'Examen : 439 $ (au 01/11/2026). Preparation gratuite (Professor Messer).',
+				'preparation' => 'Le domaine 5 pese 20 % du score : gouvernance, risque, tiers, conformite, sensibilisation. Ces trois rooms en couvrent les cinq sujets.',
+				'gratuit'     => false,
+			),
+			'sections'   => array(
+				array(
+					'title' => 'Risque et registre (5.1, 5.2)',
+					'rooms' => array_slice( $gouvernance_room_ids, 0, 1 ),
+				),
+				array(
+					'title' => 'Risque lie aux tiers (5.3)',
+					'rooms' => array_slice( $gouvernance_room_ids, 1, 1 ),
+				),
+				array(
+					'title' => 'Conformite et audits (5.4)',
+					'rooms' => array_slice( $gouvernance_room_ids, 2, 1 ),
+				),
+			),
+			'i18n'       => array(
+				'ar' => array(
+					'title'   => 'الحوكمة والمخاطر والامتثال: 3 غرف D5',
+					'excerpt' => 'المجال الذي يتخطاه الجميع في التحضير، ويمثل 20% من نتيجة Security+. نراجع سجلاً ومورّدًا وتقرير تدقيق.',
+					'sections' => array(
+						array( 'title' => 'المخاطر والسجل (5.1، 5.2)' ),
+						array( 'title' => 'مخاطر الأطراف الثالثة (5.3)' ),
+						array( 'title' => 'الامتثال والتدقيق (5.4)' ),
+					),
+				),
+				'en' => array(
+					'title'   => 'Governance, risk and compliance: 3 D5 rooms',
+					'excerpt' => 'The domain everyone skips while preparing, worth 20% of the Security+ score. You audit a register, a vendor and an audit report.',
+					'sections' => array(
+						array( 'title' => 'Risk and the register (5.1, 5.2)' ),
+						array( 'title' => 'Third-party risk (5.3)' ),
+						array( 'title' => 'Compliance and audits (5.4)' ),
 					),
 				),
 			),

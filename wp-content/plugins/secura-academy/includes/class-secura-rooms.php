@@ -189,6 +189,9 @@ final class Secura_Rooms {
 			'm3'     => seca_default_rooms_m3(),
 			'univ'   => seca_default_rooms_universites(),
 			'avance' => seca_default_rooms_avance(),
+			/* Domaine D5 « gouvernance » de Security+ : trois rooms qui
+			   manquaient, 60 % du domaine n'etait pas couvert. */
+			'gouvernance' => seca_default_rooms_d5(),
 		);
 
 		/* Les rooms deja installees, retrouvees par leur cle stable. */

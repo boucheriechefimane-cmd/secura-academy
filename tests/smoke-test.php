@@ -2522,7 +2522,7 @@ check( is_file( $labs_dir . '/net-01/docker-compose.yml' ), 'la pile multi-nœud
 $paths = seca_default_paths( array( 1, 2, 3, 4, 5, 6 ), array( 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ) );
 $m3_path = isset( $paths[1] ) ? $paths[1] : array();
 
-check( 4 === count( $paths ), 'quatre parcours sont crees : les fondations, les scénarios M3, Les universites et Les labs avances' );
+check( 5 === count( $paths ), 'cinq parcours sont crees : les fondations, les scénarios M3, Les universites, Les labs avances et Gouvernance D5' );
 check( isset( $m3_path['sections'] ) && 5 === count( $m3_path['sections'] ), 'le parcours M3 compte cinq modules' );
 check( 10 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $m3_path['sections'] ) ), 'le parcours M3 contient les dix scénarios' );
 check( isset( $m3_path['i18n']['ar'], $m3_path['i18n']['en'] ), 'le parcours M3 est traduit en arabe et en anglais' );
@@ -2532,7 +2532,15 @@ $paths_uni = seca_default_paths( array( 1 ), array( 2 ), array( 10, 11, 12, 13, 
 $uni_path  = isset( $paths_uni[2] ) ? $paths_uni[2] : array();
 $avance_path = isset( $paths_uni[3] ) ? $paths_uni[3] : array();
 
-check( 4 === count( $paths_uni ), 'un quatrieme parcours est cree : Les labs avances' );
+check( 5 === count( $paths_uni ), 'un cinquieme parcours est cree : Gouvernance D5' );
+
+/* Le parcours D5 : trois rooms, une par sujet (risque, tiers, audit). */
+$paths_d5 = seca_default_paths( array( 1 ), array( 2 ), array(), array(), array( 60, 61, 62 ) );
+$d5_path  = isset( $paths_d5[4] ) ? $paths_d5[4] : array();
+
+check( isset( $d5_path['sections'] ) && 3 === count( $d5_path['sections'] ), 'le parcours D5 compte trois sections' );
+check( 3 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $d5_path['sections'] ) ), 'le parcours D5 contient les trois rooms de gouvernance' );
+check( isset( $d5_path['i18n']['ar'], $d5_path['i18n']['en'] ), 'le parcours D5 est traduit en arabe et en anglais' );
 check( isset( $uni_path['sections'] ) && 6 === count( $uni_path['sections'] ), 'le parcours universitaire compte six modules' );
 check( 22 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $uni_path['sections'] ) ), 'le parcours universitaire contient les vingt-deux rooms' );
 check( isset( $uni_path['i18n']['ar'], $uni_path['i18n']['en'] ), 'le parcours universitaire est traduit en arabe et en anglais' );

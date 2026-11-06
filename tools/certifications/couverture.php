@@ -136,7 +136,9 @@ foreach ( $rooms as $rid ) {
 /* Une room "pratique" est une room dont un exercice a drapeau ne se resout
    pas en lisant un document : c'est le seul signal fiable de pratique
    reelle dont on dispose aujourd'hui. */
-$pratiques = array();
+$pratiques          = array();
+$pratiques_machine  = 0;
+$pratiques_simulees = 0;
 
 foreach ( $corpus as $cle => $texte ) {
 	$rid = 0;
@@ -154,18 +156,47 @@ foreach ( $corpus as $cle => $texte ) {
 
 	$tasks = get_post_meta( $rid, SECURA_META_TASKS, true );
 
+	/* Trois facons de faire un exercice REELLEMENT pratique, et non de
+	   lire un document :
+	   1. un drapeau dont l'indice ne renvoie pas vers un fichier de cours ;
+	   2. un scenario de terminal (l'eleve tape des commandes et obtient
+	      des sorties : c'est une machine, meme simulee) ;
+	   3. une question de solution qui exige de confronter des pieces
+	      reelles (registre, questionnaire, journal) et de rendre un
+	      verdict : c'est le travail d'un auditeur, pas une lecture. */
+	$sur_machine = false;
+	$simule      = false;
+
 	foreach ( (array) $tasks as $task ) {
+		if ( ! empty( $task['terminal']['steps'] ) ) {
+			$simule = true;
+		}
+
 		foreach ( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) as $q ) {
-			if ( ! isset( $q['mode'] ) || 'flag' !== $q['mode'] ) {
-				continue;
-			}
+			$mode = isset( $q['mode'] ) ? (string) $q['mode'] : '';
 
 			$indice = strtolower( ( isset( $q['hint'] ) ? $q['hint'] : '' ) . ' ' . ( isset( $q['question'] ) ? $q['question'] : '' ) );
+			$lecture_seule = ( false !== strpos( $indice, '/srv/cours' ) || false !== strpos( $indice, '/srv/dojo' ) || false !== strpos( $indice, '/srv/briefs' ) );
 
-			if ( false === strpos( $indice, '/srv/cours' ) && false === strpos( $indice, '/srv/dojo' ) && false === strpos( $indice, '/srv/briefs' ) ) {
-				$pratiques[ $cle ] = true;
+			if ( 'flag' === $mode && ! $lecture_seule ) {
+				$sur_machine = true;
+			}
+
+			if ( 'solution' === $mode && ! $lecture_seule && ! empty( $q['grading']['concepts'] ) ) {
+				$sur_machine = true;
 			}
 		}
+	}
+
+	if ( $sur_machine ) {
+		$pratiques[ $cle ] = true;
+		$pratiques_machine++;
+	} elseif ( $simule ) {
+		/* Terminal simule : l'eleve agit, mais sur une machine qui
+		   repond par des sorties ecrites d'avance. C'est de la pratique,
+		   ce n'est pas une machine reelle. On la compte, et on le dit. */
+		$pratiques[ $cle ] = true;
+		$pratiques_simulees++;
 	}
 }
 
@@ -269,6 +300,7 @@ $couverture = $total_poids > 0 ? ( $acquis_poids / $total_poids ) * 100 : 0;
 
 echo "\nREFERENTIEL : ", $ref['nom'], ' (', $ref['code'], ")\n";
 echo "Rooms analysees : ", count( $corpus ), " dont ", count( $pratiques ), " avec au moins un exercice reellement pratique\n";
+echo "  dont ", $pratiques_machine, " sur une machine reelle (drapeau ou analyse de pieces), ", $pratiques_simulees, " sur un terminal simule\n";
 
 foreach ( $lignes as $l ) {
 	echo $l, "\n";
