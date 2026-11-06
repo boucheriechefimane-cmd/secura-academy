@@ -158,9 +158,13 @@ jobs:
 
       - name: Mesurer la qualite des QCM
         run: |
-          set -o pipefail
+          # Aucun pipe : le code de sortie doit rester celui du script, et
+          # l'erreur doit atterrir dans le fichier qu'on publiera.
           PHP=php WP_CLI=wp SECURA_SANDBOX="$SECA_WP_DIR" \
-            python3 tools/controle/qualite-qcm.py --liste | tee /tmp/qcm.txt
+            python3 tools/controle/qualite-qcm.py --liste > /tmp/qcm.txt 2>&1
+          code=$?
+          tail -40 /tmp/qcm.txt
+          exit $code
 
       - name: Publier le verdict en annotation
         if: always()
@@ -169,3 +173,9 @@ jobs:
           faute=$(grep -a 'plus longue' /tmp/qcm.txt 2>/dev/null | head -1 || true)
           echo "::notice title=Qualite des QCM::${verdict:-mesure non jouee}"
           echo "::notice title=Defaut principal::${faute:-aucun}"
+          if [ -z "$verdict" ]; then
+            # Le script n'a pas conclu : la trace devient l'annotation.
+            while IFS= read -r ligne; do
+              echo "::error::${ligne}"
+            done < <(tail -15 /tmp/qcm.txt)
+          fi

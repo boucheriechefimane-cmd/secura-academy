@@ -45,11 +45,29 @@ EXAMEN_MIN_SEUIL = 80
 
 
 def interroge(code):
+    """Interroge WordPress.
+
+    wp eval peut prefixer sa sortie (avertissements PHP, bannieres) : on
+    cherche donc la derniere ligne qui EST du JSON, au lieu de prendre la
+    derniere ligne tout court. Un script qui plante en silence ne vaut rien
+    en CI, ou personne ne lit les journaux.
+    """
     r = subprocess.run([PHP, WP, "--allow-root", "eval", code],
                        capture_output=True, text=True, cwd=SANDBOX)
+
     if r.returncode != 0:
-        raise SystemExit(r.stderr[-500:])
-    return json.loads(r.stdout.strip().split("\n")[-1])
+        raise SystemExit("wp eval a echoue (%d) :\n%s" % (r.returncode, (r.stderr or r.stdout)[-800:]))
+
+    for ligne in reversed(r.stdout.strip().split("\n")):
+        ligne = ligne.strip()
+        if ligne.startswith("{") or ligne.startswith("["):
+            try:
+                return json.loads(ligne)
+            except ValueError:
+                continue
+
+    raise SystemExit("aucune sortie JSON de wp eval.\nstdout :\n%s\nstderr :\n%s"
+                     % (r.stdout[-600:], r.stderr[-600:]))
 
 
 def bilan():
