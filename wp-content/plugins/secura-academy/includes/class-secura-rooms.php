@@ -292,7 +292,23 @@ final class Secura_Rooms {
 			update_post_meta( $post_id, SECURA_META_DIFFICULTY, $room['difficulty'] );
 			update_post_meta( $post_id, SECURA_META_DURATION, (int) $room['duration'] );
 			update_post_meta( $post_id, SECURA_META_XP_BONUS, (int) $room['xp_bonus'] );
-			update_post_meta( $post_id, SECURA_META_I18N, isset( $room['i18n'] ) ? $room['i18n'] : array() );
+			/* Les traductions livrees avec le plugin sont fusionnees avec
+			   celles du contenu. La traduction livree fait foi pour une
+			   langue : elle est ecrite et relue comme du contenu, alors
+			   qu'une traduction saisie a la main dans l'administration peut
+			   etre partielle. Une room retouchee par un enseignant n'arrive
+			   jamais ici (l'empreinte l'a ecartee plus haut). */
+			$traductions = isset( $room['i18n'] ) && is_array( $room['i18n'] ) ? $room['i18n'] : array();
+
+			if ( function_exists( 'seca_i18n_en' ) ) {
+				$livree_en = seca_i18n_en( $cle );
+
+				if ( ! empty( $livree_en ) ) {
+					$traductions['en'] = $livree_en;
+				}
+			}
+
+			update_post_meta( $post_id, SECURA_META_I18N, $traductions );
 
 			if ( ! empty( $room['track'] ) ) {
 				update_post_meta( $post_id, SECURA_META_TRACK, $room['track'] );

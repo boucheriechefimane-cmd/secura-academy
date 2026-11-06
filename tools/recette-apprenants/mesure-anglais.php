@@ -28,6 +28,22 @@ $champs_total = 0;
 $champs_vides = array();
 $champs_copie = array();
 
+if ( isset( $args[0] ) && 'liste' === $args[0] ) {
+	foreach ( $rooms as $room ) {
+		$t  = Secura_I18n::translate_post( $room->ID, 'en' );
+		$t  = is_array( $t ) ? $t : array();
+		$ta = get_post_meta( $room->ID, defined( 'SECURA_META_TASKS' ) ? SECURA_META_TASKS : '_secura_tasks', true );
+		printf( "%6d  %-45s taches=%2d  trads_taches=%2d  titre_en=%s\n",
+			$room->ID,
+			mb_substr( $room->post_title, 0, 45 ),
+			is_array( $ta ) ? count( $ta ) : 0,
+			isset( $t['tasks'] ) && is_array( $t['tasks'] ) ? count( $t['tasks'] ) : 0,
+			( isset( $t['title'] ) && '' !== trim( (string) $t['title'] ) ) ? 'oui' : 'NON'
+		);
+	}
+	return;
+}
+
 foreach ( $rooms as $room ) {
 	$tr   = Secura_I18n::translate_post( $room->ID, 'en' );
 	$trad = is_array( $tr ) ? $tr : array();

@@ -478,6 +478,7 @@ define( 'SECURA_USER_LANG', 'secura_lang' );
 define( 'SECURA_USER_RANKS', 'secura_ranks' );
 define( 'SECURA_OPTION_FIRST_BLOOD', 'secura_first_blood' );
 
+require_once SECURA_ACADEMY_PATH . 'includes/i18n/loader.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-i18n.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-rooms.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-paths.php';
