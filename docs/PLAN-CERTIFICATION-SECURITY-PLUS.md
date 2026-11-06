@@ -286,12 +286,12 @@ chaque question a quatre propositions, un index valide et une explication.
 D1 — Concepts generaux       (12 %) : 50,0 % couvert   (1.1, 1.3, 1.4 absents ; 1.7 theorie)
 D2 — Menaces et vulnerabilites (22 %) : 93,8 % couvert   (2.3 theorie seulement)
 D3 — Architecture            (18 %) : 100,0 % couvert  (3.1, 3.4, 3.6 combles)
-D4 — Operations              (28 %) : 75,0 % couvert   (4.7, 4.8 absents)
-D5 — Gouvernance             (20 %) : 80,0 % couvert   (5.5 absent)
-COUVERTURE PONDEREE : 83,0 %
+D4 — Operations              (28 %) : 100,0 % couvert  (4.7 et 4.8 combles)
+D5 — Gouvernance             (20 %) : 100,0 % couvert  (5.5 comble)
+COUVERTURE PONDEREE : 94,0 %
 BORNE BASSE (severe) : 39,1 %
-60 rooms, dont 32 avec un exercice reellement pratique
-  dont 18 sur une machine reelle, 14 sur un terminal simule
+63 rooms, dont 35 avec un exercice reellement pratique
+  dont 18 sur une machine reelle, 17 sur un terminal simule
 ```
 
 **Sur les deux chiffres, et pourquoi ils sont si éloignés.** La mesure
@@ -300,7 +300,7 @@ terminal simulé fait agir l'élève, donc il compte. La mesure sévère ne comp
 que les preuves **vérifiables par le serveur**, c'est-à-dire un drapeau lu
 dans `/root/flags` sur un conteneur : le terminal simulé vaut 0.
 
-L'écart 83 % / 39 % n'est donc pas une incertitude, c'est une **question de
+L'écart 94 % / 39 % n'est donc pas une incertitude, c'est une **question de
 définition**, et les deux définitions sont affichées plutôt qu'une seule. Le
 premier chiffre répond à « le sujet est-il enseigné et pratiqué ? » ; le
 second à « combien de sujets sont prouvés sur une vraie machine ? ». Quand le
@@ -351,7 +351,7 @@ Le point 5 est fait, et il l'est d'une façon qu'il faut dire précisément :
 les 60 drapeaux se lisent désormais dans `/root/flags`, sur une machine, et
 non dans un document. Cela ne veut pas dire que les 60 sont *produits* par
 une manipulation : la distinction est celle des deux colonnes de couverture
-(83 % / 39 %). Ce qui est acquis :
+(94 % / 39 %). Ce qui est acquis :
 
 - le dojo : **20 défis** où la valeur est **produite** par la commande
   (vérifiés un par un dans un conteneur, par `tools/labs/epreuves-dojo.py`) ;

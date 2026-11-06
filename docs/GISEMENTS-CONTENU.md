@@ -57,9 +57,36 @@ Les 1 891 questions ne dorment pas dans un dossier : elles alimentent le
 réservoir des épreuves, donc les copies d'examen varient d'un élève à
 l'autre. C'est `class-secura-exam.php` qui les injecte.
 
+## 2 bis. Ce qui est déjà dans le site, et ce qui ne l'est pas
+
+Une source peut être **moissonnée** (un lot `tools/lots/*.json` existe et a
+produit des questions) ou seulement **citée** (elle sert d'autorité dans une
+room, sans qu'aucune question n'en soit extraite). Les deux sont utiles, mais
+ce n'est pas la même chose, et le tableau ci-dessous ne les confond pas.
+
+Mesure du 07/11/2026 sur les cinq sources prioritaires :
+
+| Source | Lot de questions | Rooms écrites à partir d'elle | Ce qu'elle fait réellement dans le site |
+|---|---|---|---|
+| `nist-publications` | **aucun** | 4 rooms (D2, D3, D4, D5) | **sourcée, non moissonnée** : SP 800-61r3, 800-53, 800-30, 800-50, 800-145, 800-161, CSF 2 cités comme autorité ; aucune question extraite |
+| `owasp-cheatsheets` | **aucun** | `rooms_owasp.py` (Top 10, validation, journaux) | **room écrite, lot absent** : 3 rooms publiées, aucune des 80 fiches n'a été transformée en questions |
+| `owasp-wstg` | **aucun** | 1 mention (D2) | **citation seule** : le guide sert de référence, ses cas de test ne sont pas devenus des exercices |
+| `openlearn-open-university` | **aucun** | aucune | **rien** : le blocage Moodle est écrit dans le catalogue (`import manuel uniquement`) |
+| `mit-ocw-6857` | **aucun** | `rooms_mit857.py` (4 rooms) | **room « réseau » publiée** (segmentation, TLS, Wi-Fi) ; les examens de 6.857 ne sont pas importés, contrairement à ceux de 6.858 |
+| `atomic-red-team` | **aucun** | aucune | **rien** : les seules occurrences du mot « atomic » dans le contenu sont le mot anglais (« atomic mass », « AtomicInteger ») |
+
+**Conclusion honnête : trois sources sur cinq sont utilisées (NIST, OWASP
+Cheat Sheets, MIT 6.857), sous forme de rooms originales sourcées. Aucune
+des cinq n'a produit de lot de questions. OpenLearn et atomic-red-team ne
+sont pas entrées dans le site.**
+
+C'est conforme à ce que la nature des documents permet : ni NIST, ni WSTG,
+ni atomic-red-team ne sont des banques de questions. Seul OpenLearn en est
+une, et c'est précisément la source bloquée.
+
 ## 3. Ce qui reste à moissonner : 13 sources
 
-Sur 62 sources réutilisables, **49 sont faites**. Voici les 13 restantes,
+Sur 63 sources réutilisables, **49 sont faites**. Voici les 13 restantes,
 et ce qu'il y a réellement à en tirer.
 
 ### 3.1 Les vraies cibles (contenu de cybersécurité)
