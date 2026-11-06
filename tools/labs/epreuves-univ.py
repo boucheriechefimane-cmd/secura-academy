@@ -84,11 +84,30 @@ def joue(conteneur, commande):
         )
 
 
+def conteneur_vivant(conteneur):
+    """Le conteneur repond-il ? Sinon, le dire clairement plutot que de
+    laisser 22 echecs identiques (Docker sort en 1, ce qui ressemble a une
+    commande fausse alors que c'est la machine qui n'est pas la)."""
+    try:
+        etat = subprocess.run(
+            ["docker", "inspect", "-f", "{{.State.Running}}", conteneur],
+            capture_output=True, text=True, timeout=20,
+        )
+    except FileNotFoundError:
+        return False
+
+    return etat.returncode == 0 and etat.stdout.strip() == "true"
+
+
 def main():
     analyseur = argparse.ArgumentParser(description=__doc__)
     analyseur.add_argument("--conteneur", default="univ", help="nom du conteneur lance")
     analyseur.add_argument("--verbeux", action="store_true", help="affiche chaque commande")
     options = analyseur.parse_args()
+
+    if not conteneur_vivant(options.conteneur):
+        print("ECHEC : le conteneur %r ne tourne pas" % options.conteneur)
+        return 1
 
     liste = regles()
     attendus = drapeaux_attendus()

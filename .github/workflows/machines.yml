@@ -173,7 +173,22 @@ jobs:
             securalabs/univ-01:1.0
 
       - name: Jouer les 22 commandes de la consigne, comme l'eleve
-        run: python3 tools/labs/epreuves-univ.py --conteneur univ --verbeux
+        run: |
+          # Les journaux de ce job ne sont pas lisibles par l'API (EOF sur
+          # le stockage des logs) : chaque echec devient donc une
+          # annotation, qui elle se lit.
+          if ! python3 tools/labs/epreuves-univ.py --conteneur univ --verbeux > /tmp/univ.log 2>&1; then
+            while IFS= read -r ligne; do
+              case "$ligne" in
+                "ECHEC "*) echo "::error::${ligne#ECHEC }" ;;
+              esac
+            done < /tmp/univ.log
+            cat /tmp/univ.log
+            echo "--- contenu de la machine ---"
+            docker exec univ ls -R /srv/cours /opt/labs 2>&1 | head -40
+            exit 1
+          fi
+          cat /tmp/univ.log
 
       - name: Nettoyer
         if: always()
