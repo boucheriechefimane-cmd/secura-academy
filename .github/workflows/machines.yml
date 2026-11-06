@@ -59,7 +59,20 @@ jobs:
             securalabs/dojo-01:1.0
 
       - name: Jouer les defis dans la machine
-        run: python3 tools/labs/epreuves-dojo.py --conteneur dojo
+        run: |
+          if ! python3 tools/labs/epreuves-dojo.py --conteneur dojo --verbeux > /tmp/epreuves.log 2>&1; then
+            # Les echecs doivent etre lisibles dans l'onglet Actions : on les
+            # remonte en annotations, une par defi en echec. Sans cela, il faut
+            # ouvrir le log complet pour savoir quel defi est casse.
+            while IFS= read -r ligne; do
+              case "$ligne" in
+                "  - "*) echo "::error::${ligne#  - }" ;;
+              esac
+            done < /tmp/epreuves.log
+            cat /tmp/epreuves.log
+            exit 1
+          fi
+          cat /tmp/epreuves.log
 
       - name: Les drapeaux ne sont pas lisibles par l'eleve
         run: |
@@ -85,22 +98,51 @@ jobs:
       - name: Construire l'image
         run: docker build -t securalabs/web-01:1.0 labs/web-01
 
-      - name: Lancer le conteneur
+      # La machine est lancee EXACTEMENT comme le plugin la lance : sans
+      # root, sans privileges, et sans port publie sur l'hote. Si elle ne
+      # repond qu'avec des droits qu'elle n'aura pas en classe, le test ne
+      # prouve rien. On joint l'application par l'adresse du conteneur.
+      - name: Lancer le conteneur comme le plugin
         run: |
-          docker run -d --name web \
+          docker network create --internal seca_essai
+          docker run -d --name web --network seca_essai \
             --cap-drop=ALL --security-opt=no-new-privileges \
-            -p 18080:8080 securalabs/web-01:1.0
+            --pids-limit 256 --memory 512m --cpus 1.0 \
+            --user 1000:1000 -w /home/ctf \
+            securalabs/web-01:1.0 sleep infinity
+          IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' web)
+          echo "SECA_WEB_IP=$IP" >> "$GITHUB_ENV"
+
+      - name: Attendre que l'application reponde
+        run: |
           for i in $(seq 1 30); do
-            if curl -fsS http://127.0.0.1:18080/ >/dev/null 2>&1; then exit 0; fi
-            sleep 1
+            if docker run --rm --network seca_essai curlimages/curl:8.7.1 \
+                 -fsS "http://${SECA_WEB_IP}:8080/" >/dev/null 2>&1; then
+              echo "l'application repond (essai $i)"
+              exit 0
+            fi
+            sleep 2
           done
-          echo "::error::l'application n'a pas repondu en 30 s"
-          docker logs web
+          echo "::error::l'application n'a pas repondu en 60 s"
+          docker logs web || true
           exit 1
 
       - name: Jouer l'attaque dans la machine
-        run: python3 tools/labs/epreuves-web.py --base http://127.0.0.1:18080
+        run: |
+          if ! python3 tools/labs/epreuves-web.py --base "http://${SECA_WEB_IP}:8080" --verbeux > /tmp/web.log 2>&1; then
+            while IFS= read -r ligne; do
+              case "$ligne" in
+                "  - "*) echo "::error::${ligne#  - }" ;;
+              esac
+            done < /tmp/web.log
+            cat /tmp/web.log
+            docker logs web || true
+            exit 1
+          fi
+          cat /tmp/web.log
 
       - name: Nettoyer
         if: always()
-        run: docker rm -f web || true
+        run: |
+          docker rm -f web || true
+          docker network rm seca_essai || true

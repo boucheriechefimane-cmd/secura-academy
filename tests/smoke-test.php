@@ -2381,6 +2381,7 @@ echo "\nScénarios M3\n";
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-m3.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-video.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-universites.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-d3.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-kahoot.php';
 
 $labs_dir = dirname( __DIR__ ) . '/labs';
@@ -2522,7 +2523,7 @@ check( is_file( $labs_dir . '/net-01/docker-compose.yml' ), 'la pile multi-nœud
 $paths = seca_default_paths( array( 1, 2, 3, 4, 5, 6 ), array( 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ) );
 $m3_path = isset( $paths[1] ) ? $paths[1] : array();
 
-check( 6 === count( $paths ), 'six parcours sont crees : les fondations, les scénarios M3, Les universites, Les labs avances, Gouvernance D5 et Menaces D2' );
+check( 7 === count( $paths ), 'sept parcours sont crees : les fondations, les scénarios M3, Les universites, Les labs avances, Gouvernance D5, Menaces D2 et Architecture D3' );
 check( isset( $m3_path['sections'] ) && 5 === count( $m3_path['sections'] ), 'le parcours M3 compte cinq modules' );
 check( 10 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $m3_path['sections'] ) ), 'le parcours M3 contient les dix scénarios' );
 check( isset( $m3_path['i18n']['ar'], $m3_path['i18n']['en'] ), 'le parcours M3 est traduit en arabe et en anglais' );
@@ -2532,7 +2533,7 @@ $paths_uni = seca_default_paths( array( 1 ), array( 2 ), array( 10, 11, 12, 13, 
 $uni_path  = isset( $paths_uni[2] ) ? $paths_uni[2] : array();
 $avance_path = isset( $paths_uni[3] ) ? $paths_uni[3] : array();
 
-check( 6 === count( $paths_uni ), 'un sixieme parcours est cree : Menaces D2' );
+check( 7 === count( $paths_uni ), 'un septieme parcours est cree : Architecture D3' );
 
 /* Le parcours D5 : trois rooms, une par sujet (risque, tiers, audit). */
 $paths_d5 = seca_default_paths( array( 1 ), array( 2 ), array(), array(), array( 60, 61, 62 ) );
@@ -2549,6 +2550,59 @@ $d2_path  = isset( $paths_d2[5] ) ? $paths_d2[5] : array();
 check( isset( $d2_path['sections'] ) && 2 === count( $d2_path['sections'] ), 'le parcours D2 compte deux sections' );
 check( 2 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $d2_path['sections'] ) ), 'le parcours D2 contient les deux rooms de menaces' );
 check( isset( $d2_path['i18n']['ar'], $d2_path['i18n']['en'] ), 'le parcours D2 est traduit en arabe et en anglais' );
+
+/* Le parcours D3 : trois rooms, une par sujet (responsabilite, donnees, IoT). */
+$paths_d3 = seca_default_paths( array( 1 ), array( 2 ), array(), array(), array(), array(), array( 80, 81, 82 ) );
+$d3_path  = isset( $paths_d3[6] ) ? $paths_d3[6] : array();
+
+check( isset( $d3_path['sections'] ) && 3 === count( $d3_path['sections'] ), 'le parcours D3 compte trois sections' );
+check( 3 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $d3_path['sections'] ) ), 'le parcours D3 contient les trois rooms d architecture' );
+check( isset( $d3_path['i18n']['ar'], $d3_path['i18n']['en'] ), 'le parcours D3 est traduit en arabe et en anglais' );
+
+/* Les trois sujets du domaine 3 que la mesure du 6 novembre donnait absents :
+   chaque room doit porter un terminal (la pratique) et un examen de quatre
+   questions. L'etiquette de sujet est volontairement omise dans ces rooms :
+   couverture.php marque un sujet « partiel » des qu'une question etiquetee
+   existe dans une room, et « complet » seulement si la room est pratique.
+   Porte par une room pratique, un sujet etiquete resterait « partiel ». */
+check( 3 === count( seca_default_rooms_d3() ), 'le domaine D3 fournit trois rooms' );
+
+$avec_pratique = 0;
+$avec_examen   = 0;
+$sans_etiquette = 0;
+
+foreach ( seca_default_rooms_d3() as $room ) {
+	$term   = false;
+	$examen = 0;
+
+	foreach ( (array) $room['tasks'] as $task ) {
+		if ( ! empty( $task['terminal']['steps'] ) ) {
+			$term = true;
+		}
+
+		if ( isset( $task['type'] ) && 'exam' === $task['type'] ) {
+			$examen = count( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) );
+		}
+
+		foreach ( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) as $q ) {
+			if ( isset( $q['topic'] ) ) {
+				$sans_etiquette++;
+			}
+		}
+	}
+
+	if ( $term ) {
+		$avec_pratique++;
+	}
+
+	if ( 4 === $examen ) {
+		$avec_examen++;
+	}
+}
+
+check( 3 === $avec_pratique, 'les trois rooms D3 portent un terminal (exercice reel)' );
+check( 3 === $avec_examen, 'les trois rooms D3 portent un examen de quatre questions' );
+check( 0 === $sans_etiquette, 'aucune question D3 ne porte d etiquette de sujet (sinon la couverture reste partielle)' );
 check( isset( $uni_path['sections'] ) && 6 === count( $uni_path['sections'] ), 'le parcours universitaire compte six modules' );
 check( 22 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $uni_path['sections'] ) ), 'le parcours universitaire contient les vingt-deux rooms' );
 check( isset( $uni_path['i18n']['ar'], $uni_path['i18n']['en'] ), 'le parcours universitaire est traduit en arabe et en anglais' );

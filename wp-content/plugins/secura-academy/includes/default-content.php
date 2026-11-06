@@ -993,13 +993,14 @@ function seca_default_rooms() {
  * @param array $m3_room_ids  Identifiants des rooms M3 (dix scénarios), dans l'ordre.
  * @return array
  */
-function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array(), $gouvernance_room_ids = array(), $menaces_room_ids = array() ) {
+function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array(), $gouvernance_room_ids = array(), $menaces_room_ids = array(), $architecture_room_ids = array() ) {
 	$room_ids       = array_values( array_map( 'absint', (array) $room_ids ) );
 	$m3_room_ids    = array_values( array_map( 'absint', (array) $m3_room_ids ) );
 	$uni_room_ids   = array_values( array_map( 'absint', (array) $uni_room_ids ) );
 	$avance_room_ids = array_values( array_map( 'absint', (array) $avance_room_ids ) );
 	$gouvernance_room_ids = array_values( array_map( 'absint', (array) $gouvernance_room_ids ) );
 	$menaces_room_ids = array_values( array_map( 'absint', (array) $menaces_room_ids ) );
+	$architecture_room_ids = array_values( array_map( 'absint', (array) $architecture_room_ids ) );
 
 	$paths = array(
 		array(
@@ -1354,6 +1355,59 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 					'sections' => array(
 						array( 'title' => 'Network attacks and interception (2.6)' ),
 						array( 'title' => 'Indicators of compromise (2.8)' ),
+					),
+				),
+			),
+		),
+		/* --------------------------------------------------------------
+		 * Parcours « Architecture de securite » : les trois rooms du
+		 * domaine D3 de Security+ (18 % du score), ecrites pour combler
+		 * les sujets 3.1, 3.4 et 3.6, mesures absents le 6 novembre 2026.
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Architecture de securite : 3 rooms D3',
+			'excerpt'    => 'Le domaine ou l\'on decouvre que le cloud ne protege pas tout, et que personne ne sait qui devait verrouiller le seau de stockage.',
+			'content'    => 'Ces trois rooms couvrent les sujets 3.1 (modeles d\'architecture et responsabilite partagee), 3.4 (classification, DLP, chiffrement au repos) et 3.6 (IoT, embarque, industriel) du domaine D3. Chacune se termine par une mission ou l\'on produit un verdict : designer une responsabilite, etablir qu\'un fichier est lisible malgre son chiffrement, retrouver l\'objet qui exfiltre. Le terminal est simule : ces rooms fonctionnent sans machine, donc tout de suite.',
+			'difficulty' => 'moyen',
+			'duration'   => 115,
+			'xp_bonus'   => 190,
+			'certification' => array(
+				'nom'         => 'CompTIA Security+ (SY0-701) — domaine 3',
+				'cout'        => 'Examen : 439 $ (au 01/11/2026). Preparation gratuite (Professor Messer).',
+				'preparation' => 'Le domaine 3 pese 18 % du score : architecture, segmentation, moindre privilege, protection des donnees, resilience, IoT. Ces trois rooms couvrent les sujets 3.1, 3.4 et 3.6.',
+				'gratuit'     => false,
+			),
+			'sections'   => array(
+				array(
+					'title' => 'Modeles d\'architecture et responsabilite partagee (3.1)',
+					'rooms' => array_slice( $architecture_room_ids, 0, 1 ),
+				),
+				array(
+					'title' => 'Classification, DLP, chiffrement au repos (3.4)',
+					'rooms' => array_slice( $architecture_room_ids, 1, 1 ),
+				),
+				array(
+					'title' => 'IoT, embarque, systeme industriel (3.6)',
+					'rooms' => array_slice( $architecture_room_ids, 2, 1 ),
+				),
+			),
+			'i18n'       => array(
+				'ar' => array(
+					'title'   => 'هندسة الأمن: 3 غرف D3',
+					'excerpt' => 'المجال الذي نكتشف فيه أن السحابة لا تحمي كل شيء، وأن أحدًا لا يعرف من كان عليه إغلاق دلو التخزين.',
+					'sections' => array(
+						array( 'title' => 'نماذج الهندسة والمسؤولية المشتركة (3.1)' ),
+						array( 'title' => 'التصنيف ومنع تسرب البيانات والتشفير عند الراحة (3.4)' ),
+						array( 'title' => 'إنترنت الأشياء والأنظمة الصناعية (3.6)' ),
+					),
+				),
+				'en' => array(
+					'title'   => 'Security architecture: 3 D3 rooms',
+					'excerpt' => 'The domain where you discover that the cloud does not protect everything, and that nobody knows who was supposed to lock the storage bucket.',
+					'sections' => array(
+						array( 'title' => 'Architecture models and shared responsibility (3.1)' ),
+						array( 'title' => 'Classification, DLP, encryption at rest (3.4)' ),
+						array( 'title' => 'IoT, embedded, industrial systems (3.6)' ),
 					),
 				),
 			),

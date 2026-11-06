@@ -195,6 +195,9 @@ final class Secura_Rooms {
 			/* Domaine D2 « menaces et vulnerabilites » : attaques reseau
 			   (2.6) et indicateurs de compromission (2.8). */
 			'menaces'     => seca_default_rooms_d2(),
+			/* Domaine D3 « architecture » : responsabilite partagee (3.1),
+			   protection des donnees (3.4), IoT et industriel (3.6). */
+			'architecture' => seca_default_rooms_d3(),
 		);
 
 		/* Les rooms deja installees, retrouvees par leur cle stable. */
