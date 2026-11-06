@@ -4,9 +4,11 @@
 **Catalogue machine : `tools/sources-autorisees.json` (67 entrées, `_version` `2026-11-06-dix-huit`).**
 **Page publique générée à partir de ce catalogue : `/sources-et-licences` (shortcode `[secura_sources]`).**
 
-Ce document existe pour répondre à une objection précise et légitime :
+Ce document existe pour répondre à deux objections précises et légitimes :
 
 > « Le renvoi vers Cisco NetAcad, d'accord. Mais prouve qu'il n'existe rien de mieux qui puisse être hébergé directement sur le site. »
+>
+> « Est-ce qu'il y a une possibilité d'importer du contenu des labs, des tests, des exercices pratiques, bref n'importe quoi de ces sources ? » (TryHackMe, Professor Messer, CyberDefenders, Hack The Box, Blue Team Labs)
 
 Une réponse honnête ne peut pas être « on n'a pas trouvé ». Elle doit être une liste : pour chaque source, la licence constatée, si elle autorise la reproduction, et quand elle ne l'autorise pas, **à quelle source hébergeable nous nous sommes rabattus**. C'est cette liste, et elle est exhaustive pour les cinq sources non réutilisables du catalogue.
 
@@ -24,7 +26,7 @@ Le point qui compte : **une source non réutilisable n'enlève rien au site**. E
 
 ---
 
-## 2. Les cinq sources non réutilisables, une par une
+## 2. Les neuf sources non réutilisables, une par une
 
 ### 2.1 Cisco Networking Academy — le cas de l'objection (`cisco-netacad`)
 
@@ -69,6 +71,35 @@ Le point qui compte : **une source non réutilisable n'enlève rien au site**. E
 
 ---
 
+---
+
+## 2 bis. Les plateformes grand public (ajout du 6 novembre 2026)
+
+Vérifiées à la source, texte en main. **Aucune des quatre n'autorise l'import.** Ce ne sont pas des refus par prudence : ce sont des clauses écrites.
+
+| Source | Clause constatée | Décision |
+|---|---|---|
+| **TryHackMe** (`tryhackme`) | Conditions du 01/10/2025, §3.1 : « no part of the Website and no Content … may be copied, reproduced, aggregated, republished … without our express prior written permission ». §3.2 interdit en plus l'extraction automatisée (scraping). | **Renvoi seul.** Pas une ligne, pas une question, pas un drapeau. |
+| **Professor Messer** (`professor-messer`) | Notes de cours : « Copyright © Messer Studios, LLC … All rights reserved. No part of this book may be reproduced or transmitted in any form or by any means … without written permission from the publisher. » | **Renvoi seul** vers la vidéo gratuite. Gratuit à *regarder*, pas à *republier* — la confusion est fréquente, elle est ici tranchée. |
+| **CyberDefenders** (`cyberdefenders`) | « The content, features, and functionality of the Platform are and will remain the exclusive property of CyberDefenders.org … Unauthorized reproduction or distribution is prohibited without prior consent. » | **Renvoi seul.** Les scénarios sont excellents ; ils ne sont pas à nous. |
+| **Hack The Box** (`hackthebox`) | Licence non relevée : aucun texte de licence trouvé lors de cette vérification. | **Renvoi seul par prudence**, et la ligne restera en `reutilisable: false` tant qu'une vérification écrite n'est pas faite. |
+
+### Ce que nous faisons à la place, pour chaque besoin
+
+| Besoin | Ce qui est **hébergé ici**, avec licence vérifiée |
+|---|---|
+| Salles Linux, réseau, web, cryptographie (type Pre Security) | Rooms de fondations + `labs/univ-01` (22 drapeaux), `web-01` (injection SQL), `bin-01`, `multi-01` |
+| Entraînement SOC, forensique, analyse de journaux (type CyberDefenders) | Rooms D2 « menaces et traces » : capture ARP à analyser, chronologie d'incident à trier. Exercice identique dans sa forme, contenu original |
+| Bases réseau et sécurité (type NetAcad / HTB Starting Point) | Parcours Fondations + banque SY0-701 (94 questions étiquetées) |
+| Examens blancs Security+ (type Messer / CertMaster) | Examen blanc à barème officiel : 90 questions, 74/90 → 758 (réussi), 73/90 → 749 (échoue) |
+| Labs applicatifs (type TryHackMe web) | WebGoat (Apache-2.0) et Juice Shop (MIT), réellement hébergés et lancés |
+
+**Ce que nous ne pouvons pas remplacer** : la progression guidée d'une plateforme, son AttackBox dans le navigateur, ses badges. Ce sont des services, pas du contenu. Un lien est la seule chose honnête, et c'est ce que fait la page `/sources-et-licences`.
+
+### La règle qui sort de ces vérifications
+
+Trois plateformes sur quatre interdisent explicitement la copie, et la quatrième n'a pas de licence publiée. **« Gratuit à utiliser » n'a jamais voulu dire « libre à réutiliser ».** C'est exactement la distinction que le catalogue encode : `reutilisable` parle de droit de copie, pas de prix.
+
 ## 3. Ce que nous hébergeons réellement (les 9 sources republiables)
 
 | Source | Licence | Ce qui est hébergé |
@@ -101,4 +132,4 @@ Les deux licences GPL-3.0 rencontrées (DVWA, OWASP Security Shepherd) ne sont *
 3. **Cisco NetAcad** : rien à faire. La licence ne changera pas ; le renvoi est la seule option, et le contenu équivalent est hébergé ici.
 4. **PortSwigger** : reste un renvoi. Les équivalents hébergeables (WebGoat, Juice Shop, web-01) sont déjà en place.
 
-**Verdict de cet audit** : sur les 5 sources non réutilisables, 4 ont un équivalent hébergé et exécutable ici, et la cinquième (CYBER.ORG) est en attente de vérification de licence. Aucun contenu propriétaire n'est recopié dans le dépôt. La page `/sources-et-licences` publie cette liste et se régénère à chaque modification du catalogue.
+**Verdict de cet audit** : sur les 9 sources non réutilisables, 5 ont un équivalent hébergé et exécutable ici, 2 sont en attente de vérification de licence (CYBER.ORG, Hack The Box), et 2 ne peuvent pas être remplacées parce que leur valeur est le service lui-même (TryHackMe AttackBox, badges). Aucun contenu propriétaire n'est recopié dans le dépôt. La page `/sources-et-licences` publie cette liste et se régénère à chaque modification du catalogue.

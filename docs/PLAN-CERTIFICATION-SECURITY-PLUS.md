@@ -256,7 +256,7 @@ intentions. Chiffres mesurés le 6 novembre 2026.
 | **Étiqueter les questions par sujet** | **fait** | `content-sy0-701-banque.php` : **94 questions**, étiquetées de 1.1 à 5.5 |
 | **Tirage pondéré par domaine** | **fait** | `Secura_Blanc` : 90 questions réparties 11/20/16/25/18, total toujours respecté. `tests/blanc-test.php` (31 essais) |
 | **Barème du référentiel** | **fait** | échelle 100–900, seuil 750. Mesuré : 73/90 → **749, échoue** ; 74/90 → **758, réussit** |
-| **Contrôle anti-drapeau-lisible** | **fait** | `tools/controle/drapeaux-lisibles.php` : **60 manipulations réelles sur 60 (100 %)**, 0 dette. La règle juge le `flag_path`, plus le texte de l'indice |
+| **Contrôle anti-drapeau-lisible** | **fait, chiffre corrigé** | `tools/controle/drapeaux-lisibles.php` : **45 sur 60 sans copie possible (75 %)**, 15 en dette datée. Le contrôle ouvre désormais les documents et cherche la valeur dedans (voir l'encadré ci-dessous) |
 | **Le terminal ne ment plus** | **fait** | `tests/terminal-test.php` (14 essais) : ordre libre reconnu, `ls` n'est plus « introuvable » |
 | **Le domaine D5 (20 % du score)** | **fait** | 3 rooms écrites : registre, fournisseur, audit. **30 % → 80 %** |
 | **Le domaine D2 (22 % du score)** | **fait** | 2 rooms : capture ARP, chronologie d'incident. **62,5 % → 93,8 %** |
@@ -321,7 +321,7 @@ comptait donc ces rooms comme lecture. Elle se juge maintenant sur le
 | D1 Concepts (12 %) | 50 % | 3 rooms : contrôles (1.1), zero trust (1.3), gestion du changement (1.4) |
 | D4 Opérations (28 %) | 75 % | 2 rooms : forensique (4.7), automatisation et SOAR (4.8) |
 | D5 Sensibilisation (5.5) | absent | 1 room, la dernière du domaine le plus faible |
-| ~~Les 42 drapeaux de lecture~~ | ~~18 vrais sur 60~~ **60 sur 60** | **fait** : le dojo (20) et univ-01 (22) exigent désormais une manipulation |
+| ~~Les 42 drapeaux de lecture~~ | ~~18 vrais sur 60~~ **45 sur 60** | le dojo (20) est fait ; **15 drapeaux de univ-01 restent des lectures** (l'atelier de 22 livrables), en dette au 20/11/2026 |
 | La banque à 600 questions | 94 écrites | 506 à écrire |
 | Le seuil à 80 % sur les examens de room | encore 60 % | une ligne par examen |
 
@@ -338,7 +338,8 @@ qui est le plus gros. Voici ce qui reste, chiffré.
 | 1 | **D1 Concepts** : 3 rooms (contrôles, zero trust, gestion du changement) | 1 j | D1 50 % → ~93 %, soit **+5 points** |
 | 3 | **D4 Opérations** : 2 rooms (forensique, SOAR) | 0,5 j | D4 75 % → 100 %, soit **+7 points** |
 | 4 | **D5 sensibilisation** : 1 room | 0,5 j | D5 80 % → 100 %, soit **+4 points** |
-| ~~5~~ | ~~**Les 5 machines** qui remplacent les 42 drapeaux de lecture~~ | ~~4-5 j~~ **fait** | 60 drapeaux de manipulation sur 60 ; 49 rooms sur 60 branchées sur une image, testées par le workflow Machines |
+| ~~5~~ | ~~**Les 5 machines** qui remplacent les 42 drapeaux de lecture~~ | ~~4-5 j~~ **fait aux trois quarts** | 45 drapeaux sur 60 sans copie possible ; reste les 15 livrables de univ-01 à transformer en manipulations |
+| 5 bis | **univ-01 : produire les 15 valeurs au lieu de les écrire** | 1 j | 45 → 60 drapeaux sans copie possible, et la borne basse de couverture remonte |
 | 6 | **La banque à 600 questions** | 3 j | blancs de 90 questions renouvelables sans doublon |
 | 7 | **Le seuil à 80 %** sur les 57 examens de room | 2 h | les examens cessent d'être faciles |
 
@@ -352,11 +353,31 @@ non dans un document. Cela ne veut pas dire que les 60 sont *produits* par
 une manipulation : la distinction est celle des deux colonnes de couverture
 (83 % / 39 %). Ce qui est acquis :
 
-- le dojo : 20 défis où la valeur est **produite** par la commande (défis
-  vérifiés un par un dans un conteneur, par `tools/labs/epreuves-dojo.py`) ;
-- univ-01 et web-01 : la manipulation existe, mais le livrable est encore un
-  document à lire — c'est le prochain cran ;
+- le dojo : **20 défis** où la valeur est **produite** par la commande
+  (vérifiés un par un dans un conteneur, par `tools/labs/epreuves-dojo.py`) ;
+- web-01, bin-01, multi-01 : le drapeau est sur la machine, hors de portée
+  d'un `cat` de document ;
+- **univ-01 : 15 drapeaux sur 22 restent des lectures.** Le document de cours
+  contient la valeur en clair (`risque_critique = SECURA{...}`) : l'élève lit,
+  recopie, valide. C'est le prochain cran, en dette datée au 20/11/2026 ;
 - 49 rooms sur 60 sont branchées sur une image ; 11 n'en ont pas encore.
+
+### L'erreur de mesure que cette phase a corrigée
+
+Le contrôle affichait « 60 manipulations sur 60 ». C'était faux, et l'erreur
+était de ma part : il jugeait sur le **chemin** du drapeau (`/root/flags` ou
+non). Or dans univ-01 le drapeau est bien dans `/root/flags`, mais le document
+de cours contient la **même valeur** en clair. Le chemin était bon, le défaut
+restait.
+
+La version actuelle ouvre les 48 documents que les machines installent sous
+`/srv/cours` et `/srv/briefs` et cherche la valeur **dedans**. C'est la seule
+preuve qui ne se contourne pas. Chiffre honnête : **45 sur 60 (75 %)**, dont
+27 produits par une commande.
+
+Leçon générale, qui vaut pour toute la mesure du site : un contrôle qui
+regarde une propriété **déclarée** (un chemin, une étiquette) mesure la
+déclaration, pas le réel. Il faut regarder le contenu.
 
 Le workflow `machines.yml` rejoue tout cela à chaque modification de `labs/`,
 et une fois par jour : une image amont cassée se voit le lendemain, pas en

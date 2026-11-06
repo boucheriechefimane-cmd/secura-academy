@@ -1,6 +1,6 @@
 {
-  "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md. Onze sources ajoutees le 6 novembre 2026 apres verification de la licence (API GitHub pour les depots, page du projet pour les autres). Les sources propri etaires sont listees pour le RENVOI uniquement : elles ne peuvent pas alimenter un import.",
-  "_version": "2026-11-06-dix-huit",
+  "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md. Quinze sources ajoutees le 6 novembre 2026 apres verification de la licence (API GitHub pour les depots, page du projet pour les autres). Les sources propri etaires sont listees pour le RENVOI uniquement : elles ne peuvent pas alimenter un import.",
+  "_version": "2026-11-06-dix-neuf",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -768,6 +768,50 @@
       "reutilisable": false,
       "commercial": false,
       "commercial_note": "proprietaire : citation et lien autorises, copie du contenu non"
+    },
+    {
+      "id": "tryhackme",
+      "nom": "TryHackMe — salles gratuites (Pre Security, Cyber Security 101, SOC)",
+      "url": "https://tryhackme.com/free-rooms",
+      "licence": "Proprietaire — conditions d'utilisation du 01/10/2025, §3.1 et §3.2 : « no part of the Website and no Content ... may be copied, reproduced, aggregated, republished ... without our express prior written permission ». Le §3.2 interdit aussi toute extraction automatisee (scraping, web harvesting).",
+      "attribution": "TryHackMe Ltd, tryhackme.com",
+      "usage": "aucune reutilisation : renvoi seul (compte gratuit a creer chez eux)",
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "contenu proprietaire : ni copie, ni import, ni traduction. Lien et mention uniquement."
+    },
+    {
+      "id": "professor-messer",
+      "nom": "Professor Messer — cours Security+ SY0-701 (videos et notes)",
+      "url": "https://www.professormesser.com/sy0-701-certification-course/",
+      "licence": "Proprietaire — les notes de cours portent : « Copyright (c) Messer Studios, LLC ... All rights reserved. No part of this book may be reproduced or transmitted in any form or by any means ... without written permission from the publisher. » Les videos sont gratuites a REGARDER sur son site et sa chaine, pas a republier.",
+      "attribution": "James « Professor » Messer, Messer Studios LLC",
+      "usage": "aucune reutilisation : renvoi seul (video gratuite a regarder chez lui)",
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "contenu proprietaire. Le visionnage est gratuit ; la copie et l'hebergement ne le sont pas."
+    },
+    {
+      "id": "cyberdefenders",
+      "nom": "CyberDefenders — defis d'investigation SOC (forensique, phishing)",
+      "url": "https://cyberdefenders.org/blueteam-ctf-challenges/",
+      "licence": "Proprietaire — conditions d'utilisation : « The content, features, and functionality of the Platform are and will remain the exclusive property of CyberDefenders.org and its licensors. Unauthorized reproduction or distribution is prohibited without prior consent. »",
+      "attribution": "CyberDefenders.org",
+      "usage": "aucune reutilisation : renvoi seul",
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "contenu proprietaire : ni copie, ni import. Lien et mention uniquement."
+    },
+    {
+      "id": "hackthebox",
+      "nom": "Hack The Box — Starting Point, machines actives gratuites",
+      "url": "https://www.hackthebox.com/hacker/hacking-labs",
+      "licence": "Non verifiee a ce jour — contenu de plateforme, tres probablement proprietaire, mais aucun texte de licence n'a ete releve lors de cette verification. Dans le doute : non reutilisable.",
+      "attribution": "Hack The Box",
+      "usage": "aucune reutilisation : renvoi seul, en attendant verification ecrite",
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "licence non etablie : par prudence, aucun import."
     }
   ],
   "regles": [

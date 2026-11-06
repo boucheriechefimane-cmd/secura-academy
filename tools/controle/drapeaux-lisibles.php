@@ -2,31 +2,41 @@
 /**
  * Controle : un drapeau ne doit pas se lire dans un document.
  *
- * LE PROBLEME, MESURE
- * -------------------
- * Sur 60 drapeaux du catalogue, 42 se resolvent en ouvrant un fichier de
- * cours et en recopiant une valeur qu'il contient. Ce n'est pas un
- * exercice : c'est une lecture. L'eleve ne manipule rien, et le site
- * recompense exactement ce qu'il pretend faire apprendre.
+ * LE PROBLEME, MESURE LE 6 NOVEMBRE 2026
+ * --------------------------------------
+ * Sur 60 drapeaux du catalogue, 42 se resolvaient en ouvrant un fichier de
+ * cours et en recopiant une valeur qu'il contenait. Ce n'est pas un
+ * exercice : c'est une lecture. L'eleve ne manipule rien.
  *
- * CE QUE FAIT CE CONTROLE
- * -----------------------
- * Il refuse tout drapeau dont l'enonce ou l'indice renvoie vers
- * /srv/cours, /srv/dojo ou /srv/briefs. Trois etats possibles :
+ * CE QUE CE CONTROLE FAIT, ET POURQUOI IL A ETE REECRIT DEUX FOIS
+ * --------------------------------------------------------------
+ * Version 1 : il regardait si l'ENONCE citait /srv/cours. Insuffisant — un
+ * enonce peut citer le dossier pour dire « ne cherche pas la ».
  *
- *   1. drapeau propre (manipulation reelle) : rien a signaler ;
- *   2. drapeau fautif mais inscrit au registre de dette, avec une date
- *      limite : tolere jusqu'a cette date ;
- *   3. drapeau fautif nouveau, ou dette echue : ECHEC.
+ * Version 2 : il regardait le CHEMIN du drapeau (/root/flags ou non). Cette
+ * version a produit un chiffre FAUX : « 60 manipulations sur 60 ». Or dans
+ * univ-01, le drapeau est bien dans /root/flags, mais le document de cours
+ * contient la MEME valeur en clair (`risque_critique = SECURA{...}`). L'eleve
+ * lit le document avec `cat`, recopie, et valide sans rien manipuler.
  *
- * Le registre (tools/controle/drapeaux-a-remplacer.json) n'est donc pas
- * une liste blanche permanente : c'est un echeancier. Un ajout non
- * declare casse la CI le jour meme ; une dette non payee la casse a la
- * date annoncee.
+ * Version 3, celle-ci : elle ouvre les DOCUMENTS que la machine installe
+ * sous /srv/cours et /srv/briefs et cherche la VALEUR du drapeau dedans.
+ * C'est la seule preuve qui ne peut pas etre contournee : si la valeur est
+ * dans un document lisible, le defi est une lecture, quel que soit le chemin.
+ *
+ * ETATS
+ * -----
+ *   1. propre     : la valeur du drapeau n'est dans aucun document lisible ;
+ *   2. manipulee  : la valeur n'y est pas, mais le defi se resout par une
+ *                   commande sur la machine (cas du dojo : le drapeau est
+ *                   PRODUIT par la commande, il n'est ecrit nulle part) ;
+ *   3. fautive    : la valeur est dans un document. Tolerance seulement si
+ *                   la dette est declaree et non echue.
  *
  * Usage :
  *   php tools/controle/drapeaux-lisibles.php
  *   php tools/controle/drapeaux-lisibles.php date=2026-12-01
+ *   php tools/controle/drapeaux-lisibles.php --liste
  *
  * @package Secura_Academy
  */
@@ -43,6 +53,7 @@ foreach ( array( 'default-content.php', 'content-m3.php', 'content-universites.p
 }
 
 $aujourdhui = gmdate( 'Y-m-d' );
+$liste_seule = false;
 
 /* $args existe sous WP-CLI, pas en ligne de commande directe : on lit
    les deux, sans avertissement inutile. */
@@ -51,6 +62,10 @@ $arguments = isset( $args ) && is_array( $args ) ? $args : array_slice( $GLOBALS
 foreach ( (array) $arguments as $a ) {
 	if ( 0 === strpos( (string) $a, 'date=' ) ) {
 		$aujourdhui = substr( (string) $a, 5 );
+	}
+
+	if ( '--liste' === $a ) {
+		$liste_seule = true;
 	}
 }
 
@@ -71,13 +86,97 @@ if ( file_exists( $registre_fichier ) ) {
 	$registre = (array) json_decode( (string) file_get_contents( $registre_fichier ), true );
 }
 
-$marqueurs = array( '/srv/cours', '/srv/briefs' );
+/* ---------------------------------------------------------------------
+ * Les documents lisibles de chaque machine.
+ *
+ * On les lit la ou la machine les installe : les generateurs de lab
+ * ecrivent dans labs/<machine>/cours et labs/<machine>/notes. Un document
+ * qui n'est pas dans l'image ne compte pas : c'est bien ce que l'eleve lit.
+ * ------------------------------------------------------------------ */
+$documents = array();
 
-$propres  = 0;
-$toleres  = 0;
-$nouveaux = array();
-$echus    = array();
-$vus      = array();
+foreach ( (array) glob( $racine . '/labs/*/cours', GLOB_ONLYDIR ) as $dossier ) {
+	$machine = basename( dirname( $dossier ) );
+
+	foreach ( (array) glob( $dossier . '/**/*', GLOB_NOSORT ) as $fichier ) {
+		if ( is_file( $fichier ) ) {
+			$documents[] = array( 'machine' => $machine, 'fichier' => $fichier );
+		}
+	}
+}
+
+foreach ( (array) glob( $racine . '/labs/*/notes/*.txt' ) as $fichier ) {
+	$documents[] = array( 'machine' => basename( dirname( dirname( $fichier ) ) ), 'fichier' => $fichier );
+}
+
+$contenus = array();
+
+foreach ( $documents as $doc ) {
+	$contenus[] = array(
+		'machine' => $doc['machine'],
+		'nom'     => str_replace( $racine . '/', '', $doc['fichier'] ),
+		'texte'   => (string) file_get_contents( $doc['fichier'] ),
+	);
+}
+
+/**
+ * La valeur interieure d'un drapeau, lue dans le fichier de la machine.
+ *
+ * On ne fait pas confiance au catalogue : on lit le fichier reel
+ * /root/flags/flag-XX.txt. Un drapeau dont le fichier manque est signale.
+ */
+$valeur_du_drapeau = function ( $chemin_flag ) use ( $racine ) {
+	$nom = basename( (string) $chemin_flag );
+
+	/* Deux formes de nom coexistent : flag-u01.txt (dojo, univ-01, web-01)
+	   et flag.txt, le drapeau unique de bin-01. Les refuser, c'est se
+	   priver de trois drapeaux et croire qu'ils sont introuvables. */
+	if ( ! preg_match( '/^flag(?:-[a-z0-9-]+)?\.txt$/', $nom ) ) {
+		return null;
+	}
+
+	/* Deux emplacements selon les machines : labs/<machine>/flag/ pour la
+	   plupart, et labs/juice-shop/flags/ pour le service qui les garde.
+	   Un drapeau « introuvable » n'est pas une fuite : c'est un controle
+	   qui ne sait pas ou regarder, et il faut le lui dire. */
+	/* Deux emplacements de dossier selon les machines : labs/<machine>/flag/
+	   (dojo, univ-01, web-01, bin-01) et labs/<machine>/flags/ (le service
+	   qui garde les drapeaux de Juice Shop). */
+	$candidats = array_merge(
+		(array) glob( $racine . '/labs/*/flag/' . $nom ),
+		(array) glob( $racine . '/labs/*/flags/' . $nom )
+	);
+
+	$candidats = array_values( array_unique( $candidats ) );
+
+	foreach ( $candidats as $fichier ) {
+		$contenu = trim( (string) file_get_contents( $fichier ) );
+
+		if ( preg_match( '/SECURA\{([^}]*)\}/', $contenu, $v ) ) {
+			$valeur = $v[1];
+		} else {
+			/* Certaines machines gardent une empreinte nue, sans enveloppe
+			   SECURA{...} : c'est le cas du service « flags » de Juice
+			   Shop. La valeur est alors le contenu entier. */
+			$valeur = trim( $contenu );
+		}
+
+		if ( '' !== $valeur ) {
+			return array( 'valeur' => $valeur, 'fichier' => $fichier, 'machine' => basename( dirname( dirname( $fichier ) ) ) );
+		}
+	}
+
+	return null;
+};
+
+$propres   = 0;
+$produits  = 0;
+$toleres   = 0;
+$nouveaux  = array();
+$echus     = array();
+$vus       = array();
+$fuites    = array();
+$orphelins = array();
 
 foreach ( $rooms as $room ) {
 	$titre = isset( $room['title'] ) ? (string) $room['title'] : '?';
@@ -88,33 +187,48 @@ foreach ( $rooms as $room ) {
 				continue;
 			}
 
-			/* La regle a change le 6 novembre 2026, et elle etait fausse
-			   avant. On jugeait sur le TEXTE de l'indice : une room qui dit
-			   « ouvre /srv/cours » etait une lecture, ce qui est vrai. Mais
-			   le dojo, reecrit, dit desormais dans son indice que le drapeau
-			   n'est PAS dans le document : l'ancienne regle comptait donc
-			   les vingt defis du dojo comme des lectures alors qu'ils
-			   exigent une manipulation.
-			   La seule preuve exploitable est le CHEMIN du drapeau : un
-			   drapeau lu dans /srv/cours ou /srv/briefs est dans un
-			   document ; un drapeau lu dans /root/flags est sur la machine. */
-			$chemin = isset( $question['flag_path'] ) ? (string) $question['flag_path'] : '';
+			$cle     = $titre . '#' . $ti . '.' . $qi;
+			$drapeau = $valeur_du_drapeau( isset( $question['flag_path'] ) ? $question['flag_path'] : '' );
 
-			$fautif = false;
-
-			foreach ( $marqueurs as $m ) {
-				if ( 0 === strpos( $chemin, $m ) ) {
-					$fautif = true;
-				}
-			}
-
-			if ( ! $fautif ) {
-				$propres++;
+			if ( null === $drapeau ) {
+				$orphelins[] = $cle . ' -> ' . ( isset( $question['flag_path'] ) ? $question['flag_path'] : '(aucun)' );
 				continue;
 			}
 
-			$cle         = $titre . '#' . $ti . '.' . $qi;
+			/* La valeur est-elle ecrite dans un document lisible de la
+			   MEME machine ? Comparer a toutes les machines serait faux :
+			   un drapeau du dojo n'a rien a voir avec un document de
+			   univ-01, et une coincidence de valeur n'est pas une fuite
+			   pedagogique. */
+			$fuite = null;
+
+			foreach ( $contenus as $doc ) {
+				if ( $doc['machine'] !== $drapeau['machine'] ) {
+					continue;
+				}
+
+				if ( '' !== $drapeau['valeur'] && false !== strpos( $doc['texte'], $drapeau['valeur'] ) ) {
+					$fuite = $doc['nom'];
+					break;
+				}
+			}
+
+			if ( null === $fuite ) {
+				/* La valeur n'est nulle part dans les documents. Deux cas :
+				   soit elle est produite par une commande (le dojo), soit
+				   elle est lue sur la machine sans etre ecrite. Dans les
+				   deux cas, l'eleve ne peut pas la recopier. */
+				$propres++;
+
+				if ( false !== strpos( (string) ( $drapeau['fichier'] ?? '' ), '/dojo-01/' ) ) {
+					$produits++;
+				}
+
+				continue;
+			}
+
 			$vus[ $cle ] = true;
+			$fuites[]    = array( 'cle' => $cle, 'document' => $fuite, 'valeur' => $drapeau['valeur'] );
 
 			if ( ! isset( $registre[ $cle ] ) ) {
 				$nouveaux[] = $cle;
@@ -132,9 +246,9 @@ foreach ( $rooms as $room ) {
 	}
 }
 
-/* Une dette declaree qui ne correspond plus a rien : soit le drapeau a
-   ete corrige (bien), soit le contenu a change (a verifier). Dans les deux
-   cas il faut nettoyer le registre, sinon il pourrit. */
+/* Une dette declaree qui ne correspond plus a rien : le drapeau a ete
+   corrige (bien), ou le contenu a change (a verifier). Dans les deux cas il
+   faut nettoyer le registre, sinon il pourrit. */
 $obsoletes = array();
 
 foreach ( array_keys( $registre ) as $cle ) {
@@ -143,41 +257,72 @@ foreach ( array_keys( $registre ) as $cle ) {
 	}
 }
 
-echo 'DRAPEAUX — controle du ', $aujourdhui, "\n\n";
-printf( "  manipulations reelles : %d\n", $propres );
-printf( "  dettes tolerees       : %d\n", $toleres );
-printf( "  non declarees         : %d\n", count( $nouveaux ) );
-printf( "  dettes echues         : %d\n", count( $echus ) );
-printf( "  entrees obsoletes     : %d\n", count( $obsoletes ) );
+$total    = $propres + $toleres + count( $nouveaux ) + count( $echus );
+$partie   = $total > 0 ? ( $propres / $total ) * 100 : 0;
+$verdict  = 'ACCEPTE';
 
-if ( ! empty( $nouveaux ) ) {
-	echo "\nDRAPEAUX A CORRIGER (non declares dans le registre) :\n";
+if ( $nouveaux || $echus || $orphelins ) {
+	$verdict = 'REFUSE';
+}
 
-	foreach ( array_slice( $nouveaux, 0, 30 ) as $c ) {
-		echo '  - ', $c, "\n";
+if ( $liste_seule ) {
+	foreach ( $fuites as $f ) {
+		echo $f['cle'], ' | ', $f['document'], ' | ', $f['valeur'], "\n";
+	}
+
+	exit( 0 );
+}
+
+printf( "DRAPEAUX — controle du %s\n\n", $aujourdhui );
+
+printf( "  documents lisibles analyses : %d (dans %d machines)\n", count( $contenus ), count( array_unique( array_column( $contenus, 'machine' ) ) ) );
+printf( "  drapeaux introuvables       : %d\n", count( $orphelins ) );
+printf( "  drapeaux SANS copie possible : %d\n", $propres );
+printf( "    dont produits par une commande (dojo) : %d\n", $produits );
+printf( "  drapeaux encore dans un document : %d\n", $toleres + count( $nouveaux ) + count( $echus ) );
+printf( "    dettes tolerees : %d\n", $toleres );
+printf( "    non declarees   : %d\n", count( $nouveaux ) );
+printf( "    dettes echues   : %d\n", count( $echus ) );
+printf( "    entrees obsoletes : %d\n", count( $obsoletes ) );
+
+if ( $orphelins ) {
+	echo "\nDRAPEAUX INTROUVABLES (le fichier de drapeau n'existe pas) :\n";
+
+	foreach ( array_slice( $orphelins, 0, 20 ) as $o ) {
+		echo '  - ', $o, "\n";
 	}
 }
 
-if ( ! empty( $echus ) ) {
-	echo "\nDETTES ECHUES (date annoncee depassee) :\n";
+if ( $nouveaux ) {
+	echo "\nNON DECLARES (a corriger, ou a inscrire au registre avec une date) :\n";
 
-	foreach ( $echus as $c ) {
-		echo '  - ', $c, "\n";
+	foreach ( array_slice( $nouveaux, 0, 20 ) as $n ) {
+		echo '  - ', $n, "\n";
 	}
 }
 
-if ( ! empty( $obsoletes ) ) {
+if ( $echus ) {
+	echo "\nDETTES ECHUES :\n";
+
+	foreach ( $echus as $e ) {
+		echo '  - ', $e, "\n";
+	}
+}
+
+if ( $obsoletes ) {
 	echo "\nENTREES OBSOLETES (a retirer du registre) :\n";
 
-	foreach ( array_slice( $obsoletes, 0, 20 ) as $c ) {
-		echo '  - ', $c, "\n";
+	foreach ( array_slice( $obsoletes, 0, 50 ) as $o ) {
+		echo '  - ', $o, "\n";
 	}
 }
 
-$total  = $propres + $toleres + count( $nouveaux ) + count( $echus );
-$partie = $total > 0 ? round( 100 * $propres / $total, 1 ) : 100.0;
-$verdict = ( empty( $nouveaux ) && empty( $echus ) ) ? 'ACCEPTE' : 'REFUSE';
+printf(
+	"\nVERDICT : %s — %d drapeaux sans copie possible sur %d (%.1f %%), la cible est 100 %%\n",
+	$verdict,
+	$propres,
+	$total,
+	$partie
+);
 
-printf( "\nVERDICT : %s — %d drapeaux de manipulation sur %d (%.1f %%), la cible est 100 %%\n", $verdict, $propres, $total, $partie );
-
-exit( ( empty( $nouveaux ) && empty( $echus ) ) ? 0 : 1 );
+exit( 'ACCEPTE' === $verdict ? 0 : 1 );
