@@ -1,12 +1,12 @@
 # Defi d14 - Le type de fichier
 
-Ceinture 4 (verte) : Binaires, chaines, memoire
+Ceinture 4 (verte)
 
 Outil attendu : file
 
-Le compte rendu du dojo (a lire dans la machine) :
+Trois fichiers sans extension. Un seul est un exécutable ELF.
+Rapporte son nom sous la forme SECURA{nom}.
+Indice : « file * » dans /srv/dojo/4-verte/.
 
-    14_type = FLAG=SECURA{fichier_elf}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/4-verte/14-type.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

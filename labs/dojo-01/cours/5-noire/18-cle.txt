@@ -1,12 +1,13 @@
-# Defi d18 - La cle privee
+# Defi d18 - La paire de clés
 
-Ceinture 5 (noire) : Cryptographie, cles, empreintes
+Ceinture 5 (noire)
 
-Outil attendu : grep
+Outil attendu : openssl, head
 
-Le compte rendu du dojo (a lire dans la machine) :
+cle.pem est une clé privée. L'en-tête PEM annonce son type.
+Rapporte cet en-tête, sans les tirets de part et d'autre,
+entouré des accolades habituelles.
+Indice : « head -1 cle.pem ».
 
-    18_cle = FLAG=SECURA{cle_de_session}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/5-noire/18-cle.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

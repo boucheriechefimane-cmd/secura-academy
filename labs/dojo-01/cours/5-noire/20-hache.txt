@@ -1,12 +1,13 @@
-# Defi d20 - Le mot de passe hashe
+# Defi d20 - Le mot de passe réversible
 
-Ceinture 5 (noire) : Cryptographie, cles, empreintes
+Ceinture 5 (noire)
 
-Outil attendu : sha256sum
+Outil attendu : base64, cat
 
-Le compte rendu du dojo (a lire dans la machine) :
+Le fichier secret.b64 n'est PAS chiffré : il est seulement encodé.
+Décode-le et rapporte le mot de passe qu'il contient.
+Forme : SECURA{motdepasse}.
+Indice : « base64 -d secret.b64 ». Encoder n'est pas chiffrer.
 
-    20_hache = FLAG=SECURA{empreinte_du_mot_de_passe}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/5-noire/20-hache.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

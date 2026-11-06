@@ -1,1 +1,1 @@
-FLAG=SECURA{empreinte_du_mot_de_passe}
+FLAG=SECURA{dojo-mot-de-passe-2026}

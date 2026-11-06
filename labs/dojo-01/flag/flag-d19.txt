@@ -1,1 +1,1 @@
-FLAG=SECURA{autorite_signataire}
+FLAG=SECURA{2026-09-30}

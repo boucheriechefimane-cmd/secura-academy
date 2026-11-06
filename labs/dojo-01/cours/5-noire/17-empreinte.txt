@@ -1,12 +1,13 @@
 # Defi d17 - L'empreinte du secret
 
-Ceinture 5 (noire) : Cryptographie, cles, empreintes
+Ceinture 5 (noire)
 
 Outil attendu : sha256sum
 
-Le compte rendu du dojo (a lire dans la machine) :
+Le fichier mot-de-passe.txt contient une valeur. Calcule son
+empreinte SHA-256 et rapporte les 12 premiers caractères.
+Forme : SECURA{12caracteres}.
+Indice : « sha256sum mot-de-passe.txt ».
 
-    17_empreinte = FLAG=SECURA{empreinte_sha256}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/5-noire/17-empreinte.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

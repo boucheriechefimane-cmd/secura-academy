@@ -1,0 +1,4 @@
+8049000 <main>:
+ 8049004 call 8049200 <init>
+ 8049010 call 80493f0 <interessant>
+ 8049018 call 8049100 <fin>

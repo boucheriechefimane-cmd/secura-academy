@@ -1,12 +1,13 @@
-# Defi d06 - Le dossier du vrai proprietaire
+# Defi d06 - Le propriétaire inattendu
 
-Ceinture 2 (jaune) : Permissions, proprietaire, contenu
+Ceinture 2 (jaune)
 
-Outil attendu : ls -l
+Outil attendu : ls -l, stat
 
-Le compte rendu du dojo (a lire dans la machine) :
+Dans /srv/dojo/2-jaune/partage/, un fichier appartient à un autre
+compte que les autres. Rapporte le NOM de ce propriétaire, sous la
+forme SECURA{nom}.
+Indice : « ls -l partage/ » affiche la troisième colonne.
 
-    06_proprietaire = FLAG=SECURA{compte_du_service}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/2-jaune/06-proprietaire.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

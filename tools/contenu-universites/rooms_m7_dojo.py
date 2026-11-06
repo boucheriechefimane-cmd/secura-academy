@@ -540,14 +540,15 @@ def room_ceinture(ceinture):
 
         preuves.append(
             {
-                'question': "Relève la valeur du défi « {0} » ({1}).".format(titre, identifiant),
+                'question': "Défi « {0} » ({1}) : rapporte la valeur affichée par ton terminal.".format(titre, identifiant),
                 'flag_path': '/root/flags/flag-{0}.txt'.format(identifiant),
                 'xp': 20,
-                'hint': "Le dossier de la ceinture {0} est dans <code>/srv/dojo</code>. "
-                        "Ouvre le fichier du défi et recopie la valeur entre accolades.".format(ceinture['nom']),
-                'explain': "Chaque défi du dojo se valide avec une preuve lue dans la machine : "
-                           "le serveur compare ta réponse au drapeau qu'il garde en root. "
-                           "L'outil du défi est indiqué dans le document lui-même.",
+                'hint': "Le dossier de la ceinture {0} est dans <code>/srv/dojo</code>, "
+                        "mais le drapeau n'y est PAS écrit : le document te dit quoi faire, "
+                        "et le terminal produit le résultat.".format(ceinture['nom']),
+                'explain': "Tu viens de faire le geste du défi, pas de recopier une valeur. "
+                           "Le serveur lit le drapeau dans la machine, en root : il n'est "
+                           "écrit nulle part dans les documents du dojo.",
             }
         )
 

@@ -1,1 +1,1 @@
-FLAG=SECURA{mot_recherche}
+FLAG=SECURA{une_ligne_sur_quarante}

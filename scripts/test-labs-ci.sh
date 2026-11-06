@@ -668,7 +668,17 @@ if docker run -d --name "$CONT_DOJO" --network "$RESEAU" \
 		test_ok "dojo-01 : les fichiers de drapeau sont illisibles par l'apprenant"
 	fi
 
-	COHERENCE_DOJO=0
+	# LE CONTROLE QUI COMPTE, ET SON HISTOIRE
+	# --------------------------------------
+	# Ce bloc affirmait l'inverse jusqu'au 6 novembre 2026 : il exigeait que
+	# chaque drapeau soit « decouvrable dans les documents du dojo ». Le test
+	# passait au vert, et il validait le defaut : un drapeau ecrit en clair
+	# dans un fichier que l'eleve lit avec `cat`.
+	#
+	# On ne demande plus « le drapeau est-il dans le document ? » mais
+	# « le drapeau est-il ABSENT du document ? ». Un document qui le contient
+	# est un echec, pas une reussite.
+	FUITE_DOJO=0
 
 	for fichier in $(docker exec -u 0 "$CONT_DOJO" ls /root/flags 2>/dev/null); do
 		VALEUR=$(docker exec -u 0 "$CONT_DOJO" cat "/root/flags/$fichier" 2>/dev/null | tr -d '\r\n')
@@ -677,15 +687,24 @@ if docker run -d --name "$CONT_DOJO" --network "$RESEAU" \
 			continue
 		fi
 
-		if ! docker exec "$CONT_DOJO" grep -rl "$VALEUR" /srv/dojo /srv/briefs 2>/dev/null | grep -q .; then
-			COHERENCE_DOJO=$((COHERENCE_DOJO + 1))
+		if docker exec "$CONT_DOJO" grep -rlF "$VALEUR" /srv/dojo /srv/briefs 2>/dev/null | grep -q .; then
+			FUITE_DOJO=$((FUITE_DOJO + 1))
 		fi
 	done
 
-	if [ "$COHERENCE_DOJO" -eq 0 ]; then
-		test_ok "dojo-01 : chaque drapeau est decouvrable dans les documents du dojo"
+	if [ "$FUITE_DOJO" -eq 0 ]; then
+		test_ok "dojo-01 : aucun drapeau n'est ecrit dans les documents (il faut manipuler)"
 	else
-		test_ko "dojo-01 : $COHERENCE_DOJO drapeau(s) ne sont decouvrables nulle part"
+		test_ko "dojo-01 : $FUITE_DOJO drapeau(x) sont ecrits en clair dans les documents"
+	fi
+
+	# Les 20 defis sont-ils reellement resolubles dans la machine ? On joue
+	# la commande de l'eleve et on compare au drapeau du serveur.
+	if python3 tools/labs/epreuves-dojo.py --conteneur "$CONT_DOJO" >/tmp/epreuves-dojo.log 2>&1; then
+		test_ok "dojo-01 : les vingt defis se resolvent dans la machine"
+	else
+		test_ko "dojo-01 : un ou plusieurs defis ne se resolvent pas (voir /tmp/epreuves-dojo.log)"
+		sed -n '1,40p' /tmp/epreuves-dojo.log
 	fi
 
 	docker rm -f "$CONT_DOJO" >/dev/null 2>&1

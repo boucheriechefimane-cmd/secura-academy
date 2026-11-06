@@ -1,12 +1,13 @@
-# Defi d09 - Le port ouvert
+# Defi d09 - Le port qui écoute
 
-Ceinture 3 (orange) : Reseau, processus, configuration
+Ceinture 3 (orange)
 
-Outil attendu : ss ou netstat
+Outil attendu : ss, netstat, cat
 
-Le compte rendu du dojo (a lire dans la machine) :
+Le service du dojo écoute sur un port. Rapporte le numéro de ce
+port sous la forme SECURA{port_NNNN}.
+Indice : « ss -ltn » liste les ports en écoute ; ou lis
+/srv/dojo/3-orange/service.conf, ligne « port = ».
 
-    09_port_ouvert = FLAG=SECURA{port_8080}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/3-orange/09-port-ouvert.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

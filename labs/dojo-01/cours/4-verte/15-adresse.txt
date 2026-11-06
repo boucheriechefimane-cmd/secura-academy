@@ -1,12 +1,13 @@
-# Defi d15 - L'adresse du Echec
+# Defi d15 - L'adresse intéressante
 
-Ceinture 4 (verte) : Binaires, chaines, memoire
+Ceinture 4 (verte)
 
-Outil attendu : grep
+Outil attendu : grep, strings
 
-Le compte rendu du dojo (a lire dans la machine) :
+sortie.txt est un extrait de désassemblage. Une seule ligne contient
+l'adresse d'une fonction appelée « interessant ». Rapporte l'adresse.
+Forme : SECURA{0x...}.
+Indice : « grep interessant sortie.txt ».
 
-    15_adresse = FLAG=SECURA{adresse_finale}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/4-verte/15-adresse.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

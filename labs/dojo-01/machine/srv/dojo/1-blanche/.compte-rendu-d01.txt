@@ -1,0 +1,3 @@
+compte rendu du dojo - defi d01
+build = SECURA{compte_rendu_trouve}
+note = le point devant le nom du fichier le rend invisible a ls

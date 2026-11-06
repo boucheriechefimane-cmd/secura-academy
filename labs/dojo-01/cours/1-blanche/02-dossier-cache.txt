@@ -1,12 +1,12 @@
-# Defi d02 - Le dossier cache
+# Defi d02 - Le fichier le plus gros
 
-Ceinture 1 (blanche) : Lire, chercher, comprendre
+Ceinture 1 (blanche)
 
-Outil attendu : ls -a
+Outil attendu : du, ls -l, find
 
-Le compte rendu du dojo (a lire dans la machine) :
+Trois fichiers de journal sont dans /srv/dojo/1-blanche/journaux/.
+Un seul contient la ligne « session ». Trouve-le (grep t'aide),
+et rapporte le jeton de session qui s'y trouve.
 
-    02_dossier_cache = FLAG=SECURA{cache_oublie}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/1-blanche/02-dossier-cache.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

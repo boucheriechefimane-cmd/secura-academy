@@ -1,12 +1,12 @@
-# Defi d04 - Les premiere et derniere lignes
+# Defi d04 - Les deux extrémités
 
-Ceinture 1 (blanche) : Lire, chercher, comprendre
+Ceinture 1 (blanche)
 
-Outil attendu : head et tail
+Outil attendu : head, tail
 
-Le compte rendu du dojo (a lire dans la machine) :
+long.txt commence par une ligne « entete » et finit par une ligne
+« pied ». La valeur du défi est le code du pied de page.
+Indice : « tail -1 long.txt » donne la dernière ligne, sans lire le reste.
 
-    04_extremites = FLAG=SECURA{debut_et_fin}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/1-blanche/04-extremites.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

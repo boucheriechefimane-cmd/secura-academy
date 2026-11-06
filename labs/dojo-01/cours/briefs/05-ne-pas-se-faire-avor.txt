@@ -3,6 +3,5 @@
 Ce document resume le brief : ce qu'il faut savoir avant de commencer
 les labs, et la regle a retenir.
 
-Le compte rendu du brief :
-
-    05_ne_pas_se_faire_avor = FLAG=SECURA{brief_pas_avor}
+Le compte rendu du brief se releve dans la machine, pas ici :
+  cat /srv/briefs/registre-briefs.txt

@@ -1,1 +1,1 @@
-FLAG=SECURA{chaine_du_binaire}
+FLAG=SECURA{indice-d13-visible-en-clair}

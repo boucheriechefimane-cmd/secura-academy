@@ -1,0 +1,106 @@
+name: Machines
+
+# Teste les machines du laboratoire pour de vrai : on construit l'image, on
+# lance le conteneur, et on joue les commandes qu'un eleve taperait.
+#
+# POURQUOI CE WORKFLOW EXISTE
+# ---------------------------
+# Jusqu'ici, les machines de `labs/` n'etaient verifiees par personne :
+# - leurs Dockerfile n'etaient jamais construits ;
+# - les drapeaux n'etaient jamais lus la ou le serveur les lira ;
+# - les droits qui FONT le defi (un fichier en 000, un proprietaire
+#   etranger) n'etaient jamais constates.
+# Une machine cassee ne se voyait qu'en salle de classe.
+#
+# Ce workflow construit chaque image, la lance sans privileges, puis execute
+# les epreuves declarees. Il echoue si une seule epreuve ne passe pas.
+#
+# Il est declare ici plutot que dans ci.yml pour une raison simple : il est
+# long (construction d'images), et il ne doit pas retarder le reste. Il se
+# declenche sur toute modification de labs/, et une fois par jour pour
+# detecter une image amont qui casse (php:8.2-apache, debian:bookworm-slim).
+
+on:
+  push:
+    branches: ['arena/**', main]
+    paths:
+      - 'labs/**'
+      - 'tools/labs/**'
+      - '.github/workflows/machines.yml'
+  pull_request:
+    paths:
+      - 'labs/**'
+      - 'tools/labs/**'
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dojo:
+    name: dojo-01 — les 20 defis se resolvent-ils vraiment ?
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verifier qu'aucun document ne contient de drapeau
+        run: python3 tools/controle/dojo-sans-drapeau.py
+
+      - name: Construire l'image
+        run: docker build -t securalabs/dojo-01:1.0 labs/dojo-01
+
+      - name: Lancer le conteneur
+        run: |
+          docker run -d --name dojo \
+            --cap-drop=ALL --security-opt=no-new-privileges \
+            securalabs/dojo-01:1.0
+
+      - name: Jouer les defis dans la machine
+        run: python3 tools/labs/epreuves-dojo.py --conteneur dojo
+
+      - name: Les drapeaux ne sont pas lisibles par l'eleve
+        run: |
+          # Le compte ctf ne doit pas pouvoir lire /root/flags : c'est ce qui
+          # rend le drapeau incontournable depuis la machine.
+          if docker exec -u 1000 dojo cat /root/flags/flag-d01.txt 2>/dev/null; then
+            echo "::error::l'eleve peut lire le drapeau !"
+            exit 1
+          fi
+          echo "OK : le drapeau n'est pas lisible par le compte ctf"
+
+      - name: Nettoyer
+        if: always()
+        run: docker rm -f dojo || true
+
+  web:
+    name: web-01 — l'injection SQL fonctionne-t-elle ?
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Construire l'image
+        run: docker build -t securalabs/web-01:1.0 labs/web-01
+
+      - name: Lancer le conteneur
+        run: |
+          docker run -d --name web \
+            --cap-drop=ALL --security-opt=no-new-privileges \
+            -p 18080:8080 securalabs/web-01:1.0
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:18080/ >/dev/null 2>&1; then exit 0; fi
+            sleep 1
+          done
+          echo "::error::l'application n'a pas repondu en 30 s"
+          docker logs web
+          exit 1
+
+      - name: Jouer l'attaque dans la machine
+        run: python3 tools/labs/epreuves-web.py --base http://127.0.0.1:18080
+
+      - name: Nettoyer
+        if: always()
+        run: docker rm -f web || true

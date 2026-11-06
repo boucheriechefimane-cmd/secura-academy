@@ -1,12 +1,13 @@
-# Defi d11 - La configuration oubliee
+# Defi d11 - La règle du pare-feu
 
-Ceinture 3 (orange) : Reseau, processus, configuration
+Ceinture 3 (orange)
 
-Outil attendu : cat ou grep
+Outil attendu : cat, grep
 
-Le compte rendu du dojo (a lire dans la machine) :
+pare-feu.conf autorise plusieurs ports. Rapporte celui qui devrait
+être fermé : la règle porte le commentaire « temporaire ».
+Forme : SECURA{port_NNNN}.
+Indice : « grep temporaire pare-feu.conf ».
 
-    11_configuration = FLAG=SECURA{variable_oubliee}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/3-orange/11-configuration.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

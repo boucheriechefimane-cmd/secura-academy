@@ -3,6 +3,5 @@
 Ce document resume le brief : ce qu'il faut savoir avant de commencer
 les labs, et la regle a retenir.
 
-Le compte rendu du brief :
-
-    01_presentation = FLAG=SECURA{brief_presentation}
+Le compte rendu du brief se releve dans la machine, pas ici :
+  cat /srv/briefs/registre-briefs.txt

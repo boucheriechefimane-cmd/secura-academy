@@ -1,1 +1,1 @@
-FLAG=SECURA{drapeau_blanc}
+FLAG=SECURA{compte_rendu_trouve}

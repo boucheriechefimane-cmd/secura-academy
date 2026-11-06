@@ -1,0 +1,11 @@
+Registre des briefs du dojo
+===========================
+
+brief b01 : brief_presentation
+brief b02 : brief_talking_web
+brief b03 : brief_exploitation
+brief b04 : brief_registres
+brief b05 : brief_pas_avor
+brief b06 : brief_explorer
+
+Le brief de revision n'a pas de valeur : c'est un quiz.

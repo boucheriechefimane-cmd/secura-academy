@@ -1,1 +1,1 @@
-FLAG=SECURA{processus_ecoute}
+FLAG=SECURA{cle-de-recette-42}

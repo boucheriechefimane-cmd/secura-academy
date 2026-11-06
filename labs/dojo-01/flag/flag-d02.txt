@@ -1,1 +1,1 @@
-FLAG=SECURA{cache_oublie}
+FLAG=SECURA{jeton_dans_le_journal}

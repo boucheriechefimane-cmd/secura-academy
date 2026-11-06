@@ -1,12 +1,13 @@
-# Defi d01 - Le premier fichier
+# Defi d01 - Le fichier de compte rendu
 
-Ceinture 1 (blanche) : Lire, chercher, comprendre
+Ceinture 1 (blanche)
 
-Outil attendu : cat
+Outil attendu : cat, find
 
-Le compte rendu du dojo (a lire dans la machine) :
+Le compte rendu du premier défi n'est pas dans ce document : il est
+dans un fichier voisin, dont le nom commence par « compte-rendu ».
+Trouve-le, lis-le, et rapporte la valeur de la ligne « build ».
+Indice : « ls -a » montre aussi ce que « ls » cache.
 
-    01_premier_fichier = FLAG=SECURA{drapeau_blanc}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/1-blanche/01-premier-fichier.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

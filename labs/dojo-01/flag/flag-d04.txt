@@ -1,1 +1,1 @@
-FLAG=SECURA{debut_et_fin}
+FLAG=SECURA{les_deux_bouts}
