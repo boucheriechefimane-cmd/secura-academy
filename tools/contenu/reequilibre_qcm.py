@@ -78,22 +78,39 @@ def longueur(texte):
 # Localisation
 # ---------------------------------------------------------------------
 
-# Le titre d'une room est en 3 tabulations ; celui d'une TACHE en 5. Cette
-# difference est ce qui permet de decouper une room sans attraper « Task 4 ».
-TITRE_ROOM = re.compile(r"^\t{3}'title'\s*=>\s*'", re.M)
+# Un titre de room est en 3 ou 4 tabulations selon le bloc du fichier ; un
+# titre de TACHE en est toujours a deux de plus. C'est cet ecart qui permet
+# de decouper une room sans attraper son « Task 4 », ni la room suivante.
+TITRE_ROOM = re.compile(r"^(\t+)'title'\s*=>\s*'", re.M)
 
 
 def bornes_room(source, titre):
-    """Les indices de debut et de fin d'une room, reperee par son titre."""
-    ancre = "\t\t\t'title'      => '%s'" % titre
-    pos = source.find(ancre)
+    """Les indices de debut et de fin d'une room, reperee par son titre.
 
-    if pos < 0:
+    La fin est le prochain titre de MEME indentation : sans cela, la derniere
+    room d'un bloc avalait la premiere room du bloc suivant, et l'on corrigeait
+    des questions qui n'appartenaient pas a la room demandee.
+    """
+    ancre = re.compile(r"^(\t+)'title'\s*=>\s*'%s'" % re.escape(titre), re.M)
+    trouve = ancre.search(source)
+
+    if not trouve:
         raise SystemExit("room introuvable : %s" % titre)
 
+    indentation = trouve.group(1)
+    pos = trouve.start()
     debut = source.rfind('array(', 0, pos)
-    suivante = TITRE_ROOM.search(source, pos + len(ancre))
-    fin = suivante.start() if suivante else len(source)
+
+    # Une tache est toujours a DEUX tabulations de plus que sa room. La room
+    # se termine donc au premier titre moins indente que cela : ni un titre de
+    # tache (trop indente), ni la fin d'un bloc plus profond.
+    niveau_tache = len(indentation) + 2
+    fin = len(source)
+
+    for titre_vu in TITRE_ROOM.finditer(source, trouve.end()):
+        if len(titre_vu.group(1)) < niveau_tache:
+            fin = titre_vu.start()
+            break
 
     return debut, fin
 
@@ -154,7 +171,10 @@ def defauts_question(options, correct, ou):
         fautes.append('%s : la bonne reponse est la plus longue (%d car.)' % (ou, lc))
 
     for i, l in autres:
-        if l <= lc < l * RATIO_MIN:
+        # Un leurre de MEME longueur que la bonne reponse est l'objectif, pas un
+        # defaut : on ne signale que ceux qui sont nettement plus courts, parce
+        # que la bonne reponse se repere alors a sa longueur.
+        if l * RATIO_MIN < lc:
             fautes.append('%s : option %d trop courte (%d car. contre %d)' % (ou, i, l, lc))
 
         if l > lc * RATIO_MAX:
@@ -266,8 +286,20 @@ def _reecrit(bloc, corrections, langue, titre):
     return bloc
 
 
+def _descape(texte):
+    """Le texte REEL d'une chaine PHP lue dans le fichier.
+
+    Une chaine PHP `'L\'audit'` designe le texte `L'audit`. Sans cette
+    inversion, chaque passage de l'outil re-echappait les apostrophes deja
+    echappees : le fichier a fini avec `l\\\\\\\\'independance` la ou le
+    francais dit `l'independance`. Corrige le 7/11 apres l'avoir constate.
+    """
+    return texte.replace("\\'", "'").replace('\\\\', '\\')
+
+
 def _php(texte):
-    return "'" + texte.replace('\\', '\\\\').replace("'", "\\'") + "'"
+    """Une chaine PHP en apostrophes simples, echappee UNE seule fois."""
+    return "'" + _descape(texte).replace('\\', '\\\\').replace("'", "\\'") + "'"
 
 
 def main():
