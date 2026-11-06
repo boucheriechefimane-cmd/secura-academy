@@ -1,0 +1,431 @@
+{
+ "code": "SY0-701",
+ "nom": "CompTIA Security+",
+ "source": "https://www.comptia.org/certifications/security",
+ "domaines": [
+  {
+   "id": "D1",
+   "nom": "Concepts generaux de securite",
+   "poids": 12,
+   "sujets": [
+    {
+     "id": "1.1",
+     "nom": "Controles de securite (categories et types)",
+     "mots": [
+      "controle preventif",
+      "controle detectif",
+      "controle correctif",
+      "preventive control",
+      "detective control",
+      "corrective control",
+      "categorie de controle"
+     ]
+    },
+    {
+     "id": "1.2",
+     "nom": "Triade CIA",
+     "mots": [
+      "confidentialite",
+      "integrite",
+      "disponibilite",
+      "triade cia",
+      "cia triad"
+     ]
+    },
+    {
+     "id": "1.3",
+     "nom": "Zero trust",
+     "mots": [
+      "zero trust",
+      "zero confiance",
+      "confiance zero"
+     ]
+    },
+    {
+     "id": "1.4",
+     "nom": "Gestion du changement",
+     "mots": [
+      "gestion du changement",
+      "change management",
+      "changement de configuration"
+     ]
+    },
+    {
+     "id": "1.5",
+     "nom": "Cryptographie de base et PKI",
+     "mots": [
+      "chiffrement",
+      "pki",
+      "cle publique",
+      "cle privee",
+      "public key",
+      "certificat"
+     ]
+    },
+    {
+     "id": "1.6",
+     "nom": "Authentification et multifacteur",
+     "mots": [
+      "multifacteur",
+      "second facteur",
+      "mfa",
+      "authentification",
+      "facteur d'authentification"
+     ]
+    },
+    {
+     "id": "1.7",
+     "nom": "Securite physique",
+     "mots": [
+      "securite physique",
+      "badge",
+      "tailgating",
+      "salle serveur",
+      "controle d'acces physique"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "D2",
+   "nom": "Menaces, vulnerabilites et attenuations",
+   "poids": 22,
+   "sujets": [
+    {
+     "id": "2.1",
+     "nom": "Acteurs de menace",
+     "mots": [
+      "acteur de menace",
+      "nation",
+      "hacktiviste",
+      "menace interne",
+      "insider",
+      "threat actor",
+      "crime organise"
+     ]
+    },
+    {
+     "id": "2.2",
+     "nom": "Surfaces et vecteurs d'attaque",
+     "mots": [
+      "surface d'attaque",
+      "vecteur d'attaque",
+      "attack surface",
+      "attack vector"
+     ]
+    },
+    {
+     "id": "2.3",
+     "nom": "Ingenierie sociale et hameconnage",
+     "mots": [
+      "hameconnage",
+      "phishing",
+      "ingenierie sociale",
+      "social engineering",
+      "pretexting"
+     ]
+    },
+    {
+     "id": "2.4",
+     "nom": "Malwares",
+     "mots": [
+      "rancongiciel",
+      "ransomware",
+      "malware",
+      "rootkit",
+      "spyware",
+      "cheval de troie",
+      "trojan",
+      "ver informatique"
+     ]
+    },
+    {
+     "id": "2.5",
+     "nom": "Attaques applicatives",
+     "mots": [
+      "injection sql",
+      "xss",
+      "csrf",
+      "injection de commande",
+      "cross-site"
+     ]
+    },
+    {
+     "id": "2.6",
+     "nom": "Attaques reseau",
+     "mots": [
+      "deni de service",
+      "ddos",
+      "homme du milieu",
+      "man-in-the-middle",
+      "mitm",
+      "spoofing",
+      "usurpation d'adresse"
+     ]
+    },
+    {
+     "id": "2.7",
+     "nom": "Vulnerabilites memoire",
+     "mots": [
+      "debordement de tampon",
+      "buffer overflow",
+      "use-after-free",
+      "format string",
+      "depassement de tampon"
+     ]
+    },
+    {
+     "id": "2.8",
+     "nom": "Indicateurs de compromission et attenuations",
+     "mots": [
+      "indicateur de compromission",
+      "ioc",
+      "attenuation",
+      "mitigation"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "D3",
+   "nom": "Architecture de securite",
+   "poids": 18,
+   "sujets": [
+    {
+     "id": "3.1",
+     "nom": "Modeles d'architecture (cloud, sur site, hybride)",
+     "mots": [
+      "cloud",
+      "sur site",
+      "on-premise",
+      "hybride",
+      "iaas",
+      "saas",
+      "paas"
+     ]
+    },
+    {
+     "id": "3.2",
+     "nom": "Segmentation, DMZ, VLAN",
+     "mots": [
+      "segmentation",
+      "dmz",
+      "vlan",
+      "cloisonnement"
+     ]
+    },
+    {
+     "id": "3.3",
+     "nom": "Moindre privilege et separation des privileges",
+     "mots": [
+      "moindre privilege",
+      "separation des privileges",
+      "least privilege",
+      "bac a sable",
+      "sandbox",
+      "confinement"
+     ]
+    },
+    {
+     "id": "3.4",
+     "nom": "Protection des donnees (classification, DLP, chiffrement au repos)",
+     "mots": [
+      "classification des donnees",
+      "dlp",
+      "chiffrement au repos",
+      "donnees au repos",
+      "data loss prevention"
+     ]
+    },
+    {
+     "id": "3.5",
+     "nom": "Resilience : sauvegardes, redondance, reprise",
+     "mots": [
+      "sauvegarde",
+      "backup",
+      "redondance",
+      "reprise d'activite",
+      "rto",
+      "rpo",
+      "plan de continuite"
+     ]
+    },
+    {
+     "id": "3.6",
+     "nom": "IoT, embarque, industriel",
+     "mots": [
+      "iot",
+      "objet connecte",
+      "embarque",
+      "scada",
+      "ics",
+      "systeme industriel"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "D4",
+   "nom": "Operations de securite",
+   "poids": 28,
+   "sujets": [
+    {
+     "id": "4.1",
+     "nom": "Durcissement des systemes",
+     "mots": [
+      "durcissement",
+      "hardening",
+      "configuration securisee",
+      "surface d'exposition"
+     ]
+    },
+    {
+     "id": "4.2",
+     "nom": "Gestion des actifs et des vulnerabilites",
+     "mots": [
+      "gestion des vulnerabilites",
+      "cve",
+      "correctif",
+      "patch management",
+      "scan de vulnerabilite",
+      "inventaire des actifs"
+     ]
+    },
+    {
+     "id": "4.3",
+     "nom": "Surveillance, SIEM et journaux",
+     "mots": [
+      "siem",
+      "journalisation",
+      "journaux",
+      "log analysis",
+      "surveillance",
+      "monitoring",
+      "alerte"
+     ]
+    },
+    {
+     "id": "4.4",
+     "nom": "IDS/IPS, pare-feu, EDR",
+     "mots": [
+      "ids",
+      "ips",
+      "pare-feu",
+      "firewall",
+      "edr",
+      "detection d'intrusion"
+     ]
+    },
+    {
+     "id": "4.5",
+     "nom": "Gestion des identites et des acces (IAM)",
+     "mots": [
+      "gestion des identites",
+      "iam",
+      "gestion des acces",
+      "compte de service",
+      "revue des acces"
+     ]
+    },
+    {
+     "id": "4.6",
+     "nom": "Reponse a incident",
+     "mots": [
+      "reponse a incident",
+      "incident response",
+      "confinement de l'incident",
+      "eradication",
+      "post-incident"
+     ]
+    },
+    {
+     "id": "4.7",
+     "nom": "Forensique et preuves",
+     "mots": [
+      "forensique",
+      "forensics",
+      "preuve numerique",
+      "chaine de possession",
+      "image disque",
+      "preservation des preuves"
+     ]
+    },
+    {
+     "id": "4.8",
+     "nom": "Automatisation et orchestration",
+     "mots": [
+      "automatisation",
+      "orchestration",
+      "soar",
+      "playbook",
+      "infrastructure as code"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "D5",
+   "nom": "Gouvernance et gestion du programme",
+   "poids": 20,
+   "sujets": [
+    {
+     "id": "5.1",
+     "nom": "Gouvernance et politiques",
+     "mots": [
+      "gouvernance",
+      "politique de securite",
+      "charte de securite",
+      "security policy"
+     ]
+    },
+    {
+     "id": "5.2",
+     "nom": "Gestion des risques et registre",
+     "mots": [
+      "registre des risques",
+      "analyse de risque",
+      "appetit au risque",
+      "matrice de risque",
+      "risk register",
+      "risk management"
+     ]
+    },
+    {
+     "id": "5.3",
+     "nom": "Risque lie aux tiers et a la chaine d'approvisionnement",
+     "mots": [
+      "fournisseur",
+      "sous-traitant",
+      "risque tiers",
+      "supply chain",
+      "chaine d'approvisionnement",
+      "vendor risk"
+     ]
+    },
+    {
+     "id": "5.4",
+     "nom": "Conformite et audits",
+     "mots": [
+      "conformite",
+      "audit",
+      "iso 27001",
+      "rgpd",
+      "soc 2",
+      "pci dss",
+      "nist csf"
+     ]
+    },
+    {
+     "id": "5.5",
+     "nom": "Sensibilisation des utilisateurs",
+     "mots": [
+      "sensibilisation",
+      "programme de formation",
+      "security awareness",
+      "phishing simule"
+     ]
+    }
+   ]
+  }
+ ]
+}
