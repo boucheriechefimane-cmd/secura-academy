@@ -402,28 +402,95 @@ Partage dans les mêmes conditions. Pas d'endorsement.
 
 ## 14. « S'il n'y a pas de licence, peut-on la prendre en changeant l'ordre ou les chiffres ? »
 
-**Non.** Et ce n'est pas une question de subtilité juridique : c'est une
-règle d'import, testée automatiquement à chaque push.
+**Il faut séparer deux questions que ce document confondait**, et la
+confusion était une erreur de ma part, corrigée le 06/11/2026.
 
-| Ce qu'on fait | Ce que ça change | Verdict |
+### 14.1 Ce qui n'est PAS protégé : l'idée, la méthode, le sujet
+
+Le droit d'auteur ne protège **pas les idées** : il protège la **forme
+originale** dans laquelle une idée est exprimée (CPI, art. L. 112-1 et
+L. 112-2 ; constante jurisprudence : « les idées sont de libre parcours »).
+
+Conséquence concrète, et elle est large :
+
+- **« expliquer le moindre privilège avec un serveur qui tourne en root »**
+  est une idée. Elle n'appartient à personne. TryHackMe ne l'a pas inventée,
+  PortSwigger non plus, et ils l'ont eux-mêmes reprise des objectifs
+  d'examen (Security+, eJPT…) qui sont publics.
+- **« découper un cours en leçon / entraînement / examen »** est une
+  méthode. Libre.
+- **« faire trouver un drapeau dans un fichier de configuration »** est un
+  genre d'exercice. Libre.
+- **Les objectifs d'examen** publiés par CompTIA, OffSec ou l'ISC2 sont des
+  documents publics, faits pour être diffusés et travaillés. S'en servir
+  comme **plan de travail** est non seulement permis, c'est la bonne
+  méthode : c'est ce que fait tout le monde, Professor Messer en tête.
+
+Autrement dit : **s'inspirer n'est pas copier**, et ce document avait tort
+de laisser croire le contraire.
+
+### 14.2 Ce qui EST protégé : le texte, et sa structure suivie
+
+Ce qui reste protégé, c'est **l'expression** : la rédaction précise d'une
+question, l'ordre et le choix de ses propositions, les explications, les
+scénarios narratifs, les captures, les schémas, le code des labs.
+
+| Ce qu'on fait | Verdict | Pourquoi |
 |---|---|---|
-| Réordonner les questions | L'ordre ne fait pas partie de ce qui est protégé… mais le contenu, si | **Aucune licence** — la licence s'applique au contenu, pas à sa mise en forme |
-| Renuméroter, reformuler, traduire | Un contenu transformé reste un **contenu dérivé** : il reste soumis à la licence d'origine | **Aucune licence** — le droit d'adaptation se négocie, il ne se crée pas |
-| Mélanger les questions de plusieurs sources | On change la provenance de chaque question | **Aucune licence** — chaque question porte la licence de sa source |
-| Demander une autorisation à l'éditeur | C'est la voie normale | **Oui** — et c'est ce qu'on fera si un accord avec MIT ou un autre éditeur est possible |
+| Reprendre **l'idée** d'un exercice et **écrire son propre énoncé, ses propres propositions, sa propre explication** | **Oui** | on n'a repris que l'idée, qui n'est pas protégeable |
+| Suivre les **objectifs d'examen** d'un certificat comme plan | **Oui** | document public, fait pour ça |
+| Reprendre le **rythme**, la **progression**, le **type de mise en situation** | **Oui** | ce sont des méthodes |
+| Reprendre une question et **changer les chiffres**, l'ordre ou les intitulés | **Non** | c'est la définition d'un contenu dérivé : la forme reste la leur |
+| **Traduire** une question | **Non** | la traduction est une adaptation, soumise à autorisation |
+| Reprendre un **scénario narratif** ou une **explication** en la paraphrasant de près | **Non** | la paraphrase proche reproduit la forme |
 
-La preuve est un test : `tests/import-test.py` contient un lot PortSwigger
-**remis dans l'autre ordre et renuméroté** (`tests/fixtures/import-portswigger-reordonne-refuse.json`).
-L'import est **refusé**, et le message de refus dit pourquoi : *« une
-transformation d'un contenu protégé reste un contenu protégé »*.
+### 14.3 Le test qui tranche : « est-ce que je pourrais l'écrire sans l'avoir lu ? »
+
+C'est la seule question qui compte, et elle ne demande pas de juriste.
+
+- *« Je veux faire comprendre qu'un canari détecte sans empêcher. »* →
+  n'importe qui ayant lu la documentation de GCC peut écrire cet exercice.
+  **On écrit.**
+- *« J'ai lu leur question, elle est bien tournée, je la garde en changeant
+  4 en 8. »* → sans elle, cette phrase n'existerait pas. **On n'écrit pas
+  ça ; on ferme la page et on écrit la nôtre.**
+
+La différence n'est pas dans le résultat, elle est dans **la feuille
+blanche de départ**. Un exercice écrit sans avoir le leur sous les yeux ne
+peut pas être une copie, même s'il ressemble — parce que le sujet impose la
+ressemblance.
+
+### 14.4 Ce que le test automatique protège, et ce qu'il ne peut pas
+
+Le test (`tests/import-test.py`, lot PortSwigger réordonné et renuméroté)
+reste juste dans son **verdict** : ce lot-là est bien un contenu dérivé, et
+l'import doit le refuser. Le message de refus, en revanche, était trop
+large : il disait « une transformation d'un contenu protégé reste un
+contenu protégé », ce qui est vrai pour une **transformation du texte** et
+faux pour une **idée reprise**.
+
+Ce qu'aucun test ne peut vérifier : si l'auteur a écrit sa question la
+feuille blanche ou en regardant celle d'un autre. C'est un engagement
+humain, et il se documente : pour chaque question, la ligne « source
+d'inspiration » et la mention « énoncé original ». C'est le rôle du
+registre de `docs/VERIFICATION-CONTENU.md`.
+
+### 14.5 Ce qui ne change pas
+
+Les **sources importées** (MIT OCW, NIST, RFC, OWASP) restent régies par
+leur licence, et c'est très bien ainsi : elles sont réutilisables, parfois
+même gratuitement et commercialement. Le refus de copier ne vise pas
+l'inspiration, il vise la reprise du texte sans droit.
 
 À noter : notre besoin pédagogique — *« jamais le même examen pour le même
-niveau »* — **n'a rien à voir** avec cette question. Les variantes d'un
-examen sont tirées dans le réservoir de la room (mélange des questions,
-ordre des propositions, chiffres paramétriques) : nous n'avons jamais besoin
-de réécrire le contenu d'autrui pour obtenir des copies différentes. C'est
+niveau »* — n'a rien à voir avec cette question. Les variantes d'un examen
+sont tirées dans le réservoir de la room (mélange des questions, ordre des
+propositions, chiffres paramétriques) : nous n'avons jamais besoin de
+réécrire le contenu d'autrui pour obtenir des copies différentes. C'est
 prouvé par la mesure : **636 150 892 copies** possibles, sans écrire une
 seule question.
+
+---
 
 ---
 
