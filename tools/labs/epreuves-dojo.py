@@ -32,6 +32,24 @@ import re
 import subprocess
 import sys
 
+def valeur_drapeau(drapeau):
+    """La valeur interieure d'un drapeau : SECURA{port_17001} -> port_17001."""
+    return drapeau.replace("SECURA{", "").replace("}", "")
+
+
+def contient_drapeau(sortie, drapeau):
+    """La sortie contient-elle la VALEUR du drapeau ?
+
+    Le defi demande souvent un fragment (« le port », « l'en-tete PEM », « le
+    proprietaire »), pas la ligne entiere. Comparer `flag in sortie` echoue
+    alors que l'eleve a juste. On compare donc la valeur interieure :
+    SECURA{port_17001} -> « port_17001 ». C'est ce que l'eleve lit et recopie.
+    """
+    valeur = valeur_drapeau(drapeau)
+
+    return valeur != "" and valeur in sortie
+
+
 # (identifiant, description, commande jouee dans la machine, calcul de la reponse)
 # La commande tourne en tant que ctf (uid 1000). La fonction de calcul recoit
 # la sortie et le drapeau reel, et rend True si l'eleve obtient le drapeau.
@@ -40,25 +58,25 @@ EPREUVES = [
         "d01",
         "trouver le fichier cache et lire la ligne build",
         "cd /srv/dojo/1-blanche && grep -h '^build' .compte-rendu-d01.txt",
-        lambda sortie, drapeau: drapeau in sortie,
+        lambda sortie, drapeau: contient_drapeau(sortie, drapeau),
     ),
     (
         "d02",
         "trouver le journal qui contient « session »",
         "grep -h 'session' /srv/dojo/1-blanche/journaux/*.log",
-        lambda sortie, drapeau: drapeau in sortie,
+        lambda sortie, drapeau: contient_drapeau(sortie, drapeau),
     ),
     (
         "d03",
         "trouver la ligne « cle » parmi quarante",
         "grep -h ' cle ' /srv/dojo/1-blanche/inventaire.txt",
-        lambda sortie, drapeau: drapeau in sortie,
+        lambda sortie, drapeau: contient_drapeau(sortie, drapeau),
     ),
     (
         "d04",
         "lire la derniere ligne",
         "tail -1 /srv/dojo/1-blanche/long.txt",
-        lambda sortie, drapeau: drapeau in sortie,
+        lambda sortie, drapeau: contient_drapeau(sortie, drapeau),
     ),
     (
         "d05",
@@ -82,7 +100,9 @@ EPREUVES = [
         "d08",
         "le compte exact de lignes",
         "wc -l < /srv/dojo/2-jaune/paquets.log",
-        lambda sortie, drapeau: "137" in sortie,
+        # Le drapeau porte le nombre attendu : on compare le compte obtenu a
+        # cette valeur, jamais a un nombre recopie dans ce fichier.
+        lambda sortie, drapeau: re.search(r"\b" + re.escape(valeur_drapeau(drapeau).split("_")[0]) + r"\b", sortie) is not None,
     ),
     (
         "d09",
@@ -94,7 +114,7 @@ EPREUVES = [
         "d10",
         "la variable oubliee",
         "grep -i recette /srv/dojo/3-orange/env.conf",
-        lambda sortie, drapeau: drapeau in sortie,
+        lambda sortie, drapeau: contient_drapeau(sortie, drapeau),
     ),
     (
         "d11",
@@ -112,7 +132,7 @@ EPREUVES = [
         "d13",
         "la chaine lisible dans le binaire",
         "strings /srv/dojo/4-verte/binaire.out | grep indice-",
-        lambda sortie, drapeau: drapeau in sortie,
+        lambda sortie, drapeau: contient_drapeau(sortie, drapeau),
     ),
     (
         "d14",
@@ -124,13 +144,13 @@ EPREUVES = [
         "d15",
         "l'adresse de la fonction interessante",
         "grep interessant /srv/dojo/4-verte/sortie.txt",
-        lambda sortie, drapeau: "0x80493f0" in sortie,
+        lambda sortie, drapeau: drapeau.replace("SECURA{", "").replace("}", "") in sortie,
     ),
     (
         "d16",
         "le fichier anormalement gros",
         "du -a /srv/dojo/4-verte/volumes/ | sort -n | tail -1",
-        lambda sortie, drapeau: "enorme.txt" in sortie,
+        lambda sortie, drapeau: contient_drapeau(sortie, drapeau),
     ),
     (
         "d17",
@@ -142,7 +162,7 @@ EPREUVES = [
         "d18",
         "l'en-tete PEM de la cle",
         "head -1 /srv/dojo/5-noire/cle.pem",
-        lambda sortie, drapeau: "RSA PRIVATE KEY" in sortie,
+        lambda sortie, drapeau: contient_drapeau(sortie, drapeau),
     ),
     (
         "d19",
@@ -154,7 +174,7 @@ EPREUVES = [
         "d20",
         "le mot de passe decode",
         "base64 -d /srv/dojo/5-noire/secret.b64",
-        lambda sortie, drapeau: drapeau in sortie,
+        lambda sortie, drapeau: contient_drapeau(sortie, drapeau),
     ),
 ]
 

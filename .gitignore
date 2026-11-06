@@ -16,11 +16,20 @@ Desktop.ini
 .vscode/
 *.log
 
+# Les fichiers qui FONT les defis des machines ne sont pas des dechets : ils
+# sont le contenu pedagogique (un journal a analyser, une cle a examiner).
+# Sans ces deux lignes, six fichiers du dojo manquaient a l'image construite
+# en CI alors qu'ils existaient en local — et neuf defis devenaient
+# inresolvables. Trouve par le workflow Machines, pas a la main.
+!labs/*/machine/**/*.log
+
 # Secrets et credentials — ne jamais versionner
 .env
 .env.*
 !.env.example
 *.pem
+# ... sauf dans les machines, ou la cle EST le sujet du defi.
+!labs/*/machine/**/*.pem
 *.key
 *.p12
 *.pfx
