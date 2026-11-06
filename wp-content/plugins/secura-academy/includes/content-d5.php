@@ -79,7 +79,7 @@ function seca_default_rooms_d5() {
 							'explanation' => '« Faire des sauvegardes » n\'est pas une mesure : c\'est une intention. Une mesure dit QUOI, QUI, QUAND et comment on verifie. Sans responsable ni date, rien ne se passe — et le registre donne pourtant l\'impression que le risque est traite.',
 						),
 						array(
-							'question'    => 'Ligne B — Risque : « un stagiaire conserve son acces apres son depart ». Probabilite : moyenne. Impact : eleve. Mesure : desactivation automatique validee le 12/03. Responsable : R. Martin. Risque residuel : faible, accepte par la direction le 20/03.',
+							'question'    => 'Ligne B — Risque : « un stagiaire conserve son acces apres son depart ». Probabilite : moyenne. Impact : eleve. Mesure : desactivation automatique validee le 03/12. Responsable : R. Martin. Risque residuel : faible, accepte par la direction le 20/03.',
 							'mode'        => 'choice',
 							'topic'       => '5.2',
 							'choices'     => array( 'Ligne correcte : les quatre elements sont presents et attribues', 'Risque orphelin : il manque un responsable', 'Acceptation muette : personne n\'a accepte le risque residuel', 'Ligne inutile : un stagiaire ne represente pas un risque' ),
@@ -203,7 +203,7 @@ function seca_default_rooms_d5() {
 									'explanation' => '"Take backups" is not a measure, it is an intention. A measure says WHAT, WHO, WHEN, and how it is verified. With no owner and no date, nothing happens — yet the register looks like the risk is handled.',
 								),
 								array(
-									'question'    => 'Line B — Risk: "an intern keeps access after leaving". Likelihood: medium. Impact: high. Measure: automatic deprovisioning, validated 03/12. Owner: R. Martin. Residual: low, accepted by management on 03/20.',
+									'question'    => 'Line B — Risk: "an intern keeps access after leaving". Likelihood: medium. Impact: high. Measure: automatic deprovisioning, validated 03/12. Owner: R. Martin. Residual: low, accepted by management on 20/03.',
 									'choices'     => array( 'This line is correct: all four elements are present and assigned', 'Orphan risk: it is missing an owner', 'Silent acceptance: nobody accepted the residual risk', 'Pointless line: an intern is not a risk' ),
 									'correct'     => 0,
 									'hint'        => 'Check the four elements: statement, scoring, assigned measure, acceptance of the residual.',
@@ -639,7 +639,7 @@ function seca_default_rooms_d5() {
 					'tasks'   => array(
 						array(
 							'title'     => 'Task 1: The three flaws of a useless audit',
-							'content'   => '<p>An audit answers one single question: <em>is what is written true, and sufficient?</em> Three flaws empty it of meaning.</p><ol><li><strong>The scope chosen by the auditee.</strong> If the party being audited decides what gets looked at, the audit will exclude exactly the sensitive areas. Scope must be written beforehand and approved by the commissioning party.</li><li><strong>Evidence supplied by the auditee.</strong> An audit on documents, with files selected by the person audited, measures the quality of the selection — not the quality of the system. Evidence is observed: you open the log, you query an account, you look at a machine.</li><li><strong>The absence of independence.</strong> An auditor who depends on the auditee for the next engagement cannot write an unpleasant finding. It is human, and it is structural.</li></ol><p><strong>The zero-findings signal.</strong> On a real system, an audit always finds at least presentational gaps: an undated procedure, an expired document, missing evidence. Zero findings means nobody looked, or nobody was allowed to look.</p><p><strong>What a good report contains.</strong> Precise, situated findings ("X\'s account was still active while the procedure requires deprovisioning within 24 h, verified on 09/14"), a severity, and a recommendation. Not "security is broadly satisfactory": that can neither be verified nor fixed.</p><p><strong>Remember:</strong> an audit report is judged on what it allows you to fix, not on what it reassures you about.</p>',
+							'content'   => '<p>An audit answers one single question: <em>is what is written true, and sufficient?</em> Three flaws empty it of meaning.</p><ol><li><strong>The scope chosen by the auditee.</strong> If the party being audited decides what gets looked at, the audit will exclude exactly the sensitive areas. Scope must be written beforehand and approved by the commissioning party.</li><li><strong>Evidence supplied by the auditee.</strong> An audit on documents, with files selected by the person audited, measures the quality of the selection — not the quality of the system. Evidence is observed: you open the log, you query an account, you look at a machine.</li><li><strong>The absence of independence.</strong> An auditor who depends on the auditee for the next engagement cannot write an unpleasant finding. It is human, and it is structural.</li></ol><p><strong>The zero-findings signal.</strong> On a real system, an audit always finds at least presentational gaps: an undated procedure, an expired document, missing evidence. Zero findings means nobody looked, or nobody was allowed to look.</p><p><strong>What a good report contains.</strong> Precise, situated findings ("X\'s account was still active while the procedure requires deprovisioning within 24 h, verified on 14/09"), a severity, and a recommendation. Not "security is broadly satisfactory": that can neither be verified nor fixed.</p><p><strong>Remember:</strong> an audit report is judged on what it allows you to fix, not on what it reassures you about.</p>',
 							'questions' => array(),
 						),
 						array(
@@ -648,7 +648,7 @@ function seca_default_rooms_d5() {
 							'questions' => array(
 								array(
 									'question'    => 'Which excerpt is an actionable audit finding?',
-									'choices'     => array( 'M. A.\'s account was active on 09/14, 40 days after departure, while the procedure requires 24 h', 'Account management is broadly satisfactory', 'The IT team must be more vigilant in future', 'No findings were raised within the scope studied' ),
+									'choices'     => array( 'M. A.\'s account was active on 14/09, 40 days after departure, while the procedure requires 24 h', 'Account management is broadly satisfactory', 'The IT team must be more vigilant in future', 'No findings were raised within the scope studied' ),
 									'correct'     => 0,
 									'hint'        => 'A finding is situated in time, names a fact and ties to a requirement.',
 									'explanation' => 'The other three can neither be challenged nor corrected: they do not say when, what, or against which rule. The first can be verified, discussed and fixed.',
@@ -676,7 +676,7 @@ function seca_default_rooms_d5() {
 								array(
 									'question'    => 'Which account contradicts the report\'s conclusion of "no findings"?',
 									'hint'        => 'The report says every departure was handled within 24 h. The log shows logins. Find an account logging in after a departure date.',
-									'explanation' => 'Account j.moreau logged in on 09/22 while its departure is recorded on 08/03: 50 days of active access. The report claims the opposite without consulting the log — proof that the evidence was supplied by the auditee. This is exactly the finding an audit based on observed evidence would have raised.',
+									'explanation' => 'Account j.moreau logged in on 22/09 while its departure is recorded on 03/08: 50 days of active access. The report claims the opposite without consulting the log — proof that the evidence was supplied by the auditee. This is exactly the finding an audit based on observed evidence would have raised.',
 								),
 							),
 						),

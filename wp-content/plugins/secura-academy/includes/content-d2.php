@@ -430,7 +430,7 @@ function seca_default_rooms_d2() {
 							'content'   => '<p>Three log lines. Vulnerability, artefact, or indicator of compromise?</p>',
 							'questions' => array(
 								array(
-									'question'    => 'The file server did not receive September\'s security patch. That is a fact observed on 10/12.',
+									'question'    => 'The file server did not receive September\'s security patch. That is a fact observed on 12/10.',
 									'choices'     => array( 'A vulnerability: it does not prove that any event took place', 'An indicator of compromise: the server is compromised', 'An artefact: this is normal', 'An attack in progress' ),
 									'correct'     => 0,
 									'hint'        => 'Does the fact prove something happened, or only that something could happen?',
