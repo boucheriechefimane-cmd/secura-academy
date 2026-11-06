@@ -517,4 +517,299 @@ return array(
 		),
 	),
 
+	/* ---------------------------------------------------------------------
+	 * avance-06 — Ceinture verte
+	 * ------------------------------------------------------------------ */
+	'avance-06' => array(
+		'title'   => 'Green belt: binaries, strings, memory',
+		'excerpt' => 'Looking at compiled programs: what they contain, what they are, and what is inside them.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the green belt',
+				'content' => '<p>The green belt changes medium: you no longer read texts, you look at <strong>binaries</strong> — compiled programs.</p><p>What you will learn:</p><ul><li><code>file</code> — what that file really is (executable, archive, image);</li><li><code>strings</code> — the pieces of text hidden in the binary;</li><li><code>stat</code> — the exact size, a clue that jumps out at you;</li><li><code>grep</code> — find an address, an error message, a password.</li></ul><p><strong>Remember:</strong> a binary hides almost nothing, it <em>shows</em> badly. Character strings stay in the file: the password, the URL, the error message that betrays a library. That is the very point of the 6.858 course: "the program does not say what it does, but it shows the pieces".</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions on the tools of this belt.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What does the `strings` command do?',
+						'choices'     => array(
+							'It turns a file into text, line by line',
+							'It displays the readable character strings contained in a file',
+							'It sends strings over the network',
+							'It checks the signature of a file',
+						),
+						'hint'        => 'It pulls the text out of the binary, thread by thread.',
+						'explanation' => 'A compiled binary is made of machine code, but it also contains pieces of text: error messages, paths, URLs, identifiers. <code>strings</code> extracts them. It is often the first thing to do on an unknown program.',
+					),
+					1 => array(
+						'question'    => 'Why is an absurd file size a clue?',
+						'choices'     => array(
+							'Because big files are compressed',
+							'Because the size tells the age of the file',
+							'Because a file often hides something else: an executable inside an image file, an archive inside a picture',
+							'Because small files are always safe',
+						),
+						'hint'        => 'Think about what gets hidden inside a picture.',
+						'explanation' => 'So-called "image" or "document" files often contain an executable or an archive: that is the basis of many trojans. A size that does not match the stated format is the signal to check it (<code>file</code>, then <code>strings</code>).',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the four challenges of the belt',
+				'content' => '<p>The dojo is deployed on your machine. The four challenges of the <strong>green</strong> belt are in:</p><ul><li><strong>The binary and its strings</strong> — A binary\'s strings are read with `strings`. (<code>/srv/dojo/4-verte/13-chaines.txt</code>)</li><li><strong>The file type</strong> — A file\'s real type is seen with `file`. (<code>/srv/dojo/4-verte/14-type.txt</code>)</li><li><strong>The address of the failure</strong> — A memorable address is often written in clear text in the binary. (<code>/srv/dojo/4-verte/15-adresse.txt</code>)</li><li><strong>The file size</strong> — An abnormal size betrays a file that contains more than it says. (<code>/srv/dojo/4-verte/16-taille.txt</code>)</li></ul><p><strong>Mission.</strong> Open each document, note the report value (the line <code>... = FLAG=SECURA{...}</code>), and answer the four questions. The server compares each answer with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of the "The binary and its strings" challenge (d13).',
+						'hint'        => 'The green belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					1 => array(
+						'question'    => 'Note the value of the "The file type" challenge (d14).',
+						'hint'        => 'The green belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					2 => array(
+						'question'    => 'Note the value of the "The address of the failure" challenge (d15).',
+						'hint'        => 'The green belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					3 => array(
+						'question'    => 'Note the value of the "The file size" challenge (d16).',
+						'hint'        => 'The green belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Three questions on this belt. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'You find the string "/etc/passwd" in a binary. What does that indicate?',
+						'choices'     => array(
+							'That the binary is signed',
+							'That the file is compressed',
+							'That the program probably reads that file — so it is tied to the account mechanism',
+							'That the binary comes from Linux',
+						),
+						'hint'        => 'A path string is an intention.',
+						'explanation' => 'A binary\'s strings are traces of what it handles. Finding "/etc/passwd" or "/bin/sh" in a program is a strong clue: it is what you use to understand — and sometimes to become root.',
+					),
+					1 => array(
+						'question'    => 'What is the `file` command for?',
+						'choices'     => array(
+							'Opening a file in an editor',
+							'Deleting a file',
+							'Comparing two files',
+							'Guessing the real type of a file from its content',
+						),
+						'hint'        => 'It says what the file really is.',
+						'explanation' => 'A file can carry a misleading extension. <code>file</code> looks at the first bytes (the "magic number") and tells the truth: ELF executable, archive, image, script. One more lie to unmask.',
+					),
+					2 => array(
+						'question'    => 'Why do binaries still contain readable strings?',
+						'choices'     => array(
+							'Because the programmer needs messages, paths and labels: the compiler keeps them',
+							'Because the C language cannot do otherwise',
+							'Because the binary is encrypted',
+							'Because the processor reads strings',
+						),
+						'hint'        => 'The programmer needs to talk to the user.',
+						'explanation' => 'Machine code cannot display "Hello". Every displayed text, every path used, every error message is kept as is in the binary. That is what makes static analysis (<code>strings</code>) so useful.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * avance-07 — Ceinture noire
+	 * ------------------------------------------------------------------ */
+	'avance-07' => array(
+		'title'   => 'Black belt: cryptography, keys, digests',
+		'excerpt' => 'The last belt: read a digest, recognise a key, read a certificate.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the black belt',
+				'content' => '<p>The black belt is the world of <strong>secrets that are not in clear text</strong>: digests, keys, certificates. You do not break them (you do not "crack" a key): you <em>recognise</em> them, you read them, you verify them.</p><p>What you will learn:</p><ul><li><code>sha256sum</code> — compute the digest of a file, and compare it;</li><li><code>grep</code> — spot a key or a secret in a file;</li><li><code>openssl</code> — read a certificate and understand what it says.</li></ul><p><strong>Remember:</strong> a digest is not reversible: you do not "decrypt" a hash, you compare it. And comparing assumes you know what to compare against: that is the server\'s job, on our platform.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions on the tools of this belt.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What does the command `sha256sum fichier` do?',
+						'choices'     => array(
+							'It encrypts the file',
+							'It compares the file with another one',
+							'It computes a 64-character hexadecimal digest of the file',
+							'It compresses the file',
+						),
+						'hint'        => 'A digest, not an encryption.',
+						'explanation' => '<code>sha256sum</code> computes a digest: the same data always gives the same digest, and you cannot go back from the digest to the data. That is what lets you verify that a file has not been modified.',
+					),
+					1 => array(
+						'question'    => 'Why can you not recover a password from its digest?',
+						'choices'     => array(
+							'Because the digest is too short',
+							'Because the password is encrypted twice',
+							'Because sha256sum is an old tool',
+							'Because the digest is computed one way only: you verify by recomputing it',
+						),
+						'hint'        => 'You do not read a digest back: you recompute it.',
+						'explanation' => 'A hash function is one-way by design. To verify a password, you hash it and compare the digests. That is also why digests are salted: two users with the same password then do not have the same digest.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the four challenges of the belt',
+				'content' => '<p>The dojo is deployed on your machine. The four challenges of the <strong>black</strong> belt are in:</p><ul><li><strong>The digest of the secret</strong> — A file\'s digest is computed with `sha256sum`. (<code>/srv/dojo/5-noire/17-empreinte.txt</code>)</li><li><strong>The private key</strong> — A key leaves traces in configuration files. (<code>/srv/dojo/5-noire/18-cle.txt</code>)</li><li><strong>The certificate</strong> — A certificate says who issued it, for whom, and until when. (<code>/srv/dojo/5-noire/19-certificat.txt</code>)</li><li><strong>The hashed password</strong> — A password hash is verified, not read back. (<code>/srv/dojo/5-noire/20-hache.txt</code>)</li></ul><p><strong>Mission.</strong> Open each document, note the report value (the line <code>... = FLAG=SECURA{...}</code>), and answer the four questions. The server compares each answer with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of the "The digest of the secret" challenge (d17).',
+						'hint'        => 'The black belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					1 => array(
+						'question'    => 'Note the value of the "The private key" challenge (d18).',
+						'hint'        => 'The black belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					2 => array(
+						'question'    => 'Note the value of the "The certificate" challenge (d19).',
+						'hint'        => 'The black belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					3 => array(
+						'question'    => 'Note the value of the "The hashed password" challenge (d20).',
+						'hint'        => 'The black belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Three questions on this belt. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'A TLS certificate contains the site address. Why does that matter?',
+						'choices'     => array(
+							'Because the browser displays it',
+							'Because it speeds up the connection',
+							'Because it encrypts the site',
+							'Because it lets you verify who you are talking to: it is the server\'s identity',
+						),
+						'hint'        => 'What does the certificate prove?',
+						'explanation' => 'The certificate binds a public key to a domain name, and it is signed by an authority. It is a verifiable promise: "this key really belongs to this site". Without that verification, encryption protects against eavesdropping, but not against impersonation.',
+					),
+					1 => array(
+						'question'    => 'A configuration file contains a private key in clear text. What is the main risk?',
+						'choices'     => array(
+							'Anyone who reads that file can impersonate the service',
+							'The file becomes heavier',
+							'The server becomes slower',
+							'The key becomes shorter',
+						),
+						'hint'        => 'A private key is either used or stolen.',
+						'explanation' => 'The private key is the secret that makes the public key credible. Readable by a badly configured service account, or copied into a backup, it lets someone impersonate the service — and decrypt what was meant to stay encrypted.',
+					),
+					2 => array(
+						'question'    => 'What is the difference between a hash and an encryption?',
+						'choices'     => array(
+							'None, they are the same thing',
+							'Encryption is reversible with the key; a hash is not',
+							'Hashing is older',
+							'Encryption only works on files',
+						),
+						'hint'        => 'Reversible or not: that is the difference.',
+						'explanation' => 'Encryption is a door: you go in with the key, you come out with the data. Hashing is a fingerprint: impossible to go backwards. Confusing the two means believing you can "decode" a hashed password.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * avance-08 — Brief 1 : le dojo
+	 * ------------------------------------------------------------------ */
+	'avance-08' => array(
+		'title'   => 'Brief 1: the dojo, how we train',
+		'excerpt' => 'Before the challenges: the method. The dojo is not a cracking game, it is a ladder.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the dojo, how we train',
+				'content' => '<p>A dojo is not a list of flaws to batter down: it is a <strong>ladder</strong>. You climb belt by belt, and each belt builds a skill.</p><p>The dojo rule, in three points:</p><ol><li><strong>Look for the proof, not the flaw.</strong> An exercise asks you to note a precise value. That is a proof: it can be checked that you understood, instead of guessing what the author had in mind.</li><li><strong>One command at a time.</strong> First you read. Only then do you break. The belts do it in that order, and it works.</li><li><strong>The dojo is not a solo game.</strong> It is training: you can start over, get it wrong, and start over. The goal is not victory, it is the skill.</li></ol><p><strong>Remember:</strong> on our platform, each challenge is validated with a flag read from your machine, by the server, as root. You cannot cheat: you can only learn.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions to check the brief went in.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What separates a "proof" exercise from a "guessing" exercise?',
+						'choices'     => array(
+							'The price',
+							'The number of questions',
+							'The duration',
+							'The proof is checked automatically: there is only one right answer, to be read from the machine',
+						),
+						'hint'        => 'What lets someone say "that is correct"?',
+						'explanation' => 'A proof can be checked: the server reads the value from the machine and compares it. A "guessing" exercise asks you to rephrase what the author had in mind: it is fuzzy, and it is demotivating.',
+					),
+					1 => array(
+						'question'    => 'Why start by reading before trying to break?',
+						'choices'     => array(
+							'Because you do not know where to look before seeing what is there',
+							'Because it is slower, hence more serious',
+							'Because reading tools are prettier',
+							'Because access accounts are complicated',
+						),
+						'hint'        => 'What exactly are you looking for, before you have looked?',
+						'explanation' => 'That is the dojo method: observe first (what runs, what is written, who owns what), then act. A head-on crash against an application you have not read is guesswork.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the proof of the brief',
+				'content' => '<p>The brief is written in the dojo machine, in <code>/srv/briefs/01-presentation.txt</code>.</p><p><strong>Mission.</strong> Open that document and note the value it announces. The server compares it with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of brief 1 (the dojo method).',
+						'hint'        => 'The briefs are in <code>/srv/briefs</code>.',
+						'explanation' => 'Each brief is validated with proof read from the dojo machine: the same mechanism as for the challenges, and it holds for every room.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Two questions on this brief. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'The server compares your answer with the flag it keeps in the machine, as root. Why "as root"?',
+						'choices'     => array(
+							'So the flag is unreadable by the learner: they must find it, not copy it',
+							'To go faster',
+							'Because containers run as root',
+							'To compress the file',
+						),
+						'hint'        => 'Who must be able to read the flag file?',
+						'explanation' => 'If the learner could read the flag file, the mission would prove nothing: they would copy the answer. By putting it in 400 root:root, we force the learner to go through understanding.',
+					),
+					1 => array(
+						'question'    => 'An exercise is a "proof" exercise when…',
+						'choices'     => array(
+							'it has an image to download',
+							'the answer is found in the machine and checked without ambiguity',
+							'it lasts more than ten minutes',
+							'it comes from a university',
+						),
+						'hint'        => 'Automatic checking is the key.',
+						'explanation' => 'The rule we apply to every mission: one right answer, readable in the machine, checked by the server. That is what separates a learning platform from a quiz.',
+					),
+				),
+			),
+		),
+	),
+
 );
