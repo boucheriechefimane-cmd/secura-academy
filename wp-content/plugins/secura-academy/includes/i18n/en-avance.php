@@ -241,22 +241,22 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'Note the value of the "The first file" challenge (d01).',
-						'hint'        => 'The white belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The white belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…white…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					1 => array(
 						'question'    => 'Note the value of the "The hidden folder" challenge (d02).',
-						'hint'        => 'The white belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The white belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…white…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					2 => array(
 						'question'    => 'Note the value of the "The word in the text" challenge (d03).',
-						'hint'        => 'The white belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The white belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…white…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					3 => array(
 						'question'    => 'Note the value of the "The first and last lines" challenge (d04).',
-						'hint'        => 'The white belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The white belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…white…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 				),
@@ -348,22 +348,22 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'Note the value of the "The protected file" challenge (d05).',
-						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…yellow…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					1 => array(
 						'question'    => 'Note the value of the "The real owner\'s folder" challenge (d06).',
-						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…yellow…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					2 => array(
 						'question'    => 'Note the value of the "The hidden line" challenge (d07).',
-						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…yellow…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					3 => array(
 						'question'    => 'Note the value of the "The character count" challenge (d08).',
-						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…yellow…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 				),
@@ -455,22 +455,22 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'Note the value of the "The open port" challenge (d09).',
-						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…orange…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					1 => array(
 						'question'    => 'Note the value of the "The suspicious process" challenge (d10).',
-						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…orange…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					2 => array(
 						'question'    => 'Note the value of the "The forgotten configuration" challenge (d11).',
-						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…orange…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					3 => array(
 						'question'    => 'Note the value of the "The firewall rule" challenge (d12).',
-						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…orange…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 				),
@@ -562,22 +562,22 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'Note the value of the "The binary and its strings" challenge (d13).',
-						'hint'        => 'The green belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The green belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…green…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					1 => array(
 						'question'    => 'Note the value of the "The file type" challenge (d14).',
-						'hint'        => 'The green belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The green belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…green…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					2 => array(
 						'question'    => 'Note the value of the "The address of the failure" challenge (d15).',
-						'hint'        => 'The green belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The green belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…green…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					3 => array(
 						'question'    => 'Note the value of the "The file size" challenge (d16).',
-						'hint'        => 'The green belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The green belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…green…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 				),
@@ -669,22 +669,22 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'Note the value of the "The digest of the secret" challenge (d17).',
-						'hint'        => 'The black belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The black belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…black…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					1 => array(
 						'question'    => 'Note the value of the "The private key" challenge (d18).',
-						'hint'        => 'The black belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The black belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…black…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					2 => array(
 						'question'    => 'Note the value of the "The certificate" challenge (d19).',
-						'hint'        => 'The black belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The black belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…black…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 					3 => array(
 						'question'    => 'Note the value of the "The hashed password" challenge (d20).',
-						'hint'        => 'The black belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'hint'        => 'The black belt folder is in <code>/srv/dojo</code> (for example <code>/srv/dojo/…black…</code>). Open the challenge file and copy the value between the braces.',
 						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
 					),
 				),

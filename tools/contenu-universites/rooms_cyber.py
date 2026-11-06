@@ -409,7 +409,7 @@ ROOMS = [
             'question': 'Quelle est la somme des delais de publication constates, en heures (delais.txt) ?',
             'flag_path': '/root/flags/flag-u16.txt',
             'xp': 30,
-            'hint': '<code>awk \'{s+=$1} END{print s}\' /srv/cours/cyber/delais.txt</code>.',
+            'hint': 'Les trois delais sont un nombre par ligne de <code>/srv/cours/cyber/delais.txt</code> : <code>awk \'{s+=$1} END{print s}\' /srv/cours/cyber/delais.txt</code> en fait la somme.',
             'explain': 'Ce qui est publié reste accessible longtemps, même après suppression : un délai de relecture n\'est pas une perte de temps, c\'est la seule chance de rattraper une photo qui montre une adresse. Additionner les délais, c\'est mesurer ce que la prudence coûte.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',

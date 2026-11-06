@@ -1615,7 +1615,7 @@ return array(
 				'questions' => array(
 					0 => array(
 						'question'    => 'What is the sum of the observed publishing delays, in hours (delais.txt)?',
-						'hint'        => 'The three delays are one number per line: <code>awk \'{s+=$1} END{print s}\' /srv/cours/cyber/delais.txt</code> adds them up.',
+						'hint'        => 'The three delays are one number per line of <code>/srv/cours/cyber/delais.txt</code>: <code>awk \'{s+=$1} END{print s}\' /srv/cours/cyber/delais.txt</code> adds them up.',
 						'explanation' => 'What is published stays accessible for a long time, even after deletion: a review delay is not wasted time, it is the only chance to catch a photo that shows an address. Adding the delays up is measuring what caution costs.',
 					),
 				),
