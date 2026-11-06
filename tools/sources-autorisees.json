@@ -58,6 +58,17 @@
       "commercial_note": "utilisable dans un service payant"
     },
     {
+      "id": "nist-sp-800-50r1",
+      "nom": "NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program",
+      "url": "https://csrc.nist.gov/pubs/sp/800/50/r1/final",
+      "licence": "Domaine public (gouvernement federal des Etats-Unis)",
+      "attribution": "National Institute of Standards and Technology (NIST)",
+      "usage": "programme de sensibilisation et de formation (sujet 5.5 de SY0-701) ; remplace l'edition de 2003, retiree le 12/09/2024",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "utilisable dans un service payant"
+    },
+    {
       "id": "cisa-cyber",
       "nom": "CYBER.ORG — curriculums K-12",
       "url": "https://www.cyber.org/",

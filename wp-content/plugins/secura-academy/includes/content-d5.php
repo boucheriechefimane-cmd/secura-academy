@@ -714,5 +714,269 @@ function seca_default_rooms_d5() {
 				),
 			),
 		),
+			/*
+			   Sujet 5.5 du referentiel SY0-701 : « sensibilisation des
+			   utilisateurs ». Il n'existait pas, et la mesure de couverture
+			   du 06/11/2026 le comptait parmi les sept trous restants.
+
+			   Choix de conception : la room ne demande pas de RECITER les
+			   bonnes pratiques, elle demande de LIRE un rapport de campagne
+			   et de trancher. C'est la competence que le referentiel decrit.
+
+			   Source : NIST SP 800-50 Rev. 1 (septembre 2024). L'edition de
+			   2003 a ete RETIREE le 12/09/2024, et beaucoup de supports de
+			   cours la citent encore : c'est l'erreur a ne pas reproduire.
+			*/
+			array(
+				'title'       => 'La campagne qui n\'a rien appris a personne',
+				'excerpt'     => 'Une entreprise forme ses salaries au phishing. Le taux de clic baisse. La direction est contente. Tu dois expliquer pourquoi c\'est mauvais signe.',
+				'content'     => 'Une campagne de sensibilisation se juge sur ce que les gens font ensuite, pas sur le score du jour. Cette room t\'apprend a concevoir la campagne, a lire son rapport, et a reperer les trois facons de la reussir sur le papier en echouant dans les faits.',
+				'difficulty'  => 'moyen',
+				'duration'   => 30,
+				'xp_bonus'   => 60,
+				'track'      => 'gouvernance',
+				'source'     => array(
+					'nom'        => 'NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program',
+					'url'        => 'https://csrc.nist.gov/pubs/sp/800/50/r1/final',
+					'licence'    => 'Domaine public (publication du NIST, Etats-Unis)',
+					'attribution'=> 'NIST Special Publication 800-50 Revision 1, Building a Cybersecurity and Privacy Learning Program (septembre 2024)',
+				),
+				'tasks'      => array(
+					array(
+						'type'      => 'lesson',
+						'format'    => 'lecon',
+						'title'     => 'Task 1 : Ce qui fait qu\'une campagne apprend quelque chose',
+						'content'   => '<p>Une campagne de sensibilisation n\'a pas pour but de faire baisser un chiffre. Elle a pour but de <strong>changer un comportement</strong> : quelqu\'un qui recoit un message suspect le signale au lieu de cliquer. Le NIST SP 800-50 Rev. 1 en fait le critere central : le programme doit etre concu pour provoquer un changement de comportement, et se mesurer sur ce changement.</p><p>Une campagne utilisable repond a cinq questions :</p><ol><li><strong>Quel comportement precis veut-on voir ?</strong> « Faire attention » n\'est pas un comportement. « Signaler un message suspect, sans le transferer » en est un.</li><li><strong>A qui parle-t-on, et que risque cette personne-la ?</strong> Le service comptable ne risque pas la meme chose que l\'equipe technique. Un message unique pour tous ne parle a personne.</li><li><strong>Par quoi on commence ?</strong> Un seul comportement par campagne. Trois consignes simultanees donnent zero consigne retenue.</li><li><strong>Comment on mesure, sans mesurer la peur ?</strong> Le taux de clic ne dit rien a lui seul : le <em>taux de signalement</em> dit ce que les gens font.</li><li><strong>Que fait-on du resultat ?</strong> Une campagne qui ne change pas le contenu de la suivante n\'est pas un programme : c\'est un exercice de style.</li></ol><p>Trois facons de reussir sur le papier en echouant dans les faits :</p><ul><li><strong>la campagne-piege</strong> — on piege les gens pour les prendre en faute. Resultat : ils se cachent, ne signalent plus rien, et le taux de clic baisse pour la mauvaise raison ;</li><li><strong>la campagne-banniere</strong> — l\'outil de messagerie affiche « message externe ». Les gens cliquent quand meme, et personne ne mesure : on a installe un avertissement, pas une competence ;</li><li><strong>la campagne-une-fois</strong> — une session en janvier, un score en fevrier, plus rien. Sans repetition espacee, l\'oubli est certain.</li></ul><p><strong>A retenir :</strong> on ne mesure pas une campagne au nombre de clics evites, mais au nombre de signalements recus. Le premier chiffre se fabrique en faisant peur ; le second ne se fabrique pas.</p>',
+						'questions' => array(),
+					),
+					array(
+						'type'      => 'practice',
+						'format'    => 'qcm',
+						'title'     => 'Task 2 : Entrainement — trois rapports a lire',
+						'content'   => '<p>Trois extraits de rapport de campagne. A chaque fois : que faut-il en conclure ?</p>',
+						'questions' => array(
+							array(
+								'question'    => 'Rapport A — « 2 400 messages simules envoyes, 6 % de clics, 0,4 % de signalements. Objectif atteint : le seuil de 10 % n\'est pas depasse. »',
+								'mode'        => 'choice',
+								'topic'       => '5.5',
+								'choices'     => array( 'Le signalement quasi nul est le vrai probleme : les gens ne cliquent plus, ils ne signalent pas', 'Le rapport est bon : le seuil fixe est respecte, la campagne est un succes', 'Il faut abaisser le seuil a 5 % pour ameliorer le score', 'Il faut renvoyer le meme message pour confirmer la baisse' ),
+								'correct'     => 0,
+								'xp'          => 10,
+								'hint'        => 'Un eleve qui ne clique pas et ne signale pas : a-t-il appris quelque chose, ou a-t-il peur ?',
+								'explanation' => 'Un taux de clic bas avec un taux de signalement proche de zero decrit une organisation qui a appris a eviter le risque visible, pas a reconnaitre une menace. Le signalement est le seul comportement qui protege les autres : c\'est lui qu\'il faut faire monter, et une campagne qui ne le mesure pas ne sait pas ce qu\'elle fait.',
+							),
+							array(
+								'question'    => 'Rapport B — « Les 40 personnes du service comptable ont suivi la formation. 38 ont reussi le quiz final. Le taux de clic sur le mois suivant n\'a pas bouge. »',
+								'mode'        => 'choice',
+								'topic'       => '5.5',
+								'choices'     => array( 'Le quiz mesurait la memoire, pas le comportement : la formation n\'etait pas concue pour changer un geste', 'Les 2 personnes en echec expliquent a elles seules l\'absence de progres', 'Le taux de clic est une mesure peu fiable, il faut la supprimer', 'Il faut rendre le quiz plus difficile pour trier les meilleurs' ),
+								'correct'     => 0,
+								'xp'          => 10,
+								'hint'        => 'Un quiz reussi garantit-il un geste le lundi matin ?',
+								'explanation' => 'Un quiz note la reconnaissance d\'une bonne reponse, pas le reflexe en situation. Une formation qui fait reussir 95 % des participants sans deplacer le comportement a mesure sa propre clarte, pas l\'apprentissage. La correction ne porte pas sur le quiz : elle porte sur le format — mises en situation courtes, repetees, suivies d\'un retour.',
+							),
+							array(
+								'question'    => 'Rapport C — « Campagne trimestrielle depuis deux ans. Le taux de clic est passe de 18 % a 9 %. Aucun signalement n\'a jamais ete enregistre, et la boite de signalement n\'existe pas dans la messagerie. »',
+								'mode'        => 'choice',
+								'topic'       => '5.5',
+								'choices'     => array( 'La baisse ne prouve rien tant qu\'aucun signalement n\'est possible : on mesure une peur, pas une competence', 'La baisse de moitie en deux ans prouve l\'efficacite du programme', 'Il faut arreter la campagne, elle coute cher pour un resultat discutable', 'Il faut ajouter un second fournisseur de simulation pour varier les messages' ),
+								'correct'     => 0,
+								'xp'          => 10,
+								'hint'        => 'Peut-on mesurer un comportement que l\'organisation ne permet pas d\'exprimer ?',
+								'explanation' => 'Sans canal de signalement, le seul comportement mesure est l\'evitement — et l\'evitement peut venir de la peur autant que de la competence. La premiere action n\'est pas de changer de fournisseur : c\'est de rendre le signalement possible, puis de le compter. Une campagne sans signalement mesure la prudence, pas la vigilance.',
+							),
+						),
+					),
+					array(
+						'type'      => 'test',
+						'format'    => 'pratique',
+						'title'     => 'Task 3 : La mission — lire le journal de la campagne',
+						'content'   => '<p><strong>Mission.</strong> Le journal complet de la campagne est sur la machine de l\'atelier. Ouvre-le et compare les deux derniers trimestres : le taux de clic baisse, mais autre chose a change.</p><p>Le journal contient une ligne ou une personne a fait exactement ce qu\'il fallait faire. Trouve son <strong>identifiant</strong> (la valeur de la colonne <code>agent</code>) : c\'est la preuve que tu as lu les lignes, pas seulement les totaux.</p>',
+						'questions' => array(
+							array(
+								'question'    => 'Quel agent a signale le message simule du trimestre en cours ?',
+								'mode'        => 'text',
+								'topic'       => '5.5',
+								'answers'     => array( '/agent-17/i', '/17/' ),
+								'xp'          => 40,
+								'hint'        => 'Dans le terminal : <code>cat /srv/atelier/journal-campagne.csv</code>, puis cherche la colonne <code>action</code> egale a <code>signale</code>.',
+								'explanation' => 'Une seule ligne du trimestre porte <code>signale</code> : l\'agent-17. C\'est le seul evenement qui compte vraiment dans ce journal, parce que c\'est le seul qui protege les autres. Les totaux, eux, racontent une baisse de clics — et le meme trimestre contient aussi des lignes <code>transfert</code>, c\'est-a-dire des gens qui ont fait suivre le message a un collegue au lieu de le signaler.',
+							),
+						),
+						'terminal' => array(
+							'intro'   => 'sensibilisation@atelier:~$ ',
+							'unknown' => 'Cette commande ne donne rien ici.',
+							'success' => 'Journal lu. Tu peux repondre a la question.',
+							'steps'   => array(
+								array(
+									'match'  => array( 'ls /srv/atelier', '/^ls .*atelier/', '/^ls$/' ),
+									'output' => 'journal-campagne.csv
+note-de-cadrage.txt
+',
+									'hint'   => 'Le journal est un fichier CSV dans /srv/atelier.',
+								),
+								array(
+									'match'  => array( 'cat /srv/atelier/journal-campagne.csv', '/cat .*journal.*csv/' ),
+									'output' => 'trimestre,agent,action,delai_min
+T1,agent-04,clic,3
+T1,agent-09,clic,7
+T1,agent-11,transfert,12
+T1,agent-17,clic,2
+T1,agent-22,clic,19
+T1,agent-31,transfert,5
+T1,agent-38,clic,44
+T2,agent-04,transfert,8
+T2,agent-09,aucune,0
+T2,agent-11,transfert,3
+T2,agent-17,signale,6
+T2,agent-22,aucune,0
+T2,agent-31,transfert,11
+T2,agent-38,aucune,0
+',
+									'hint'   => 'Regarde la colonne action du trimestre T2 : une seule valeur n apparait qu une fois.',
+								),
+								array(
+									'match'  => array( 'cat /srv/atelier/note-de-cadrage.txt', '/cat .*note/' ),
+									'output' => 'Note de cadrage — campagne de sensibilisation
+
+Objectif annonce : reduire le taux de clic sous 10 %.
+Objectif absent : augmenter le nombre de signalements.
+Canal de signalement : inexistant (la boite sera creee au prochain exercice budgetaire).
+',
+									'hint'   => 'La note dit ce que la campagne visait, et ce qu\'elle ne visait pas.',
+								),
+							),
+						),
+					),
+					array(
+						'type'      => 'exam',
+						'format'    => 'qcm',
+						'title'     => 'Task 4 : Examen de fin de room',
+						'content'   => '<p>Quatre questions, 8 minutes, seuil 80 %. Aucun indice : c\'est le moment de verifier que la methode est acquise.</p>',
+						'time_limit' => 8,
+						'pass_score' => 80,
+						'questions' => array(
+							array(
+								'question'    => 'Quel indicateur mesure le mieux l\'effet d\'une campagne de sensibilisation au phishing ?',
+								'mode'        => 'choice',
+								'topic'       => '5.5',
+								'choices'     => array( 'Le nombre de signalements recus, rapporte au nombre de messages simules', 'Le taux de clic sur le message simule', 'Le pourcentage de personnes ayant reussi le quiz final', 'Le nombre de sessions de formation dispensees dans l\'annee' ),
+								'correct'     => 0,
+								'xp'          => 15,
+								'explanation' => 'Le signalement est le seul comportement qui protege l\'organisation : il declenche une verification et previent les autres. Le taux de clic baisse aussi quand les gens ont peur, et le quiz mesure la memoire. Le nombre de sessions mesure l\'activite de l\'equipe, pas son effet.',
+							),
+							array(
+								'question'    => 'Une campagne de simulation prend en faute nommement les salaries qui cliquent, et affiche le classement des services. Quel est l\'effet previsible ?',
+								'mode'        => 'choice',
+								'topic'       => '5.5',
+								'choices'     => array( 'Les signalements diminuent : mieux vaut se taire que figurer dans le classement', 'Le taux de clic baisse durablement, car la honte est un moteur fiable', 'Les salaries apprennent plus vite, la pression accelere l\'apprentissage', 'Aucun effet mesurable, la campagne est neutre' ),
+								'correct'     => 0,
+								'xp'          => 15,
+								'explanation' => 'La sanction publique apprend a ne pas se faire prendre, pas a reconnaitre une menace. Les signalements baissent — y compris pour les vrais messages — et l\'organisation perd exactement l\'information dont elle a besoin pour se defendre. Le NIST SP 800-50 Rev. 1 place le changement de comportement au centre ; la peur produit de la dissimulation.',
+							),
+							array(
+								'question'    => 'Pourquoi une consigne du type « soyez vigilants face aux messages suspects » ne change-t-elle rien ?',
+								'mode'        => 'choice',
+								'topic'       => '5.5',
+								'choices'     => array( 'Parce qu\'elle ne decrit aucun geste observable : on ne peut ni l\'appliquer ni le mesurer', 'Parce que les salaries ne lisent pas les consignes de securite', 'Parce qu\'elle est trop courte pour etre comprise', 'Parce qu\'elle est redondante avec la charte informatique' ),
+								'correct'     => 0,
+								'xp'          => 15,
+								'explanation' => 'Une consigne utile dit quoi faire, dans quel cas, et comment : « si un message demande une action urgente hors de l\'outil habituel, tu ne cliques pas, tu signales ». « Soyez vigilants » renvoie la decision et la responsabilite a la personne, sans lui donner de critere.',
+							),
+							array(
+								'question'    => 'Le programme de sensibilisation existe depuis trois ans et n\'a jamais ete modifie. Quel est le defaut principal ?',
+								'mode'        => 'choice',
+								'topic'       => '5.5',
+								'choices'     => array( 'Il ne s\'appuie sur aucun resultat : sans relecture, il repete au lieu d\'apprendre', 'Il est trop long, il faudrait le raccourcir', 'Il devrait etre confie a un prestataire externe', 'Il devrait cibler uniquement les nouveaux arrives' ),
+								'correct'     => 0,
+								'xp'          => 15,
+								'explanation' => 'Le NIST decrit un cycle de vie du programme : conception, production du contenu, mise en oeuvre, puis relecture apres mise en oeuvre. Un programme fige n\'a plus de boucle de retour : il ne tient compte ni des nouvelles menaces, ni des signalements recus, ni de ce qui n\'a pas fonctionne.',
+							),
+						),
+					),
+				),
+				'i18n'       => array(
+					'en' => array(
+						'title'   => 'The campaign that taught nobody anything',
+						'excerpt' => 'A company trains its staff against phishing. The click rate falls. Management is pleased. You must explain why that is a bad sign.',
+						'tasks'   => array(
+							array(
+								'title'    => 'Task 1: What makes a campaign teach something',
+								'content'  => '<p>A security awareness campaign is not meant to bring a number down. It is meant to <strong>change a behaviour</strong>: someone who receives a suspicious message reports it instead of clicking. NIST SP 800-50 Rev. 1 makes this the central criterion: the programme must be designed to produce behaviour change, and measured on that change.</p><p>A usable campaign answers five questions:</p><ol><li><strong>Which precise behaviour do we want to see?</strong> "Be careful" is not a behaviour. "Report a suspicious message, without forwarding it" is one.</li><li><strong>Who are we talking to, and what does that person risk?</strong> The accounts team does not risk the same thing as the engineering team. One message for everyone speaks to nobody.</li><li><strong>What do we start with?</strong> One behaviour per campaign. Three simultaneous instructions leave zero instructions remembered.</li><li><strong>How do we measure, without measuring fear?</strong> The click rate alone says nothing: the <em>reporting rate</em> says what people do.</li><li><strong>What do we do with the result?</strong> A campaign that does not change the next one is not a programme — it is a ritual.</li></ol><p>Three ways to succeed on paper while failing in practice:</p><ul><li><strong>the trap campaign</strong> — people are caught out to be blamed. Result: they hide, they stop reporting, and the click rate falls for the wrong reason;</li><li><strong>the banner campaign</strong> — the mail tool shows an "external message" banner. People click anyway, and nobody measures: an advisory was installed, not a skill;</li><li><strong>the one-off campaign</strong> — one session in January, one score in February, then nothing. Without spaced repetition, forgetting is certain.</li></ul><p><strong>Remember:</strong> a campaign is not measured by the clicks avoided but by the reports received. The first number can be manufactured by fear; the second cannot.</p>',
+								'questions' => array(),
+							),
+							array(
+								'title'    => 'Task 2: Practice — three reports to read',
+								'content'  => '<p>Three extracts from campaign reports. Each time: what should you conclude?</p>',
+								'questions' => array(
+									array(
+										'question'    => 'Report A — "2,400 simulated messages sent, 6% clicks, 0.4% reports. Target met: the 10% threshold was not exceeded."',
+										'choices'     => array( 'The near-zero reporting rate is the real problem: people have stopped clicking, not started reporting', 'The report is good: the fixed threshold is met, the campaign succeeded', 'The threshold should be lowered to 5% to improve the score', 'The same message should be sent again to confirm the drop' ),
+										'correct'     => 0,
+										'hint'        => 'Someone who does not click and does not report: have they learned something, or are they afraid?',
+										'explanation' => 'A low click rate with a reporting rate near zero describes an organisation that learned to avoid the visible risk, not to recognise a threat. Reporting is the only behaviour that protects others: that is what must rise, and a campaign that does not measure it does not know what it is doing.',
+									),
+									array(
+										'question'    => 'Report B — "All 40 people in the accounts team took the training. 38 passed the final quiz. The click rate did not move the following month."',
+										'choices'     => array( 'The quiz measured memory, not behaviour: the training was not designed to change a gesture', 'The 2 failures explain the lack of progress on their own', 'The click rate is an unreliable measure and should be dropped', 'The quiz should be made harder to sort out the best performers' ),
+										'correct'     => 0,
+										'hint'        => 'Does a passed quiz guarantee a gesture on Monday morning?',
+										'explanation' => 'A quiz grades the recognition of a correct answer, not the reflex in a real situation. Training that gets 95% of participants through without moving behaviour measured its own clarity, not learning. The fix is not the quiz: it is the format — short, repeated situations with feedback.',
+									),
+									array(
+										'question'    => 'Report C — "Quarterly campaign for two years. The click rate went from 18% to 9%. No report has ever been recorded, and there is no reporting mailbox in the mail system."',
+										'choices'     => array( 'The drop proves nothing while reporting is impossible: fear is being measured, not skill', 'Halving in two years proves the programme works', 'The campaign should be stopped, it costs too much for a debatable result', 'A second simulation vendor should be added to vary the messages' ),
+										'correct'     => 0,
+										'hint'        => 'Can you measure a behaviour the organisation does not let people express?',
+										'explanation' => 'Without a reporting channel, the only behaviour measured is avoidance — and avoidance can come from fear as much as from skill. The first action is not changing vendor: it is making reporting possible, then counting it. A campaign without reporting measures caution, not vigilance.',
+									),
+								),
+							),
+							array(
+								'title'    => 'Task 3: Mission — read the campaign log',
+								'content'  => '<p><strong>Mission.</strong> The full campaign log is on the workshop machine. Open it and compare the last two quarters: the click rate is falling, but something else changed.</p><p>The log contains one line where a person did exactly the right thing. Find their <strong>identifier</strong> (the value of the <code>agent</code> column): it proves you read the lines, not just the totals.</p>',
+								'questions' => array(
+									array(
+										'question'    => 'Which agent reported the simulated message this quarter?',
+										'answers'     => array( '/agent-17/i', '/17/' ),
+										'hint'        => 'In the terminal: <code>cat /srv/atelier/journal-campagne.csv</code>, then look for the <code>action</code> column set to <code>signale</code>.',
+										'explanation' => 'A single line of the current quarter carries <code>signale</code>: agent-17. It is the only event in this log that truly matters, because it is the only one that protects others. The totals tell a story of falling clicks — and the same quarter also holds <code>transfert</code> lines: people who forwarded the message to a colleague instead of reporting it.',
+									),
+								),
+							),
+							array(
+								'title'    => 'Task 4: End-of-room exam',
+								'content'  => '<p>Four questions, 8 minutes, 80% threshold. No hints: this is where you check the method is acquired.</p>',
+								'questions' => array(
+									array(
+										'question'    => 'Which indicator best measures the effect of a phishing awareness campaign?',
+										'choices'     => array( 'The number of reports received, against the number of simulated messages', 'The click rate on the simulated message', 'The percentage of people who passed the final quiz', 'The number of training sessions delivered during the year' ),
+										'correct'     => 0,
+										'explanation' => 'Reporting is the only behaviour that protects the organisation: it triggers a check and warns the others. The click rate also falls when people are afraid, and the quiz measures memory. The number of sessions measures the team\'s activity, not its effect.',
+									),
+									array(
+										'question'    => 'A simulation campaign names and shames the employees who click, and publishes a league table of departments. What is the predictable effect?',
+										'choices'     => array( 'Reports go down: staying silent beats appearing in the table', 'The click rate falls durably, because shame is a reliable driver', 'Employees learn faster, pressure speeds up learning', 'No measurable effect, the campaign is neutral' ),
+										'correct'     => 0,
+										'explanation' => 'Public punishment teaches people not to get caught, not to recognise a threat. Reports fall — including for real messages — and the organisation loses exactly the information it needs to defend itself. NIST SP 800-50 Rev. 1 puts behaviour change at the centre; fear produces concealment.',
+									),
+									array(
+										'question'    => 'Why does advice such as "be vigilant about suspicious messages" change nothing?',
+										'choices'     => array( 'Because it describes no observable gesture: it can be neither applied nor measured', 'Because employees do not read security advice', 'Because it is too short to be understood', 'Because it duplicates the IT charter' ),
+										'correct'     => 0,
+										'explanation' => 'Useful advice says what to do, in which case, and how: "if a message asks for urgent action outside the usual tool, do not click, report it". "Be vigilant" pushes the decision and the responsibility back onto the person, without giving them a criterion.',
+									),
+									array(
+										'question'    => 'The awareness programme has existed for three years and has never been revised. What is the main flaw?',
+										'choices'     => array( 'It relies on no result: without review, it repeats instead of learning', 'It is too long and should be shortened', 'It should be handed to an external provider', 'It should target new joiners only' ),
+										'correct'     => 0,
+										'explanation' => 'NIST describes a programme life cycle: design, material development, implementation, then post-implementation review. A frozen programme has no feedback loop: it accounts for neither new threats, nor the reports received, nor what did not work.',
+									),
+								),
+							),
+						),
+					),
+				),
+			),
 	);
 }
