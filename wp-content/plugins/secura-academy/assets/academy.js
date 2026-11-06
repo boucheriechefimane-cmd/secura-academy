@@ -926,6 +926,13 @@
 						showHint( data.hint );
 						hintButton.disabled = true;
 					}
+
+					/* La room peut etre "finie" sans etre validable : il
+					   manque une manipulation. On le dit, sinon l'eleve
+					   croit que le site est casse. */
+					if ( data.practice_note ) {
+						feedback( data.practice_note, false );
+					}
 				}
 			} ).catch( function ( error ) {
 				submit.disabled = false;

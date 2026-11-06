@@ -570,9 +570,20 @@ final class Secura_Ajax {
 		$medal  = null;
 		$room_complete = false;
 
-		if ( self::room_is_complete( $view['tasks'], $state ) ) {
+		$gate = self::room_gate( $user_id, $room_id, $view['tasks'], $state, $view );
+
+		if ( $gate['complete'] ) {
 			$room_complete = true;
 			$medal = self::update_room_medal( $user_id, $room_id, $view, $state );
+		} elseif ( 'practice' === $gate['raison'] ) {
+			/* Les questions sont resolues mais la manipulation ne l'est
+			   pas : on le dit, avec le nombre restant. La room ne se
+			   valide pas et la medaille n'est pas donnee. */
+			$pratique_manquante = sprintf(
+				/* translators: %d : nombre de manipulations restantes. */
+				Secura_I18n::t( 'practice_pending', '', 'Il reste %d manipulation(s) a faire dans la mission avant de valider cette room.' ),
+				(int) $gate['pratique']['restantes']
+			);
 		}
 
 		$xp_after = Secura_Progress::get_xp( $user_id );
@@ -596,6 +607,8 @@ final class Secura_Ajax {
 				'level_up'      => $level_after['number'] > $level_before['number'],
 				'task_done'     => $done,
 				'room_complete' => $room_complete,
+				'practice'      => isset( $gate['pratique'] ) ? $gate['pratique'] : null,
+				'practice_note' => isset( $pratique_manquante ) ? $pratique_manquante : '',
 				'medal'         => $medal,
 				'exam'          => $exam_result,
 			)
@@ -693,6 +706,42 @@ final class Secura_Ajax {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Pourquoi la room n'est pas encore validable, en une phrase.
+	 *
+	 * Deux raisons, et deux seulement : une tache inachevee, ou la mission
+	 * pratique pas faite. On nomme la raison parce qu'un eleve qui ne sait
+	 * pas ce qui lui manque abandonne ; un eleve a qui on dit « il te reste
+	 * 2 manipulations » continue.
+	 *
+	 * @param int   $user_id Identifiant de l'apprenant.
+	 * @param int   $room_id Identifiant de la room.
+	 * @param array $tasks   Taches de la room.
+	 * @param array $state   Etat de la room.
+	 * @param array $view    Vue de la room.
+	 * @return array{complete:bool,raison:string,pratique:array}
+	 */
+	private static function room_gate( $user_id, $room_id, $tasks, $state, $view ) {
+		$pratique = Secura_Gate::pratique( $user_id, $room_id, $tasks );
+
+		if ( ! self::room_is_complete( $tasks, $state ) ) {
+			$raison = 'tasks';
+		} elseif ( $pratique['requise'] && ! $pratique['faite'] ) {
+			/* La pratique manque : la room reste ouverte, mais elle ne se
+			   valide pas. C'est la regle qui empeche de recompenser la
+			   lecture d'un document a la place d'une manipulation. */
+			$raison = 'practice';
+		} else {
+			$raison = '';
+		}
+
+		return array(
+			'complete' => ( '' === $raison ),
+			'raison'   => $raison,
+			'pratique' => $pratique,
+		);
 	}
 
 	/**
@@ -1071,6 +1120,24 @@ final class Secura_Ajax {
 			);
 		}
 
+		/* Trois tentatives, puis un delai. Sans ce controle, le compteur
+		   `attempts` etait incremente mais jamais lu : on pouvait
+		   recommencer jusqu'a tomber sur les bonnes reponses. */
+		$porte = Secura_Gate::peut_commencer( get_current_user_id(), $room_id, $index );
+
+		if ( ! $porte['autorise'] && empty( $force ) ) {
+			wp_send_json_error(
+				array(
+					'message'       => $porte['message'],
+					'code'          => $porte['code'],
+					'tentatives'    => $porte['tentatives'],
+					'restantes'     => $porte['restantes'],
+					'disponible_le' => $porte['disponible_le'],
+				),
+				429
+			);
+		}
+
 		$force = isset( $_POST['force'] ) && '1' === $_POST['force'];
 
 		$exam = Secura_Progress::start_exam( get_current_user_id(), $room_id, $index, $force );
@@ -1079,6 +1146,8 @@ final class Secura_Ajax {
 			array(
 				'started_at' => absint( $exam['started_at'] ),
 				'time_left'  => max( 0, ( (int) $view['tasks'][ $index ]['time_limit'] * 60 ) - ( time() - absint( $exam['started_at'] ) ) ),
+				'tentatives' => $porte['tentatives'],
+				'restantes'  => $porte['restantes'],
 			)
 		);
 	}

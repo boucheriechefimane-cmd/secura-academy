@@ -487,6 +487,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-exam.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-terminal.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-lab.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-solution.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-gate.php';
 /* Les prototypes de front, d'examen et de certificat du ZIP ne sont pas
    charges : leurs contrats et la protection des PDF restent a corriger.
    Voir includes/EXPERIMENTAL-ZIP.md avant toute activation. */

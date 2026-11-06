@@ -69,6 +69,9 @@ runs:
         if [ -f tests/solution-test.php ] && ! php tests/solution-test.php; then
           echo "ECHEC : la correction des questions ouvertes (tests/solution-test.php)" | tee -a /tmp/echecs.txt
         fi
+        if [ -f tests/gate-test.php ] && ! php tests/gate-test.php; then
+          echo "ECHEC : les regles d'acces aux examens (tests/gate-test.php)" | tee -a /tmp/echecs.txt
+        fi
 
     - name: Vérifier les Dockerfiles avant de construire
       shell: bash

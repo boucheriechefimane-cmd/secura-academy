@@ -814,6 +814,8 @@ require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-sec
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-settings.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-paths.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-exam.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-solution.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-gate.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-ajax.php';
 
 /* ---------------------------------------------------------------------
