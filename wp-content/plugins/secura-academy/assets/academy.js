@@ -914,6 +914,14 @@
 
 					feedback( data.message, false );
 
+					/* Question ouverte : on ne note pas la prose a la place
+					   de l'eleve, on lui montre la correction officielle et on
+					   lui demande de se positionner. Sa declaration, et elle
+					   seule, valide la question. */
+					if ( data.solution ) {
+						showSolution( data.solution, data.explanation );
+					}
+
 					if ( data.hint ) {
 						showHint( data.hint );
 						hintButton.disabled = true;
@@ -929,6 +937,63 @@
 				}
 			} );
 		} );
+
+		function showSolution( solution, explanation ) {
+			if ( ! solution || box.querySelector( '.seca-solution-box' ) ) {
+				return;
+			}
+
+			var wrap = el( 'div', 'seca-solution-box' );
+
+			wrap.appendChild( el( 'strong', '', t( 'solution_label', 'Corrigé officiel' ) ) );
+
+			if ( explanation ) {
+				var off = el( 'div', 'seca-solution-text' );
+				off.innerHTML = explanation;
+				wrap.appendChild( off );
+			}
+
+			if ( solution.message ) {
+				wrap.appendChild( el( 'p', 'seca-solution-note', solution.message ) );
+			}
+
+			/* Les concepts attendus : ce qui manque, nommement. C'est la
+			   seule information qui aide l'eleve a progresser sans lui
+			   donner la reponse. */
+			if ( solution.manquants && solution.manquants.length ) {
+				var manque = el( 'p', 'seca-solution-note', t( 'missing_concepts', 'Concepts attendus non retrouvés' ) + ' : ' + solution.manquants.join( ', ' ) );
+				wrap.appendChild( manque );
+			}
+
+			/* Auto-evaluation : uniquement quand la machine ne peut pas
+			   juger. Deux boutons, et le meme poids pour les deux : on ne
+			   recompense pas un mensonge, on demande l'honnetete. */
+			if ( solution.a_confirmer ) {
+				var row = el( 'div', 'seca-solution-actions' );
+
+				var oui = el( 'button', 'seca-button seca-button-small', t( 'confirm_had_it', "J'avais la bonne réponse" ) );
+				oui.type = 'button';
+				oui.addEventListener( 'click', function () {
+					oui.disabled = true;
+					non.disabled = true;
+					submit.click();
+				} );
+
+				var non = el( 'button', 'seca-button seca-button-ghost seca-button-small', t( 'confirm_missed', "Je ne l'avais pas" ) );
+				non.type = 'button';
+				non.addEventListener( 'click', function () {
+					oui.disabled = true;
+					non.disabled = true;
+					feedback( t( 'go_review', 'Relisez le corrigé, puis revenez : la question restera à faire.' ), false );
+				} );
+
+				row.appendChild( oui );
+				row.appendChild( non );
+				wrap.appendChild( row );
+			}
+
+			box.appendChild( wrap );
+		}
 
 		function showHint( text ) {
 			if ( box.querySelector( '.seca-hint-box' ) ) {

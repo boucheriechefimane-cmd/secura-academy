@@ -478,25 +478,51 @@ final class Secura_Ajax {
 			$expected = isset( $question['choices'][ (int) $question['correct'] ] ) ? $question['choices'][ (int) $question['correct'] ] : '';
 			$correct  = ( '' !== $expected ) && Secura_Progress::answer_matches( $answer, array( $expected ) );
 		} elseif ( 'solution' === $mode ) {
-			/* Un probleme d'examen universitaire : la redaction n'est pas
-			   corrigee automatiquement (ce serait pretendre qu'une machine
-			   comprend une reponse en prose). L'eleve doit avoir tente
-			   (au moins quelques mots), puis la correction officielle de
-			   l'ecole lui est montree : c'est elle qui fait la leçon. */
-			$correct = ( strlen( trim( (string) $answer ) ) >= 10 );
+			/* Un probleme d'examen universitaire. On ne pretend pas qu'une
+			   machine comprend de la prose, mais on ne valide plus dix
+			   caracteres non plus : Secura_Solution applique une grille de
+			   concepts quand la question en porte une, refuse une reponse
+			   creuse, et renvoie sinon la tentative en auto-evaluation
+			   explicite. */
+			$solution = Secura_Solution::evaluate( $question, $answer );
+			$correct  = ( true === $solution['correct'] );
+
+			if ( 'a_confirmer' === $solution['etat'] ) {
+				/* La redaction est serieuse et le corrige officiel va etre
+				   montre : on ne l'accepte pas a la place de l'eleve, on lui
+				   demande de se positionner (voir Secura_Solution::confirm). */
+				$correct = false;
+			}
 		} else {
 			$correct = Secura_Progress::answer_matches( $answer, $question['answers'] );
 		}
 
 		if ( ! $correct ) {
-			wp_send_json_success(
-				array(
-					'correct'   => false,
-					'message'   => Secura_I18n::t( 'wrong', '', 'Pas encore, réessayez.' ),
-					'hint'      => $question['hint'],
-					'total_xp'  => Secura_Progress::get_xp( $user_id ),
-				)
+			$refus = array(
+				'correct'   => false,
+				'message'   => Secura_I18n::t( 'wrong', '', 'Pas encore, réessayez.' ),
+				'hint'      => $question['hint'],
+				'total_xp'  => Secura_Progress::get_xp( $user_id ),
 			);
+
+			/* Une question ouverte a toujours une correction a montrer :
+			   c'est elle qui fait le travail pedagogique. On dit aussi a
+			   l'eleve pourquoi sa redaction n'est pas acceptee, sans jamais
+			   lui donner la reponse a sa place. */
+			if ( 'solution' === $mode && isset( $solution ) && is_array( $solution ) ) {
+				$refus['solution'] = array(
+					'etat'      => $solution['etat'],
+					'message'   => $solution['message'],
+					'concepts'  => $solution['concepts'],
+					'attendus'  => $solution['attendus'],
+					'manquants' => $solution['manquants'],
+					'a_confirmer' => ( 'a_confirmer' === $solution['etat'] ),
+				);
+
+				$refus['explanation'] = $question['explanation'];
+			}
+
+			wp_send_json_success( $refus );
 		}
 
 		$xp_before = Secura_Progress::get_xp( $user_id );
@@ -559,7 +585,7 @@ final class Secura_Ajax {
 				'message'       => $already
 					? Secura_I18n::t( 'solved', '', 'Validée' )
 					: ( 'solution' === $mode
-						? sprintf( /* translators: %d : points gagnés. */ Secura_I18n::t( 'solution_xp', '', 'Correction officielle affichée. +%d XP' ), $points )
+						? sprintf( /* translators: %d : points gagnés. */ Secura_I18n::t( 'solution_xp', '', 'Vous avez compare au corrige officiel et confirme. +%d XP' ), $points )
 						: sprintf( /* translators: %d : points gagnés. */ Secura_I18n::t( 'correct_xp', '', 'Bonne réponse ! +%d XP' ), $points ) ),
 				'points'        => $points,
 				'rank'          => $rank,

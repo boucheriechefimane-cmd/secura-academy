@@ -66,6 +66,9 @@ runs:
         if [ -f tests/smoke-test.php ] && ! php tests/smoke-test.php; then
           echo "ECHEC : les tests du depot (tests/smoke-test.php)" | tee -a /tmp/echecs.txt
         fi
+        if [ -f tests/solution-test.php ] && ! php tests/solution-test.php; then
+          echo "ECHEC : la correction des questions ouvertes (tests/solution-test.php)" | tee -a /tmp/echecs.txt
+        fi
 
     - name: Vérifier les Dockerfiles avant de construire
       shell: bash
