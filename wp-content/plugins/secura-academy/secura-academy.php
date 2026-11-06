@@ -481,6 +481,7 @@ define( 'SECURA_OPTION_FIRST_BLOOD', 'secura_first_blood' );
 require_once SECURA_ACADEMY_PATH . 'includes/i18n/loader.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-i18n.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-rooms.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-sources.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-paths.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-progress.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-exam.php';
@@ -572,6 +573,9 @@ final class Secura_Academy {
 		Secura_Llms::init();
 		Secura_Site::init();
 		Secura_Authors::init();
+		/* La page « Sources et licences » : l'attribution unique exigee par
+		   les licences Creative Commons de type BY. */
+		Secura_Sources::init();
 	}
 }
 

@@ -27,13 +27,28 @@ mkdir -p "$DEST"
 
 echo "Preparation…"
 
+# Le catalogue des sources dont la licence a ete verifiee. La page
+# « Sources et licences » le lit pour produire l'attribution ; sans lui,
+# le site installe afficherait 0 source verifiee. Il est donc livre avec
+# le plugin, et non seulement dans le depot.
+CATALOGUE_SOURCES="$REPO_DIR/tools/sources-autorisees.json"
+
 # 1. Plugin
 mkdir -p "$TMP/plugin/secura-academy"
 cp -r "$REPO_DIR/wp-content/plugins/secura-academy/." "$TMP/plugin/secura-academy/"
+mkdir -p "$TMP/plugin/secura-academy/tools"
+
+if [ -f "$CATALOGUE_SOURCES" ]; then
+	cp "$CATALOGUE_SOURCES" "$TMP/plugin/secura-academy/tools/sources-autorisees.json"
+else
+	echo "ATTENTION : $CATALOGUE_SOURCES introuvable, la page des sources sera incomplete" >&2
+fi
 
 # 2. WordPress (plugin + theme)
 mkdir -p "$TMP/wordpress/plugins" "$TMP/wordpress/themes"
 cp -r "$REPO_DIR/wp-content/plugins/secura-academy" "$TMP/wordpress/plugins/secura-academy"
+mkdir -p "$TMP/wordpress/plugins/secura-academy/tools"
+cp "$CATALOGUE_SOURCES" "$TMP/wordpress/plugins/secura-academy/tools/sources-autorisees.json"
 cp -r "$REPO_DIR/wp-content/themes/secura-learning" "$TMP/wordpress/themes/secura-learning"
 
 # 3. Theme

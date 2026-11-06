@@ -17,7 +17,7 @@
  *   wp eval-file scripts/verifier-pages-legales.php
  *
  * SORTIE
- *   0 : les deux pages existent et sont publiees.
+ *   0 : les trois pages existent et sont publiees.
  *   1 : au moins une page est absente ou non publiee (le detail est
  *       ecrit sur la sortie standard).
  *
@@ -27,6 +27,9 @@
 $libelles = array(
 	'politique-de-confidentialite' => 'Politique de confidentialité',
 	'mentions-legales'             => 'Mentions légales',
+	/* Les licences Creative Commons de type BY exigent une page
+	   d'attribution unique : c'est une obligation, pas un supplement. */
+	'sources-et-licences'          => 'Sources et licences',
 );
 
 $ok = true;

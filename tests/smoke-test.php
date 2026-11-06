@@ -2382,9 +2382,94 @@ require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-m
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-video.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-universites.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-d3.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-sources.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-kahoot.php';
 
 $labs_dir = dirname( __DIR__ ) . '/labs';
+
+/* ---------------------------------------------------------------------
+ * Les licences : ce qui est hebergeable ici, et ce qui ne l'est pas.
+ *
+ * Une attribution oubliee n'est pas un detail de forme : c'est une
+ * violation de licence. Ces assertions verifient que la regle est
+ * appliquee par du code, pas seulement ecrite dans un document.
+ * ------------------------------------------------------------------ */
+echo "\nLicences et attribution\n";
+
+$catalogue_sources = Secura_Sources::catalogue();
+
+check( count( $catalogue_sources ) > 0, 'le catalogue des sources verifiees est lisible' );
+
+$regimes = array(
+	'MIT'            => array( true, true ),
+	'Apache-2.0'     => array( true, true ),
+	'CC BY-SA 4.0'   => array( true, true ),
+	'CC BY-NC-SA 4.0' => array( true, false ),
+	'Domaine public' => array( true, true ),
+	'Copyright'      => array( false, false ),
+);
+
+$regimes_ok = true;
+
+foreach ( $regimes as $licence => $attendu ) {
+	$r = Secura_Sources::regime( $licence );
+
+	if ( $r['hebergeable'] !== $attendu[0] || $r['partageable'] !== $attendu[1] ) {
+		$regimes_ok = false;
+	}
+}
+
+check( $regimes_ok, 'chaque famille de licence est classee : hebergeable, et partageable ou non' );
+
+$non_reutilisables = array();
+
+foreach ( $catalogue_sources as $source ) {
+	if ( empty( $source['reutilisable'] ) ) {
+		$non_reutilisables[] = $source;
+	}
+}
+
+check( count( $non_reutilisables ) > 0, 'le catalogue distingue les sources non reutilisables' );
+
+$sans_raison = 0;
+$sans_url   = 0;
+
+foreach ( $non_reutilisables as $source ) {
+	if ( empty( $source['licence'] ) ) {
+		$sans_raison++;
+	}
+
+	if ( empty( $source['url'] ) ) {
+		$sans_url++;
+	}
+}
+
+check( 0 === $sans_raison, 'chaque source non reutilisable dit pourquoi (licence renseignee)' );
+
+/* Une source non reutilisable sans URL ne peut pas etre citee : un renvoi
+   sans adresse n'est pas un renvoi. Une seule exception assumee : la
+   categorie « examen de certification », qui n'a pas d'URL unique. */
+check( 1 === $sans_url, 'une seule source non reutilisable est sans URL : la categorie « examen de certification »' );
+
+$audit = __DIR__ . '/../docs/AUDIT-LICENCES-HEBERGEABLE.md';
+check( is_file( $audit ), 'l audit des licences est ecrit dans docs/' );
+
+$texte_audit = is_file( $audit ) ? (string) file_get_contents( $audit ) : '';
+$traitees = 0;
+
+foreach ( $non_reutilisables as $source ) {
+	if ( false !== strpos( $texte_audit, (string) $source['id'] ) ) {
+		$traitees++;
+	}
+}
+
+check( $traitees === count( $non_reutilisables ), 'les ' . count( $non_reutilisables ) . ' sources non reutilisables sont traitees une par une dans l audit' );
+
+/* La page publique : elle doit exister et citer les licences, pas seulement
+   les sources. Une page sans texte de licence ne satisfait pas CC BY. */
+check( class_exists( 'Secura_Sources' ), 'la page « Sources et licences » est installee par le plugin' );
+check( defined( 'Secura_Sources::SLUG' ) && 'sources-et-licences' === Secura_Sources::SLUG, 'la page a une adresse stable : /sources-et-licences' );
+
 
 $m3 = seca_default_rooms_m3();
 
