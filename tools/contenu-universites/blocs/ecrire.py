@@ -126,8 +126,13 @@ def tache_anglaise(t, indent):
             l.append(ligne(indent + 2, 'array('))
             l.append(ligne(indent + 3, "'question'    => %s," % chaine(q['question'])))
             if q.get('mode') == 'text':
+                # Le francais note l'expression reguliere ; l'anglais doit
+                # porter la MEME expression, recopiee mot pour mot : un
+                # motif traduit ne reconnait plus la reponse de l'eleve.
                 l.append(ligne(indent + 3, "'answers'     => array( %s ),"
                                % ', '.join(chaine(a) for a in q['answers'])))
+                if q.get('correct') is not None:
+                    l.append(ligne(indent + 3, "'correct'     => %d," % q['correct']))
             else:
                 l.append(ligne(indent + 3, "'choices'     => array( %s ),"
                                % ', '.join(chaine(c) for c in q['choices'])))

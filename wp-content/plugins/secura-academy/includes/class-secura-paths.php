@@ -80,6 +80,7 @@ final class Secura_Paths {
 		$gouvernance_rooms = array();
 		$menaces_rooms = array();
 		$architecture_rooms = array();
+		$concepts_rooms = array();
 
 		foreach ( $rooms as $room_id ) {
 			$track = get_post_meta( $room_id, SECURA_META_TRACK, true );
@@ -96,12 +97,14 @@ final class Secura_Paths {
 				$menaces_rooms[] = $room_id;
 			} elseif ( 'architecture' === $track ) {
 				$architecture_rooms[] = $room_id;
+			} elseif ( 'concepts' === $track ) {
+				$concepts_rooms[] = $room_id;
 			} else {
 				$demo_rooms[] = $room_id;
 			}
 		}
 
-		$paths = seca_default_paths( $demo_rooms, $m3_rooms, $uni_rooms, $avance_rooms, $gouvernance_rooms, $menaces_rooms, $architecture_rooms );
+		$paths = seca_default_paths( $demo_rooms, $m3_rooms, $uni_rooms, $avance_rooms, $gouvernance_rooms, $menaces_rooms, $architecture_rooms, $concepts_rooms );
 		$order = 0;
 
 		/* Les parcours deja installes, retrouves par leur titre : un

@@ -501,6 +501,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/content-m3.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-sy0-701-banque.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-d5.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-d4.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-d1.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-d2.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-d3.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-universites.php';

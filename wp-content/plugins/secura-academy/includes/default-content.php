@@ -1052,7 +1052,7 @@ function seca_default_rooms() {
  * @param array $m3_room_ids  Identifiants des rooms M3 (dix scénarios), dans l'ordre.
  * @return array
  */
-function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array(), $gouvernance_room_ids = array(), $menaces_room_ids = array(), $architecture_room_ids = array() ) {
+function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array(), $gouvernance_room_ids = array(), $menaces_room_ids = array(), $architecture_room_ids = array(), $concepts_room_ids = array() ) {
 	$room_ids       = array_values( array_map( 'absint', (array) $room_ids ) );
 	$m3_room_ids    = array_values( array_map( 'absint', (array) $m3_room_ids ) );
 	$uni_room_ids   = array_values( array_map( 'absint', (array) $uni_room_ids ) );
@@ -1060,6 +1060,7 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 	$gouvernance_room_ids = array_values( array_map( 'absint', (array) $gouvernance_room_ids ) );
 	$menaces_room_ids = array_values( array_map( 'absint', (array) $menaces_room_ids ) );
 	$architecture_room_ids = array_values( array_map( 'absint', (array) $architecture_room_ids ) );
+	$concepts_room_ids = array_values( array_map( 'absint', (array) $concepts_room_ids ) );
 
 	$paths = array(
 		array(
@@ -1467,6 +1468,57 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 						array( 'title' => 'Architecture models and shared responsibility (3.1)' ),
 						array( 'title' => 'Classification, DLP, encryption at rest (3.4)' ),
 						array( 'title' => 'IoT, embedded, industrial systems (3.6)' ),
+					),
+				),
+			),
+		),
+
+		/* ------------------------------------------------------------
+		 * Domaine 1 : concepts generaux de la securite.
+		 *
+		 * Mesure du 7 novembre 2026 : les sujets 1.1 (controles),
+		 * 1.3 (zero trust), 1.4 (gestion du changement) et 1.7
+		 * (securite physique) n'avaient aucune room pratique. Le
+		 * referentiel les listait, le programme les ignorait.
+		 *
+		 * Trois rooms, parce que 1.4 et 1.7 se racontent ensemble :
+		 * un changement non documente qui ouvre une porte physique.
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Concepts generaux : 3 rooms du domaine 1',
+			'excerpt'    => 'Classer un controle avant de l\'acheter, placer un point de decision zero trust, et retrouver le changement qui a laisse une porte ouverte.',
+			'content'    => 'Ces trois rooms couvrent les sujets 1.1 (controles de securite), 1.3 (zero trust), 1.4 (gestion du changement) et 1.7 (securite physique) du domaine 1, qui pese 12 % du score Security+. Chaque room se termine par une mission ou l\'on produit un verdict : compter les controles preventifs d\'un rapport, compter les acces en confiance implicite d\'un audit, nommer le changement fautif d\'un journal. Le terminal est simule : ces rooms fonctionnent sans machine.',
+			'difficulty' => 'facile',
+			'duration'   => 100,
+			'xp_bonus'   => 185,
+			'certification' => array(
+				'nom'         => 'CompTIA Security+ (SY0-701) — domaine 1',
+				'cout'        => 'Examen : 439 $ (au 01/11/2026). Preparation gratuite (Professor Messer).',
+				'preparation' => 'Le domaine 1 pese 12 % du score : types de contrôles, fondamentaux de la securite, zero trust, gestion du changement, cryptographie, securite physique. Ces trois rooms couvrent les quatre sujets qui manquaient.',
+				'gratuit'     => false,
+			),
+			'sections'   => array(
+				array(
+					'title' => 'Controles de securite et categories (1.1)',
+					'rooms' => array_slice( $concepts_room_ids, 0, 1 ),
+				),
+				array(
+					'title' => 'Zero trust et confiance implicite (1.3)',
+					'rooms' => array_slice( $concepts_room_ids, 1, 1 ),
+				),
+				array(
+					'title' => 'Gestion du changement et securite physique (1.4 et 1.7)',
+					'rooms' => array_slice( $concepts_room_ids, 2, 1 ),
+				),
+			),
+			'i18n'       => array(
+				'en' => array(
+					'title'   => 'General concepts: 3 rooms of domain 1',
+					'excerpt' => 'Classify a control before buying it, place a zero trust decision point, and find the change that left a door open.',
+					'sections' => array(
+						array( 'title' => 'Security controls and categories (1.1)' ),
+						array( 'title' => 'Zero trust and implicit trust (1.3)' ),
+						array( 'title' => 'Change management and physical security (1.4 and 1.7)' ),
 					),
 				),
 			),

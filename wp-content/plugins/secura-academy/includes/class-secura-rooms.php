@@ -202,6 +202,12 @@ final class Secura_Rooms {
 			   automatisation et orchestration (4.8). Les deux sujets
 			   manquaient au referentiel, mesure du 06/11/2026. */
 			'operations'  => seca_default_rooms_d4(),
+			/* Domaine D1 « concepts generaux » : les sujets 1.1, 1.3, 1.4
+			   et 1.7 manquaient au referentiel, mesure du 7/11/2026.
+			   Cle de bloc distincte de « menaces » : deux blocs qui
+			   portent le meme nom s'ecrasent, et la synchronisation a
+			   deja perdu deux rooms D2 de cette facon. */
+			'concepts'    => seca_default_rooms_d1(),
 		);
 
 		/* Les rooms deja installees, retrouvees par leur cle stable. */

@@ -2383,6 +2383,7 @@ require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-sec
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-universites.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-d3.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-d4.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-d1.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-sources.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-kahoot.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-sy0-701-banque.php';
@@ -2610,7 +2611,7 @@ check( is_file( $labs_dir . '/net-01/docker-compose.yml' ), 'la pile multi-nœud
 $paths = seca_default_paths( array( 1, 2, 3, 4, 5, 6 ), array( 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ) );
 $m3_path = isset( $paths[1] ) ? $paths[1] : array();
 
-check( 7 === count( $paths ), 'sept parcours sont crees : les fondations, les scénarios M3, Les universites, Les labs avances, Gouvernance D5, Menaces D2 et Architecture D3' );
+check( 8 === count( $paths ), 'huit parcours sont crees : les fondations, les scénarios M3, Les universites, Les labs avances, Gouvernance D5, Menaces D2, Architecture D3 et Concepts generaux D1' );
 check( isset( $m3_path['sections'] ) && 5 === count( $m3_path['sections'] ), 'le parcours M3 compte cinq modules' );
 check( 10 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $m3_path['sections'] ) ), 'le parcours M3 contient les dix scénarios' );
 check( isset( $m3_path['i18n']['ar'], $m3_path['i18n']['en'] ), 'le parcours M3 est traduit en arabe et en anglais' );
@@ -2620,7 +2621,7 @@ $paths_uni = seca_default_paths( array( 1 ), array( 2 ), array( 10, 11, 12, 13, 
 $uni_path  = isset( $paths_uni[2] ) ? $paths_uni[2] : array();
 $avance_path = isset( $paths_uni[3] ) ? $paths_uni[3] : array();
 
-check( 7 === count( $paths_uni ), 'un septieme parcours est cree : Architecture D3' );
+check( 8 === count( $paths_uni ), 'un huitieme parcours est cree : Concepts generaux D1' );
 
 /* Le parcours D5 : trois rooms, une par sujet (risque, tiers, audit). */
 $paths_d5 = seca_default_paths( array( 1 ), array( 2 ), array(), array(), array( 60, 61, 62 ) );
@@ -2645,6 +2646,79 @@ $d3_path  = isset( $paths_d3[6] ) ? $paths_d3[6] : array();
 check( isset( $d3_path['sections'] ) && 3 === count( $d3_path['sections'] ), 'le parcours D3 compte trois sections' );
 check( 3 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $d3_path['sections'] ) ), 'le parcours D3 contient les trois rooms d architecture' );
 check( isset( $d3_path['i18n']['ar'], $d3_path['i18n']['en'] ), 'le parcours D3 est traduit en arabe et en anglais' );
+
+/* Le parcours D1 : trois rooms pour les quatre sujets du domaine 1 qui
+   manquaient (1.1 controles, 1.3 zero trust, 1.4 changement, 1.7 physique). */
+$paths_d1 = seca_default_paths( array( 1 ), array( 2 ), array(), array(), array(), array(), array(), array( 90, 91, 92 ) );
+$d1_path  = isset( $paths_d1[7] ) ? $paths_d1[7] : array();
+
+check( isset( $d1_path['sections'] ) && 3 === count( $d1_path['sections'] ), 'le parcours D1 compte trois sections' );
+check( 3 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $d1_path['sections'] ) ), 'le parcours D1 contient les trois rooms de concepts generaux' );
+check( isset( $d1_path['i18n']['en'] ) && ! empty( $d1_path['i18n']['en']['title'] ), 'le parcours D1 est traduit en anglais' );
+
+/* Les quatre sujets du domaine 1 doivent etre couverts par une room PRATIQUE :
+   un terminal (l'eleve agit) et un examen d'au moins quatre questions. */
+check( 3 === count( seca_default_rooms_d1() ), 'le domaine D1 fournit trois rooms' );
+
+$d1_pratiques = 0;
+$d1_examens   = 0;
+
+foreach ( seca_default_rooms_d1() as $room ) {
+	$term = false;
+	$examen = 0;
+
+	foreach ( (array) $room['tasks'] as $task ) {
+		if ( ! empty( $task['terminal']['steps'] ) ) {
+			$term = true;
+		}
+
+		if ( isset( $task['type'] ) && 'exam' === $task['type'] ) {
+			$examen = count( (array) $task['questions'] );
+		}
+	}
+
+	if ( $term ) {
+		$d1_pratiques++;
+	}
+
+	if ( $examen >= 4 ) {
+		$d1_examens++;
+	}
+}
+
+check( 3 === $d1_pratiques, 'les trois rooms D1 portent un terminal : elles sont pratiques, pas documentaires' );
+check( 3 === $d1_examens, 'les trois rooms D1 se terminent par un examen de quatre questions' );
+
+/* Les mots-cles que couverture.php cherche dans le corpus. S'ils ne sont pas
+   dans le texte d'une room, le sujet reste marque absent, meme si la room
+   existe : c'est ainsi qu'un trou de contenu passe inapercu. */
+$d1_corpus = '';
+
+foreach ( seca_default_rooms_d1() as $room ) {
+	$d1_corpus .= ' ' . $room['title'] . ' ' . $room['excerpt'] . ' ' . $room['content'];
+
+	foreach ( (array) $room['tasks'] as $task ) {
+		$d1_corpus .= ' ' . ( isset( $task['title'] ) ? $task['title'] : '' );
+		$d1_corpus .= ' ' . ( isset( $task['content'] ) ? $task['content'] : '' );
+
+		foreach ( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) as $q ) {
+			$d1_corpus .= ' ' . ( isset( $q['question'] ) ? $q['question'] : '' );
+			$d1_corpus .= ' ' . ( isset( $q['explanation'] ) ? $q['explanation'] : '' );
+			if ( ! empty( $q['choices'] ) ) {
+				$d1_corpus .= ' ' . implode( ' ', $q['choices'] );
+			}
+		}
+	}
+}
+
+/* Le corpus est compare exactement comme couverture.php le fait : en
+   minuscules Unicode. strtolower() laisse « Securite » avec son accent
+   majuscule, et le test passerait a cote d'un mot-cle absent. */
+$d1_corpus = function_exists( 'mb_strtolower' ) ? mb_strtolower( $d1_corpus ) : strtolower( $d1_corpus );
+
+foreach ( array( 'controle preventif', 'controle detectif', 'controle correctif', 'categorie de controle', 'zero trust', 'confiance zero', 'gestion du changement', 'change management', 'changement de configuration', 'securite physique', 'tailgating', 'salle serveur', "controle d'acces physique", 'badge' ) as $mot ) {
+	check( false !== strpos( $d1_corpus, $mot ), 'le corpus D1 nomme « ' . $mot . ' »' );
+}
 
 /* Les trois sujets du domaine 3 que la mesure du 6 novembre donnait absents :
    chaque room doit porter un terminal (la pratique) et un examen de quatre
