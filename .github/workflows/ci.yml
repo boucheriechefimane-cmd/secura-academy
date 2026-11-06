@@ -1,11 +1,16 @@
 name: CI — Secura Academy
 
-# PHASE DE CONSTRUCTION : ce controle ne se declenche plus sur les poussees
-# de la branche de travail. Il reste disponible a la main (onglet Actions →
-# « CI — Secura Academy » → Run workflow) et sera rebranche sur la demande
-# de fusion quand le socle sera termine.
+# Ce controle etait en « phase de construction » : il ne se declenchait plus
+# sur les poussees de la branche de travail, et rien ne verifiait donc les
+# 378 assertions du smoke test avant la fusion. Le socle est termine, le
+# controle est rebranche :
+#   - sur toute demande de fusion (c'est la que la preuve compte) ;
+#   - sur les poussees vers main ;
+#   - a la main, pour mesurer sans pousser.
 on:
   push:
+    branches: [ main ]
+  pull_request:
     branches: [ main ]
   workflow_dispatch:
 
@@ -73,6 +78,12 @@ jobs:
 
       - name: Refuser les drapeaux qui se lisent dans un document
         run: php tools/controle/drapeaux-lisibles.php
+
+      # Le dojo est le seul endroit ou le defaut avait ete INSCRIT dans un
+      # test : la CI exigeait que chaque drapeau soit « decouvrable dans les
+      # documents », donc recopiable. Ce controle verifie l'inverse.
+      - name: Refuser un drapeau recopiable dans un document de defi
+        run: python3 tools/controle/dojo-sans-drapeau.py
 
       - name: Tester le terminal d'entraînement
         run: php tests/terminal-test.php
