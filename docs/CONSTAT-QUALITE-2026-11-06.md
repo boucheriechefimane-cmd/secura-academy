@@ -200,7 +200,8 @@ faut savoir ce qui dort.**
 
 | Élément | État | Verdict |
 |---|---|---|
-| `labs/internal-01`, `labs/net-01` | construits par le CI, **référencés par aucune room** | machines orphelines (utilisées indirectement par m3-08 ? à vérifier) |
+| `labs/net-01` | **utilisé** par m3-07, m3-08 et la room démo réseau | pas orphelin — corrigé après vérification |
+| `labs/internal-01` | construit par le CI, **aucune room ne le nomme** | cible interne du compose `net-01` (le pivot), pas une room |
 | `labs/dojo-pwncollege/` | `docker-compose.yml` seul, **0 flag, aucune room** | squelette vide |
 | `content/en/univ-21.en.json`, `avance-14.en.json` | 2 fichiers JSON **jamais lus par le plugin** | doublons morts de la traduction |
 | `class-secura-certificate.php` | **pas chargé** (commenté dans le bootstrap) | certificat PDF désactivé |
@@ -314,8 +315,8 @@ Ce ne sont pas des idées vagues : chacune se mesure.
    de les cacher dans une réserve de tirage. C'est le contenu le plus crédible du
    dépôt et l'élève ne le voit pas.
 
-5. **Nettoyer ce qui dort** : supprimer `dojo-pwncollege/` (vide), brancher ou
-   supprimer `internal-01` / `net-01`, supprimer `content/en/*.json` (jamais lus),
+5. **Nettoyer ce qui dort** : supprimer `dojo-pwncollege/` (vide), documenter `internal-01`
+   (cible du pivot, pas une room), supprimer `content/en/*.json` (jamais lus),
    décider du sort des 4 classes en quarantaine.
 
 6. **Ne plus promettre une certification dans le nom du parcours** tant que la
