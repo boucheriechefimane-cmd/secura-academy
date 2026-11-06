@@ -79,6 +79,10 @@ runs:
         if [ -f tests/blanc-test.php ] && ! php tests/blanc-test.php; then
           echo "ECHEC : l'examen blanc pondere (tests/blanc-test.php)" | tee -a /tmp/echecs.txt
         fi
+        if [ -f tests/terminal-test.php ] && ! php tests/terminal-test.php; then
+          echo "ECHEC : le terminal d'entrainement (tests/terminal-test.php)" | tee -a /tmp/echecs.txt
+        fi
+
         if [ -f tools/controle/drapeaux-lisibles.php ] && ! php tools/controle/drapeaux-lisibles.php; then
           echo "ECHEC : des drapeaux se lisent dans un document (tools/controle/drapeaux-lisibles.php)" | tee -a /tmp/echecs.txt
         fi

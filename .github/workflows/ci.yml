@@ -74,6 +74,9 @@ jobs:
       - name: Refuser les drapeaux qui se lisent dans un document
         run: php tools/controle/drapeaux-lisibles.php
 
+      - name: Tester le terminal d'entraînement
+        run: php tests/terminal-test.php
+
       - name: Tester la barrière et les rapports d'audit
         run: php tests/audit-test.php
 

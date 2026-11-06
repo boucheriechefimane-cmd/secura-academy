@@ -154,9 +154,9 @@ final class Secura_Terminal {
 			);
 		}
 
-		$current = $steps[ $step ];
+		$current  = $steps[ $step ];
 		$patterns = isset( $current['match'] ) ? (array) $current['match'] : array();
-		$matched = false;
+		$matched  = false;
 
 		foreach ( $patterns as $pattern ) {
 			if ( self::matches( $pattern, $input ) ) {
@@ -169,7 +169,34 @@ final class Secura_Terminal {
 			$output = isset( $current['output'] ) ? $current['output'] : '';
 			$state['step'] = $step + 1;
 		} else {
-			$output = isset( $definition['unknown'] ) ? $definition['unknown'] : __( 'Commande non reconnue.', 'seca-academy' );
+			/* L'eleve a tape une commande qui correspond a une AUTRE
+			   etape du scenario. Le scenario n'est pas un ordre impose :
+			   enqueter dans un autre ordre est legitimement ce qu'on
+			   apprend. On cherche donc dans les etapes restantes, et on
+			   marque celle qui correspond comme faite.
+			   Sans cela, un eleve qui tape « cat app.conf » avant
+			   « curl status.php » recevait « commande introuvable » :
+			   le terminal lui mentait sur ce que la machine contient. */
+			$trouve = -1;
+
+			for ( $i = $step + 1; $i < count( $steps ); $i++ ) {
+				$candidats = isset( $steps[ $i ]['match'] ) ? (array) $steps[ $i ]['match'] : array();
+
+				foreach ( $candidats as $pattern ) {
+					if ( self::matches( $pattern, $input ) ) {
+						$trouve = $i;
+						break 2;
+					}
+				}
+			}
+
+			if ( $trouve > -1 ) {
+				$output = isset( $steps[ $trouve ]['output'] ) ? $steps[ $trouve ]['output'] : '';
+				$state['step'] = max( $step, $trouve + 1 );
+				$matched = true;
+			} else {
+				$output = self::reponse_honnete( $definition, $input, $state );
+			}
 		}
 
 		$state['history'][] = array(
@@ -191,6 +218,71 @@ final class Secura_Terminal {
 			'completed' => $state['step'] >= count( $steps ),
 			'hint'      => $matched ? '' : ( isset( $current['hint'] ) ? $current['hint'] : '' ),
 		);
+	}
+
+	/**
+	 * Que répondre quand la commande ne correspond à aucune étape ?
+	 *
+	 * Deux mensonges à éviter :
+	 *   - « commande introuvable » pour une commande qui existe (`ls`,
+	 *     `cat`, `grep`...) : l'élève apprend un faux fait sur la machine ;
+	 *   - une réponse vide, qui laisse croire que le terminal est cassé.
+	 *
+	 * On répond donc deux choses : ce que cet atelier accepte (extrait des
+	 * motifs littéraux du scénario), et une piste. L'élève sait où il est.
+	 *
+	 * @param array  $definition Définition du terminal.
+	 * @param string $input      Commande saisie.
+	 * @param array  $state      État courant.
+	 * @return string
+	 */
+	private static function reponse_honnete( $definition, $input, $state ) {
+		$etapes = isset( $definition['steps'] ) ? (array) $definition['steps'] : array();
+		$step   = isset( $state['step'] ) ? absint( $state['step'] ) : 0;
+		$utiles = array();
+
+		foreach ( $etapes as $etape ) {
+			foreach ( (array) ( isset( $etape['match'] ) ? $etape['match'] : array() ) as $motif ) {
+				$motif = trim( (string) $motif );
+
+				if ( '' === $motif || '/' === substr( $motif, 0, 1 ) ) {
+					continue;
+				}
+
+				$utiles[] = $motif;
+			}
+		}
+
+		/* Une commande qui EXISTE sur la machine ne doit jamais etre
+		   declaree introuvable. `ls`, `cat`, `grep` existent : ce qui est
+		   vrai, c'est qu'elles ne font pas avancer CET atelier. La
+		   difference n'est pas rhetorique : un eleve qui lit « introuvable »
+		   croit que la machine n'a pas `ls`, et il n'essaiera plus. */
+		$binaires = array( 'ls', 'cat', 'cd', 'pwd', 'grep', 'head', 'tail', 'wc', 'find', 'file', 'stat', 'strings', 'curl', 'wget', 'python3', 'nc', 'ssh', 'sudo', 'chmod', 'id', 'whoami', 'ps', 'ss', 'netstat', 'help' );
+		$premier  = strtolower( (string) strtok( trim( (string) $input ), ' ' ) );
+		$connue   = in_array( $premier, $binaires, true );
+
+		if ( $connue ) {
+			$message = sprintf(
+				/* translators: %s : nom de la commande. */
+				__( '« %s » fonctionne sur cette machine, mais ne fait rien avancer dans cet atelier.', 'seca-academy' ),
+				$premier
+			);
+		} else {
+			$message = isset( $definition['unknown'] ) ? (string) $definition['unknown'] : __( 'Cette commande ne donne rien ici.', 'seca-academy' );
+		}
+
+		if ( ! empty( $utiles ) ) {
+			$message .= "\n\n" . __( 'Commandes utiles dans cet atelier : ', 'seca-academy' ) . implode( ', ', array_unique( $utiles ) );
+		}
+
+		$hint = isset( $etapes[ $step ]['hint'] ) ? (string) $etapes[ $step ]['hint'] : '';
+
+		if ( '' !== $hint ) {
+			$message .= "\n" . __( 'Piste : ', 'seca-academy' ) . wp_strip_all_tags( $hint );
+		}
+
+		return $message;
 	}
 
 	/**
