@@ -1,0 +1,443 @@
+name: Preuve des machines, room par room
+description: >
+  Wordpress et MySQL reels, machines Docker reelles : construit les images,
+  installe WordPress, execute les controles des machines puis la preuve
+  room par room, et depose les rapports dans le depot (docs/preuves).
+
+  Ecrit une fois, appele par deux chemins : le declenchement manuel
+  (workflow_dispatch, pour mesurer sans toucher au CI) et le CI de la
+  demande de fusion (pour prouver avant de fusionner).
+
+  L'appelant doit avoir recupere le depot AVANT d'appeler cette action :
+  GitHub lit action.yml dans le dossier de travail, qui doit donc deja
+  contenir le code.
+
+inputs:
+  deposer_preuve:
+    description: 'Deposer les rapports dans la branche preuve-machines'
+    required: false
+    default: 'false'
+  a_fusionner:
+    description: 'Ajouter a la branche preuve-machines la tete de la branche de la demande de fusion'
+    required: false
+    default: 'false'
+  branche_source:
+    description: 'Branche dont on depose le rapport'
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Installer PHP et WP-CLI
+      uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+      with:
+        php-version: '8.3'
+        extensions: mysqli
+        tools: wp-cli
+
+    - name: Préparer le registre des échecs
+      shell: bash
+      run: |
+        # Un run de mesure dure vingt minutes et construit dix images : on
+        # ne veut pas perdre tout ce travail au premier pepin. Chaque etape
+        # note son echec ici, et une seule etape finale decide du sort du
+        # job — en NOMMANT ce qui a echoue.
+        #
+        # Ce registre doit exister AVANT la premiere etape qui peut
+        # echouer : le 5 novembre, il etait cree trop tard, et un echec
+        # survenu avant lui n'a produit aucune annotation lisible.
+        : > /tmp/echecs.txt
+        echo "Registre des echecs pret."
+
+    - name: Les tests unitaires du dépôt
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Les tests unitaires du dépôt (code $?)" | tee -a /tmp/echecs.txt' ERR
+        # Ce que faisait « CI — Secura Academy » : la vérification
+        # syntaxique et les tests du dépôt. Rapatriés ici pour qu'une
+        # seule commande mesure vraiment tout.
+        if ! for f in $(git ls-files '*.php'); do php -l "$f" >/dev/null || exit 1; done; then
+          echo "ECHEC : la syntaxe d'un fichier PHP est invalide" | tee -a /tmp/echecs.txt
+          exit 0
+        fi
+        echo "Syntaxe PHP : OK"
+        if [ -f tests/smoke-test.php ] && ! php tests/smoke-test.php; then
+          echo "ECHEC : les tests du depot (tests/smoke-test.php)" | tee -a /tmp/echecs.txt
+        fi
+        if [ -f tests/solution-test.php ] && ! php tests/solution-test.php; then
+          echo "ECHEC : la correction des questions ouvertes (tests/solution-test.php)" | tee -a /tmp/echecs.txt
+        fi
+        if [ -f tests/gate-test.php ] && ! php tests/gate-test.php; then
+          echo "ECHEC : les regles d'acces aux examens (tests/gate-test.php)" | tee -a /tmp/echecs.txt
+        fi
+        if [ -f tests/banque-test.php ] && ! php tests/banque-test.php; then
+          echo "ECHEC : la banque de questions SY0-701 (tests/banque-test.php)" | tee -a /tmp/echecs.txt
+        fi
+
+        if [ -f tests/blanc-test.php ] && ! php tests/blanc-test.php; then
+          echo "ECHEC : l'examen blanc pondere (tests/blanc-test.php)" | tee -a /tmp/echecs.txt
+        fi
+        if [ -f tests/terminal-test.php ] && ! php tests/terminal-test.php; then
+          echo "ECHEC : le terminal d'entrainement (tests/terminal-test.php)" | tee -a /tmp/echecs.txt
+        fi
+
+        if [ -f tools/controle/drapeaux-lisibles.php ] && ! php tools/controle/drapeaux-lisibles.php; then
+          echo "ECHEC : des drapeaux se lisent dans un document (tools/controle/drapeaux-lisibles.php)" | tee -a /tmp/echecs.txt
+        fi
+
+    - name: Vérifier les Dockerfiles avant de construire
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Vérifier les Dockerfiles avant de construire (code $?)" | tee -a /tmp/echecs.txt' ERR
+        # Une erreur de syntaxe dans un Dockerfile coute trente secondes a
+        # Docker, mais ici elle tombe au milieu d'un run de vingt minutes
+        # qui a deja construit neuf images. Ce controle prend une seconde.
+        if ! python3 tools/recette-apprenants/verifier-dockerfiles.py; then
+          echo "ECHEC : au moins un Dockerfile est invalide" | tee -a /tmp/echecs.txt
+        fi
+        # Et la commande que le plugin construit : une option placee apres
+        # l'image devient la commande du conteneur, qui s'arrete aussitot.
+        if ! php tools/recette-apprenants/verifier-commandes-docker.php; then
+          echo "ECHEC : la commande docker run construite par le plugin est fausse" | tee -a /tmp/echecs.txt
+        fi
+
+    - name: Préparer le registre des échecs
+      shell: bash
+      run: |
+        # Un run de mesure dure vingt minutes et construit dix images : on
+        # ne veut pas perdre tout ce travail au premier pepin. Chaque etape
+        # note son echec ici, et une seule etape finale decide du sort du
+        # job — en NOMMANT ce qui a echoue.
+        : > /tmp/echecs.txt
+        echo "Registre des echecs pret."
+
+    - name: Construire les machines
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Construire les machines (code $?)" | tee -a /tmp/echecs.txt' ERR
+        set -o pipefail
+        # Uniquement les machines que les rooms declarent reellement. Les
+        # quatre dossiers du ZIP qui n'etaient que des copies (web-dvwa,
+        # secura-lab-blue-firewall, secura-lab-blue-log-analysis,
+        # secura-lab-buffer-overflow) ont ete supprimes le 6 novembre :
+        # construire une copie ne prouve rien et laisse croire a quatre
+        # machines supplementaires.
+        for machine in web-01 bin-01 multi-01 internal-01 univ-01 dojo-01; do
+          echo "Construction de $machine…"
+          if docker build -q -t "securalabs/$machine:1.0" "labs/$machine"; then
+            echo "OK  $machine"
+          else
+            echo "ECHEC construction : $machine" | tee -a /tmp/echecs.txt
+          fi
+        done
+        echo "Construction du serveur de drapeaux (flags-01)…"
+        docker build -q -t "securalabs/flags-01:1.0" labs/juice-shop/flags
+        docker images --format '{{.Repository}}:{{.Tag}}' | tee /tmp/images.txt
+
+    - name: Installer WordPress et le plugin
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Installer WordPress et le plugin (code $?)" | tee -a /tmp/echecs.txt' ERR
+        if ! bash scripts/ci-wordpress.sh 2>&1 | tee -a /tmp/etapes.txt; then
+          echo "ECHEC : installation de WordPress et du plugin" | tee -a /tmp/echecs.txt
+        fi
+
+    - name: Démarrer le site
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Démarrer le site (code $?)" | tee -a /tmp/echecs.txt' ERR
+        # Le routeur est indispensable : il envoie vers WordPress les
+        # adresses que le serveur PHP ne sait pas servir seul
+        # (/robots.txt, /llms.txt, les permaliens). C'est exactement ce
+        # que fait un vrai hebergeur grace au fichier .htaccess.
+        nohup php -S 0.0.0.0:8080 -t "$SECA_WP_DIR" scripts/audit/router.php > /tmp/serveur.log 2>&1 &
+        for i in $(seq 1 30); do
+          code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/ || true)
+          if [ "$code" = "200" ]; then echo "Site en ligne (HTTP $code)"; exit 0; fi
+          sleep 1
+        done
+        echo "ECHEC : le site ne repond pas (voir /tmp/serveur.log)" | tee -a /tmp/echecs.txt
+        tail -20 /tmp/serveur.log >&2
+        exit 0
+
+    - name: Recette avec les vraies machines
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Recette avec les vraies machines (code $?)" | tee -a /tmp/echecs.txt' ERR
+        set -o pipefail
+        if SECA_AVEC_MACHINE=1 wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/wp-e2e.php 2>&1 | tee -a /tmp/etapes.txt; then
+          echo "OK recette wp-e2e"
+        else
+          echo "ECHEC : recette wp-e2e (le site ou les machines ne repondent pas comme prevu)" | tee -a /tmp/echecs.txt
+        fi
+
+    - name: L'anglais des 52 rooms (mesure officielle)
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : La mesure de l anglais (code $?)" | tee -a /tmp/echecs.txt' ERR
+        # La mesure officielle du chantier anglais : elle sort 0 seulement
+        # si plus aucun champ ne manque et si aucun texte n'est resté en
+        # francais. C'est cette meme commande que lance l'auteur en local ;
+        # la brancher ici evite de croire le chantier fini sur parole.
+        if wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/mesure-anglais.php 2>&1 | tee -a /tmp/etapes.txt; then
+          echo "OK mesure de l anglais"
+        else
+          echo "ECHEC : l anglais n est pas complet (voir la mesure ci-dessus)" | tee -a /tmp/echecs.txt
+        fi
+
+        # Le garde-fou de structure : une traduction presente mais qui a
+        # perdu un repere technique (URL, chemin, drapeau) est pire qu'une
+        # traduction manquante, parce qu'elle a l'air finie.
+        if wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/verifier-traductions.php 2>&1 | tee -a /tmp/etapes.txt; then
+          echo "OK coherence des traductions"
+        else
+          echo "ECHEC : une traduction est incoherente (voir ci-dessus)" | tee -a /tmp/echecs.txt
+        fi
+
+    - name: Scénario des deux apprenants (isolation)
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Scénario des deux apprenants (isolation) (code $?)" | tee -a /tmp/echecs.txt' ERR
+        SECA_ROOM_WEB=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=securiser-une-application-web --field=ID)
+        SECA_ROOM_NET=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=les-fondamentaux-du-reseau --field=ID)
+        SECA_ROOM_BIN=$(wp --path="$SECA_WP_DIR" --allow-root post list --post_type=secura_room --name=memoire-et-defenses --field=ID)
+        SECA_USER_ALICE=$(wp --path="$SECA_WP_DIR" --allow-root user get alice --field=ID)
+        SECA_USER_BOB=$(wp --path="$SECA_WP_DIR" --allow-root user get bob --field=ID)
+        echo "Rooms : web=$SECA_ROOM_WEB net=$SECA_ROOM_NET bin=$SECA_ROOM_BIN"
+        echo "Apprenants : alice=$SECA_USER_ALICE bob=$SECA_USER_BOB"
+        if SECA_ROOM_WEB="$SECA_ROOM_WEB" SECA_ROOM_NET="$SECA_ROOM_NET" SECA_ROOM_BIN="$SECA_ROOM_BIN" \
+        SECA_USER_ALICE="$SECA_USER_ALICE" SECA_USER_BOB="$SECA_USER_BOB" \
+          python3 tools/recette-apprenants/scenario.py 2>&1 | tee -a /tmp/etapes.txt; then
+          echo "OK scenario des deux apprenants"
+        else
+          echo "ECHEC : scenario des deux apprenants (isolation ou progression)" | tee -a /tmp/echecs.txt
+        fi
+
+    - name: Les 45 contrôles des machines
+      shell: bash
+      run: |
+        # Pas de piege ERR ici : ce script teste des choses qui peuvent
+        # legitimement echouer, et il gere lui-meme ses comptes. Le piege y
+        # coupait l'etape a la premiere sonde negative (constate au 20e run).
+        set -o pipefail
+        if bash scripts/test-labs-ci.sh 2>&1 | tee /tmp/machines.txt | tee -a /tmp/etapes.txt; then
+          echo "OK controles des machines"
+        else
+          echo "ECHEC : controles des machines (voir /tmp/machines.txt)" | tee -a /tmp/echecs.txt
+        fi
+
+    - name: La preuve des machines, room par room
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : La preuve des machines, room par room (code $?)" | tee -a /tmp/echecs.txt' ERR
+        set +e
+        wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/preuve-machines.php \
+          | tee /tmp/preuve-machines.txt
+        code=${PIPESTATUS[0]}
+        echo "code de sortie de la preuve : $code"
+        echo "code=$code" >> /tmp/preuve-machines.txt
+        # Le rapport est dans /tmp : on publie tout le detail, et on note
+        # l'echec dans le registre (avant, ce code etait calcule puis jete).
+        if [ "$code" -ne 0 ]; then
+          echo "ECHEC : la preuve room par room signale au moins une room qui ment" | tee -a /tmp/echecs.txt
+        fi
+        # Le code de cette etape ne doit jamais trahir une autre commande du
+        # bloc (un curl -o /dev/null rend 23 : « pas de corps a ecrire »).
+        exit 0
+
+    - name: La preuve au sommaire du travail
+      if: always()
+      shell: bash
+      run: |
+        # Les artefacts et les journaux de job ne sont pas telechargeables
+        # depuis le bac a sable du proprietaire : le rapport atterrit aussi
+        # dans le sommaire du travail, qui est lisible.
+        {
+          echo '## Preuve des machines, room par room'
+          echo ''
+          echo '```'
+          sed -n '1,200p' /tmp/preuve-machines.txt 2>/dev/null || echo 'aucun rapport produit'
+          echo '```'
+        } >> "$GITHUB_STEP_SUMMARY" || true
+
+    - name: Le detail des mesures, publie tot
+      if: always()
+      shell: bash
+      run: |
+        # Publie AVANT les etapes de diagnostic : une seule annotation, avec
+        # tout ce qui sert a comprendre (sondes, enquete, sorties d'exploit).
+        # C'est le seul canal lisible depuis le bac a sable du proprietaire.
+        {
+          if [ -f /tmp/moteur.txt ]; then cat /tmp/moteur.txt; fi
+          grep -aE "SONDE|enquete|root   :|montage:|nnp    :|expl \||NON  |KO " /tmp/etapes.txt /tmp/machines.txt 2>/dev/null | head -40
+        } > /tmp/detail.txt 2>/dev/null || true
+        if [ -s /tmp/detail.txt ]; then
+          bloc=""
+          while IFS= read -r ligne; do bloc="${bloc}${ligne}%0A"; done < /tmp/detail.txt
+          echo "::warning title=Detail des mesures::${bloc:0:6000}"
+        fi
+
+    - name: Ce que la machine voit de la machine
+      if: always()
+      shell: bash
+      run: |
+        set -o pipefail
+        trap 'echo "ECHEC : Ce que la machine voit de la machine (code $?)" | tee -a /tmp/echecs.txt' ERR
+        # Le serveur web et l'image d'attaque partagent la meme base : si le serveur ne
+        # repond pas, il faut savoir pourquoi (ports, outils, journal).
+        docker rm -f seca_diag_web >/dev/null 2>&1 || true
+        {
+          echo '--- diagnostic de la machine web ---'
+          docker run -d --name seca_diag_web --network none --memory 512m \
+            --cap-drop ALL --security-opt no-new-privileges -p 127.0.0.1::8080 \
+            securalabs/web-01:1.0 >/dev/null
+          sleep 10
+          echo '## ports publies'
+          docker port seca_diag_web || true
+          echo '## processus'
+          docker exec seca_diag_web sh -c 'ps aux | head -12' 2>&1 || true
+          echo '## outils reseau presents'
+          docker exec seca_diag_web sh -c 'for o in curl wget bash apache2 php nc; do printf "%s=" "$o"; command -v "$o" || echo absent; done' 2>&1 || true
+          echo '## journal apache'
+          docker exec seca_diag_web sh -c 'tail -20 /var/log/apache2/error.log 2>/dev/null; tail -20 /var/log/app/apache.log 2>/dev/null' 2>&1 || true
+          echo '## http depuis l hote (port publie, uniquement dans ce diagnostic)'
+          port=$(docker port seca_diag_web 8080/tcp 2>/dev/null | head -1 | cut -d: -f2)
+          echo "port=$port"
+          if [ -n "$port" ]; then
+            # -o /dev/null avec -w : curl rend 23 (« failed writing body »).
+            # Ce n'est pas une panne, et surtout pas un echec du run.
+            entete=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "http://127.0.0.1:$port/") || entete='000'
+            echo "code=$entete"
+          fi
+          echo '## journal docker'
+          docker logs seca_diag_web 2>&1 | tail -20 || true
+          docker rm -f seca_diag_web >/dev/null 2>&1 || true
+        } | tee /tmp/diagnostic.txt
+
+    - name: Verdict du run de mesure
+      if: always()
+      shell: bash
+      run: |
+        {
+          echo '## Verdict du run de mesure'
+          echo ''
+          if [ -s /tmp/echecs.txt ]; then
+            echo 'Le run est en echec. Ce qui a échoué, nommément :'
+            echo ''
+            sed 's/^/  - /' /tmp/echecs.txt
+          elif [ -n "${GITHUB_ACTION:-}" ]; then
+            # Aucun echec enregistre : c'est suspect si une etape amont a
+            # echoue sans passer par le registre. On le dit au lieu de
+            # laisser croire que tout va bien.
+            echo 'Aucun echec enregistre par les mesures.'
+          else
+            echo 'Toutes les mesures sont passées.'
+          fi
+        } | tee -a "$GITHUB_STEP_SUMMARY"
+
+        # Les journaux complets et les artefacts ne sont pas toujours
+        # accessibles (stockage Azure). Les annotations, elles, le sont
+        # toujours : chaque ligne en echec est donc remontee ici, une par
+        # annotation. C'est le seul canal que le proprietaire du depot et
+        # l'assistant peuvent relire apres coup.
+        if [ ! -s /tmp/echecs.txt ]; then
+          # Silence dangereux : le job est en echec mais aucune etape n'a
+          # rien enregistre. C'est arrive le 5 novembre (registre cree trop
+          # tard) : on le signale au lieu de laisser un run rouge muet.
+          echo "::warning title=Registre vide::le run est en echec mais aucune mesure n'a enregistre de cause — voir les etapes amont."
+        fi
+
+        if [ -s /tmp/echecs.txt ]; then
+          echo "::error title=Run de mesure en echec::$(paste -sd ' | ' /tmp/echecs.txt)"
+
+          # GitHub plafonne a 10 annotations par etape : une annotation par
+          # ligne en faisait perdre la moitie, dont justement l'enquete.
+          # On regroupe donc tout dans UNE annotation, en plusieurs lignes
+          # (%0A = saut de ligne), et on la garde sous la limite de taille.
+          bloc=""
+          ajouter() {
+            [ -f "$1" ] || return 0
+            while IFS= read -r ligne; do
+              bloc="${bloc}${ligne}%0A"
+            done < <(grep -aE "KO|ECHEC|échec|erreur|Error|Fatal|enquete|image  :|test   :|nnp    :|expl |root   :|caps   :|version:|montage:|nnp    :|temoin :|SONDE |NON  " "$1" | head -40)
+          }
+
+          ajouter /tmp/machines.txt
+          ajouter /tmp/etapes.txt
+          ajouter /tmp/preuve-machines.txt
+
+          echo "::error title=Detail des echecs::${bloc:0:6000}"
+
+          exit 1
+        fi
+
+    - name: Déposer la preuve dans le dépôt
+      if: always() && inputs.deposer_preuve == 'true'
+      shell: bash
+      run: |
+        # Ni les journaux de job ni les artefacts ne sont telechargeables
+        # depuis le bac a sable du proprietaire (redirection Azure
+        # bloquee). La preuve est donc commitee dans une branche dediee,
+        # ou elle reste lisible : « preuve-machines ».
+        dossier="docs/preuves"
+        mkdir -p "$dossier"
+        date_du_jour=$(date -u +%Y-%m-%d)
+        cp /tmp/preuve-machines.txt "$dossier/machines-$date_du_jour.txt" 2>/dev/null || true
+        cp /tmp/machines.txt "$dossier/controles-machines-$date_du_jour.txt" 2>/dev/null || true
+        cp /tmp/diagnostic.txt "$dossier/diagnostic-$date_du_jour.txt" 2>/dev/null || true
+        cp /tmp/etapes.txt "$dossier/journal-des-etapes-$date_du_jour.txt" 2>/dev/null || true
+        { echo '--- journal PHP (fin) ---'; tail -40 "${SECA_WP_DIR}/wp-content/debug.log" 2>/dev/null; } \
+          > "$dossier/journal-php-$date_du_jour.txt" || true
+        {
+          echo "# Preuve des machines du $date_du_jour"
+          echo
+          echo "Commit mesure : $GITHUB_SHA"
+          echo "Branche mesuree : ${INPUTS_BRANCHE_SOURCE:-$GITHUB_REF_NAME}"
+          echo "Travail : $GITHUB_RUN_ID"
+          echo
+          echo '```'
+          sed -n '1,200p' /tmp/preuve-machines.txt 2>/dev/null || echo 'aucun rapport produit'
+          echo '```'
+          echo
+          echo '## Les controles des machines (fin)'
+          echo
+          echo '```'
+          tail -25 /tmp/machines.txt 2>/dev/null || echo 'aucun journal'
+          echo '```'
+          echo
+          echo '## Le journal des etapes (fin)'
+          echo
+          echo '```'
+          tail -40 /tmp/etapes.txt 2>/dev/null || echo 'aucun journal'
+          echo '```'
+        } > "$dossier/LISEZ-MOI.md"
+        git config user.name 'Recette Secura'
+        git config user.email 'recette@secura.invalid'
+        # La branche de preuve est construite a partir du depot, pas du
+        # dossier de travail (sinon les images construites y entreraient).
+        git checkout --force -B preuve-machines
+        git add "$dossier"
+        git commit -q -m "Preuve des machines du $date_du_jour ($GITHUB_SHA)" || echo 'rien de neuf'
+        if [ "${INPUTS_A_FUSIONNER:-false}" = "true" ]; then
+          # Branche sans CI (voir .github/workflows/lire-la-preuve.yml) : y
+          # ajouter la tete de la branche ne declenche aucun travail.
+          git merge --no-edit -X theirs "origin/${INPUTS_BRANCHE_SOURCE}" \
+            -m "La preuve porte aussi sur la tete de ${INPUTS_BRANCHE_SOURCE}" || echo 'fusion impossible'
+        fi
+        if ! git push --force origin HEAD:refs/heads/preuve-machines; then
+          echo "::warning title=Preuve non deposee::le push vers preuve-machines a echoue ; les rapports restent dans /tmp"
+        fi
+      env:
+        INPUTS_DEPOSER_PREUVE: ${{ inputs.deposer_preuve }}
+        INPUTS_A_FUSIONNER: ${{ inputs.a_fusionner }}
+        INPUTS_BRANCHE_SOURCE: ${{ inputs.branche_source }}

@@ -1,5 +1,12 @@
 name: CI — Secura Academy
 
+# Ce controle etait en « phase de construction » : il ne se declenchait plus
+# sur les poussees de la branche de travail, et rien ne verifiait donc les
+# 378 assertions du smoke test avant la fusion. Le socle est termine, le
+# controle est rebranche :
+#   - sur toute demande de fusion (c'est la que la preuve compte) ;
+#   - sur les poussees vers main ;
+#   - a la main, pour mesurer sans pousser.
 on:
   push:
     branches: [ main ]
@@ -27,8 +34,26 @@ jobs:
           php-version: '7.4'
           coverage: none
 
+      # LE GARDE-FOU DE LONGUEUR.
+      #
+      # Mesure du 6 novembre 2026 : 189 QCM sur 204 des rooms universitaires
+      # (et 126 sur 133 en anglais) se gagnaient en cochant toujours la
+      # proposition la plus longue. L'epreuve ne mesurait pas la notion.
+      #
+      # Ce controle ne demande ni WordPress ni base de donnees : il lit le
+      # contenu LIVRE (content-universites.php et i18n/en-univ.php), pas les
+      # sources Python, parce que build.py deplace la bonne reponse a la
+      # generation. Verifie question par question contre le moteur le
+      # 6 novembre 2026 : 133 accords sur 133 dans les deux langues.
+      #
+      # Il echoue tant que le contenu n'est pas corrige : c'est voulu, et
+      # c'est la mesure du travail restant (le detail est dans la sortie).
+      - name: Mesurer le raccourci de longueur dans les QCM (informatif)
+        continue-on-error: true
+        run: python3 tools/contenu-universites/check.py
+
       - name: Vérifier la syntaxe des fichiers PHP
-        run: find wp-content tests -name '*.php' -print0 | xargs -0 -n1 php -l
+        run: find wp-content tests scripts tools/labs -name '*.php' -print0 | xargs -0 -n1 php -l
 
       # Un fichier JavaScript qui ne compile pas casse TOUTE l'interface :
       # plus aucune réponse n'est envoyée, plus aucun indice n'apparaît.
@@ -57,12 +82,118 @@ jobs:
       - name: Exécuter les tests de logique serveur
         run: php tests/smoke-test.php
 
+      - name: Tester la correction des questions ouvertes
+        run: php tests/solution-test.php
+
+      - name: Tester les règles d'accès aux examens
+        run: php tests/gate-test.php
+
+      - name: Tester la banque de questions SY0-701
+        run: php tests/banque-test.php
+
+      - name: Tester l'examen blanc pondéré
+        run: php tests/blanc-test.php
+
+      - name: Refuser les drapeaux qui se lisent dans un document
+        run: php tools/controle/drapeaux-lisibles.php
+
+      # Le dojo est le seul endroit ou le defaut avait ete INSCRIT dans un
+      # test : la CI exigeait que chaque drapeau soit « decouvrable dans les
+      # documents », donc recopiable. Ce controle verifie l'inverse.
+      - name: Refuser un drapeau recopiable dans un document de defi
+        run: python3 tools/controle/dojo-sans-drapeau.py
+
+      - name: Tester le terminal d'entraînement
+        run: php tests/terminal-test.php
+
+      - name: Tester la barrière et les rapports d'audit
+        run: php tests/audit-test.php
+
+      - name: Tester les sondes de contenu simulées
+        run: php tests/sondes-contenu-test.php
+
       - name: Tester la chaîne d'import des questions
         run: python3 tests/import-test.py
+
+      - name: Reconstruire et tester les archives
+        run: python3 tests/archives-test.py
 
       - name: Vérifier les espaces en fin de ligne
         run: |
           if grep -RIn '[[:blank:]]$' --include='*.php' --include='*.js' --include='*.css' wp-content; then
             echo "Espaces en fin de ligne détectés."
             exit 1
+          fi
+
+  # La qualite des QCM se mesure, elle ne se declare pas.
+  #
+  # Le 6 novembre 2026, la note du laboratoire a trouve que dans 89 % des
+  # QCM la bonne reponse etait la plus longue des options : un eleve qui
+  # coche toujours la plus longue reussissait les examens sans lire. Le
+  # moteur melange desormais les options (le raccourci ne marche plus),
+  # mais le CONTENU reste a corriger. Ce job empeche la regression et publie
+  # le chiffre a chaque poussee.
+  qualite-qcm:
+    name: Qualite des QCM et des examens
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: seca_wp
+          MYSQL_USER: seca
+          MYSQL_PASSWORD: seca_ci_pw
+          MYSQL_ROOT_PASSWORD: root_ci_pw
+        ports:
+          - '3306:3306'
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    env:
+      SECA_WP_DIR: ${{ github.workspace }}/wp-ci
+      SECA_WP_URL: http://localhost:8080
+      SECA_LABS_PATH: ${{ github.workspace }}/labs
+      SECA_DB_NAME: seca_wp
+      SECA_DB_USER: seca
+      SECA_DB_PASSWORD: seca_ci_pw
+      SECA_DB_HOST: 127.0.0.1
+      SECA_DB_PORT: 3306
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer PHP et WP-CLI
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          tools: wp-cli
+
+      - name: Installer WordPress et le plugin
+        run: bash scripts/ci-wordpress.sh
+
+      - name: Mesurer la qualite des QCM
+        run: |
+          # Aucun pipe : le code de sortie doit rester celui du script, et
+          # l'erreur doit atterrir dans le fichier qu'on publiera.
+          WP_CLI=wp SECURA_SANDBOX="$SECA_WP_DIR" \
+            python3 tools/controle/qualite-qcm.py --liste > /tmp/qcm.txt 2>&1
+          code=$?
+          tail -40 /tmp/qcm.txt
+          exit $code
+
+      - name: Publier le verdict en annotation
+        if: always()
+        run: |
+          verdict=$(grep -a 'VERDICT' /tmp/qcm.txt 2>/dev/null | tail -1 || true)
+          faute=$(grep -a 'plus longue' /tmp/qcm.txt 2>/dev/null | head -1 || true)
+          echo "::notice title=Qualite des QCM::${verdict:-mesure non jouee}"
+          echo "::notice title=Defaut principal::${faute:-aucun}"
+          if [ -z "$verdict" ]; then
+            # Le script n'a pas conclu : la trace devient l'annotation.
+            while IFS= read -r ligne; do
+              echo "::error::${ligne}"
+            done < <(tail -15 /tmp/qcm.txt)
           fi

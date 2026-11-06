@@ -1,6 +1,6 @@
 {
-  "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-04-dix-sept",
+  "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md. Quinze sources ajoutees le 6 novembre 2026 apres verification de la licence (API GitHub pour les depots, page du projet pour les autres). Les sources propri etaires sont listees pour le RENVOI uniquement : elles ne peuvent pas alimenter un import.",
+  "_version": "2026-11-06-dix-neuf",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -53,6 +53,17 @@
       "licence": "Domaine public (gouvernement federal des Etats-Unis)",
       "attribution": "National Institute of Standards and Technology (NIST)",
       "usage": "questions sur les referentiels et les bonnes pratiques",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "utilisable dans un service payant"
+    },
+    {
+      "id": "nist-sp-800-50r1",
+      "nom": "NIST SP 800-50 Rev. 1 — Building a Cybersecurity and Privacy Learning Program",
+      "url": "https://csrc.nist.gov/pubs/sp/800/50/r1/final",
+      "licence": "Domaine public (gouvernement federal des Etats-Unis)",
+      "attribution": "National Institute of Standards and Technology (NIST)",
+      "usage": "programme de sensibilisation et de formation (sujet 5.5 de SY0-701) ; remplace l'edition de 2003, retiree le 12/09/2024",
       "reutilisable": true,
       "commercial": true,
       "commercial_note": "utilisable dans un service payant"
@@ -696,6 +707,122 @@
       "reutilisable": true,
       "commercial": false,
       "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "vulhub",
+      "nom": "Vulhub — environnements vulnerables prets a l'emploi (Docker Compose)",
+      "url": "https://github.com/vulhub/vulhub",
+      "licence": "MIT",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "Vulhub (github.com/vulhub/vulhub), licence MIT",
+      "usage": "machines d'entrainement : une faille CVE reelle par conteneur, a instruire et exploiter dans le reseau ferme du lab",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "MIT : reutilisation et usage commercial autorises, conservation de la notice de licence"
+    },
+    {
+      "id": "atomic-red-team",
+      "nom": "Atomic Red Team (Red Canary) — tests de detection mappes sur MITRE ATT&CK",
+      "url": "https://github.com/redcanaryco/atomic-red-team",
+      "licence": "MIT",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "Atomic Red Team, Red Canary, licence MIT — techniques MITRE ATT&CK (Txxxx)",
+      "usage": "exercices de defense : l'eleve doit detecter une technique dans un journal reel, et nommer l'ID ATT&CK",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "MIT : reutilisation autorisee ; MITRE ATT&CK est une marque, citee comme reference"
+    },
+    {
+      "id": "owasp-nodegoat",
+      "nom": "OWASP NodeGoat — application Node.js volontairement vulnerable",
+      "url": "https://github.com/OWASP/NodeGoat",
+      "licence": "Apache-2.0",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "OWASP NodeGoat, OWASP Foundation, licence Apache 2.0",
+      "usage": "machine web d'entrainement : Top 10 OWASP sur une pile Node.js/MongoDB",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "Apache 2.0 : reutilisation autorisee avec conservation de la licence et de la mention de modification"
+    },
+    {
+      "id": "owasp-juice-shop",
+      "nom": "OWASP Juice Shop — application web volontairement vulnerable",
+      "url": "https://github.com/juice-shop/juice-shop",
+      "licence": "MIT",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "OWASP Juice Shop, licence MIT",
+      "usage": "deja utilisee par les rooms avance-01 et avance-02 ; les codes de defi sont la preuve lue par le serveur",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "MIT"
+    },
+    {
+      "id": "owasp-webgoat",
+      "nom": "OWASP WebGoat — application Java volontairement vulnerable",
+      "url": "https://github.com/WebGoat/WebGoat",
+      "licence": "Apache-2.0 (declaree Apache par le projet ; l'API GitHub ne sait pas la nommer)",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "OWASP WebGoat, OWASP Foundation, Apache 2.0",
+      "usage": "machine web d'entrainement, lecons guidees sur le Top 10",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "Apache 2.0 ; a reconfirmer sur le fichier LICENSE du depot avant import massif"
+    },
+    {
+      "id": "cisco-netacad",
+      "nom": "Cisco Networking Academy — parcours cybersecurite gratuits",
+      "url": "https://www.netacad.com/courses/cybersecurity",
+      "licence": "Contenu pedagogique proprietaire — non reutilisable (badge et certificat gratuits a la source)",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "Cisco Networking Academy",
+      "usage": "RENVOI seulement : on cite le cours et son adresse, on n'en copie aucun texte",
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "proprietaire : citation et lien autorises, copie du contenu non"
+    },
+    {
+      "id": "tryhackme",
+      "nom": "TryHackMe — salles gratuites (Pre Security, Cyber Security 101, SOC)",
+      "url": "https://tryhackme.com/free-rooms",
+      "licence": "Proprietaire — conditions d'utilisation du 01/10/2025, §3.1 et §3.2 : « no part of the Website and no Content ... may be copied, reproduced, aggregated, republished ... without our express prior written permission ». Le §3.2 interdit aussi toute extraction automatisee (scraping, web harvesting).",
+      "attribution": "TryHackMe Ltd, tryhackme.com",
+      "usage": "aucune reutilisation : renvoi seul (compte gratuit a creer chez eux)",
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "contenu proprietaire : ni copie, ni import, ni traduction. Lien et mention uniquement."
+    },
+    {
+      "id": "professor-messer",
+      "nom": "Professor Messer — cours Security+ SY0-701 (videos et notes)",
+      "url": "https://www.professormesser.com/sy0-701-certification-course/",
+      "licence": "Proprietaire — les notes de cours portent : « Copyright (c) Messer Studios, LLC ... All rights reserved. No part of this book may be reproduced or transmitted in any form or by any means ... without written permission from the publisher. » Les videos sont gratuites a REGARDER sur son site et sa chaine, pas a republier.",
+      "attribution": "James « Professor » Messer, Messer Studios LLC",
+      "usage": "aucune reutilisation : renvoi seul (video gratuite a regarder chez lui)",
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "contenu proprietaire. Le visionnage est gratuit ; la copie et l'hebergement ne le sont pas."
+    },
+    {
+      "id": "cyberdefenders",
+      "nom": "CyberDefenders — defis d'investigation SOC (forensique, phishing)",
+      "url": "https://cyberdefenders.org/blueteam-ctf-challenges/",
+      "licence": "Proprietaire — conditions d'utilisation : « The content, features, and functionality of the Platform are and will remain the exclusive property of CyberDefenders.org and its licensors. Unauthorized reproduction or distribution is prohibited without prior consent. »",
+      "attribution": "CyberDefenders.org",
+      "usage": "aucune reutilisation : renvoi seul",
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "contenu proprietaire : ni copie, ni import. Lien et mention uniquement."
+    },
+    {
+      "id": "hackthebox",
+      "nom": "Hack The Box — Starting Point, machines actives gratuites",
+      "url": "https://www.hackthebox.com/hacker/hacking-labs",
+      "licence": "Non verifiee a ce jour — contenu de plateforme, tres probablement proprietaire, mais aucun texte de licence n'a ete releve lors de cette verification. Dans le doute : non reutilisable.",
+      "attribution": "Hack The Box",
+      "usage": "aucune reutilisation : renvoi seul, en attendant verification ecrite",
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "licence non etablie : par prudence, aucun import."
     }
   ],
   "regles": [

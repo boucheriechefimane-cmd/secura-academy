@@ -1,0 +1,195 @@
+name: Machines
+
+# Teste les machines du laboratoire pour de vrai : on construit l'image, on
+# lance le conteneur, et on joue les commandes qu'un eleve taperait.
+#
+# POURQUOI CE WORKFLOW EXISTE
+# ---------------------------
+# Jusqu'ici, les machines de `labs/` n'etaient verifiees par personne :
+# - leurs Dockerfile n'etaient jamais construits ;
+# - les drapeaux n'etaient jamais lus la ou le serveur les lira ;
+# - les droits qui FONT le defi (un fichier en 000, un proprietaire
+#   etranger) n'etaient jamais constates.
+# Une machine cassee ne se voyait qu'en salle de classe.
+#
+# Ce workflow construit chaque image, la lance sans privileges, puis execute
+# les epreuves declarees. Il echoue si une seule epreuve ne passe pas.
+#
+# Il est declare ici plutot que dans ci.yml pour une raison simple : il est
+# long (construction d'images), et il ne doit pas retarder le reste. Il se
+# declenche sur toute modification de labs/, et une fois par jour pour
+# detecter une image amont qui casse (php:8.2-apache, debian:bookworm-slim).
+
+on:
+  push:
+    branches: ['arena/**', main]
+    paths:
+      - 'labs/**'
+      - 'tools/labs/**'
+      - '.github/workflows/machines.yml'
+  pull_request:
+    paths:
+      - 'labs/**'
+      - 'tools/labs/**'
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dojo:
+    name: dojo-01 — les 20 defis se resolvent-ils vraiment ?
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verifier qu'aucun document ne contient de drapeau
+        run: python3 tools/controle/dojo-sans-drapeau.py
+
+      - name: Construire l'image
+        run: docker build -t securalabs/dojo-01:1.0 labs/dojo-01
+
+      - name: Lancer le conteneur
+        run: |
+          docker run -d --name dojo \
+            --cap-drop=ALL --security-opt=no-new-privileges \
+            securalabs/dojo-01:1.0
+
+      - name: Jouer les defis dans la machine
+        run: |
+          if ! python3 tools/labs/epreuves-dojo.py --conteneur dojo --verbeux > /tmp/epreuves.log 2>&1; then
+            # Les echecs doivent etre lisibles dans l'onglet Actions : on les
+            # remonte en annotations, une par defi en echec. Sans cela, il faut
+            # ouvrir le log complet pour savoir quel defi est casse.
+            while IFS= read -r ligne; do
+              case "$ligne" in
+                "  - "*) echo "::error::${ligne#  - }" ;;
+              esac
+            done < /tmp/epreuves.log
+            cat /tmp/epreuves.log
+            exit 1
+          fi
+          cat /tmp/epreuves.log
+
+      - name: Les drapeaux ne sont pas lisibles par l'eleve
+        run: |
+          # Le compte ctf ne doit pas pouvoir lire /root/flags : c'est ce qui
+          # rend le drapeau incontournable depuis la machine.
+          if docker exec -u 1000 dojo cat /root/flags/flag-d01.txt 2>/dev/null; then
+            echo "::error::l'eleve peut lire le drapeau !"
+            exit 1
+          fi
+          echo "OK : le drapeau n'est pas lisible par le compte ctf"
+
+      - name: Nettoyer
+        if: always()
+        run: docker rm -f dojo || true
+
+  web:
+    name: web-01 — l'injection SQL fonctionne-t-elle ?
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Construire l'image
+        run: docker build -t securalabs/web-01:1.0 labs/web-01
+
+      # La machine est lancee EXACTEMENT comme le plugin la lance : sans
+      # root, sans privileges, et sans port publie sur l'hote. Si elle ne
+      # repond qu'avec des droits qu'elle n'aura pas en classe, le test ne
+      # prouve rien. On joint l'application par l'adresse du conteneur.
+      - name: Lancer le conteneur comme le plugin
+        run: |
+          docker network create --internal seca_essai
+          docker run -d --name web --network seca_essai \
+            --cap-drop=ALL --security-opt=no-new-privileges \
+            --pids-limit 256 --memory 512m --cpus 1.0 \
+            --user 1000:1000 -w /home/ctf \
+            securalabs/web-01:1.0 sleep infinity
+          IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' web)
+          echo "SECA_WEB_IP=$IP" >> "$GITHUB_ENV"
+
+      - name: Attendre que l'application reponde
+        run: |
+          for i in $(seq 1 30); do
+            if docker run --rm --network seca_essai curlimages/curl:8.7.1 \
+                 -fsS "http://${SECA_WEB_IP}:8080/" >/dev/null 2>&1; then
+              echo "l'application repond (essai $i)"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "::error::l'application n'a pas repondu en 60 s"
+          docker logs web || true
+          exit 1
+
+      - name: Jouer l'attaque dans la machine
+        run: |
+          if ! python3 tools/labs/epreuves-web.py --base "http://${SECA_WEB_IP}:8080" --verbeux > /tmp/web.log 2>&1; then
+            while IFS= read -r ligne; do
+              case "$ligne" in
+                "  - "*) echo "::error::${ligne#  - }" ;;
+              esac
+            done < /tmp/web.log
+            cat /tmp/web.log
+            docker logs web || true
+            exit 1
+          fi
+          cat /tmp/web.log
+
+      - name: Nettoyer
+        if: always()
+        run: |
+          docker rm -f web || true
+          docker network rm seca_essai || true
+
+  univ:
+    name: univ-01 — les 22 manipulations produisent-elles le drapeau ?
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer PHP (le controle des drapeaux est ecrit en PHP)
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Verifier qu'aucun document ne contient de drapeau
+        run: php tools/controle/drapeaux-lisibles.php
+
+      - name: Construire l'image
+        run: docker build -t securalabs/univ-01:1.0 labs/univ-01
+
+      - name: Lancer le conteneur
+        run: |
+          docker run -d --name univ \
+            --cap-drop=ALL --security-opt=no-new-privileges \
+            --user 1000:1000 \
+            securalabs/univ-01:1.0
+
+      - name: Jouer les 22 commandes de la consigne, comme l'eleve
+        run: |
+          # Les journaux de ce job ne sont pas lisibles par l'API (EOF sur
+          # le stockage des logs) : chaque echec devient donc une
+          # annotation, qui elle se lit.
+          if ! python3 tools/labs/epreuves-univ.py --conteneur univ --verbeux > /tmp/univ.log 2>&1; then
+            while IFS= read -r ligne; do
+              case "$ligne" in
+                "ECHEC "*) echo "::error::${ligne#ECHEC }" ;;
+              esac
+            done < /tmp/univ.log
+            cat /tmp/univ.log
+            echo "--- contenu de la machine ---"
+            docker exec univ ls -R /srv/cours /opt/labs 2>&1 | head -40
+            exit 1
+          fi
+          cat /tmp/univ.log
+
+      - name: Nettoyer
+        if: always()
+        run: docker rm -f univ || true

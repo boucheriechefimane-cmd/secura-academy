@@ -1,1 +1,1 @@
-FLAG=SECURA{phrase_passe}
+FLAG=SECURA{passe_kayak}

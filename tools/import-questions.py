@@ -11,9 +11,13 @@ validees, en verifiant :
 4. que chaque question respecte le format de la plateforme ;
 5. que l'usage est compatible avec la licence : si l'import est destine a un
    service payant (`--commercial`), une licence « NC » (non commerciale)
-   est refusee — et une source non reutilisable l'est aussi, meme si on a
-   reordonne les questions ou change leurs numeros : une transformation ne
-   redonne pas une licence.
+   est refusee — et une source non reutilisable l'est aussi : reordonner ou
+   renumeroter ne redonne pas une licence.
+
+   Ce refus porte sur le TEXTE repris tel quel. Il ne dit rien des idees :
+   reprendre un sujet, une methode ou un objectif d'examen pour ecrire ses
+   propres enonces est libre, et c'est la voie normale (voir
+   docs/SOURCES-CONTENU.md section 14).
 
 Le resultat est un fichier PHP (`includes/content-import-<id>.php`) que le
 plugin charge au demarrage. Les questions importees sont ajoutees a la
@@ -111,9 +115,10 @@ def verifier_lot(lot, sources, commercial=False):
     if not source.get("reutilisable", False):
         return [
             "Source '%s' : la licence verifiee ne permet pas de reutiliser le contenu "
-            "-> import refuse. Reordonner les questions, les renumeroter ou les "
-            "reformuler ne change rien : une transformation d'un contenu protege "
-            "reste un contenu protege, et la licence d'origine s'applique toujours."
+            "-> import refuse. Reordonner, renumeroter ou reformuler ce contenu "
+            "ne change rien : la licence d'origine s'applique toujours. "
+            "(Ce refus ne porte pas sur les idees : ecrire ses propres enonces "
+            "sur le meme sujet est libre.)"
             % identifiant
         ]
 

@@ -265,6 +265,22 @@ final class Secura_Ajax {
 			$exam = Secura_Progress::start_exam( $user_id, $room_id, $index );
 		}
 
+		/* Un examen qui n'a pas commence ne livre pas ses questions.
+		   Mesure du 05/11/2026 : get_task repondait 200 avec les cinq
+		   questions et time_left=0, sans chronometre. L'eleve pouvait donc
+		   lire (et chercher) les questions sans aucune limite de temps,
+		   puis demarrer le chronometre. Le navigateur, lui, passait par
+		   start_exam : c'est l'API qui etait ouverte. */
+		if ( $is_exam && ! $done && ! $exam ) {
+			wp_send_json_error(
+				array(
+					'message' => Secura_I18n::t( 'exam_not_started', '', "Ouvrez d'abord l'examen : le chronomètre n'est pas encore parti." ),
+					'code'    => 'exam_not_started',
+				),
+				409
+			);
+		}
+
 		if ( $is_exam && $exam && $task['time_limit'] > 0 && Secura_Progress::exam_expired( $exam, $task['time_limit'] ) ) {
 			wp_send_json_error(
 				array(
@@ -278,11 +294,30 @@ final class Secura_Ajax {
 		$questions = array();
 
 		foreach ( $task['questions'] as $q_index => $question ) {
+			/* Les options sont melangees a l'affichage, pas dans le contenu :
+			   la bonne reponse reste la meme pour tout le monde, mais sa
+			   POSITION change a chaque appel. Sans ce melange, une option
+			   ecrite en dernier et plus longue que les autres se reconnait
+			   sans lire la question (mesure du 6/11 : 89,6 % des examens
+			   reussis en cochant toujours la reponse la plus longue). */
+			$choix_affiches = isset( $question['choices'] ) ? array_values( $question['choices'] ) : array();
+
+			if ( 'choice' === ( isset( $question['mode'] ) ? $question['mode'] : 'text' ) && count( $choix_affiches ) > 1 ) {
+				mt_srand( (int) ( crc32( (string) $user_id . '|' . $room_id . '|' . $index . '|' . $q_index ) ) );
+
+				$melange = $choix_affiches;
+				shuffle( $melange );
+
+				mt_srand();
+
+				$choix_affiches = $melange;
+			}
+
 			$entry = array(
 				'index'        => $q_index,
 				'question'     => $question['question'],
 				'mode'         => isset( $question['mode'] ) ? $question['mode'] : 'text',
-				'choices'      => isset( $question['choices'] ) ? array_values( $question['choices'] ) : array(),
+				'choices'      => $choix_affiches,
 				'xp'           => (int) $question['xp'],
 				'hint'         => $question['hint'],
 				'weight'       => (int) $question['weight'],
@@ -391,12 +426,24 @@ final class Secura_Ajax {
 			);
 		}
 
-		/* Examen : contrôle du chronomètre côté serveur. */
+		/* Examen : contrôle du chronomètre côté serveur.
+
+		   Une tache d'examen ne commence JAMAIS par une reponse : le
+		   chronometre demarre a l'ouverture de l'examen (start_exam), et
+		   refuser ici est la seule facon de garantir que le temps accorde
+		   est bien le temps utilise. Sans ce refus, une reponse envoyee
+		   avant start_exam creait un chronometre dans le dos de l'eleve. */
 		if ( 'exam' === $task['type'] ) {
 			$exam = Secura_Progress::exam_state( $user_id, $room_id, $index );
 
 			if ( ! $exam ) {
-				$exam = Secura_Progress::start_exam( $user_id, $room_id, $index );
+				wp_send_json_error(
+					array(
+						'message' => Secura_I18n::t( 'exam_not_started', '', "Ouvrez d'abord l'examen : le chronomètre n'est pas encore parti." ),
+						'code'    => 'exam_not_started',
+					),
+					409
+				);
 			} elseif ( ! empty( $exam['finished_at'] ) && empty( $exam['passed'] ) ) {
 				/* L'examen précédent a été raté : on relance une tentative
 				   propre plutôt que de refuser la réponse. */
@@ -450,25 +497,51 @@ final class Secura_Ajax {
 			$expected = isset( $question['choices'][ (int) $question['correct'] ] ) ? $question['choices'][ (int) $question['correct'] ] : '';
 			$correct  = ( '' !== $expected ) && Secura_Progress::answer_matches( $answer, array( $expected ) );
 		} elseif ( 'solution' === $mode ) {
-			/* Un probleme d'examen universitaire : la redaction n'est pas
-			   corrigee automatiquement (ce serait pretendre qu'une machine
-			   comprend une reponse en prose). L'eleve doit avoir tente
-			   (au moins quelques mots), puis la correction officielle de
-			   l'ecole lui est montree : c'est elle qui fait la leçon. */
-			$correct = ( strlen( trim( (string) $answer ) ) >= 10 );
+			/* Un probleme d'examen universitaire. On ne pretend pas qu'une
+			   machine comprend de la prose, mais on ne valide plus dix
+			   caracteres non plus : Secura_Solution applique une grille de
+			   concepts quand la question en porte une, refuse une reponse
+			   creuse, et renvoie sinon la tentative en auto-evaluation
+			   explicite. */
+			$solution = Secura_Solution::evaluate( $question, $answer );
+			$correct  = ( true === $solution['correct'] );
+
+			if ( 'a_confirmer' === $solution['etat'] ) {
+				/* La redaction est serieuse et le corrige officiel va etre
+				   montre : on ne l'accepte pas a la place de l'eleve, on lui
+				   demande de se positionner (voir Secura_Solution::confirm). */
+				$correct = false;
+			}
 		} else {
 			$correct = Secura_Progress::answer_matches( $answer, $question['answers'] );
 		}
 
 		if ( ! $correct ) {
-			wp_send_json_success(
-				array(
-					'correct'   => false,
-					'message'   => Secura_I18n::t( 'wrong', '', 'Pas encore, réessayez.' ),
-					'hint'      => $question['hint'],
-					'total_xp'  => Secura_Progress::get_xp( $user_id ),
-				)
+			$refus = array(
+				'correct'   => false,
+				'message'   => Secura_I18n::t( 'wrong', '', 'Pas encore, réessayez.' ),
+				'hint'      => $question['hint'],
+				'total_xp'  => Secura_Progress::get_xp( $user_id ),
 			);
+
+			/* Une question ouverte a toujours une correction a montrer :
+			   c'est elle qui fait le travail pedagogique. On dit aussi a
+			   l'eleve pourquoi sa redaction n'est pas acceptee, sans jamais
+			   lui donner la reponse a sa place. */
+			if ( 'solution' === $mode && isset( $solution ) && is_array( $solution ) ) {
+				$refus['solution'] = array(
+					'etat'      => $solution['etat'],
+					'message'   => $solution['message'],
+					'concepts'  => $solution['concepts'],
+					'attendus'  => $solution['attendus'],
+					'manquants' => $solution['manquants'],
+					'a_confirmer' => ( 'a_confirmer' === $solution['etat'] ),
+				);
+
+				$refus['explanation'] = $question['explanation'];
+			}
+
+			wp_send_json_success( $refus );
 		}
 
 		$xp_before = Secura_Progress::get_xp( $user_id );
@@ -516,9 +589,20 @@ final class Secura_Ajax {
 		$medal  = null;
 		$room_complete = false;
 
-		if ( self::room_is_complete( $view['tasks'], $state ) ) {
+		$gate = self::room_gate( $user_id, $room_id, $view['tasks'], $state, $view );
+
+		if ( $gate['complete'] ) {
 			$room_complete = true;
 			$medal = self::update_room_medal( $user_id, $room_id, $view, $state );
+		} elseif ( 'practice' === $gate['raison'] ) {
+			/* Les questions sont resolues mais la manipulation ne l'est
+			   pas : on le dit, avec le nombre restant. La room ne se
+			   valide pas et la medaille n'est pas donnee. */
+			$pratique_manquante = sprintf(
+				/* translators: %d : nombre de manipulations restantes. */
+				Secura_I18n::t( 'practice_pending', '', 'Il reste %d manipulation(s) a faire dans la mission avant de valider cette room.' ),
+				(int) $gate['pratique']['restantes']
+			);
 		}
 
 		$xp_after = Secura_Progress::get_xp( $user_id );
@@ -531,7 +615,7 @@ final class Secura_Ajax {
 				'message'       => $already
 					? Secura_I18n::t( 'solved', '', 'Validée' )
 					: ( 'solution' === $mode
-						? sprintf( /* translators: %d : points gagnés. */ Secura_I18n::t( 'solution_xp', '', 'Correction officielle affichée. +%d XP' ), $points )
+						? sprintf( /* translators: %d : points gagnés. */ Secura_I18n::t( 'solution_xp', '', 'Vous avez compare au corrige officiel et confirme. +%d XP' ), $points )
 						: sprintf( /* translators: %d : points gagnés. */ Secura_I18n::t( 'correct_xp', '', 'Bonne réponse ! +%d XP' ), $points ) ),
 				'points'        => $points,
 				'rank'          => $rank,
@@ -542,6 +626,8 @@ final class Secura_Ajax {
 				'level_up'      => $level_after['number'] > $level_before['number'],
 				'task_done'     => $done,
 				'room_complete' => $room_complete,
+				'practice'      => isset( $gate['pratique'] ) ? $gate['pratique'] : null,
+				'practice_note' => isset( $pratique_manquante ) ? $pratique_manquante : '',
 				'medal'         => $medal,
 				'exam'          => $exam_result,
 			)
@@ -639,6 +725,42 @@ final class Secura_Ajax {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Pourquoi la room n'est pas encore validable, en une phrase.
+	 *
+	 * Deux raisons, et deux seulement : une tache inachevee, ou la mission
+	 * pratique pas faite. On nomme la raison parce qu'un eleve qui ne sait
+	 * pas ce qui lui manque abandonne ; un eleve a qui on dit « il te reste
+	 * 2 manipulations » continue.
+	 *
+	 * @param int   $user_id Identifiant de l'apprenant.
+	 * @param int   $room_id Identifiant de la room.
+	 * @param array $tasks   Taches de la room.
+	 * @param array $state   Etat de la room.
+	 * @param array $view    Vue de la room.
+	 * @return array{complete:bool,raison:string,pratique:array}
+	 */
+	private static function room_gate( $user_id, $room_id, $tasks, $state, $view ) {
+		$pratique = Secura_Gate::pratique( $user_id, $room_id, $tasks );
+
+		if ( ! self::room_is_complete( $tasks, $state ) ) {
+			$raison = 'tasks';
+		} elseif ( $pratique['requise'] && ! $pratique['faite'] ) {
+			/* La pratique manque : la room reste ouverte, mais elle ne se
+			   valide pas. C'est la regle qui empeche de recompenser la
+			   lecture d'un document a la place d'une manipulation. */
+			$raison = 'practice';
+		} else {
+			$raison = '';
+		}
+
+		return array(
+			'complete' => ( '' === $raison ),
+			'raison'   => $raison,
+			'pratique' => $pratique,
+		);
 	}
 
 	/**
@@ -987,6 +1109,54 @@ final class Secura_Ajax {
 			wp_send_json_error( array( 'message' => Secura_I18n::t( 'task_not_found', '', 'Tâche introuvable.' ) ), 404 );
 		}
 
+		/* Le chronometre n'a de sens que sur un examen DEBLOQUE. Sans ces
+		   deux controles, un appel direct a l'API demarrait un compte a
+		   rebours sur une tache encore verrouillee (mesure du 05/11/2026 :
+		   get_task repondait 403 « locked », et start_exam 200 avec un
+		   chronometre de 300 minutes). Le navigateur ne le faisait pas,
+		   mais l'API est publique pour tout compte connecte. */
+		$task = $view['tasks'][ $index ];
+
+		if ( 'exam' !== $task['type'] ) {
+			wp_send_json_error(
+				array(
+					'message' => Secura_I18n::t( 'not_an_exam', '', "Cette tache n'est pas un examen : elle n'a pas de chronometre." ),
+					'code'    => 'not_an_exam',
+				),
+				400
+			);
+		}
+
+		$state = Secura_Progress::get_room_state( get_current_user_id(), $room_id );
+
+		if ( ! Secura_Progress::is_task_unlocked( $view['tasks'], $index, $state ) ) {
+			wp_send_json_error(
+				array(
+					'message' => Secura_I18n::t( 'lock_task', '', 'Terminez la tâche précédente pour continuer.' ),
+					'code'    => 'locked',
+				),
+				403
+			);
+		}
+
+		/* Trois tentatives, puis un delai. Sans ce controle, le compteur
+		   `attempts` etait incremente mais jamais lu : on pouvait
+		   recommencer jusqu'a tomber sur les bonnes reponses. */
+		$porte = Secura_Gate::peut_commencer( get_current_user_id(), $room_id, $index );
+
+		if ( ! $porte['autorise'] && empty( $force ) ) {
+			wp_send_json_error(
+				array(
+					'message'       => $porte['message'],
+					'code'          => $porte['code'],
+					'tentatives'    => $porte['tentatives'],
+					'restantes'     => $porte['restantes'],
+					'disponible_le' => $porte['disponible_le'],
+				),
+				429
+			);
+		}
+
 		$force = isset( $_POST['force'] ) && '1' === $_POST['force'];
 
 		$exam = Secura_Progress::start_exam( get_current_user_id(), $room_id, $index, $force );
@@ -995,6 +1165,8 @@ final class Secura_Ajax {
 			array(
 				'started_at' => absint( $exam['started_at'] ),
 				'time_left'  => max( 0, ( (int) $view['tasks'][ $index ]['time_limit'] * 60 ) - ( time() - absint( $exam['started_at'] ) ) ),
+				'tentatives' => $porte['tentatives'],
+				'restantes'  => $porte['restantes'],
 			)
 		);
 	}

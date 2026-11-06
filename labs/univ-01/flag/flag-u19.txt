@@ -1,1 +1,1 @@
-FLAG=SECURA{validation_stricte}
+FLAG=SECURA{valider_5}

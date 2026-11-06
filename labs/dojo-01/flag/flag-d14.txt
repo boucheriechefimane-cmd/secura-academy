@@ -1,1 +1,1 @@
-FLAG=SECURA{fichier_elf}
+FLAG=SECURA{fichier-a}

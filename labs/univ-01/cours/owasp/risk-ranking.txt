@@ -1,17 +1,21 @@
-Classement interne des risques - application de l'equipe
-(cours OWASP Top 10)
-====================================================
+Classement des risques - atelier OWASP
+======================================
 
-Nous avons repris la liste Top 10 et l avons ordonnee selon ce que nous
-rencontrons reellement dans notre code.
+Les risques du Top 10, ramenes a notre atelier
+----------------------------------------------
+    controle d'acces defaillant        (le plus frequent chez nous)
+    injection
+    configuration par defaut
+    composants obsoletes
+    identification et authentification defaillantes
 
-    top_risk = FLAG=SECURA{risque_priorise}
-    classement :
-      1. Controle d'acces casse (API de statistiques sans authentification)
-      2. Injection (requetes construites par concatenation)
-      3. Journalisation et surveillance insuffisantes
-      4. Misconfiguration (compte de service avec trop de droits)
-      5. Erreurs excessives affichees au navigateur
+Ce que « risque priorise » veut dire
+------------------------------------
+On ne corrige pas tout en meme temps. On corrige d'abord le risque qui
+touche le plus de donnees avec le moins d'effort.
 
-Regle de l'equipe : on corrige d'abord ce qui est a la fois frequent et
-grave, et on revoit le classement apres chaque sprint.
+Exercice de l'atelier
+---------------------
+Classe les cinq risques dans l'ordre alphabetique et releve le premier :
+
+    sort /srv/cours/owasp/risques.txt | head -1

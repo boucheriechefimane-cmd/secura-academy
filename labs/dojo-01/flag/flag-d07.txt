@@ -1,1 +1,1 @@
-FLAG=SECURA{ligne_en_milieu}
+FLAG=SECURA{ligne_26_ouverture-session}

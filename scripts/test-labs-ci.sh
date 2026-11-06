@@ -23,6 +23,7 @@ OK='  [OK]'
 KO='  [KO]'
 NB_OK=0
 NB_KO=0
+NB_NON_MESURES=0
 
 titre() {
 	printf '\n=== %s ===\n' "$1"
@@ -37,6 +38,16 @@ test_ko() {
 	NB_KO=$((NB_KO + 1))
 	printf '%s %s\n' "$KO" "$1"
 	[ $# -gt 1 ] && printf '       %s\n' "$2"
+	return 0
+}
+
+# Un controle qui ne peut pas etre mesure dans cet environnement, et qui le
+# dit. La difference est capitale : un lab casse doit echouer, un point non
+# mesurable doit etre declare — jamais passer en silence pour un succes.
+test_non_mesurable() {
+	NB_NON_MESURES=$((NB_NON_MESURES + 1))
+	printf 'NON  %s\n' "$1"
+	[ $# -gt 1 ] && printf '       raison : %s\n' "$2"
 	return 0
 }
 
@@ -411,8 +422,25 @@ else
 	test_ko "la machine multi-01 ne démarre pas" "docker run --rm securalabs/multi-01:1.0 true"
 fi
 
-# --- La machine « bin-01 » (scénario 9).
+# --- Sonde du moteur de conteneurs -------------------------------------
+# Ce que le demon dit de sa propre configuration. C'est la premiere chose a
+# lire quand un privilege est refuse : ni le montage, ni overlayfs, ni les
+# capacites n'expliquaient le blocage du setuid (les quatre hypotheses ont
+# ete ecartees en local). Restent la politique seccomp et le mode rootless.
+echo "SONDE moteur : $(docker info --format '{{.SecurityOptions}} | driver={{.Driver}} | cgroup={{.CgroupVersion}} | rootless={{.SecurityOptions}}' 2>&1 | tr '\n' ' ')"
+
+# --- La machine « bin-01 » (scénario 9). -----------------------------------
+# Depuis la reecriture du 6 novembre, ce lab ne repose plus sur setuid :
+# le binaire tourne avec les droits de « ctf » et le defi est un simple
+# detournement de flot d'execution vers « lire_drapeau ». C'est ce qui
+# rend le scenario verifiable partout, y compris dans un conteneur ou le
+# noyau neutralise l'elevation setuid. Les controles ci-dessous portent
+# donc sur ce qui compte vraiment : le drapeau n'est disponible nulle part
+# sans exploitation, et l'exploit de reference l'obtient.
 CONT_BIN="seca_test_bin_$$"
+RACINE_DEPOT="$(cd "$(dirname "$0")/.." && pwd)"
+EXPLOIT="$RACINE_DEPOT/tools/recette-apprenants/exploit-bin01.py"
+DRAPEAU_ATTENDU="$(sed -n 's/^FLAG=//p' "$RACINE_DEPOT/labs/bin-01/flag/flag.txt" 2>/dev/null | head -1)"
 
 if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 	--cap-drop ALL --security-opt no-new-privileges --pids-limit 256 \
@@ -420,22 +448,80 @@ if docker run -d --name "$CONT_BIN" --network "$RESEAU" \
 	--user 1000:1000 -w /home/ctf securalabs/bin-01:1.0 sleep infinity >/dev/null 2>&1; then
 	attendre 4
 
-	if docker exec "$CONT_BIN" ls -l /home/ctf/vulnerable 2>/dev/null | grep -q 'rws'; then
-		test_ok "scénario 9 : le binaire est bien setuid root (le shell obtenu sera root)"
+	# 1. Le binaire ne doit porter aucun bit setuid : s'il en portait un, le
+	#    scenario reposerait de nouveau sur une propriete que le moteur peut
+	#    neutraliser, et le modele de menace affiche a l'eleve serait faux.
+	if docker exec "$CONT_BIN" ls -l /home/ctf/vulnerable 2>/dev/null | grep -q '^[^ ]*rws\|^[^ ]*r-s'; then
+		test_ko "scénario 9 : le binaire porte encore un bit setuid (scénario non portable)"
 	else
-		test_ko "scénario 9 : le binaire n'est pas setuid root" "docker exec $CONT_BIN ls -l /home/ctf/vulnerable"
+		test_ok "scénario 9 : le binaire s'exécute sans aucun privilège particulier"
 	fi
 
-	if docker exec "$CONT_BIN" cat /root/flag.txt >/dev/null 2>&1; then
-		test_ko "scénario 9 : l'apprenant lit le drapeau sans avoir obtenu de shell"
+	# 2. Aucun drapeau en clair, nulle part : ni dans les documents, ni dans
+	#    le binaire (« strings »), ni dans un fichier de la machine. C'est le
+	#    défaut qui rendait le lab soluble en « grep ».
+	if docker exec "$CONT_BIN" sh -c "grep -rl 'SECURA{' /home/ctf 2>/dev/null | head -1" | grep -q .; then
+		test_ko "scénario 9 : le drapeau est en clair dans les fichiers de la machine"
 	else
-		test_ok "scénario 9 : le drapeau reste protégé tant qu'aucun shell root n'est obtenu"
+		test_ok "scénario 9 : le drapeau n'est en clair dans aucun fichier de la machine"
 	fi
 
-	if docker exec -u 0 "$CONT_BIN" cat /root/flag.txt 2>/dev/null | grep -q 'FLAG=SECURA{buffer_overflow}'; then
-		test_ok "scénario 9 : le serveur lit le drapeau du binaire en root"
+	if docker exec "$CONT_BIN" sh -c 'strings /home/ctf/vulnerable 2>/dev/null' | grep -q 'SECURA{'; then
+		test_ko "scénario 9 : le drapeau est lisible avec « strings » sur le binaire"
 	else
-		test_ko "scénario 9 : le serveur ne peut pas lire le drapeau du binaire"
+		test_ok "scénario 9 : « strings » sur le binaire ne donne pas le drapeau"
+	fi
+
+	# Le corrige du serveur est en 400 root:root : c'est ce qui permet a la
+	# plateforme de valider la reponse sans jamais l'exposer a l'eleve.
+	if docker exec "$CONT_BIN" grep -q 'SECURA{' /root/flag.txt 2>/dev/null; then
+		test_ko "scénario 9 : le corrigé est lisible en uid 1000 (le drapeau tombe sans exploitation)"
+	else
+		test_ok "scénario 9 : le corrigé du serveur est illisible en uid 1000"
+	fi
+
+	if docker exec -u 0 "$CONT_BIN" grep -q 'SECURA{' /root/flag.txt 2>/dev/null; then
+		test_ok "scénario 9 : le serveur peut relire le corrigé en root"
+	else
+		test_ko "scénario 9 : le serveur ne peut pas relire le corrigé (room invalidable)"
+	fi
+
+	# 3. Le binaire fonctionne normalement (sinon l'élève ne peut rien faire).
+	if docker exec "$CONT_BIN" /home/ctf/vulnerable --version 2>&1 | grep -q 'carnet v'; then
+		test_ok "scénario 9 : le carnet de commandes se lance et répond"
+	else
+		test_ko "scénario 9 : le carnet de commandes ne se lance pas"
+	fi
+
+	# 4. Le contrôle décisif : l'exploit de référence, exécuté en uid 1000
+	#    sans aucun privilège, obtient-il le drapeau ? Un seul état compte
+	#    désormais : ça marche, ou le lab est cassé. Plus d'excuse
+	#    d'environnement, puisque plus rien ne dépend de l'environnement.
+	if [ ! -f "$EXPLOIT" ]; then
+		test_ko "scénario 9 : l'exploit de référence est introuvable" "$EXPLOIT"
+	else
+		# On passe le script par l'entrée standard : /tmp est un tmpfs monté
+		# sans exec et « docker cp » y échoue silencieusement.
+		docker exec -i "$CONT_BIN" python3 - /home/ctf/vulnerable < "$EXPLOIT" \
+			> /tmp/exploit-bin01.txt 2>&1 || true
+
+		obtenu="$(sed -n 's/.*FLAG=\(SECURA{[^}]*}\).*/\1/p' /tmp/exploit-bin01.txt | head -1)"
+		if [ -n "$obtenu" ] && [ "$obtenu" = "$DRAPEAU_ATTENDU" ]; then
+			test_ok "scénario 9 : l'exploit obtient le drapeau attendu, en uid 1000, sans privilège"
+			# Preuve nominative : le drapeau obtenu apparait dans les
+			# annotations du run, donc dans ce que l'API expose toujours.
+			printf '::notice title=SCENARIO 9::binaire ordinaire, uid 1000, aucun privilege. Exploit : %s\n' "$obtenu"
+		else
+			echo "       --- sortie de l'exploit (scénario 9) ---"
+			sed 's/^/       expl | /' /tmp/exploit-bin01.txt | head -20
+			if [ -n "$obtenu" ]; then
+				test_ko "scénario 9 : le drapeau obtenu ne correspond pas à celui du plateau" \
+					"obtenu=$obtenu attendu=$DRAPEAU_ATTENDU"
+			else
+				test_ko "scénario 9 : l'exploit n'obtient pas le drapeau (le lab est cassé)" \
+					"$(tail -6 /tmp/exploit-bin01.txt 2>/dev/null | tr '\n' ' ')"
+			fi
+		fi
 	fi
 
 	docker rm -f "$CONT_BIN" >/dev/null 2>&1
@@ -582,7 +668,17 @@ if docker run -d --name "$CONT_DOJO" --network "$RESEAU" \
 		test_ok "dojo-01 : les fichiers de drapeau sont illisibles par l'apprenant"
 	fi
 
-	COHERENCE_DOJO=0
+	# LE CONTROLE QUI COMPTE, ET SON HISTOIRE
+	# --------------------------------------
+	# Ce bloc affirmait l'inverse jusqu'au 6 novembre 2026 : il exigeait que
+	# chaque drapeau soit « decouvrable dans les documents du dojo ». Le test
+	# passait au vert, et il validait le defaut : un drapeau ecrit en clair
+	# dans un fichier que l'eleve lit avec `cat`.
+	#
+	# On ne demande plus « le drapeau est-il dans le document ? » mais
+	# « le drapeau est-il ABSENT du document ? ». Un document qui le contient
+	# est un echec, pas une reussite.
+	FUITE_DOJO=0
 
 	for fichier in $(docker exec -u 0 "$CONT_DOJO" ls /root/flags 2>/dev/null); do
 		VALEUR=$(docker exec -u 0 "$CONT_DOJO" cat "/root/flags/$fichier" 2>/dev/null | tr -d '\r\n')
@@ -591,15 +687,24 @@ if docker run -d --name "$CONT_DOJO" --network "$RESEAU" \
 			continue
 		fi
 
-		if ! docker exec "$CONT_DOJO" grep -rl "$VALEUR" /srv/dojo /srv/briefs 2>/dev/null | grep -q .; then
-			COHERENCE_DOJO=$((COHERENCE_DOJO + 1))
+		if docker exec "$CONT_DOJO" grep -rlF "$VALEUR" /srv/dojo /srv/briefs 2>/dev/null | grep -q .; then
+			FUITE_DOJO=$((FUITE_DOJO + 1))
 		fi
 	done
 
-	if [ "$COHERENCE_DOJO" -eq 0 ]; then
-		test_ok "dojo-01 : chaque drapeau est decouvrable dans les documents du dojo"
+	if [ "$FUITE_DOJO" -eq 0 ]; then
+		test_ok "dojo-01 : aucun drapeau n'est ecrit dans les documents (il faut manipuler)"
 	else
-		test_ko "dojo-01 : $COHERENCE_DOJO drapeau(s) ne sont decouvrables nulle part"
+		test_ko "dojo-01 : $FUITE_DOJO drapeau(x) sont ecrits en clair dans les documents"
+	fi
+
+	# Les 20 defis sont-ils reellement resolubles dans la machine ? On joue
+	# la commande de l'eleve et on compare au drapeau du serveur.
+	if python3 tools/labs/epreuves-dojo.py --conteneur "$CONT_DOJO" >/tmp/epreuves-dojo.log 2>&1; then
+		test_ok "dojo-01 : les vingt defis se resolvent dans la machine"
+	else
+		test_ko "dojo-01 : un ou plusieurs defis ne se resolvent pas (voir /tmp/epreuves-dojo.log)"
+		sed -n '1,40p' /tmp/epreuves-dojo.log
 	fi
 
 	docker rm -f "$CONT_DOJO" >/dev/null 2>&1
@@ -711,8 +816,20 @@ else
 fi
 
 printf '\n============================================================\n'
-printf 'Tests des machines : %s reussis, %s echecs\n' "$NB_OK" "$NB_KO"
+printf 'Tests des machines : %s reussis, %s echecs, %s non mesurables\n' "$NB_OK" "$NB_KO" "${NB_NON_MESURES:-0}"
 printf '============================================================\n'
+
+# Une annotation, et une seule, avec le bilan en clair : les journaux
+# complets ne sont pas toujours accessibles par l'API GitHub (le flux est
+# interrompu en cours de route), alors que les annotations le sont. C'est
+# ce qui permet de VERIFIER le resultat au lieu de le supposer.
+if [ "$NB_KO" -eq 0 ]; then
+	printf '::notice title=BILAN MACHINES::%s controles reussis, 0 echec, %s non mesurable(s).\n' \
+		"$NB_OK" "${NB_NON_MESURES:-0}"
+else
+	printf '::error title=BILAN MACHINES::%s reussis, %s ECHEC(S), %s non mesurable(s). Voir les lignes [KO] ci-dessus.\n' \
+		"$NB_OK" "$NB_KO" "${NB_NON_MESURES:-0}"
+fi
 
 if [ "$NB_KO" -eq 0 ]; then
 	exit 0

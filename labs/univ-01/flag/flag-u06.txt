@@ -1,1 +1,1 @@
-FLAG=SECURA{zone_interdite}
+FLAG=SECURA{zone_audit}

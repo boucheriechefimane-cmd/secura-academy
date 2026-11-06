@@ -1,1 +1,1 @@
-FLAG=SECURA{confinement_borne}
+FLAG=SECURA{borne_260}

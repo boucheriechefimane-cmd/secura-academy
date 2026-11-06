@@ -1,12 +1,13 @@
-# Defi d13 - Le binaire et ses chaines
+# Defi d13 - La chaîne du binaire
 
-Ceinture 4 (verte) : Binaires, chaines, memoire
+Ceinture 4 (verte)
 
-Outil attendu : strings
+Outil attendu : strings, grep
 
-Le compte rendu du dojo (a lire dans la machine) :
+Le fichier binaire.out contient du texte noyé dans des octets non
+imprimables. Une seule chaîne commence par « indice- ». Rapporte-la.
+Forme : SECURA{indice-...}.
+Indice : « strings binaire.out | grep indice- ».
 
-    13_chaines = FLAG=SECURA{chaine_du_binaire}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/4-verte/13-chaines.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

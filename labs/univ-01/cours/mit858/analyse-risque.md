@@ -1,8 +1,12 @@
 # Analyse de risque - cours 6.858 (Computer Systems Security)
 
 Document de travail du semestre, ecrit par l'equipe securite du laboratoire.
+L'empreinte de la room resume CE document : sa valeur est le sha256 de ce
+fichier, tronque a ses 8 premiers caracteres.
 
-## Actifs protects
+    sha256sum /srv/cours/mit858/analyse-risque.md | cut -c1-8
+
+## Actifs proteges
 - Base de donnees des eleves (nom, identifiant, notes)
 - Cle de signature du service de publication
 - Journal d'audit du service d'authentification
@@ -16,14 +20,3 @@ Document de travail du semestre, ecrit par l'equipe securite du laboratoire.
 1. Seul le service de comptage lit la base des eleves.
 2. Seuls les administrateurs modifient la configuration.
 3. Toute tentative de connexion refusee doit etre tracee.
-
-## Conclusion - risque critique
-
-Le risque critique identifie par l'equipe est celui qui casse la regle 1 :
-une requete non verifiee qui permet de lire la base depuis la zone publique.
-La valeur de reference retenue pour ce risque est :
-
-    risque_critique = FLAG=SECURA{modele_de_menace}
-
-Toute modification de ce document doit etre reflechie dans le tableau de bord
-de l'equipe avant la revue de securite du mois prochain.

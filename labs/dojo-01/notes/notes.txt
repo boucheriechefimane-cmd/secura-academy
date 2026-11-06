@@ -1,9 +1,10 @@
 Dojo Secura - vingt defis, cinq ceintures
 ==========================================
 
-Chaque defi se resout en lisant un document du dojo. La valeur relevee
-est la preuve : le serveur la compare au drapeau du serveur, dans la
-machine, en root. Tu ne peux pas la copier ailleurs.
+Chaque defi se resout en FAISANT quelque chose dans la machine. Les
+documents du dojo decrivent la tache ; aucun ne contient la valeur.
+Le serveur lit le drapeau en root dans /root/flags : impossible de le
+recopier depuis un document.
 
 Ceintures :
     /srv/dojo/1-blanche/    Lire, chercher, comprendre
@@ -14,7 +15,7 @@ Ceintures :
     /srv/briefs/           les six briefs et le document de revision
 
 
-Outils : ls, cat, grep, head, tail, wc, find, file, stat, strings, sha256sum
+Outils : ls, cat, grep, head, tail, wc, find, file, stat, strings, sha256sum, base64, sort
 
 Ceinture 1 (blanche) : Lire, chercher, comprendre
 La ceinture blanche : on apprend a regarder. Un defi se resout souvent

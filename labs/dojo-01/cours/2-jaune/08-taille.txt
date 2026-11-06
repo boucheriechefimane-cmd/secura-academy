@@ -1,12 +1,12 @@
-# Defi d08 - Le compte des caracteres
+# Defi d08 - Le compte exact
 
-Ceinture 2 (jaune) : Permissions, proprietaire, contenu
+Ceinture 2 (jaune)
 
 Outil attendu : wc
 
-Le compte rendu du dojo (a lire dans la machine) :
+Le fichier paquets.log contient un nombre précis de lignes.
+Rapporte ce nombre sous la forme SECURA{N_lignes}.
+Indice : « wc -l paquets.log » — le compte, pas l'estimation.
 
-    08_taille = FLAG=SECURA{bon_comptage}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/2-jaune/08-taille.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

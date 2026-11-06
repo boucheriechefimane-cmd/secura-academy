@@ -1,22 +1,26 @@
-Fiche des facteurs d'authentification (atelier CYBER.ORG)
-=====================================================
+Fiche du deuxieme facteur - atelier CYBER.ORG
+=============================================
 
-Les trois categories
---------------------
-    ce que je sais : mot de passe, PIN
-    ce que j'ai    : telephone, cle USB, carte
-    ce que je suis : empreinte, visage
+Les trois familles de facteurs
+------------------------------
+    quelque chose que je SAIS        (mot de passe, code)
+    quelque chose que je POSSEDE     (telephone, cle USB)
+    quelque chose que je SUIS        (empreinte, visage)
 
-Regles de l'atelier
--------------------
-    recommended_factors = FLAG=SECURA{deux_categories}
-    categories_to_mix   = obligatoire (deux categories differentes)
-    sms                 = tolere, moins robuste
-    application         : preferee
-    cle physique FIDO2  : la plus resistente
-    question secrete    : refusee (ce n'est pas une autre categorie)
+Deux facteurs, ce sont deux familles differentes. Deux mots de passe ne
+font pas deux facteurs : c'est la meme famille.
 
-Rappel
-------
-Un code recu par SMS ne se communique a personne : il prouve que c'est
-toi qui es connecte.
+Les facteurs de l'atelier
+-------------------------
+Chaque eleve choisit un facteur dans cette liste :
+
+    mot de passe
+    application d'authentification
+    cle de securite
+    empreinte digitale
+
+Exercice de l'atelier
+---------------------
+Combien de facteurs dans la liste ? (une ligne = un facteur)
+
+    wc -l < /srv/cours/cyber/facteurs.txt

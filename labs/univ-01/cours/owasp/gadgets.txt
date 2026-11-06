@@ -1,0 +1,4 @@
+pop rdi ; ret
+leave ; ret
+pop rsi ; ret
+ret2libc

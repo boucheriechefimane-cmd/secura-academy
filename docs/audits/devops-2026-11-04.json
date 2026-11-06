@@ -1,0 +1,40 @@
+{
+    "domaine": "devops",
+    "titre": "DevOps, déploiement et résilience",
+    "expert": "Expert en intégration continue et en exploitation (SRE) de WordPress",
+    "perimetre": "Vérifie que la chaîne de livraison est bornée dans le temps, que les permissions sont minimales, que le déploiement sauvegarde avant d'écrire et vérifie après, qu'une procédure de retour en arrière existe et est écrite, et que les sauvegardes ne saturent pas le disque. Ne juge pas la qualité du code : c'est l'auditeur développement.",
+    "date": "2026-11-04T23:12:31+00:00",
+    "ok": 12,
+    "non_etaye": 0,
+    "forces": [
+        {
+            "libelle": "Tous les workflows demandent au minimum les droits de lecture",
+            "preuve": "8 workflow(s) sur 8 avec « permissions: contents: read »"
+        },
+        {
+            "libelle": "Aucun secret n'est affiché dans les journaux de déploiement",
+            "preuve": "Les secrets sont transmis par variables d'environnement, jamais recopiés dans une commande"
+        }
+    ],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 2,
+    "constats": [
+        {
+            "libelle": "Verrouillage des actions GitHub",
+            "detail": "Par empreinte SHA : 14 ; par version majeure : 8 (actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4, actions/download-artifact@v4)",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "La résilience se teste en cassant, pas en lisant",
+            "detail": "Cet audit lit les workflows et le script de déploiement : il vérifie que le temps est borné, que les permissions sont minimales, que la sauvegarde précède l'écriture, et qu'une procédure de retour en arrière est écrite. Il ne simule pas une panne : ni perte du serveur, ni base corrompue, ni migration de schéma. Une reprise réelle reste à jouer — sur un environnement de test, jamais en production.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

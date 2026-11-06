@@ -1,1 +1,1 @@
-FLAG=SECURA{jeton_csrf}
+FLAG=SECURA{csrf_TOKEN-9137-SECURE}

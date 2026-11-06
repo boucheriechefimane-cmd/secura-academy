@@ -1,0 +1,112 @@
+name: Anglais — la mesure officielle
+
+# Le chantier anglais a une seule definition du mot « fini » : la mesure
+# officielle (tools/recette-apprenants/mesure-anglais.php) ne trouve plus
+# un seul champ sans traduction, et aucun texte n'est reste en francais.
+#
+# Ce workflow existe pour que ce chiffre soit constate par un run, sur une
+# vraie base WordPress, et pas seulement annonce. Il installe WordPress
+# comme la recette complete, puis lance exactement les deux commandes que
+# l'auteur lance en local. Aucune des deux n'est adaptee pour l'occasion :
+# la mesure est celle du depot, le garde-fou aussi.
+#
+# La recette complete (wordpress.yml) joue ces deux etapes egalement. Ce
+# workflow-ci est plus court : il repond a une seule question, et il peut
+# tourner a la main sans lancer les machines Docker.
+
+on:
+  push:
+    branches:
+      - arena/a792cc4e-secura-academy
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: anglais-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SECA_WP_DIR: ${{ github.workspace }}/wp-ci
+  SECA_WP_URL: http://localhost:8080
+  SECA_LABS_PATH: ${{ github.workspace }}/labs
+  SECA_DB_NAME: seca_wp
+  SECA_DB_USER: seca
+  SECA_DB_PASSWORD: seca_ci_pw
+  SECA_DB_HOST: 127.0.0.1
+  SECA_DB_PORT: 3306
+
+jobs:
+  mesure:
+    name: Les 52 rooms, mesurees sur un vrai WordPress
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: ${{ env.SECA_DB_NAME }}
+          MYSQL_USER: ${{ env.SECA_DB_USER }}
+          MYSQL_PASSWORD: ${{ env.SECA_DB_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: root_ci_pw
+        ports:
+          - '3306:3306'
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Installer PHP et WP-CLI
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          tools: wp-cli
+
+      - name: Installer WordPress et le plugin
+        run: bash scripts/ci-wordpress.sh
+
+      # Les deux commandes ci-dessous sont celles du depot, telles quelles.
+      # Si l'une echoue, le job echoue : c'est une barriere, pas un rapport.
+      # La sortie est gardee dans un fichier pour etre publiee en
+      # annotation : les journaux bruts ne sont pas relisibles par l'API,
+      # une annotation l'est.
+      - name: La mesure officielle de l'anglais
+        run: |
+          set -o pipefail
+          wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/mesure-anglais.php | tee /tmp/mesure.txt
+
+      - name: La coherence des traductions
+        run: |
+          set -o pipefail
+          wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/verifier-traductions.php | tee /tmp/coherence.txt
+
+      # Publier le verdict dans le resume du run : le chiffre doit rester
+      # lisible sans ouvrir les journaux.
+      - name: Publier le verdict en annotation
+        if: always()
+        run: |
+          verdict=$(grep -a 'VERDICT' /tmp/mesure.txt 2>/dev/null | tail -1 || true)
+          coherence=$(grep -a 'TRADUCTIONS' /tmp/coherence.txt 2>/dev/null | tail -1 || true)
+          echo "::notice title=Mesure de l'anglais::${verdict:-mesure non jouee}"
+          echo "::notice title=Coherence des traductions::${coherence:-controle non joue}"
+
+      - name: Résumé du run
+        if: always()
+        run: |
+          {
+            echo '## Anglais — mesure officielle';
+            echo '';
+            echo '```';
+            wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/mesure-anglais.php 2>&1 | tail -3 || true;
+            echo '```';
+            echo '';
+            echo '```';
+            wp --path="$SECA_WP_DIR" --allow-root eval-file tools/recette-apprenants/verifier-traductions.php 2>&1 | head -20 || true;
+            echo '```';
+          } >> "$GITHUB_STEP_SUMMARY"

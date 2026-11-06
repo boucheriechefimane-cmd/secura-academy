@@ -1,12 +1,14 @@
-# Defi d16 - La taille du fichier
+# Defi d16 - Le fichier anormalement gros
 
-Ceinture 4 (verte) : Binaires, chaines, memoire
+Ceinture 4 (verte)
 
-Outil attendu : stat ou wc -c
+Outil attendu : du, ls -l, sort
 
-Le compte rendu du dojo (a lire dans la machine) :
+Dans /srv/dojo/4-verte/volumes/, trois fichiers. Le plus gros est
+anormal pour son type. Rapporte son nom, entoure des accolades
+habituelles.
+Indice : « ls -S volumes/ | head -1 » — trie par taille, du plus gros
+au plus petit. Ne te fie pas a du : il compte aussi les dossiers.
 
-    16_taille = FLAG=SECURA{grosseur_anormale}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/4-verte/16-taille.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

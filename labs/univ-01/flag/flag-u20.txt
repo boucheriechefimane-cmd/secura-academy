@@ -1,1 +1,1 @@
-FLAG=SECURA{trace_utile}
+FLAG=SECURA{journal_7}

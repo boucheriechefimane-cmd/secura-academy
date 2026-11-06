@@ -87,16 +87,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — le schéma de la machine',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, le cours de Stanford a laissé son '
-                '<em>schéma de la machine</em> (le document qui décrit les couches, de la donnée au processeur).</p>'
-                '<p><strong>Mission.</strong> Lis ce schéma et relève la <em>valeur du nombre d\'octets</em> '
-                'attribués à une adresse (champ <code>address_size</code>).</p>'
+                '<p>Dans la salle des cours, le cours de Stanford a laissé son <em>schéma de la machine</em> (<code>/srv/cours/stanford/tailles.txt</code>) : processeur, taille de mot, taille d\'adresse, mémoire.</p><p><strong>Mission.</strong> La valeur du drapeau est la <em>taille d\'une adresse</em>, en octets, telle qu\'elle figure dans le schéma. C\'est elle qui explique la différence entre un processeur 32 bits et 64 bits.</p>'
             ),
-            'question': 'Releve la taille d\'adresse (address_size, en octets) indiquee dans le schema de la machine.',
+            'question': 'Quelle est la taille d\'une adresse, en octets, d\'apres le schema de la machine ?',
             'flag_path': '/root/flags/flag-u21.txt',
             'xp': 30,
-            'hint': 'Le schéma est dans <code>/srv/cours/stanford</code>.',
-            'explain': 'La taille d\'une adresse détermine l\'espace mémoire adressable (2^64 octets en 64 bits). C\'est aussi ce qui rend les adresses «(devinables » sans ASLR : d\'où l\'importance de l\'aléatoire.',
+            'hint': '<code>grep "^adresse " /srv/cours/stanford/tailles.txt</code> montre la ligne <code>adresse       = 8 octets</code> : la valeur est le troisième champ (<code>cut -d" " -f3</code>).',
+            'explain': 'Un processeur 64 bits adresse 2^64 cases : c\'est pour cela qu\'il peut dépasser 4 Go de mémoire. Retenir 8 octets par adresse, c\'est retenir pourquoi la limite de 4 Go a disparu.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -257,16 +254,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — le plan de rangement',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, le cours de Stanford a laissé son '
-                '<em>plan de rangement</em> (la façon dont l\'équipe range ses données et ses secrets).</p>'
-                '<p><strong>Mission.</strong> Lis ce plan et relève la <em>valeur du nombre d\'emplacements</em> '
-                'prévus pour les secrets (champ <code>secret_locations</code>).</p>'
+                '<p>Dans la salle des cours, le cours de Stanford a laissé son <em>plan de rangement</em> : où vivent le contenu public, les données privées, les secrets et les journaux. L\'inventaire des emplacements qui contiennent un secret est dans <code>/srv/cours/stanford/emplacements.txt</code>.</p><p><strong>Mission.</strong> La valeur du drapeau est le <em>nombre d\'emplacements</em> de cet inventaire. Un secret ne vit jamais à côté d\'un contenu public : chaque emplacement est un contrôle d\'accès à part.</p>'
             ),
-            'question': 'Releve le nombre d\'emplacements (secret_locations) prevus pour les secrets dans le plan de rangement.',
+            'question': 'Combien d\'emplacements contiennent un secret d\'apres l\'inventaire (emplacements.txt) ?',
             'flag_path': '/root/flags/flag-u22.txt',
             'xp': 30,
-            'hint': 'Le plan de rangement est dans <code>/srv/cours/stanford</code>.',
-            'explain': 'Compter les emplacements de secrets, c\'est vérifier qu\'aucun d\'eux n\'a été oublié dans la zone publique : chaque emplacement doit avoir son propre contrôle d\'accès.',
+            'hint': '<code>wc -l < /srv/cours/stanford/emplacements.txt</code>. Regarde aussi les chemins : <code>/etc/secura-secrets</code> n\'est pas au même endroit que <code>/srv/data</code>, et c\'est voulu.',
+            'explain': 'Ranger, en sécurité, ce n\'est pas trier : c\'est séparer ce qui a le droit de se côtoyer. Un fichier <code>.env</code> dans le dossier servi par le web est une fuite qui n\'a pas l\'air d\'en être une.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -311,7 +305,7 @@ ROOMS = [
                 'explain': 'La séparation, c\'est ranger ce qui n\'a pas le même niveau de sensibilité dans des endroits différents : contenu public, données privées, secrets protégés, journaux techniques. Chaque zone a son contrôle d\'accès.',
             },
             {
-                'q': 'Une requête SQL constructed en concatenant une saisie utilisateur, même avec un échappement manuel, reste risquée. Pourquoi ?',
+                'q': 'Une requête SQL construite en concatenant une saisie utilisateur, même avec un échappement manuel, reste risquée. Pourquoi ?',
                 'choices': [
                     'Parce que SQL est un langage lent',
                     'Parce que l\'échappement manuel est fragile : chaque type de données a ses règles, et une règle oubliée rouvre la faille',

@@ -1,0 +1,13 @@
+{
+  "_note": "Drapeaux dont la valeur est courte par nature. Ils sont declares ici, avec leur raison, plutot que rallonges artificiellement : travestir la valeur pour faire passer un chiffre serait exactement le genre d'arrangement que ce controle existe pour empecher.",
+  "drapeaux": {
+    "S'authentifier : mot de passe, session, second facteur#2.0": {
+      "valeur": "auth_3",
+      "raison": "La room demande combien de comptes de service la politique protege. La reponse est 3, et 3 est la bonne reponse : la valeur n'est pas un secret a deviner, c'est le resultat d'un comptage (tail -n +2 | wc -l). Un eleve qui tape 3 au hasard a peut-etre de la chance ; il n'a pas fait le travail, mais il ne peut pas valider les 21 autres sans manipuler."
+    },
+    "x86 et mémoire : comprendre la pile#2.0": {
+      "valeur": "pile_40",
+      "raison": "L'offset vaut 32 octets de tampon + 8 octets de canari = 40. C'est l'arithmetique meme de la lecon : celui qui repond 40 sans calculer sait deja la theorie, et celui qui calcule trouve 40. Rallonger la valeur detruirait la demonstration."
+    }
+  }
+}

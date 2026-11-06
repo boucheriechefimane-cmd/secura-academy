@@ -1,1 +1,1 @@
-FLAG=SECURA{empreinte_sha256}
+FLAG=SECURA{0a0632a28eb3}

@@ -1,0 +1,54 @@
+{
+    "domaine": "dev",
+    "titre": "Audit externe — Développement technique",
+    "expert": "",
+    "perimetre": "",
+    "date": "2026-11-05T01:56:54+00:00",
+    "ok": 19,
+    "non_etaye": 0,
+    "barriere_bloquee": false,
+    "constats_non_etayes": [],
+    "forces": [],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 5,
+    "constats": [
+        {
+            "libelle": "volume de code examine",
+            "detail": "84 fichiers PHP (/home/user/secura-academy/wp-content/plugins/secura-academy et /home/user/secura-academy/wp-content/themes/secura-learning)",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Ce que la quarantaine laisse indisponible",
+            "detail": "Les classes class-secura-certificate.php, class-secura-exam-front.php, class-secura-exam-timed.php, class-secura-lab-front.php ne sont pas chargees : l'examen chronometre du ZIP, le certificat PDF et le front de lab experimental ne sont donc pas fournis par cette version. L'examen chronometre PREEXISTANT (class-secura-ajax.php, class-secura-progress.php) est, lui, actif et mesure par la recette HTTP.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "La compatibilite PHP 7.4 n'est pas mesuree par cet audit",
+            "detail": "Cet audit tourne sous PHP 8.3.31. Il verifie qu'aucune syntaxe reservee a PHP 8 n'est utilisee (controle bloquant) et que le code passe le lint de la version courante. Il ne peut pas prouver l'execution sous PHP 7.4 : cela demande une machine en 7.4, que la recette ne fournit pas.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "resultat des tests internes",
+            "detail": "---------------------------------------------- | Résultat : 356 test(s) réussi(s), 0 échec(s).",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        },
+        {
+            "libelle": "Pourquoi ce controle existe",
+            "detail": "Le 01/11/2026, la CI a echoue sur un constat RGPD bloquant : les pages legales n existaient pas. La cause : le plugin rangeait les textes legaux dans une variable globale. Or WP-CLI charge WordPress dans une portee de fonction, ou une variable globale de plugin n existe pas. Tout fonctionnait donc sur un vrai serveur web (recette manuelle), et rien ne fonctionnait en ligne de commande. Le correctif : une fonction, qui existe dans tous les contextes ; et une verification explicite dans scripts/ci-wordpress.sh, qui echoue bruyamment — en disant pourquoi — si les pages legales ne sont pas publiees.",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

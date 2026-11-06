@@ -7,7 +7,7 @@ qui se terminent par `ret`.
 
 Chaine construite par l'equipe
 ------------------------------
-    chain_length   = FLAG=SECURA{chainage_de_gadgets}
+    chain_length   = a determiner par l'eleve (nombre de gadgets)
     gadgets         = pop rdi ; ret
                      pop rsi ; ret
                      pop rdx ; ret

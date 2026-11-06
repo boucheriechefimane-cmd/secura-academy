@@ -49,10 +49,10 @@ ROOMS = [
         'practice_intro': '<p>Deux questions sur ce que le réseau fait, et ce qu\'il ne fait pas.</p>',
         'practice': [
             {
-                'q': 'Une machine du réseau public peut envoyer une requête directly au serveur de base de données. Quel est le défaut ?',
+                'q': 'Une machine du réseau public peut envoyer une requête directement au serveur de base de données. Quel est le défaut ?',
                 'choices': [
                     'Aucun : c\'est normal, le réseau public est fait pour ça',
-                    'La segmentation est incomplete : la zone publique ne devrait pas joindre la zone des données',
+                    'La segmentation est incomplète : la zone publique ne devrait pas joindre la zone des données sans passer par un contrôle',
                     'Le serveur de base de données est trop lent',
                     'Le protocole TCP/IP est trop ancien',
                 ],
@@ -78,16 +78,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — le plan de segmentation',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, l\'équipe a laissé le <em>plan de segmentation</em> '
-                'du réseau du laboratoire (le document qui décrit les zones et le pare-feu entre elles).</p>'
-                '<p><strong>Mission.</strong> Lis ce plan et relève la <em>valeur du numéro de zone</em> '
-                'attribuée à la zone des données sensibles (le champ <code>zone_id</code> de la zone la plus restreinte).</p>'
+                '<p>Dans la salle des cours, le <em>plan de segmentation</em> du réseau du laboratoire décrit les zones et ce que chacune contient. Le fichier <code>/srv/cours/mit857/segmentation-plan.txt</code> liste les services de la zone la plus restreinte, un par ligne, sous la forme <code>service:port</code>.</p><p><strong>Mission.</strong> Le drapeau de cette room est le <em>premier service dans l\'ordre alphabétique</em> : c\'est celui qui démarre en premier, et donc celui qu\'on vérifie en premier.</p>'
             ),
-            'question': 'Releve le numero de zone (zone_id) de la zone des donnees sensibles dans le plan de segmentation.',
+            'question': 'Quel est le premier service (ordre alphabetique) de la zone des donnees sensibles ?',
             'flag_path': '/root/flags/flag-u06.txt',
             'xp': 30,
-            'hint': 'Le plan est dans <code>/srv/cours</code> : liste les dossiers, puis lis les fichiers de type « plan » ou « segmentation ».',
-            'explain': 'Lire un plan de segmentation, c\'etit savoir où placer un pare-feu. Le numéro de zone permet de vérifier qu\'on parle de la bonne zone.',
+            'hint': 'Coupe le port, trie, prends le premier : <code>cut -d: -f1 /srv/cours/mit857/segmentation-plan.txt | sort | head -1</code>.',
+            'explain': 'Trier puis prendre le premier, c\'est une opération qu\'on refait sans arrêt en administration : lister les services, les ordonner, vérifier celui qui démarre avant les autres. Un service de sauvegarde qui démarre avant son volume ne sauvegarde rien.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -109,7 +106,7 @@ ROOMS = [
                 'q': 'Une machine compromise dans la zone « public » arrive à joindre la zone « interne ». Que faut-il en premier ?',
                 'choices': [
                     'Changer tous les mots de passe',
-                    'Rechercher où le chemin a étéPossible : règle de pare-feu, route, ou service exposé',
+                    'Rechercher où le chemin a été ouvert : règle de pare-feu, route, ou service exposé',
                     'Éteindre le serveur web',
                     'Installer un antivirus sur la machine compromise',
                 ],
@@ -239,16 +236,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — l\'audit du certificat',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, un <em>audit TLS</em> a été laissé : le document qui décrit '
-                'le certificat du service interne (version, algorithme, autorité de signature).</p>'
-                '<p><strong>Mission.</strong> Lis cet audit et relève la <em>valeur de l\'algorithme de signature</em> '
-                'annoncée pour le certificat (le champ <code>signature_algorithm</code>).</p>'
+                '<p>Dans la salle des cours, un <em>audit TLS</em> a été laissé dans <code>/srv/cours/mit857/tls-audit.txt</code> : le certificat du service y est décrit ligne à ligne.</p><p><strong>Mission.</strong> La valeur du drapeau est la version de TLS annoncée par le service, telle qu\'elle est écrite (le champ <code>tls</code>).</p>'
             ),
-            'question': 'Releve l\'algorithme de signature du certificat, indique dans l\'audit TLS.',
+            'question': 'Quelle version de TLS le service annonce-t-il dans l\'audit (champ tls) ?',
             'flag_path': '/root/flags/flag-u07.txt',
             'xp': 30,
-            'hint': 'L\'audit se trouve dans <code>/srv/cours</code>, dans le dossier du cours reseau.',
-            'explain': 'Lire un audit TLS, c\'est savoir juger la qualité d\'un certificat : algorithme, taille de clé, durée de validité, autorité signataire.',
+            'hint': '<code>awk \'/^ *tls *=/{print $3}\' /srv/cours/mit857/tls-audit.txt</code>. La version est écrite après le signe égal.',
+            'explain': 'Lire la version TLS annoncée par un service, c\'est le premier réflexe d\'un audit : TLS 1.0 et 1.1 sont retirés, 1.2 reste acceptable, 1.3 est l\'état de l\'art. On ne devine pas, on lit ce que le service dit de lui-même, puis on le vérifie.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -296,7 +290,7 @@ ROOMS = [
                 'q': 'Pourquoi la date de validité du certificat compte-t-elle ?',
                 'choices': [
                     'Pour la facturation',
-                    'Parce qu\'un certificat trop ancien peut signer desalgorithms aujourd\'hui consideres faibles, et qu\'il faut pouvoir le revoquer',
+                    'Parce qu\'un certificat ancien peut signer des algorithmes aujourd\'hui considérés faibles, et qu\'il faut pouvoir le révoquer',
                     'Pour Savoir qui a achete le domaine',
                     'Parce que le navigateur ne supporte que les certificats de moins d\'un an',
                 ],
@@ -399,16 +393,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — la politique d\'authentification',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, la <em>politique d\'authentification</em> du service '
-                '(le document qui fixe les règles : longueur minimale, nombre de tentatives, Second facteur).</p>'
-                '<p><strong>Mission.</strong> Lis cette politique et relève la <em>valeur de la longueur minimale '
-                'd\'un mot de passe</em> (champ <code>min_length</code>).</p>'
+                '<p>Dans la salle des cours, la <em>politique d\'authentification</em> du service fixe les règles : longueur minimale, tentatives, second facteur. Elle s\'applique à tous les comptes, et l\'inventaire des comptes est dans <code>/srv/cours/mit857/comptes.csv</code>.</p><p><strong>Mission.</strong> La politique ne dit pas combien de comptes elle protège : il faut compter. La valeur du drapeau est le <em>nombre de lignes du fichier de comptes, moins la ligne d\'en-tête</em>.</p>'
             ),
-            'question': 'Releve la longueur minimale de mot de passe fixee par la politique d\'authentification.',
+            'question': 'Combien de comptes la politique d\'authentification protege-t-elle (lignes de comptes.csv moins l\'en-tete) ?',
             'flag_path': '/root/flags/flag-u08.txt',
             'xp': 30,
-            'hint': 'La politique est dans <code>/srv/cours</code>, dans le dossier du cours sur l\'authentification.',
-            'explain': 'Lire une politique d\'authentification, c\'est savoir si un service est correctement réglé : longueur, tentatives,Second facteur, déblocage.',
+            'hint': '<code>tail -n +2 /srv/cours/mit857/comptes.csv | wc -l</code> : « tail -n +2 » saute l\'en-tête, « wc -l » compte ce qui reste.',
+            'explain': 'Une politique qui s\'applique à « tous les comptes » sans qu\'on sache combien ils sont n\'est pas applicable : on ne peut pas vérifier un périmètre qu\'on n\'a pas compté. Compter les lignes d\'un inventaire est le geste de base de tout audit.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -432,7 +423,7 @@ ROOMS = [
                     'Stocker le mot de passe en clair pour ne pas le redemander',
                     'Porter un identifiant de session aléatoire, difficile à deviner, qui remplace le mot de passe à chaque requête',
                     'Chiffrer la page pour le moteur de recherche',
-                    'Empêcher lesARAM de se souvenir du site',
+                    'Empêcher le navigateur de mémoriser la session du site',
                 ],
                 'correct': 1,
                 'xp': 10,
@@ -558,16 +549,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — le carnet de cryptographie',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, le cours 6.042 a laissé son <em>carnet de cryptographie</em> '
-                '(le document qui présente les trois briques avec leurs algorithmes).</p>'
-                '<p><strong>Mission.</strong> Lis ce carnet et relève la <em>valeur de la taille de clé</em> '
-                'utilisée par l\'exemple de chiffrement symétrique (champ <code>key_size</code>, en bits).</p>'
+                '<p>Dans la salle des cours, le <em>carnet de cryptographie</em> présente les trois briques du cours (AES-256, RSA-2048, HMAC-SHA256). Le laboratoire stocke trois blocs de données ; leurs tailles, en octets, sont dans <code>/srv/cours/mit857/tailles.txt</code>, une par ligne.</p><p><strong>Mission.</strong> La taille de clé se dimensionne sur le volume à protéger. La valeur du drapeau est la <em>somme des trois tailles</em>.</p>'
             ),
-            'question': 'Releve la taille de cle (key_size, en bits) indiquee dans le carnet de cryptographie.',
+            'question': 'Quelle est la somme des tailles des trois blocs, en octets (tailles.txt) ?',
             'flag_path': '/root/flags/flag-u09.txt',
             'xp': 30,
-            'hint': 'Le carnet est dans <code>/srv/cours</code>, dossier du cours de cryptographie.',
-            'explain': 'Connaître la taille de clé d\'un exemple, c\'et understand ce que « fort » veut dire : la sécurité repose sur le temps de calcul, pas sur le secret de l\'algorithme.',
+            'hint': '<code>awk \'{s+=$1} END{print s}\' /srv/cours/mit857/tailles.txt</code>. Vérifie d\'abord avec <code>cat</code> qu\'il n\'y a que des nombres.',
+            'explain': 'Additionner une colonne, c\'est la moitié du travail d\'analyse : tailles, volumes, nombres d\'événements. awk fait ce calcul en une ligne, et le résultat se vérifie à la main quand il y a trois valeurs.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',

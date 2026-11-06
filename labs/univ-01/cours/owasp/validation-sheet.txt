@@ -1,22 +1,25 @@
-Fiche de validation des entrees (TP OWASP - injection)
-=====================================================
+Fiche de validation des entrees - atelier OWASP
+===============================================
 
-Controles du formulaire d'inscription
---------------------------------------
-    champ email        : format verifie, longueur max 254
-    champ age          : entier, entre 13 et 99
-    champ code postal  : format AAA-999, 6 caracteres
-    zip_checks         = FLAG=SECURA{validation_stricte}
-    champ mot de passe : longueur min 14, refuse les listes connues
-    tous les champs    : echappement a la sortie, requetes preparees
+Le principe
+-----------
+Tout ce qui vient de l'exterieur est hostile jusqu'a preuve du
+contraire : formulaire, parametre d'URL, en-tete, fichier importe.
 
-Regle de l'equipe
------------------
-Le format est verifie cote serveur. Les messages d'erreur ne disent pas
-quel controle a echoue (pas de fuite d'information), mais ils disent a
-l'utilisateur quoi corriger.
+Valider, c'est refuser par defaut
+---------------------------------
+On decrit ce qui est ACCEPTE, pas ce qui est refuse. Une liste blanche
+est courte ; une liste noire est toujours incomplete.
 
-Trois erreurs vues en revue de code :
-- un filtre de mots cles (OR, DROP) au lieu d'une requete preparee
-- une validation uniquement dans le navigateur
-- un echappement fait a la main au lieu de la fonction de la bibliotheque
+Formats acceptes dans notre atelier
+-----------------------------------
+    code postal  : format AAA-999, 6 caracteres
+    identifiant  : 3 a 20 caracteres, lettres et chiffres
+    montant      : nombre decimal, 2 chiffres apres la virgule
+    date         : AAAA-MM-JJ
+
+Exercice de l'atelier
+---------------------
+Extrais le nombre de caracteres attendu pour le code postal :
+
+    grep -i "code postal" /srv/cours/owasp/formats.txt | grep -o "[0-9]* caracteres" | cut -d" " -f1

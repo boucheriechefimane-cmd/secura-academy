@@ -84,6 +84,7 @@ class Secura_Lab {
 			'ttl'      => self::DEFAULT_TTL,
 			'allow'    => array(),
 			'deny'     => array(),
+			'allow_setuid' => false,
 			'user'     => '1000:1000',
 			'memory'   => '512m',
 			'cpus'     => '1',
@@ -114,6 +115,17 @@ class Secura_Lab {
 
 		$manifest['allow'] = self::string_list( isset( $raw['allow'] ) ? $raw['allow'] : array() );
 		$manifest['deny']  = self::string_list( isset( $raw['deny'] ) ? $raw['deny'] : array() );
+
+		/*
+		 * Certaines rooms enseignent le setuid (débordement de tampon dans un
+		 * programme setuid root). Or « no-new-privileges » annule précisément
+		 * l'effet du bit setuid : le shell s'ouvrait, mais en tant que simple
+		 * utilisateur, et le scénario devenait impossible. Le manifeste peut
+		 * donc demander explicitement cette exception ; elle reste fermée par
+		 * défaut, et le conteneur garde toutes ses autres limites (cap-drop
+		 * ALL, réseau fermé, mémoire, pids, /tmp nosuid).
+		 */
+		$manifest['allow_setuid'] = ! empty( $raw['allow_setuid'] );
 
 		/* Un lab sans image ni compose ne peut pas démarrer : on le désactive. */
 		if ( 'single' === $manifest['mode'] && '' === $manifest['image'] ) {
@@ -993,21 +1005,41 @@ class Secura_Lab {
 			$manifest['user'],
 			'--cap-drop',
 			'ALL',
-			'--security-opt',
-			'no-new-privileges',
-			'--pids-limit',
-			(string) $manifest['pids'],
-			'--memory',
-			$manifest['memory'],
-			'--cpus',
-			$manifest['cpus'],
-			'--tmpfs',
-			'/tmp:rw,noexec,nosuid,size=32m',
-			'--network',
-			self::network_name( $user_id, $room_id, $manifest ),
-			'-w',
-			$manifest['workdir'],
-			$manifest['image'],
+		);
+
+		/*
+		 * « no-new-privileges » interdit d'acquerir de nouveaux privileges :
+		 * il neutralise le bit setuid. On le garde partout, sauf pour les
+		 * rares rooms qui enseignent justement le setuid (voir
+		 * « allow_setuid » dans le manifeste).
+		 *
+		 * ATTENTION : cette option doit etre placee AVANT le nom de
+		 * l'image. Placee apres, Docker la traite comme la commande du
+		 * conteneur : il cherche un programme nomme « no-new-privileges »
+		 * et le conteneur s'arrete aussitot (« is not running »).
+		 */
+		if ( empty( $manifest['allow_setuid'] ) ) {
+			$line[] = '--security-opt';
+			$line[] = 'no-new-privileges';
+		}
+
+		$line = array_merge(
+			$line,
+			array(
+				'--pids-limit',
+				(string) $manifest['pids'],
+				'--memory',
+				$manifest['memory'],
+				'--cpus',
+				$manifest['cpus'],
+				'--tmpfs',
+				'/tmp:rw,noexec,nosuid,size=32m',
+				'--network',
+				self::network_name( $user_id, $room_id, $manifest ),
+				'-w',
+				$manifest['workdir'],
+				$manifest['image'],
+			)
 		);
 
 		/* La commande du manifeste est une chaine (« sleep infinity ») :

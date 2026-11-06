@@ -189,6 +189,25 @@ final class Secura_Rooms {
 			'm3'     => seca_default_rooms_m3(),
 			'univ'   => seca_default_rooms_universites(),
 			'avance' => seca_default_rooms_avance(),
+			/* Domaine D5 « gouvernance » de Security+ : trois rooms qui
+			   manquaient, 60 % du domaine n'etait pas couvert. */
+			'gouvernance' => seca_default_rooms_d5(),
+			/* Domaine D2 « menaces et vulnerabilites » : attaques reseau
+			   (2.6) et indicateurs de compromission (2.8). */
+			'menaces'     => seca_default_rooms_d2(),
+			/* Domaine D3 « architecture » : responsabilite partagee (3.1),
+			   protection des donnees (3.4), IoT et industriel (3.6). */
+			'architecture' => seca_default_rooms_d3(),
+			/* Domaine D4 « operations » : forensique et preuves (4.7),
+			   automatisation et orchestration (4.8). Les deux sujets
+			   manquaient au referentiel, mesure du 06/11/2026. */
+			'operations'  => seca_default_rooms_d4(),
+			/* Domaine D1 « concepts generaux » : les sujets 1.1, 1.3, 1.4
+			   et 1.7 manquaient au referentiel, mesure du 7/11/2026.
+			   Cle de bloc distincte de « menaces » : deux blocs qui
+			   portent le meme nom s'ecrasent, et la synchronisation a
+			   deja perdu deux rooms D2 de cette facon. */
+			'concepts'    => seca_default_rooms_d1(),
 		);
 
 		/* Les rooms deja installees, retrouvees par leur cle stable. */
@@ -292,7 +311,23 @@ final class Secura_Rooms {
 			update_post_meta( $post_id, SECURA_META_DIFFICULTY, $room['difficulty'] );
 			update_post_meta( $post_id, SECURA_META_DURATION, (int) $room['duration'] );
 			update_post_meta( $post_id, SECURA_META_XP_BONUS, (int) $room['xp_bonus'] );
-			update_post_meta( $post_id, SECURA_META_I18N, isset( $room['i18n'] ) ? $room['i18n'] : array() );
+			/* Les traductions livrees avec le plugin sont fusionnees avec
+			   celles du contenu. La traduction livree fait foi pour une
+			   langue : elle est ecrite et relue comme du contenu, alors
+			   qu'une traduction saisie a la main dans l'administration peut
+			   etre partielle. Une room retouchee par un enseignant n'arrive
+			   jamais ici (l'empreinte l'a ecartee plus haut). */
+			$traductions = isset( $room['i18n'] ) && is_array( $room['i18n'] ) ? $room['i18n'] : array();
+
+			if ( function_exists( 'seca_i18n_en' ) ) {
+				$livree_en = seca_i18n_en( $cle );
+
+				if ( ! empty( $livree_en ) ) {
+					$traductions['en'] = $livree_en;
+				}
+			}
+
+			update_post_meta( $post_id, SECURA_META_I18N, $traductions );
 
 			if ( ! empty( $room['track'] ) ) {
 				update_post_meta( $post_id, SECURA_META_TRACK, $room['track'] );
@@ -651,6 +686,12 @@ final class Secura_Rooms {
 						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
 						'source'        => isset( $question['source'] ) ? (string) $question['source'] : '',
 						'licence'       => isset( $question['licence'] ) ? (string) $question['licence'] : '',
+						/* L'etiquette de sujet du referentiel de certification
+						   (« 4.3 » pour « surveillance, SIEM et journaux » de
+						   Security+). Sans elle, une question ne peut pas entrer
+						   dans un examen blanc pondere : voir
+						   tools/certifications/blanc.php. */
+						'topic'         => isset( $question['topic'] ) ? sanitize_text_field( (string) $question['topic'] ) : '',
 					);
 				}
 			}
@@ -1434,6 +1475,12 @@ final class Secura_Rooms {
 						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
 						'source'        => isset( $question['source'] ) ? (string) $question['source'] : '',
 						'licence'       => isset( $question['licence'] ) ? (string) $question['licence'] : '',
+						/* L'etiquette de sujet du referentiel de certification
+						   (« 4.3 » pour « surveillance, SIEM et journaux » de
+						   Security+). Sans elle, une question ne peut pas entrer
+						   dans un examen blanc pondere : voir
+						   tools/certifications/blanc.php. */
+						'topic'         => isset( $question['topic'] ) ? sanitize_text_field( (string) $question['topic'] ) : '',
 					);
 				}
 			}

@@ -1,12 +1,12 @@
-# Defi d07 - La ligne cachee
+# Defi d07 - La ligne au milieu
 
-Ceinture 2 (jaune) : Permissions, proprietaire, contenu
+Ceinture 2 (jaune)
 
 Outil attendu : grep -n
 
-Le compte rendu du dojo (a lire dans la machine) :
+registre.txt contient une ligne « cle ». Le défi est de rapporter
+son NUMÉRO de ligne et la valeur, sous la forme SECURA{ligne_N_valeur}.
+Indice : « grep -n cle registre.txt » donne le numéro.
 
-    07_ligne_cachee = FLAG=SECURA{ligne_en_milieu}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/2-jaune/07-ligne-cachee.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

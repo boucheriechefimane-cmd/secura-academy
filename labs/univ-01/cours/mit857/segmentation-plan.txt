@@ -1,24 +1,27 @@
-Plan de segmentation du reseau du laboratoire
-(cours 6.857 - Network and Computer Security)
+Plan de segmentation - cours 6.857
+==================================
 
-Objectif : qu'une compromission dans une zone ne donne pas acces aux
-autres zones. Le pare-feu est place ENTRE les zones, pas autour.
+Zones
+-----
+    zone    | sous-reseau     | qui y accede
+    --------+-----------------+-----------------------------
+    public  | 10.10.0.0/24    | tout le monde, en lecture
+    appli   | 10.10.1.0/24    | les serveurs web seulement
+    donnees | 10.10.2.0/24    | les serveurs applicatifs seulement
+    admin   | 10.10.9.0/24    | les postes d'administration
 
-+---------------------+---------------+--------------------------+
-| Zone                | zone_id       | Contenu                  |
-+---------------------+---------------+--------------------------+
-| Public              | 1             | Serveur web, proxy       |
-| Donnees sensibles   | FLAG=SECURA{zone_interdite}       | Base de notes, secrets   |
-| Interne             | 3             | Nœud d'archivage         |
-| Administration       | 4             | Supervision, sauvegardes  |
-+---------------------+---------------+--------------------------+
+Services de la zone donnees
+---------------------------
+Les services de cette zone, avec leur port :
 
-Regles de flux
---------------
-1. Public -> Donnees sensibles : autorise uniquement sur le port 443.
-2. Public -> Interne : interdit.
-3. Administration -> toutes zones : autorise (avec authentification).
-4. Interne -> Public : interdit (anti-pivot).
+    vault:8200
+    backup:9000
+    cache:6379
+    audit:9100
 
-Le plan a ete revu apres l'incident du mois dernier : le port 8080 du
-service de statistiques etait joignable depuis la zone publique.
+Exercice de l'atelier
+---------------------
+Trouve le premier service dans l'ordre alphabetique (c'est lui qui
+demarre en premier) :
+
+    cut -d: -f1 /srv/cours/mit857/segmentation-plan.txt | sort | head -1

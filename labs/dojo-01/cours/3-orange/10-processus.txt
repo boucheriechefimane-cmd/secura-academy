@@ -1,12 +1,12 @@
-# Defi d10 - Le processus suspect
+# Defi d10 - La configuration oubliée
 
-Ceinture 3 (orange) : Reseau, processus, configuration
+Ceinture 3 (orange)
 
-Outil attendu : ps
+Outil attendu : cat, grep
 
-Le compte rendu du dojo (a lire dans la machine) :
+Le fichier d'environnement du service contient une variable restée
+de la recette. Rapporte sa valeur sous la forme SECURA{valeur}.
+Indice : « grep -i recette /srv/dojo/3-orange/env.conf ».
 
-    10_processus = FLAG=SECURA{processus_ecoute}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/3-orange/10-processus.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

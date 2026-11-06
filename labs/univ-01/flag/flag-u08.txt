@@ -1,1 +1,1 @@
-FLAG=SECURA{mot_de_passe_long}
+FLAG=SECURA{auth_3}

@@ -1,0 +1,38 @@
+{
+    "domaine": "contenu",
+    "titre": "Audit externe — Contenu pédagogique",
+    "expert": "",
+    "perimetre": "",
+    "date": "2026-11-04T23:11:53+00:00",
+    "ok": 20,
+    "non_etaye": 0,
+    "forces": [],
+    "scenarios": [],
+    "bloquant": 0,
+    "majeur": 0,
+    "mineur": 0,
+    "info": 3,
+    "constats": [
+        {
+            "libelle": "questions importées auditées",
+            "detail": "639 question(s) d'un examen universitaire ou d'une fondation",
+            "gravite": "info",
+            "preuve": "format d'origine conservé : 82 question(s) à 2 proposition(s), 536 question(s) à 4 proposition(s), 21 question(s) à 3 proposition(s) — une seule bonne réponse, source et licence exigées",
+            "etaye": true
+        },
+        {
+            "libelle": "problèmes d'examen importés (type « solution »)",
+            "detail": "33 question(s) : l'élève rédige sa réponse, la correction officielle de l'université s'affiche ensuite",
+            "gravite": "info",
+            "preuve": "ni propositions, ni note automatique : la correction vient de l'école, mot pour mot",
+            "etaye": true
+        },
+        {
+            "libelle": "les parcours et leur contenu",
+            "detail": "Les labs avances : Juice Shop, dojo et quiz (14 rooms) | Les universites : 22 rooms, 6 cours (22 rooms) | Scénarios M3 : dix missions réelles (10 rooms) | Fondations : réseaux, web et cryptographie (6 rooms)",
+            "gravite": "info",
+            "preuve": "",
+            "etaye": false
+        }
+    ]
+}

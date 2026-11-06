@@ -234,6 +234,11 @@ function update_user_meta( $user_id, $key, $value ) {
  * @return mixed
  */
 function get_option( $name, $default = false ) {
+	if ( 'WPLANG' === $name && ! isset( $GLOBALS['securatest_options'][ $name ] ) ) {
+		/* L'emulation suit la langue du site reglee par le test. */
+		return isset( $GLOBALS['securatest_site_locale'] ) ? $GLOBALS['securatest_site_locale'] : 'fr_FR';
+	}
+
 	return isset( $GLOBALS['securatest_options'][ $name ] ) ? $GLOBALS['securatest_options'][ $name ] : $default;
 }
 
@@ -419,17 +424,84 @@ function home_url( $path = '' ) {
  * @return string
  */
 function add_query_arg( $args, $url = '' ) {
+	/* WordPress REMPLACE la valeur d'une cle deja presente. L'ancienne
+	   emulation ajoutait un second « seca_lang » : elle ne pouvait donc
+	   pas prouver qu'un selecteur ne laisse pas deux langues dans
+	   l'adresse. */
 	$pairs = array();
 
+	if ( false !== strpos( $url, '?' ) ) {
+		$query = substr( $url, strpos( $url, '?' ) + 1 );
+		$url   = substr( $url, 0, strpos( $url, '?' ) );
+
+		foreach ( explode( '&', $query ) as $morceau ) {
+			if ( '' === $morceau ) {
+				continue;
+			}
+
+			$parts = explode( '=', $morceau, 2 );
+			$pairs[ urldecode( $parts[0] ) ] = isset( $parts[1] ) ? urldecode( $parts[1] ) : '';
+		}
+	}
+
 	foreach ( (array) $args as $key => $value ) {
-		$pairs[] = rawurlencode( $key ) . '=' . rawurlencode( (string) $value );
+		$pairs[ $key ] = (string) $value;
 	}
 
 	if ( ! $pairs ) {
 		return $url;
 	}
 
-	return $url . ( false === strpos( $url, '?' ) ? '?' : '&' ) . implode( '&', $pairs );
+	$morceaux = array();
+
+	foreach ( $pairs as $key => $value ) {
+		$morceaux[] = rawurlencode( $key ) . '=' . rawurlencode( $value );
+	}
+
+	return $url . '?' . implode( '&', $morceaux );
+}
+
+/**
+ * Retrait de parametres d'une adresse (emulation).
+ *
+ * @param mixed  $keys Cles a retirer.
+ * @param string $url  Adresse.
+ * @return string
+ */
+function remove_query_arg( $keys, $url = '' ) {
+	$pairs = array();
+
+	if ( false !== strpos( $url, '?' ) ) {
+		$query = substr( $url, strpos( $url, '?' ) + 1 );
+		$url   = substr( $url, 0, strpos( $url, '?' ) );
+
+		foreach ( explode( '&', $query ) as $morceau ) {
+			if ( '' === $morceau ) {
+				continue;
+			}
+
+			$parts = explode( '=', $morceau, 2 );
+
+			if ( in_array( urldecode( $parts[0] ), (array) $keys, true ) ) {
+				continue;
+			}
+
+			$pairs[] = $morceau;
+		}
+	}
+
+	return $pairs ? $url . '?' . implode( '&', $pairs ) : $url;
+}
+
+/**
+ * Analyse d'une adresse (emulation minimale).
+ *
+ * @param string $url    Adresse.
+ * @param int    $composant Composant demande.
+ * @return mixed
+ */
+function wp_parse_url( $url, $composant = -1 ) {
+	return -1 === $composant ? parse_url( $url ) : parse_url( $url, $composant );
 }
 
 /**
@@ -521,7 +593,16 @@ function get_current_user_id() {
 function determine_locale() {
 	$GLOBALS['securatest_locale_calls'] = isset( $GLOBALS['securatest_locale_calls'] ) ? $GLOBALS['securatest_locale_calls'] + 1 : 1;
 
-	return 'fr_FR';
+	return isset( $GLOBALS['securatest_site_locale'] ) ? $GLOBALS['securatest_site_locale'] : 'fr_FR';
+}
+
+/**
+ * Locale du site (ce que WPLANG vaut).
+ *
+ * @return string
+ */
+function get_locale() {
+	return isset( $GLOBALS['securatest_site_locale'] ) ? $GLOBALS['securatest_site_locale'] : 'fr_FR';
 }
 
 /**
@@ -660,6 +741,15 @@ function get_permalink( $post_id = 0 ) {
 }
 
 /**
+ * Objet interroge (emulation).
+ *
+ * @return int
+ */
+function get_queried_object_id() {
+	return isset( $GLOBALS['securatest_queried_id'] ) ? (int) $GLOBALS['securatest_queried_id'] : 0;
+}
+
+/**
  * Nonce valide.
  *
  * @param string $nonce Nonce.
@@ -724,6 +814,8 @@ require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-sec
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-settings.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-paths.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-exam.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-solution.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-gate.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-ajax.php';
 
 /* ---------------------------------------------------------------------
@@ -1029,6 +1121,82 @@ check( 3 === count( Secura_I18n::languages() ), 'trois langues sont proposées' 
 check( 'rtl' === Secura_I18n::languages()['ar']['dir'], 'l\'arabe est en écriture de droite à gauche' );
 check( 'fr' === Secura_I18n::current_lang(), 'le français est la langue par défaut' );
 
+/* ---------------------------------------------------------------------
+ * Adresses de langue : chaque version sert VRAIMENT sa langue
+ *
+ * Regression du 05/11/2026. Deux defauts mesures sur le WordPress reel,
+ * installe en anglais :
+ *  - la room sans parametre servait l'anglais, mais le theme la
+ *    declarait hreflang="fr" et le lien « Francais » pointait vers elle ;
+ *  - le selecteur du tableau de bord rechargeait l'adresse courante, ou
+ *    « ?seca_lang=ar » gardait la priorite : le choix venait d'etre
+ *    enregistre et la page revenait dans l'ancienne langue.
+ * ------------------------------------------------------------------ */
+
+echo "\nAdresses de langue\n";
+
+$GLOBALS['securatest_site_locale'] = 'en_US';
+$GLOBALS['securatest_queried_id']  = 0;
+$_GET = array();
+
+check( 'en' === Secura_I18n::langue_de_url( 'https://exemple.test/rooms/x/' ), 'une adresse nue sert la langue du site (ici l anglais)' );
+check( 'fr' === Secura_I18n::langue_de_url( 'https://exemple.test/rooms/x/?seca_lang=fr' ), 'une adresse explicite sert la langue demandee' );
+check( 'ar' === Secura_I18n::langue_de_url( 'https://exemple.test/rooms/x/?seca_lang=ar' ), 'l arabe est reconnu dans l adresse' );
+check( 'en' === Secura_I18n::langue_de_url( 'https://exemple.test/rooms/x/?seca_lang=xx' ), 'une langue inconnue retombe sur la langue du site' );
+
+$adresses = Secura_I18n::traductions_de_url( 'https://exemple.test/rooms/x/' );
+
+check( 3 === count( $adresses ), 'les trois langues ont une adresse' );
+check( 'https://exemple.test/rooms/x/?seca_lang=fr' === $adresses['fr'], 'le francais a une adresse explicite' );
+check( 'https://exemple.test/rooms/x/?seca_lang=ar' === $adresses['ar'], 'l arabe a une adresse explicite' );
+check( 'https://exemple.test/rooms/x/' === $adresses['en'], 'la langue du site garde l adresse nue (une seule adresse par page)' );
+$deux_langues = array();
+
+foreach ( $adresses as $code => $adresse ) {
+	if ( $code === Secura_I18n::langue_du_site() ) {
+		if ( false !== strpos( $adresse, 'seca_lang' ) ) {
+			$deux_langues[] = $adresse;
+		}
+
+		continue;
+	}
+
+	if ( 1 !== substr_count( $adresse, 'seca_lang' ) || false === strpos( $adresse, 'seca_lang=' . $code ) ) {
+		$deux_langues[] = $adresse;
+	}
+}
+
+check( empty( $deux_langues ), 'chaque adresse porte UNE langue, la sienne : ' . implode( ' | ', $deux_langues ) );
+
+/* Sur un site installe en francais, c'est le francais qui garde
+   l'adresse nue : la regle suit la langue du site, elle ne la fixe pas. */
+$GLOBALS['securatest_site_locale'] = 'fr_FR';
+$adresses_fr = Secura_I18n::traductions_de_url( 'https://exemple.test/rooms/x/' );
+
+check( 'https://exemple.test/rooms/x/' === $adresses_fr['fr'], 'sur un site francais, le francais garde l adresse nue' );
+check( 'https://exemple.test/rooms/x/?seca_lang=en' === $adresses_fr['en'], 'sur un site francais, l anglais a son adresse explicite' );
+$GLOBALS['securatest_site_locale'] = 'en_US';
+
+$adresse_fr = Secura_I18n::url_pour_langue( 'fr', 'https://exemple.test/rooms/x/?seca_lang=ar' );
+
+check( 'https://exemple.test/rooms/x/?seca_lang=fr' === $adresse_fr, 'changer de langue REMPLACE la langue de l adresse' );
+check( 1 === substr_count( $adresse_fr, 'seca_lang' ), 'la nouvelle adresse ne garde pas l ancienne langue' );
+check( '' === Secura_I18n::url_pour_langue( 'xx', 'https://exemple.test/' ), 'une langue inconnue ne fabrique pas d adresse' );
+check( 'https://exemple.test/rooms/x/' === Secura_I18n::retirer_parametre_langue( 'https://exemple.test/rooms/x/?seca_lang=fr&page=2' ) || 'https://exemple.test/rooms/x/?page=2' === Secura_I18n::retirer_parametre_langue( 'https://exemple.test/rooms/x/?seca_lang=fr&page=2' ), 'retirer la langue garde les autres parametres' );
+
+/* Le choix de la langue par URL reste prioritaire sur la preference
+   enregistree : c'est ce que demande un lien explicite. */
+$_GET = array( 'seca_lang' => 'ar' );
+check( 'ar' === Secura_I18n::forced_lang(), 'le parametre d adresse impose la langue' );
+
+/* Sans parametre, la preference de l'apprenant connecte s'applique. */
+$_GET = array();
+$GLOBALS['securatest_user']                        = 7;
+$GLOBALS['securatest_users'][7][ SECURA_USER_LANG ] = 'fr';
+check( 'fr' === Secura_I18n::forced_lang(), 'la preference enregistree s applique quand l adresse n impose rien' );
+unset( $GLOBALS['securatest_users'][7][ SECURA_USER_LANG ] );
+$GLOBALS['securatest_site_locale'] = 'fr_FR';
+
 /* Regression : « ?lang= » appartient aux plugins multilingues (Polylang
    l'utilise pour ses adresses). Notre parametre a nous est « ?seca_lang= »,
    et « ?lang= » n'est lu que si aucun autre plugin ne s'en sert. */
@@ -1281,6 +1449,92 @@ check( $payload && true === $payload['ok'], 'un indice peut être demandé' );
 check( Secura_Progress::hint_used( 7, 42, 1, 0 ), 'l\'indice demandé est mémorisé côté serveur' );
 
 /* L'examen est désormais accessible : la tâche précédente est terminée. */
+
+/* Mais une reponse ne demarre JAMAIS le chronometre : sans start_exam,
+   le serveur refuse (409 « exam_not_started »). C'est ce qui garantit
+   que le temps accorde est celui du chronometre que l'eleve a vu. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 2,
+	'question' => 0,
+	'answer'  => 'a3',
+);
+
+$payload = capture_json(
+	function () {
+		Secura_Ajax::validate_answer();
+	}
+);
+
+check( $payload && false === $payload['ok'] && 'exam_not_started' === $payload['data']['code'], 'une reponse d examen sans chronometre est refusee' );
+check( null === Secura_Progress::exam_state( 7, 42, 2 ), 'le refus ne cree pas de chronometre dans le dos de l eleve' );
+
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 2,
+);
+
+/* Les QUESTIONS non plus ne sortent pas avant le chronometre. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 2,
+);
+
+$payload = capture_json(
+	function () {
+		Secura_Ajax::get_task();
+	}
+);
+
+check( $payload && false === $payload['ok'] && 'exam_not_started' === $payload['data']['code'], 'un examen non ouvert ne livre pas ses questions' );
+
+/* Le chronometre ne se lance pas sur une tache qui n'est pas un examen. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 1,
+);
+
+$payload = capture_json(
+	function () {
+		Secura_Ajax::start_exam();
+	}
+);
+
+check( $payload && false === $payload['ok'] && 'not_an_exam' === $payload['data']['code'], 'pas de chronometre sur une tache qui n est pas un examen' );
+
+/* Le chronometre ne se lance pas sur un examen encore verrouille. */
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 9,
+);
+
+$payload = capture_json(
+	function () {
+		Secura_Ajax::start_exam();
+	}
+);
+
+check( $payload && false === $payload['ok'], 'une tache inexistante ne demarre aucun chronometre (' . ( isset( $payload['data']['code'] ) ? $payload['data']['code'] : 'sans code' ) . ')' );
+
+$_POST = array(
+	'nonce'   => 'nonce-de-test',
+	'room_id' => 42,
+	'task'    => 2,
+);
+
+$payload = capture_json(
+	function () {
+		Secura_Ajax::start_exam();
+	}
+);
+
+check( $payload && true === $payload['ok'] && $payload['data']['time_left'] > 0, 'le chronometre demarre a l ouverture de l examen' );
+
 $_POST = array(
 	'nonce'   => 'nonce-de-test',
 	'room_id' => 42,
@@ -2127,9 +2381,98 @@ echo "\nScénarios M3\n";
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-m3.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-video.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-universites.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-d3.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-d4.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-d1.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-sources.php';
 require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-kahoot.php';
+require_once __DIR__ . '/../wp-content/plugins/secura-academy/includes/content-sy0-701-banque.php';
 
 $labs_dir = dirname( __DIR__ ) . '/labs';
+
+/* ---------------------------------------------------------------------
+ * Les licences : ce qui est hebergeable ici, et ce qui ne l'est pas.
+ *
+ * Une attribution oubliee n'est pas un detail de forme : c'est une
+ * violation de licence. Ces assertions verifient que la regle est
+ * appliquee par du code, pas seulement ecrite dans un document.
+ * ------------------------------------------------------------------ */
+echo "\nLicences et attribution\n";
+
+$catalogue_sources = Secura_Sources::catalogue();
+
+check( count( $catalogue_sources ) > 0, 'le catalogue des sources verifiees est lisible' );
+
+$regimes = array(
+	'MIT'            => array( true, true ),
+	'Apache-2.0'     => array( true, true ),
+	'CC BY-SA 4.0'   => array( true, true ),
+	'CC BY-NC-SA 4.0' => array( true, false ),
+	'Domaine public' => array( true, true ),
+	'Copyright'      => array( false, false ),
+);
+
+$regimes_ok = true;
+
+foreach ( $regimes as $licence => $attendu ) {
+	$r = Secura_Sources::regime( $licence );
+
+	if ( $r['hebergeable'] !== $attendu[0] || $r['partageable'] !== $attendu[1] ) {
+		$regimes_ok = false;
+	}
+}
+
+check( $regimes_ok, 'chaque famille de licence est classee : hebergeable, et partageable ou non' );
+
+$non_reutilisables = array();
+
+foreach ( $catalogue_sources as $source ) {
+	if ( empty( $source['reutilisable'] ) ) {
+		$non_reutilisables[] = $source;
+	}
+}
+
+check( count( $non_reutilisables ) > 0, 'le catalogue distingue les sources non reutilisables' );
+
+$sans_raison = 0;
+$sans_url   = 0;
+
+foreach ( $non_reutilisables as $source ) {
+	if ( empty( $source['licence'] ) ) {
+		$sans_raison++;
+	}
+
+	if ( empty( $source['url'] ) ) {
+		$sans_url++;
+	}
+}
+
+check( 0 === $sans_raison, 'chaque source non reutilisable dit pourquoi (licence renseignee)' );
+
+/* Une source non reutilisable sans URL ne peut pas etre citee : un renvoi
+   sans adresse n'est pas un renvoi. Une seule exception assumee : la
+   categorie « examen de certification », qui n'a pas d'URL unique. */
+check( 1 === $sans_url, 'une seule source non reutilisable est sans URL : la categorie « examen de certification »' );
+
+$audit = __DIR__ . '/../docs/AUDIT-LICENCES-HEBERGEABLE.md';
+check( is_file( $audit ), 'l audit des licences est ecrit dans docs/' );
+
+$texte_audit = is_file( $audit ) ? (string) file_get_contents( $audit ) : '';
+$traitees = 0;
+
+foreach ( $non_reutilisables as $source ) {
+	if ( false !== strpos( $texte_audit, (string) $source['id'] ) ) {
+		$traitees++;
+	}
+}
+
+check( $traitees === count( $non_reutilisables ), 'les ' . count( $non_reutilisables ) . ' sources non reutilisables sont traitees une par une dans l audit' );
+
+/* La page publique : elle doit exister et citer les licences, pas seulement
+   les sources. Une page sans texte de licence ne satisfait pas CC BY. */
+check( class_exists( 'Secura_Sources' ), 'la page « Sources et licences » est installee par le plugin' );
+check( defined( 'Secura_Sources::SLUG' ) && 'sources-et-licences' === Secura_Sources::SLUG, 'la page a une adresse stable : /sources-et-licences' );
+
 
 $m3 = seca_default_rooms_m3();
 
@@ -2268,7 +2611,7 @@ check( is_file( $labs_dir . '/net-01/docker-compose.yml' ), 'la pile multi-nœud
 $paths = seca_default_paths( array( 1, 2, 3, 4, 5, 6 ), array( 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ) );
 $m3_path = isset( $paths[1] ) ? $paths[1] : array();
 
-check( 4 === count( $paths ), 'quatre parcours sont crees : les fondations, les scénarios M3, Les universites et Les labs avances' );
+check( 8 === count( $paths ), 'huit parcours sont crees : les fondations, les scénarios M3, Les universites, Les labs avances, Gouvernance D5, Menaces D2, Architecture D3 et Concepts generaux D1' );
 check( isset( $m3_path['sections'] ) && 5 === count( $m3_path['sections'] ), 'le parcours M3 compte cinq modules' );
 check( 10 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $m3_path['sections'] ) ), 'le parcours M3 contient les dix scénarios' );
 check( isset( $m3_path['i18n']['ar'], $m3_path['i18n']['en'] ), 'le parcours M3 est traduit en arabe et en anglais' );
@@ -2278,7 +2621,149 @@ $paths_uni = seca_default_paths( array( 1 ), array( 2 ), array( 10, 11, 12, 13, 
 $uni_path  = isset( $paths_uni[2] ) ? $paths_uni[2] : array();
 $avance_path = isset( $paths_uni[3] ) ? $paths_uni[3] : array();
 
-check( 4 === count( $paths_uni ), 'un quatrieme parcours est cree : Les labs avances' );
+check( 8 === count( $paths_uni ), 'un huitieme parcours est cree : Concepts generaux D1' );
+
+/* Le parcours D5 : trois rooms, une par sujet (risque, tiers, audit). */
+$paths_d5 = seca_default_paths( array( 1 ), array( 2 ), array(), array(), array( 60, 61, 62 ) );
+$d5_path  = isset( $paths_d5[4] ) ? $paths_d5[4] : array();
+
+check( isset( $d5_path['sections'] ) && 3 === count( $d5_path['sections'] ), 'le parcours D5 compte trois sections' );
+check( 3 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $d5_path['sections'] ) ), 'le parcours D5 contient les trois rooms de gouvernance' );
+check( isset( $d5_path['i18n']['ar'], $d5_path['i18n']['en'] ), 'le parcours D5 est traduit en arabe et en anglais' );
+
+/* Le parcours D2 : deux rooms, attaques reseau et indicateurs de compromission. */
+$paths_d2 = seca_default_paths( array( 1 ), array( 2 ), array(), array(), array(), array( 70, 71 ) );
+$d2_path  = isset( $paths_d2[5] ) ? $paths_d2[5] : array();
+
+check( isset( $d2_path['sections'] ) && 2 === count( $d2_path['sections'] ), 'le parcours D2 compte deux sections' );
+check( 2 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $d2_path['sections'] ) ), 'le parcours D2 contient les deux rooms de menaces' );
+check( isset( $d2_path['i18n']['ar'], $d2_path['i18n']['en'] ), 'le parcours D2 est traduit en arabe et en anglais' );
+
+/* Le parcours D3 : trois rooms, une par sujet (responsabilite, donnees, IoT). */
+$paths_d3 = seca_default_paths( array( 1 ), array( 2 ), array(), array(), array(), array(), array( 80, 81, 82 ) );
+$d3_path  = isset( $paths_d3[6] ) ? $paths_d3[6] : array();
+
+check( isset( $d3_path['sections'] ) && 3 === count( $d3_path['sections'] ), 'le parcours D3 compte trois sections' );
+check( 3 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $d3_path['sections'] ) ), 'le parcours D3 contient les trois rooms d architecture' );
+check( isset( $d3_path['i18n']['ar'], $d3_path['i18n']['en'] ), 'le parcours D3 est traduit en arabe et en anglais' );
+
+/* Le parcours D1 : trois rooms pour les quatre sujets du domaine 1 qui
+   manquaient (1.1 controles, 1.3 zero trust, 1.4 changement, 1.7 physique). */
+$paths_d1 = seca_default_paths( array( 1 ), array( 2 ), array(), array(), array(), array(), array(), array( 90, 91, 92 ) );
+$d1_path  = isset( $paths_d1[7] ) ? $paths_d1[7] : array();
+
+check( isset( $d1_path['sections'] ) && 3 === count( $d1_path['sections'] ), 'le parcours D1 compte trois sections' );
+check( 3 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $d1_path['sections'] ) ), 'le parcours D1 contient les trois rooms de concepts generaux' );
+check( isset( $d1_path['i18n']['en'] ) && ! empty( $d1_path['i18n']['en']['title'] ), 'le parcours D1 est traduit en anglais' );
+
+/* Les quatre sujets du domaine 1 doivent etre couverts par une room PRATIQUE :
+   un terminal (l'eleve agit) et un examen d'au moins quatre questions. */
+check( 3 === count( seca_default_rooms_d1() ), 'le domaine D1 fournit trois rooms' );
+
+$d1_pratiques = 0;
+$d1_examens   = 0;
+
+foreach ( seca_default_rooms_d1() as $room ) {
+	$term = false;
+	$examen = 0;
+
+	foreach ( (array) $room['tasks'] as $task ) {
+		if ( ! empty( $task['terminal']['steps'] ) ) {
+			$term = true;
+		}
+
+		if ( isset( $task['type'] ) && 'exam' === $task['type'] ) {
+			$examen = count( (array) $task['questions'] );
+		}
+	}
+
+	if ( $term ) {
+		$d1_pratiques++;
+	}
+
+	if ( $examen >= 4 ) {
+		$d1_examens++;
+	}
+}
+
+check( 3 === $d1_pratiques, 'les trois rooms D1 portent un terminal : elles sont pratiques, pas documentaires' );
+check( 3 === $d1_examens, 'les trois rooms D1 se terminent par un examen de quatre questions' );
+
+/* Les mots-cles que couverture.php cherche dans le corpus. S'ils ne sont pas
+   dans le texte d'une room, le sujet reste marque absent, meme si la room
+   existe : c'est ainsi qu'un trou de contenu passe inapercu. */
+$d1_corpus = '';
+
+foreach ( seca_default_rooms_d1() as $room ) {
+	$d1_corpus .= ' ' . $room['title'] . ' ' . $room['excerpt'] . ' ' . $room['content'];
+
+	foreach ( (array) $room['tasks'] as $task ) {
+		$d1_corpus .= ' ' . ( isset( $task['title'] ) ? $task['title'] : '' );
+		$d1_corpus .= ' ' . ( isset( $task['content'] ) ? $task['content'] : '' );
+
+		foreach ( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) as $q ) {
+			$d1_corpus .= ' ' . ( isset( $q['question'] ) ? $q['question'] : '' );
+			$d1_corpus .= ' ' . ( isset( $q['explanation'] ) ? $q['explanation'] : '' );
+			if ( ! empty( $q['choices'] ) ) {
+				$d1_corpus .= ' ' . implode( ' ', $q['choices'] );
+			}
+		}
+	}
+}
+
+/* Le corpus est compare exactement comme couverture.php le fait : en
+   minuscules Unicode. strtolower() laisse « Securite » avec son accent
+   majuscule, et le test passerait a cote d'un mot-cle absent. */
+$d1_corpus = function_exists( 'mb_strtolower' ) ? mb_strtolower( $d1_corpus ) : strtolower( $d1_corpus );
+
+foreach ( array( 'controle preventif', 'controle detectif', 'controle correctif', 'categorie de controle', 'zero trust', 'confiance zero', 'gestion du changement', 'change management', 'changement de configuration', 'securite physique', 'tailgating', 'salle serveur', "controle d'acces physique", 'badge' ) as $mot ) {
+	check( false !== strpos( $d1_corpus, $mot ), 'le corpus D1 nomme « ' . $mot . ' »' );
+}
+
+/* Les trois sujets du domaine 3 que la mesure du 6 novembre donnait absents :
+   chaque room doit porter un terminal (la pratique) et un examen de quatre
+   questions. L'etiquette de sujet est volontairement omise dans ces rooms :
+   couverture.php marque un sujet « partiel » des qu'une question etiquetee
+   existe dans une room, et « complet » seulement si la room est pratique.
+   Porte par une room pratique, un sujet etiquete resterait « partiel ». */
+check( 3 === count( seca_default_rooms_d3() ), 'le domaine D3 fournit trois rooms' );
+
+$avec_pratique = 0;
+$avec_examen   = 0;
+$sans_etiquette = 0;
+
+foreach ( seca_default_rooms_d3() as $room ) {
+	$term   = false;
+	$examen = 0;
+
+	foreach ( (array) $room['tasks'] as $task ) {
+		if ( ! empty( $task['terminal']['steps'] ) ) {
+			$term = true;
+		}
+
+		if ( isset( $task['type'] ) && 'exam' === $task['type'] ) {
+			$examen = count( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) );
+		}
+
+		foreach ( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) as $q ) {
+			if ( isset( $q['topic'] ) ) {
+				$sans_etiquette++;
+			}
+		}
+	}
+
+	if ( $term ) {
+		$avec_pratique++;
+	}
+
+	if ( 4 === $examen ) {
+		$avec_examen++;
+	}
+}
+
+check( 3 === $avec_pratique, 'les trois rooms D3 portent un terminal (exercice reel)' );
+check( 3 === $avec_examen, 'les trois rooms D3 portent un examen de quatre questions' );
+check( 0 === $sans_etiquette, 'aucune question D3 ne porte d etiquette de sujet (sinon la couverture reste partielle)' );
 check( isset( $uni_path['sections'] ) && 6 === count( $uni_path['sections'] ), 'le parcours universitaire compte six modules' );
 check( 22 === array_sum( array_map( function ( $section ) { return count( $section['rooms'] ); }, $uni_path['sections'] ) ), 'le parcours universitaire contient les vingt-deux rooms' );
 check( isset( $uni_path['i18n']['ar'], $uni_path['i18n']['en'] ), 'le parcours universitaire est traduit en arabe et en anglais' );
@@ -2848,6 +3333,123 @@ foreach ( $liste_import as $entree_import ) {
 
 check( $reservoir_import > 0, 'la reserve alimente le reservoir des epreuves : les questions importees restent jouables' );
 check( count( $liste_import ) > count( $taches_import[0]['questions'] ), 'le reservoir est plus grand que la tache seule (les copies d\'examen varient)' );
+
+/* ---------------------------------------------------------------------
+ * Les prototypes incomplets du ZIP ne doivent pas être activés sans revue.
+ * ------------------------------------------------------------------ */
+
+$bootstrap_plugin = file_get_contents( __DIR__ . '/../wp-content/plugins/secura-academy/secura-academy.php' );
+$prototypes = array( 'class-secura-lab-front.php', 'class-secura-exam-timed.php', 'class-secura-certificate.php', 'class-secura-exam-front.php' );
+$prototype_charge = false;
+foreach ( $prototypes as $prototype ) {
+	if ( preg_match( '/^\s*(?:require|include)(?:_once)?\b[^;]*' . preg_quote( $prototype, '/' ) . '/m', $bootstrap_plugin ) ) {
+		$prototype_charge = true;
+	}
+}
+check( ! $prototype_charge, 'les prototypes du ZIP restent non chargés tant que leurs défauts ne sont pas corrigés' );
+
+$ajax_source = file_get_contents( __DIR__ . '/../wp-content/plugins/secura-academy/includes/class-secura-ajax.php' );
+$prototype_routes = array( 'secura_exam_time', 'secura_exam_submit', 'secura_exam_answer', 'secura_certificate', 'secura_certificate_list' );
+$route_exposee = false;
+foreach ( $prototype_routes as $route ) {
+	if ( false !== strpos( $ajax_source, "'" . $route . "'" ) ) {
+		$route_exposee = true;
+	}
+}
+check( ! $route_exposee, 'les points d’entrée AJAX des prototypes ne sont pas exposés' );
+
+/* ---------------------------------------------------------------------
+ * Biais de longueur dans les QCM
+ *
+ * Une bonne reponse plus longue que ses leurres se reconnait sans lire la
+ * question : l'eleve coche l'option la plus developpee et reussit. Mesure
+ * du 6/11/2026 sur le referentiel : la bonne reponse etait l'option la
+ * plus longue dans 70,6 % des 377 QCM, et cocher toujours la plus longue
+ * donnait 66,0 % de reussite. Deux regles, desormais verifiees :
+ *
+ *   1. aucune bonne reponse n'est l'option la PLUS longue de son QCM ;
+ *   2. sur l'ensemble, la bonne reponse n'est l'option la plus longue que
+ *      dans une minorite nette de cas (25 % au plus).
+ *
+ * La regle 2 empeche de remplacer un biais par son inverse : une bonne
+ * reponse toujours plus courte se reconnait aussi vite.
+ * ------------------------------------------------------------------ */
+
+$qcm_total      = 0;
+$qcm_plus_longue = 0;
+$qcm_fautives   = array();
+
+foreach ( array( 'operations' => seca_default_rooms_d4() ) as $loterie => $rooms ) {
+	foreach ( (array) $rooms as $room ) {
+		foreach ( (array) ( isset( $room['tasks'] ) ? $room['tasks'] : array() ) as $task ) {
+			foreach ( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) as $q ) {
+				if ( empty( $q['choices'] ) || 'choice' !== ( isset( $q['mode'] ) ? $q['mode'] : '' ) ) {
+					continue;
+				}
+
+				$ok  = (int) $q['correct'];
+				$max = 0;
+
+				foreach ( $q['choices'] as $choix ) {
+					$max = max( $max, mb_strlen( $choix ) );
+				}
+
+				$qcm_total++;
+
+				if ( mb_strlen( $q['choices'][ $ok ] ) === $max ) {
+					$qcm_plus_longue++;
+					$qcm_fautives[] = $loterie . ' | ' . $room['title'] . ' | ' . mb_substr( $q['question'], 0, 60 );
+				}
+			}
+		}
+	}
+}
+
+check( $qcm_total > 0, 'le controle de biais de longueur trouve des QCM a mesurer' );
+check(
+	0 === count( $qcm_fautives ),
+	'aucune bonne reponse n est l option la plus longue de son QCM : ' . implode( ' / ', array_slice( $qcm_fautives, 0, 3 ) )
+);
+check(
+	$qcm_total > 0 && ( $qcm_plus_longue / $qcm_total ) <= 0.25,
+	'la bonne reponse n est l option la plus longue que dans une minorite de QCM ('
+		. $qcm_plus_longue . '/' . $qcm_total . ')'
+);
+
+/* Meme controle sur la banque d'examen : elle est tiree au sort, donc un
+   biais de longueur s'y paie directement en points de certification. */
+$banque_total    = 0;
+$banque_longue   = 0;
+$banque_fautives = array();
+
+foreach ( seca_banque_sy0_701() as $sujet => $questions ) {
+	foreach ( (array) $questions as $q ) {
+		if ( empty( $q['choices'] ) || count( $q['choices'] ) < 2 ) {
+			continue;
+		}
+
+		$ok  = (int) $q['correct'];
+		$max = 0;
+
+		foreach ( $q['choices'] as $choix ) {
+			$max = max( $max, mb_strlen( $choix ) );
+		}
+
+		$banque_total++;
+
+		if ( mb_strlen( $q['choices'][ $ok ] ) === $max ) {
+			$banque_longue++;
+			$banque_fautives[] = $sujet;
+		}
+	}
+}
+
+check( $banque_total > 0, 'le controle de biais de longueur trouve des questions dans la banque' );
+check(
+	( $banque_longue / max( 1, $banque_total ) ) <= 0.55,
+	'la banque SY0-701 ne donne pas la bonne reponse comme option la plus longue dans plus de 55 % des cas ('
+		. $banque_longue . '/' . $banque_total . ')'
+);
 
 /* ---------------------------------------------------------------------
  * Bilan

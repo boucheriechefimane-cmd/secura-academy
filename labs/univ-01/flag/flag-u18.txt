@@ -1,1 +1,1 @@
-FLAG=SECURA{risque_priorise}
+FLAG=SECURA{risque_composants obsoletes}

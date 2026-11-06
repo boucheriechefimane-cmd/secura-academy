@@ -1,12 +1,13 @@
-# Defi d12 - La regle du pare-feu
+# Defi d12 - Le processus qui consomme
 
-Ceinture 3 (orange) : Reseau, processus, configuration
+Ceinture 3 (orange)
 
-Outil attendu : grep
+Outil attendu : ps, sort, cat
 
-Le compte rendu du dojo (a lire dans la machine) :
+Le fichier processus.txt liste des processus avec leur consommation.
+Rapporte le NOM du processus qui consomme le plus de mémoire CPU, sous
+la forme SECURA{nom}.
+Indice : « sort -k2 -n processus.txt | tail -1 ».
 
-    12_pare_feu = FLAG=SECURA{port_ferme}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/3-orange/12-pare-feu.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

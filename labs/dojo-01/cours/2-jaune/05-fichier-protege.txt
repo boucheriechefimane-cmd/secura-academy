@@ -1,12 +1,15 @@
-# Defi d05 - Le fichier protege
+# Defi d05 - Le fichier protégé
 
-Ceinture 2 (jaune) : Permissions, proprietaire, contenu
+Ceinture 2 (jaune)
 
-Outil attendu : stat
+Outil attendu : ls -l, ls -la
 
-Le compte rendu du dojo (a lire dans la machine) :
+Le dossier /srv/dojo/2-jaune/coffre/ contient trois fichiers.
+Deux sont lisibles, un est protégé (droits 000). Le drapeau est
+le NOM du fichier protégé, entouré des accolades habituelles.
+sans son extension .txt.
+Indice : « ls -la coffre/ » montre les droits même quand tu ne peux
+pas lire le contenu.
 
-    05_fichier_protege = FLAG=SECURA{lecture_refusee}
-
-Ce que tu fais : tu ouvres le fichier /srv/dojo/2-jaune/05-fichier-protege.txt, tu trouves
-la ligne de compte rendu, et tu recopies la valeur entre accolades.
+Le drapeau n'est ecrit nulle part dans les documents du dojo :
+il est lu par le serveur, en root, dans /root/flags.

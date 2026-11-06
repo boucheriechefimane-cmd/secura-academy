@@ -1,0 +1,5 @@
+bash 1.2
+dojo-echo 3.4
+gourmand-d12 47.9
+sshd 0.4
+cron 0.1

@@ -1,11 +1,32 @@
-Notes de l'équipe
+Notes de l'equipe
 =================
 Le carnet de commandes plante quand on saisit un lot trop long.
-La version 0.9 est déployée sur les postes de l'accueil.
+La version 0.9 est deployee sur les postes de l'accueil.
 
-La.libc du serveur est connue : `ldd vulnerable` donne la version.
+Le carnet lit l'entree dans un tampon de 64 octets, sans verifier la
+longueur : au-dela, on ecrase la pile, y compris l'adresse de retour.
 
-Le carnet de commandes est installé par l'équipe « postes de l'accueil »
-avec un droit particulier : `ls -l /home/ctf/vulnerable` montre un « s »
-en FACE DU GROUPE (mode setuid). Le programme tourne donc avec les droits
-de root, même si c'est l'utilisateur « ctf » qui le lance.
+Un detail qui change tout : le programme contient une fonction
+d'administration, « lire_drapeau », qui n'est JAMAIS appelee par le cours
+normal. Objectif : detourner le programme pour qu'il l'execute.
+
+Deux reperes utiles (et pas la solution) :
+  - la table des symboles du binaire n'est pas strippee :
+    « nm vulnerable | grep lire_drapeau » donne l'adresse de la fonction ;
+  - le binaire est compile sans PIE, donc ses adresses ne bougent pas
+    d'une execution a l'autre (l'ASLR du noyau ne concerne que la pile
+    et les bibliotheques).
+
+Le drapeau n'est PAS pose en clair dans le binaire : il y est stocke en
+deux morceaux qui se recombinent par un OU exclusif. « strings » ne le
+donne donc pas. Deux facons legitimes de l'obtenir :
+
+  - faire faire le travail au programme : detourner son execution vers
+    « lire_drapeau », qui affiche le drapeau sur la sortie standard ;
+  - defaire le calcul soi-meme, a la main, en lisant les deux blocs dans
+    le binaire. C'est plus long et ce n'est pas ce que l'exercice
+    cherche a enseigner, mais c'est accepte par la plateforme.
+
+Aucun privilege particulier n'est necessaire : le programme s'execute
+avec les droits de l'utilisateur « ctf ». Le defi est le detournement
+de flot d'execution, pas l'elevation de privileges.

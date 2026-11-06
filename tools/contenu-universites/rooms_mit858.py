@@ -52,8 +52,8 @@ ROOMS = [
             {
                 'q': 'Dans la phrase « un pirate peut envoyer des requêtes forgées au service de facturation », qu\'est-ce qui est la menace et qu\'est-ce qui est la vulnérabilité ?',
                 'choices': [
-                    'La menace est le pirate ; la vulnérabilité est la requête forgée',
-                    'La menace est la requête forgée ; la vulnérabilité est le pirate',
+                    'La menace est le scénario ; la vulnérabilité est la faiblesse du service',
+                    'La menace est la requête forgée ; la vulnérabilité est le pirate lui-même',
                     'La menace et la vulnérabilité sont la même chose',
                     'Il n\'y a pas de vulnérabilité : une requête forgée est normale',
                 ],
@@ -68,15 +68,15 @@ ROOMS = [
                     'La confidentialité des données clients',
                     'L\'intégrité des données, même face à un administrateur malveillant',
                     'L\'intégrité et la disponibilité du service, car le pare-feu est infranchissable',
-                    'Rien : sans tester le système, aucune propriété ne peut être garantie',
+                    'Rien : un pare-feu ne traite qu\'une menace, pas les autres',
                 ],
                 'correct': 3,
                 'xp': 10,
-                'hint': 'Un mécanisme ne prouve rien tout seul : il faut savoir quelles hypothèses il repose.',
+                'hint': 'Un mécanisme ne prouve rien tout seul : il faut savoir sur quelles hypothèses il repose.',
                 'explain': 'Le pare-feu est un mécanisme, pas une preuve. Tant qu\'on n\'a pas énuméré le modèle de menace (adversaire interne ? vulnérabilité applicative ?), on ne peut pas affirmer que la politique est respectée. C\'est tout le message de la leçon : la sécurité se démontre, elle ne se suppose pas.',
             },
             {
-                'q': 'Tu as une base de données de 2 To de photos et un serveur web de 10 Go. Lequel protéger en premier ?',
+                'q': 'Tu as une base de 2 To de photos et un serveur web de 10 Go. Lequel protéger en premier ?',
                 'choices': [
                     'Le serveur web : c\'est ce que les clients touchent en premier',
                     'La base de photos : elle est plus volumineuse, donc plus importante',
@@ -92,18 +92,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — l\'analyse de risque',
         'mission': {
             'prompt': (
-                '<p>Sur la machine de la salle des cours, l\'équipe a laissé les livrables du semestre. '
-                'Dans <code>/srv/cours</code>, un dossier porte l\'analyse de risque du cours 6.858 : '
-                'elle liste les actifs, les adversaires possibles et les règles à faire respecter.</p>'
-                '<p><strong>Mission.</strong> Lis ce document et relève la <em>valeur du risque critique</em> '
-                'qu\'il annonce (la ligne de conclusion de l\'analyse). '
-                'Cette valeur est la preuve que tu as lu le document du cours.</p>'
+                '<p>Sur la machine de la salle des cours, l\'équipe a laissé les livrables du semestre. Dans <code>/srv/cours/mit858</code>, le document <code>analyse-risque.md</code> liste les actifs, les adversaires possibles et les règles à faire respecter.</p><p><strong>Mission.</strong> Le drapeau de cette room est l\'<em>empreinte du document</em>, pas une phrase qu\'il contient : les huit premiers caractères du sha256 de ce fichier. Une empreinte ne se lit pas, elle se calcule — c\'est la preuve que tu as ouvert le bon fichier.</p>\'<p>Exécute <code>sha256sum</code> sur le document, puis garde les huit premiers caractères.</p>'
             ),
-            'question': 'Releve la valeur du risque critique annonce dans l\'analyse de risque du cours.',
+            'question': 'Calcule l\'empreinte (sha256, 8 premiers caracteres) du document analyse-risque.md du cours 6.858.',
             'flag_path': '/root/flags/flag-u01.txt',
             'xp': 30,
-            'hint': 'Commence par lister les dossiers : <code>ls -R /srv/cours</code>. Le dossier du cours 6.858 contient un fichier .md.',
-            'explain': 'Une analyse de risque se lit comme une conclusion : le risque critique est celui qui, s\'il se réalise, casse la politique de sécurité. Le relever, c\'est appliquer le cours à un cas réel.',
+            'hint': 'La commande : <code>sha256sum /srv/cours/mit858/analyse-risque.md</code>, puis <code>cut -c1-8</code> sur la sortie. Vérifie d\'abord le nom exact du fichier avec <code>ls</code>.',
+            'explain': 'Une empreinte prouve deux choses d\'un coup : que tu as lu le bon fichier, et qu\'il n\'a pas changé depuis. C\'est exactement ce qu\'un auditeur fait pour vérifier une pièce : il ne croit pas le contenu, il vérifie le sceau.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',
@@ -111,9 +106,9 @@ ROOMS = [
             {
                 'q': 'Quel est le rôle exact d\'un « mécanisme de sécurité » ?',
                 'choices': [
-                    'Garantir à lui seul que la politique est respectée',
-                    'Faire appliquer la politique, tant que les hypothèses du modèle de menace sont vraies',
-                    'Remplacer le modèle de menace, qui devient inutile',
+                    'Garantir à lui seul que la politique est bien respectée',
+                    'Faire appliquer la politique, tant que le modèle de menace tient',
+                    'Remplacer le modèle de menace, qui devient alors inutile a tout jamais',
                     'Documenter les décisions prises pour l\'équipe',
                 ],
                 'correct': 1,
@@ -125,8 +120,8 @@ ROOMS = [
                 'q': 'Ton service doit être accessible depuis chez les élèves, mais seulement les enseignants doivent pouvoir changer les paramètres. Quelle politique ?',
                 'choices': [
                     'Tout le monde peut changer les paramètres, c\'est plus simple',
-                    'Seuls les enseignants peuvent changer les paramètres ; tous les élèves peuvent utiliser le service',
-                    'Les élèves accèdent au service par le réseau interne uniquement',
+                    'Les enseignants changent les paramètres ; les élèves utilisent le service',
+                    'Les élèves accèdent au service par le réseau interne de l\'école uniquement',
                     'Le service n\'est accessible qu\'aux enseignants',
                 ],
                 'correct': 1,
@@ -138,21 +133,21 @@ ROOMS = [
                 'q': 'Un service tourne avec les droits root alors qu\'il n\'a besoin que de lire un fichier. Que vaut-il faire ?',
                 'choices': [
                     'Laisser tel quel : root marche toujours',
-                    'Retirer les droits superflus : c\'est la séparation des privilèges',
+                    'Retirer les droits superflus : c\'est le moindre privilège',
                     'Ajouter un second service root pour la redondance',
-                    'Désinstaller le service et le remplacer par un script maison',
+                    'Désinstaller le service et le remplacer par un script bricolé à la main',
                 ],
                 'correct': 1,
                 'xp': 10,
-                'hint': 'C\'est la leçon 4 du cours : « Privilege Separation ».',
+                'hint': 'Deux principes voisins : retirer les droits inutiles, c\'est le moindre privilège ; découper le service en parties, c\'est la séparation des privilèges.',
                 'explain': 'Retirer les droits superflus, c\'est appliquer le principe du moindre privilège : si le service est compromis, l\'attaquant n\'obtient qu\'un compte sans privilège. La leçon 4 du cours en fait un principe à part entière.',
             },
             {
                 'q': 'Un pare-feu bloque 100 % des requêtes externes, mais l\'application a une injection SQL. Que conclure ?',
                 'choices': [
-                    'Le système est sûr : le pare-feu bloque tout',
-                    'Le système est sûr tant que personne n\'essaie',
-                    'Le mécanisme ne couvre pas la menace : il reste une vulnérabilité applicative',
+                    'Le système est sûr : le pare-feu bloque absolument tout le trafic',
+                    'Le système est sûr tant que personne n\'essaie de le tester vraiment',
+                    'Le mécanisme ne couvre pas la menace : la faille demeure',
                     'Il faut remplacer le pare-feu par un antivirus',
                 ],
                 'correct': 2,
@@ -224,9 +219,9 @@ ROOMS = [
             {
                 'q': 'Un programme déborde et écrase l\'adresse de retour. Que se passe-t-il au canari ?',
                 'choices': [
-                    'Il bloque l\'écriture : le programme refuse de déborder',
+                    'Il bloque l\'écriture : le programme refuse net de déborder',
                     'Il n\'est pas touché : il protège la pile entière',
-                    'Il est écrasé lui aussi, et le programme le remarque au retour et s\'arrête',
+                    'Il est écrasé lui aussi, et le programme le remarque au retour puis s\'arrête',
                     'Il est chiffré, donc l\'attaquant ne peut pas le lire',
                 ],
                 'correct': 2,
@@ -237,7 +232,7 @@ ROOMS = [
             {
                 'q': 'Le programme est compilé avec ASLR, NX et un canari. Quelle attaque reste possible ?',
                 'choices': [
-                    'Aucune : les trois défense_rules rendent l\'exploitation impossible',
+                    'Aucune : les trois défenses rendent l\'exploitation impossible',
                     'L\'injection SQL sur la base de l\'application',
                     'Le ROP : rebondir sur des morceaux de code existants',
                     'La capture du trafic réseau en clair',
@@ -271,8 +266,8 @@ ROOMS = [
                 'q': 'Quel est le but exact d\'ASLR ?',
                 'choices': [
                     'Chiffrer la mémoire du programme',
-                    'Déplacer les zones de mémoire à chaque exécution pour viser à l\'aveugle',
-                    'Empêcher le programme d\'écrire hors du buffer',
+                    'Déplacer les zones mémoire à chaque exécution',
+                    'Empêcher le programme d\'écrire en dehors du buffer alloué',
                     'Vérifier que le binaire n\'a pas été modifié',
                 ],
                 'correct': 1,
@@ -283,10 +278,10 @@ ROOMS = [
             {
                 'q': 'Pourquoi le NX rend-il nécessaire le ROP ?',
                 'choices': [
-                    'Parce que NX autorise l\'exécution dans le tas mais pas dans la pile',
-                    'Parce que la pile n\'est plus exécutable : le code déposé ne peut pas être lancé directement',
-                    'Parce que NX chiffre la pile',
-                    'Parce que NX désactive le canari',
+                    'Parce que NX autorise l\'exécution dans le tas mais jamais dans la pile',
+                    'Parce que la pile n\'est plus exécutable : il faut réutiliser du code',
+                    'Parce que NX chiffre la pile du programme au repos',
+                    'Parce que NX désactive le canari de la pile',
                 ],
                 'correct': 1,
                 'xp': 10,
@@ -296,10 +291,10 @@ ROOMS = [
             {
                 'q': 'Un programme C lit avec <code>gets()</code> dans un buffer de 32 octets. Quel est le vrai problème ?',
                 'choices': [
-                    'gets() est trop lent',
-                    'gets() n\'a aucune limite : la saisie peut dépasser le buffer et déborder',
-                    'gets() fonctionne uniquement en ASCII',
-                    'gets() ne fonctionne qu\'avec les tableaux',
+                    'gets() lit la saisie trop lentement',
+                    'gets() n\'a aucune limite : la saisie peut déborder',
+                    'gets() fonctionne uniquement en ASCII standard',
+                    'gets() ne fonctionne qu\'avec les tableaux de caractères bruts',
                 ],
                 'correct': 1,
                 'xp': 10,
@@ -309,10 +304,10 @@ ROOMS = [
             {
                 'q': 'Pourquoi le canari ne protège-t-il pas contre un débordement sur le tas ?',
                 'choices': [
-                    'Parce que le canari est trop court',
-                    'Parce que le canari est posé sur la pile, pas entre les blocs du tas',
-                    'Parce que le canari est chiffré',
-                    'Parce que le canari expire après quelques secondes',
+                    'Parce que le canari est trop court pour le tas',
+                    'Parce que le canari est sur la pile, pas entre les blocs',
+                    'Parce que le canari est chiffré par le compilateur',
+                    'Parce que le canari expire après quelques secondes de vie seulement',
                 ],
                 'correct': 1,
                 'xp': 10,
@@ -558,7 +553,7 @@ ROOMS = [
                 'q': 'Pourquoi le cours insiste-t-il sur la défense en profondeur après la leçon sur le bac à sable ?',
                 'choices': [
                     'Parce que le bac à sable est trop lent',
-                    'Parce qu\'un mécanisme unique peut avoir une faille : les autres mechanisms limitent le dégât',
+                    'Parce qu\'un mécanisme unique peut avoir une faille : les autres mécanismes limitent le dégât',
                     'Parce qu\'il faut deux serveurs web',
                     'Parce que le bac à sable ne marche que sous Linux',
                 ],
@@ -733,16 +728,13 @@ ROOMS = [
         'mission_title': 'Task 3 : La mission — les notes du cours web',
         'mission': {
             'prompt': (
-                '<p>Dans la salle des cours, le cours 6.858 a laissé ses <em>notes de la leçon web</em> '
-                '(le document qui récapitule SOP, CSRF et parades).</p>'
-                '<p><strong>Mission.</strong> Lis ces notes et relève la <em>valeur du nom du jeton</em> '
-                'utilisé dans l\'exemple du cours (le nom exact du paramètre, en minuscules, sans accolade).</p>'
+                '<p>Dans la salle des cours, le cours 6.858 a laissé ses <em>notes sur le web</em> (<code>/srv/cours/mit858/web-notes.txt</code>) : elles récapitulent la politique de même origine, le CSRF et sa parade.</p><p><strong>Mission.</strong> Le bloc de configuration du formulaire est dans le fichier, en trois colonnes : <code>csrf     = TOKEN-…</code>. La valeur du drapeau est ce qui suit le <code>=</code>, tel quel. Trouve-la avec une commande, pas à l\'œil.</p>'
             ),
-            'question': 'Releve le nom du jeton utilise dans l\'exemple du cours web.',
+            'question': 'Extrais la valeur du champ csrf dans les notes du cours web (web-notes.txt).',
             'flag_path': '/root/flags/flag-u05.txt',
             'xp': 30,
-            'hint': 'Les notes du cours web sont dans <code>/srv/cours/mit858</code> (fichier .txt ou .md).',
-            'explain': 'Reconnaître le nom du jeton dans un exemple concret, c\'est être capable de l\'utiliser ensuite dans un vrai formulaire.',
+            'hint': 'La ligne est indentée : <code>grep "^ *csrf" /srv/cours/mit858/web-notes.txt</code> la trouve, puis <code>cut -d" " -f5</code> isole la valeur. Plus court : <code>awk \'/^ *csrf *=/{print $3}\' /srv/cours/mit858/web-notes.txt</code>.',
+            'explain': 'Un jeton anti-CSRF est une valeur aléatoire liée à la session : le formulaire légitime la connaît, un site tiers ne peut pas la deviner. Le lire dans un fichier de configuration, c\'est comprendre où le serveur la range et comment un attaquant pourrait la voler.',
         },
         'exam_title': 'Task 4 : Examen de fin de room',
         'exam_intro': '<p>Quatre questions chronométrées. 60 % suffisent pour valider.</p>',

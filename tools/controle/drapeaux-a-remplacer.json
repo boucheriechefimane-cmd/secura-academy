@@ -1,0 +1,3 @@
+{
+  "_note": "Dettes de drapeau lisible. Vide depuis le 6 novembre 2026 : les 15 drapeaux de univ-01 qui se lisaient dans un document de cours ont ete convertis en valeurs derivees (voir labs/univ-01/make-lab.py et tools/labs/epreuves-univ.py). Une entree revient ici des qu'un nouveau document se met a contenir une valeur, avec sa date butoir."
+}

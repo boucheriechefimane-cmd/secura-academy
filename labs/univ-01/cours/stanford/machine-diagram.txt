@@ -1,26 +1,27 @@
-Schema de la machine - cours Stanford CS105
-=========================================
+Comment marche un ordinateur - cours Stanford CS105
+===================================================
 
-Quatre couches, de la donnee au programme
------------------------------------------
-1. Donnees : tout est binaire ; un caractere, une image, un son sont
-   des nombres.
-2. Memoire : une suite d'octets numerotes ; une adresse designe une case.
-   Une variable est un nom donne a une adresse.
-3. Instruction : une operation elementaire (charger, ajouter, stocker,
-   sauter).
-4. Cycle : le processeur prend l'instruction, l'execute, passe a la
-   suivante, sauf saut.
+De la donnee au programme
+-------------------------
+La memoire est une suite de cases numerotees. Un programme est une suite
+d'instructions rangees dans ces cases. L'adresse, c'est le numero de la
+case.
 
-Chiffres du schema
-------------------
-    address_size      = 8 octets (64 bits)
-    bus_width         = 64 bits
-    word_size         = 8 octets
-    address_size_bytes = FLAG=SECURA{adresse_64_bits}
+Ce que dit le schema de la machine
+----------------------------------
+    processeur      = 64 bits
+    word_size       = 8 octets
+    adresse         = 8 octets
+    memoire         = 16 Go
+    registre        = 16 registres generaux
 
-Consequence pour la securite
------------------------------
-Sans ASLR, les adresses sont previsibles ; c'est pourquoi le processus
-aleatoire des adresses existe, et pourquoi une fuite d'adresse est si
-precieuse pour un attaquant.
+Pourquoi 64 bits compte
+-----------------------
+Un processeur 64 bits peut adresser beaucoup plus de memoire qu'un 32
+bits : 2^64 adresses possibles, contre 2^32.
+
+Exercice de l'atelier
+---------------------
+Releve la taille d'une adresse, en octets :
+
+    grep "^adresse " /srv/cours/stanford/tailles.txt | cut -d" " -f3

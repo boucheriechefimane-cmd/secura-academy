@@ -1,1 +1,1 @@
-FLAG=SECURA{cle_symetrique}
+FLAG=SECURA{crypto_2880}

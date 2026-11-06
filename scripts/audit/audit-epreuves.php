@@ -596,6 +596,7 @@ for ( $n = 0; $n < 4; $n++ ) {
 }
 
 $refuses   = array();
+$copies_non_servies = array();
 $verifiees = 0;
 
 foreach ( $rooms as $index_room => $room ) {
@@ -620,6 +621,22 @@ foreach ( $rooms as $index_room => $room ) {
 			audit_deverrouille_tache( $eleve['id'], $room->ID, $taches[ $i ], $i );
 		}
 
+		/* Un examen doit etre ouvert AVANT de livrer sa copie : c'est la
+		   regle du serveur (get_task repond 409 « exam_not_started »).
+		   On ouvre donc le chronometre, comme le navigateur le fait. */
+		if ( 'exam' === ( $tache['type'] ?? '' ) ) {
+			panel_appel(
+				admin_url( 'admin-ajax.php' ),
+				$eleve['cookie'],
+				array(
+					'action'  => 'secura_start_exam',
+					'room_id' => $room->ID,
+					'task'    => $index_tache,
+					'nonce'   => $eleve['nonce'],
+				)
+			);
+		}
+
 		$tache_servie = panel_appel(
 			admin_url( 'admin-ajax.php' ),
 			$eleve['cookie'],
@@ -634,6 +651,9 @@ foreach ( $rooms as $index_room => $room ) {
 		$donnees = json_decode( $tache_servie['corps'], true );
 
 		if ( ! is_array( $donnees ) || empty( $donnees['data']['task']['questions'] ) ) {
+			$copies_non_servies[] = 'room ' . $room->ID . ' (tache ' . $index_tache . ') : code '
+				. ( isset( $donnees['data']['code'] ) ? $donnees['data']['code'] : 'sans code' );
+
 			continue;
 		}
 
@@ -661,10 +681,33 @@ foreach ( $rooms as $index_room => $room ) {
 	}
 }
 
+/* Les quatre comptes de controle sont supprimes : l'audit ne doit pas
+   laisser de faux eleves dans la base (les anciennes executions en
+   laissaient quatre, visibles dans la liste des comptes). */
+$supprimes = 0;
+
+foreach ( $eleves as $eleve ) {
+	if ( ! empty( $eleve['id'] ) && get_user_by( 'id', $eleve['id'] ) ) {
+		require_once ABSPATH . 'wp-admin/includes/user.php';
+		wp_delete_user( $eleve['id'] );
+		$supprimes++;
+	}
+
+	@unlink( $eleve['cookie'] );
+}
+
+audit_info(
+	'Les comptes de contrôle',
+	$supprimes . ' compte(s) fictif(s) supprimé(s) après le contrôle : la base de recette ne garde pas d\'élève d\'audit.'
+);
+
 audit_verifier(
 	'toutes les questions de la copie servie sont acceptees par le serveur',
-	empty( $refuses ),
-	implode( ' ; ', array_slice( $refuses, 0, 6 ) ),
+	empty( $refuses ) && empty( $copies_non_servies ) && $verifiees > 0,
+	trim( implode( ' ; ', array_merge(
+		array_slice( $refuses, 0, 4 ),
+		array_slice( $copies_non_servies, 0, 4 )
+	) ) . ( $verifiees > 0 ? '' : 'aucune copie servie : le controle n a pas eu lieu' ) ) . ' (' . $verifiees . ' copie(s) servie(s))',
 	'majeur',
 	$verifiees . ' copie(s) verifiee(s) : on a tente de repondre a la derniere question de chaque copie servie, et le serveur ne l\'a jamais refusee'
 );

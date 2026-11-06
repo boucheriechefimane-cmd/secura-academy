@@ -3,7 +3,7 @@
  * Plugin Name:       Secura Academy
  * Plugin URI:        https://github.com/boucheriechefimane-cmd/secura-academy
  * Description:       Plateforme d'apprentissage gratuite et multilingue de la cybersécurité : parcours, rooms guidées, exercices pratiques, examens, XP, médailles et terminal simulé.
- * Version:           0.12.7
+ * Version:           0.13.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Secura Academy
@@ -451,7 +451,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SECURA_ACADEMY_VERSION', '0.12.7' );
+define( 'SECURA_ACADEMY_VERSION', '0.13.0' );
 define( 'SECURA_ACADEMY_FILE', __FILE__ );
 define( 'SECURA_ACADEMY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SECURA_ACADEMY_URL', plugin_dir_url( __FILE__ ) );
@@ -478,18 +478,32 @@ define( 'SECURA_USER_LANG', 'secura_lang' );
 define( 'SECURA_USER_RANKS', 'secura_ranks' );
 define( 'SECURA_OPTION_FIRST_BLOOD', 'secura_first_blood' );
 
+require_once SECURA_ACADEMY_PATH . 'includes/i18n/loader.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-i18n.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-rooms.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-sources.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-paths.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-progress.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-exam.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-terminal.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-lab.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-solution.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-blanc.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-gate.php';
+/* Les prototypes de front, d'examen et de certificat du ZIP ne sont pas
+   charges : leurs contrats et la protection des PDF restent a corriger.
+   Voir includes/EXPERIMENTAL-ZIP.md avant toute activation. */
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-settings.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-ajax.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-dashboard.php';
 require_once SECURA_ACADEMY_PATH . 'includes/default-content.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-m3.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-sy0-701-banque.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-d5.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-d4.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-d1.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-d2.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-d3.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-universites.php';
 
 /* Les questions importees depuis l'exterieur (universites, examens).
@@ -561,6 +575,9 @@ final class Secura_Academy {
 		Secura_Llms::init();
 		Secura_Site::init();
 		Secura_Authors::init();
+		/* La page « Sources et licences » : l'attribution unique exigee par
+		   les licences Creative Commons de type BY. */
+		Secura_Sources::init();
 	}
 }
 

@@ -29,7 +29,7 @@ Exercice du carnet
     buffer_size   = 32
     canary_size   = 8
     offset_to_return_address = 40
-    notes         = FLAG=SECURA{pile_x86}
+    notes         = a determiner par l'eleve (canary_size / 8)
 
 Pour verifier : 32 octets de buffer + 8 octets de canari = 40 octets
 avant l'adresse de retour.

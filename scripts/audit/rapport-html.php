@@ -43,22 +43,11 @@ function audit_html_rapport( $a ) {
 		'info'     => array( 'libelle' => 'Info',     'couleur' => '#4b5563', 'fond' => '#f1f3f5' ),
 	);
 
-	$total   = $a['bloquant'] + $a['majeur'] + $a['mineur'] + $a['info'];
+	$total = $a['bloquant'] + $a['majeur'] + $a['mineur'] + $a['info'];
 	$non_etaye = isset( $a['non_etaye'] ) ? $a['non_etaye'] : 0;
-
-	if ( $a['bloquant'] > 0 ) {
-		$verdict = 'Non conforme';
-		$phrase  = $a['bloquant'] . ' constat(s) bloquant(s) : correction exigée avant toute mise en ligne.';
-		$teinte  = '#b3261e';
-	} elseif ( $a['majeur'] > 0 ) {
-		$verdict = 'Réserves';
-		$phrase  = $a['majeur'] . ' constat(s) majeur(s) à traiter avant la prochaine version.';
-		$teinte  = '#9a5b00';
-	} else {
-		$verdict = 'Conforme avec observations';
-		$phrase  = 'Aucun constat bloquant ni majeur.';
-		$teinte  = '#1b7f4b';
-	}
+	$non_etayes_graves = audit_non_etayes_graves( $a );
+	$verdict = audit_verdict( $a );
+	$teinte = $verdict['couleur'];
 
 	$h  = "<!DOCTYPE html>\n";
 	$h .= '<html lang="fr"><head><meta charset="utf-8">' . "\n";
@@ -118,10 +107,13 @@ CSS;
 
 	/* Verdict */
 	$h .= '<div class="verdict" style="--teinte:' . $teinte . '">';
-	$h .= '<span class="badge">' . audit_html( $verdict ) . '</span>';
-	$h .= '<p>' . audit_html( $phrase );
+	$h .= '<span class="badge">' . audit_html( $verdict['libelle'] ) . '</span>';
+	$h .= '<p>' . audit_html( $verdict['phrase'] );
 	if ( $non_etaye > 0 ) {
-		$h .= '<br><strong>' . $non_etaye . ' constat(s) non étayé(s)</strong> — rejetés : une affirmation sans preuve n\'est pas un constat.';
+		$h .= '<br><strong>' . (int) $non_etaye . ' échec(s) non étayé(s)</strong> : une affirmation sans preuve n\'est pas un constat établi.';
+		if ( $non_etayes_graves > 0 ) {
+			$h .= ' La barrière échoue car ' . (int) $non_etayes_graves . ' contrôle(s) bloquant(s) ou majeur(s) manquent de preuve.';
+		}
 	}
 	$h .= '</p></div>' . "\n";
 
@@ -214,8 +206,23 @@ CSS;
 		}
 	}
 
+	/* Les échecs sans preuve sont visibles séparément, sans les présenter
+	   comme des constats établis. Leur gravité reste celle annoncée. */
+	if ( ! empty( $a['constats_non_etayes'] ) ) {
+		$h .= '<h2>Échecs non étayés (' . count( $a['constats_non_etayes'] ) . ')</h2>' . "\n";
+		$h .= '<p class="sub">Ces contrôles ont échoué mais doivent être vérifiés : aucune preuve n\'a été fournie.</p>' . "\n";
+		foreach ( $a['constats_non_etayes'] as $constat ) {
+			$h .= '<div class="constat"><div class="tete"><span class="etiquette">Non étayé — gravité annoncée : '
+				. audit_html( $constat['gravite'] ) . '</span><strong>' . audit_html( $constat['libelle'] ) . '</strong></div>';
+			if ( '' !== trim( (string) $constat['detail'] ) ) {
+				$h .= '<div class="corps"><p>' . audit_html( $constat['detail'] ) . '</p></div>';
+			}
+			$h .= '</div>' . "\n";
+		}
+	}
+
 	if ( 0 === $total ) {
-		$h .= '<h2>Faiblesses</h2><div class="aucune">Aucune faiblesse relevée sur ce périmètre.</div>' . "\n";
+		$h .= '<h2>Faiblesses étayées</h2><div class="aucune">Aucune faiblesse étayée sur ce périmètre.</div>' . "\n";
 	}
 
 	/* Honnêteté des limites */

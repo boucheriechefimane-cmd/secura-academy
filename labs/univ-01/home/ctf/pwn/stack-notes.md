@@ -18,4 +18,7 @@ Ordre de travail
 2. Reecrire le canari avec sa valeur d'origine.
 3. Placer l'adresse visee a la place de l'adresse de retour.
 
-Valeur de canari utilisee par le programme du TP : FLAG=SECURA{canari_connu}
+Valeur de canari utilisee par le programme du TP : releve-la dans
+/srv/cours/stanford/canari.txt, puis calcule son empreinte :
+
+    sha256sum /srv/cours/stanford/canari.txt | cut -c1-8

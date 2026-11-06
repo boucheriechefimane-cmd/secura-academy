@@ -42,32 +42,40 @@ function seca_default_rooms() {
 					'content' => '<p>Six questions pour vérifier que les trois réflexes sont acquis. Tu peux demander un indice : il te coûtera la moitié des points de la question.</p>',
 					'questions' => array(
 						array(
-							'question'    => 'Quel est le premier réflexe d\'un défenseur lorsqu\'il reçoit une alerte de sécurité ?',
-							'answers'     => array( 'Collecter des informations', 'Collecter de l\'information', 'Réunir des informations' ),
+							'question'    => 'Un défenseur reçoit une alerte de sécurité. Quel est son premier réflexe ?',
+							'mode'        => 'choice',
+							'choices'     => array( 'Relever l\'état : capture de la page, journaux et heure exacte', 'Redémarrer le serveur web pour faire disparaître l\'erreur affichée', 'Corriger tout de suite la requête fautive dans le code source', 'Supprimer la page du site en attendant de comprendre la cause' ),
+							'correct'     => 0,
 							'xp'          => 10,
-							'hint'        => 'On ne réagit pas à l\'aveugle.',
-							'explanation' => 'Avant d\'agir, on rassemble les faits : quoi, quand, où, quelle portée. Agir sans comprendre, c\'est risked aggraver l\'incident.',
+							'hint'        => 'On ne réagit pas à l\'aveugle : on constate d\'abord.',
+							'explanation' => 'Avant d\'agir, on rassemble les faits : quoi, quand, où, quelle portée. Agir sans comprendre, c\'est risquer d\'aggraver l\'incident et de détruire les preuves.',
 						),
 						array(
 							'question'    => 'Que signifie le principe du moindre privilège ?',
-							'answers'     => array( 'N\'accorder que les droits nécessaires', 'Accorder uniquement les droits nécessaires', 'Le moindre privilège' ),
+							'mode'        => 'choice',
+							'choices'     => array( 'N\'accorder que les droits nécessaires à l\'action en cours', 'Accorder tous les droits, puis les retirer en cas d\'abus', 'N\'accorder de droits qu\'aux comptes qui en font la demande', 'Accorder les mêmes droits à tous les comptes pour simplifier l\'audit' ),
+							'correct'     => 0,
 							'xp'          => 10,
-							'hint'        => 'Pense au nombre de droits d\'un compte.',
-							'explanation' => 'Un compte qui n\'a pas besoin d\'être administrateur ne doit pas l\'être : chaque droit inutile est une porte d\'entrée de plus.',
+							'hint'        => 'Pense au nombre de droits réellement utiles à une action.',
+							'explanation' => 'Un compte qui n\'a pas besoin d\'être administrateur ne doit pas l\'être : chaque droit inutile est une porte d\'entrée de plus, et une cible de plus en cas de vol du compte.',
 						),
 						array(
 							'question'    => 'En sécurité, que désigne la « surface d\'attaque » ?',
-							'answers'     => array( 'L\'ensemble des points d\'entrée accessibles', 'La somme des points d\'entrée', 'Les points d\'entrée accessibles' ),
+							'mode'        => 'choice',
+							'choices'     => array( 'L\'ensemble des points d\'entrée accessibles sur le système', 'Le nombre de vulnérabilités corrigées dans le dernier mois', 'La quantité de données stockées dans la base de production', 'Le nombre d\'utilisateurs connectés simultanément au service' ),
+							'correct'     => 0,
 							'xp'          => 10,
 							'hint'        => 'Ports, URL, comptes, API : tout ce qui peut être sollicité.',
-							'explanation' => 'Réduire la surface d\'attaque, c\'est réduire le nombre de points d\'entrée : fermer un port, retirer un compte, limiter une API.',
+							'explanation' => 'Réduire la surface d\'attaque, c\'est réduire le nombre de points d\'entrée : fermer un port, retirer un compte, limiter une API. Ce n\'est pas une mesure dans le temps, mais un inventaire.',
 						),
 						array(
 							'question'    => 'Quel document décrit les procédures à suivre lorsqu\'un incident est détecté ?',
-							'answers'     => array( 'Le plan de réponse à incident', 'La procédure de réponse à incident', 'Le plan d\'incident', 'La procédure d\'incident' ),
+							'mode'        => 'choice',
+							'choices'     => array( 'Le plan de réponse à incident, qui fixe rôles et escalade', 'Le registre des traitements, qui recense les données traitées', 'La politique de mot de passe, qui fixe la longueur minimale', 'Le plan de reprise, qui organise le redémarrage des services' ),
+							'correct'     => 0,
 							'xp'          => 10,
-							'hint'        => 'On y trouve qui fait quoi, et dans quel ordre.',
-							'explanation' => 'Le plan de réponse à incident formalise l\'escalade, les rôles et la communication : c\'est ce qui évite la panique et les mauvaises décisions.',
+							'hint'        => 'On y trouve qui fait quoi, et dans quel ordre, pendant la crise.',
+							'explanation' => 'Le plan de réponse à incident formalise l\'escalade, les rôles et la communication : c\'est ce qui évite la panique et les mauvaises décisions. Le plan de reprise traite l\'après, pas la crise elle-même.',
 						),
 					),
 				),
@@ -100,25 +108,31 @@ function seca_default_rooms() {
 					),
 					'questions' => array(
 						array(
-							'question'    => 'Quelle est la toute première action ?',
-							'answers'     => array( 'Collecter des informations', 'Collecter de l\'information', 'Réunir des informations' ),
+							'question'    => 'Une page interne affiche une erreur SQL avec un nom de table. Que fais-tu d\'abord ?',
+							'mode'        => 'choice',
+							'choices'     => array( 'Photographier l\'état : capture, journaux et heure exacte', 'Redémarrer le service pour faire disparaître le message d\'erreur', 'Corriger la requête dans le code source tout de suite', 'Supprimer la page du site en attendant de la comprendre' ),
+							'correct'     => 0,
 							'xp'          => 15,
-							'hint'        => 'Rien n\'est encore stabilisé : observe avant de toucher.',
-							'explanation' => 'Photographier l\'état (capture, logs, heure exacte) avant toute modification : sans preuve initiale, impossible de démontrer l\'impact ni de vérifier le correctif.',
+							'hint'        => 'Sans preuve initiale, impossible de démontrer l\'impact ni de vérifier le correctif.',
+							'explanation' => 'Photographier l\'état (capture, journaux, heure exacte) avant toute modification : c\'est la seule preuve de l\'impact initial et la seule base pour vérifier que le correctif a fonctionné.',
 						),
 						array(
-							'question'    => 'Que ne faut-il PAS faire en premier ?',
-							'answers'     => array( 'Éteindre le serveur', 'Supprimer les logs', 'Redémarrer le service', 'Corriger le code tout de suite', 'Éteindre la machine' ),
+							'question'    => 'Que ne faut-il surtout PAS faire en premier sur un serveur compromis ?',
+							'mode'        => 'choice',
+							'choices'     => array( 'Le redémarrer ou nettoyer les journaux pour repartir propre', 'Relever l\'heure exacte et la capture de la page en erreur', 'Copier les journaux sur un support séparé avant de toucher', 'Prévenir le responsable de la sécurité pour ouvrir l\'incident' ),
+							'correct'     => 0,
 							'xp'          => 15,
 							'hint'        => 'Tu perdrais la trace de ce qui s\'est passé.',
-							'explanation' => 'Redémarrer ou nettoyer supprime les preuves : logs, mémoire, coredump. Tu perds la cause et tu recommences à deviner.',
+							'explanation' => 'Redémarrer ou nettoyer supprime les preuves : journaux, mémoire, coredump. Tu perds la cause et tu recommences à deviner. Relever, copier et prévenir sont au contraire les bons gestes.',
 						),
 						array(
-							'question'    => 'La triade CIA est respectée sur les trois piliers ?',
-							'answers'     => array( 'Non, l\'intégrité est compromise', 'L\'intégrité est compromise', 'Non : l\'intégrité est touchée' ),
+							'question'    => 'Après un incident, le site répond et rien n\'a fuité, mais des lignes ont été modifiées. Quel pilier est touché ?',
+							'mode'        => 'choice',
+							'choices'     => array( 'L\'intégrité : la donnée a été altérée sans autorisation', 'La confidentialité : la donnée a été lue par un tiers', 'La disponibilité : le service ne répond plus aux clients', 'Aucun : un service qui répond encore est resté intact' ),
+							'correct'     => 0,
 							'xp'          => 15,
-							'hint'        => 'La donnée a-t-elle été altérée ?',
-							'explanation' => 'Une injection SQL exploité modifie des données : c\'est une violation d\'intégrité, la confidentialité peut encore tenir, mais la confiance dans la base est perdue.',
+							'hint'        => 'Le service répond, oui — mais la donnée est-elle encore celle qu\'on croit ?',
+							'explanation' => 'Une modification non autorisée viole l\'intégrité. La confidentialité tient (rien n\'a fuité) et la disponibilité tient (le site répond), mais la confiance dans la base est perdue.',
 						),
 					),
 				),
@@ -126,28 +140,46 @@ function seca_default_rooms() {
 					'type'       => 'exam',
 					'format'     => 'qcm',
 					'title'      => 'Task 4 : Examen',
-					'content'    => '<p>Trois questions, 10 minutes, seuil 70 %. Aucun indice : c\'est ton moment de vérifier que les réflexes sont automatisés.</p>',
+					'content'    => '<p>Quatre questions, 10 minutes, seuil 80 %. Aucun indice : c\'est ton moment de vérifier que les réflexes sont automatisés.</p>',
 					'time_limit' => 10,
-					'pass_score' => 70,
+					'pass_score' => 80,
 					'questions'  => array(
 						array(
 							'question'    => 'Quelle propriété de la triade CIA protège contre la modification non autorisée des données ?',
-							'answers'     => array( 'L\'intégrité', 'L\'intégrité des données' ),
+							'mode'        => 'choice',
+							'choices'     => array( 'L\'intégrité, qui garantit que la donnée n\'a pas été altérée', 'La confidentialité, qui empêche la lecture par un tiers', 'La disponibilité, qui garantit l\'accès quand on en a besoin', 'La traçabilité, qui conserve la trace de chaque modification' ),
+							'correct'     => 0,
 							'xp'          => 20,
-							'explanation' => 'La confidentialité protège la lecture, la disponibilité protège l\'accès, l\'intégrité protège la modification.',
+							'hint'        => 'Trois piliers : lecture, modification, accès. Lequel parle de modification ?',
+							'explanation' => 'La confidentialité protège la lecture, la disponibilité protège l\'accès, l\'intégrité protège la modification. La traçabilité est utile, mais ne fait pas partie de la triade.',
 						),
 						array(
-							'question'    => 'Quel est l\'objectif principal du moindre privilège ?',
-							'answers'     => array( 'Limiter l\'impact d\'une compromission', 'Réduire la surface d\'attaque', 'Limiter les dégâts en cas de compromission' ),
+							'question'    => 'Quel est l\'objectif principal du principe du moindre privilège ?',
+							'mode'        => 'choice',
+							'choices'     => array( 'Limiter l\'étendue des dégâts si un compte est compromis', 'Empêcher totalement qu\'un compte puisse être compromis un jour', 'Accélérer les connexions en supprimant les contrôles d\'accès', 'Tracer chaque action effectuée par un compte administrateur' ),
+							'correct'     => 0,
 							'xp'          => 20,
-							'explanation' => 'Si un compte est volé, ses droits limitent l\'étendue des dégâts : c\'est de la limitation de dégâts, pas de la prévention.',
+							'hint'        => 'Le moindre privilège ne prévient pas la compromission : il en limite la portée.',
+							'explanation' => 'Si un compte est volé, ses droits limitent l\'étendue des dégâts : c\'est de la limitation de dégâts, pas de la prévention. Le compte n\'est pas moins attaquable, il est moins puissant.',
 						),
 						array(
-							'question'    => 'Que documente le plan de réponse à incident ?',
-							'answers'     => array( 'Les procédures à suivre', 'La procédure d\'incident', 'Les procédures et les rôles' ),
+							'question'    => 'Que documente un plan de réponse à incident ?',
+							'mode'        => 'choice',
+							'choices'     => array( 'Les procédures, les rôles et l\'escalade en cas d\'incident', 'La liste des vulnérabilités présentes sur chacun des serveurs', 'Le chiffrement appliqué aux sauvegardes de la production', 'Les droits d\'accès accordés à chaque compte utilisateur' ),
+							'correct'     => 0,
 							'xp'          => 20,
-							'explanation' => 'Il documente les procédures, les rôles et l\'escalade : sa valeur vient de l\'anticipation, pas de l\'écrit.',
+							'hint'        => 'Qui fait quoi, et dans quel ordre, quand quelque chose arrive.',
+							'explanation' => 'Il documente les procédures, les rôles et l\'escalade : sa valeur vient de l\'anticipation, pas de l\'écrit. Une liste de vulnérabilités ou une matrice de droits sont d\'autres documents.',
 						),
+						array(
+							'question'    => 'Un serveur expose SSH, HTTP et une base de données sur Internet, mais personne n\'utilise SSH. Que faire en priorité ?',
+							'mode'        => 'choice',
+							'choices'     => array( 'Fermer le service SSH dont personne n\'a besoin', 'Changer le mot de passe root du serveur chaque semaine', 'Ajouter un antivirus sur la machine pour la protéger', 'Augmenter la taille des sauvegardes de la base' ),
+							'correct'     => 0,
+							'xp'          => 20,
+							'hint'        => 'Un service qui n\'est pas utilisé est une porte ouverte pour rien.',
+							'explanation' => 'La surface d\'attaque, ce sont les services joignables. Un service dont personne ne se sert peut être fermé : c\'est le gain le plus simple et le plus sûr.',
+						)
 					),
 				),
 			),
@@ -212,33 +244,39 @@ function seca_default_rooms() {
 					'questions' => array(
 						array(
 							'question'    => 'Sur quelle couche du modèle OSI se trouve le protocole TCP ?',
-							'answers'     => array( 'Couche 4', 'La couche 4', 'Couche transport', 'La couche transport', 'Transport' ),
+							'mode'        => 'choice',
+							'choices'     => array( 'La couche 4, transport, qui gère les segments et les ports', 'La couche 3, réseau, qui gère les adresses et le routage', 'La couche 2, liaison, qui gère les trames sur le lien local', 'La couche 7, application, qui gère les protocoles métier' ),
+							'correct'     => 0,
 							'xp'          => 10,
-							'hint'        => 'Compte : 1 physique, 2 liaison, 3 réseau, 4…',
-							'explanation' => 'TCP vit en couche 4 (transport) : il gère les segments, les ports et la fiabilité de bout en bout.',
+							'hint'        => 'TCP gère la fiabilité de bout en bout entre deux applications.',
+							'explanation' => 'TCP vit en couche 4 (transport) : il gère les segments, les ports et la fiabilité de bout en bout. UDP partage cette couche, sans la fiabilité.',
 						),
 						array(
 							'question'    => 'Quelle adresse identifie physiquement une carte réseau sur un réseau local ?',
-							'answers'     => array( 'L\'adresse MAC', 'Adresse MAC' ),
+							'mode'        => 'choice',
+							'choices'     => array( 'L\'adresse MAC, gravée sur l\'interface physique de la carte', 'L\'adresse IP, attribuée par le serveur DHCP du réseau local', 'Le numéro de port, attribué par le service qui écoute dessus', 'Le nom d\'hôte, résolu par le service de noms du réseau local' ),
+							'correct'     => 0,
 							'xp'          => 10,
-							'hint'        => 'Six octets, gravés dans la carte.',
-							'explanation' => 'L\'adresse MAC est un identifiant de couche 2 : elle identifie l\'interface physique, pas l\'hôte au sens IP.',
+							'hint'        => 'Physiquement : cette adresse est liée au matériel, pas au réseau.',
+							'explanation' => 'L\'adresse MAC est un identifiant de couche 2 : elle identifie l\'interface physique, pas l\'hôte au sens IP. L\'adresse IP, elle, change selon le réseau et le bail DHCP.',
 						),
 						array(
 							'question'    => 'Quel protocole est utilisé sur le port 443 ?',
-							'answers'     => array( 'HTTPS', 'https' ),
+							'mode'        => 'choice',
+							'choices'     => array( 'HTTPS, c\'est-à-dire HTTP transporté dans une session TLS', 'HTTP, qui circule en clair et se lit directement sur le réseau', 'SSH, qui ouvre un terminal distant chiffré sur le serveur', 'DNS, qui traduit les noms de domaine en adresses IP' ),
+							'correct'     => 0,
 							'xp'          => 10,
-							'hint'        => 'C\'est la version chiffrée du web.',
-							'explanation' => 'Le port 443 héberge HTTP sur TLS : le trafic est chiffré et l\'identité du serveur est vérifiée via son certificat.',
+							'hint'        => 'Le port 443 héberge HTTP sur TLS : le trafic est chiffré.',
+							'explanation' => 'Le port 443 héberge HTTP sur TLS : le trafic est chiffré et l\'identité du serveur est vérifiée via son certificat. Le port 80 est le même HTTP, mais en clair.',
 						),
 						array(
 							'question'    => 'Quel est le rôle principal d\'un pare-feu (firewall) ?',
 							'mode'        => 'choice',
-							'choices'     => array( 'Filtrer le trafic réseau', 'Chiffrer les données', 'Sauvegarder les fichiers', 'Accélérer la connexion' ),
+							'choices'     => array( 'Filtrer le trafic réseau selon une politique de flux définie', 'Chiffrer les données qui circulent entre deux machines', 'Sauvegarder les fichiers modifiés pendant la journée de travail', 'Accélérer la connexion en mettant les pages en cache' ),
 							'correct'     => 0,
 							'xp'          => 10,
-							'hint'        => 'Il autorise, refuse ou journalise les flux.',
-							'explanation' => 'Un pare-feu applique une politique de flux : c\'est un contrôle de périmètre, pas une protection des applications elles-mêmes.',
+							'hint'        => 'Un pare-feu applique une politique : il autorise ou refuse des flux.',
+							'explanation' => 'Un pare-feu applique une politique de flux : c\'est un contrôle de périmètre, pas une protection des applications elles-mêmes. Le chiffrement et le filtrage applicatif sont d\'autres briques.',
 						),
 					),
 				),
@@ -266,26 +304,29 @@ function seca_default_rooms() {
 					),
 					'questions' => array(
 						array(
-							'question'    => 'Quel est le flag trouvé dans le fichier de configuration ?',
-							'answers'     => array( 'SECURA{net_les_fundamentaux}', 'SECURA{net_les_fondamentaux}' ),
+							'question'    => 'Quel est le drapeau trouve dans le fichier de configuration ?',
+							'answers'     => array( 'SECURA{net_les_fondamentaux}', 'SECURA{net-les-fondamentaux}' ),
 							'xp'          => 15,
-							'requires_step' => 2,
-							'hint'        => 'Relis la sortie de la commande cat.',
-							'explanation' => 'Le flag était dans config.txt : il fallait d\'abord lister les fichiers, puis lire le bon.',
+							'hint'        => 'Il fallait d\'abord lister les fichiers, puis lire celui de configuration.',
+							'explanation' => 'Le drapeau se lisait dans config.txt : lister les fichiers, puis lire le bon.',
 						),
 						array(
 							'question'    => 'Sur quel port écoute un serveur web chiffré ?',
-							'answers'     => array( '443' ),
+							'mode'        => 'choice',
+							'choices'     => array( 'Le port 443, qui porte HTTP dans une session TLS', 'Le port 80, qui porte HTTP en clair sur le réseau', 'Le port 22, qui porte SSH pour l\'administration distante', 'Le port 21, qui porte FTP pour le transfert de fichiers' ),
+							'correct'     => 0,
 							'xp'          => 15,
-							'hint'        => 'C\'est le port standard de HTTPS.',
-							'explanation' => '443 est le port standard pour HTTP sur TLS ; 80 reste le port HTTP en clair.',
+							'hint'        => 'Chiffré : ce n\'est pas le port 80.',
+							'explanation' => '443 est le port standard pour HTTP sur TLS ; 80 reste le port HTTP en clair. Confondre les deux revient à exposer le site sans chiffrement.',
 						),
 						array(
 							'question'    => 'Quel protocole transporte les données sans connexion ni garantie de livraison ?',
-							'answers'     => array( 'UDP' ),
+							'mode'        => 'choice',
+							'choices'     => array( 'UDP, qui envoie les datagrammes sans retransmission', 'TCP, qui ouvre une session et retransmet les segments perdus', 'TLS, qui chiffre une session après une poignée de main', 'ICMP, qui transporte les messages de contrôle du réseau' ),
+							'correct'     => 0,
 							'xp'          => 15,
-							'hint'        => 'La voix et le streaming l\'utilisent.',
-							'explanation' => 'UDP ne retransmet pas : plus rapide, mais aucune garantie d\'arrivée ni d\'ordre. C\'est un choix, pas un défaut.',
+							'hint'        => 'Ni connexion, ni accusé de réception : c\'est un choix, pas un défaut.',
+							'explanation' => 'UDP ne retransmet pas : plus rapide, mais aucune garantie d\'arrivée ni d\'ordre. C\'est un choix pour la voix ou la vidéo, pas un défaut de conception.',
 						),
 						array(
 							'question'    => 'Termine l\'exploration de la machine et confirme que tu as lu le fichier de configuration.',
@@ -301,28 +342,46 @@ function seca_default_rooms() {
 					'type'       => 'exam',
 					'format'     => 'qcm',
 					'title'      => 'Task 4 : Examen',
-					'content'    => '<p>Trois questions, 10 minutes, seuil 70 %.</p>',
+					'content'    => '<p>Quatre questions, 10 minutes, seuil 80 %.</p>',
 					'time_limit' => 10,
-					'pass_score' => 70,
+					'pass_score' => 80,
 					'questions'  => array(
 						array(
 							'question'    => 'Quelle couche du modèle OSI gère l\'adressage logique des réseaux ?',
-							'answers'     => array( 'Couche 3', 'La couche 3', 'Réseau' ),
+							'mode'        => 'choice',
+							'choices'     => array( 'La couche 3, réseau, qui porte les adresses IP et le routage', 'La couche 2, liaison, qui porte les adresses physiques des cartes', 'La couche 4, transport, qui gère les ports et la fiabilité', 'La couche 7, application, qui porte les protocoles applicatifs' ),
+							'correct'     => 0,
 							'xp'          => 20,
-							'explanation' => 'La couche 3 (réseau) porte les adresses IP et le routage entre réseaux.',
+							'hint'        => 'Les adresses IP sont des adresses logiques, pas physiques.',
+							'explanation' => 'La couche 3 (réseau) porte les adresses IP et le routage entre réseaux. La couche 2 porte les adresses MAC, la couche 4 les ports, la couche 7 les protocoles applicatifs.',
 						),
 						array(
-							'question'    => 'Qu\'est-ce qu\'un port de service ?',
-							'answers'     => array( 'Un numéro qui identifie l\'application qui écoute', 'Un numéro identifiant un service sur une machine', 'Un identifiant de service' ),
+							'question'    => 'Qu\'est-ce qu\'un port de service, sur une machine ?',
+							'mode'        => 'choice',
+							'choices'     => array( 'Un numéro qui désigne l\'application qui écoute sur la machine', 'Un numéro qui désigne la machine elle-même sur le réseau local', 'Un numéro qui désigne la carte réseau utilisée par la machine', 'Un numéro qui désigne le compte autorisé à lancer le service' ),
+							'correct'     => 0,
 							'xp'          => 20,
-							'explanation' => 'Le port identifie l\'application destinataire sur une machine : c\'est ce qui permet à plusieurs services de cohabiter.',
+							'hint'        => 'Plusieurs services cohabitent sur une même machine : qu\'est-ce qui les distingue ?',
+							'explanation' => 'Le port identifie l\'application destinataire sur une machine : c\'est ce qui permet à plusieurs services de cohabiter sur une même adresse IP, chacun sur son port.',
 						),
 						array(
-							'question'    => 'Que permet une adresse MAC ?',
-							'answers'     => array( 'Identifier une interface réseau', 'Identifier la carte réseau', 'Identifier une interface physique' ),
+							'question'    => 'Que permet une adresse MAC, et jusqu\'où ?',
+							'mode'        => 'choice',
+							'choices'     => array( 'Identifier une interface réseau sur le lien local seulement', 'Identifier une machine sur l\'ensemble du réseau internet', 'Identifier le compte qui utilise la carte réseau à distance', 'Identifier le service qui écoute derrière cette carte réseau' ),
+							'correct'     => 0,
 							'xp'          => 20,
-							'explanation' => 'Elle identifie l\'interface physique sur le lien local ; elle n\'est pas routable au-delà du segment.',
+							'hint'        => 'Une adresse MAC est-elle routable au-delà du segment ?',
+							'explanation' => 'Elle identifie l\'interface physique sur le lien local ; elle n\'est pas routable au-delà du segment. C\'est l\'adresse IP qui porte le routage entre réseaux.',
 						),
+						array(
+							'question'    => 'Un site affiche un cadenas et une adresse en https:// : que garantit-elle ?',
+							'mode'        => 'choice',
+							'choices'     => array( 'Que le trafic entre le navigateur et le site est chiffré', 'Que le site ne contient aucune faille et ne sera jamais piraté', 'Que l\'identité de l\'internaute reste totalement anonyme', 'Que les données du site sont sauvegardées chaque nuit' ),
+							'correct'     => 0,
+							'xp'          => 20,
+							'hint'        => 'Le cadenas parle du trajet de la donnée, pas de la qualité du site.',
+							'explanation' => 'HTTPS chiffre le transport : un observateur du réseau ne lit plus le contenu. Cela ne dit rien de la sécurité du site lui-même, ni de l\'anonymat du visiteur.',
+						)
 					),
 				),
 			),
@@ -526,7 +585,7 @@ function seca_default_rooms() {
 				'image'      => 'securalabs/bin-01:1.0',
 				'command'    => 'sleep infinity',
 				'network'    => 'seca_lab',
-				'target'     => 'binaire vulnerable : /home/ctf/vuln',
+				'target'     => 'binaire vulnerable : /home/ctf/vulnerable',
 				'ttl'        => 3600,
 				'allow'      => array( 'ls', 'cat', 'file', 'checksec', 'gdb', 'python3', 'gcc' ),
 				'workdir'    => '/home/ctf',
@@ -993,11 +1052,15 @@ function seca_default_rooms() {
  * @param array $m3_room_ids  Identifiants des rooms M3 (dix scénarios), dans l'ordre.
  * @return array
  */
-function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array() ) {
+function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array(), $gouvernance_room_ids = array(), $menaces_room_ids = array(), $architecture_room_ids = array(), $concepts_room_ids = array() ) {
 	$room_ids       = array_values( array_map( 'absint', (array) $room_ids ) );
 	$m3_room_ids    = array_values( array_map( 'absint', (array) $m3_room_ids ) );
 	$uni_room_ids   = array_values( array_map( 'absint', (array) $uni_room_ids ) );
 	$avance_room_ids = array_values( array_map( 'absint', (array) $avance_room_ids ) );
+	$gouvernance_room_ids = array_values( array_map( 'absint', (array) $gouvernance_room_ids ) );
+	$menaces_room_ids = array_values( array_map( 'absint', (array) $menaces_room_ids ) );
+	$architecture_room_ids = array_values( array_map( 'absint', (array) $architecture_room_ids ) );
+	$concepts_room_ids = array_values( array_map( 'absint', (array) $concepts_room_ids ) );
 
 	$paths = array(
 		array(
@@ -1252,6 +1315,210 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 						array( 'title' => 'Lab 1: OWASP Juice Shop (2 rooms)' ),
 						array( 'title' => 'The dojo: five belts, twenty challenges (5 rooms)' ),
 						array( 'title' => 'The briefs and the review quiz (7 rooms)' ),
+					),
+				),
+			),
+		),
+		/* --------------------------------------------------------------
+		 * Parcours « Gouvernance et conformite » : les trois rooms du
+		 * domaine D5 de Security+ (20 % du score), ecrites pour combler
+		 * le trou mesure le 6 novembre 2026.
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Gouvernance, risque et conformite : 3 rooms D5',
+			'excerpt'    => 'Le domaine que tout le monde saute en preparation, et qui vaut 20 % du score Security+. On y audite un registre, un fournisseur et un rapport d\'audit.',
+			'content'    => 'Ces trois rooms couvrent le domaine D5 de Security+ : gouvernement et politiques, gestion des risques et registre, risque lie aux tiers, conformite et audits, et sensibilisation. Aucune ne se valide en lisant : a chaque fois, il faut lire une piece reelle (registre, questionnaire, journal) et rendre un verdict. Le terminal est simule : ces rooms fonctionnent sans machine, donc tout de suite.',
+			'difficulty' => 'moyen',
+			'duration'   => 95,
+			'xp_bonus'   => 150,
+			'certification' => array(
+				'nom'         => 'CompTIA Security+ (SY0-701) — domaine 5',
+				'cout'        => 'Examen : 439 $ (au 01/11/2026). Preparation gratuite (Professor Messer).',
+				'preparation' => 'Le domaine 5 pese 20 % du score : gouvernance, risque, tiers, conformite, sensibilisation. Ces trois rooms en couvrent les cinq sujets.',
+				'gratuit'     => false,
+			),
+			'sections'   => array(
+				array(
+					'title' => 'Risque et registre (5.1, 5.2)',
+					'rooms' => array_slice( $gouvernance_room_ids, 0, 1 ),
+				),
+				array(
+					'title' => 'Risque lie aux tiers (5.3)',
+					'rooms' => array_slice( $gouvernance_room_ids, 1, 1 ),
+				),
+				array(
+					'title' => 'Conformite et audits (5.4)',
+					'rooms' => array_slice( $gouvernance_room_ids, 2, 1 ),
+				),
+			),
+			'i18n'       => array(
+				'ar' => array(
+					'title'   => 'الحوكمة والمخاطر والامتثال: 3 غرف D5',
+					'excerpt' => 'المجال الذي يتخطاه الجميع في التحضير، ويمثل 20% من نتيجة Security+. نراجع سجلاً ومورّدًا وتقرير تدقيق.',
+					'sections' => array(
+						array( 'title' => 'المخاطر والسجل (5.1، 5.2)' ),
+						array( 'title' => 'مخاطر الأطراف الثالثة (5.3)' ),
+						array( 'title' => 'الامتثال والتدقيق (5.4)' ),
+					),
+				),
+				'en' => array(
+					'title'   => 'Governance, risk and compliance: 3 D5 rooms',
+					'excerpt' => 'The domain everyone skips while preparing, worth 20% of the Security+ score. You audit a register, a vendor and an audit report.',
+					'sections' => array(
+						array( 'title' => 'Risk and the register (5.1, 5.2)' ),
+						array( 'title' => 'Third-party risk (5.3)' ),
+						array( 'title' => 'Compliance and audits (5.4)' ),
+					),
+				),
+			),
+		),
+		/* --------------------------------------------------------------
+		 * Parcours « Menaces et traces » : les deux rooms du domaine D2
+		 * qui manquaient (attaques reseau 2.6, indicateurs de
+		 * compromission 2.8).
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Menaces et traces : 2 rooms D2',
+			'excerpt'    => 'Lire une capture reseau et une chronologie d\'incident : reconnaitre une interception, trier une trace entre vulnerabilite, artefact et vrai indicateur.',
+			'content'    => 'Deux sujets du domaine D2 (22 % du score Security+) n\'avaient aucune room. Ici, on ne recite pas les noms d\'attaques : on lit une capture ARP et un journal de connexions, et on nomme ce qu\'on voit. Le terminal est simule : ces rooms fonctionnent sans machine.',
+			'difficulty' => 'moyen',
+			'duration'   => 70,
+			'xp_bonus'   => 120,
+			'certification' => array(
+				'nom'         => 'CompTIA Security+ (SY0-701) — domaine 2',
+				'cout'        => 'Examen : 439 $ (au 01/11/2026). Preparation gratuite (Professor Messer).',
+				'preparation' => 'Attaques reseau (2.6) et indicateurs de compromission (2.8) : les deux sujets ou l\'on confond le plus facilement une theorie apprise et une competence reelle.',
+				'gratuit'     => false,
+			),
+			'sections'   => array(
+				array(
+					'title' => 'Attaques reseau et interception (2.6)',
+					'rooms' => array_slice( $menaces_room_ids, 0, 1 ),
+				),
+				array(
+					'title' => 'Indicateurs de compromission (2.8)',
+					'rooms' => array_slice( $menaces_room_ids, 1, 1 ),
+				),
+			),
+			'i18n'       => array(
+				'ar' => array(
+					'title'   => 'التهديدات والآثار: غرفتان D2',
+					'excerpt' => 'قراءة التقاط شبكة وتسلسل زمني لحادث: التعرف على اعتراض، وفرز أثر بين ثغرة وأثر طبيعي ومؤشر اختراق حقيقي.',
+					'sections' => array(
+						array( 'title' => 'هجمات الشبكة والاعتراض (2.6)' ),
+						array( 'title' => 'مؤشرات الاختراق (2.8)' ),
+					),
+				),
+				'en' => array(
+					'title'   => 'Threats and traces: 2 D2 rooms',
+					'excerpt' => 'Read a network capture and an incident timeline: recognise an interception, and sort a trace between vulnerability, artefact and a real indicator of compromise.',
+					'sections' => array(
+						array( 'title' => 'Network attacks and interception (2.6)' ),
+						array( 'title' => 'Indicators of compromise (2.8)' ),
+					),
+				),
+			),
+		),
+		/* --------------------------------------------------------------
+		 * Parcours « Architecture de securite » : les trois rooms du
+		 * domaine D3 de Security+ (18 % du score), ecrites pour combler
+		 * les sujets 3.1, 3.4 et 3.6, mesures absents le 6 novembre 2026.
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Architecture de securite : 3 rooms D3',
+			'excerpt'    => 'Le domaine ou l\'on decouvre que le cloud ne protege pas tout, et que personne ne sait qui devait verrouiller le seau de stockage.',
+			'content'    => 'Ces trois rooms couvrent les sujets 3.1 (modeles d\'architecture et responsabilite partagee), 3.4 (classification, DLP, chiffrement au repos) et 3.6 (IoT, embarque, industriel) du domaine D3. Chacune se termine par une mission ou l\'on produit un verdict : designer une responsabilite, etablir qu\'un fichier est lisible malgre son chiffrement, retrouver l\'objet qui exfiltre. Le terminal est simule : ces rooms fonctionnent sans machine, donc tout de suite.',
+			'difficulty' => 'moyen',
+			'duration'   => 115,
+			'xp_bonus'   => 190,
+			'certification' => array(
+				'nom'         => 'CompTIA Security+ (SY0-701) — domaine 3',
+				'cout'        => 'Examen : 439 $ (au 01/11/2026). Preparation gratuite (Professor Messer).',
+				'preparation' => 'Le domaine 3 pese 18 % du score : architecture, segmentation, moindre privilege, protection des donnees, resilience, IoT. Ces trois rooms couvrent les sujets 3.1, 3.4 et 3.6.',
+				'gratuit'     => false,
+			),
+			'sections'   => array(
+				array(
+					'title' => 'Modeles d\'architecture et responsabilite partagee (3.1)',
+					'rooms' => array_slice( $architecture_room_ids, 0, 1 ),
+				),
+				array(
+					'title' => 'Classification, DLP, chiffrement au repos (3.4)',
+					'rooms' => array_slice( $architecture_room_ids, 1, 1 ),
+				),
+				array(
+					'title' => 'IoT, embarque, systeme industriel (3.6)',
+					'rooms' => array_slice( $architecture_room_ids, 2, 1 ),
+				),
+			),
+			'i18n'       => array(
+				'ar' => array(
+					'title'   => 'هندسة الأمن: 3 غرف D3',
+					'excerpt' => 'المجال الذي نكتشف فيه أن السحابة لا تحمي كل شيء، وأن أحدًا لا يعرف من كان عليه إغلاق دلو التخزين.',
+					'sections' => array(
+						array( 'title' => 'نماذج الهندسة والمسؤولية المشتركة (3.1)' ),
+						array( 'title' => 'التصنيف ومنع تسرب البيانات والتشفير عند الراحة (3.4)' ),
+						array( 'title' => 'إنترنت الأشياء والأنظمة الصناعية (3.6)' ),
+					),
+				),
+				'en' => array(
+					'title'   => 'Security architecture: 3 D3 rooms',
+					'excerpt' => 'The domain where you discover that the cloud does not protect everything, and that nobody knows who was supposed to lock the storage bucket.',
+					'sections' => array(
+						array( 'title' => 'Architecture models and shared responsibility (3.1)' ),
+						array( 'title' => 'Classification, DLP, encryption at rest (3.4)' ),
+						array( 'title' => 'IoT, embedded, industrial systems (3.6)' ),
+					),
+				),
+			),
+		),
+
+		/* ------------------------------------------------------------
+		 * Domaine 1 : concepts generaux de la securite.
+		 *
+		 * Mesure du 7 novembre 2026 : les sujets 1.1 (controles),
+		 * 1.3 (zero trust), 1.4 (gestion du changement) et 1.7
+		 * (securite physique) n'avaient aucune room pratique. Le
+		 * referentiel les listait, le programme les ignorait.
+		 *
+		 * Trois rooms, parce que 1.4 et 1.7 se racontent ensemble :
+		 * un changement non documente qui ouvre une porte physique.
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Concepts generaux : 3 rooms du domaine 1',
+			'excerpt'    => 'Classer un controle avant de l\'acheter, placer un point de decision zero trust, et retrouver le changement qui a laisse une porte ouverte.',
+			'content'    => 'Ces trois rooms couvrent les sujets 1.1 (controles de securite), 1.3 (zero trust), 1.4 (gestion du changement) et 1.7 (securite physique) du domaine 1, qui pese 12 % du score Security+. Chaque room se termine par une mission ou l\'on produit un verdict : compter les controles preventifs d\'un rapport, compter les acces en confiance implicite d\'un audit, nommer le changement fautif d\'un journal. Le terminal est simule : ces rooms fonctionnent sans machine.',
+			'difficulty' => 'facile',
+			'duration'   => 100,
+			'xp_bonus'   => 185,
+			'certification' => array(
+				'nom'         => 'CompTIA Security+ (SY0-701) — domaine 1',
+				'cout'        => 'Examen : 439 $ (au 01/11/2026). Preparation gratuite (Professor Messer).',
+				'preparation' => 'Le domaine 1 pese 12 % du score : types de contrôles, fondamentaux de la securite, zero trust, gestion du changement, cryptographie, securite physique. Ces trois rooms couvrent les quatre sujets qui manquaient.',
+				'gratuit'     => false,
+			),
+			'sections'   => array(
+				array(
+					'title' => 'Controles de securite et categories (1.1)',
+					'rooms' => array_slice( $concepts_room_ids, 0, 1 ),
+				),
+				array(
+					'title' => 'Zero trust et confiance implicite (1.3)',
+					'rooms' => array_slice( $concepts_room_ids, 1, 1 ),
+				),
+				array(
+					'title' => 'Gestion du changement et securite physique (1.4 et 1.7)',
+					'rooms' => array_slice( $concepts_room_ids, 2, 1 ),
+				),
+			),
+			'i18n'       => array(
+				'en' => array(
+					'title'   => 'General concepts: 3 rooms of domain 1',
+					'excerpt' => 'Classify a control before buying it, place a zero trust decision point, and find the change that left a door open.',
+					'sections' => array(
+						array( 'title' => 'Security controls and categories (1.1)' ),
+						array( 'title' => 'Zero trust and implicit trust (1.3)' ),
+						array( 'title' => 'Change management and physical security (1.4 and 1.7)' ),
 					),
 				),
 			),

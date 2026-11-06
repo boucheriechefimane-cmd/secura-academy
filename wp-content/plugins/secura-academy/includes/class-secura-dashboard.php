@@ -72,12 +72,16 @@ final class Secura_Dashboard {
 		$current = Secura_I18n::current_lang();
 		$items   = '';
 
+		/* De vrais liens, avec une adresse par langue : le selecteur reste
+		   utilisable sans JavaScript, et chaque adresse sert vraiment la
+		   langue annoncee (voir Secura_I18n::url_pour_langue()). */
 		foreach ( Secura_I18n::languages() as $code => $language ) {
 			$items .= sprintf(
-				'<button type="button" class="seca-lang %1$s" data-seca-lang="%2$s" aria-pressed="%3$s">%4$s</button>',
+				'<a class="seca-lang %1$s" href="%2$s" data-seca-lang="%3$s" hreflang="%3$s" aria-current="%4$s">%5$s</a>',
 				$code === $current ? 'is-active' : '',
+				esc_url( Secura_I18n::url_pour_langue( $code ) ),
 				esc_attr( $code ),
-				$code === $current ? 'true' : 'false',
+				$code === $current ? 'page' : 'false',
 				esc_html( $language['native'] )
 			);
 		}

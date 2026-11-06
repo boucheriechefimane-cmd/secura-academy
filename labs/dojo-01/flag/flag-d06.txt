@@ -1,1 +1,1 @@
-FLAG=SECURA{compte_du_service}
+FLAG=SECURA{svc-dojoo}

@@ -1,1 +1,1 @@
-FLAG=SECURA{deux_categories}
+FLAG=SECURA{facteur_4}
