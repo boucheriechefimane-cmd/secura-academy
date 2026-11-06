@@ -106,7 +106,7 @@ ROOMS = [
             {
                 'q': 'Quel est le rôle exact d\'un « mécanisme de sécurité » ?',
                 'choices': [
-                    'Garantir à lui seul que la politique est respectée',
+                    'Garantir à lui seul que la politique est bien respectée',
                     'Faire appliquer la politique, tant que le modèle de menace tient',
                     'Remplacer le modèle de menace, qui devient alors inutile a tout jamais',
                     'Documenter les décisions prises pour l\'équipe',
@@ -145,9 +145,9 @@ ROOMS = [
             {
                 'q': 'Un pare-feu bloque 100 % des requêtes externes, mais l\'application a une injection SQL. Que conclure ?',
                 'choices': [
-                    'Le système est sûr : le pare-feu bloque tout',
+                    'Le système est sûr : le pare-feu bloque absolument tout le trafic',
                     'Le système est sûr tant que personne n\'essaie de le tester vraiment',
-                    'Le mécanisme ne couvre pas la menace : la faille applicative reste',
+                    'Le mécanisme ne couvre pas la menace : la faille demeure',
                     'Il faut remplacer le pare-feu par un antivirus',
                 ],
                 'correct': 2,
@@ -219,9 +219,9 @@ ROOMS = [
             {
                 'q': 'Un programme déborde et écrase l\'adresse de retour. Que se passe-t-il au canari ?',
                 'choices': [
-                    'Il bloque l\'écriture : le programme refuse de déborder',
+                    'Il bloque l\'écriture : le programme refuse net de déborder',
                     'Il n\'est pas touché : il protège la pile entière',
-                    'Il est écrasé lui aussi, et le programme le remarque au retour et s\'arrête',
+                    'Il est écrasé, et le programme le remarque au retour',
                     'Il est chiffré, donc l\'attaquant ne peut pas le lire',
                 ],
                 'correct': 2,
@@ -266,8 +266,8 @@ ROOMS = [
                 'q': 'Quel est le but exact d\'ASLR ?',
                 'choices': [
                     'Chiffrer la mémoire du programme',
-                    'Déplacer les zones de mémoire à chaque exécution pour viser à l\'aveugle',
-                    'Empêcher le programme d\'écrire hors du buffer',
+                    'Déplacer les zones mémoire à chaque exécution',
+                    'Empêcher le programme d\'écrire en dehors du buffer alloué',
                     'Vérifier que le binaire n\'a pas été modifié',
                 ],
                 'correct': 1,
@@ -278,10 +278,10 @@ ROOMS = [
             {
                 'q': 'Pourquoi le NX rend-il nécessaire le ROP ?',
                 'choices': [
-                    'Parce que NX autorise l\'exécution dans le tas mais pas dans la pile',
-                    'Parce que la pile n\'est plus exécutable : le code déposé ne peut pas être lancé directement',
-                    'Parce que NX chiffre la pile',
-                    'Parce que NX désactive le canari',
+                    'Parce que NX autorise l\'exécution dans le tas mais jamais dans la pile',
+                    'Parce que la pile n\'est plus exécutable : il faut réutiliser',
+                    'Parce que NX chiffre la pile du programme au repos',
+                    'Parce que NX désactive le canari de la pile',
                 ],
                 'correct': 1,
                 'xp': 10,
@@ -291,10 +291,10 @@ ROOMS = [
             {
                 'q': 'Un programme C lit avec <code>gets()</code> dans un buffer de 32 octets. Quel est le vrai problème ?',
                 'choices': [
-                    'gets() est trop lent',
-                    'gets() n\'a aucune limite : la saisie peut dépasser le buffer et déborder',
-                    'gets() fonctionne uniquement en ASCII',
-                    'gets() ne fonctionne qu\'avec les tableaux',
+                    'gets() lit la saisie trop lentement',
+                    'gets() n\'a aucune limite : la saisie peut déborder',
+                    'gets() fonctionne uniquement en ASCII standard',
+                    'gets() ne fonctionne qu\'avec les tableaux de caractères bruts',
                 ],
                 'correct': 1,
                 'xp': 10,
@@ -304,10 +304,10 @@ ROOMS = [
             {
                 'q': 'Pourquoi le canari ne protège-t-il pas contre un débordement sur le tas ?',
                 'choices': [
-                    'Parce que le canari est trop court',
-                    'Parce que le canari est posé sur la pile, pas entre les blocs du tas',
-                    'Parce que le canari est chiffré',
-                    'Parce que le canari expire après quelques secondes',
+                    'Parce que le canari est trop court pour le tas',
+                    'Parce que le canari est sur la pile, pas entre les blocs',
+                    'Parce que le canari est chiffré par le compilateur',
+                    'Parce que le canari expire après quelques secondes de vie seulement',
                 ],
                 'correct': 1,
                 'xp': 10,

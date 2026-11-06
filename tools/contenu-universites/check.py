@@ -183,6 +183,37 @@ def verifie_longueurs_par_longueur(where, choices, longueur_bonne, problems, lan
             '(%d car.) — a egalite, l\'eleve tire a pile ou face' % (where, langue, longueur_bonne))
 
 
+ECART_MEDIANE = 12  # au-dela, la bonne reponse se repere a sa seule taille
+
+
+def verifie_ecart_median(where, choices, correct, problems, langue):
+    """La bonne reponse est-elle beaucoup plus longue que les autres ?
+
+    Le controle principal compare la bonne reponse a la PLUS LONGUE : il
+    attrape le raccourci evident. Il laisse passer un autre signal, plus
+    discret et tout aussi efficace : une bonne reponse redigee comme une
+    explication au milieu de trois etiquettes courtes. Verifie a la main sur
+    univ-02 : « Parce que la pile n'est plus executable : le code depose ne
+    part plus » (70 car.) contre 50, 43 et 69 — saine pour le premier
+    controle, reperable a l'oeil pour un eleve.
+
+    On mesure donc aussi l'ecart a la MEDIANE des trois mauvaises.
+    """
+    if len(choices) != 4 or not 0 <= correct < len(choices):
+        return
+    longueurs = [len(choice) for choice in choices]
+    if max(longueurs) < LONGUEUR_SEUIL:
+        return
+    mauvaises = sorted(l for i, l in enumerate(longueurs) if i != correct)
+    mediane = (mauvaises[1] + mauvaises[2]) / 2.0
+    ecart = longueurs[correct] - mediane
+    if abs(ecart) > ECART_MEDIANE:
+        problems.append(
+            '%s [%s] : la bonne reponse se repere a sa taille (%d car. contre '
+            'une mediane de %.0f chez les mauvaises, ecart %+.0f)'
+            % (where, langue, longueurs[correct], mediane, ecart))
+
+
 def verifie_longueurs(where, choices, correct, problems, langue):
     """Ajoute un probleme si la bonne reponse est la plus longue.
 
@@ -455,6 +486,8 @@ def main():
                 gagnees_fr += 1
             verifie_longueurs('%s / %s' % (cle, question['q'][:40]), question['choices'],
                               question['correct'], problems, 'fr')
+            verifie_ecart_median('%s / %s' % (cle, question['q'][:40]), question['choices'],
+                                 question['correct'], problems, 'fr')
 
     index_php = index_corrects_du_php(CONTENU_PHP)
     total_en = 0
@@ -486,6 +519,8 @@ def main():
                 gagnees_en += 1
             verifie_longueurs(('%s / %s' % (cle, intitule)), propositions,
                               correct_fichier, problems, 'en')
+            verifie_ecart_median(('%s / %s' % (cle, intitule)), propositions,
+                                 correct_fichier, problems, 'en')
 
     print('longueur [fr] : %d question(s) mesuree(s), %d gagnable(s) a la longueur'
           % (total_fr, gagnees_fr))

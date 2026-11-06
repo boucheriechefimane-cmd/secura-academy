@@ -104,8 +104,8 @@ return array(
 					2 => array(
 						'question'    => 'A service runs as root although it only needs to read one file. What should be done?',
 						'choices'     => array(
-							'Leave it as it is: root always works',
-							'Add a second root service for redundancy',
+							'Leave it as it is: root always works fine',
+							'Add a second root service for redundancy purposes',
 							'Uninstall the service and replace it with a home-made script',
 							'Remove the unnecessary rights: that is privilege separation',
 						),
@@ -147,7 +147,7 @@ return array(
 						'question'    => 'A program overflows and overwrites the return address. What happens to the canary?',
 						'choices'     => array(
 							'It blocks the write: the program refuses to overflow',
-							'It gets overwritten too, and the program notices on return and stops',
+							'It is overwritten too, and noticed on return',
 							'It is not touched: it protects the whole stack',
 							'It recompiles the program automatically',
 						),
@@ -185,10 +185,10 @@ return array(
 					0 => array(
 						'question'    => 'What is the exact purpose of ASLR?',
 						'choices'     => array(
-							'Encrypt the memory of the program',
-							'Stop the program writing outside the buffer',
-							'Move memory areas on each run so the attacker aims blind',
-							'Check that the binary was not modified',
+							'Encrypt the memory of the program at rest',
+							'Stop the program from writing outside the buffer',
+							'Move the memory areas on every single run',
+							'Check that the binary was not modified since',
 						),
 						'hint'        => 'Two guesses: the layout is randomised, and the space is the address space.',
 						'explanation' => 'ASLR randomises addresses, so the attacker has to guess where the return address sits. It does not stop the write: it makes the target unpredictable.',
@@ -196,10 +196,10 @@ return array(
 					1 => array(
 						'question'    => 'Why does NX make ROP necessary?',
 						'choices'     => array(
-							'Because NX allows execution on the heap but not on the stack',
-							'Because NX encrypts the stack',
-							'Because NX disables the canary',
-							'Because the stack is no longer executable: code placed there cannot be run directly',
+							'Because NX allows execution on the heap but not on the stack at all',
+							'Because NX encrypts the whole stack in memory',
+							'Because NX disables the canary on the stack',
+							'Because the stack is not executable: placed code cannot run',
 						),
 						'hint'        => 'NX = No-eXecute. Which area do you place code in?',
 						'explanation' => 'With NX the stack is only data: leaving shellcode there is no longer enough. The attacker uses code fragments already present (gadgets) and builds a chain of calls: that is Return-Oriented Programming.',
@@ -207,10 +207,10 @@ return array(
 					2 => array(
 						'question'    => 'A C program reads with <code>gets()</code> into a {size}-byte buffer. What is the real problem?',
 						'choices'     => array(
-							'gets() has no limit: the input can exceed the buffer and overflow',
-							'gets() is too slow',
-							'gets() only works in ASCII',
-							'gets() only works with arrays',
+							'gets() has no limit: input can overflow it',
+							'gets() is far too slow for any real input',
+							'gets() only works in plain ASCII text',
+							'gets() only works with arrays of bytes in memory',
 						),
 						'hint'        => 'The function name says it all: "get" with no "n" and no size.',
 						'explanation' => '<code>gets()</code> reads a line without knowing the size of the array. It is the very example the course shows in the first minute, and the reason it must no longer be used.',
@@ -218,10 +218,10 @@ return array(
 					3 => array(
 						'question'    => 'Why does the canary not protect against a heap overflow?',
 						'choices'     => array(
-							'Because the canary is too short',
-							'Because the canary sits on the stack, not between heap blocks',
-							'Because the canary is encrypted',
-							'Because the canary expires after a few seconds',
+							'Because the canary is far too short for the job',
+							'Because the canary is on the stack, not in the heap',
+							'Because the canary is encrypted by the compiler',
+							'Because the canary simply expires after a few seconds',
 						),
 						'hint'        => 'Where does the canary live? And where is the heap?',
 						'explanation' => 'The canary is a stack mechanism: between the local variables and the return address. A heap overflow overwrites other data (pointers, block sizes) and the canary never sees it. Hence "electric fences" and other heap-side protections.',
