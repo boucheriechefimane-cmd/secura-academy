@@ -1570,4 +1570,210 @@ return array(
 		),
 	),
 
+	/* ---------------------------------------------------------------------
+	 * univ-16 — Publier en ligne : ce que les autres voient de toi
+	 * ------------------------------------------------------------------ */
+	'univ-16' => array(
+		'title'   => 'Publishing online: what others see of you',
+		'excerpt' => 'Social networks do not only show what you post: they show what your contacts post about you.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — what you post, what others post about you',
+				'content' => '<p>Publishing online is not just "posting a photo". Three things happen at once:</p><ul><li><strong>What you post</strong>: photos, location, school, opinions. What is published stays published: content can be copied, quoted, or resurface years later.</li><li><strong>What others post about you</strong>: a photo of you at a party, a mention, a like on a group photo. Others are free to post, even what you would have kept to yourself.</li><li><strong>What the platform knows</strong>: what you look at, your searches, your position, the time spent. Privacy settings exist, but they change often: you have to check them, not assume them.</li></ul><p>The useful reflexes:</p><ol><li><strong>Think before posting</strong>: the three-question rule — will this still concern me in five years? would I be happy for my family to see it? can I explain it to a recruiter?</li><li><strong>Check the settings</strong>: friend list, location, who can comment, who can add you. The defaults are often wide.</li><li><strong>Limit the traces</strong>: no full address, no badge photo, no information about your schedule.</li><li><strong>Report and step back</strong>: facing harassment or a threat, you block, you report, you keep evidence, and you do not answer.</li></ol><p><strong>Remember:</strong> on a social network you do not only publish: you make public what others say about you. That is what "visibility" means.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions: what you post, what you expose.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'A friend posts a photo of you at a party on a public account. What can you do?',
+						'choices'     => array(
+							'Nothing: it is their photo, they are allowed',
+							'Post the same photo back',
+							'Ask for removal, report the content if needed, keep a copy as evidence, and adjust your privacy settings',
+							'Change your password',
+						),
+						'hint'        => 'It is your image: you have levers, and they have to be used quickly.',
+						'explanation' => 'You can ask for removal (often enough), report, and above all keep evidence (screenshot, link, date): that is what helps if the situation worsens. In parallel, you tighten your settings for next time.',
+					),
+					1 => array(
+						'question'    => 'Why is posting live location during a trip discouraged?',
+						'choices'     => array(
+							'Because it uses data',
+							'Because phones switch off',
+							'Because travel photos are never allowed',
+							'Because it tells strangers exactly where you are, precisely when you are alone',
+						),
+						'hint'        => 'Who reads the information?',
+						'explanation' => 'Live location is an invitation. Burglaries and ambushes often start with this kind of information. The right reflex: post afterwards, not during.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the publishing charter',
+				'content' => '<p>In the classroom, the workshop left the social network <em>publishing charter</em> (the workshop rules).</p><p><strong>Mission.</strong> Read that charter and note the <em>recommended publishing delay value</em> after an event (<code>publish_delay_hours</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the publishing delay (publish_delay_hours) recommended in the publishing charter.',
+						'hint'        => 'The charter is in <code>/srv/cours/cyber</code>.',
+						'explanation' => 'A publishing delay is a simple rule that prevents many problems: you give the information time to calm down before sharing it.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is "visibility" on a social network?',
+						'choices'     => array(
+							'The brightness of the screen',
+							'The lifetime of a post',
+							'The size of the photo',
+							'The number of people who see what you post, you or your contacts',
+						),
+						'hint'        => 'It is the setting that decides who sees you.',
+						'explanation' => 'Visibility sets the audience: public, "friends", "close friends". It is the first setting to check on any new platform.',
+					),
+					1 => array(
+						'question'    => 'Why is "I will delete it later" not a protection?',
+						'choices'     => array(
+							'Because in the meantime it has already been copied, captured or indexed',
+							'Because social networks are slow',
+							'Because photos cannot be deleted',
+							'Because friends are not allowed to look',
+						),
+						'hint'        => 'Who else may have saved the capture?',
+						'explanation' => 'Published content can already be copied: screenshot, repost, search engine. The rule must therefore be "I do not post what I do not want to see circulating".',
+					),
+					2 => array(
+						'question'    => 'Facing an account harassing a friend, what do you do first?',
+						'choices'     => array(
+							'Answer to defend your friend',
+							'Report, block, and help the victim keep evidence',
+							'Share the screenshots so everyone sees',
+							'Do nothing: harassers stop quickly',
+						),
+						'hint'        => 'Answering often feeds the harasser\'s attention.',
+						'explanation' => 'Reporting and blocking cut the spread; keeping evidence makes later action possible (school, platform, possibly police). Answering often declares the attacker the "winner".',
+					),
+					3 => array(
+						'question'    => 'An online form asks for your school name and date of birth for a "contest". What do you do?',
+						'choices'     => array(
+							'Answer: it is only the school',
+							'Answer with fake information',
+							'Check who runs the form (official site, school address) before entering personal information',
+							'Ask a friend to do it for you',
+						),
+						'hint'        => 'A school name plus a date of birth is enough to identify someone.',
+						'explanation' => 'School name + date of birth = a near-complete identity. On top of that, "name + date of birth" is a very common pair for impersonation. Checking the organiser is the baseline.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * univ-17 — Hygiene numerique : le deuxieme facteur
+	 * ------------------------------------------------------------------ */
+	'univ-17' => array(
+		'title'   => 'Digital hygiene: the second factor',
+		'excerpt' => 'A six-digit code only protects if nobody can guess it: hence the code lists.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the three factors',
+				'content' => '<p>An authentication factor is a category of proof. There are three:</p><ul><li><strong>Something you know</strong>: a password, a PIN, a date of birth.</li><li><strong>Something you have</strong>: your phone, a USB key, a smart card.</li><li><strong>Something you are</strong>: your fingerprint, your face, your iris.</li></ul><p>Multi-factor authentication combines <strong>two different categories</strong>. That is what matters: a second factor that is also "something you know" (a PIN) does not protect against a stolen password.</p><p>And here is the nuance that separates "enabled" from "useful":</p><ul><li><strong>Code received by SMS</strong>: useful against password theft, but the number can be reassigned or intercepted (SIM swap). Correct, but improvable.</li><li><strong>Authenticator application</strong> (a six-digit code that changes every 30 seconds): much better, because nothing travels over the network.</li><li><strong>Physical key (FIDO2 / security key)</strong>: the most resistant, because it requires the physical presence of the key and cannot be guessed.</li></ul><p>And the two rules that remain: <strong>never share a code</strong> (no legitimate party will ever ask for it), and <strong>prefer the app to SMS</strong> when the service offers it.</p><p><strong>Remember:</strong> the second factor is only useful if it comes from a different category than the password. Otherwise it only blocks crude attempts.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions: the right factor, and the wrong reflex.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the best second factor for a mail account?',
+						'choices'     => array(
+							'A code received by SMS',
+							'A secret question: "what was the name of your first pet?"',
+							'A longer password',
+							'An authenticator application (a changing code) or a physical security key',
+						),
+						'hint'        => 'What you want is a factor that does not travel over the network.',
+						'explanation' => 'The authenticator app and the FIDO2 key are the strongest. SMS is correct but interceptable. The secret question is almost always guessable or findable online: it is "something you know", hence not a second factor.',
+					),
+					1 => array(
+						'question'    => 'A service asks for the code you received by SMS "to check it is really you". What do you do with it?',
+						'choices'     => array(
+							'Never give it: a code received by SMS is shared with nobody, and a legitimate service has no need to ask for it',
+							'Give it: that is the procedure',
+							'Give it only if it is your bank',
+							'E-mail it to your backup account',
+						),
+						'hint'        => 'Who is asking you to confirm something?',
+						'explanation' => 'The code proves that YOU are the one logging in. Giving it to someone hands them access. A legitimate service never asks for that code: it already has it, or it sends you a new one.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the workshop factors',
+				'content' => '<p>In the classroom, the CYBER.ORG workshop left the <em>factors sheet</em> (the document presenting the three authentication categories).</p><p><strong>Mission.</strong> Read that sheet and note the <em>recommended number of factors value</em> for a sensitive account (<code>recommended_factors</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the number of factors (recommended_factors) recommended for a sensitive account.',
+						'hint'        => 'The factors sheet is in <code>/srv/cours/cyber</code>.',
+						'explanation' => 'Knowing how many factors a sensitive account requires is knowing the level of protection you are aiming for.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is an authentication factor?',
+						'choices'     => array(
+							'A proof of identity belonging to a category: what you know, what you have, what you are',
+							'A complex password',
+							'A question asked by customer service',
+							'A code sent by e-mail',
+						),
+						'hint'        => 'The word "factor" refers to a category, not a format.',
+						'explanation' => 'A factor is a <em>category</em> of proof. Multi-factor means combining two of different categories.',
+					),
+					1 => array(
+						'question'    => 'Why is an SMS code considered a weaker second factor than an app?',
+						'choices'     => array(
+							'Because it is too long',
+							'Because it travels over the network and can be intercepted or diverted (SIM swap)',
+							'Because it expires too fast',
+							'Because it is not end-to-end encrypted',
+						),
+						'hint'        => 'What happens between the antenna and your phone?',
+						'explanation' => 'SMS goes through the mobile network: a number transfer (SIM swap) or an interception can be enough. The app computes the code on the device: nothing travels.',
+					),
+					2 => array(
+						'question'    => 'You get a call from a service asking for the SMS code you just received. What do you do?',
+						'choices'     => array(
+							'Give it: they have the information about your account',
+							'Ask for their postal address',
+							'Hang up and block the number: no legitimate party asks for that code, and the caller was waiting for you to give it',
+							'Give half of it',
+						),
+						'hint'        => 'The service already knows it sent you a code: it has no need to check it.',
+						'explanation' => 'A service that sent you a code knows it was sent. It cannot ask you for it "to check": that is the code-theft-by-call technique. You hang up, block, and report.',
+					),
+					3 => array(
+						'question'    => 'What makes a physical security key (FIDO2) so resistant?',
+						'choices'     => array(
+							'It is very long',
+							'It is encrypted by the manufacturer',
+							'It expires every year',
+							'It requires the physical presence of the key and cannot be guessed or intercepted',
+						),
+						'hint'        => 'It is not length that protects it, it is what it requires.',
+						'explanation' => 'The key cannot be copied by software: verification happens with the physical key, over an end-to-end protected channel. That is why phishing-resistant MFA is the benchmark.',
+					),
+				),
+			),
+		),
+	),
+
 );
