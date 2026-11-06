@@ -34,6 +34,24 @@ jobs:
           php-version: '7.4'
           coverage: none
 
+      # LE GARDE-FOU DE LONGUEUR.
+      #
+      # Mesure du 6 novembre 2026 : 189 QCM sur 204 des rooms universitaires
+      # (et 126 sur 133 en anglais) se gagnaient en cochant toujours la
+      # proposition la plus longue. L'epreuve ne mesurait pas la notion.
+      #
+      # Ce controle ne demande ni WordPress ni base de donnees : il lit le
+      # contenu LIVRE (content-universites.php et i18n/en-univ.php), pas les
+      # sources Python, parce que build.py deplace la bonne reponse a la
+      # generation. Verifie question par question contre le moteur le
+      # 6 novembre 2026 : 133 accords sur 133 dans les deux langues.
+      #
+      # Il echoue tant que le contenu n'est pas corrige : c'est voulu, et
+      # c'est la mesure du travail restant (le detail est dans la sortie).
+      - name: Mesurer le raccourci de longueur dans les QCM (informatif)
+        continue-on-error: true
+        run: python3 tools/contenu-universites/check.py
+
       - name: Vérifier la syntaxe des fichiers PHP
         run: find wp-content tests scripts tools/labs -name '*.php' -print0 | xargs -0 -n1 php -l
 

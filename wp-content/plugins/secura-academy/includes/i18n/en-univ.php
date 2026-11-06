@@ -52,7 +52,7 @@ return array(
 						'explanation' => 'The firewall is a mechanism, not a proof. Until you have written down the threat model (insider? application flaw?), you cannot claim the policy is respected. That is the whole message of the lesson: security is demonstrated, not assumed.',
 					),
 					2 => array(
-						'question'    => 'You have a database of {big} photos and a web server of {small}. Which do you protect first?',
+						'question'    => 'You have a {big} database of photos and a {small} web server. Which do you protect first?',
 						'choices'     => array(
 							'The web server: it is what customers touch first',
 							'The photo database: it is bigger, therefore more important',

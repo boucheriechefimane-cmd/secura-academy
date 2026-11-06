@@ -76,7 +76,7 @@ ROOMS = [
                 'explain': 'Le pare-feu est un mécanisme, pas une preuve. Tant qu\'on n\'a pas énuméré le modèle de menace (adversaire interne ? vulnérabilité applicative ?), on ne peut pas affirmer que la politique est respectée. C\'est tout le message de la leçon : la sécurité se démontre, elle ne se suppose pas.',
             },
             {
-                'q': 'Tu as une base de données de 2 To de photos et un serveur web de 10 Go. Lequel protéger en premier ?',
+                'q': 'Tu as une base de 2 To de photos et un serveur web de 10 Go. Lequel protéger en premier ?',
                 'choices': [
                     'Le serveur web : c\'est ce que les clients touchent en premier',
                     'La base de photos : elle est plus volumineuse, donc plus importante',

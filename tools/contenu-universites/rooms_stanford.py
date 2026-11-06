@@ -305,7 +305,7 @@ ROOMS = [
                 'explain': 'La séparation, c\'est ranger ce qui n\'a pas le même niveau de sensibilité dans des endroits différents : contenu public, données privées, secrets protégés, journaux techniques. Chaque zone a son contrôle d\'accès.',
             },
             {
-                'q': 'Une requête SQL constructed en concatenant une saisie utilisateur, même avec un échappement manuel, reste risquée. Pourquoi ?',
+                'q': 'Une requête SQL construite en concatenant une saisie utilisateur, même avec un échappement manuel, reste risquée. Pourquoi ?',
                 'choices': [
                     'Parce que SQL est un langage lent',
                     'Parce que l\'échappement manuel est fragile : chaque type de données a ses règles, et une règle oubliée rouvre la faille',

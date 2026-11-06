@@ -105,7 +105,7 @@ array(
 					'explanation' => 'Le pare-feu est un mécanisme, pas une preuve. Tant qu\'on n\'a pas énuméré le modèle de menace (adversaire interne ? vulnérabilité applicative ?), on ne peut pas affirmer que la politique est respectée. C\'est tout le message de la leçon : la sécurité se démontre, elle ne se suppose pas.',
 				),
 				array(
-					'question' => 'Tu as une base de données de {gros} de photos et un serveur web de {petit}. Lequel protéger en premier ?',
+					'question' => 'Tu as une base de {gros} de photos et un serveur web de {petit}. Lequel protéger en premier ?',
 					'mode' => 'choice',
 					'variants' => array(
 						array( 'gros' => '2 To', 'petit' => '10 Go' ),
@@ -4022,7 +4022,7 @@ array(
 					'explanation' => 'La séparation, c\'est ranger ce qui n\'a pas le même niveau de sensibilité dans des endroits différents : contenu public, données privées, secrets protégés, journaux techniques. Chaque zone a son contrôle d\'accès.',
 				),
 				array(
-					'question' => 'Une requête SQL constructed en concatenant une saisie utilisateur, même avec un échappement manuel, reste risquée. Pourquoi ?',
+					'question' => 'Une requête SQL construite en concatenant une saisie utilisateur, même avec un échappement manuel, reste risquée. Pourquoi ?',
 					'mode' => 'choice',
 					'choices' => array(
 						'Parce que SQL est un langage lent',
