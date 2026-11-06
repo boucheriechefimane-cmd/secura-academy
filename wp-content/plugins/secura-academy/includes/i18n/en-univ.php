@@ -44,7 +44,7 @@ return array(
 						'question'    => 'A firewall blocks every request coming from the Internet. Which property can your policy still guarantee?',
 						'choices'     => array(
 							'The confidentiality of customer data',
-							'Nothing: without testing the system, no property can be guaranteed',
+							'Nothing: a firewall handles one threat, not the others',
 							'The integrity of the data, even against a malicious administrator',
 							'Integrity and availability of the service, because the firewall cannot be crossed',
 						),
@@ -107,7 +107,7 @@ return array(
 							'Leave it as it is: root always works fine',
 							'Add a second root service for redundancy purposes',
 							'Uninstall the service and replace it with a home-made script',
-							'Remove the unnecessary rights: that is privilege separation',
+							'Remove the unnecessary rights: that is least privilege',
 						),
 						'hint'        => 'It is lesson 4 of the course: "Privilege Separation".',
 						'explanation' => 'Removing unnecessary rights applies least privilege: if the service is compromised, the attacker only gets an unprivileged account. Lesson 4 of the course makes it a principle in its own right.',
