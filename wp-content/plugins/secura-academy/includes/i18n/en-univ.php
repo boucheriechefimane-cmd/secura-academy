@@ -1982,4 +1982,313 @@ return array(
 		),
 	),
 
+	/* ---------------------------------------------------------------------
+	 * univ-20 — Journaux et audit
+	 * ------------------------------------------------------------------ */
+	'univ-20' => array(
+		'title'   => 'Logs and audit: the trace worth its weight in gold',
+		'excerpt' => 'No trace, no investigation: what to log, and what you must never log.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — log, alert, protect',
+				'content' => '<p>A log is the memory of the system. Without it, an incident becomes a novel: "it must have happened to someone, but I know neither when nor how". With it, you can rebuild the timeline and answer the three questions a review board always asks after an incident: <strong>what happened, did it happen again, were we warned</strong>.</p><p>What a log must contain:</p><ul><li><strong>Who</strong>: the account concerned (and the IP address if it is reliable).</li><li><strong>What</strong>: the action attempted (login, password change, export, denial).</li><li><strong>When</strong>: a precise timestamp, with time zone.</li><li><strong>Result</strong>: success or failure, and the error code.</li><li><strong>Origin</strong>: the IP, the user agent, the session identifier.</li></ul><p>And the <strong>two traps</strong> the video points out:</p><ol><li><strong>Logging too much</strong>: logging passwords, card numbers, session tokens or personal data. The log then becomes a sensitive database — and must be protected as such (restricted access, limited retention).</li><li><strong>Logging too little</strong>: not logging authentication failures, privilege changes, or accesses to sensitive data. Without those traces, you do not see an attack being prepared.</li></ol><p>And the part that is often forgotten: <strong>alerting</strong>. A log nobody watches has been useless. A simple rule: a log must trigger an alert when it contains a rare and severe pattern (a burst of failures, a permission change, a massive export).</p><p><strong>Remember:</strong> a log is not a technical trace, it is evidence. It must be timestamped, protected, and read.</p><p><strong>Going further, for free:</strong> <a href="https://portswigger.net/web-security" target="_blank" rel="noopener">PortSwigger\'s Web Security Academy</a> offers several hundred web labs on exactly these flaws (SQL injection, XSS, bypassing access controls, forged requests…). The labs are free and run on deliberately vulnerable applications. We do not reproduce their content: we point to it, naming the source and its address.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions: what to log, what not to log.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Which element must NEVER be written to a log?',
+						'choices'     => array(
+							'The timestamp',
+							'The source IP address',
+							'The password or session token in clear text',
+							'The result of the operation',
+						),
+						'hint'        => 'A log must let you rebuild an action, not replay an authentication.',
+						'explanation' => 'A log containing a password or a token is a bomb: whoever reads it takes the account. You log the event ("successful authentication for user X"), never the secret.',
+					),
+					1 => array(
+						'question'    => 'Why is it important to log authentication failures?',
+						'choices'     => array(
+							'To be able to block accounts permanently',
+							'Because the server requires it',
+							'To count active users',
+							'Because a burst of failures is an attack signal: it is often the first alert',
+						),
+						'hint'        => 'What did not succeed leaves a trace, and that trace often arrives first.',
+						'explanation' => 'Failure is the earliest signal of a brute-force attack. If it is not logged (or not monitored), you learn about it at the same time as the compromise: too late.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the logging plan',
+				'content' => '<p>In the classroom, the team left its <em>logging plan</em> (the list of events to log).</p><p><strong>Mission.</strong> Read that plan and note the <em>number of events value</em> planned for the log (<code>event_count</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the number of events (event_count) planned for the log in the logging plan.',
+						'hint'        => 'The plan is in <code>/srv/cours/owasp</code>.',
+						'explanation' => 'Counting the events to log is measuring whether a day of activity could be rebuilt. A short plan is a plan that leaves blind spots.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Which pieces of information are essential in a security log line?',
+						'choices'     => array(
+							'The full error message',
+							'The server version number',
+							'The terminal colour',
+							'Who, what, when, which result, from which origin',
+						),
+						'hint'        => 'Five elements: the five questions of an investigation.',
+						'explanation' => 'Without those five elements, the line does not let you rebuild the action: who did what, when, with which result, from where. The error message is useful but secondary.',
+					),
+					1 => array(
+						'question'    => 'A log contains the password in clear text "because support needs it". What should you think?',
+						'choices'     => array(
+							'It is a major risk: the log becomes a database of secrets, with a longer lifetime than the incident',
+							'It is acceptable if the log is well protected',
+							'It is the best practice',
+							'It is only forbidden in Europe',
+						),
+						'hint'        => 'Compare the lifetime of the log with that of the password.',
+						'explanation' => 'A password in a log outlives the password change: the log is often kept for months and read by many teams. The right practice is to log the event, never the secret.',
+					),
+					2 => array(
+						'question'    => 'A log is well fed, but nobody reads it. What is the flaw?',
+						'choices'     => array(
+							'None: writing is enough',
+							'Monitoring is part of the system: without an alert, the log is only useful after the incident',
+							'The log is too big',
+							'A second log must be written',
+						),
+						'hint'        => 'The point of a log is the alert, not the archive.',
+						'explanation' => 'A monitored log lets you act during the attack; an unmonitored log is an archive afterwards. Hence the importance of alert rules on rare and severe events.',
+					),
+					3 => array(
+						'question'    => 'Which event is most useful to log for detecting an ongoing compromise?',
+						'choices'     => array(
+							'A visitor arriving on the home page',
+							'The size of an image',
+							'A change of privilege or permissions',
+							'The loading of a style sheet',
+						),
+						'hint'        => 'Look for the rare and severe event, not the daily noise.',
+						'explanation' => 'Privilege changes (an account becoming administrator, an access to a sensitive file) are rare and severe: those are the ones that deserve an alert. The rest is noise.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * univ-21 — Comment marche un ordinateur
+	 * ------------------------------------------------------------------ */
+	'univ-21' => array(
+		'title'   => 'How a computer works: from data to program',
+		'excerpt' => 'From bits to instructions: what really happens between the keyboard and the result on screen.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — from data to program',
+				'content' => '<p>A computer "understands" nothing: it executes instructions, in order, at insane speed and without ever getting tired. Everything else is organisation.</p><p>The journey of a program, in four layers:</p><ol><li><strong>Data</strong>: everything is a binary number. A character is a number, an image is an array of numbers, a sound is a series of samples. The only unit of the machine is the bit.</li><li><strong>Memory</strong>: a long series of numbered bytes. Each slot carries an <em>address</em>. A variable is a name given to an address: the program handles names, the machine handles addresses.</li><li><strong>The instruction</strong>: an elementary operation (load, add, store, jump). A program is a long series of those instructions.</li><li><strong>The cycle</strong>: the processor takes the instruction at the address pointed to by the counter, executes it, moves to the next. Nothing else. That is where the security notions creep in: who controls the program counter, and what happens when you make it jump elsewhere?</li></ol><p>The notion of <strong>high-level language</strong> comes next: you write <code>x = 5 + 3</code>, the compiler translates it into instructions, the assembler translates those into machine codes, and the processor executes them. Each layer adds comfort… and sometimes errors (the famous <em>buffer overflows</em> come from the fact that the C layer does not protect memory).</p><p><strong>Remember:</strong> the computer is an instruction machine that handles addresses. All security rests on controlling three things: the data, the addresses, and the program counter.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions: what the machine does, and what the language hides.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What does a processor actually do?',
+						'choices'     => array(
+							'It reads instructions, executes them one by one, and moves to the next',
+							'It understands the program and runs it according to its meaning',
+							'It compiles the source code',
+							'It stores the data on disk',
+						),
+						'hint'        => 'The processor knows neither meaning nor intent: it follows a counter.',
+						'explanation' => 'The processor executes a stream of instructions driven by a program counter. All system security rests on controlling that counter — hence defences such as the canary or NX.',
+					),
+					1 => array(
+						'question'    => 'Why is the C language said to be "close to the machine"?',
+						'choices'     => array(
+							'Because it is faster than all other languages',
+							'Because it lets the programmer manage memory: there is no garbage collector and no automatic bounds checking',
+							'Because it was written in assembly',
+							'Because it has no functions',
+						),
+						'hint'        => 'It is not a question of speed, it is a question of guarantees.',
+						'explanation' => 'In C, memory management is the programmer\'s job: that is a power (performance, control) and a risk (overflows, use-after-free). That is exactly what the pwn.college labs exploit.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the machine diagram',
+				'content' => '<p>In the classroom, the Stanford course left its <em>machine diagram</em> (the document describing the layers, from data to the processor).</p><p><strong>Mission.</strong> Read that diagram and note the <em>number of bytes value</em> assigned to an address (<code>address_size</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the address size (address_size, in bytes) given in the machine diagram.',
+						'hint'        => 'The diagram is in <code>/srv/cours/stanford</code>.',
+						'explanation' => 'The size of an address determines the addressable memory space (2^64 bytes in 64 bits). It is also what makes addresses guessable without ASLR: hence the importance of randomness.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is a memory address?',
+						'choices'     => array(
+							'The content of a memory slot',
+							'A number that designates a memory slot',
+							'The name of a variable in the code',
+							'The size of a program',
+						),
+						'hint'        => 'It is what lets you reach a slot unambiguously.',
+						'explanation' => 'The address is the access number of a slot. The variable name is only a translation made by the compiler: at machine level there are only numbers.',
+					),
+					1 => array(
+						'question'    => 'What does the "program counter" correspond to?',
+						'choices'     => array(
+							'The number of lines in the program',
+							'The size of the memory in use',
+							'The address of the next instruction to execute',
+							'The accumulated execution time',
+						),
+						'hint'        => 'It is what decides where the program goes next.',
+						'explanation' => 'The program counter holds the next instruction. It is incremented after each instruction, unless a jump instruction modifies it: hence the importance of the return address on the stack.',
+					),
+					2 => array(
+						'question'    => 'What happens when a program is compiled?',
+						'choices'     => array(
+							'It is copied to disk',
+							'It is run immediately to check that it works',
+							'It is encrypted',
+							'It is translated into instructions, then into machine codes the processor can execute',
+						),
+						'hint'        => 'The compiler produces a new form of the program.',
+						'explanation' => 'Compilation chain: source → machine code → execution. The optimiser works on intermediate code, not on the algorithms: the meaning must stay the same.',
+					),
+					3 => array(
+						'question'    => 'Why does a garbage collector make exploitation harder?',
+						'choices'     => array(
+							'Because it manages memory instead of the programmer: there is no use-after-free or double free exploitable in the same way',
+							'Because it slows everything down',
+							'Because it forbids pointers',
+							'Because it makes the code unreadable',
+						),
+						'hint'        => 'The problem with manual memory management is that it gets things wrong.',
+						'explanation' => 'In C the programmer frees memory: a double free or an access after free is a classic exploitable flaw. An automatic garbage collector removes that family of bugs — the argument for memory-safe languages (which the 6.858 course mentions at the end).',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * univ-22 — Donnees et systemes
+	 * ------------------------------------------------------------------ */
+	'univ-22' => array(
+		'title'   => 'Data and systems: organising information',
+		'excerpt' => 'From files to databases: how information is stored, and why storage is a security question.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — store, search, separate',
+				'content' => '<p>All of computing fits in one sentence: <strong>store information so you can find it again</strong>. The web, a game, a shop site: they are stored data, read back.</p><p>The levels of storage:</p><ul><li><strong>The file</strong>: a named block of bytes. Simple, but to find a piece of information you have to read everything. That is the case of a <em>log</em>: you read it at the end to know what happened.</li><li><strong>The table (database)</strong>: typed rows and columns, with indexes. The index is the "table of contents": it lets you find a row without scanning everything. It is a trade-off: more space, time saved.</li><li><strong>The query</strong>: you no longer read the data, you ask a question. "Give me the orders of customer X after 3 March". That is SQL, and it is also the classic entry point for injections.</li></ul><p>And the notion of <strong>separation of concerns</strong>: data, application code, configuration, logs. Mixing them is the number one cause of leaks: a password written in the code, an encryption key in a file served to the public, a log in the same directory as the data.</p><p>For security, two rules drawn from that organisation:</p><ol><li><strong>One access, one need</strong>: the web service reads the data, it does not modify the schema. A separate service account for reading, another for writing: the "data" version of privilege separation.</li><li><strong>The secret does not live next to the data</strong>: it lives in a protected place, with measured access and a limited lifetime.</li></ol><p><strong>Remember:</strong> data security starts with how the data is stored. Who can read, who can write, and where the secrets are: three questions to ask before anything else.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions: storing properly, and separating concerns.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Why does a database use indexes?',
+						'choices'     => array(
+							'To encrypt the data',
+							'To find a row quickly without scanning the whole table',
+							'To compress the file',
+							'To force the use of prepared queries',
+						),
+						'hint'        => 'Think about the table of contents of a book.',
+						'explanation' => 'The index is a table of contents: it speeds up searching at the cost of space and maintenance. It is also something to watch: a badly chosen index can slow down writes.',
+					),
+					1 => array(
+						'question'    => 'A site puts its configuration file (with the encryption key) in the public folder. What is the risk?',
+						'choices'     => array(
+							'None: the file is protected by its name',
+							'The site becomes slower',
+							'Anyone can download it: the secret is public, and the encryption key protects nothing any more',
+							'The database is emptied',
+						),
+						'hint'        => 'Public folder = downloadable folder.',
+						'explanation' => 'This is the classic storage mistake: a secret next to public content. The rule: the secret lives in a protected location, outside what is served, with measured access.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the storage plan',
+				'content' => '<p>In the classroom, the Stanford course left its <em>storage plan</em> (how the team stores its data and its secrets).</p><p><strong>Mission.</strong> Read that plan and note the <em>number of locations value</em> planned for the secrets (<code>secret_locations</code> field).</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the number of locations (secret_locations) planned for the secrets in the storage plan.',
+						'hint'        => 'The storage plan is in <code>/srv/cours/stanford</code>.',
+						'explanation' => 'Counting the secret locations is checking that none of them was forgotten in the public zone: each location must have its own access control.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Four timed questions. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What is the advantage of a database over a plain text file?',
+						'choices'     => array(
+							'It is smaller',
+							'It is secure by nature',
+							'It lets you ask questions (queries) about the data and find it without scanning everything',
+							'It needs no passwords',
+						),
+						'hint'        => 'Think "asking" rather than "searching".',
+						'explanation' => 'A database does not make data safe: it makes <em>search</em> efficient. Security comes from permissions, not from the engine.',
+					),
+					1 => array(
+						'question'    => 'Why must the service account that reads the data not be able to change the schema?',
+						'choices'     => array(
+							'So the site is faster',
+							'Because SQLite forbids it',
+							'So backups are smaller',
+							'To limit the damage: an SQL injection could neither change the structure nor drop the tables',
+						),
+						'hint'        => 'It is the principle of least privilege, applied to data.',
+						'explanation' => 'A read-only account cannot do structural damage: even if the injection gets through, it is limited to reading. It is a classic and cheap security barrier.',
+					),
+					2 => array(
+						'question'    => 'What does separation of concerns mean when applied to data?',
+						'choices'     => array(
+							'Data, configuration, secrets and logs are stored in different places, with distinct access rights',
+							'Each service has its own database',
+							'Each developer works on their own copy',
+							'The queries are written in separate files',
+						),
+						'hint'        => 'Think about what must be public, private and secret.',
+						'explanation' => 'Separation means storing things that do not share the same sensitivity in different places: public content, private data, protected secrets, technical logs. Each zone has its own access control.',
+					),
+					3 => array(
+						'question'    => 'An SQL query built by concatenating user input, even with manual escaping, remains risky. Why?',
+						'choices'     => array(
+							'Because SQL is a slow language',
+							'Because manual escaping is fragile: each data type has its own rules, and one forgotten rule reopens the flaw',
+							'Because the engine refuses long queries',
+							'Because indexes fire',
+						),
+						'hint'        => 'Escaping by hand is a list of rules not to forget.',
+						'explanation' => 'The prepared query moves security into the engine: the border between code and data is guaranteed by construction. Manual escaping depends on the developer\'s attention and on the context (string, number, identifier, date).',
+					),
+				),
+			),
+		),
+	),
+
 );
