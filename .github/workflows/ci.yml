@@ -106,3 +106,66 @@ jobs:
             echo "Espaces en fin de ligne détectés."
             exit 1
           fi
+
+  # La qualite des QCM se mesure, elle ne se declare pas.
+  #
+  # Le 6 novembre 2026, la note du laboratoire a trouve que dans 89 % des
+  # QCM la bonne reponse etait la plus longue des options : un eleve qui
+  # coche toujours la plus longue reussissait les examens sans lire. Le
+  # moteur melange desormais les options (le raccourci ne marche plus),
+  # mais le CONTENU reste a corriger. Ce job empeche la regression et publie
+  # le chiffre a chaque poussee.
+  qualite-qcm:
+    name: Qualite des QCM et des examens
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: seca_wp
+          MYSQL_USER: seca
+          MYSQL_PASSWORD: seca_ci_pw
+          MYSQL_ROOT_PASSWORD: root_ci_pw
+        ports:
+          - '3306:3306'
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    env:
+      SECA_WP_DIR: ${{ github.workspace }}/wp-ci
+      SECA_WP_URL: http://localhost:8080
+      SECA_LABS_PATH: ${{ github.workspace }}/labs
+      SECA_DB_NAME: seca_wp
+      SECA_DB_USER: seca
+      SECA_DB_PASSWORD: seca_ci_pw
+      SECA_DB_HOST: 127.0.0.1
+      SECA_DB_PORT: 3306
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer PHP et WP-CLI
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          tools: wp-cli
+
+      - name: Installer WordPress et le plugin
+        run: bash scripts/ci-wordpress.sh
+
+      - name: Mesurer la qualite des QCM
+        run: |
+          set -o pipefail
+          PHP=php WP_CLI=wp SECURA_SANDBOX="$SECA_WP_DIR" \
+            python3 tools/controle/qualite-qcm.py --liste | tee /tmp/qcm.txt
+
+      - name: Publier le verdict en annotation
+        if: always()
+        run: |
+          verdict=$(grep -a 'VERDICT' /tmp/qcm.txt 2>/dev/null | tail -1 || true)
+          faute=$(grep -a 'plus longue' /tmp/qcm.txt 2>/dev/null | head -1 || true)
+          echo "::notice title=Qualite des QCM::${verdict:-mesure non jouee}"
+          echo "::notice title=Defaut principal::${faute:-aucun}"
