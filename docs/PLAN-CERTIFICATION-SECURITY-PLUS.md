@@ -225,16 +225,43 @@ utilisable — au lieu d'être un tirage invisible validé par dix caractères.
 
 ## 2 bis. Ce qui est déjà fait dans cette branche
 
-| Point du plan | État | Preuve |
-|---|---|---|
-| Mesurer la couverture au lieu de l'affirmer | **fait** | `tools/certifications/couverture.php` + `sy0-701.json` : 34 sujets, poids officiels, sort 1 sous le seuil |
-| Fermer la porte des dix caractères | **fait** | `Secura_Solution` + `tests/solution-test.php` (8 essais) ; CI verte, run 42143975139 |
-| Auto-évaluation explicite pour les questions sans grille | **fait** | l'élève voit le corrigé, les concepts manquants, et se positionne — sa déclaration, pas dix caractères |
-| Ne plus mentir sur la validation | **fait** | le message dit « vous avez comparé au corrigé et confirmé », plus « correction affichée » |
+Les points 1 à 4 du plan sont faits et prouvés par des tests, pas par des
+intentions. Chiffres mesurés le 6 novembre 2026.
 
-Reste à faire, dans l'ordre de impact : tentatives limitées, seuil 80 %,
-étiquetage par sujet + tirage pondéré, contrôle anti-drapeau-lisible dans le CI,
-puis les 5 machines et les 15 rooms manquantes.
+| Point du plan | État | Preuve chiffrée |
+|---|---|---|
+| Mesurer la couverture au lieu de l'affirmer | **fait** | `tools/certifications/couverture.php` + `sy0-701.json` : 34 sujets, poids officiels, **52,2 %** mesurés, sort 1 sous le seuil |
+| Fermer la porte des dix caractères | **fait** | `Secura_Solution` + `tests/solution-test.php` (8 essais) ; CI verte |
+| Auto-évaluation explicite pour les questions sans grille | **fait** | l'élève voit le corrigé, les concepts manquants, et se positionne |
+| Ne plus mentir sur la validation | **fait** | le message dit « vous avez comparé au corrigé et confirmé » |
+| **Limiter les tentatives d'examen** | **fait** | `Secura_Gate` : 3 tentatives, puis 24 h ; refus de rejouer un examen déjà réussi. `tests/gate-test.php` (16 essais) |
+| **La pratique obligatoire pour valider une room** | **fait** | une room dont une manipulation reste à faire ne se valide pas ; l'élève lit combien il en reste. Même test |
+| **Étiqueter les questions par sujet** | **fait** | `content-sy0-701-banque.php` : **94 questions**, toutes étiquetées de 1.1 à 5.5, champ `topic` transporté par `Secura_Rooms` |
+| **Tirage pondéré par domaine** | **fait** | `Secura_Blanc` : 90 questions réparties 11/20/16/25/18, total toujours respecté (plus fort reste). `tests/blanc-test.php` (31 essais) |
+| **Barème du référentiel** | **fait** | échelle 100–900, seuil 750. Mesuré : 73/90 → **749, échoue** ; 74/90 → **758, réussit** |
+| **Contrôle anti-drapeau-lisible dans le CI** | **fait** | `tools/controle/drapeaux-lisibles.php` + échéancier daté. État : **18 manipulations réelles sur 60 (30 %)** |
+
+### Ce que les tests empêchent, et qui rend un QCM devinable
+
+Un QCM peut être « juste » et mauvais quand même. Trois travers suffisent :
+
+| Travers | Mesure avant | Mesure après |
+|---|---|---|
+| La bonne réponse est la plus longue | 29 cas sur 68 | **0** |
+| La bonne réponse est toujours en A | 64,7 % en A (2,9 % en C) | **24 / 24 / 23 / 23**, soit 25 % partout |
+| Un sujet du référentiel n'est jamais interrogé | tirage au hasard | tourniquet entre les sujets + test qui exige ≥ 8 questions par domaine |
+
+`tests/banque-test.php` (18 essais) interdit ces trois travers et vérifie que
+chaque question a quatre propositions, un index valide et une explication.
+
+### L'écart qui reste, nommé
+
+| Sujet | Mesure | Ce qu'il reste à faire |
+|---|---|---|
+| Les 42 drapeaux de lecture | 18 vrais sur 60 | les 5 machines du plan (le gros morceau) |
+| Les 15 rooms manquantes | 52,2 % de couverture | D5 (30 % couvert) puis D2 |
+| La banque à 600 questions | 94 écrites | 506 à écrire, par sujet, avec la même règle de distracteurs |
+| Le seuil à 80 % sur les examens de room | encore 60 % | une ligne par examen ; dépend du contenu de chaque room |
 
 ---
 
