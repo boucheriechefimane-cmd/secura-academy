@@ -32,8 +32,8 @@ return array(
 					0 => array(
 						'question'    => 'In the sentence "an attacker can send forged requests to the billing service", what is the threat and what is the vulnerability?',
 						'choices'     => array(
-							'The threat is the attacker; the vulnerability is the forged request',
-							'The threat is the forged request; the vulnerability is the attacker',
+							'The threat is the scenario; the vulnerability is a weakness',
+							'The threat is the forged request; the vulnerability is the attacker himself',
 							'The threat and the vulnerability are the same thing',
 							'There is no vulnerability: a forged request is normal',
 						),
@@ -83,8 +83,8 @@ return array(
 						'question'    => 'What is the exact role of a "security mechanism"?',
 						'choices'     => array(
 							'Guarantee on its own that the policy is respected',
-							'Enforce the policy, as long as the assumptions of the threat model hold',
-							'Replace the threat model, which becomes unnecessary',
+							'Enforce the policy, as long as the threat model holds',
+							'Replace the threat model, which then becomes unnecessary for good',
 							'Document the decisions taken for the team',
 						),
 						'hint'        => 'A mechanism acts "as long as" a condition holds. Which one?',
@@ -94,8 +94,8 @@ return array(
 						'question'    => 'Your service must be reachable from the students\' homes, but only teachers may change the settings. Which policy?',
 						'choices'     => array(
 							'Everyone can change the settings, it is simpler',
-							'Students reach the service over the internal network only',
-							'Only teachers can change the settings; every student can use the service',
+							'Students reach the service over the school internal network only',
+							'Teachers change the settings; the students use the service',
 							'The service is reachable by teachers only',
 						),
 						'hint'        => 'Two actions, two populations: re-read the question, it contains both.',
@@ -115,9 +115,9 @@ return array(
 					3 => array(
 						'question'    => 'A firewall blocks 100% of external requests, but the application has a SQL injection. What do you conclude?',
 						'choices'     => array(
-							'The mechanism does not cover the threat: an application vulnerability remains',
+							'The mechanism does not cover the threat: the flaw remains',
 							'The system is safe: the firewall blocks everything',
-							'The system is safe as long as nobody tries',
+							'The system is safe as long as nobody tries to really test it',
 							'The firewall should be replaced by an antivirus',
 						),
 						'hint'        => 'A mechanism only covers the threats it was designed for.',

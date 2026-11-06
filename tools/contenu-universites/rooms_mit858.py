@@ -52,8 +52,8 @@ ROOMS = [
             {
                 'q': 'Dans la phrase « un pirate peut envoyer des requêtes forgées au service de facturation », qu\'est-ce qui est la menace et qu\'est-ce qui est la vulnérabilité ?',
                 'choices': [
-                    'La menace est le pirate ; la vulnérabilité est la requête forgée',
-                    'La menace est la requête forgée ; la vulnérabilité est le pirate',
+                    'La menace est le scénario ; la vulnérabilité est la faiblesse du service',
+                    'La menace est la requête forgée ; la vulnérabilité est le pirate lui-même',
                     'La menace et la vulnérabilité sont la même chose',
                     'Il n\'y a pas de vulnérabilité : une requête forgée est normale',
                 ],
@@ -107,8 +107,8 @@ ROOMS = [
                 'q': 'Quel est le rôle exact d\'un « mécanisme de sécurité » ?',
                 'choices': [
                     'Garantir à lui seul que la politique est respectée',
-                    'Faire appliquer la politique, tant que les hypothèses du modèle de menace sont vraies',
-                    'Remplacer le modèle de menace, qui devient inutile',
+                    'Faire appliquer la politique, tant que le modèle de menace tient',
+                    'Remplacer le modèle de menace, qui devient alors inutile a tout jamais',
                     'Documenter les décisions prises pour l\'équipe',
                 ],
                 'correct': 1,
@@ -120,8 +120,8 @@ ROOMS = [
                 'q': 'Ton service doit être accessible depuis chez les élèves, mais seulement les enseignants doivent pouvoir changer les paramètres. Quelle politique ?',
                 'choices': [
                     'Tout le monde peut changer les paramètres, c\'est plus simple',
-                    'Seuls les enseignants peuvent changer les paramètres ; tous les élèves peuvent utiliser le service',
-                    'Les élèves accèdent au service par le réseau interne uniquement',
+                    'Les enseignants changent les paramètres ; les élèves utilisent',
+                    'Les élèves accèdent au service par le réseau interne de l\'école uniquement',
                     'Le service n\'est accessible qu\'aux enseignants',
                 ],
                 'correct': 1,
@@ -133,9 +133,9 @@ ROOMS = [
                 'q': 'Un service tourne avec les droits root alors qu\'il n\'a besoin que de lire un fichier. Que vaut-il faire ?',
                 'choices': [
                     'Laisser tel quel : root marche toujours',
-                    'Retirer les droits superflus : c\'est la séparation des privilèges',
+                    'Retirer les droits superflus : c\'est la séparation',
                     'Ajouter un second service root pour la redondance',
-                    'Désinstaller le service et le remplacer par un script maison',
+                    'Désinstaller le service et le remplacer par un script bricolé à la main',
                 ],
                 'correct': 1,
                 'xp': 10,
@@ -146,8 +146,8 @@ ROOMS = [
                 'q': 'Un pare-feu bloque 100 % des requêtes externes, mais l\'application a une injection SQL. Que conclure ?',
                 'choices': [
                     'Le système est sûr : le pare-feu bloque tout',
-                    'Le système est sûr tant que personne n\'essaie',
-                    'Le mécanisme ne couvre pas la menace : il reste une vulnérabilité applicative',
+                    'Le système est sûr tant que personne n\'essaie de le tester vraiment',
+                    'Le mécanisme ne couvre pas la menace : la faille applicative reste',
                     'Il faut remplacer le pare-feu par un antivirus',
                 ],
                 'correct': 2,
