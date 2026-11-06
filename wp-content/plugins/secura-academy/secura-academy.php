@@ -487,6 +487,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-exam.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-terminal.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-lab.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-solution.php';
+require_once SECURA_ACADEMY_PATH . 'includes/class-secura-blanc.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-gate.php';
 /* Les prototypes de front, d'examen et de certificat du ZIP ne sont pas
    charges : leurs contrats et la protection des PDF restent a corriger.
@@ -496,6 +497,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/class-secura-ajax.php';
 require_once SECURA_ACADEMY_PATH . 'includes/class-secura-dashboard.php';
 require_once SECURA_ACADEMY_PATH . 'includes/default-content.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-m3.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-sy0-701-banque.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-universites.php';
 
 /* Les questions importees depuis l'exterieur (universites, examens).

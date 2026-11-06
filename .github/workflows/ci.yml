@@ -65,6 +65,12 @@ jobs:
       - name: Tester les règles d'accès aux examens
         run: php tests/gate-test.php
 
+      - name: Tester la banque de questions SY0-701
+        run: php tests/banque-test.php
+
+      - name: Tester l'examen blanc pondéré
+        run: php tests/blanc-test.php
+
       - name: Tester la barrière et les rapports d'audit
         run: php tests/audit-test.php
 

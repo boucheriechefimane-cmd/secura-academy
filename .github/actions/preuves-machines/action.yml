@@ -72,6 +72,13 @@ runs:
         if [ -f tests/gate-test.php ] && ! php tests/gate-test.php; then
           echo "ECHEC : les regles d'acces aux examens (tests/gate-test.php)" | tee -a /tmp/echecs.txt
         fi
+        if [ -f tests/banque-test.php ] && ! php tests/banque-test.php; then
+          echo "ECHEC : la banque de questions SY0-701 (tests/banque-test.php)" | tee -a /tmp/echecs.txt
+        fi
+
+        if [ -f tests/blanc-test.php ] && ! php tests/blanc-test.php; then
+          echo "ECHEC : l'examen blanc pondere (tests/blanc-test.php)" | tee -a /tmp/echecs.txt
+        fi
 
     - name: Vérifier les Dockerfiles avant de construire
       shell: bash

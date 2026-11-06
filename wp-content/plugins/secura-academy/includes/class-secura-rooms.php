@@ -667,6 +667,12 @@ final class Secura_Rooms {
 						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
 						'source'        => isset( $question['source'] ) ? (string) $question['source'] : '',
 						'licence'       => isset( $question['licence'] ) ? (string) $question['licence'] : '',
+						/* L'etiquette de sujet du referentiel de certification
+						   (« 4.3 » pour « surveillance, SIEM et journaux » de
+						   Security+). Sans elle, une question ne peut pas entrer
+						   dans un examen blanc pondere : voir
+						   tools/certifications/blanc.php. */
+						'topic'         => isset( $question['topic'] ) ? sanitize_text_field( (string) $question['topic'] ) : '',
 					);
 				}
 			}
@@ -1450,6 +1456,12 @@ final class Secura_Rooms {
 						'requires_step' => isset( $question['requires_step'] ) ? intval( $question['requires_step'] ) : -1,
 						'source'        => isset( $question['source'] ) ? (string) $question['source'] : '',
 						'licence'       => isset( $question['licence'] ) ? (string) $question['licence'] : '',
+						/* L'etiquette de sujet du referentiel de certification
+						   (« 4.3 » pour « surveillance, SIEM et journaux » de
+						   Security+). Sans elle, une question ne peut pas entrer
+						   dans un examen blanc pondere : voir
+						   tools/certifications/blanc.php. */
+						'topic'         => isset( $question['topic'] ) ? sanitize_text_field( (string) $question['topic'] ) : '',
 					);
 				}
 			}

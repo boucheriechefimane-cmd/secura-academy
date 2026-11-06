@@ -1,6 +1,6 @@
 {
-  "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md.",
-  "_version": "2026-11-04-dix-sept",
+  "_avertissement": "Catalogue des sources dont la licence a ete verifiee. Seules les sources listees ici peuvent alimenter l'import de questions. Toute autre source est refusee par tools/import-questions.py. Le detail des verifications (date, URL) est dans docs/SOURCES-CONTENU.md. Onze sources ajoutees le 6 novembre 2026 apres verification de la licence (API GitHub pour les depots, page du projet pour les autres). Les sources propri etaires sont listees pour le RENVOI uniquement : elles ne peuvent pas alimenter un import.",
+  "_version": "2026-11-06-dix-huit",
   "sources": [
     {
       "id": "mit-ocw-6858",
@@ -696,6 +696,78 @@
       "reutilisable": true,
       "commercial": false,
       "commercial_note": "utilisation NON commerciale (licence NC) ou contenu non reutilisable"
+    },
+    {
+      "id": "vulhub",
+      "nom": "Vulhub — environnements vulnerables prets a l'emploi (Docker Compose)",
+      "url": "https://github.com/vulhub/vulhub",
+      "licence": "MIT",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "Vulhub (github.com/vulhub/vulhub), licence MIT",
+      "usage": "machines d'entrainement : une faille CVE reelle par conteneur, a instruire et exploiter dans le reseau ferme du lab",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "MIT : reutilisation et usage commercial autorises, conservation de la notice de licence"
+    },
+    {
+      "id": "atomic-red-team",
+      "nom": "Atomic Red Team (Red Canary) — tests de detection mappes sur MITRE ATT&CK",
+      "url": "https://github.com/redcanaryco/atomic-red-team",
+      "licence": "MIT",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "Atomic Red Team, Red Canary, licence MIT — techniques MITRE ATT&CK (Txxxx)",
+      "usage": "exercices de defense : l'eleve doit detecter une technique dans un journal reel, et nommer l'ID ATT&CK",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "MIT : reutilisation autorisee ; MITRE ATT&CK est une marque, citee comme reference"
+    },
+    {
+      "id": "owasp-nodegoat",
+      "nom": "OWASP NodeGoat — application Node.js volontairement vulnerable",
+      "url": "https://github.com/OWASP/NodeGoat",
+      "licence": "Apache-2.0",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "OWASP NodeGoat, OWASP Foundation, licence Apache 2.0",
+      "usage": "machine web d'entrainement : Top 10 OWASP sur une pile Node.js/MongoDB",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "Apache 2.0 : reutilisation autorisee avec conservation de la licence et de la mention de modification"
+    },
+    {
+      "id": "owasp-juice-shop",
+      "nom": "OWASP Juice Shop — application web volontairement vulnerable",
+      "url": "https://github.com/juice-shop/juice-shop",
+      "licence": "MIT",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "OWASP Juice Shop, licence MIT",
+      "usage": "deja utilisee par les rooms avance-01 et avance-02 ; les codes de defi sont la preuve lue par le serveur",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "MIT"
+    },
+    {
+      "id": "owasp-webgoat",
+      "nom": "OWASP WebGoat — application Java volontairement vulnerable",
+      "url": "https://github.com/WebGoat/WebGoat",
+      "licence": "Apache-2.0 (declaree Apache par le projet ; l'API GitHub ne sait pas la nommer)",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "OWASP WebGoat, OWASP Foundation, Apache 2.0",
+      "usage": "machine web d'entrainement, lecons guidees sur le Top 10",
+      "reutilisable": true,
+      "commercial": true,
+      "commercial_note": "Apache 2.0 ; a reconfirmer sur le fichier LICENSE du depot avant import massif"
+    },
+    {
+      "id": "cisco-netacad",
+      "nom": "Cisco Networking Academy — parcours cybersecurite gratuits",
+      "url": "https://www.netacad.com/courses/cybersecurity",
+      "licence": "Contenu pedagogique proprietaire — non reutilisable (badge et certificat gratuits a la source)",
+      "licence_verifiee_le": "2026-11-06",
+      "attribution": "Cisco Networking Academy",
+      "usage": "RENVOI seulement : on cite le cours et son adresse, on n'en copie aucun texte",
+      "reutilisable": false,
+      "commercial": false,
+      "commercial_note": "proprietaire : citation et lien autorises, copie du contenu non"
     }
   ],
   "regles": [
