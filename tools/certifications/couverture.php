@@ -156,14 +156,16 @@ foreach ( $corpus as $cle => $texte ) {
 
 	$tasks = get_post_meta( $rid, SECURA_META_TASKS, true );
 
-	/* Trois facons de faire un exercice REELLEMENT pratique, et non de
+	/* Quatre facons de faire un exercice REELLEMENT pratique, et non de
 	   lire un document :
-	   1. un drapeau dont l'indice ne renvoie pas vers un fichier de cours ;
+	   1. un drapeau lu a un chemin de machine (jamais dans un document) ;
 	   2. un scenario de terminal (l'eleve tape des commandes et obtient
 	      des sorties : c'est une machine, meme simulee) ;
 	   3. une question de solution qui exige de confronter des pieces
 	      reelles (registre, questionnaire, journal) et de rendre un
-	      verdict : c'est le travail d'un auditeur, pas une lecture. */
+	      verdict : c'est le travail d'un auditeur, pas une lecture.
+	   4. un choix de conception : la room D3 « le seau ouvert » et la
+	      room D2 se valident dans le terminal, sans drapeau. */
 	$sur_machine = false;
 	$simule      = false;
 
@@ -202,7 +204,68 @@ foreach ( $corpus as $cle => $texte ) {
 
 $total_poids   = 0;
 $acquis_poids  = 0;
-$lignes        = array();
+
+/* Deux mesures, et non une seule. La mesure officielle compte une room
+   pratique meme si elle est simulee (« complet »), parce qu'un terminal
+   simule fait quand meme agir l'eleve. La mesure SEVERE ne compte rien de
+   simule : ni les terminaux simules, ni les sujets seulement theoriques.
+   Quand quelqu'un demande « t'es sur de ton chiffre ? », la reponse est la
+   seconde colonne : c'est la borne basse, celle qu'on ne peut pas gonfler. */
+$acquis_poids_severe = 0;
+$lignes              = array();
+
+/* Les rooms qui valident un drapeau sur une machine reelle : seules celles-la
+   comptent dans la mesure severe. */
+$cles_machine = array();
+
+foreach ( $corpus as $cle => $texte ) {
+	$rid = 0;
+
+	foreach ( $rooms as $candidat ) {
+		if ( get_post_meta( $candidat, '_secura_key', true ) === $cle ) {
+			$rid = $candidat;
+			break;
+		}
+	}
+
+	if ( ! $rid ) {
+		continue;
+	}
+
+	$tasks        = get_post_meta( $rid, SECURA_META_TASKS, true );
+	$sur_machine  = false;
+
+	/* Mesure severe : on ne retient que la machine REELLE. Un drapeau lu
+	   dans /root/flags sur un conteneur est une preuve que le serveur peut
+	   verifier ; un terminal simule ne l'est pas. */
+	$drapeau_machine = false;
+
+	foreach ( (array) $tasks as $task ) {
+		foreach ( (array) ( isset( $task['questions'] ) ? $task['questions'] : array() ) as $q ) {
+			$mode  = isset( $q['mode'] ) ? (string) $q['mode'] : '';
+			/* Un drapeau se lit a un CHEMIN, pas dans un document de cours.
+			   On juge donc sur le chemin, pas sur le texte de l'indice : un
+			   indice peut citer /srv/dojo pour dire « le drapeau n'y est
+			   pas », et l'ancienne heuristique comptait alors la room
+			   comme « lecture seule » a tort. */
+			$chemin = isset( $q['flag_path'] ) ? (string) $q['flag_path'] : '';
+			$lecture_seule = ( 0 === strpos( $chemin, '/srv/cours' ) || 0 === strpos( $chemin, '/srv/briefs' ) );
+
+			if ( 'flag' === $mode && '' !== $chemin && ! $lecture_seule ) {
+				$sur_machine     = true;
+				$drapeau_machine = true;
+			}
+
+			if ( 'solution' === $mode && ! empty( $q['grading']['concepts'] ) ) {
+				$sur_machine = true;
+			}
+		}
+	}
+
+	if ( $drapeau_machine ) {
+		$cles_machine[ $cle ] = true;
+	}
+}
 $manquants     = array();
 
 foreach ( $ref['domaines'] as $domaine ) {
@@ -270,6 +333,18 @@ foreach ( $ref['domaines'] as $domaine ) {
 			$part = 1.0;
 		}
 
+		/* Mesure severe : seules les rooms a exercice REEL comptent, et
+		   un sujet theorique vaut 0 au lieu de 0,5. */
+		$part_severe = 0.0;
+
+		foreach ( array_keys( $rooms_flag ) as $cle_room ) {
+			if ( isset( $cles_machine[ $cle_room ] ) ) {
+				$part_severe = 1.0;
+				break;
+			}
+		}
+
+		$acquis_poids_severe += $poids_sujet * $part_severe;
 		$acquis_dom += $poids_sujet * $part;
 
 		$detail[] = sprintf(
@@ -306,7 +381,18 @@ foreach ( $lignes as $l ) {
 	echo $l, "\n";
 }
 
+$couverture_severe = $total_poids > 0 ? ( $acquis_poids_severe / $total_poids ) * 100 : 0;
+
+echo "\n";
+printf( "  %-42s %6.1f%%\n", 'mesure officielle (simule compte pour 1)', $couverture );
+printf( "  %-42s %6.1f%%\n", 'mesure severe (simule et theorie = 0)', $couverture_severe );
+echo "  ", str_repeat( '-', 50 ), "\n";
+echo "  L'ecart entre les deux colonnes mesure ce que le site fait", "\n";
+echo "  REELLEMENT faire manipuler. Un ecart large n'est pas une faute :", "\n";
+echo "  c'est le prix d'un terminal utilisable par un eleve sans machine.", "\n";
+
 printf( "\nCOUVERTURE PONDEREE : %.1f%% (poids officiels du referentiel)\n", $couverture );
+printf( "BORNE BASSE (severe) : %.1f%%\n", $couverture_severe );
 printf( "Sujets non couverts ou seulement theoriques : %d\n", count( $manquants ) );
 
 if ( ! empty( $manquants ) ) {

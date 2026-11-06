@@ -261,6 +261,11 @@ intentions. Chiffres mesurés le 6 novembre 2026.
 | **Le domaine D5 (20 % du score)** | **fait** | 3 rooms écrites : registre, fournisseur, audit. **30 % → 80 %** |
 | **Le domaine D2 (22 % du score)** | **fait** | 2 rooms : capture ARP, chronologie d'incident. **62,5 % → 93,8 %** |
 | **Anglais et arabe sur les nouvelles rooms** | **fait** | 57 rooms, **1 714 champs contrôlés, 0 sans traduction** |
+| **Le domaine D3 (18 % du score)** | **fait** | 3 rooms : responsabilité partagée, DLP et chiffrement, IoT industriel. **50 % → 100 %** |
+| **Le dojo ne se lit plus** | **fait** | 20 défis réécrits : la valeur n'est plus dans le document, elle est **produite** par la commande. Contrôle `dojo-sans-drapeau.py` : 27 documents, **0 fuite** |
+| **Les machines sont testées en vrai** | **fait** | `.github/workflows/machines.yml` : `docker build` + épreuves jouées en uid 1000. `epreuves-dojo.py` (20 défis + 2 barrières), `epreuves-web.py` (5 épreuves) |
+| **Une page d'attribution unique** | **fait** | `/sources-et-licences` : 67 sources, 9 republiables / 53 à conditions / 5 en renvoi. Audit : `docs/AUDIT-LICENCES-HEBERGEABLE.md` |
+| **La double mesure, en une commande** | **fait** | `couverture.php` affiche la mesure officielle **et** la borne basse sévère |
 
 ### Ce que les tests empêchent, et qui rend un QCM devinable
 
@@ -280,19 +285,39 @@ chaque question a quatre propositions, un index valide et une explication.
 ```
 D1 — Concepts generaux       (12 %) : 50,0 % couvert   (1.1, 1.3, 1.4 absents ; 1.7 theorie)
 D2 — Menaces et vulnerabilites (22 %) : 93,8 % couvert   (2.3 theorie seulement)
-D3 — Architecture            (18 %) : 50,0 % couvert   (3.1, 3.4, 3.6 absents)
+D3 — Architecture            (18 %) : 100,0 % couvert  (3.1, 3.4, 3.6 combles)
 D4 — Operations              (28 %) : 75,0 % couvert   (4.7, 4.8 absents)
 D5 — Gouvernance             (20 %) : 80,0 % couvert   (5.5 absent)
-COUVERTURE PONDEREE : 72,6 %   ->  lu severe (theorie=0) : ~55 %
-57 rooms, dont 29 avec un exercice reellement pratique
-  dont 18 sur une machine reelle, 11 sur un terminal simule
+COUVERTURE PONDEREE : 83,0 %
+BORNE BASSE (severe) : 39,1 %
+60 rooms, dont 32 avec un exercice reellement pratique
+  dont 18 sur une machine reelle, 14 sur un terminal simule
 ```
+
+**Sur les deux chiffres, et pourquoi ils sont si éloignés.** La mesure
+officielle compte un sujet couvert dès qu'une room *pratique* en parle — un
+terminal simulé fait agir l'élève, donc il compte. La mesure sévère ne compte
+que les preuves **vérifiables par le serveur**, c'est-à-dire un drapeau lu
+dans `/root/flags` sur un conteneur : le terminal simulé vaut 0.
+
+L'écart 83 % / 39 % n'est donc pas une incertitude, c'est une **question de
+définition**, et les deux définitions sont affichées plutôt qu'une seule. Le
+premier chiffre répond à « le sujet est-il enseigné et pratiqué ? » ; le
+second à « combien de sujets sont prouvés sur une vraie machine ? ». Quand le
+point 5 du plan sera fait (les machines branchées sur les rooms), les deux
+colonnes convergeront : c'est le seul moyen de les faire converger.
+
+Un détail de mesure corrigé au passage : la borne basse jugeait « lecture
+seule » d'après le **texte de l'indice**. Or le dojo dit désormais dans ses
+indices que le drapeau n'est *pas* dans le document — l'ancienne heuristique
+comptait donc ces rooms comme lecture. Elle se juge maintenant sur le
+`flag_path` (`/root/flags/...`), qui est la seule preuve exploitable.
 
 ### L'écart qui reste, nommé
 
 | Sujet | Mesure | Ce qu'il reste à faire |
 |---|---|---|
-| D3 Architecture (18 % du score) | 50 % | 3 rooms : cloud et responsabilité partagée (3.1), DLP et chiffrement au repos (3.4), IoT et industriel (3.6) |
+| ~~D3 Architecture (18 %)~~ | ~~50 %~~ **100 %** | **fait** le 6 novembre : trois rooms avec mission dans le terminal |
 | D1 Concepts (12 %) | 50 % | 3 rooms : contrôles (1.1), zero trust (1.3), gestion du changement (1.4) |
 | D4 Opérations (28 %) | 75 % | 2 rooms : forensique (4.7), automatisation et SOAR (4.8) |
 | D5 Sensibilisation (5.5) | absent | 1 room, la dernière du domaine le plus faible |
@@ -309,16 +334,16 @@ qui est le plus gros. Voici ce qui reste, chiffré.
 
 | Rang | Chantier | Effort | Gain mesuré |
 |---|---|---|---|
-| 1 | **D3 Architecture** : 3 rooms (cloud et responsabilité partagée, DLP et chiffrement au repos, IoT et industriel) | 1 j | D3 50 % → 100 %, soit **+9 points de couverture pondérée** |
-| 2 | **D1 Concepts** : 3 rooms (contrôles, zero trust, gestion du changement) | 1 j | D1 50 % → ~93 %, soit **+5 points** |
+| ~~1~~ | ~~**D3 Architecture** : 3 rooms~~ | ~~1 j~~ **fait** | D3 50 % → **100 %** : +9 points mesurés (72,6 % → 83,0 % avec le reste) |
+| 1 | **D1 Concepts** : 3 rooms (contrôles, zero trust, gestion du changement) | 1 j | D1 50 % → ~93 %, soit **+5 points** |
 | 3 | **D4 Opérations** : 2 rooms (forensique, SOAR) | 0,5 j | D4 75 % → 100 %, soit **+7 points** |
 | 4 | **D5 sensibilisation** : 1 room | 0,5 j | D5 80 % → 100 %, soit **+4 points** |
 | 5 | **Les 5 machines** qui remplacent les 42 drapeaux de lecture | 4-5 j | 60 drapeaux réels sur 60, et 18 → 60 rooms pratiques |
 | 6 | **La banque à 600 questions** | 3 j | blancs de 90 questions renouvelables sans doublon |
 | 7 | **Le seuil à 80 %** sur les 57 examens de room | 2 h | les examens cessent d'être faciles |
 
-Les points 1 à 4 tiennent en trois jours et porteraient la couverture
-pondérée de **72,6 % à environ 97 %**. C'est le meilleur rapport effort/résultat
+Le point 1 étant fait, les points 1 à 4 restants (D1, D4, D5) tiennent en
+deux jours et porteraient la couverture pondérée de **83,0 % à environ 99 %**. C'est le meilleur rapport effort/résultat
 disponible aujourd'hui.
 
 Le point 5 est le seul qui ne se compresse pas : il demande de construire de
