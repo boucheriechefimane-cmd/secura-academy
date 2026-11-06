@@ -812,4 +812,247 @@ return array(
 		),
 	),
 
+	/* ---------------------------------------------------------------------
+	 * avance-09 — Brief 2 : le web, comment on parle a un serveur
+	 * ------------------------------------------------------------------ */
+	'avance-09' => array(
+		'title'   => 'Brief 2: the web, how we talk to a server',
+		'excerpt' => 'HTTP, in clear text: a request, a response. The web is not magic.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the web, how we talk to a server',
+				'content' => '<p>A website is a program that receives texts and answers with texts. Nothing more. The "web" is not magic: it is a dialogue, and the dialogue can be read.</p><p>The mechanics, in four steps:</p><ol><li>The browser sends a <strong>request</strong>: a method (GET, POST), an address, headers, and sometimes a body.</li><li>The server reads the request, runs its code, prepares a <strong>response</strong>: a status code (200, 404, 500…), headers, then a body.</li><li>The body can be HTML, JSON, an image… or text that is then executed by your browser (JavaScript).</li><li>Every exchange leaves a trace: in the server logs, in the browser history, in the server memory.</li></ol><p><strong>Remember:</strong> testing a web application means first <em>reading the exchanges</em>. An SQL injection, an XSS, a leaked secret: in all three cases, something you should not have been able to write ends up in a request.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions to check the brief went in.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'What does an HTTP GET request contain?',
+						'choices'     => array(
+							'A method, an address, headers and sometimes a body',
+							'Only the address of the site',
+							'Only encrypted data',
+							'A password and a user name',
+						),
+						'hint'        => 'A request is an envelope: what is inside it?',
+						'explanation' => 'An HTTP request is a method (GET, POST…), an address (the route and the query), headers (who is talking, which format, which browser) and sometimes a body. POST sends data; GET puts it in the address.',
+					),
+					1 => array(
+						'question'    => 'What does the HTTP status code 404 mean?',
+						'choices'     => array(
+							'The server crashed',
+							'The requested resource does not exist',
+							'The request was refused by the firewall',
+							'The site is under maintenance',
+						),
+						'hint'        => '404: a mix of "not found" and "400-something".',
+						'explanation' => '404 = Not Found: the server answers, but the page does not exist. 500 = Internal Server Error: the server crashed while handling the request. 403 = Forbidden: the server understood, but refuses.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the proof of the brief',
+				'content' => '<p>The brief is written in the dojo machine, in <code>/srv/briefs/02-talking-web.txt</code>.</p><p><strong>Mission.</strong> Open that document and note the value it announces. The server compares it with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of brief 2 (the web in clear text).',
+						'hint'        => 'The briefs are in <code>/srv/briefs</code>.',
+						'explanation' => 'Same mechanism: proof read from the machine, compared by the server as root.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Two questions on this brief. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'An XSS (script injection) consists in…',
+						'choices'     => array(
+							'Destroying the database',
+							'Making another person\'s browser execute code',
+							'Flooding the server with requests',
+							'Encrypting the exchanges',
+						),
+						'hint'        => 'The "X" in XSS stands for script.',
+						'explanation' => 'An XSS is code you place in data the application reuses without escaping, and which runs on the machine of whoever displays the page. The risk: stealing a session, or acting with the victim\'s rights.',
+					),
+					1 => array(
+						'question'    => 'Why is reading the server logs useful during a test?',
+						'choices'     => array(
+							'Because they contain the source code',
+							'Because they speed the server up',
+							'Because they show the requests received: you see what the application understood of what you sent',
+							'Because they replace testing',
+						),
+						'hint'        => 'The log is the story of the request.',
+						'explanation' => 'When the application behaves strangely, the log shows the request as it was received. That is often where you see the difference between what you sent and what the server understood.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * avance-10 — Brief 3 : les scenarios d'exploitation
+	 * ------------------------------------------------------------------ */
+	'avance-10' => array(
+		'title'   => 'Brief 3: exploitation scenarios',
+		'excerpt' => 'Exploiting is not "breaking": it is making a program do something it did not plan for.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — exploitation scenarios',
+				'content' => '<p>The word "exploitation" is scary, but the idea is simple: <strong>make a program do something it did not plan for</strong>.</p><p>Every exploitation scenario has the same shape, in four steps:</p><ol><li><strong>The trigger</strong>: the input the program does not control (data sent over the network, a file, a parameter).</li><li><strong>The gap</strong>: the program makes an assumption that is not guaranteed ("this text fits in 32 bytes", "that name is the right one").</li><li><strong>The deviation</strong>: the triggering input overflows, gets deformed, or executes in place of something else.</li><li><strong>The effect</strong>: what the attacker gets — read a file, run a command, become root.</li></ol><p>The right reflex: <strong>look for the fragile assumption</strong>. In a program it is almost always a size, a number, or a permission: "what if the data were bigger than expected?".</p><p><strong>Remember:</strong> an exploitation is always a <em>scenario</em>, so it gets written down. If you cannot explain in three sentences how it works, you probably found nothing.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions to check the brief went in.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'In an exploitation scenario, what is "the fragile assumption"?',
+						'choices'     => array(
+							'The company firewall',
+							'A belief of the program that is not guaranteed, for example "this data fits in 32 bytes"',
+							'The name of the program',
+							'The network speed',
+						),
+						'hint'        => 'Which sentence does the program assume to be true?',
+						'explanation' => 'The fragile assumption is where the program trusts without verifying: a maximum size, an identifier, an access right. That is where the exploitation slips in.',
+					),
+					1 => array(
+						'question'    => 'Why is "it crashes" not proof of exploitation?',
+						'choices'     => array(
+							'Because a program that crashes is simply badly written',
+							'Because crashes are rare',
+							'Because a crash is a result, not a control: you have to obtain the intended effect',
+							'Because you have to reboot',
+						),
+						'hint'        => 'A crash is a side effect. Exploitation is an intended effect.',
+						'explanation' => 'Making a program crash is a denial of service, not an exploitation. Exploitation means obtaining a capability you did not have: read a confidential file, run a command, escalate privileges.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the proof of the brief',
+				'content' => '<p>The brief is written in the dojo machine, in <code>/srv/briefs/03-exploitation.txt</code>.</p><p><strong>Mission.</strong> Open that document and note the value it announces. The server compares it with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of brief 3 (the exploitation scenario).',
+						'hint'        => 'The briefs are in <code>/srv/briefs</code>.',
+						'explanation' => 'Same mechanism: proof read from the machine, compared by the server as root.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Two questions on this brief. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'In a buffer overflow, what gets overwritten?',
+						'choices'     => array(
+							'The file on disk',
+							'The account password',
+							'Data located just after the buffer in memory (variables, return address)',
+							'The network configuration',
+						),
+						'hint'        => 'The overflow goes further than the space provided.',
+						'explanation' => 'That is lesson 3 of the 6.858 course: the program allocates a buffer but does not check that the write fits inside it. What follows the buffer in memory — local variables, the canary, the return address — gets overwritten. Hence the defences (canary, NX, ASLR).',
+					),
+					1 => array(
+						'question'    => 'How does a tester write an exploitation scenario?',
+						'choices'     => array(
+							'By trying tools at random until something works',
+							'By copying a script found online',
+							'By reading the application source code',
+							'By first writing the assumption, the trigger and the expected effect, then verifying it',
+						),
+						'hint'        => 'An assumption, a trigger, an effect.',
+						'explanation' => 'The method is discipline: you write what you assume, how you trigger it, and what you must obtain. Only then do you try. That is what separates a test from a series of commands.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * avance-11 — Brief 4 : les registres
+	 * ------------------------------------------------------------------ */
+	'avance-11' => array(
+		'title'   => 'Brief 4: registers, the processor\'s notebook',
+		'excerpt' => 'The processor keeps almost nothing in memory: it works in a dozen slots we forget right away.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — registers, the processor\'s notebook',
+				'content' => '<p>A processor does not read variables. It reads <strong>registers</strong>: tiny, very fast memory slots, in fixed number (about a dozen on x86-64).</p><p>The ones most worth knowing:</p><ul><li><code>rax</code>, <code>rbx</code>, <code>rcx</code>, <code>rdx</code> — general purpose;</li><li><code>rdi</code>, <code>rsi</code>, <code>rdx</code> — the first three arguments (System V calling convention, the Linux one on x86-64);</li><li><code>rsp</code> — the stack pointer: it says where the top of the stack is;</li><li><code>rbp</code> — the base pointer, the frame of the current function.</li></ul><p>Why that matters for security: when a function is called, the <strong>return address</strong> is pushed onto the stack. If an overflow reaches that address, the program will jump elsewhere: that is the principle of the "smashing the stack" attack.</p><p><strong>Remember:</strong> to understand an exploitation, you have to know where the data is <em>right now</em>. Registers are the answer.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions to check the brief went in.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Where is the return address of a function?',
+						'choices'     => array(
+							'In a file on disk',
+							'In a processor register',
+							'On the stack, above the local variables',
+							'In the server log',
+						),
+						'hint'        => 'At call time, what gets pushed?',
+						'explanation' => 'The calling convention pushes the return address, then the local variables. A buffer overflow writes past the local buffer and ends up reaching that address: hence the possibility of hijacking execution.',
+					),
+					1 => array(
+						'question'    => 'What are registers like `rdi`, `rsi`, `rdx` for?',
+						'choices'     => array(
+							'Storing files on disk',
+							'Measuring execution time',
+							'Encrypting memory',
+							'Passing the arguments of a function, according to the calling convention',
+						),
+						'hint'        => 'How does a program pass a value to a function?',
+						'explanation' => 'On x86-64 under Linux, the first three arguments go in rdi, rsi and rdx. Knowing that lets you read a disassembly — and understand an exploitation that builds a "/bin/sh" string.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the proof of the brief',
+				'content' => '<p>The brief is written in the dojo machine, in <code>/srv/briefs/04-registres.txt</code>.</p><p><strong>Mission.</strong> Open that document and note the value it announces. The server compares it with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of brief 4 (the registers).',
+						'hint'        => 'The briefs are in <code>/srv/briefs</code>.',
+						'explanation' => 'Same mechanism: proof read from the machine, compared by the server as root.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Two questions on this brief. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Why would an architecture without registers be very slow?',
+						'choices'     => array(
+							'Because registers cost a lot of memory',
+							'Because registers are not reliable',
+							'Because the code would be longer',
+							'Because the processor is fast, but ordinary memory is not: registers are the fastest memory there is',
+						),
+						'hint'        => 'Speed comes from distance, not from quantity.',
+						'explanation' => 'A register is inside the processor: one cycle. An ordinary memory slot takes dozens of cycles. A program that works in memory is therefore slow. Registers are the fastest memory — and the smallest.',
+					),
+					1 => array(
+						'question'    => 'What is the "canary" (stack protector)?',
+						'choices'     => array(
+							'A value placed between the buffer and the return address, checked before returning: if it has changed, the program stops',
+							'A system password',
+							'A kernel firewall',
+							'A backup copy of the buffer',
+						),
+						'hint'        => 'A guard between the buffer and the return address.',
+						'explanation' => 'The canary is a random value placed between the local buffer and the return address. Before returning, the function compares it: if it has changed, an overflow has occurred, and the program aborts. That is the defence taught in the 6.858 course.',
+					),
+				),
+			),
+		),
+	),
+
 );
