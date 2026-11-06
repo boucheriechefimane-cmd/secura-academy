@@ -13,13 +13,14 @@
 
 ## 0. Le chiffre de départ, mesuré
 
-`tools/certifications/couverture.php` (nouveau, dans cette branche) mesure la
-couverture des 34 sujets officiels de SY0-701, pondérée par les poids du
-référentiel, et distingue trois états : `absent`, `partiel` (le contenu en
-parle, on ne pratique pas), `complet` (une room pratique en parle).
+`tools/certifications/couverture.php` mesure la couverture des 34 sujets
+officiels de SY0-701, pondérée par les poids du référentiel, et distingue trois
+états : `absent`, `partiel` (le contenu en parle, on ne pratique pas), `complet`
+(une room pratique en parle).
+
+**Point de départ, le 6 novembre 2026 au matin :**
 
 ```
-REFERENTIEL : CompTIA Security+ (SY0-701)
 Rooms analysees : 52 dont 18 avec au moins un exercice reellement pratique
 
 D1 Concepts generaux          (12%) : 50.0% couvert
@@ -28,21 +29,37 @@ D3 Architecture               (18%) : 50.0% couvert
 D4 Operations de securite     (28%) : 62.5% couvert
 D5 Gouvernance                (20%) : 30.0% couvert
 
-COUVERTURE PONDEREE : 52.2%
+COUVERTURE PONDEREE : 52.2 %
 ```
 
-**Et ce chiffre est généreux** : un sujet `partiel` compte pour 0,5 alors que
-l'élève n'a rien pratiqué. Lu sévèrement (théorie = 0), la couverture est de
-**~35 %**. Le document disait « ~40 % » ; le vrai chiffre est celui-là.
+**Le même chiffre, le 6 novembre 2026 au soir :**
 
-**Ce qui manque, nommément** (19 sujets) : zéro trust, gestion du changement,
-contrôles de sécurité, sécurité physique, malwares, attaques réseau, indicateurs
-de compromission, cloud/hybride, classification et DLP, forensique, réponse à
-incident, automatisation/SOAR, gouvernance, registre des risques, risque tiers,
-conformité, sensibilisation.
+```
+Rooms analysees : 57 dont 29 avec au moins un exercice reellement pratique
+  dont 18 sur une machine reelle, 11 sur un terminal simule
 
-Le plus grave n'est pas la liste : c'est que **D4 (28 % de l'examen) et D5
-(20 %)** — 48 % du score — sont les deux domaines les plus faibles.
+D1 Concepts generaux          (12%) : 50.0% couvert
+D2 Menaces et vulnerabilites  (22%) : 93.8% couvert
+D3 Architecture               (18%) : 50.0% couvert
+D4 Operations de securite     (28%) : 75.0% couvert
+D5 Gouvernance                (20%) : 80.0% couvert
+
+COUVERTURE PONDEREE : 72.6 %
+```
+
+**Et ce chiffre reste généreux** : un sujet `partiel` compte pour 0,5 alors que
+l'élève n'a rien pratiqué, et 11 des 29 rooms « pratiques » le sont sur un
+terminal simulé. Lu sévèrement (théorie = 0, simulation = 0,5), la couverture
+réelle est d'environ **55 %**.
+
+**Ce qui manque encore, nommément** (11 sujets) : contrôles de sécurité, zero
+trust, gestion du changement, sécurité physique, ingénierie sociale, cloud et
+hybride, classification et DLP, IoT et industriel, forensique, automatisation
+et SOAR, sensibilisation.
+
+Les deux domaines les plus lourds — D4 (28 %) et D5 (20 %), soit 48 % du score
+— sont passés de 62,5 % et 30 % à 75 % et 80 %. Ce qui reste est concentré sur
+**D3 (18 % du score, encore à 50 %)** et **D1 (12 %, à 50 %)**.
 
 ---
 
@@ -230,16 +247,20 @@ intentions. Chiffres mesurés le 6 novembre 2026.
 
 | Point du plan | État | Preuve chiffrée |
 |---|---|---|
-| Mesurer la couverture au lieu de l'affirmer | **fait** | `tools/certifications/couverture.php` + `sy0-701.json` : 34 sujets, poids officiels, **52,2 %** mesurés, sort 1 sous le seuil |
-| Fermer la porte des dix caractères | **fait** | `Secura_Solution` + `tests/solution-test.php` (8 essais) ; CI verte |
+| Mesurer la couverture au lieu de l'affirmer | **fait** | `tools/certifications/couverture.php` : 34 sujets, poids officiels, **72,6 %** mesurés, sort 1 sous le seuil |
+| Fermer la porte des dix caractères | **fait** | `Secura_Solution` + `tests/solution-test.php` (8 essais) |
 | Auto-évaluation explicite pour les questions sans grille | **fait** | l'élève voit le corrigé, les concepts manquants, et se positionne |
 | Ne plus mentir sur la validation | **fait** | le message dit « vous avez comparé au corrigé et confirmé » |
-| **Limiter les tentatives d'examen** | **fait** | `Secura_Gate` : 3 tentatives, puis 24 h ; refus de rejouer un examen déjà réussi. `tests/gate-test.php` (16 essais) |
-| **La pratique obligatoire pour valider une room** | **fait** | une room dont une manipulation reste à faire ne se valide pas ; l'élève lit combien il en reste. Même test |
-| **Étiqueter les questions par sujet** | **fait** | `content-sy0-701-banque.php` : **94 questions**, toutes étiquetées de 1.1 à 5.5, champ `topic` transporté par `Secura_Rooms` |
-| **Tirage pondéré par domaine** | **fait** | `Secura_Blanc` : 90 questions réparties 11/20/16/25/18, total toujours respecté (plus fort reste). `tests/blanc-test.php` (31 essais) |
+| **Limiter les tentatives d'examen** | **fait** | `Secura_Gate` : 3 tentatives, puis 24 h ; refus de rejouer un examen réussi. `tests/gate-test.php` (16 essais) |
+| **La pratique obligatoire pour valider une room** | **fait** | une room dont une manipulation reste à faire ne se valide pas ; l'élève lit combien il en reste |
+| **Étiqueter les questions par sujet** | **fait** | `content-sy0-701-banque.php` : **94 questions**, étiquetées de 1.1 à 5.5 |
+| **Tirage pondéré par domaine** | **fait** | `Secura_Blanc` : 90 questions réparties 11/20/16/25/18, total toujours respecté. `tests/blanc-test.php` (31 essais) |
 | **Barème du référentiel** | **fait** | échelle 100–900, seuil 750. Mesuré : 73/90 → **749, échoue** ; 74/90 → **758, réussit** |
-| **Contrôle anti-drapeau-lisible dans le CI** | **fait** | `tools/controle/drapeaux-lisibles.php` + échéancier daté. État : **18 manipulations réelles sur 60 (30 %)** |
+| **Contrôle anti-drapeau-lisible** | **fait** | `tools/controle/drapeaux-lisibles.php` + échéancier daté. État : **18 manipulations réelles sur 60 (30 %)** |
+| **Le terminal ne ment plus** | **fait** | `tests/terminal-test.php` (14 essais) : ordre libre reconnu, `ls` n'est plus « introuvable » |
+| **Le domaine D5 (20 % du score)** | **fait** | 3 rooms écrites : registre, fournisseur, audit. **30 % → 80 %** |
+| **Le domaine D2 (22 % du score)** | **fait** | 2 rooms : capture ARP, chronologie d'incident. **62,5 % → 93,8 %** |
+| **Anglais et arabe sur les nouvelles rooms** | **fait** | 57 rooms, **1 714 champs contrôlés, 0 sans traduction** |
 
 ### Ce que les tests empêchent, et qui rend un QCM devinable
 
@@ -248,37 +269,61 @@ Un QCM peut être « juste » et mauvais quand même. Trois travers suffisent :
 | Travers | Mesure avant | Mesure après |
 |---|---|---|
 | La bonne réponse est la plus longue | 29 cas sur 68 | **0** |
-| La bonne réponse est toujours en A | 64,7 % en A (2,9 % en C) | **24 / 24 / 23 / 23**, soit 25 % partout |
+| La bonne réponse est toujours en A | 64,7 % en A (2,9 % en C) | **24 / 24 / 23 / 23** |
 | Un sujet du référentiel n'est jamais interrogé | tirage au hasard | tourniquet entre les sujets + test qui exige ≥ 8 questions par domaine |
 
 `tests/banque-test.php` (18 essais) interdit ces trois travers et vérifie que
 chaque question a quatre propositions, un index valide et une explication.
 
+### La couverture, sujet par sujet
+
+```
+D1 — Concepts generaux       (12 %) : 50,0 % couvert   (1.1, 1.3, 1.4 absents ; 1.7 theorie)
+D2 — Menaces et vulnerabilites (22 %) : 93,8 % couvert   (2.3 theorie seulement)
+D3 — Architecture            (18 %) : 50,0 % couvert   (3.1, 3.4, 3.6 absents)
+D4 — Operations              (28 %) : 75,0 % couvert   (4.7, 4.8 absents)
+D5 — Gouvernance             (20 %) : 80,0 % couvert   (5.5 absent)
+COUVERTURE PONDEREE : 72,6 %   ->  lu severe (theorie=0) : ~55 %
+57 rooms, dont 29 avec un exercice reellement pratique
+  dont 18 sur une machine reelle, 11 sur un terminal simule
+```
+
 ### L'écart qui reste, nommé
 
 | Sujet | Mesure | Ce qu'il reste à faire |
 |---|---|---|
-| Les 42 drapeaux de lecture | 18 vrais sur 60 | les 5 machines du plan (le gros morceau) |
-| Les 15 rooms manquantes | 52,2 % de couverture | D5 (30 % couvert) puis D2 |
-| La banque à 600 questions | 94 écrites | 506 à écrire, par sujet, avec la même règle de distracteurs |
-| Le seuil à 80 % sur les examens de room | encore 60 % | une ligne par examen ; dépend du contenu de chaque room |
+| D3 Architecture (18 % du score) | 50 % | 3 rooms : cloud et responsabilité partagée (3.1), DLP et chiffrement au repos (3.4), IoT et industriel (3.6) |
+| D1 Concepts (12 %) | 50 % | 3 rooms : contrôles (1.1), zero trust (1.3), gestion du changement (1.4) |
+| D4 Opérations (28 %) | 75 % | 2 rooms : forensique (4.7), automatisation et SOAR (4.8) |
+| D5 Sensibilisation (5.5) | absent | 1 room, la dernière du domaine le plus faible |
+| Les 42 drapeaux de lecture | 18 vrais sur 60 | les 5 machines du plan |
+| La banque à 600 questions | 94 écrites | 506 à écrire |
+| Le seuil à 80 % sur les examens de room | encore 60 % | une ligne par examen |
 
 ---
 
-## 3. Par quoi je commence, si tu dis oui
+## 3. Ce qui reste, par ordre d'impact
 
-Par ordre d'impact sur le score réel de l'élève, et du moins cher au plus cher :
+Le plan initial comptait cinq chantiers. Les cinq sont faits, sauf le dernier,
+qui est le plus gros. Voici ce qui reste, chiffré.
 
-1. **Fermer la porte des 10 caractères** (1 h) — supprime la validation bidon de
-   1 777 questions.
-2. **Limiter les tentatives et passer le seuil à 80 %** (2 h) — l'examen cesse
-   d'être décoratif.
-3. **Ajouter l'étiquette de sujet + tirage pondéré par domaine** (1 j) — les
-   examens ressemblent à l'examen réel.
-4. **Le contrôle anti-drapeau-lisible dans le CI** (2 h) — plus aucun nouveau
-   drapeau de lecture n'entre.
-5. **Les 5 machines et les 15 rooms manquantes** (le gros morceau) — D5 puis D2,
-   parce que ce sont 48 % du score.
+| Rang | Chantier | Effort | Gain mesuré |
+|---|---|---|---|
+| 1 | **D3 Architecture** : 3 rooms (cloud et responsabilité partagée, DLP et chiffrement au repos, IoT et industriel) | 1 j | D3 50 % → 100 %, soit **+9 points de couverture pondérée** |
+| 2 | **D1 Concepts** : 3 rooms (contrôles, zero trust, gestion du changement) | 1 j | D1 50 % → ~93 %, soit **+5 points** |
+| 3 | **D4 Opérations** : 2 rooms (forensique, SOAR) | 0,5 j | D4 75 % → 100 %, soit **+7 points** |
+| 4 | **D5 sensibilisation** : 1 room | 0,5 j | D5 80 % → 100 %, soit **+4 points** |
+| 5 | **Les 5 machines** qui remplacent les 42 drapeaux de lecture | 4-5 j | 60 drapeaux réels sur 60, et 18 → 60 rooms pratiques |
+| 6 | **La banque à 600 questions** | 3 j | blancs de 90 questions renouvelables sans doublon |
+| 7 | **Le seuil à 80 %** sur les 57 examens de room | 2 h | les examens cessent d'être faciles |
 
-Les points 1 à 4 se font dans cette branche et se prouvent par un run CI. Le 5
-demande plusieurs jours et un ordre de priorité de ta part.
+Les points 1 à 4 tiennent en trois jours et porteraient la couverture
+pondérée de **72,6 % à environ 97 %**. C'est le meilleur rapport effort/résultat
+disponible aujourd'hui.
+
+Le point 5 est le seul qui ne se compresse pas : il demande de construire de
+vraies machines vulnérables et de les tester. Tant qu'il n'est pas fait, le site
+reste honnête sur ce point — le contrôle `drapeaux-lisibles.php` affiche
+« 18 manipulations réelles sur 60 » à chaque exécution de la CI, et la date
+limite de la dette est fixée au 15 décembre 2026 pour les rooms
+universitaires et au 31 décembre 2026 pour le dojo.
