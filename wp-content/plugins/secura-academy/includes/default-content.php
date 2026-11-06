@@ -993,12 +993,13 @@ function seca_default_rooms() {
  * @param array $m3_room_ids  Identifiants des rooms M3 (dix scénarios), dans l'ordre.
  * @return array
  */
-function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array(), $gouvernance_room_ids = array() ) {
+function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = array(), $avance_room_ids = array(), $gouvernance_room_ids = array(), $menaces_room_ids = array() ) {
 	$room_ids       = array_values( array_map( 'absint', (array) $room_ids ) );
 	$m3_room_ids    = array_values( array_map( 'absint', (array) $m3_room_ids ) );
 	$uni_room_ids   = array_values( array_map( 'absint', (array) $uni_room_ids ) );
 	$avance_room_ids = array_values( array_map( 'absint', (array) $avance_room_ids ) );
 	$gouvernance_room_ids = array_values( array_map( 'absint', (array) $gouvernance_room_ids ) );
+	$menaces_room_ids = array_values( array_map( 'absint', (array) $menaces_room_ids ) );
 
 	$paths = array(
 		array(
@@ -1306,6 +1307,53 @@ function seca_default_paths( $room_ids, $m3_room_ids = array(), $uni_room_ids = 
 						array( 'title' => 'Risk and the register (5.1, 5.2)' ),
 						array( 'title' => 'Third-party risk (5.3)' ),
 						array( 'title' => 'Compliance and audits (5.4)' ),
+					),
+				),
+			),
+		),
+		/* --------------------------------------------------------------
+		 * Parcours « Menaces et traces » : les deux rooms du domaine D2
+		 * qui manquaient (attaques reseau 2.6, indicateurs de
+		 * compromission 2.8).
+		 * ------------------------------------------------------------ */
+		array(
+			'title'      => 'Menaces et traces : 2 rooms D2',
+			'excerpt'    => 'Lire une capture reseau et une chronologie d\'incident : reconnaitre une interception, trier une trace entre vulnerabilite, artefact et vrai indicateur.',
+			'content'    => 'Deux sujets du domaine D2 (22 % du score Security+) n\'avaient aucune room. Ici, on ne recite pas les noms d\'attaques : on lit une capture ARP et un journal de connexions, et on nomme ce qu\'on voit. Le terminal est simule : ces rooms fonctionnent sans machine.',
+			'difficulty' => 'moyen',
+			'duration'   => 70,
+			'xp_bonus'   => 120,
+			'certification' => array(
+				'nom'         => 'CompTIA Security+ (SY0-701) — domaine 2',
+				'cout'        => 'Examen : 439 $ (au 01/11/2026). Preparation gratuite (Professor Messer).',
+				'preparation' => 'Attaques reseau (2.6) et indicateurs de compromission (2.8) : les deux sujets ou l\'on confond le plus facilement une theorie apprise et une competence reelle.',
+				'gratuit'     => false,
+			),
+			'sections'   => array(
+				array(
+					'title' => 'Attaques reseau et interception (2.6)',
+					'rooms' => array_slice( $menaces_room_ids, 0, 1 ),
+				),
+				array(
+					'title' => 'Indicateurs de compromission (2.8)',
+					'rooms' => array_slice( $menaces_room_ids, 1, 1 ),
+				),
+			),
+			'i18n'       => array(
+				'ar' => array(
+					'title'   => 'التهديدات والآثار: غرفتان D2',
+					'excerpt' => 'قراءة التقاط شبكة وتسلسل زمني لحادث: التعرف على اعتراض، وفرز أثر بين ثغرة وأثر طبيعي ومؤشر اختراق حقيقي.',
+					'sections' => array(
+						array( 'title' => 'هجمات الشبكة والاعتراض (2.6)' ),
+						array( 'title' => 'مؤشرات الاختراق (2.8)' ),
+					),
+				),
+				'en' => array(
+					'title'   => 'Threats and traces: 2 D2 rooms',
+					'excerpt' => 'Read a network capture and an incident timeline: recognise an interception, and sort a trace between vulnerability, artefact and a real indicator of compromise.',
+					'sections' => array(
+						array( 'title' => 'Network attacks and interception (2.6)' ),
+						array( 'title' => 'Indicators of compromise (2.8)' ),
 					),
 				),
 			),

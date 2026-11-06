@@ -192,6 +192,9 @@ final class Secura_Rooms {
 			/* Domaine D5 « gouvernance » de Security+ : trois rooms qui
 			   manquaient, 60 % du domaine n'etait pas couvert. */
 			'gouvernance' => seca_default_rooms_d5(),
+			/* Domaine D2 « menaces et vulnerabilites » : attaques reseau
+			   (2.6) et indicateurs de compromission (2.8). */
+			'menaces'     => seca_default_rooms_d2(),
 		);
 
 		/* Les rooms deja installees, retrouvees par leur cle stable. */

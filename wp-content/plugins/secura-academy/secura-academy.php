@@ -499,6 +499,7 @@ require_once SECURA_ACADEMY_PATH . 'includes/default-content.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-m3.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-sy0-701-banque.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-d5.php';
+require_once SECURA_ACADEMY_PATH . 'includes/content-d2.php';
 require_once SECURA_ACADEMY_PATH . 'includes/content-universites.php';
 
 /* Les questions importees depuis l'exterieur (universites, examens).
