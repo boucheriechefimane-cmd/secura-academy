@@ -196,4 +196,325 @@ return array(
 		),
 	),
 
+	/* ---------------------------------------------------------------------
+	 * avance-03 — Ceinture blanche
+	 * ------------------------------------------------------------------ */
+	'avance-03' => array(
+		'title'   => 'White belt: read, search, understand',
+		'excerpt' => 'Four challenges to learn how to look at a file and find what you are looking for.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the white belt',
+				'content' => '<p>The first belt is the belt of observation. No complicated technique: just learning to look at a file, to go through it, and to spot a value in it.</p><p>What you will learn:</p><ul><li><code>cat</code> — the whole file, at once;</li><li><code>ls -a</code> — including what is <em>hidden</em> (the leading dot);</li><li><code>grep</code> — find a line containing a word;</li><li><code>head</code> and <code>tail</code> — the beginning and the end.</li></ul><p><strong>Remember:</strong> before asking "how do I hack this?", ask "what exactly is in that file?". Most of the time the answer is already there, in plain text.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions on the tools of this belt.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Which command displays the whole content of a file?',
+						'choices'     => array(
+							'ls',
+							'cd',
+							'cat',
+							'ps',
+						),
+						'hint'        => 'One command reads, another lists.',
+						'explanation' => '<code>cat</code> displays the content. <code>ls</code> lists files, <code>cd</code> changes directory, <code>ps</code> lists processes. Classic confusion: the tool of the day is not always the tool of the moment.',
+					),
+					1 => array(
+						'question'    => 'Why use `ls -a` rather than `ls`?',
+						'choices'     => array(
+							'To get file sizes',
+							'To sort by date',
+							'To list folders only',
+							'To also see hidden files (those starting with a dot)',
+						),
+						'hint'        => 'What could `ls` be missing?',
+						'explanation' => 'Hidden files start with a dot. <code>ls</code> skips them; <code>ls -a</code> shows them. That is where "secret" configuration files hide — and sometimes the flags.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the four challenges of the belt',
+				'content' => '<p>The dojo is deployed on your machine. The four challenges of the <strong>white</strong> belt are in:</p><ul><li><strong>The first file</strong> — The report file of the first challenge. (<code>/srv/dojo/1-blanche/01-premier-fichier.txt</code>)</li><li><strong>The hidden folder</strong> — A file starts with a dot: simple tools do not see it. (<code>/srv/dojo/1-blanche/02-dossier-cache.txt</code>)</li><li><strong>The word in the text</strong> — One line contains a specific word: you have to find it. (<code>/srv/dojo/1-blanche/03-mot-dans-le-texte.txt</code>)</li><li><strong>The first and last lines</strong> — The start and the end of the file are often where the information is. (<code>/srv/dojo/1-blanche/04-extremites.txt</code>)</li></ul><p><strong>Mission.</strong> Open each document, note the report value (the line <code>... = FLAG=SECURA{...}</code>), and answer the four questions. The server compares each answer with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of the "The first file" challenge (d01).',
+						'hint'        => 'The white belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					1 => array(
+						'question'    => 'Note the value of the "The hidden folder" challenge (d02).',
+						'hint'        => 'The white belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					2 => array(
+						'question'    => 'Note the value of the "The word in the text" challenge (d03).',
+						'hint'        => 'The white belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					3 => array(
+						'question'    => 'Note the value of the "The first and last lines" challenge (d04).',
+						'hint'        => 'The white belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Three questions on this belt. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'You are looking for a line containing "session". Which command is made for that?',
+						'choices'     => array(
+							'chmod',
+							'kill',
+							'tar',
+							'grep',
+						),
+						'hint'        => 'A text search command.',
+						'explanation' => '<code>grep</code> filters the lines containing a pattern. <code>chmod</code> changes permissions, <code>kill</code> stops a process, <code>tar</code> archives files. Remember the family: <code>grep</code> = search text.',
+					),
+					1 => array(
+						'question'    => 'A file is called `.secret`. Which simple command does not show it?',
+						'choices'     => array(
+							'ls',
+							'ls -a',
+							'cat .secret',
+							'find .',
+						),
+						'hint'        => 'The leading dot changes everything.',
+						'explanation' => 'That is exactly the trap of challenge 2: <code>ls</code> without an option ignores hidden files. <code>ls -a</code> shows them, and <code>cat .secret</code> reads that one.',
+					),
+					2 => array(
+						'question'    => 'You want the last line of a long log file. You use?',
+						'choices'     => array(
+							'head -1',
+							'tail -1',
+							'grep -c',
+							'wc -l',
+						),
+						'hint'        => 'The end of the file.',
+						'explanation' => '<code>tail</code> shows the end, <code>head</code> the beginning. For a log, the last line is often the most recent: that is where the interesting event is.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * avance-04 — Ceinture jaune
+	 * ------------------------------------------------------------------ */
+	'avance-04' => array(
+		'title'   => 'Yellow belt: permissions, owner, content',
+		'excerpt' => 'When the system says no: who owns the file, what its permissions are, and what it really contains.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the yellow belt',
+				'content' => '<p>The yellow belt is the moment when the simple tool is no longer enough. The file is there, but something blocks you: <strong>permissions</strong>, an <strong>owner</strong> other than you, content you only see in part.</p><p>What you will learn:</p><ul><li><code>ls -l</code> — permissions, owner, group, size;</li><li><code>stat</code> — the details of a file (type, size, permissions);</li><li><code>grep -n</code> — the <em>number</em> of the line containing the word;</li><li><code>wc</code> — count lines, words or bytes.</li></ul><p><strong>Remember:</strong> a file you cannot read is not necessarily absent. It may be protected: and there the right question is not "how do I read it?" but "<em>who</em> reads it, and why them?".</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions on the tools of this belt.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'In `ls -l`, what does the string `-rwxr-xr-x` mean?',
+						'choices'     => array(
+							'The file is read-only for everyone',
+							'The file belongs to the root group',
+							'The file is a folder',
+							'The owner can read, write and execute; the others can read and execute',
+						),
+						'hint'        => 'Three groups of three letters: owner, group, others.',
+						'explanation' => 'The first triplet is the owner, the second the group, the third the others. <code>rwx</code> = read, write, execute. <code>-rwxr-xr-x</code>: the owner has every right, the group and the others only read and execute.',
+					),
+					1 => array(
+						'question'    => 'What does `grep -n` do in addition to `grep`?',
+						'choices'     => array(
+							'It displays the line number of each result',
+							'It ignores case',
+							'It counts the results',
+							'It searches in subfolders',
+						),
+						'hint'        => 'The "n" stands for number.',
+						'explanation' => '<code>-n</code> displays the line number: handy to locate an item in a long file. <code>-i</code> ignores case, <code>-c</code> counts, <code>-r</code> descends into folders.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the four challenges of the belt',
+				'content' => '<p>The dojo is deployed on your machine. The four challenges of the <strong>yellow</strong> belt are in:</p><ul><li><strong>The protected file</strong> — A file\'s permissions can be read at a glance with `ls -l`. (<code>/srv/dojo/2-jaune/05-fichier-protege.txt</code>)</li><li><strong>The real owner\'s folder</strong> — A file\'s owner is not necessarily you. (<code>/srv/dojo/2-jaune/06-proprietaire.txt</code>)</li><li><strong>The hidden line</strong> — A line hidden in the middle: `grep -n` gives its number. (<code>/srv/dojo/2-jaune/07-ligne-cachee.txt</code>)</li><li><strong>The character count</strong> — Counting what is in a file is sometimes the answer. (<code>/srv/dojo/2-jaune/08-taille.txt</code>)</li></ul><p><strong>Mission.</strong> Open each document, note the report value (the line <code>... = FLAG=SECURA{...}</code>), and answer the four questions. The server compares each answer with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of the "The protected file" challenge (d05).',
+						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					1 => array(
+						'question'    => 'Note the value of the "The real owner\'s folder" challenge (d06).',
+						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					2 => array(
+						'question'    => 'Note the value of the "The hidden line" challenge (d07).',
+						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					3 => array(
+						'question'    => 'Note the value of the "The character count" challenge (d08).',
+						'hint'        => 'The yellow belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Three questions on this belt. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'You see `-rw-------` on a file. Who can read it?',
+						'choices'     => array(
+							'The owner only',
+							'Everyone',
+							'The file\'s group',
+							'Nobody, not even the owner',
+						),
+						'hint'        => 'Six dashes or six letters: what is left for the owner?',
+						'explanation' => 'The first three signs concern the owner: <code>-rw-</code> means read and write for them, and nothing for the group or the others. That is the typical mode of a secret file.',
+					),
+					1 => array(
+						'question'    => 'What is the point of `stat` compared with `ls -l`?',
+						'choices'     => array(
+							'It changes the permissions',
+							'It gives finer details (type, inode, timestamps)',
+							'It copies the file',
+							'It opens the file in an editor',
+						),
+						'hint'        => 'It is the detailed version of the inspection.',
+						'explanation' => '<code>stat</code> displays the inode, the exact type (file, folder, link), the size and the dates. <code>ls -l</code> gives the condensed view: <code>stat</code> gives the full record.',
+					),
+					2 => array(
+						'question'    => 'A file belongs to `www-data` and you are `ctf`. What can you do with it?',
+						'choices'     => array(
+							'Modify it, since the folder belongs to you',
+							'Delete it unconditionally',
+							'Read it if it has the right permissions for "others", otherwise nothing',
+							'Become its owner',
+						),
+						'hint'        => 'Ownership and read permissions are not the same thing.',
+						'explanation' => 'A service account (<code>www-data</code>) often owns the application files: that is normal. Your rights depend on the "others" permissions. You never become the owner of a file that is not yours.',
+					),
+				),
+			),
+		),
+	),
+
+	/* ---------------------------------------------------------------------
+	 * avance-05 — Ceinture orange
+	 * ------------------------------------------------------------------ */
+	'avance-05' => array(
+		'title'   => 'Orange belt: network, processes, configuration',
+		'excerpt' => 'Leaving files behind: what listens, what runs, and what was forgotten in the configuration.',
+		'tasks'   => array(
+			0 => array(
+				'title'   => 'Task 1: Lesson — the orange belt',
+				'content' => '<p>With the orange belt you stop reading files to look at <strong>what is alive</strong>: open ports, running processes, and configurations somebody forgot.</p><p>What you will learn:</p><ul><li><code>ss</code> (or <code>netstat</code>) — sockets and listening ports;</li><li><code>ps</code> — running processes;</li><li><code>cat</code> and <code>grep</code> on configuration files — the secrets left inside them.</li></ul><p><strong>Remember:</strong> a compromised machine tells its story through its processes and its ports. Before "looking for a flaw", look at what is already running: often the flaw is a service somebody forgot.</p>',
+			),
+			1 => array(
+				'title'   => 'Task 2: Practice',
+				'content' => '<p>Two questions on the tools of this belt.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Which command lists the listening ports?',
+						'choices'     => array(
+							'ss -lnt',
+							'ls -l /ports',
+							'cat /proc/ports.conf',
+							'ping -c1',
+						),
+						'hint'        => '"sockets" and "listening".',
+						'explanation' => '<code>ss -lnt</code> lists the listening sockets in numeric format. <code>netstat -tlnp</code> does the same with the process name — handier when asking "which program holds that port".',
+					),
+					1 => array(
+						'question'    => 'Why is a secret variable in a configuration file dangerous?',
+						'choices'     => array(
+							'Because the file is slow to read',
+							'Because it is often copied, backed up, or read by a broader service than expected',
+							'Because configuration files crash the server',
+							'Because variables only work in production',
+						),
+						'hint'        => 'Who reads that file?',
+						'explanation' => 'An API key forgotten in a configuration file ends up copied into a ticket, into a backup, or read by a script that passes it on. A secret stops being secret as soon as it is stored in clear text.',
+					),
+				),
+			),
+			2 => array(
+				'title'   => 'Task 3: The mission — the four challenges of the belt',
+				'content' => '<p>The dojo is deployed on your machine. The four challenges of the <strong>orange</strong> belt are in:</p><ul><li><strong>The open port</strong> — What listens is visible with `ss` or `netstat`. (<code>/srv/dojo/3-orange/09-port-ouvert.txt</code>)</li><li><strong>The suspicious process</strong> — What runs is visible with `ps`. (<code>/srv/dojo/3-orange/10-processus.txt</code>)</li><li><strong>The forgotten configuration</strong> — A variable left in a configuration file. (<code>/srv/dojo/3-orange/11-configuration.txt</code>)</li><li><strong>The firewall rule</strong> — A filtering rule, readable as text. (<code>/srv/dojo/3-orange/12-pare-feu.txt</code>)</li></ul><p><strong>Mission.</strong> Open each document, note the report value (the line <code>... = FLAG=SECURA{...}</code>), and answer the four questions. The server compares each answer with the flag it keeps in root.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'Note the value of the "The open port" challenge (d09).',
+						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					1 => array(
+						'question'    => 'Note the value of the "The suspicious process" challenge (d10).',
+						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					2 => array(
+						'question'    => 'Note the value of the "The forgotten configuration" challenge (d11).',
+						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+					3 => array(
+						'question'    => 'Note the value of the "The firewall rule" challenge (d12).',
+						'hint'        => 'The orange belt folder is in <code>/srv/dojo</code>. Open the challenge file and copy the value between the braces.',
+						'explanation' => 'Every dojo challenge is validated with proof read from the machine: the server compares your answer with the flag it keeps in root. The tool for the challenge is given in the document itself.',
+					),
+				),
+			),
+			3 => array(
+				'title'   => 'Task 4: End-of-room exam',
+				'content' => '<p>Three questions on this belt. 60% is enough to pass.</p>',
+				'questions' => array(
+					0 => array(
+						'question'    => 'A service listens on port 8080. Which question do you ask first?',
+						'choices'     => array(
+							'Why is the port not 80?',
+							'Which program holds it, and is it supposed to be reachable from outside?',
+							'Is port 8080 forbidden?',
+							'Should the server be restarted?',
+						),
+						'hint'        => 'An open port is not a flaw: it is a question.',
+						'explanation' => 'The right question is "is this normal?". Port 8080 may be the public shopfront, or an administration interface that should never have been exposed. It is the tester\'s job to compare it with what is expected.',
+					),
+					1 => array(
+						'question'    => 'What does a process running with root rights reveal, when the service does not need them?',
+						'choices'     => array(
+							'Nothing particular',
+							'A good performance practice',
+							'A least-privilege flaw: if the service is compromised, the attacker inherits root',
+							'The server is misconfigured at the network level',
+						),
+						'hint'        => 'What happens if that service is compromised?',
+						'explanation' => 'That is the principle of least privilege: a service running as root has no safety net once it is abused. Remove the superfluous rights: a bug then becomes an incident, not a catastrophe.',
+					),
+					2 => array(
+						'question'    => 'Why are filtering rules (firewall) a prime target?',
+						'choices'     => array(
+							'They are written in Perl',
+							'Because they are stored in binary',
+							'Because they slow the server down',
+							'Because they decide what goes in and what goes out: a badly written rule opens a passage',
+						),
+						'hint'        => 'A rule is a door: badly written, it stays open.',
+						'explanation' => 'Filtering is a policy: "who may pass, and to where". A forgotten rule (one "Any" too many) is often more serious than an application flaw, because it does not need exploiting: it is already there.',
+					),
+				),
+			),
+		),
+	),
+
 );

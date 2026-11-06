@@ -80,7 +80,24 @@ $est_technique = function ( $texte ) {
 	$sans_code = preg_replace( '#<code>.*?</code>#is', ' ', $texte );
 	$sans_code = wp_strip_all_tags( $sans_code );
 
-	return ! preg_match( '/[A-Za-zÀ-ÿ]{3,}/u', $sans_code );
+	if ( ! preg_match( '/[A-Za-zÀ-ÿ]{3,}/u', $sans_code ) ) {
+		return true;
+	}
+
+	/* Deuxieme cas : la reponse EST une commande shell, ecrite sans balise
+	   (`cat`, `grep`, `ls -l /ports`, `ss -lnt`). Un nom de commande ne se
+	   traduit pas : le signaler pousserait a maquiller la question en
+	   traduisant l'outil, ce qui serait faux. On n'exempte qu'une option
+	   dont la forme est celle d'une ligne de commande : un mot du
+	   vocabulaire du shell, suivi eventuellement d'options et d'un chemin.
+	   Une option en prose (« Cat » comme animal, « Trouver le fichier »)
+	   ne correspond pas a ce motif et reste donc controlee. */
+	$commande = trim( wp_strip_all_tags( $sans_code ) );
+
+	return (bool) preg_match(
+		'#^(?:apt|awk|base64|bash|basename|cat|cd|chgrp|chmod|chown|cp|crontab|curl|cut|df|diff|dirname|dpkg|du|echo|env|export|file|find|gcc|gdb|grep|groups|head|id|iptables|journalctl|kill|less|ln|locate|ls|lsof|ltrace|man|mkdir|more|mount|mv|nc|ncat|netstat|nft|nice|nm|nmap|objdump|od|openssl|passwd|paste|ping|pip|ps|pwd|python3|python|readelf|readlink|rm|rmdir|sed|sh|sort|ss|sshd|stat|strace|strings|su|sudo|systemctl|tail|tar|tcpdump|tee|touch|tr|tree|ufw|uname|uniq|wc|wget|which|whoami|xargs|xxd|zcat)(?:\s+(?:-{1,2}[A-Za-z0-9-]+|/[A-Za-z0-9._/-]+|[A-Za-z0-9._-]+\.?[A-Za-z0-9._/-]*))*$#u',
+		$commande
+	);
 };
 
 /**
@@ -200,7 +217,7 @@ foreach ( $rooms as $room ) {
 					continue;
 				}
 
-				if ( ! $est_technique( $fr_txt ) && $est_identique( $fr_txt, $en_txt ) ) {
+				if ( ! $est_technique( $fr_txt ) && ! $est_technique( $en_txt ) && $est_identique( $fr_txt, $en_txt ) ) {
 					$erreurs[] = $nomq . ' : ' . $champ . ' identique au francais';
 				}
 
@@ -229,7 +246,7 @@ foreach ( $rooms as $room ) {
 
 				if ( '' === trim( $texte_en ) ) {
 					$erreurs[] = $nomq . ' : option ' . ( $ci + 1 ) . ' vide en anglais';
-				} elseif ( ! $est_technique( $texte_fr ) && $est_identique( $texte_fr, $texte_en ) ) {
+				} elseif ( ! $est_technique( $texte_fr ) && ! $est_technique( $texte_en ) && $est_identique( $texte_fr, $texte_en ) ) {
 					$erreurs[] = $nomq . ' : option ' . ( $ci + 1 ) . ' identique au francais (« ' . mb_substr( trim( $texte_fr ), 0, 40 ) . ' »)';
 				}
 			}
