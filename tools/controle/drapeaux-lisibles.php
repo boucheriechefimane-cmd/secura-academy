@@ -71,7 +71,7 @@ if ( file_exists( $registre_fichier ) ) {
 	$registre = (array) json_decode( (string) file_get_contents( $registre_fichier ), true );
 }
 
-$marqueurs = array( '/srv/cours', '/srv/dojo', '/srv/briefs' );
+$marqueurs = array( '/srv/cours', '/srv/briefs' );
 
 $propres  = 0;
 $toleres  = 0;
@@ -88,15 +88,22 @@ foreach ( $rooms as $room ) {
 				continue;
 			}
 
-			$texte = strtolower(
-				( isset( $question['hint'] ) ? (string) $question['hint'] : '' ) . ' ' .
-				( isset( $question['question'] ) ? (string) $question['question'] : '' )
-			);
+			/* La regle a change le 6 novembre 2026, et elle etait fausse
+			   avant. On jugeait sur le TEXTE de l'indice : une room qui dit
+			   « ouvre /srv/cours » etait une lecture, ce qui est vrai. Mais
+			   le dojo, reecrit, dit desormais dans son indice que le drapeau
+			   n'est PAS dans le document : l'ancienne regle comptait donc
+			   les vingt defis du dojo comme des lectures alors qu'ils
+			   exigent une manipulation.
+			   La seule preuve exploitable est le CHEMIN du drapeau : un
+			   drapeau lu dans /srv/cours ou /srv/briefs est dans un
+			   document ; un drapeau lu dans /root/flags est sur la machine. */
+			$chemin = isset( $question['flag_path'] ) ? (string) $question['flag_path'] : '';
 
 			$fautif = false;
 
 			foreach ( $marqueurs as $m ) {
-				if ( false !== strpos( $texte, $m ) ) {
+				if ( 0 === strpos( $chemin, $m ) ) {
 					$fautif = true;
 				}
 			}

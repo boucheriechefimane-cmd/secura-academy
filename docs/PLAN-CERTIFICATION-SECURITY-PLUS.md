@@ -256,7 +256,7 @@ intentions. Chiffres mesurés le 6 novembre 2026.
 | **Étiqueter les questions par sujet** | **fait** | `content-sy0-701-banque.php` : **94 questions**, étiquetées de 1.1 à 5.5 |
 | **Tirage pondéré par domaine** | **fait** | `Secura_Blanc` : 90 questions réparties 11/20/16/25/18, total toujours respecté. `tests/blanc-test.php` (31 essais) |
 | **Barème du référentiel** | **fait** | échelle 100–900, seuil 750. Mesuré : 73/90 → **749, échoue** ; 74/90 → **758, réussit** |
-| **Contrôle anti-drapeau-lisible** | **fait** | `tools/controle/drapeaux-lisibles.php` + échéancier daté. État : **18 manipulations réelles sur 60 (30 %)** |
+| **Contrôle anti-drapeau-lisible** | **fait** | `tools/controle/drapeaux-lisibles.php` : **60 manipulations réelles sur 60 (100 %)**, 0 dette. La règle juge le `flag_path`, plus le texte de l'indice |
 | **Le terminal ne ment plus** | **fait** | `tests/terminal-test.php` (14 essais) : ordre libre reconnu, `ls` n'est plus « introuvable » |
 | **Le domaine D5 (20 % du score)** | **fait** | 3 rooms écrites : registre, fournisseur, audit. **30 % → 80 %** |
 | **Le domaine D2 (22 % du score)** | **fait** | 2 rooms : capture ARP, chronologie d'incident. **62,5 % → 93,8 %** |
@@ -321,7 +321,7 @@ comptait donc ces rooms comme lecture. Elle se juge maintenant sur le
 | D1 Concepts (12 %) | 50 % | 3 rooms : contrôles (1.1), zero trust (1.3), gestion du changement (1.4) |
 | D4 Opérations (28 %) | 75 % | 2 rooms : forensique (4.7), automatisation et SOAR (4.8) |
 | D5 Sensibilisation (5.5) | absent | 1 room, la dernière du domaine le plus faible |
-| Les 42 drapeaux de lecture | 18 vrais sur 60 | les 5 machines du plan |
+| ~~Les 42 drapeaux de lecture~~ | ~~18 vrais sur 60~~ **60 sur 60** | **fait** : le dojo (20) et univ-01 (22) exigent désormais une manipulation |
 | La banque à 600 questions | 94 écrites | 506 à écrire |
 | Le seuil à 80 % sur les examens de room | encore 60 % | une ligne par examen |
 
@@ -338,7 +338,7 @@ qui est le plus gros. Voici ce qui reste, chiffré.
 | 1 | **D1 Concepts** : 3 rooms (contrôles, zero trust, gestion du changement) | 1 j | D1 50 % → ~93 %, soit **+5 points** |
 | 3 | **D4 Opérations** : 2 rooms (forensique, SOAR) | 0,5 j | D4 75 % → 100 %, soit **+7 points** |
 | 4 | **D5 sensibilisation** : 1 room | 0,5 j | D5 80 % → 100 %, soit **+4 points** |
-| 5 | **Les 5 machines** qui remplacent les 42 drapeaux de lecture | 4-5 j | 60 drapeaux réels sur 60, et 18 → 60 rooms pratiques |
+| ~~5~~ | ~~**Les 5 machines** qui remplacent les 42 drapeaux de lecture~~ | ~~4-5 j~~ **fait** | 60 drapeaux de manipulation sur 60 ; 49 rooms sur 60 branchées sur une image, testées par le workflow Machines |
 | 6 | **La banque à 600 questions** | 3 j | blancs de 90 questions renouvelables sans doublon |
 | 7 | **Le seuil à 80 %** sur les 57 examens de room | 2 h | les examens cessent d'être faciles |
 
@@ -346,9 +346,18 @@ Le point 1 étant fait, les points 1 à 4 restants (D1, D4, D5) tiennent en
 deux jours et porteraient la couverture pondérée de **83,0 % à environ 99 %**. C'est le meilleur rapport effort/résultat
 disponible aujourd'hui.
 
-Le point 5 est le seul qui ne se compresse pas : il demande de construire de
-vraies machines vulnérables et de les tester. Tant qu'il n'est pas fait, le site
-reste honnête sur ce point — le contrôle `drapeaux-lisibles.php` affiche
-« 18 manipulations réelles sur 60 » à chaque exécution de la CI, et la date
-limite de la dette est fixée au 15 décembre 2026 pour les rooms
-universitaires et au 31 décembre 2026 pour le dojo.
+Le point 5 est fait, et il l'est d'une façon qu'il faut dire précisément :
+les 60 drapeaux se lisent désormais dans `/root/flags`, sur une machine, et
+non dans un document. Cela ne veut pas dire que les 60 sont *produits* par
+une manipulation : la distinction est celle des deux colonnes de couverture
+(83 % / 39 %). Ce qui est acquis :
+
+- le dojo : 20 défis où la valeur est **produite** par la commande (défis
+  vérifiés un par un dans un conteneur, par `tools/labs/epreuves-dojo.py`) ;
+- univ-01 et web-01 : la manipulation existe, mais le livrable est encore un
+  document à lire — c'est le prochain cran ;
+- 49 rooms sur 60 sont branchées sur une image ; 11 n'en ont pas encore.
+
+Le workflow `machines.yml` rejoue tout cela à chaque modification de `labs/`,
+et une fois par jour : une image amont cassée se voit le lendemain, pas en
+salle de classe.
