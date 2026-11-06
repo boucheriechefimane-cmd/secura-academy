@@ -188,10 +188,12 @@ function seca_default_rooms_d5() {
 					'tasks'   => array(
 						array(
 							'title'     => 'Task 1: What a register must contain to be worth anything',
+							'content'   => '<p>A <strong>risk register</strong> is a table. If it is well kept, it answers four questions for every line, and nothing less:</p><ol><li><strong>What is the risk, in one sentence?</strong> "An administrator leaving keeps active access" is a risk. "IT risk" is not.</li><li><strong>What is the likelihood, and what is the impact?</strong> On a shared scale, otherwise the line cannot be compared to the others.</li><li><strong>Which measure, owned by whom, by which date?</strong> A risk with no owner and no date never moves.</li><li><strong>What residual risk remains after the measure, and who accepts it?</strong> This is the last column an auditor reads, and the first one they check.</li></ol><p>Three diagnoses recur in every badly kept register:</p><ul><li><strong>the orphan risk</strong> — no measure, no owner;</li><li><strong>the ghost measure</strong> — a measure is written, but with no date and no owner: it does not exist;</li><li><strong>the silent acceptance</strong> — a high residual risk, and nobody who explicitly accepted it.</li></ul><p><strong>Remember:</strong> a register with no name and no date is decoration. The difference between real governance and a compliance document lives in those two columns.</p>',
 							'questions' => array(),
 						),
 						array(
 							'title'     => 'Task 2: Practice — three lines to diagnose',
+							'content'   => '<p>Three register lines. Each time: what is the flaw?</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Line A — Risk: "loss of customer data". Likelihood: high. Impact: critical. Measure: "take backups". Owner: —. Due date: —.',
@@ -218,6 +220,7 @@ function seca_default_rooms_d5() {
 						),
 						array(
 							'title'     => 'Task 3: The mission — audit the company register',
+							'content'   => '<p><strong>Mission.</strong> The company\'s full register is on the workshop machine. Open it in the simulated terminal, read the eight lines, and apply the three diagnoses from the lesson.</p><p>The register contains a line marked <code>ACCEPTE</code> (accepted) that should never have been. Find its <strong>risk owner</strong> (the value in the <code>proprietaire</code> column): that is the proof you read that specific line and not another. Type the exact answer as it appears.</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Who is the owner of the "ACCEPTED" line that should have been rejected?',
@@ -228,6 +231,7 @@ function seca_default_rooms_d5() {
 						),
 						array(
 							'title'     => 'Task 4: End-of-room exam',
+							'content'   => '<p>Four questions, 8 minutes, pass mark 80%. No hints: this is where you check the method is in place.</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Which register line is the most dangerous for the organisation?',
@@ -407,10 +411,12 @@ function seca_default_rooms_d5() {
 					'tasks'   => array(
 						array(
 							'title'     => 'Task 1: Three questions that a "yes" cannot answer',
+							'content'   => '<p>Vendor due diligence is not about ticking boxes. It is about obtaining <em>verifiable</em> answers. Three families of questions make the difference:</p><ol><li><strong>"Against which standard, and with which scope?"</strong> "We are ISO 27001 certified" says nothing until you know <em>which</em> scope is certified — sometimes one subsidiary, sometimes one service.</li><li><strong>"What happens during an incident, and within what delay do you notify us?"</strong> A binding 72-hour notification clause is worth more than ten certificates.</li><li><strong>"Who else touches our data?"</strong> Your subcontractor\'s subcontractor is still your risk. A vendor that does not list its own subcontractors cannot protect you.</li></ol><p><strong>The yes trap.</strong> A questionnaire filled with yeses is a badly designed questionnaire: a good question opens onto a fact, a date, a document. "Do you have a recovery plan?" is answered yes or no. "When was it last tested, and what was the result?" is answered with a date and a finding — and that can be checked.</p><p><strong>Remember:</strong> you do not ask "are you sure?", you ask "show me". The rest is contractual politeness.</p>',
 							'questions' => array(),
 						),
 						array(
 							'title'     => 'Task 2: Practice — rewrite a soft question',
+							'content'   => '<p>Four questionnaire questions. Each time: which one gets a verifiable fact?</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Which wording gets a verifiable answer about a vendor\'s security?',
@@ -437,6 +443,7 @@ function seca_default_rooms_d5() {
 						),
 						array(
 							'title'     => 'Task 3: The mission — read the filled questionnaire',
+							'content'   => '<p><strong>Mission.</strong> The due diligence questionnaire filled in by the provider is in the workshop. Every answer is favourable. Find the <strong>question whose answer contradicts another answer</strong>: that inconsistency is what must trigger a follow-up.</p><p>Type the <strong>question number</strong> concerned (for example <code>Q7</code>).</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Which question number contradicts another answer in the same questionnaire?',
@@ -447,6 +454,7 @@ function seca_default_rooms_d5() {
 						),
 						array(
 							'title'     => 'Task 4: End-of-room exam',
+							'content'   => '<p>Four questions, 8 minutes, pass mark 80%.</p>',
 							'questions' => array(
 								array(
 									'question'    => 'A due diligence questionnaire contains only "YES" answers. What is the correct interpretation?',
@@ -631,10 +639,12 @@ function seca_default_rooms_d5() {
 					'tasks'   => array(
 						array(
 							'title'     => 'Task 1: The three flaws of a useless audit',
+							'content'   => '<p>An audit answers one single question: <em>is what is written true, and sufficient?</em> Three flaws empty it of meaning.</p><ol><li><strong>The scope chosen by the auditee.</strong> If the party being audited decides what gets looked at, the audit will exclude exactly the sensitive areas. Scope must be written beforehand and approved by the commissioning party.</li><li><strong>Evidence supplied by the auditee.</strong> An audit on documents, with files selected by the person audited, measures the quality of the selection — not the quality of the system. Evidence is observed: you open the log, you query an account, you look at a machine.</li><li><strong>The absence of independence.</strong> An auditor who depends on the auditee for the next engagement cannot write an unpleasant finding. It is human, and it is structural.</li></ol><p><strong>The zero-findings signal.</strong> On a real system, an audit always finds at least presentational gaps: an undated procedure, an expired document, missing evidence. Zero findings means nobody looked, or nobody was allowed to look.</p><p><strong>What a good report contains.</strong> Precise, situated findings ("X\'s account was still active while the procedure requires deprovisioning within 24 h, verified on 09/14"), a severity, and a recommendation. Not "security is broadly satisfactory": that can neither be verified nor fixed.</p><p><strong>Remember:</strong> an audit report is judged on what it allows you to fix, not on what it reassures you about.</p>',
 							'questions' => array(),
 						),
 						array(
 							'title'     => 'Task 2: Practice — three findings to classify',
+							'content'   => '<p>Three report excerpts. Which one is a real audit finding?</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Which excerpt is an actionable audit finding?',
@@ -661,6 +671,7 @@ function seca_default_rooms_d5() {
 						),
 						array(
 							'title'     => 'Task 3: The mission — find the hidden finding',
+							'content'   => '<p><strong>Mission.</strong> The audit report and the access log extract are in the workshop. The report concludes "no findings". The log says otherwise.</p><p>Compare them and type the <strong>account identifier</strong> that contradicts the report (the <code>compte</code> field of the relevant line).</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Which account contradicts the report\'s conclusion of "no findings"?',
@@ -671,6 +682,7 @@ function seca_default_rooms_d5() {
 						),
 						array(
 							'title'     => 'Task 4: End-of-room exam',
+							'content'   => '<p>Four questions, 8 minutes, pass mark 80%.</p>',
 							'questions' => array(
 								array(
 									'question'    => 'An audit delivers a report with no findings at all. What should you examine first?',

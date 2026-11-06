@@ -193,10 +193,12 @@ function seca_default_rooms_d2() {
 					'tasks'   => array(
 						array(
 							'title'     => 'Task 1: ARP, the protocol that believes everyone',
+							'content'   => '<p>On a local network, machines do not call each other by IP address: they call each other by physical address (MAC). The <strong>ARP</strong> protocol performs the translation "who has this IP? tell me your MAC". And it has two historical flaws:</p><ul><li><strong>it verifies nothing</strong>: anyone can answer, and the answer is accepted;</li><li><strong>it accepts updates</strong>: a machine that already holds the right mapping replaces it if told otherwise.</li></ul><p>That is all an attacker needs for a man-in-the-middle attack: it announces "the gateway is me" to every machine, and "I am each machine" to the gateway. Traffic flows through it. Nothing breaks: that is what makes the attack discreet.</p><p><strong>What you see in a capture.</strong> Three signals, in order of reliability:</p><ol><li><strong>The same MAC announces several IP addresses</strong> within seconds — the signature of poisoning.</li><li><strong>Repeated <em>gratuitous ARP</em></strong>: ARP announcements nobody asked for.</li><li><strong>A machine speaking on behalf of another</strong>, and connections that appear to come from the gateway.</li></ol><p><strong>Remember:</strong> on a local network, an interception breaks nothing and raises nothing. What betrays it is an inconsistency between what is announced and what should be.</p>',
 							'questions' => array(),
 						),
 						array(
 							'title'     => 'Task 2: Practice — three network attacks to recognise',
+							'content'   => '<p>Three situations. Each time: which network attack is it?</p>',
 							'questions' => array(
 								array(
 									'question'    => 'In a capture, one MAC address successively claims the gateway IP, the file server IP and the printer IP. What is happening?',
@@ -223,6 +225,7 @@ function seca_default_rooms_d2() {
 						),
 						array(
 							'title'     => 'Task 3: The mission — find the machine impersonating the gateway',
+							'content'   => '<p><strong>Mission.</strong> A local traffic capture is in the workshop. The network gateway is <code>192.168.10.1</code>. Another machine announces that same address.</p><p>Type the <strong>IP address</strong> of the machine impersonating the gateway (the <code>source</code> field of the suspicious ARP announcements).</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Which IP address is impersonating the gateway 192.168.10.1?',
@@ -233,6 +236,7 @@ function seca_default_rooms_d2() {
 						),
 						array(
 							'title'     => 'Task 4: End-of-room exam',
+							'content'   => '<p>Four questions, 8 minutes, pass mark 80%.</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Why does ARP poisoning often go unnoticed?',
@@ -418,10 +422,12 @@ function seca_default_rooms_d2() {
 					'tasks'   => array(
 						array(
 							'title'     => 'Task 1: Three things people always confuse',
+							'content'   => '<p>In an incident timeline, not everything has the same status. Confusing the three categories costs hours.</p><ol><li><strong>The vulnerability</strong> — a weakness that <em>could</em> be exploited: a missing patch, an open port, a default password. It proves nothing about what happened.</li><li><strong>The artefact</strong> — a normal trace mistaken for an anomaly: a scheduled update task at 3 a.m., an inventory scan, a service restarting. The background noise of a system that lives.</li><li><strong>The indicator of compromise (IoC)</strong> — a trace proving an event took place: an outbound connection to an unknown address at a fixed hour, an account created outside procedure, a file whose hash matches known malware.</li></ol><p><strong>The sorting rule.</strong> A vulnerability says "this could happen". An artefact says "this already happened, and it is normal". An IoC says "this already happened, and it was not us". Only the third justifies opening an incident.</p><p><strong>The right first move.</strong> Facing a likely IoC: preserve, then isolate. Not the other way round. Powering the machine off destroys volatile memory, active connections and processes — often the only evidence that says <em>how</em> the attacker got in.</p><p><strong>Remember:</strong> an indicator of compromise ties to a <em>chain</em> of events, not to an isolated event. The sequence is the proof, not the line.</p>',
 							'questions' => array(),
 						),
 						array(
 							'title'     => 'Task 2: Practice — sort three events',
+							'content'   => '<p>Three log lines. Vulnerability, artefact, or indicator of compromise?</p>',
 							'questions' => array(
 								array(
 									'question'    => 'The file server did not receive September\'s security patch. That is a fact observed on 10/12.',
@@ -448,6 +454,7 @@ function seca_default_rooms_d2() {
 						),
 						array(
 							'title'     => 'Task 3: The mission — find the indicator that does not lie',
+							'content'   => '<p><strong>Mission.</strong> The incident timeline and the connection log are in the workshop. Out of the fifteen log lines, one alone ties a successful authentication to a destination never seen before.</p><p>Type the <strong>destination IP address</strong> of that outbound connection (the <code>dest</code> field).</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Which destination address ties a successful authentication to unusual use?',
@@ -458,6 +465,7 @@ function seca_default_rooms_d2() {
 						),
 						array(
 							'title'     => 'Task 4: End-of-room exam',
+							'content'   => '<p>Four questions, 8 minutes, pass mark 80%.</p>',
 							'questions' => array(
 								array(
 									'question'    => 'Which statement correctly separates a vulnerability from an indicator of compromise?',
